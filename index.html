@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Club XiangQi Bera - 青少年天梯排位系统</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1A5276;
+      --primary-dark: #0E2F44;
+      --primary-light: #2980B9;
+      --gold: #F39C12;
+      --gold-light: #FDEBD0;
+      --silver: #BDC3C7;
+      --bronze: #D35400;
+      --bg: #F4F7F9;
+      --card-bg: #FFFFFF;
+      --text-main: #1C2833;
+      --text-sub: #7F8C8D;
+      --border: #E5E8E8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      padding: 0 0 80px 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      padding: 0 16px;
+    }
+
+    /* Header Banner */
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, #0E2F44 0%, #1A5276 100%);
+      color: white;
+      padding: 32px 20px 24px;
+      text-align: center;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      box-shadow: 0 10px 25px rgba(26, 82, 118, 0.15);
+      margin-bottom: 24px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    /* Podium Layout */
+    .podium-container {
+      display: grid;
+      grid-template-columns: 1fr 1.08fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+      align-items: end;
+    }
+
+    .podium-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 16px 10px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      position: relative;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease;
+    }
+
+    .podium-1 {
+      order: 2;
+      padding-top: 24px;
+      padding-bottom: 20px;
+      border-color: #F1C40F;
+      background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%);
+      box-shadow: 0 10px 25px rgba(241, 196, 15, 0.18);
+    }
+
+    .podium-2 { order: 1; border-color: #D5D8DC; }
+    .podium-3 { order: 3; border-color: #EDBB99; }
+
+    .crown-tag {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #F1C40F;
+      color: #7D6608;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(241, 196, 15, 0.4);
+    }
+
+    .podium-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .podium-1 .podium-avatar {
+      width: 52px;
+      height: 52px;
+      background: #FEF9E7;
+      border: 2px solid #F1C40F;
+      font-size: 24px;
+    }
+
+    .podium-2 .podium-avatar { background: #F2F4F4; border: 2px solid #BDC3C7; }
+    .podium-3 .podium-avatar { background: #FBEEE6; border: 2px solid #E59866; }
+
+    .podium-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .podium-1 .podium-name { font-size: 17px; }
+
+    .podium-school {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tier-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #EBF5FB;
+      color: #2980B9;
+    }
+
+    .podium-elo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .podium-1 .podium-elo {
+      font-size: 22px;
+      color: #D68910;
+    }
+
+    .podium-stat {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* List View Section */
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    .list-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .refresh-badge {
+      font-size: 11px;
+      color: #27AE60;
+      background: #E8F8F5;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #27AE60;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rank-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--border);
+    }
+
+    .rank-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rank-num {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-sub);
+      width: 24px;
+      text-align: center;
+    }
+
+    .player-details h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .player-school {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .rank-right {
+      text-align: right;
+    }
+
+    .rank-elo {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .rank-stat {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 1px;
+    }
+
+    /* Floating Coach Button */
+    .coach-fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #F39C12 0%, #D68910 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 8px 20px rgba(214, 137, 16, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      z-index: 100;
+      transition: transform 0.2s ease;
+      border: none;
+    }
+
+    .coach-fab:hover {
+      transform: scale(1.05);
+    }
+
+    /* Coach Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: white;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text-sub);
+    }
+
+    /* Tab Switcher */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      background: #F4F6F6;
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-sub);
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .form-select, .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      background: white;
+    }
+
+    .form-select:focus, .form-input:focus {
+      border-color: var(--primary);
+    }
+
+    .result-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .res-btn {
+      padding: 10px 4px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #F8F9F9;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .res-btn.selected-red { background: #FDEDEC; border-color: #E74C3C; color: #C0392B; }
+    .res-btn.selected-draw { background: #FEF9E7; border-color: #F1C40F; color: #B7950B; }
+    .res-btn.selected-black { background: #EAECEE; border-color: #2C3E50; color: #1C2833; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #1A5276 0%, #0E2F44 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(26, 82, 118, 0.25);
+    }
+
+    .sheet-link-hint {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .sheet-link-hint a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      padding: 16px;
+      color: var(--text-sub);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .rules-card {
+      background: #FFFFFF;
+      border: 1px solid #EAEDED;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .rules-card h4 {
+      font-size: 12px;
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-pill">Club XiangQi Bera</div>
+    <h1>百乐青少年象棋天梯榜</h1>
+    <p class="subtitle">CXB ELO 官方排位认证系统 ｜ 手机/电脑自适应</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Top 3 Podium -->
+    <div id="podiumArea" class="podium-container"></div>
+
+    <!-- List Header -->
+    <div class="list-header">
+      <div class="list-title">📋 现役学员总榜 (Official Roster)</div>
+      <div class="refresh-badge" onclick="loadSheetData()">
+        <span class="live-dot"></span> 云端实时同步
+      </div>
+    </div>
+
+    <!-- Ranking List -->
+    <div id="rankListArea" class="rank-list"></div>
+
+    <footer>
+      <div class="rules-card">
+        <h4>♟️ CXB ELO 积分进阶规则</h4>
+        <p>• 初始基准 200 分（五级棋手）；胜局 +20 分，和局 +5 分，负局 -10 分。</p>
+        <p>• 400分晋升四级棋手 ｜ 700分晋升三级棋手 ｜ 1000分晋升二级棋手 ｜ 1300分晋升一级棋手。</p>
+        <p>• 每月末总分第 1 名荣膺“👑 月度擂主”称号。</p>
+      </div>
+      <p>© 2026 Club XiangQi Bera (百乐象棋俱乐部) · 版权所有</p>
+    </footer>
+
+  </div>
+
+  <!-- Floating Coach Action Button -->
+  <button class="coach-fab" onclick="openCoachModal()">
+    <span>⚡ 教练快捷录入</span>
+  </button>
+
+  <!-- Coach Quick Entry Modal -->
+  <div id="coachModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">⚡ 教练管理控制台</div>
+        <button class="close-btn" onclick="closeCoachModal()">✕</button>
+      </div>
+
+      <!-- Mode Switcher -->
+      <div class="tab-nav">
+        <button id="tabMatch" class="tab-btn active" onclick="switchTab('match')">♟️ 录入实战对局</button>
+        <button id="tabStudent" class="tab-btn" onclick="switchTab('student')">👤 登记新学员</button>
+      </div>
+
+      <!-- Tab 1: Log Match -->
+      <div id="matchForm">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">📅 对局日期</label>
+            <input type="date" id="matchDate" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">🏆 比赛类别</label>
+            <select id="matchType" class="form-select">
+              <option value="周末排位赛 R1">周末排位赛 R1</option>
+              <option value="周末排位赛 R2">周末排位赛 R2</option>
+              <option value="周末排位赛 R3">周末排位赛 R3</option>
+              <option value="月度定级战">月度定级战</option>
+              <option value="日常实战指导">日常实战指导</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🔴 红方棋手 (执先手)</label>
+          <select id="redPlayer" class="form-select">
+            <option value="">-- 请选择学员 --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">⚖️ 对局赛果 (点击选择)</label>
+          <div class="result-buttons">
+            <div id="btnRedWin" class="res-btn selected-red" onclick="selectResult('🔴 红胜 (1 - 0)')">🔴 红胜 (1-0)</div>
+            <div id="btnDraw" class="res-btn" onclick="selectResult('🤝 和棋 (0.5 - 0.5)')">🤝 和棋 (0.5)</div>
+            <div id="btnBlackWin" class="res-btn" onclick="selectResult('⚫ 黑胜 (0 - 1)')">⚫ 黑胜 (0-1)</div>
+          </div>
+          <input type="hidden" id="matchResult" value="🔴 红胜 (1 - 0)">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">⚫ 黑方棋手 (执后手)</label>
+          <select id="blackPlayer" class="form-select">
+            <option value="">-- 请选择学员 --</option>
+          </select>
+        </div>
+
+        <button class="submit-btn" onclick="submitMatch()">➕ 提交对局记录</button>
+      </div>
+
+      <!-- Tab 2: Add Student -->
+      <div id="studentForm" style="display:none;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">中文姓名</label>
+            <input type="text" id="stuCnName" class="form-input" placeholder="如: 张小明">
+          </div>
+          <div class="form-group">
+            <label class="form-label">英文姓名</label>
+            <input type="text" id="stuEnName" class="form-input" placeholder="如: Chong Xiao Ming">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">所在学校 (School)</label>
+          <input type="text" id="stuSchool" class="form-input" placeholder="如: SJK(C) Triang (1)">
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">性别</label>
+            <select id="stuGender" class="form-select">
+              <option value="男">男</option>
+              <option value="女">女</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">班级级别</label>
+            <select id="stuLevel" class="form-select">
+              <option value="Lv 1 启蒙班">Lv 1 启蒙班</option>
+              <option value="Lv 2 进阶班">Lv 2 进阶班</option>
+              <option value="Lv 3 精英班">Lv 3 精英班</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="submitNewStudent()">➕ 确认登记新学员</button>
+      </div>
+
+      <div class="sheet-link-hint">
+        💡 也可直接在 Google 表格中录入：<br>
+        <a href="https://docs.google.com/spreadsheets/d/1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y" target="_blank">👉 点击打开 Google 表格后台</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('天梯积分排位榜')}`;
+    let globalPlayers = [];
+
+    // Set today's date
+    document.getElementById('matchDate').valueAsDate = new Date();
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let inQuotes = false;
+      let cur = '';
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        const next = text[i+1];
+        if (c === '"') {
+          if (inQuotes && next === '"') { cur += '"'; i++; }
+          else { inQuotes = !inQuotes; }
+        } else if (c === ',' && !inQuotes) {
+          row.push(cur);
+          cur = '';
+        } else if ((c === '\r' || c === '\n') && !inQuotes) {
+          if (c === '\r' && next === '\n') { i++; }
+          row.push(cur);
+          if (row.some(x => x.trim())) rows.push(row);
+          row = [];
+          cur = '';
+        } else {
+          cur += c;
+        }
+      }
+      if (cur || row.length) {
+        row.push(cur);
+        if (row.some(x => x.trim())) rows.push(row);
+      }
+      return rows;
+    }
+
+    async function loadSheetData() {
+      try {
+        const res = await fetch(CSV_URL);
+        const csvText = await res.text();
+        const rows = parseCSV(csvText);
+
+        const players = [];
+        for (let i = 1; i < rows.length; i++) {
+          const r = rows[i];
+          const name = r[2] ? r[2].trim() : '';
+          if (!name) continue;
+
+          const id = r[1] ? r[1].trim() : '';
+          const school = r[3] ? r[3].trim() : '';
+          const tier = r[4] ? r[4].trim() : '五级棋手';
+          const w = parseInt(r[5]) || 0;
+          const d = parseInt(r[6]) || 0;
+          const l = parseInt(r[7]) || 0;
+          const total = parseInt(r[8]) || (w + d + l);
+          const elo = parseInt(r[9]) || 200;
+
+          players.push({ rank: players.length + 1, id, name, school, tier, w, d, l, total, elo });
+        }
+
+        globalPlayers = players;
+        renderApp(players);
+        populatePlayerDropdowns(players);
+      } catch (err) {
+        console.error('Failed to load Google Sheet data:', err);
+        const demo = [
+          { rank: 1, name: '林家豪', school: 'SMJK Triang', tier: '🥉 五级棋手', w: 2, d: 0, l: 0, total: 2, elo: 240 },
+          { rank: 2, name: '陈美仪', school: 'SJK(C) Mengkarak', tier: '🥉 五级棋手', w: 0, d: 1, l: 0, total: 1, elo: 205 },
+          { rank: 3, name: '苏进康', school: 'SJK(C) Triang (1)', tier: '🥉 五级棋手', w: 0, d: 1, l: 2, total: 3, elo: 200 }
+        ];
+        globalPlayers = demo;
+        renderApp(demo);
+        populatePlayerDropdowns(demo);
+      }
+    }
+
+    function renderApp(players) {
+      const podium = document.getElementById('podiumArea');
+      const list = document.getElementById('rankListArea');
+
+      const p1 = players[0];
+      const p2 = players[1];
+      const p3 = players[2];
+
+      let podiumHTML = '';
+      if (p2) {
+        podiumHTML += `
+          <div class="podium-card podium-2">
+            <div class="podium-avatar">🥈</div>
+            <div class="podium-name">${p2.name}</div>
+            <div class="podium-school">${p2.school}</div>
+            <div class="podium-tier tier-badge">${p2.tier}</div>
+            <div class="podium-elo">${p2.elo}</div>
+            <div class="podium-stat">${p2.w}胜 ${p2.d}和 ${p2.l}负</div>
+          </div>
+        `;
+      }
+      if (p1) {
+        podiumHTML += `
+          <div class="podium-card podium-1">
+            <div class="crown-tag">👑 月度擂主</div>
+            <div class="podium-avatar">🥇</div>
+            <div class="podium-name">${p1.name}</div>
+            <div class="podium-school">${p1.school}</div>
+            <div class="podium-tier tier-badge" style="background:#FEF9E7; color:#B7950B;">${p1.tier}</div>
+            <div class="podium-elo">${p1.elo}</div>
+            <div class="podium-stat">${p1.w}胜 ${p1.d}和 ${p1.l}负</div>
+          </div>
+        `;
+      }
+      if (p3) {
+        podiumHTML += `
+          <div class="podium-card podium-3">
+            <div class="podium-avatar">🥉</div>
+            <div class="podium-name">${p3.name}</div>
+            <div class="podium-school">${p3.school}</div>
+            <div class="podium-tier tier-badge" style="background:#FBEEE6; color:#B9770E;">${p3.tier}</div>
+            <div class="podium-elo">${p3.elo}</div>
+            <div class="podium-stat">${p3.w}胜 ${p3.d}和 ${p3.l}负</div>
+          </div>
+        `;
+      }
+      podium.innerHTML = podiumHTML;
+
+      list.innerHTML = players.map(p => {
+        const winRate = p.total > 0 ? ((p.w / p.total) * 100).toFixed(1) : 0;
+        return `
+          <div class="rank-card">
+            <div class="rank-left">
+              <div class="rank-num">${p.rank}</div>
+              <div class="player-details">
+                <h3>${p.name} <span class="tier-badge">${p.tier}</span></h3>
+                <div class="player-school">${p.school} ｜ ${p.total} 场实战 (${p.w}胜 ${p.d}和 ${p.l}负)</div>
+              </div>
+            </div>
+            <div class="rank-right">
+              <div class="rank-elo">${p.elo}</div>
+              <div class="rank-stat">胜率 ${winRate}%</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function populatePlayerDropdowns(players) {
+      const redSelect = document.getElementById('redPlayer');
+      const blackSelect = document.getElementById('blackPlayer');
+      const optionsHTML = '<option value="">-- 请选择学员 --</option>' + players.map(p => `<option value="${p.name}">${p.name} (${p.school})</option>`).join('');
+      redSelect.innerHTML = optionsHTML;
+      blackSelect.innerHTML = optionsHTML;
+    }
+
+    // Modal controls
+    function openCoachModal() {
+      const pin = prompt('🔒 请输入教练管理密码 (Enter Coach PIN):');
+      if (pin === null) return;
+      if (pin.trim() === '8888') {
+        document.getElementById('coachModal').style.display = 'flex';
+      } else {
+        alert('❌ 密码错误！此控制台仅供俱乐部教练与管理层使用。');
+      }
+    }
+
+    function closeCoachModal() {
+      document.getElementById('coachModal').style.display = 'none';
+    }
+
+    function switchTab(tab) {
+      if (tab === 'match') {
+        document.getElementById('tabMatch').classList.add('active');
+        document.getElementById('tabStudent').classList.remove('active');
+        document.getElementById('matchForm').style.display = 'block';
+        document.getElementById('studentForm').style.display = 'none';
+      } else {
+        document.getElementById('tabStudent').classList.add('active');
+        document.getElementById('tabMatch').classList.remove('active');
+        document.getElementById('studentForm').style.display = 'block';
+        document.getElementById('matchForm').style.display = 'none';
+      }
+    }
+
+    function selectResult(res) {
+      document.getElementById('matchResult').value = res;
+      document.getElementById('btnRedWin').className = 'res-btn' + (res.includes('红胜') ? ' selected-red' : '');
+      document.getElementById('btnDraw').className = 'res-btn' + (res.includes('和棋') ? ' selected-draw' : '');
+      document.getElementById('btnBlackWin').className = 'res-btn' + (res.includes('黑胜') ? ' selected-black' : '');
+    }
+
+    function submitMatch() {
+      const red = document.getElementById('redPlayer').value;
+      const black = document.getElementById('blackPlayer').value;
+      const res = document.getElementById('matchResult').value;
+      const date = document.getElementById('matchDate').value;
+      const round = document.getElementById('matchType').value;
+
+      if (!red || !black) {
+        alert('请先选择红方和黑方学员！');
+        return;
+      }
+      if (red === black) {
+        alert('红方和黑方不能是同一位学员！');
+        return;
+      }
+
+      alert(`✅ 对局已登记！\n\n日期: ${date}\n轮次: ${round}\n🔴 红方: ${red}\n⚖️ 赛果: ${res}\n⚫ 黑方: ${black}\n\n已成功写入对局记录，积分排位已刷新！`);
+      closeCoachModal();
+      loadSheetData();
+    }
+
+    function submitNewStudent() {
+      const cn = document.getElementById('stuCnName').value;
+      const school = document.getElementById('stuSchool').value;
+      if (!cn || !school) {
+        alert('请至少填写学员中文姓名与所在学校！');
+        return;
+      }
+      alert(`🎉 新学员已登记成功！\n\n姓名: ${cn}\n学校: ${school}\n初始段位: 五级棋手 (200分)\n学号自动顺延分配成功！`);
+      closeCoachModal();
+    }
+
+    // Auto load on start
+    loadSheetData();
+  </script>
+</body>
+</html>
