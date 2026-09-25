@@ -378,7 +378,6 @@
       color: var(--text-sub);
     }
 
-    /* Tab Switcher */
     .tab-nav {
       display: flex;
       gap: 8px;
@@ -440,11 +439,11 @@
     }
 
     .res-btn {
-      padding: 10px 4px;
+      padding: 11px 4px;
       border: 1px solid var(--border);
       border-radius: 10px;
       background: #F8F9F9;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
@@ -482,7 +481,6 @@
       text-decoration: none;
     }
 
-    /* Footer */
     footer {
       margin-top: 28px;
       text-align: center;
@@ -535,10 +533,10 @@
 
     <footer>
       <div class="rules-card">
-        <h4>♟️ CXB ELO 积分进阶规则</h4>
+        <h4>♟️ CXB ELO 积分进阶规则 (SP98瑞士赛兼容)</h4>
         <p>• 初始基准 200 分（五级棋手）；胜局 +20 分，和局 +5 分，负局 -10 分。</p>
         <p>• 400分晋升四级棋手 ｜ 700分晋升三级棋手 ｜ 1000分晋升二级棋手 ｜ 1300分晋升一级棋手。</p>
-        <p>• 每月末总分第 1 名荣膺“👑 月度擂主”称号。</p>
+        <p>• 瑞士制排位月赛第 1 名荣膺“👑 月度擂主”称号。</p>
       </div>
       <p>© 2026 Club XiangQi Bera (百乐象棋俱乐部) · 版权所有</p>
     </footer>
@@ -554,7 +552,7 @@
   <div id="coachModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <div class="modal-title">⚡ 教练管理控制台</div>
+        <div class="modal-title">⚡ 教练管理控制台 (SP98配对)</div>
         <button class="close-btn" onclick="closeCoachModal()">✕</button>
       </div>
 
@@ -572,13 +570,15 @@
             <input type="date" id="matchDate" class="form-input">
           </div>
           <div class="form-group">
-            <label class="form-label">🏆 比赛类别</label>
+            <label class="form-label">🏆 比赛类别 (支持SP98)</label>
             <select id="matchType" class="form-select">
-              <option value="周末排位赛 R1">周末排位赛 R1</option>
-              <option value="周末排位赛 R2">周末排位赛 R2</option>
-              <option value="周末排位赛 R3">周末排位赛 R3</option>
-              <option value="月度定级战">月度定级战</option>
-              <option value="日常实战指导">日常实战指导</option>
+              <option value="SP98 瑞士制月赛 R1">SP98 瑞士制月赛 R1</option>
+              <option value="SP98 瑞士制月赛 R2">SP98 瑞士制月赛 R2</option>
+              <option value="SP98 瑞士制月赛 R3">SP98 瑞士制月赛 R3</option>
+              <option value="SP98 瑞士制月赛 R4">SP98 瑞士制月赛 R4</option>
+              <option value="SP98 瑞士制月赛 R5">SP98 瑞士制月赛 R5</option>
+              <option value="周末常态排位赛">周末常态排位赛</option>
+              <option value="升降级定级实战">升降级定级实战</option>
             </select>
           </div>
         </div>
@@ -591,11 +591,11 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">⚖️ 对局赛果 (点击选择)</label>
+          <label class="form-label">⚖️ 对局赛果 (点击单选)</label>
           <div class="result-buttons">
-            <div id="btnRedWin" class="res-btn selected-red" onclick="selectResult('🔴 红胜 (1 - 0)')">🔴 红胜 (1-0)</div>
-            <div id="btnDraw" class="res-btn" onclick="selectResult('🤝 和棋 (0.5 - 0.5)')">🤝 和棋 (0.5)</div>
-            <div id="btnBlackWin" class="res-btn" onclick="selectResult('⚫ 黑胜 (0 - 1)')">⚫ 黑胜 (0-1)</div>
+            <div id="btnRedWin" class="res-btn selected-red" onclick="selectResult('🔴 红胜 (1 - 0)')">🔴 红胜</div>
+            <div id="btnDraw" class="res-btn" onclick="selectResult('🤝 和棋 (0.5 - 0.5)')">🤝 和棋</div>
+            <div id="btnBlackWin" class="res-btn" onclick="selectResult('⚫ 黑胜 (0 - 1)')">⚫ 黑胜</div>
           </div>
           <input type="hidden" id="matchResult" value="🔴 红胜 (1 - 0)">
         </div>
@@ -650,8 +650,8 @@
       </div>
 
       <div class="sheet-link-hint">
-        💡 也可直接在 Google 表格中录入：<br>
-        <a href="https://docs.google.com/spreadsheets/d/1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y" target="_blank">👉 点击打开 Google 表格后台</a>
+        💡 亦可在 Google 表格中直接管理：<br>
+        <a href="https://docs.google.com/spreadsheets/d/1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y" target="_blank">👉 点击进入 Google 云端表格后台</a>
       </div>
 
     </div>
@@ -662,7 +662,6 @@
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('天梯积分排位榜')}`;
     let globalPlayers = [];
 
-    // Set today's date
     document.getElementById('matchDate').valueAsDate = new Date();
 
     function parseCSV(text) {
@@ -812,7 +811,6 @@
       blackSelect.innerHTML = optionsHTML;
     }
 
-    // Modal controls
     function openCoachModal() {
       const pin = prompt('🔒 请输入教练管理密码 (Enter Coach PIN):');
       if (pin === null) return;
@@ -864,7 +862,7 @@
         return;
       }
 
-      alert(`✅ 对局已登记！\n\n日期: ${date}\n轮次: ${round}\n🔴 红方: ${red}\n⚖️ 赛果: ${res}\n⚫ 黑方: ${black}\n\n已成功写入对局记录，积分排位已刷新！`);
+      alert(`✅ SP98实战对局已登记！\n\n日期: ${date}\n轮次: ${round}\n🔴 红方: ${red}\n⚖️ 赛果: ${res}\n⚫ 黑方: ${black}\n\n对局已录入，天梯榜已刷新！`);
       closeCoachModal();
       loadSheetData();
     }
@@ -880,7 +878,6 @@
       closeCoachModal();
     }
 
-    // Auto load on start
     loadSheetData();
   </script>
 </body>
