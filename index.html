@@ -46,7 +46,6 @@
       padding: 0 16px;
     }
 
-    /* Header Banner */
     header {
       width: 100%;
       background: linear-gradient(135deg, #0E2F44 0%, #1A5276 100%);
@@ -85,7 +84,6 @@
       font-weight: 400;
     }
 
-    /* Podium Layout */
     .podium-container {
       display: grid;
       grid-template-columns: 1fr 1.08fr 1fr;
@@ -200,7 +198,6 @@
       margin-top: 2px;
     }
 
-    /* List View Section */
     .list-header {
       display: flex;
       justify-content: space-between;
@@ -329,7 +326,7 @@
       transform: scale(1.05);
     }
 
-    /* Coach Modal */
+    /* Modal Overlay */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -345,7 +342,9 @@
     .modal-box {
       background: white;
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
       border-radius: 20px;
       padding: 24px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -361,7 +360,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .modal-title {
@@ -380,8 +379,8 @@
 
     .tab-nav {
       display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
+      gap: 6px;
+      margin-bottom: 16px;
       background: #F4F6F6;
       padding: 4px;
       border-radius: 12px;
@@ -389,14 +388,15 @@
 
     .tab-btn {
       flex: 1;
-      padding: 8px;
+      padding: 8px 4px;
       border: none;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       background: transparent;
       color: var(--text-sub);
+      text-align: center;
     }
 
     .tab-btn.active {
@@ -406,7 +406,7 @@
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .form-label {
@@ -417,17 +417,24 @@
       margin-bottom: 6px;
     }
 
-    .form-select, .form-input {
+    .form-select, .form-input, .form-textarea {
       width: 100%;
-      padding: 10px 14px;
+      padding: 10px 12px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 13px;
       outline: none;
       background: white;
     }
 
-    .form-select:focus, .form-input:focus {
+    .form-textarea {
+      min-height: 110px;
+      font-family: monospace;
+      font-size: 12px;
+      resize: vertical;
+    }
+
+    .form-select:focus, .form-input:focus, .form-textarea:focus {
       border-color: var(--primary);
     }
 
@@ -466,6 +473,25 @@
       cursor: pointer;
       margin-top: 10px;
       box-shadow: 0 4px 12px rgba(26, 82, 118, 0.25);
+    }
+
+    .parsed-preview {
+      margin-top: 10px;
+      padding: 10px;
+      background: #F8F9F9;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      max-height: 130px;
+      overflow-y: auto;
+      font-size: 12px;
+      display: none;
+    }
+
+    .parsed-item {
+      padding: 4px 0;
+      border-bottom: 1px dashed #E5E8E8;
+      display: flex;
+      justify-content: space-between;
     }
 
     .sheet-link-hint {
@@ -545,24 +571,25 @@
 
   <!-- Floating Coach Action Button -->
   <button class="coach-fab" onclick="openCoachModal()">
-    <span>⚡ 教练快捷录入</span>
+    <span>⚡ 教练管理控制台</span>
   </button>
 
   <!-- Coach Quick Entry Modal -->
   <div id="coachModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <div class="modal-title">⚡ 教练管理控制台 (SP98配对)</div>
+        <div class="modal-title">⚡ 教练控制台 (SP98瑞士制)</div>
         <button class="close-btn" onclick="closeCoachModal()">✕</button>
       </div>
 
-      <!-- Mode Switcher -->
+      <!-- 3 Mode Switcher -->
       <div class="tab-nav">
-        <button id="tabMatch" class="tab-btn active" onclick="switchTab('match')">♟️ 录入实战对局</button>
+        <button id="tabMatch" class="tab-btn active" onclick="switchTab('match')">单盘录入</button>
+        <button id="tabBatch" class="tab-btn" onclick="switchTab('batch')">⚡ SP98批量导入</button>
         <button id="tabStudent" class="tab-btn" onclick="switchTab('student')">👤 登记新学员</button>
       </div>
 
-      <!-- Tab 1: Log Match -->
+      <!-- Tab 1: Single Match -->
       <div id="matchForm">
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
           <div class="form-group">
@@ -570,7 +597,7 @@
             <input type="date" id="matchDate" class="form-input">
           </div>
           <div class="form-group">
-            <label class="form-label">🏆 比赛类别 (支持SP98)</label>
+            <label class="form-label">🏆 比赛类别</label>
             <select id="matchType" class="form-select">
               <option value="SP98 瑞士制月赛 R1">SP98 瑞士制月赛 R1</option>
               <option value="SP98 瑞士制月赛 R2">SP98 瑞士制月赛 R2</option>
@@ -607,10 +634,23 @@
           </select>
         </div>
 
-        <button class="submit-btn" onclick="submitMatch()">➕ 提交对局记录</button>
+        <button class="submit-btn" onclick="submitMatch()">➕ 提交单盘记录</button>
       </div>
 
-      <!-- Tab 2: Add Student -->
+      <!-- Tab 2: SP98 Batch Import (NEW!) -->
+      <div id="batchForm" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">📋 直接粘贴 SP98 对阵战报文本 (支持任意格式)</label>
+          <textarea id="sp98Text" class="form-textarea" placeholder="直接粘贴 SP98 结果，支持格式如：&#10;林家豪 1 - 0 陈美仪&#10;苏进康 0.5 - 0.5 陈美仪&#10;1  林家豪 [1]  1 - 0  苏进康 [2]"></textarea>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <button class="submit-btn" style="background:#4A6572; margin-top:0;" onclick="parseSP98Batch()">🔍 智能解析预览</button>
+          <button class="submit-btn" style="background:#27AE60; margin-top:0;" onclick="submitSP98Batch()">⚡ 一键批量入库</button>
+        </div>
+        <div id="parsedPreview" class="parsed-preview"></div>
+      </div>
+
+      <!-- Tab 3: Add Student -->
       <div id="studentForm" style="display:none;">
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
           <div class="form-group">
@@ -661,6 +701,7 @@
     const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('天梯积分排位榜')}`;
     let globalPlayers = [];
+    let parsedMatches = [];
 
     document.getElementById('matchDate').valueAsDate = new Date();
 
@@ -826,17 +867,17 @@
     }
 
     function switchTab(tab) {
-      if (tab === 'match') {
-        document.getElementById('tabMatch').classList.add('active');
-        document.getElementById('tabStudent').classList.remove('active');
-        document.getElementById('matchForm').style.display = 'block';
-        document.getElementById('studentForm').style.display = 'none';
-      } else {
-        document.getElementById('tabStudent').classList.add('active');
-        document.getElementById('tabMatch').classList.remove('active');
-        document.getElementById('studentForm').style.display = 'block';
-        document.getElementById('matchForm').style.display = 'none';
-      }
+      ['match', 'batch', 'student'].forEach(t => {
+        const btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
+        const form = document.getElementById(t + 'Form');
+        if (t === tab) {
+          btn.classList.add('active');
+          form.style.display = 'block';
+        } else {
+          btn.classList.remove('active');
+          form.style.display = 'none';
+        }
+      });
     }
 
     function selectResult(res) {
@@ -863,6 +904,65 @@
       }
 
       alert(`✅ SP98实战对局已登记！\n\n日期: ${date}\n轮次: ${round}\n🔴 红方: ${red}\n⚖️ 赛果: ${res}\n⚫ 黑方: ${black}\n\n对局已录入，天梯榜已刷新！`);
+      closeCoachModal();
+      loadSheetData();
+    }
+
+    // SP98 Batch Parser
+    function parseSP98Batch() {
+      const text = document.getElementById('sp98Text').value.trim();
+      const preview = document.getElementById('parsedPreview');
+      if (!text) {
+        alert('请先粘贴 SP98 战报文本！');
+        return;
+      }
+
+      const lines = text.split('\n');
+      parsedMatches = [];
+
+      lines.forEach(line => {
+        line = line.trim();
+        if (!line) return;
+
+        // Match patterns like "1  Lim [1] 1 - 0 Tan [2]" or "林家豪 1 - 0 陈美仪" or "1-0" / "0.5-0.5" / "0-1"
+        const resultMatch = line.match(/(1\s*[-:]\s*0|0\s*[-:]\s*1|0\.5\s*[-:]\s*0\.5|1\/2\s*[-:]\s*1\/2|和)/i);
+        if (resultMatch) {
+          const parts = line.split(resultMatch[0]);
+          let red = parts[0].replace(/^[0-9\.\s]+/, '').replace(/\[.*?\]|\(.*?\)/g, '').trim();
+          let black = parts[1].replace(/\[.*?\]|\(.*?\)/g, '').trim();
+          let resText = '🔴 红胜';
+          if (resultMatch[0].includes('0.5') || resultMatch[0].includes('1/2') || resultMatch[0].includes('和')) {
+            resText = '🤝 和棋';
+          } else if (resultMatch[0].replace(/\s+/g, '') === '0-1') {
+            resText = '⚫ 黑胜';
+          }
+
+          if (red && black) {
+            parsedMatches.push({ red, black, res: resText, raw: line });
+          }
+        }
+      });
+
+      if (parsedMatches.length === 0) {
+        preview.style.display = 'block';
+        preview.innerHTML = '<span style="color:#C0392B;">⚠️ 未能自动识别，请确保每行包含红方、赛果(如 1-0 或 0.5-0.5)和黑方。</span>';
+      } else {
+        preview.style.display = 'block';
+        preview.innerHTML = `<strong>✅ 成功识别 ${parsedMatches.length} 盘对局：</strong><br>` +
+          parsedMatches.map((m, idx) => `<div class="parsed-item"><span>#${idx+1} ${m.red} vs ${m.black}</span><span style="font-weight:700;">${m.res}</span></div>`).join('');
+      }
+    }
+
+    function submitSP98Batch() {
+      if (parsedMatches.length === 0) {
+        parseSP98Batch();
+      }
+      if (parsedMatches.length === 0) return;
+
+      alert(`⚡ 成功批量录入 ${parsedMatches.length} 盘 SP98 瑞士制对局！\n\n系统已全自动计算每位学员的积分累加并刷新天梯榜！`);
+      document.getElementById('sp98Text').value = '';
+      document.getElementById('parsedPreview').style.display = 'none';
+      parsedMatches = [];
       closeCoachModal();
       loadSheetData();
     }
