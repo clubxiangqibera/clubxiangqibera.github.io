@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CXB Admin — 管理控制台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--pri:#0E2F44;--pri2:#1A5276;--pri3:#2980B9;--gold:#F39C12;--bg:#F0F4F8;--card:#FFF;--text:#1C2833;--text2:#6B7B8D;--border:#E8ECF0;--green:#27AE60;--red:#E74C3C;--yellow:#F39C12;--radius:14px;--shadow:0 4px 16px rgba(0,0,0,0.06);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Plus Jakarta Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+    /* === LOGIN === */
+    #loginScreen{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;background:linear-gradient(145deg,#0A1F2E,#1A5276);}
+    .login-card{background:#FFF;border-radius:24px;padding:40px 32px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+    .login-card h1{font-size:20px;font-weight:800;color:var(--pri);margin-bottom:6px;}
+    .login-card .sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
+    .pin-wrap{display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
+    .pin-box{width:52px;height:60px;border:2px solid var(--border);border-radius:12px;text-align:center;font-size:24px;font-weight:800;outline:none;color:var(--pri);transition:border-color .2s;}
+    .pin-box:focus{border-color:var(--pri3);}
+    .pin-box.error{border-color:var(--red);animation:shake .4s;}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(14,47,68,0.3);transition:transform .15s;}
+    .login-btn:hover{transform:scale(1.02);}
+    .login-error{color:var(--red);font-size:12px;font-weight:600;margin-top:10px;display:none;}
+
+    /* === MAIN LAYOUT === */
+    #mainApp{display:none;}
+    .topbar{background:var(--pri);color:#FFF;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;position:sticky;top:0;z-index:50;}
+    .topbar-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;}
+    .topbar-right{display:flex;align-items:center;gap:12px;}
+    .btn-logout{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#FFF;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;}
+
+    /* NAV TABS */
+    .nav-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .nav-tab{flex:1;min-width:80px;padding:12px 8px;text-align:center;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
+    .nav-tab.active{color:var(--pri2);border-bottom-color:var(--pri2);background:rgba(26,82,118,0.04);}
+    .nav-tab:hover{background:rgba(0,0,0,0.02);}
+
+    .main-content{max-width:960px;margin:0 auto;padding:20px 16px;}
+
+    /* TAB PANELS */
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
+
+    /* === STAT CARDS === */
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+    .stat-card{background:var(--card);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);}
+    .stat-icon{font-size:24px;margin-bottom:6px;}
+    .stat-val{font-size:28px;font-weight:900;color:var(--pri2);}
+    .stat-label{font-size:12px;color:var(--text2);font-weight:600;margin-top:2px;}
+    .stat-card.green .stat-val{color:var(--green);}
+    .stat-card.red .stat-val{color:var(--red);}
+    .stat-card.gold .stat-val{color:var(--gold);}
+
+    /* QUICK ACTIONS */
+    .quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+    .qa-btn{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;color:#FFF;transition:transform .15s;}
+    .qa-btn:hover{transform:scale(1.03);}
+    .qa-btn.b1{background:linear-gradient(135deg,var(--pri),var(--pri2));}
+    .qa-btn.b2{background:linear-gradient(135deg,var(--green),#2ECC71);}
+    .qa-btn.b3{background:linear-gradient(135deg,var(--gold),#E67E22);}
+
+    /* === TABLES === */
+    .tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
+    table{width:100%;border-collapse:collapse;font-size:13px;}
+    th{background:var(--bg);padding:10px 12px;text-align:left;font-weight:700;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+    td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:middle;}
+    tr:hover td{background:rgba(41,128,185,0.03);}
+    .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;white-space:nowrap;}
+    .badge-green{background:#E8F8F5;color:#1ABC9C;}
+    .badge-red{background:#FDEDEC;color:#E74C3C;}
+    .badge-yellow{background:#FEF9E7;color:#B7950B;}
+    .badge-blue{background:#EBF5FB;color:#2980B9;}
+    .btn-sm{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:all .15s;}
+    .btn-sm:hover{background:var(--pri2);color:#FFF;border-color:var(--pri2);}
+    .btn-sm.green{background:#E8F8F5;color:var(--green);border-color:#A3D9CC;}
+    .btn-sm.green:hover{background:var(--green);color:#FFF;}
+
+    /* === FORMS === */
+    .form-card{background:var(--card);border-radius:var(--radius);padding:24px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
+    .form-card h3{font-size:16px;font-weight:800;margin-bottom:16px;color:var(--pri2);}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+    @media(max-width:500px){.form-row{grid-template-columns:1fr;}}
+    .form-group{margin-bottom:12px;}
+    .form-label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text);}
+    .form-input,.form-select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;outline:none;background:#FFF;font-family:inherit;transition:border-color .2s;}
+    .form-input:focus,.form-select:focus{border-color:var(--pri3);}
+    .form-textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:12px;font-family:monospace;outline:none;min-height:100px;resize:vertical;}
+    .form-textarea:focus{border-color:var(--pri3);}
+
+    /* RESULT BUTTONS */
+    .res-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+    .res-btn{padding:12px;border:2px solid var(--border);border-radius:10px;text-align:center;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;background:var(--bg);}
+    .res-btn.sel-red{border-color:#E74C3C;background:#FDEDEC;color:#C0392B;}
+    .res-btn.sel-draw{border-color:#F1C40F;background:#FEF9E7;color:#B7950B;}
+    .res-btn.sel-black{border-color:#2C3E50;background:#EAECEE;color:#1C2833;}
+
+    /* SUBMIT */
+    .submit-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;box-shadow:0 4px 16px rgba(14,47,68,0.2);transition:transform .15s;}
+    .submit-btn:hover{transform:scale(1.02);}
+    .submit-btn.green{background:linear-gradient(135deg,var(--green),#2ECC71);}
+
+    /* UPLOAD */
+    .upload-area{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s;margin-top:4px;position:relative;}
+    .upload-area:hover{border-color:var(--pri3);}
+    .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+    .upload-area .icon{font-size:28px;margin-bottom:6px;}
+    .upload-area .hint{font-size:12px;color:var(--text2);}
+    .upload-preview{margin-top:8px;display:none;}
+    .upload-preview img{max-width:200px;max-height:150px;border-radius:8px;border:1px solid var(--border);}
+
+    /* MATCH RECORDS GALLERY */
+    .records-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+    .record-card{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);}
+    .record-header{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;}
+    .record-date{font-size:12px;color:var(--text2);font-weight:600;}
+    .record-body{padding:0 14px 14px;}
+    .record-match{font-size:14px;font-weight:700;margin-bottom:6px;}
+    .record-verdict{font-size:12px;color:var(--text2);}
+    .record-img{width:100%;aspect-ratio:4/3;object-fit:cover;cursor:pointer;border-top:1px solid var(--border);}
+
+    /* LIGHTBOX */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;justify-content:center;align-items:center;padding:20px;cursor:pointer;}
+    .lightbox.show{display:flex;}
+    .lightbox img{max-width:95%;max-height:90vh;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
+
+    /* TOAST */
+    .toast-container{position:fixed;top:20px;right:20px;z-index:900;display:flex;flex-direction:column;gap:8px;}
+    .toast{padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;color:#FFF;box-shadow:0 6px 20px rgba(0,0,0,0.2);animation:toastIn .3s ease;max-width:340px;}
+    .toast.success{background:var(--green);}
+    .toast.error{background:var(--red);}
+    .toast.info{background:var(--pri2);}
+    @keyframes toastIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+
+    /* BANK INFO */
+    .bank-card{background:linear-gradient(135deg,#0E2F44,#1A5276);color:#FFF;border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+    .bank-card .icon{font-size:28px;}
+    .bank-card .info{flex:1;}
+    .bank-card .label{font-size:11px;opacity:.7;}
+    .bank-card .acc{font-size:16px;font-weight:800;letter-spacing:1px;margin-top:2px;}
+    .bank-card .name{font-size:11px;opacity:.8;margin-top:2px;}
+
+    /* MODAL */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(3px);z-index:200;justify-content:center;align-items:center;padding:16px;}
+    .modal-overlay.show{display:flex;}
+    .modal-box{background:#FFF;border-radius:20px;padding:24px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:slideUp .3s ease;}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+    .modal-title{font-size:17px;font-weight:800;color:var(--pri2);}
+    .modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text2);}
+  </style>
+</head>
+<body>
+
+<!-- ====== LOGIN SCREEN ====== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div style="font-size:40px;margin-bottom:12px;">♟️</div>
+    <h1>Club XiangQi Bera</h1>
+    <p class="sub">管理控制台 · Admin Dashboard</p>
+    <div class="pin-wrap">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric" autofocus>
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric">
+    </div>
+    <button class="login-btn" onclick="tryLogin()">🔐 进入管理系统</button>
+    <div class="login-error" id="loginError">❌ 密码错误，请重新输入</div>
+  </div>
+</div>
+
+<!-- ====== MAIN APP ====== -->
+<div id="mainApp">
+  <div class="topbar">
+    <div class="topbar-title">♟️ CXB Admin</div>
+    <div class="topbar-right">
+      <a href="index.html" style="color:#FFF;font-size:12px;text-decoration:none;opacity:.7;">← 公开天梯榜</a>
+      <button class="btn-logout" onclick="logout()">退出登录</button>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 总览</div>
+    <div class="nav-tab" data-tab="students" onclick="switchTab('students')">👥 学员</div>
+    <div class="nav-tab" data-tab="matches" onclick="switchTab('matches')">🎮 对局</div>
+    <div class="nav-tab" data-tab="payments" onclick="switchTab('payments')">💰 学费</div>
+    <div class="nav-tab" data-tab="records" onclick="switchTab('records')">📄 档案</div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- ===== DASHBOARD TAB ===== -->
+    <div class="tab-panel active" id="panel-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" id="sTotalStudents">-</div><div class="stat-label">学员总数 (Total Students)</div></div>
+        <div class="stat-card green"><div class="stat-icon">💰</div><div class="stat-val" id="sRevenue">-</div><div class="stat-label">本月预估收入 (Revenue)</div></div>
+        <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-val" id="sPending">-</div><div class="stat-label">待收学费 (Pending)</div></div>
+        <div class="stat-card gold"><div class="stat-icon">♟️</div><div class="stat-val" id="sMatches">-</div><div class="stat-label">总对局数 (Matches)</div></div>
+      </div>
+      <div class="quick-actions">
+        <button class="qa-btn b1" onclick="switchTab('students');openAddStudent()">➕ 添加学员</button>
+        <button class="qa-btn b2" onclick="switchTab('matches')">🎮 录入对局</button>
+        <button class="qa-btn b3" onclick="switchTab('payments')">💰 查看学费</button>
+      </div>
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:12px;">📋 学员概览</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>编号</th><th>姓名</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费</th></tr></thead>
+          <tbody id="dashStudentTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== STUDENTS TAB ===== -->
+    <div class="tab-panel" id="panel-students">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:16px;font-weight:800;">👥 学员管理</h3>
+        <button class="qa-btn b1" onclick="openAddStudent()">➕ 添加新学员</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>编号</th><th>中文名</th><th>英文名</th><th>性别</th><th>年龄</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费状态</th></tr></thead>
+          <tbody id="studentTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== MATCHES TAB ===== -->
+    <div class="tab-panel" id="panel-matches">
+      <div class="form-card">
+        <h3>🎮 单盘对局录入</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">📅 对局日期</label><input type="date" id="mDate" class="form-input"></div>
+          <div class="form-group"><label class="form-label">🏆 比赛类别</label>
+            <select id="mType" class="form-select">
+              <option>SP98 瑞士制月赛 R1</option><option>SP98 瑞士制月赛 R2</option><option>SP98 瑞士制月赛 R3</option>
+              <option>SP98 瑞士制月赛 R4</option><option>SP98 瑞士制月赛 R5</option>
+              <option>周末常态排位赛</option><option>升降级定级实战</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">🔴 红方棋手 (执先手)</label><select id="mRed" class="form-select"><option value="">-- 请选择 --</option></select></div>
+        <div class="form-group"><label class="form-label">⚖️ 对局赛果</label>
+          <div class="res-btns">
+            <div class="res-btn sel-red" onclick="selResult('red',this)">🔴 红胜</div>
+            <div class="res-btn" onclick="selResult('draw',this)">🤝 和棋</div>
+            <div class="res-btn" onclick="selResult('black',this)">⚫ 黑胜</div>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">⚫ 黑方棋手 (执后手)</label><select id="mBlack" class="form-select"><option value="">-- 请选择 --</option></select></div>
+
+        <!-- UPLOAD RECORD PAPER -->
+        <div class="form-group">
+          <label class="form-label">📸 对局记录纸 (可选上传)</label>
+          <div class="upload-area" id="uploadArea">
+            <input type="file" accept="image/*" onchange="previewUpload(event)">
+            <div class="icon">📷</div>
+            <div class="hint">点击或拖拽上传对局记录纸照片</div>
+          </div>
+          <div class="upload-preview" id="uploadPreview">
+            <img id="uploadImg" src="" alt="Preview">
+            <button class="btn-sm" style="margin-top:6px;" onclick="clearUpload()">✕ 移除</button>
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="submitMatch()">➕ 提交对局记录</button>
+      </div>
+
+      <div class="form-card">
+        <h3>⚡ SP98 批量导入</h3>
+        <div class="form-group">
+          <label class="form-label">📋 粘贴 SP98 对阵战报</label>
+          <textarea id="sp98Text" class="form-textarea" placeholder="格式：林家豪 1 - 0 陈美仪&#10;苏进康 0.5 - 0.5 陈美仪"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <button class="submit-btn" style="background:var(--text2);" onclick="parseSP98()">🔍 解析预览</button>
+          <button class="submit-btn green" onclick="submitSP98()">⚡ 批量入库</button>
+        </div>
+        <div id="sp98Preview" style="display:none;margin-top:12px;padding:12px;background:var(--bg);border-radius:10px;font-size:12px;"></div>
+      </div>
+
+      <!-- Recent match history -->
+      <h3 style="font-size:15px;font-weight:800;margin:20px 0 12px;">📜 对局历史</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>日期</th><th>类别</th><th>红方</th><th>赛果</th><th>黑方</th><th>判定</th></tr></thead>
+          <tbody id="matchHistoryTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== PAYMENTS TAB ===== -->
+    <div class="tab-panel" id="panel-payments">
+      <div class="bank-card">
+        <div class="icon">🏦</div>
+        <div class="info">
+          <div class="label">官方收款账户 (Official Bank Account)</div>
+          <div class="acc">3246504527</div>
+          <div class="name">PUBLIC BANK · Persatuan Catur Cina Daerah Bera</div>
+        </div>
+      </div>
+      <h3 style="font-size:16px;font-weight:800;margin-bottom:14px;">💰 学费缴纳状态</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>编号</th><th>姓名</th><th>班级</th><th>学费模式</th><th>Combo到期</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody id="paymentTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== MATCH RECORDS TAB ===== -->
+    <div class="tab-panel" id="panel-records">
+      <h3 style="font-size:16px;font-weight:800;margin-bottom:14px;">📄 对局档案与记录纸</h3>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px;">所有已上传的对局记录纸可在此查看和管理</p>
+      <div id="recordsGallery" class="records-grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal-overlay" id="addStudentModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">➕ 登记新学员</div>
+      <button class="modal-close" onclick="closeModal('addStudentModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">中文姓名 *</label><input type="text" id="sCnName" class="form-input" placeholder="如: 张小明"></div>
+      <div class="form-group"><label class="form-label">英文姓名</label><input type="text" id="sEnName" class="form-input" placeholder="如: Chong Xiao Ming"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">性别</label><select id="sGender" class="form-select"><option>男</option><option>女</option></select></div>
+      <div class="form-group"><label class="form-label">年龄</label><input type="number" id="sAge" class="form-input" placeholder="10"></div>
+    </div>
+    <div class="form-group"><label class="form-label">所在学校 *</label><input type="text" id="sSchool" class="form-input" placeholder="如: SJK(C) Triang (1)"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">班级级别</label>
+        <select id="sLevel" class="form-select"><option>Lv 1 启蒙班</option><option>Lv 2 进阶班</option><option>Lv 3 精英班</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">学费模式</label>
+        <select id="sFeeMode" class="form-select"><option>月缴</option><option>Combo 季度 (RM200)</option><option>Combo 季度 (RM250)</option><option>Combo 季度 (RM300)</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">家长 WhatsApp</label><input type="tel" id="sWhatsApp" class="form-input" placeholder="012-3456789"></div>
+    <button class="submit-btn" onclick="submitNewStudent()">✅ 确认登记</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')">
+  <img id="lightboxImg" src="">
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
+const GAS_API_URL = 'YOUR_GAS_DEPLOYMENT_URL'; // TODO: Replace with actual Apps Script deployment URL
+const PIN = '8888';
+
+let allStudents = [];
+let allMatches = [];
+let currentResult = '🔴 红胜 (1 - 0)';
+let uploadedFileData = null;
+
+// ===== CSV Parser =====
+function parseCSV(text) {
+  const rows = []; let row = [], inQ = false, cur = '';
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], n = text[i+1];
+    if (c === '"') { if (inQ && n === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { row.push(cur); cur = ''; }
+    else if ((c === '\r' || c === '\n') && !inQ) {
+      if (c === '\r' && n === '\n') i++;
+      row.push(cur); if (row.some(x => x.trim())) rows.push(row); row = []; cur = '';
+    } else cur += c;
+  }
+  if (cur || row.length) { row.push(cur); if (row.some(x => x.trim())) rows.push(row); }
+  return rows;
+}
+
+// ===== AUTH =====
+function checkAuth() {
+  const s = localStorage.getItem('cxb_auth');
+  if (s) {
+    const d = JSON.parse(s);
+    if (d.pin === PIN && Date.now() - d.ts < 86400000) return true;
+  }
+  return false;
+}
+
+function tryLogin() {
+  const boxes = document.querySelectorAll('.pin-box');
+  const pin = Array.from(boxes).map(b => b.value).join('');
+  if (pin === PIN) {
+    localStorage.setItem('cxb_auth', JSON.stringify({ pin, ts: Date.now() }));
+    showApp();
+  } else {
+    boxes.forEach(b => { b.classList.add('error'); b.value = ''; });
+    document.getElementById('loginError').style.display = 'block';
+    boxes[0].focus();
+    setTimeout(() => boxes.forEach(b => b.classList.remove('error')), 500);
+  }
+}
+
+function logout() {
+  localStorage.removeItem('cxb_auth');
+  location.reload();
+}
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  loadAllData();
+}
+
+// PIN box auto-advance
+document.querySelectorAll('.pin-box').forEach((box, i, boxes) => {
+  box.addEventListener('input', () => {
+    if (box.value && i < boxes.length - 1) boxes[i+1].focus();
+    if (i === boxes.length - 1 && box.value) tryLogin();
+  });
+  box.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace' && !box.value && i > 0) boxes[i-1].focus();
+  });
+});
+
+// ===== TAB SWITCHING =====
+function switchTab(tab) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
+}
+
+// ===== DATA LOADING =====
+async function loadAllData() {
+  await Promise.all([loadStudents(), loadMatchHistory()]);
+  populateDropdowns();
+  renderDashboard();
+}
+
+async function loadStudents() {
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('学员档案总册')}`;
+    const res = await fetch(url);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    allStudents = [];
+    for (let i = 3; i < rows.length; i++) {
+      const r = rows[i];
+      const id = (r[0]||'').trim();
+      if (!id) continue;
+      allStudents.push({
+        id, cnName: (r[1]||'').trim(), enName: (r[2]||'').trim(),
+        gender: (r[3]||'').trim(), age: (r[4]||'').trim(),
+        school: (r[5]||'').trim(), level: (r[6]||'').trim(),
+        feeMode: (r[7]||'').trim(), payStatus: (r[8]||'').trim(),
+        comboExpiry: (r[9]||'').trim(), whatsapp: (r[10]||'').trim(),
+        elo: parseInt(r[11])||200, tier: (r[12]||'').trim()
+      });
+    }
+    renderStudentTables();
+    renderPaymentTable();
+  } catch(e) { console.error('Load students failed:', e); }
+}
+
+async function loadMatchHistory() {
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('实战对局记录表')}`;
+    const res = await fetch(url);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    allMatches = [];
+    for (let i = 3; i < rows.length; i++) {
+      const r = rows[i];
+      const date = (r[0]||'').trim();
+      if (!date) continue;
+      allMatches.push({
+        date, round: (r[1]||'').trim(),
+        redId: (r[2]||'').trim(), red: (r[3]||'').trim(),
+        result: (r[4]||'').trim(),
+        blackId: (r[5]||'').trim(), black: (r[6]||'').trim(),
+        verdict: (r[7]||'').trim(),
+        recordImg: (r[8]||'').trim()
+      });
+    }
+    renderMatchHistory();
+    renderRecords();
+  } catch(e) { console.error('Load matches failed:', e); }
+}
+
+// ===== RENDER FUNCTIONS =====
+function payBadge(status) {
+  if (status.includes('已缴费') || status.includes('Verified')) return '<span class="badge badge-green">✅ 已缴费</span>';
+  if (status.includes('逾期')) return '<span class="badge badge-red">❌ 逾期</span>';
+  return '<span class="badge badge-yellow">⏳ 待缴费</span>';
+}
+
+function renderDashboard() {
+  document.getElementById('sTotalStudents').textContent = allStudents.length;
+  const paid = allStudents.filter(s => s.payStatus.includes('已缴费') || s.payStatus.includes('Verified')).length;
+  const pending = allStudents.length - paid;
+  document.getElementById('sPending').textContent = pending;
+  document.getElementById('sMatches').textContent = allMatches.length;
+
+  // Estimate revenue
+  let rev = 0;
+  allStudents.forEach(s => {
+    if (s.level.includes('Lv 1')) rev += 70;
+    else if (s.level.includes('Lv 2')) rev += 85;
+    else if (s.level.includes('Lv 3')) rev += 110;
+  });
+  document.getElementById('sRevenue').textContent = 'RM ' + rev;
+
+  // Dashboard student overview
+  document.getElementById('dashStudentTable').innerHTML = allStudents.map(s =>
+    `<tr><td>${s.id}</td><td>${s.cnName}</td><td>${s.school}</td><td><span class="badge badge-blue">${s.level}</span></td><td>${s.elo}</td><td>${payBadge(s.payStatus)}</td></tr>`
+  ).join('');
+}
+
+function renderStudentTables() {
+  document.getElementById('studentTable').innerHTML = allStudents.map(s =>
+    `<tr><td>${s.id}</td><td>${s.cnName}</td><td>${s.enName}</td><td>${s.gender}</td><td>${s.age}</td><td>${s.school}</td><td><span class="badge badge-blue">${s.level}</span></td><td>${s.elo}</td><td>${payBadge(s.payStatus)}</td></tr>`
+  ).join('');
+}
+
+function renderPaymentTable() {
+  document.getElementById('paymentTable').innerHTML = allStudents.map(s =>
+    `<tr><td>${s.id}</td><td>${s.cnName}</td><td>${s.level}</td><td>${s.feeMode}</td><td>${s.comboExpiry || '-'}</td><td>${payBadge(s.payStatus)}</td>
+      <td><button class="btn-sm green" onclick="markPaid('${s.id}')">标记已缴</button></td></tr>`
+  ).join('');
+}
+
+function renderMatchHistory() {
+  document.getElementById('matchHistoryTable').innerHTML = allMatches.slice().reverse().map(m => {
+    const imgBtn = m.recordImg && m.recordImg.startsWith('http') 
+      ? `<a href="${m.recordImg}" target="_blank" class="btn-sm" style="text-decoration:none;">📷 查看</a>`
+      : (m.recordImg ? `<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📷 查看</button>` : '-');
+    return `<tr><td>${m.date}</td><td>${m.round}</td><td>${m.red}</td><td>${m.result}</td><td>${m.black}</td><td>${m.verdict}</td><td>${imgBtn}</td></tr>`;
+  }).join('');
+}
+
+function renderRecords() {
+  const gallery = document.getElementById('recordsGallery');
+  if (!allMatches.length) { gallery.innerHTML = '<p style="color:var(--text2);font-size:13px;">暂无对局记录</p>'; return; }
+  gallery.innerHTML = allMatches.slice().reverse().map(m => {
+    const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
+    const imgHtml = hasImg 
+      ? `<img class="record-img" src="${m.recordImg}" onclick="openLightbox('${m.recordImg}')" alt="对局记录纸" title="点击放大查看">` 
+      : `<div style="padding:16px;text-align:center;color:var(--text2);font-size:11px;background:var(--bg);border-top:1px dashed var(--border);">📝 暂无对局记录纸扫描件</div>`;
+    return `
+    <div class="record-card">
+      <div class="record-header">
+        <div class="record-date">${m.date} · ${m.round}</div>
+        <span class="badge badge-blue">${m.result.includes('红胜') ? '红胜' : m.result.includes('黑胜') ? '黑胜' : '和棋'}</span>
+      </div>
+      <div class="record-body">
+        <div class="record-match"><span style="color:var(--red)">🔴 ${m.red}</span> vs <span>⚫ ${m.black}</span></div>
+        <div class="record-verdict">${m.verdict}</div>
+      </div>
+      ${imgHtml}
+    </div>`;
+  }).join('');
+}
+
+function populateDropdowns() {
+  const opts = '<option value="">-- 请选择学员 --</option>' + allStudents.map(s => `<option value="${s.id}">${s.cnName} (${s.school})</option>`).join('');
+  document.getElementById('mRed').innerHTML = opts;
+  document.getElementById('mBlack').innerHTML = opts;
+}
+
+// ===== ACTIONS =====
+function selResult(type, el) {
+  document.querySelectorAll('.res-btn').forEach(b => b.className = 'res-btn');
+  if (type === 'red') { el.classList.add('sel-red'); currentResult = '🔴 红胜 (1 - 0)'; }
+  else if (type === 'draw') { el.classList.add('sel-draw'); currentResult = '🤝 和棋 (0.5 - 0.5)'; }
+  else { el.classList.add('sel-black'); currentResult = '⚫ 黑胜 (0 - 1)'; }
+}
+
+function previewUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    uploadedFileData = ev.target.result;
+    document.getElementById('uploadImg').src = uploadedFileData;
+    document.getElementById('uploadPreview').style.display = 'block';
+    document.getElementById('uploadArea').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearUpload() {
+  uploadedFileData = null;
+  document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('uploadArea').style.display = 'block';
+}
+
+async function submitMatch() {
+  const redId = document.getElementById('mRed').value;
+  const blackId = document.getElementById('mBlack').value;
+  if (!redId || !blackId) { toast('请选择红方和黑方学员！', 'error'); return; }
+  if (redId === blackId) { toast('红方和黑方不能是同一位学员！', 'error'); return; }
+
+  const redPlayer = allStudents.find(s => s.id === redId);
+  const blackPlayer = allStudents.find(s => s.id === blackId);
+  const date = document.getElementById('mDate').value;
+  const round = document.getElementById('mType').value;
+
+  let verdict = '';
+  if (currentResult.includes('红胜')) verdict = redPlayer.cnName + ' 胜';
+  else if (currentResult.includes('黑胜')) verdict = blackPlayer.cnName + ' 胜';
+  else verdict = '双方战和';
+
+  const payload = {
+    pin: PIN, action: 'addMatch',
+    date, round, redId, redName: redPlayer.cnName,
+    result: currentResult, blackId, blackName: blackPlayer.cnName,
+    verdict, recordImage: uploadedFileData || null
+  };
+
+  if (GAS_API_URL === 'YOUR_GAS_DEPLOYMENT_URL') {
+    // No backend yet - show success locally and add to local data
+    allMatches.push({ date, round, redId, red: redPlayer.cnName, result: currentResult, blackId, black: blackPlayer.cnName, verdict });
+    renderMatchHistory();
+    renderRecords();
+    renderDashboard();
+    clearUpload();
+    toast(`✅ 对局已记录！ ${redPlayer.cnName} vs ${blackPlayer.cnName} → ${verdict}`, 'success');
+  } else {
+    try {
+      const res = await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (data.success) {
+        toast('✅ 对局已成功录入并同步至云端！', 'success');
+        clearUpload();
+        await loadAllData();
+      } else {
+        toast('❌ 录入失败: ' + (data.error || '未知错误'), 'error');
+      }
+    } catch(e) { toast('❌ 网络错误: ' + e.message, 'error'); }
+  }
+}
+
+function openAddStudent() { document.getElementById('addStudentModal').classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+async function submitNewStudent() {
+  const cn = document.getElementById('sCnName').value.trim();
+  const school = document.getElementById('sSchool').value.trim();
+  if (!cn || !school) { toast('请至少填写姓名与学校！', 'error'); return; }
+
+  const payload = {
+    pin: PIN, action: 'addStudent',
+    cnName: cn, enName: document.getElementById('sEnName').value.trim(),
+    gender: document.getElementById('sGender').value,
+    age: document.getElementById('sAge').value,
+    school, level: document.getElementById('sLevel').value,
+    feeMode: document.getElementById('sFeeMode').value,
+    whatsapp: document.getElementById('sWhatsApp').value.trim()
+  };
+
+  if (GAS_API_URL === 'YOUR_GAS_DEPLOYMENT_URL') {
+    const newId = 'XQB-' + String(allStudents.length + 1).padStart(3, '0');
+    allStudents.push({ id: newId, cnName: cn, enName: payload.enName, gender: payload.gender, age: payload.age, school, level: payload.level, feeMode: payload.feeMode, payStatus: '⏳ 待缴费', comboExpiry: '', whatsapp: payload.whatsapp, elo: 200, tier: '🥉 五级棋手' });
+    renderStudentTables(); renderPaymentTable(); renderDashboard(); populateDropdowns();
+    closeModal('addStudentModal');
+    toast(`🎉 新学员 ${cn} (${newId}) 登记成功！初始 ELO 200 分`, 'success');
+  } else {
+    try {
+      const res = await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (data.success) { toast('🎉 新学员登记成功！', 'success'); closeModal('addStudentModal'); await loadAllData(); }
+      else { toast('❌ 登记失败: ' + (data.error || ''), 'error'); }
+    } catch(e) { toast('❌ 网络错误: ' + e.message, 'error'); }
+  }
+}
+
+async function markPaid(studentId) {
+  if (GAS_API_URL === 'YOUR_GAS_DEPLOYMENT_URL') {
+    const s = allStudents.find(x => x.id === studentId);
+    if (s) { s.payStatus = '已缴费 (Verified)'; renderPaymentTable(); renderDashboard(); renderStudentTables(); }
+    toast(`✅ ${s ? s.cnName : studentId} 已标记为已缴费`, 'success');
+  } else {
+    try {
+      const res = await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify({ pin: PIN, action: 'updatePayment', studentId, status: '已缴费 (Verified)' }) });
+      const data = await res.json();
+      if (data.success) { toast('✅ 缴费状态已更新！', 'success'); await loadAllData(); }
+    } catch(e) { toast('❌ 更新失败', 'error'); }
+  }
+}
+
+// SP98 Batch
+let parsedBatch = [];
+function parseSP98() {
+  const text = document.getElementById('sp98Text').value.trim();
+  if (!text) { toast('请先粘贴战报文本', 'error'); return; }
+  const lines = text.split('\n');
+  parsedBatch = [];
+  lines.forEach(line => {
+    line = line.trim(); if (!line) return;
+    const rm = line.match(/(1\s*[-:]\s*0|0\s*[-:]\s*1|0\.5\s*[-:]\s*0\.5|1\/2\s*[-:]\s*1\/2)/i);
+    if (rm) {
+      const parts = line.split(rm[0]);
+      let red = parts[0].replace(/^[\d.\s]+/,'').replace(/\[.*?\]|\(.*?\)/g,'').trim();
+      let black = parts[1].replace(/\[.*?\]|\(.*?\)/g,'').trim();
+      let res = '🔴 红胜';
+      if (rm[0].includes('0.5')||rm[0].includes('1/2')) res = '🤝 和棋';
+      else if (rm[0].replace(/\s+/g,'') === '0-1') res = '⚫ 黑胜';
+      if (red && black) parsedBatch.push({ red, black, res });
+    }
+  });
+  const pv = document.getElementById('sp98Preview');
+  if (!parsedBatch.length) { pv.style.display='block'; pv.innerHTML='<span style="color:var(--red)">⚠️ 未能识别对局</span>'; }
+  else { pv.style.display='block'; pv.innerHTML=`<strong>✅ 识别 ${parsedBatch.length} 盘：</strong><br>`+parsedBatch.map((m,i)=>`#${i+1} ${m.red} vs ${m.black} → ${m.res}`).join('<br>'); }
+}
+
+function submitSP98() {
+  if (!parsedBatch.length) parseSP98();
+  if (!parsedBatch.length) return;
+  toast(`⚡ 批量录入 ${parsedBatch.length} 盘对局成功！`, 'success');
+  document.getElementById('sp98Text').value = '';
+  document.getElementById('sp98Preview').style.display = 'none';
+  parsedBatch = [];
+}
+
+// ===== UTILITIES =====
+function toast(msg, type='info') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3500);
+}
+
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('show');
+}
+
+// ===== INIT =====
+document.getElementById('mDate').valueAsDate = new Date();
+if (checkAuth()) showApp();
+</script>
+</body>
+</html>

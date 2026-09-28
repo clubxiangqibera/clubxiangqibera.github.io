@@ -3,982 +3,535 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Club XiangQi Bera - 青少年天梯排位系统</title>
+  <title>Club XiangQi Bera — 青少年天梯排位系统</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1A5276;
-      --primary-dark: #0E2F44;
+      --primary: #0E2F44;
+      --primary-mid: #1A5276;
       --primary-light: #2980B9;
       --gold: #F39C12;
-      --gold-light: #FDEBD0;
-      --silver: #BDC3C7;
+      --gold-glow: rgba(243,156,18,0.25);
+      --silver: #95A5A6;
       --bronze: #D35400;
-      --bg: #F4F7F9;
-      --card-bg: #FFFFFF;
-      --text-main: #1C2833;
-      --text-sub: #7F8C8D;
-      --border: #E5E8E8;
+      --bg: #F0F4F8;
+      --card: #FFFFFF;
+      --text: #1C2833;
+      --text2: #6B7B8D;
+      --border: #E8ECF0;
+      --green: #27AE60;
+      --red: #E74C3C;
+      --radius: 16px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    @media(prefers-color-scheme:dark){
+      :root{--bg:#0D1117;--card:#161B22;--text:#E6EDF3;--text2:#8B949E;--border:#30363D;--shadow:0 4px 20px rgba(0,0,0,0.3);}
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Plus Jakarta Sans','Noto Sans SC',system-ui,sans-serif;
+      background:var(--bg);color:var(--text);
+      min-height:100vh;display:flex;flex-direction:column;align-items:center;
+      -webkit-font-smoothing:antialiased;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
-      -webkit-tap-highlight-color: transparent;
+    /* === HEADER === */
+    header{
+      width:100%;
+      background:linear-gradient(145deg,#0A1F2E 0%,#0E2F44 40%,#1A5276 100%);
+      color:#fff;padding:36px 20px 28px;text-align:center;
+      border-radius:0 0 28px 28px;
+      box-shadow:0 12px 40px rgba(14,47,68,0.3);
+      position:relative;overflow:hidden;
+    }
+    header::before{
+      content:'';position:absolute;top:-60px;right:-60px;
+      width:200px;height:200px;border-radius:50%;
+      background:radial-gradient(circle,rgba(243,156,18,0.12) 0%,transparent 70%);
+    }
+    header::after{
+      content:'';position:absolute;bottom:-40px;left:-40px;
+      width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle,rgba(41,128,185,0.15) 0%,transparent 70%);
+    }
+    .header-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+      padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;
+      letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;
+    }
+    .header-badge .dot{width:6px;height:6px;border-radius:50%;background:#27AE60;animation:pulse 2s infinite;}
+    header h1{font-size:26px;font-weight:900;letter-spacing:-0.5px;margin-bottom:4px;position:relative;}
+    header .sub{font-size:13px;opacity:0.75;font-weight:400;}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
+
+    .container{width:100%;max-width:780px;padding:0 16px;}
+
+    /* === PODIUM === */
+    .podium-section{margin:24px 0 20px;}
+    .podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:10px;align-items:end;}
+    .pod{
+      background:var(--card);border-radius:var(--radius);padding:16px 8px 14px;
+      text-align:center;position:relative;
+      border:2px solid var(--border);
+      box-shadow:var(--shadow);
+      animation:fadeUp .6s ease both;
+    }
+    .pod-1{order:2;padding:24px 8px 18px;border-color:#F1C40F;
+      background:linear-gradient(180deg,#FFFCF0 0%,var(--card) 100%);
+      box-shadow:0 8px 30px var(--gold-glow);animation-delay:.1s;}
+    .pod-2{order:1;border-color:#D5D8DC;animation-delay:.2s;}
+    .pod-3{order:3;border-color:#EDBB99;animation-delay:.3s;}
+    @media(prefers-color-scheme:dark){
+      .pod-1{background:linear-gradient(180deg,#2A2308 0%,var(--card) 100%);}
+    }
+    .crown{
+      position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+      background:linear-gradient(135deg,#F1C40F,#F39C12);color:#7D6608;
+      font-size:10px;font-weight:800;padding:3px 12px;border-radius:12px;
+      white-space:nowrap;box-shadow:0 3px 10px rgba(241,196,15,0.4);
+    }
+    .pod-medal{font-size:28px;margin-bottom:4px;}
+    .pod-1 .pod-medal{font-size:36px;}
+    .pod-name{font-size:15px;font-weight:800;margin-bottom:2px;}
+    .pod-1 .pod-name{font-size:17px;}
+    .pod-school{font-size:10px;color:var(--text2);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .pod-elo{font-size:22px;font-weight:900;color:var(--primary-mid);}
+    .pod-1 .pod-elo{font-size:26px;color:#D68910;}
+    @media(prefers-color-scheme:dark){.pod-elo{color:var(--primary-light);}.pod-1 .pod-elo{color:#F39C12;}}
+    .pod-stats{font-size:10px;color:var(--text2);margin-top:2px;}
+    .tier-chip{
+      display:inline-block;font-size:9px;font-weight:700;
+      padding:2px 8px;border-radius:6px;margin-bottom:4px;
+    }
+    .tier-5{background:#EBF5FB;color:#2980B9;}
+    .tier-4{background:#E8F8F5;color:#1ABC9C;}
+    .tier-3{background:#FEF9E7;color:#B7950B;}
+    .tier-2{background:#FDEDEC;color:#E74C3C;}
+    .tier-1{background:linear-gradient(135deg,#F9E79F,#F5CBA7);color:#7D6608;}
+    @media(prefers-color-scheme:dark){
+      .tier-5{background:#1A3A4A;}.tier-4{background:#1A3A2A;}.tier-3{background:#3A3A1A;}
+      .tier-2{background:#3A1A1A;}.tier-1{background:#3A2A0A;}
     }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      padding: 0 0 80px 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+    /* === SECTION HEADERS === */
+    .section-head{
+      display:flex;justify-content:space-between;align-items:center;
+      margin:20px 0 12px;padding:0 2px;
+    }
+    .section-title{font-size:15px;font-weight:800;}
+    .live-badge{
+      display:flex;align-items:center;gap:5px;
+      font-size:11px;font-weight:600;color:var(--green);
+      background:rgba(39,174,96,0.1);padding:4px 12px;border-radius:12px;
+      cursor:pointer;
     }
 
-    .container {
-      width: 100%;
-      max-width: 760px;
-      padding: 0 16px;
+    /* === RANK LIST === */
+    .rank-list{display:flex;flex-direction:column;gap:8px;}
+    .rank-card{
+      background:var(--card);border-radius:14px;padding:14px 16px;
+      display:flex;align-items:center;gap:14px;
+      border:1px solid var(--border);box-shadow:var(--shadow);
+      transition:transform .15s,box-shadow .15s;
+      animation:fadeUp .5s ease both;
     }
-
-    header {
-      width: 100%;
-      background: linear-gradient(135deg, #0E2F44 0%, #1A5276 100%);
-      color: white;
-      padding: 32px 20px 24px;
-      text-align: center;
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
-      box-shadow: 0 10px 25px rgba(26, 82, 118, 0.15);
-      margin-bottom: 24px;
+    .rank-card:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.08);}
+    .rank-num{
+      font-size:16px;font-weight:900;color:var(--text2);
+      width:28px;text-align:center;flex-shrink:0;
     }
-
-    .badge-pill {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
+    .rank-info{flex:1;min-width:0;}
+    .rank-name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+    .rank-school{font-size:11px;color:var(--text2);margin-top:1px;}
+    .rank-right{text-align:right;flex-shrink:0;}
+    .rank-elo{font-size:18px;font-weight:900;color:var(--primary-mid);}
+    @media(prefers-color-scheme:dark){.rank-elo{color:var(--primary-light);}}
+    .rank-wr{font-size:10px;color:var(--text2);margin-top:1px;}
+    .elo-bar-wrap{
+      height:4px;background:var(--border);border-radius:2px;margin-top:4px;
+      overflow:hidden;max-width:160px;
     }
+    .elo-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--primary-light),var(--gold));transition:width .8s ease;}
 
-    h1 {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 6px;
-      letter-spacing: -0.5px;
+    /* === MATCH TICKER === */
+    .ticker-section{margin:20px 0;}
+    .ticker-wrap{
+      overflow:hidden;position:relative;
+      background:var(--card);border-radius:12px;border:1px solid var(--border);
+      padding:10px 0;
     }
-
-    .subtitle {
-      font-size: 13px;
-      opacity: 0.85;
-      font-weight: 400;
+    .ticker-track{
+      display:flex;gap:24px;
+      animation:ticker 30s linear infinite;
+      width:max-content;padding:0 12px;
     }
-
-    .podium-container {
-      display: grid;
-      grid-template-columns: 1fr 1.08fr 1fr;
-      gap: 10px;
-      margin-bottom: 24px;
-      align-items: end;
+    .ticker-track:hover{animation-play-state:paused;}
+    .ticker-item{
+      white-space:nowrap;font-size:12px;font-weight:500;color:var(--text2);
+      display:flex;align-items:center;gap:6px;
     }
+    .ticker-item .res-win{color:var(--red);font-weight:700;}
+    .ticker-item .res-draw{color:var(--gold);font-weight:700;}
+    .ticker-item .res-lose{color:var(--text2);font-weight:700;}
+    .ticker-date{font-size:10px;opacity:.6;}
+    @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-    .podium-card {
-      background: var(--card-bg);
-      border-radius: 18px;
-      padding: 16px 10px;
-      text-align: center;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-      position: relative;
-      border: 2px solid transparent;
-      transition: transform 0.2s ease;
+    /* === TIER LEGEND === */
+    .tier-legend{
+      background:var(--card);border-radius:var(--radius);border:1px solid var(--border);
+      padding:16px;margin:20px 0;box-shadow:var(--shadow);
     }
-
-    .podium-1 {
-      order: 2;
-      padding-top: 24px;
-      padding-bottom: 20px;
-      border-color: #F1C40F;
-      background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%);
-      box-shadow: 0 10px 25px rgba(241, 196, 15, 0.18);
+    .tier-legend h4{font-size:13px;font-weight:800;margin-bottom:10px;color:var(--primary-mid);}
+    @media(prefers-color-scheme:dark){.tier-legend h4{color:var(--primary-light);}}
+    .tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;}
+    .tier-item{
+      display:flex;align-items:center;gap:8px;font-size:11px;
+      padding:6px 8px;border-radius:8px;background:var(--bg);
     }
+    .tier-icon{font-size:16px;}
+    .tier-label{font-weight:700;}
+    .tier-range{font-size:10px;color:var(--text2);}
+    .tier-rule{font-size:11px;color:var(--text2);margin-top:10px;line-height:1.7;}
 
-    .podium-2 { order: 1; border-color: #D5D8DC; }
-    .podium-3 { order: 3; border-color: #EDBB99; }
-
-    .crown-tag {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #F1C40F;
-      color: #7D6608;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 12px;
-      white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(241, 196, 15, 0.4);
+    /* === FOOTER === */
+    footer{
+      text-align:center;padding:24px 16px 32px;color:var(--text2);font-size:11px;
+      line-height:1.6;
     }
+    footer a{color:var(--primary-light);text-decoration:none;font-weight:600;}
+    footer a:hover{text-decoration:underline;}
 
-    .podium-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      margin: 0 auto 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
-    }
+    /* === SKELETON === */
+    .skeleton{animation:shimmer 1.5s infinite;background:linear-gradient(90deg,var(--border) 25%,var(--bg) 50%,var(--border) 75%);background-size:200% 100%;border-radius:8px;}
+    @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+    .skel-pod{height:180px;border-radius:var(--radius);}
+    .skel-card{height:60px;border-radius:14px;margin-bottom:8px;}
 
-    .podium-1 .podium-avatar {
-      width: 52px;
-      height: 52px;
-      background: #FEF9E7;
-      border: 2px solid #F1C40F;
-      font-size: 24px;
-    }
-
-    .podium-2 .podium-avatar { background: #F2F4F4; border: 2px solid #BDC3C7; }
-    .podium-3 .podium-avatar { background: #FBEEE6; border: 2px solid #E59866; }
-
-    .podium-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 2px;
-    }
-
-    .podium-1 .podium-name { font-size: 17px; }
-
-    .podium-school {
-      font-size: 11px;
-      color: var(--text-sub);
-      margin-bottom: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .tier-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 6px;
-      border-radius: 6px;
-      background: #EBF5FB;
-      color: #2980B9;
-    }
-
-    .podium-elo {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .podium-1 .podium-elo {
-      font-size: 22px;
-      color: #D68910;
-    }
-
-    .podium-stat {
-      font-size: 11px;
-      color: var(--text-sub);
-      margin-top: 2px;
-    }
-
-    .list-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding: 0 4px;
-    }
-
-    .list-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .refresh-badge {
-      font-size: 11px;
-      color: #27AE60;
-      background: #E8F8F5;
-      padding: 3px 10px;
-      border-radius: 12px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #27AE60;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.3); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .rank-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .rank-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
-      border: 1px solid var(--border);
-    }
-
-    .rank-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .rank-num {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-sub);
-      width: 24px;
-      text-align: center;
-    }
-
-    .player-details h3 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 2px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .player-school {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-
-    .rank-right {
-      text-align: right;
-    }
-
-    .rank-elo {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .rank-stat {
-      font-size: 11px;
-      color: var(--text-sub);
-      margin-top: 1px;
-    }
-
-    /* Floating Coach Button */
-    .coach-fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, #F39C12 0%, #D68910 100%);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 8px 20px rgba(214, 137, 16, 0.4);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      z-index: 100;
-      transition: transform 0.2s ease;
-      border: none;
-    }
-
-    .coach-fab:hover {
-      transform: scale(1.05);
-    }
-
-    /* Modal Overlay */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .modal-box {
-      background: white;
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .modal-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: var(--text-sub);
-    }
-
-    .tab-nav {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 16px;
-      background: #F4F6F6;
-      padding: 4px;
-      border-radius: 12px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 8px 4px;
-      border: none;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-sub);
-      text-align: center;
-    }
-
-    .tab-btn.active {
-      background: white;
-      color: var(--primary);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 6px;
-    }
-
-    .form-select, .form-input, .form-textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 13px;
-      outline: none;
-      background: white;
-    }
-
-    .form-textarea {
-      min-height: 110px;
-      font-family: monospace;
-      font-size: 12px;
-      resize: vertical;
-    }
-
-    .form-select:focus, .form-input:focus, .form-textarea:focus {
-      border-color: var(--primary);
-    }
-
-    .result-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .res-btn {
-      padding: 11px 4px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #F8F9F9;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-    }
-
-    .res-btn.selected-red { background: #FDEDEC; border-color: #E74C3C; color: #C0392B; }
-    .res-btn.selected-draw { background: #FEF9E7; border-color: #F1C40F; color: #B7950B; }
-    .res-btn.selected-black { background: #EAECEE; border-color: #2C3E50; color: #1C2833; }
-
-    .submit-btn {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #1A5276 0%, #0E2F44 100%);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      box-shadow: 0 4px 12px rgba(26, 82, 118, 0.25);
-    }
-
-    .parsed-preview {
-      margin-top: 10px;
-      padding: 10px;
-      background: #F8F9F9;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      max-height: 130px;
-      overflow-y: auto;
-      font-size: 12px;
-      display: none;
-    }
-
-    .parsed-item {
-      padding: 4px 0;
-      border-bottom: 1px dashed #E5E8E8;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .sheet-link-hint {
-      margin-top: 14px;
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-
-    .sheet-link-hint a {
-      color: var(--primary);
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    footer {
-      margin-top: 28px;
-      text-align: center;
-      padding: 16px;
-      color: var(--text-sub);
-      font-size: 11px;
-      line-height: 1.6;
-    }
-
-    .rules-card {
-      background: #FFFFFF;
-      border: 1px solid #EAEDED;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 14px;
-      text-align: left;
-    }
-
-    .rules-card h4 {
-      font-size: 12px;
-      color: var(--primary);
-      margin-bottom: 6px;
-      font-weight: 700;
+    /* === RESPONSIVE === */
+    @media(max-width:480px){
+      header{padding:28px 16px 22px;}
+      header h1{font-size:22px;}
+      .podium{gap:6px;}
+      .pod{padding:12px 6px 10px;}
+      .pod-name{font-size:13px;}
+      .pod-1 .pod-name{font-size:15px;}
+      .pod-elo{font-size:18px;}
+      .pod-1 .pod-elo{font-size:22px;}
+      .rank-card{padding:12px;}
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="badge-pill">Club XiangQi Bera</div>
-    <h1>百乐青少年象棋天梯榜</h1>
-    <p class="subtitle">CXB ELO 官方排位认证系统 ｜ 手机/电脑自适应</p>
-  </header>
-
-  <div class="container">
-
-    <!-- Top 3 Podium -->
-    <div id="podiumArea" class="podium-container"></div>
-
-    <!-- List Header -->
-    <div class="list-header">
-      <div class="list-title">📋 现役学员总榜 (Official Roster)</div>
-      <div class="refresh-badge" onclick="loadSheetData()">
-        <span class="live-dot"></span> 云端实时同步
-      </div>
-    </div>
-
-    <!-- Ranking List -->
-    <div id="rankListArea" class="rank-list"></div>
-
-    <footer>
-      <div class="rules-card">
-        <h4>♟️ CXB ELO 积分进阶规则 (SP98瑞士赛兼容)</h4>
-        <p>• 初始基准 200 分（五级棋手）；胜局 +20 分，和局 +5 分，负局 -10 分。</p>
-        <p>• 400分晋升四级棋手 ｜ 700分晋升三级棋手 ｜ 1000分晋升二级棋手 ｜ 1300分晋升一级棋手。</p>
-        <p>• 瑞士制排位月赛第 1 名荣膺“👑 月度擂主”称号。</p>
-      </div>
-      <p>© 2026 Club XiangQi Bera (百乐象棋俱乐部) · 版权所有</p>
-    </footer>
-
+<header>
+  <div class="header-badge">
+    <span class="dot"></span>
+    CLUB XIANGQI BERA · CXB ELO SYSTEM
   </div>
+  <h1>百乐青少年象棋天梯榜</h1>
+  <p class="sub">CXB ELO 官方排位认证系统 · 云端实时同步</p>
+</header>
 
-  <!-- Floating Coach Action Button -->
-  <button class="coach-fab" onclick="openCoachModal()">
-    <span>⚡ 教练管理控制台</span>
-  </button>
+<div class="container">
 
-  <!-- Coach Quick Entry Modal -->
-  <div id="coachModal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <div class="modal-title">⚡ 教练控制台 (SP98瑞士制)</div>
-        <button class="close-btn" onclick="closeCoachModal()">✕</button>
-      </div>
-
-      <!-- 3 Mode Switcher -->
-      <div class="tab-nav">
-        <button id="tabMatch" class="tab-btn active" onclick="switchTab('match')">单盘录入</button>
-        <button id="tabBatch" class="tab-btn" onclick="switchTab('batch')">⚡ SP98批量导入</button>
-        <button id="tabStudent" class="tab-btn" onclick="switchTab('student')">👤 登记新学员</button>
-      </div>
-
-      <!-- Tab 1: Single Match -->
-      <div id="matchForm">
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-          <div class="form-group">
-            <label class="form-label">📅 对局日期</label>
-            <input type="date" id="matchDate" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">🏆 比赛类别</label>
-            <select id="matchType" class="form-select">
-              <option value="SP98 瑞士制月赛 R1">SP98 瑞士制月赛 R1</option>
-              <option value="SP98 瑞士制月赛 R2">SP98 瑞士制月赛 R2</option>
-              <option value="SP98 瑞士制月赛 R3">SP98 瑞士制月赛 R3</option>
-              <option value="SP98 瑞士制月赛 R4">SP98 瑞士制月赛 R4</option>
-              <option value="SP98 瑞士制月赛 R5">SP98 瑞士制月赛 R5</option>
-              <option value="周末常态排位赛">周末常态排位赛</option>
-              <option value="升降级定级实战">升降级定级实战</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">🔴 红方棋手 (执先手)</label>
-          <select id="redPlayer" class="form-select">
-            <option value="">-- 请选择学员 --</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">⚖️ 对局赛果 (点击单选)</label>
-          <div class="result-buttons">
-            <div id="btnRedWin" class="res-btn selected-red" onclick="selectResult('🔴 红胜 (1 - 0)')">🔴 红胜</div>
-            <div id="btnDraw" class="res-btn" onclick="selectResult('🤝 和棋 (0.5 - 0.5)')">🤝 和棋</div>
-            <div id="btnBlackWin" class="res-btn" onclick="selectResult('⚫ 黑胜 (0 - 1)')">⚫ 黑胜</div>
-          </div>
-          <input type="hidden" id="matchResult" value="🔴 红胜 (1 - 0)">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">⚫ 黑方棋手 (执后手)</label>
-          <select id="blackPlayer" class="form-select">
-            <option value="">-- 请选择学员 --</option>
-          </select>
-        </div>
-
-        <button class="submit-btn" onclick="submitMatch()">➕ 提交单盘记录</button>
-      </div>
-
-      <!-- Tab 2: SP98 Batch Import (NEW!) -->
-      <div id="batchForm" style="display:none;">
-        <div class="form-group">
-          <label class="form-label">📋 直接粘贴 SP98 对阵战报文本 (支持任意格式)</label>
-          <textarea id="sp98Text" class="form-textarea" placeholder="直接粘贴 SP98 结果，支持格式如：&#10;林家豪 1 - 0 陈美仪&#10;苏进康 0.5 - 0.5 陈美仪&#10;1  林家豪 [1]  1 - 0  苏进康 [2]"></textarea>
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-          <button class="submit-btn" style="background:#4A6572; margin-top:0;" onclick="parseSP98Batch()">🔍 智能解析预览</button>
-          <button class="submit-btn" style="background:#27AE60; margin-top:0;" onclick="submitSP98Batch()">⚡ 一键批量入库</button>
-        </div>
-        <div id="parsedPreview" class="parsed-preview"></div>
-      </div>
-
-      <!-- Tab 3: Add Student -->
-      <div id="studentForm" style="display:none;">
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-          <div class="form-group">
-            <label class="form-label">中文姓名</label>
-            <input type="text" id="stuCnName" class="form-input" placeholder="如: 张小明">
-          </div>
-          <div class="form-group">
-            <label class="form-label">英文姓名</label>
-            <input type="text" id="stuEnName" class="form-input" placeholder="如: Chong Xiao Ming">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">所在学校 (School)</label>
-          <input type="text" id="stuSchool" class="form-input" placeholder="如: SJK(C) Triang (1)">
-        </div>
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-          <div class="form-group">
-            <label class="form-label">性别</label>
-            <select id="stuGender" class="form-select">
-              <option value="男">男</option>
-              <option value="女">女</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">班级级别</label>
-            <select id="stuLevel" class="form-select">
-              <option value="Lv 1 启蒙班">Lv 1 启蒙班</option>
-              <option value="Lv 2 进阶班">Lv 2 进阶班</option>
-              <option value="Lv 3 精英班">Lv 3 精英班</option>
-            </select>
-          </div>
-        </div>
-
-        <button class="submit-btn" onclick="submitNewStudent()">➕ 确认登记新学员</button>
-      </div>
-
-      <div class="sheet-link-hint">
-        💡 亦可在 Google 表格中直接管理：<br>
-        <a href="https://docs.google.com/spreadsheets/d/1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y" target="_blank">👉 点击进入 Google 云端表格后台</a>
-      </div>
-
+  <!-- PODIUM -->
+  <div class="podium-section">
+    <div id="podiumArea" class="podium">
+      <div class="pod pod-2 skeleton skel-pod"></div>
+      <div class="pod pod-1 skeleton skel-pod"></div>
+      <div class="pod pod-3 skeleton skel-pod"></div>
     </div>
   </div>
 
-  <script>
-    const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
-    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('天梯积分排位榜')}`;
-    let globalPlayers = [];
-    let parsedMatches = [];
+  <!-- MATCH TICKER -->
+  <div class="ticker-section">
+    <div class="section-head">
+      <div class="section-title">⚡ 最近对局</div>
+    </div>
+    <div class="ticker-wrap">
+      <div id="tickerTrack" class="ticker-track">
+        <div class="ticker-item" style="color:var(--text2)">加载中...</div>
+      </div>
+    </div>
+  </div>
 
-    document.getElementById('matchDate').valueAsDate = new Date();
+  <!-- RANK LIST -->
+  <div class="section-head">
+    <div class="section-title">📋 现役学员总榜</div>
+    <div class="live-badge" onclick="loadAll()">
+      <span class="dot"></span> 刷新数据
+    </div>
+  </div>
+  <div id="rankList" class="rank-list">
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+  </div>
 
-    function parseCSV(text) {
-      const rows = [];
-      let row = [];
-      let inQuotes = false;
-      let cur = '';
-      for (let i = 0; i < text.length; i++) {
-        const c = text[i];
-        const next = text[i+1];
-        if (c === '"') {
-          if (inQuotes && next === '"') { cur += '"'; i++; }
-          else { inQuotes = !inQuotes; }
-        } else if (c === ',' && !inQuotes) {
-          row.push(cur);
-          cur = '';
-        } else if ((c === '\r' || c === '\n') && !inQuotes) {
-          if (c === '\r' && next === '\n') { i++; }
-          row.push(cur);
-          if (row.some(x => x.trim())) rows.push(row);
-          row = [];
-          cur = '';
-        } else {
-          cur += c;
-        }
-      }
-      if (cur || row.length) {
-        row.push(cur);
-        if (row.some(x => x.trim())) rows.push(row);
-      }
-      return rows;
-    }
+  <!-- MATCH HISTORY & RECORD PAPERS -->
+  <div class="section-head" style="margin-top:28px;">
+    <div class="section-title">📜 实战对局记录与对局纸</div>
+    <span style="font-size:11px;color:var(--text2);">点击查看详情/放大记谱纸</span>
+  </div>
+  <div id="matchLogList" class="rank-list">
+    <div class="skeleton skel-card"></div>
+  </div>
 
-    async function loadSheetData() {
-      try {
-        const res = await fetch(CSV_URL);
-        const csvText = await res.text();
-        const rows = parseCSV(csvText);
+  <!-- TIER LEGEND -->
+  <div class="tier-legend">
+    <h4>♟️ CXB ELO 天梯段位体系</h4>
+    <div class="tier-grid">
+      <div class="tier-item"><span class="tier-icon">🥉</span><div><div class="tier-label">五级棋手</div><div class="tier-range">200 – 399 分</div></div></div>
+      <div class="tier-item"><span class="tier-icon">🥈</span><div><div class="tier-label">四级棋手</div><div class="tier-range">400 – 699 分</div></div></div>
+      <div class="tier-item"><span class="tier-icon">🥇</span><div><div class="tier-label">三级棋手</div><div class="tier-range">700 – 999 分</div></div></div>
+      <div class="tier-item"><span class="tier-icon">💎</span><div><div class="tier-label">二级棋手</div><div class="tier-range">1000 – 1299 分</div></div></div>
+      <div class="tier-item"><span class="tier-icon">👑</span><div><div class="tier-label">一级棋手</div><div class="tier-range">1300+ 分</div></div></div>
+    </div>
+    <div class="tier-rule">
+      胜局 +20 分 · 和局 +5 分 · 负局 -10 分 · 月赛第一荣膺「👑 月度擂主」称号
+    </div>
+  </div>
 
-        const players = [];
-        for (let i = 1; i < rows.length; i++) {
-          const r = rows[i];
-          const name = r[2] ? r[2].trim() : '';
-          if (!name) continue;
+  <footer>
+    <p>© 2026 Club XiangQi Bera (百乐象棋俱乐部) · Persatuan Catur Cina Daerah Bera</p>
+    <p style="margin-top:6px;"><a href="admin.html">🔐 教练管理入口</a></p>
+  </footer>
 
-          const id = r[1] ? r[1].trim() : '';
-          const school = r[3] ? r[3].trim() : '';
-          const tier = r[4] ? r[4].trim() : '五级棋手';
-          const w = parseInt(r[5]) || 0;
-          const d = parseInt(r[6]) || 0;
-          const l = parseInt(r[7]) || 0;
-          const total = parseInt(r[8]) || (w + d + l);
-          const elo = parseInt(r[9]) || 200;
+</div>
 
-          players.push({ rank: players.length + 1, id, name, school, tier, w, d, l, total, elo });
-        }
+<script>
+const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
+const LADDER_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('天梯积分排位榜')}`;
+const MATCH_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('实战对局记录表')}`;
 
-        globalPlayers = players;
-        renderApp(players);
-        populatePlayerDropdowns(players);
-      } catch (err) {
-        console.error('Failed to load Google Sheet data:', err);
-        const demo = [
-          { rank: 1, name: '林家豪', school: 'SMJK Triang', tier: '🥉 五级棋手', w: 2, d: 0, l: 0, total: 2, elo: 240 },
-          { rank: 2, name: '陈美仪', school: 'SJK(C) Mengkarak', tier: '🥉 五级棋手', w: 0, d: 1, l: 0, total: 1, elo: 205 },
-          { rank: 3, name: '苏进康', school: 'SJK(C) Triang (1)', tier: '🥉 五级棋手', w: 0, d: 1, l: 2, total: 3, elo: 200 }
-        ];
-        globalPlayers = demo;
-        renderApp(demo);
-        populatePlayerDropdowns(demo);
-      }
-    }
+function parseCSV(text) {
+  const rows = []; let row = [], inQ = false, cur = '';
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], n = text[i+1];
+    if (c === '"') { if (inQ && n === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { row.push(cur); cur = ''; }
+    else if ((c === '\r' || c === '\n') && !inQ) {
+      if (c === '\r' && n === '\n') i++;
+      row.push(cur); if (row.some(x => x.trim())) rows.push(row); row = []; cur = '';
+    } else cur += c;
+  }
+  if (cur || row.length) { row.push(cur); if (row.some(x => x.trim())) rows.push(row); }
+  return rows;
+}
 
-    function renderApp(players) {
-      const podium = document.getElementById('podiumArea');
-      const list = document.getElementById('rankListArea');
+function getTierClass(elo) {
+  if (elo >= 1300) return 'tier-1';
+  if (elo >= 1000) return 'tier-2';
+  if (elo >= 700) return 'tier-3';
+  if (elo >= 400) return 'tier-4';
+  return 'tier-5';
+}
 
-      const p1 = players[0];
-      const p2 = players[1];
-      const p3 = players[2];
+function getTierName(elo) {
+  if (elo >= 1300) return '👑 一级棋手';
+  if (elo >= 1000) return '💎 二级棋手';
+  if (elo >= 700) return '🥇 三级棋手';
+  if (elo >= 400) return '🥈 四级棋手';
+  return '🥉 五级棋手';
+}
 
-      let podiumHTML = '';
-      if (p2) {
-        podiumHTML += `
-          <div class="podium-card podium-2">
-            <div class="podium-avatar">🥈</div>
-            <div class="podium-name">${p2.name}</div>
-            <div class="podium-school">${p2.school}</div>
-            <div class="podium-tier tier-badge">${p2.tier}</div>
-            <div class="podium-elo">${p2.elo}</div>
-            <div class="podium-stat">${p2.w}胜 ${p2.d}和 ${p2.l}负</div>
-          </div>
-        `;
-      }
-      if (p1) {
-        podiumHTML += `
-          <div class="podium-card podium-1">
-            <div class="crown-tag">👑 月度擂主</div>
-            <div class="podium-avatar">🥇</div>
-            <div class="podium-name">${p1.name}</div>
-            <div class="podium-school">${p1.school}</div>
-            <div class="podium-tier tier-badge" style="background:#FEF9E7; color:#B7950B;">${p1.tier}</div>
-            <div class="podium-elo">${p1.elo}</div>
-            <div class="podium-stat">${p1.w}胜 ${p1.d}和 ${p1.l}负</div>
-          </div>
-        `;
-      }
-      if (p3) {
-        podiumHTML += `
-          <div class="podium-card podium-3">
-            <div class="podium-avatar">🥉</div>
-            <div class="podium-name">${p3.name}</div>
-            <div class="podium-school">${p3.school}</div>
-            <div class="podium-tier tier-badge" style="background:#FBEEE6; color:#B9770E;">${p3.tier}</div>
-            <div class="podium-elo">${p3.elo}</div>
-            <div class="podium-stat">${p3.w}胜 ${p3.d}和 ${p3.l}负</div>
-          </div>
-        `;
-      }
-      podium.innerHTML = podiumHTML;
+function getNextTierElo(elo) {
+  if (elo >= 1300) return 1600;
+  if (elo >= 1000) return 1300;
+  if (elo >= 700) return 1000;
+  if (elo >= 400) return 700;
+  return 400;
+}
 
-      list.innerHTML = players.map(p => {
-        const winRate = p.total > 0 ? ((p.w / p.total) * 100).toFixed(1) : 0;
-        return `
-          <div class="rank-card">
-            <div class="rank-left">
-              <div class="rank-num">${p.rank}</div>
-              <div class="player-details">
-                <h3>${p.name} <span class="tier-badge">${p.tier}</span></h3>
-                <div class="player-school">${p.school} ｜ ${p.total} 场实战 (${p.w}胜 ${p.d}和 ${p.l}负)</div>
-              </div>
-            </div>
-            <div class="rank-right">
-              <div class="rank-elo">${p.elo}</div>
-              <div class="rank-stat">胜率 ${winRate}%</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
+function getCurrentTierBase(elo) {
+  if (elo >= 1300) return 1300;
+  if (elo >= 1000) return 1000;
+  if (elo >= 700) return 700;
+  if (elo >= 400) return 400;
+  return 200;
+}
 
-    function populatePlayerDropdowns(players) {
-      const redSelect = document.getElementById('redPlayer');
-      const blackSelect = document.getElementById('blackPlayer');
-      const optionsHTML = '<option value="">-- 请选择学员 --</option>' + players.map(p => `<option value="${p.name}">${p.name} (${p.school})</option>`).join('');
-      redSelect.innerHTML = optionsHTML;
-      blackSelect.innerHTML = optionsHTML;
-    }
+function renderPodium(players) {
+  const area = document.getElementById('podiumArea');
+  if (players.length < 1) { area.innerHTML = '<p style="text-align:center;color:var(--text2);grid-column:1/-1;">暂无数据</p>'; return; }
 
-    function openCoachModal() {
-      const pin = prompt('🔒 请输入教练管理密码 (Enter Coach PIN):');
-      if (pin === null) return;
-      if (pin.trim() === '8888') {
-        document.getElementById('coachModal').style.display = 'flex';
-      } else {
-        alert('❌ 密码错误！此控制台仅供俱乐部教练与管理层使用。');
-      }
-    }
+  const medals = ['🥇','🥈','🥉'];
+  let html = '';
 
-    function closeCoachModal() {
-      document.getElementById('coachModal').style.display = 'none';
-    }
+  [1, 0, 2].forEach((idx, order) => {
+    const p = players[idx];
+    if (!p) return;
+    const cls = idx === 0 ? 'pod-1' : idx === 1 ? 'pod-2' : 'pod-3';
+    const crown = idx === 0 ? '<div class="crown">👑 月度擂主</div>' : '';
+    const tc = getTierClass(p.elo);
+    html += `
+      <div class="pod ${cls}" style="animation-delay:${order*0.1}s">
+        ${crown}
+        <div class="pod-medal">${medals[idx]}</div>
+        <div class="pod-name">${p.name}</div>
+        <div class="pod-school">${p.school}</div>
+        <div class="tier-chip ${tc}">${getTierName(p.elo)}</div>
+        <div class="pod-elo">${p.elo}</div>
+        <div class="pod-stats">${p.w}胜 ${p.d}和 ${p.l}负</div>
+      </div>`;
+  });
+  area.innerHTML = html;
+}
 
-    function switchTab(tab) {
-      ['match', 'batch', 'student'].forEach(t => {
-        const btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
-        const form = document.getElementById(t + 'Form');
-        if (t === tab) {
-          btn.classList.add('active');
-          form.style.display = 'block';
-        } else {
-          btn.classList.remove('active');
-          form.style.display = 'none';
-        }
+function renderRankList(players) {
+  const list = document.getElementById('rankList');
+  list.innerHTML = players.map((p, i) => {
+    const wr = p.total > 0 ? ((p.w / p.total) * 100).toFixed(0) : 0;
+    const tc = getTierClass(p.elo);
+    const base = getCurrentTierBase(p.elo);
+    const next = getNextTierElo(p.elo);
+    const pct = Math.min(100, ((p.elo - base) / (next - base)) * 100);
+    return `
+      <div class="rank-card" style="animation-delay:${i*0.05}s">
+        <div class="rank-num">${i + 1}</div>
+        <div class="rank-info">
+          <div class="rank-name">${p.name} <span class="tier-chip ${tc}" style="font-size:9px;">${getTierName(p.elo)}</span></div>
+          <div class="rank-school">${p.school} · ${p.total}场 (${p.w}胜${p.d}和${p.l}负)</div>
+          <div class="elo-bar-wrap"><div class="elo-bar" style="width:${pct}%"></div></div>
+        </div>
+        <div class="rank-right">
+          <div class="rank-elo">${p.elo}</div>
+          <div class="rank-wr">胜率 ${wr}%</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderTicker(matches) {
+  const track = document.getElementById('tickerTrack');
+  if (!matches.length) { track.innerHTML = '<div class="ticker-item">暂无对局记录</div>'; return; }
+
+  const recent = matches.slice(-8).reverse();
+  const items = recent.map(m => {
+    let resCls = 'res-draw', resSymbol = '🤝';
+    if (m.result.includes('红胜')) { resCls = 'res-win'; resSymbol = '🔴 1-0'; }
+    else if (m.result.includes('黑胜')) { resCls = 'res-win'; resSymbol = '0-1 ⚫'; }
+    else { resSymbol = '½-½'; }
+    return `<div class="ticker-item">${m.red} <span class="${resCls}">${resSymbol}</span> ${m.black} <span class="ticker-date">${m.date}</span></div>`;
+  });
+  // Duplicate for seamless loop
+  track.innerHTML = items.join('') + items.join('');
+}
+
+async function loadLadder() {
+  try {
+    const res = await fetch(LADDER_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const players = [];
+    for (let i = 3; i < rows.length; i++) {
+      const r = rows[i];
+      const name = r[2] ? r[2].trim() : '';
+      if (!name) continue;
+      players.push({
+        id: (r[1]||'').trim(), name, school: (r[3]||'').trim(),
+        tier: (r[4]||'').trim(),
+        w: parseInt(r[5])||0, d: parseInt(r[6])||0, l: parseInt(r[7])||0,
+        total: parseInt(r[8])||0, elo: parseInt(r[9])||200
       });
     }
+    renderPodium(players);
+    renderRankList(players);
+  } catch(e) {
+    console.error('Failed to load ladder:', e);
+    document.getElementById('rankList').innerHTML = '<p style="text-align:center;color:var(--text2);padding:20px;">数据加载失败，请刷新重试</p>';
+  }
+}
 
-    function selectResult(res) {
-      document.getElementById('matchResult').value = res;
-      document.getElementById('btnRedWin').className = 'res-btn' + (res.includes('红胜') ? ' selected-red' : '');
-      document.getElementById('btnDraw').className = 'res-btn' + (res.includes('和棋') ? ' selected-draw' : '');
-      document.getElementById('btnBlackWin').className = 'res-btn' + (res.includes('黑胜') ? ' selected-black' : '');
-    }
-
-    function submitMatch() {
-      const red = document.getElementById('redPlayer').value;
-      const black = document.getElementById('blackPlayer').value;
-      const res = document.getElementById('matchResult').value;
-      const date = document.getElementById('matchDate').value;
-      const round = document.getElementById('matchType').value;
-
-      if (!red || !black) {
-        alert('请先选择红方和黑方学员！');
-        return;
-      }
-      if (red === black) {
-        alert('红方和黑方不能是同一位学员！');
-        return;
-      }
-
-      alert(`✅ SP98实战对局已登记！\n\n日期: ${date}\n轮次: ${round}\n🔴 红方: ${red}\n⚖️ 赛果: ${res}\n⚫ 黑方: ${black}\n\n对局已录入，天梯榜已刷新！`);
-      closeCoachModal();
-      loadSheetData();
-    }
-
-    // SP98 Batch Parser
-    function parseSP98Batch() {
-      const text = document.getElementById('sp98Text').value.trim();
-      const preview = document.getElementById('parsedPreview');
-      if (!text) {
-        alert('请先粘贴 SP98 战报文本！');
-        return;
-      }
-
-      const lines = text.split('\n');
-      parsedMatches = [];
-
-      lines.forEach(line => {
-        line = line.trim();
-        if (!line) return;
-
-        // Match patterns like "1  Lim [1] 1 - 0 Tan [2]" or "林家豪 1 - 0 陈美仪" or "1-0" / "0.5-0.5" / "0-1"
-        const resultMatch = line.match(/(1\s*[-:]\s*0|0\s*[-:]\s*1|0\.5\s*[-:]\s*0\.5|1\/2\s*[-:]\s*1\/2|和)/i);
-        if (resultMatch) {
-          const parts = line.split(resultMatch[0]);
-          let red = parts[0].replace(/^[0-9\.\s]+/, '').replace(/\[.*?\]|\(.*?\)/g, '').trim();
-          let black = parts[1].replace(/\[.*?\]|\(.*?\)/g, '').trim();
-          let resText = '🔴 红胜';
-          if (resultMatch[0].includes('0.5') || resultMatch[0].includes('1/2') || resultMatch[0].includes('和')) {
-            resText = '🤝 和棋';
-          } else if (resultMatch[0].replace(/\s+/g, '') === '0-1') {
-            resText = '⚫ 黑胜';
-          }
-
-          if (red && black) {
-            parsedMatches.push({ red, black, res: resText, raw: line });
-          }
-        }
+async function loadMatches() {
+  try {
+    const res = await fetch(MATCH_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const matches = [];
+    for (let i = 3; i < rows.length; i++) {
+      const r = rows[i];
+      const date = (r[0]||'').trim();
+      if (!date) continue;
+      matches.push({
+        date, round: (r[1]||'').trim(),
+        redId: (r[2]||'').trim(), red: (r[3]||'').trim(),
+        result: (r[4]||'').trim(),
+        blackId: (r[5]||'').trim(), black: (r[6]||'').trim(),
+        verdict: (r[7]||'').trim(),
+        recordImg: (r[8]||'').trim()
       });
-
-      if (parsedMatches.length === 0) {
-        preview.style.display = 'block';
-        preview.innerHTML = '<span style="color:#C0392B;">⚠️ 未能自动识别，请确保每行包含红方、赛果(如 1-0 或 0.5-0.5)和黑方。</span>';
-      } else {
-        preview.style.display = 'block';
-        preview.innerHTML = `<strong>✅ 成功识别 ${parsedMatches.length} 盘对局：</strong><br>` +
-          parsedMatches.map((m, idx) => `<div class="parsed-item"><span>#${idx+1} ${m.red} vs ${m.black}</span><span style="font-weight:700;">${m.res}</span></div>`).join('');
-      }
     }
+    renderTicker(matches);
+    renderMatchLogList(matches);
+  } catch(e) {
+    console.error('Failed to load matches:', e);
+  }
+}
 
-    function submitSP98Batch() {
-      if (parsedMatches.length === 0) {
-        parseSP98Batch();
-      }
-      if (parsedMatches.length === 0) return;
+function renderMatchLogList(matches) {
+  const container = document.getElementById('matchLogList');
+  if (!matches.length) {
+    container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:14px;">暂无实战对局记录</p>';
+    return;
+  }
+  container.innerHTML = matches.slice().reverse().map((m, idx) => {
+    const isRed = m.result.includes('红胜');
+    const isBlack = m.result.includes('黑胜');
+    const resBadge = isRed 
+      ? '<span class="tier-chip tier-2">🔴 红胜</span>' 
+      : (isBlack ? '<span class="tier-chip tier-5">⚫ 黑胜</span>' : '<span class="tier-chip tier-3">🤝 和棋</span>');
+    const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
+    const imgBtn = hasImg 
+      ? `<button class="live-badge" style="padding:4px 10px;font-size:11px;background:#FEF9E7;color:#B7950B;" onclick="openLightbox('${m.recordImg}')">📷 查看记谱纸</button>` 
+      : '';
+    return `
+      <div class="rank-card" style="animation-delay:${idx*0.04}s">
+        <div class="rank-info">
+          <div class="rank-name" style="font-size:13px;">
+            <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:11px;">vs</span> <span>⚫ ${m.black}</span>
+            ${resBadge}
+          </div>
+          <div class="rank-school">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
+        </div>
+        <div class="rank-right">
+          ${imgBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
 
-      alert(`⚡ 成功批量录入 ${parsedMatches.length} 盘 SP98 瑞士制对局！\n\n系统已全自动计算每位学员的积分累加并刷新天梯榜！`);
-      document.getElementById('sp98Text').value = '';
-      document.getElementById('parsedPreview').style.display = 'none';
-      parsedMatches = [];
-      closeCoachModal();
-      loadSheetData();
-    }
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').style.display = 'flex';
+}
 
-    function submitNewStudent() {
-      const cn = document.getElementById('stuCnName').value;
-      const school = document.getElementById('stuSchool').value;
-      if (!cn || !school) {
-        alert('请至少填写学员中文姓名与所在学校！');
-        return;
-      }
-      alert(`🎉 新学员已登记成功！\n\n姓名: ${cn}\n学校: ${school}\n初始段位: 五级棋手 (200分)\n学号自动顺延分配成功！`);
-      closeCoachModal();
-    }
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
 
-    loadSheetData();
-  </script>
+function loadAll() {
+  loadLadder();
+  loadMatches();
+}
+
+loadAll();
+// Auto-refresh every 60 seconds
+setInterval(loadAll, 60000);
+</script>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;justify-content:center;align-items:center;padding:16px;cursor:pointer;">
+  <div style="position:relative;max-width:90%;max-height:90%;">
+    <img id="lightboxImg" src="" style="max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+    <div style="color:#FFF;text-align:center;font-size:12px;margin-top:8px;">点击任意空白处关闭</div>
+  </div>
+</div>
+
 </body>
 </html>
