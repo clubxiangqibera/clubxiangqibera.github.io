@@ -362,14 +362,36 @@ let uploadBase64 = null;
 
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
 
-function checkAuth(){const s=localStorage.getItem('cxb_auth');if(s){const d=JSON.parse(s);if(d.pin===PIN&&Date.now()-d.ts<86400000)return!0}return!1;}
+function checkAuth(){
+  const s = localStorage.getItem('cxb_auth');
+  if (s) {
+    const d = JSON.parse(s);
+    if (d.pin === PIN && Date.now() - d.ts < 86400000) return true;
+  }
+  const u = localStorage.getItem('cxb_auth_user');
+  if (u) {
+    try {
+      const du = JSON.parse(u);
+      if (du.role === 'admin') return true;
+    } catch(e) {}
+  }
+  return false;
+}
 function tryLogin(){
   const boxes=document.querySelectorAll('.pin-box');
   const p=Array.from(boxes).map(b=>b.value).join('');
-  if(p===PIN){localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));showApp();}
+  if(p===PIN){
+    localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
+    localStorage.setItem('cxb_auth_user',JSON.stringify({role:'admin',name:'教练管理员'}));
+    showApp();
+  }
   else{boxes.forEach(b=>{b.classList.add('error');b.value='';});document.getElementById('loginError').style.display='block';boxes[0].focus();setTimeout(()=>boxes.forEach(b=>b.classList.remove('error')),500);}
 }
-function logout(){localStorage.removeItem('cxb_auth');location.reload();}
+function logout(){
+  localStorage.removeItem('cxb_auth');
+  localStorage.removeItem('cxb_auth_user');
+  window.location.href = 'index.html';
+}
 function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('mainApp').style.display='block';loadAllData();}
 
 document.querySelectorAll('.pin-box').forEach((box,i,boxes)=>{

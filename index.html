@@ -481,8 +481,11 @@ async function handleLogin() {
 
   // 1. ADMIN CHECK
   if ((acc.toLowerCase() === 'admin' || acc.toLowerCase() === 'yh' || acc.toLowerCase() === 'nicholas') && pwd === '8888') {
-    localStorage.setItem('cxb_auth_user', JSON.stringify({ role: 'admin', name: '教练管理员 (yh / Nicholas)' }));
-    window.location.href = 'admin.html';
+    const adminUser = { role: 'admin', name: '教练管理员 (yh / Nicholas)' };
+    localStorage.setItem('cxb_auth_user', JSON.stringify(adminUser));
+    localStorage.setItem('cxb_auth', JSON.stringify({ pin: '8888', ts: Date.now() }));
+    currentUser = adminUser;
+    showAuthenticatedApp();
     return;
   }
 
@@ -514,6 +517,7 @@ async function handleLogin() {
 
 function logout() {
   localStorage.removeItem('cxb_auth_user');
+  localStorage.removeItem('cxb_auth');
   window.location.reload();
 }
 
@@ -522,10 +526,7 @@ function checkStoredSession() {
   if (saved) {
     try {
       const u = JSON.parse(saved);
-      if (u.role === 'admin') {
-        window.location.href = 'admin.html';
-        return;
-      } else if (u.role === 'student' && u.data) {
+      if (u.role === 'admin' || (u.role === 'student' && u.data)) {
         currentUser = u;
         showAuthenticatedApp();
       }
@@ -546,11 +547,19 @@ async function showAuthenticatedApp() {
 
   if (currentUser && currentUser.role === 'student') {
     renderStudentExclusiveView(currentUser.data);
+  } else if (currentUser && currentUser.role === 'admin') {
+    renderAdminTopBar();
   }
   renderPodium(globalPlayers);
   renderRankList(globalPlayers);
   renderTicker(globalMatches);
   renderMatchLogList(globalMatches);
+}
+
+function renderAdminTopBar() {
+  document.getElementById('topbarRole').innerHTML = `👑 教练管理层 <a href="admin.html" style="margin-left:10px;background:#F1C40F;color:#7D6608;padding:4px 12px;border-radius:10px;text-decoration:none;font-weight:900;font-size:12px;box-shadow:0 3px 10px rgba(241,196,15,0.4);">⚡ 进入教练后台</a>`;
+  document.getElementById('studentHeroSection').style.display = 'none';
+  document.getElementById('studentQuickGrid').style.display = 'none';
 }
 
 function renderStudentExclusiveView(stu) {
