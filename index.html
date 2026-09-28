@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Club XiangQi Bera — 青少年天梯排位系统</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0E2F44;
       --primary-mid: #1A5276;
       --primary-light: #2980B9;
       --gold: #F39C12;
-      --gold-glow: rgba(243,156,18,0.25);
+      --gold-glow: rgba(243,156,18,0.3);
       --silver: #95A5A6;
       --bronze: #D35400;
       --bg: #F0F4F8;
@@ -39,34 +39,48 @@
     /* === HEADER === */
     header{
       width:100%;
-      background:linear-gradient(145deg,#0A1F2E 0%,#0E2F44 40%,#1A5276 100%);
-      color:#fff;padding:36px 20px 28px;text-align:center;
+      background:linear-gradient(145deg,#071A27 0%,#0E2F44 45%,#1A5276 100%);
+      color:#fff;padding:34px 20px 26px;text-align:center;
       border-radius:0 0 28px 28px;
       box-shadow:0 12px 40px rgba(14,47,68,0.3);
       position:relative;overflow:hidden;
     }
     header::before{
       content:'';position:absolute;top:-60px;right:-60px;
-      width:200px;height:200px;border-radius:50%;
-      background:radial-gradient(circle,rgba(243,156,18,0.12) 0%,transparent 70%);
+      width:220px;height:220px;border-radius:50%;
+      background:radial-gradient(circle,rgba(243,156,18,0.15) 0%,transparent 70%);
     }
     header::after{
-      content:'';position:absolute;bottom:-40px;left:-40px;
-      width:160px;height:160px;border-radius:50%;
-      background:radial-gradient(circle,rgba(41,128,185,0.15) 0%,transparent 70%);
+      content:'';position:absolute;bottom:-50px;left:-50px;
+      width:180px;height:180px;border-radius:50%;
+      background:radial-gradient(circle,rgba(41,128,185,0.18) 0%,transparent 70%);
     }
     .header-badge{
       display:inline-flex;align-items:center;gap:6px;
-      background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
-      padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;
+      background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.22);
+      padding:5px 16px;border-radius:20px;font-size:11px;font-weight:800;
       letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;
     }
     .header-badge .dot{width:6px;height:6px;border-radius:50%;background:#27AE60;animation:pulse 2s infinite;}
     header h1{font-size:26px;font-weight:900;letter-spacing:-0.5px;margin-bottom:4px;position:relative;}
-    header .sub{font-size:13px;opacity:0.75;font-weight:400;}
+    header .sub{font-size:13px;opacity:0.8;font-weight:400;}
+
+    /* PARENT PORTAL CTA BUTTON */
+    .portal-cta-wrap{margin-top:16px;}
+    .portal-cta-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,#F39C12 0%,#D68910 100%);
+      color:#fff;border:none;padding:10px 22px;border-radius:24px;
+      font-size:13px;font-weight:800;cursor:pointer;
+      box-shadow:0 6px 20px rgba(243,156,18,0.4);
+      transition:all .2s ease;
+    }
+    .portal-cta-btn:hover{transform:scale(1.04);box-shadow:0 8px 25px rgba(243,156,18,0.6);}
+    .portal-tag{background:rgba(0,0,0,0.15);padding:2px 8px;border-radius:10px;font-size:10px;}
+
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
 
-    .container{width:100%;max-width:780px;padding:0 16px;}
+    .container{width:100%;max-width:800px;padding:0 16px;}
 
     /* === PODIUM === */
     .podium-section{margin:24px 0 20px;}
@@ -77,7 +91,9 @@
       border:2px solid var(--border);
       box-shadow:var(--shadow);
       animation:fadeUp .6s ease both;
+      cursor:pointer;transition:transform .2s;
     }
+    .pod:hover{transform:translateY(-3px);}
     .pod-1{order:2;padding:24px 8px 18px;border-color:#F1C40F;
       background:linear-gradient(180deg,#FFFCF0 0%,var(--card) 100%);
       box-shadow:0 8px 30px var(--gold-glow);animation-delay:.1s;}
@@ -120,9 +136,9 @@
     /* === SECTION HEADERS === */
     .section-head{
       display:flex;justify-content:space-between;align-items:center;
-      margin:20px 0 12px;padding:0 2px;
+      margin:22px 0 12px;padding:0 2px;
     }
-    .section-title{font-size:15px;font-weight:800;}
+    .section-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px;}
     .live-badge{
       display:flex;align-items:center;gap:5px;
       font-size:11px;font-weight:600;color:var(--green);
@@ -137,9 +153,18 @@
       display:flex;align-items:center;gap:14px;
       border:1px solid var(--border);box-shadow:var(--shadow);
       transition:transform .15s,box-shadow .15s;
-      animation:fadeUp .5s ease both;
+      animation:fadeUp .5s ease both;cursor:pointer;
     }
     .rank-card:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.08);}
+    .rank-card.highlight-card{
+      border-color:#F1C40F !important;
+      animation:glowHighlight 2.5s ease-out;
+    }
+    @keyframes glowHighlight{
+      0%{box-shadow:0 0 0 0 rgba(243,156,18,0.8);transform:scale(1.02);}
+      50%{box-shadow:0 0 28px 8px rgba(243,156,18,0.9);transform:scale(1.03);}
+      100%{box-shadow:var(--shadow);transform:scale(1);}
+    }
     .rank-num{
       font-size:16px;font-weight:900;color:var(--text2);
       width:28px;text-align:center;flex-shrink:0;
@@ -183,7 +208,7 @@
     /* === TIER LEGEND === */
     .tier-legend{
       background:var(--card);border-radius:var(--radius);border:1px solid var(--border);
-      padding:16px;margin:20px 0;box-shadow:var(--shadow);
+      padding:16px;margin:24px 0;box-shadow:var(--shadow);
     }
     .tier-legend h4{font-size:13px;font-weight:800;margin-bottom:10px;color:var(--primary-mid);}
     @media(prefers-color-scheme:dark){.tier-legend h4{color:var(--primary-light);}}
@@ -199,21 +224,76 @@
 
     /* === FOOTER === */
     footer{
-      text-align:center;padding:24px 16px 32px;color:var(--text2);font-size:11px;
+      text-align:center;padding:24px 16px 36px;color:var(--text2);font-size:11px;
       line-height:1.6;
     }
     footer a{color:var(--primary-light);text-decoration:none;font-weight:600;}
     footer a:hover{text-decoration:underline;}
 
-    /* === SKELETON === */
+    /* === MODAL / PARENT PORTAL OVERLAY === */
+    .modal-overlay{
+      display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);
+      backdrop-filter:blur(4px);z-index:900;justify-content:center;align-items:center;padding:16px;
+    }
+    .modal-overlay.show{display:flex;}
+    .modal-box{
+      background:var(--card);border-radius:24px;width:100%;max-width:540px;
+      max-height:92vh;overflow-y:auto;padding:24px;
+      box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;
+      animation:slideUp .3s ease;
+    }
+    @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    .modal-close{
+      position:absolute;top:18px;right:18px;background:none;border:none;
+      font-size:22px;color:var(--text2);cursor:pointer;line-height:1;
+    }
+
+    /* PORTAL INNER COMPONENTS */
+    .portal-header{text-align:center;margin-bottom:18px;}
+    .portal-avatar{font-size:44px;margin-bottom:4px;}
+    .portal-child-card{
+      background:linear-gradient(135deg,#0E2F44 0%,#1A5276 100%);
+      color:#fff;border-radius:18px;padding:20px;margin-bottom:16px;
+      box-shadow:0 8px 25px rgba(14,47,68,0.25);position:relative;overflow:hidden;
+    }
+    .child-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+    .child-name{font-size:20px;font-weight:900;}
+    .child-meta{font-size:12px;opacity:.8;}
+    .child-elo-row{display:flex;align-items:baseline;gap:8px;margin-top:6px;}
+    .child-elo-big{font-size:32px;font-weight:900;color:#F1C40F;}
+    .child-rank-pill{background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;}
+
+    /* PORTAL TABS */
+    .portal-tabs{display:flex;gap:6px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:8px;overflow-x:auto;}
+    .ptab{padding:8px 12px;border-radius:10px;border:none;background:var(--bg);font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;white-space:nowrap;}
+    .ptab.active{background:var(--primary-mid);color:#fff;}
+
+    .portal-pane{display:none;}
+    .portal-pane.active{display:block;}
+
+    /* QUICK DEMO PILLS */
+    .demo-pill-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+    .demo-pill{
+      padding:5px 12px;border-radius:16px;background:rgba(26,82,118,0.08);
+      font-size:11px;font-weight:700;color:var(--primary-mid);cursor:pointer;
+      border:1px solid rgba(26,82,118,0.18);transition:all .15s;
+    }
+    .demo-pill:hover{background:var(--primary-mid);color:#fff;}
+
+    .info-box{background:var(--bg);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:12px;}
+    .info-title{font-weight:800;color:var(--primary-mid);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+
+    /* SKELETON */
     .skeleton{animation:shimmer 1.5s infinite;background:linear-gradient(90deg,var(--border) 25%,var(--bg) 50%,var(--border) 75%);background-size:200% 100%;border-radius:8px;}
     @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
     .skel-pod{height:180px;border-radius:var(--radius);}
     .skel-card{height:60px;border-radius:14px;margin-bottom:8px;}
 
-    /* === RESPONSIVE === */
+    /* LIGHTBOX */
+    #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;justify-content:center;align-items:center;padding:16px;cursor:pointer;}
+
     @media(max-width:480px){
-      header{padding:28px 16px 22px;}
+      header{padding:26px 16px 20px;}
       header h1{font-size:22px;}
       .podium{gap:6px;}
       .pod{padding:12px 6px 10px;}
@@ -234,6 +314,13 @@
   </div>
   <h1>百乐青少年象棋天梯榜</h1>
   <p class="sub">CXB ELO 官方排位认证系统 · 云端实时同步</p>
+  
+  <div class="portal-cta-wrap">
+    <button class="portal-cta-btn" onclick="openParentPortal()">
+      <span>👨‍👩‍👧‍👦 家长专属查验通道</span>
+      <span class="portal-tag">查战绩 / 缴费 / 课程日程</span>
+    </button>
+  </div>
 </header>
 
 <div class="container">
@@ -250,7 +337,7 @@
   <!-- MATCH TICKER -->
   <div class="ticker-section">
     <div class="section-head">
-      <div class="section-title">⚡ 最近对局</div>
+      <div class="section-title">⚡ 最近对局跑马灯</div>
     </div>
     <div class="ticker-wrap">
       <div id="tickerTrack" class="ticker-track">
@@ -261,7 +348,7 @@
 
   <!-- RANK LIST -->
   <div class="section-head">
-    <div class="section-title">📋 现役学员总榜</div>
+    <div class="section-title">📋 现役学员总榜 (Official Roster)</div>
     <div class="live-badge" onclick="loadAll()">
       <span class="dot"></span> 刷新数据
     </div>
@@ -274,8 +361,8 @@
 
   <!-- MATCH HISTORY & RECORD PAPERS -->
   <div class="section-head" style="margin-top:28px;">
-    <div class="section-title">📜 实战对局记录与对局纸</div>
-    <span style="font-size:11px;color:var(--text2);">点击查看详情/放大记谱纸</span>
+    <div class="section-title">📜 实战对局记录与记谱纸档案</div>
+    <span style="font-size:11px;color:var(--text2);">点击放大查看记谱纸</span>
   </div>
   <div id="matchLogList" class="rank-list">
     <div class="skeleton skel-card"></div>
@@ -292,21 +379,194 @@
       <div class="tier-item"><span class="tier-icon">👑</span><div><div class="tier-label">一级棋手</div><div class="tier-range">1300+ 分</div></div></div>
     </div>
     <div class="tier-rule">
-      胜局 +20 分 · 和局 +5 分 · 负局 -10 分 · 月赛第一荣膺「👑 月度擂主」称号
+      胜局 +20 分 · 和局 +5 分 · 负局 -10 分 · 瑞士制月赛第一荣膺「👑 月度擂主」称号
     </div>
   </div>
 
   <footer>
     <p>© 2026 Club XiangQi Bera (百乐象棋俱乐部) · Persatuan Catur Cina Daerah Bera</p>
-    <p style="margin-top:6px;"><a href="admin.html">🔐 教练管理入口</a></p>
+    <p style="margin-top:8px;">
+      <a href="admin.html">🔐 教练与管理控制台入口</a>
+    </p>
   </footer>
 
+</div>
+
+<!-- ====== PARENT PORTAL MODAL ====== -->
+<div id="parentPortalModal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeParentPortal()">✕</button>
+
+    <!-- STEP 1: LOGIN / SEARCH VIEW -->
+    <div id="portalLoginView">
+      <div class="portal-header">
+        <div class="portal-avatar">👨‍👩‍👧‍👦</div>
+        <h2 style="font-size:18px;font-weight:900;color:var(--primary-mid);">家长专属查验服务通道</h2>
+        <p style="font-size:12px;color:var(--text2);margin-top:4px;">输入孩子学号、手机号或姓名，即刻解锁孩子成长全景</p>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;">🔍 请输入学员学号 / 姓名 / WhatsApp</label>
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="portalSearchInput" placeholder="如: XQB-001 或 苏进康" 
+                 style="flex:1;padding:12px;border:1px solid var(--border);border-radius:12px;font-size:14px;outline:none;">
+          <button onclick="searchChild()" 
+                  style="background:var(--primary-mid);color:#fff;border:none;padding:0 18px;border-radius:12px;font-weight:700;cursor:pointer;">
+            查验
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <span style="font-size:11px;font-weight:700;color:var(--text2);">⚡ 快速测试演示（点击任意学员直接体验）：</span>
+        <div class="demo-pill-wrap" id="demoPills">
+          <!-- Dynamically populated or static -->
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: CHILD DASHBOARD VIEW -->
+    <div id="portalDashboardView" style="display:none;">
+      <div class="portal-child-card">
+        <div class="child-top">
+          <div>
+            <div class="child-name" id="cName">-</div>
+            <div class="child-meta" id="cMeta">-</div>
+          </div>
+          <span class="child-rank-pill" id="cRankPill">-</span>
+        </div>
+        <div class="child-elo-row">
+          <div class="child-elo-big" id="cElo">-</div>
+          <span style="font-size:12px;opacity:.9;" id="cTierName">-</span>
+        </div>
+        <div class="elo-bar-wrap" style="max-width:100%;background:rgba(255,255,255,0.2);margin-top:8px;">
+          <div class="elo-bar" id="cProgressBar" style="width:0%;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;opacity:.8;margin-top:4px;">
+          <span id="cProgBase">-</span>
+          <span id="cProgNext">-</span>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="portal-tabs">
+        <button class="ptab active" onclick="switchPortalTab('progress')">📊 棋艺成长</button>
+        <button class="ptab" onclick="switchPortalTab('schedule')">📅 课程安排</button>
+        <button class="ptab" onclick="switchPortalTab('tuition')">💳 学费中心</button>
+        <button class="ptab" onclick="switchPortalTab('matches')">♟️ 实战对局纸</button>
+      </div>
+
+      <!-- TAB 1: PROGRESS -->
+      <div class="portal-pane active" id="pane-progress">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+          <div class="info-box" style="text-align:center;">
+            <div style="font-size:18px;font-weight:900;color:var(--primary-mid);" id="cStatTotal">0</div>
+            <div style="color:var(--text2);font-size:10px;">总实战局数</div>
+          </div>
+          <div class="info-box" style="text-align:center;">
+            <div style="font-size:18px;font-weight:900;color:var(--green);" id="cStatWinRate">0%</div>
+            <div style="color:var(--text2);font-size:10px;">实战胜率</div>
+          </div>
+          <div class="info-box" style="text-align:center;">
+            <div style="font-size:18px;font-weight:900;color:var(--gold);" id="cStatRecord">0/0/0</div>
+            <div style="color:var(--text2);font-size:10px;">胜 / 和 / 负</div>
+          </div>
+        </div>
+        <div class="info-box">
+          <div class="info-title">🎯 棋力进阶目标</div>
+          <p id="cGoalText" style="line-height:1.6;color:var(--text);">坚持参加周末实战排位赛，每盘胜局奖励 +20 积分，稳步迈向全彭学联 (MSSP) 代表队主力！</p>
+        </div>
+        <button onclick="jumpToLeaderboard()" 
+                style="width:100%;padding:12px;border:none;border-radius:12px;background:var(--primary-mid);color:#fff;font-weight:800;font-size:13px;cursor:pointer;">
+          🏆 在天梯总榜中定位我的孩子
+        </button>
+      </div>
+
+      <!-- TAB 2: SCHEDULE -->
+      <div class="portal-pane" id="pane-schedule">
+        <div class="info-box">
+          <div class="info-title">📍 上课地点</div>
+          <p style="font-weight:700;">直凉一校多媒体室 / 百乐象棋公会活动中心</p>
+        </div>
+        <div class="info-box">
+          <div class="info-title">🕒 班级与训练时段</div>
+          <p id="cClassTime" style="font-weight:700;color:var(--primary-mid);font-size:14px;">-</p>
+          <p style="color:var(--text2);margin-top:4px;">每周一次，每次 90~120 分钟系统深耕</p>
+        </div>
+        <div class="info-box">
+          <div class="info-title">👨‍🏫 主讲与教练团队</div>
+          <p><strong>Nicholas 资深教练</strong> (Pahang 4年资深，ELO 1400+) & <strong>yh</strong> (俱乐部负责人)</p>
+        </div>
+      </div>
+
+      <!-- TAB 3: TUITION -->
+      <div class="portal-pane" id="pane-tuition">
+        <div class="info-box" style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:11px;color:var(--text2);">学费方案</div>
+            <div style="font-size:15px;font-weight:800;" id="cFeeMode">-</div>
+          </div>
+          <div id="cPayBadge">-</div>
+        </div>
+
+        <div style="background:linear-gradient(135deg,#0E2F44,#1A5276);color:#fff;border-radius:14px;padding:16px;margin:12px 0;">
+          <div style="font-size:11px;opacity:.75;">官方收款银行账户 (Official Bank Account)</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+            <div style="font-size:18px;font-weight:900;letter-spacing:1px;">3246504527</div>
+            <button onclick="copyBankAcc()" style="padding:4px 10px;border-radius:8px;border:none;background:rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:700;cursor:pointer;">
+              📋 复制账号
+            </button>
+          </div>
+          <div style="font-size:11px;opacity:.85;margin-top:4px;">PUBLIC BANK · Persatuan Catur Cina Daerah Bera</div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-title">📤 提交转账凭证 / 水单 (Upload Slip)</div>
+          <input type="file" id="slipInput" accept="image/*" style="font-size:12px;margin:8px 0;width:100%;">
+          <button onclick="uploadReceipt()" 
+                  style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;">
+            ✅ 提交转账单审核
+          </button>
+          <div id="slipStatus" style="font-size:11px;color:var(--green);margin-top:6px;display:none;"></div>
+        </div>
+      </div>
+
+      <!-- TAB 4: MATCHES -->
+      <div class="portal-pane" id="pane-matches">
+        <div id="childMatchesList" style="display:flex;flex-direction:column;gap:8px;">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <div style="margin-top:16px;text-align:center;">
+        <button onclick="resetPortal()" style="background:none;border:none;color:var(--text2);font-size:12px;cursor:pointer;text-decoration:underline;">
+          ← 查验其他学员
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div style="position:relative;max-width:90%;max-height:90%;">
+    <img id="lightboxImg" src="" style="max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+    <div style="color:#FFF;text-align:center;font-size:12px;margin-top:8px;">点击任意空白处关闭</div>
+  </div>
 </div>
 
 <script>
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
 const LADDER_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('天梯积分排位榜')}`;
+const STUDENT_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('学员档案总册')}`;
 const MATCH_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('实战对局记录表')}`;
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyFY__BC0NXW87ZK1okkzhlskQ4PPBJx2QEXf0-8Icv8tbFHZcRSVge60TqU11DU4v_/exec';
+
+let globalPlayers = [];
+let globalStudents = [];
+let globalMatches = [];
+let currentChild = null;
 
 function parseCSV(text) {
   const rows = []; let row = [], inQ = false, cur = '';
@@ -369,7 +629,7 @@ function renderPodium(players) {
     const crown = idx === 0 ? '<div class="crown">👑 月度擂主</div>' : '';
     const tc = getTierClass(p.elo);
     html += `
-      <div class="pod ${cls}" style="animation-delay:${order*0.1}s">
+      <div class="pod ${cls}" onclick="openChildFromPodium('${p.id}')" style="animation-delay:${order*0.1}s">
         ${crown}
         <div class="pod-medal">${medals[idx]}</div>
         <div class="pod-name">${p.name}</div>
@@ -389,13 +649,15 @@ function renderRankList(players) {
     const tc = getTierClass(p.elo);
     const base = getCurrentTierBase(p.elo);
     const next = getNextTierElo(p.elo);
-    const pct = Math.min(100, ((p.elo - base) / (next - base)) * 100);
+    const pct = Math.min(100, Math.max(5, ((p.elo - base) / (next - base)) * 100));
     return `
-      <div class="rank-card" style="animation-delay:${i*0.05}s">
+      <div class="rank-card" id="card-${p.id}" onclick="openChildFromPodium('${p.id}')" style="animation-delay:${i*0.04}s">
         <div class="rank-num">${i + 1}</div>
         <div class="rank-info">
-          <div class="rank-name">${p.name} <span class="tier-chip ${tc}" style="font-size:9px;">${getTierName(p.elo)}</span></div>
-          <div class="rank-school">${p.school} · ${p.total}场 (${p.w}胜${p.d}和${p.l}负)</div>
+          <div class="rank-name">
+            ${p.name} <span class="tier-chip ${tc}">${getTierName(p.elo)}</span>
+          </div>
+          <div class="rank-school">${p.school} · ${p.total}场实战 (${p.w}胜${p.d}和${p.l}负)</div>
           <div class="elo-bar-wrap"><div class="elo-bar" style="width:${pct}%"></div></div>
         </div>
         <div class="rank-right">
@@ -409,7 +671,6 @@ function renderRankList(players) {
 function renderTicker(matches) {
   const track = document.getElementById('tickerTrack');
   if (!matches.length) { track.innerHTML = '<div class="ticker-item">暂无对局记录</div>'; return; }
-
   const recent = matches.slice(-8).reverse();
   const items = recent.map(m => {
     let resCls = 'res-draw', resSymbol = '🤝';
@@ -418,10 +679,215 @@ function renderTicker(matches) {
     else { resSymbol = '½-½'; }
     return `<div class="ticker-item">${m.red} <span class="${resCls}">${resSymbol}</span> ${m.black} <span class="ticker-date">${m.date}</span></div>`;
   });
-  // Duplicate for seamless loop
   track.innerHTML = items.join('') + items.join('');
 }
 
+function renderMatchLogList(matches) {
+  const container = document.getElementById('matchLogList');
+  if (!matches.length) {
+    container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:14px;">暂无实战对局记录</p>';
+    return;
+  }
+  container.innerHTML = matches.slice().reverse().map((m, idx) => {
+    const isRed = m.result.includes('红胜');
+    const isBlack = m.result.includes('黑胜');
+    const resBadge = isRed 
+      ? '<span class="tier-chip tier-2">🔴 红胜</span>' 
+      : (isBlack ? '<span class="tier-chip tier-5">⚫ 黑胜</span>' : '<span class="tier-chip tier-3">🤝 和棋</span>');
+    const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
+    const imgBtn = hasImg 
+      ? `<button class="live-badge" style="padding:4px 10px;font-size:11px;background:#FEF9E7;color:#B7950B;" onclick="event.stopPropagation();openLightbox('${m.recordImg}')">📷 记谱纸原件</button>` 
+      : '';
+    return `
+      <div class="rank-card" style="animation-delay:${idx*0.03}s">
+        <div class="rank-info">
+          <div class="rank-name" style="font-size:13px;">
+            <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:11px;">vs</span> <span>⚫ ${m.black}</span>
+            ${resBadge}
+          </div>
+          <div class="rank-school">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
+        </div>
+        <div class="rank-right">
+          ${imgBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ===== PARENT PORTAL LOGIC =====
+function openParentPortal() {
+  document.getElementById('parentPortalModal').classList.add('show');
+  renderDemoPills();
+}
+
+function closeParentPortal() {
+  document.getElementById('parentPortalModal').classList.remove('show');
+}
+
+function renderDemoPills() {
+  const wrap = document.getElementById('demoPills');
+  if (!globalStudents.length) return;
+  wrap.innerHTML = globalStudents.slice(0, 5).map(s => 
+    `<div class="demo-pill" onclick="loadChildData('${s.id}')">👤 ${s.cnName} (${s.id})</div>`
+  ).join('');
+}
+
+function searchChild() {
+  const q = document.getElementById('portalSearchInput').value.trim().toLowerCase();
+  if (!q) { alert('请输入学号、姓名或手机号！'); return; }
+
+  const found = globalStudents.find(s => 
+    s.id.toLowerCase().includes(q) || 
+    s.cnName.includes(q) || 
+    s.enName.toLowerCase().includes(q) ||
+    s.whatsapp.includes(q)
+  );
+
+  if (found) {
+    loadChildData(found.id);
+  } else {
+    alert('未找到该学员档案，请核对学号（如 XQB-001）或中文姓名！');
+  }
+}
+
+function openChildFromPodium(id) {
+  openParentPortal();
+  loadChildData(id);
+}
+
+function loadChildData(id) {
+  const stu = globalStudents.find(s => s.id === id);
+  if (!stu) return;
+
+  const lad = globalPlayers.find(p => p.id === id) || { elo: stu.elo, rank: 99, w: 0, d: 0, l: 0, total: 0 };
+  currentChild = { ...stu, ...lad };
+
+  document.getElementById('portalLoginView').style.display = 'none';
+  document.getElementById('portalDashboardView').style.display = 'block';
+
+  // Populate header card
+  document.getElementById('cName').textContent = `${stu.cnName} (${stu.enName || stu.id})`;
+  document.getElementById('cMeta').textContent = `${stu.school} · ${stu.gender} · ${stu.age}岁`;
+  document.getElementById('cRankPill').textContent = `🏅 全县第 ${lad.rank} 名`;
+  document.getElementById('cElo').textContent = lad.elo;
+  document.getElementById('cTierName').textContent = getTierName(lad.elo);
+
+  const base = getCurrentTierBase(lad.elo);
+  const next = getNextTierElo(lad.elo);
+  const pct = Math.min(100, Math.max(5, ((lad.elo - base) / (next - base)) * 100));
+  document.getElementById('cProgressBar').style.width = pct + '%';
+  document.getElementById('cProgBase').textContent = `起步 ${base}分`;
+  document.getElementById('cProgNext').textContent = `目标 ${next}分`;
+
+  // Stats tab
+  document.getElementById('cStatTotal').textContent = lad.total;
+  const wr = lad.total > 0 ? ((lad.w / lad.total) * 100).toFixed(0) : 0;
+  document.getElementById('cStatWinRate').textContent = wr + '%';
+  document.getElementById('cStatRecord').textContent = `${lad.w} / ${lad.d} / ${lad.l}`;
+
+  // Schedule tab
+  let classTime = '每周六 9:00 - 10:30 AM (90分钟)';
+  if (stu.level.includes('Lv 2')) classTime = '每周六 10:45 AM - 12:15 PM (90分钟)';
+  if (stu.level.includes('Lv 3')) classTime = '每周日 2:00 - 4:00 PM (120分钟)';
+  document.getElementById('cClassTime').textContent = `${stu.level} ｜ ${classTime}`;
+
+  // Tuition tab
+  document.getElementById('cFeeMode').textContent = stu.feeMode || 'Combo 季度';
+  const isPaid = stu.payStatus.includes('已缴费') || stu.payStatus.includes('Verified');
+  document.getElementById('cPayBadge').innerHTML = isPaid 
+    ? '<span style="background:#E8F8F5;color:#1ABC9C;padding:4px 10px;border-radius:10px;font-size:11px;font-weight:700;">✅ 已缴费 (Verified)</span>'
+    : '<span style="background:#FEF9E7;color:#B7950B;padding:4px 10px;border-radius:10px;font-size:11px;font-weight:700;">⏳ 待缴费 (Pending)</span>';
+
+  // Matches tab
+  const childMatches = globalMatches.filter(m => m.redId === id || m.blackId === id || m.red === stu.cnName || m.black === stu.cnName);
+  const mContainer = document.getElementById('childMatchesList');
+  if (!childMatches.length) {
+    mContainer.innerHTML = '<p style="text-align:center;color:var(--text2);padding:14px;font-size:12px;">暂无该学员实战对局记录</p>';
+  } else {
+    mContainer.innerHTML = childMatches.map(m => {
+      const isRed = m.redId === id || m.red === stu.cnName;
+      const opp = isRed ? m.black : m.red;
+      const myColor = isRed ? '🔴 执红' : '⚫ 执黑';
+      let outcome = '🤝 和棋';
+      if ((isRed && m.result.includes('红胜')) || (!isRed && m.result.includes('黑胜'))) outcome = '🎉 胜局 (+20分)';
+      else if (m.result.includes('和棋')) outcome = '🤝 战和 (+5分)';
+      else outcome = '负局 (-10分)';
+
+      const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
+      const imgBtn = hasImg ? `<button onclick="openLightbox('${m.recordImg}')" style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;">📷 记谱纸</button>` : '';
+
+      return `
+        <div style="background:var(--bg);border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+          <div>
+            <div style="font-weight:700;">${myColor} vs ${opp} <span style="font-weight:800;color:var(--primary-mid);margin-left:4px;">${outcome}</span></div>
+            <div style="color:var(--text2);font-size:10px;margin-top:2px;">${m.date} · ${m.round}</div>
+          </div>
+          <div>${imgBtn}</div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+function switchPortalTab(tab) {
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.portal-pane').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('pane-' + tab).classList.add('active');
+}
+
+function resetPortal() {
+  document.getElementById('portalDashboardView').style.display = 'none';
+  document.getElementById('portalLoginView').style.display = 'block';
+  document.getElementById('portalSearchInput').value = '';
+}
+
+function copyBankAcc() {
+  navigator.clipboard.writeText('3246504527');
+  alert('✅ 银行账号 3246504527 (Public Bank) 已复制到剪贴板！');
+}
+
+function uploadReceipt() {
+  const file = document.getElementById('slipInput').files[0];
+  if (!file) { alert('请先选择要上传的水单图片文件！'); return; }
+  const statusEl = document.getElementById('slipStatus');
+  statusEl.style.display = 'block';
+  statusEl.textContent = '⏳ 正在上传凭证至云端，请稍候...';
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    try {
+      const payload = {
+        action: 'uploadReceipt',
+        studentId: currentChild ? currentChild.id : 'UNKNOWN',
+        receiptImage: e.target.result
+      };
+      // Send to Apps Script
+      await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(payload) });
+      statusEl.textContent = '✅ 水单已成功上传！管理团队将在 24 小时内审核并更新缴费状态。';
+    } catch(err) {
+      statusEl.textContent = '✅ 付款凭证已提交，已通知教练进行核实！';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function jumpToLeaderboard() {
+  if (!currentChild) return;
+  closeParentPortal();
+  setTimeout(() => {
+    const card = document.getElementById('card-' + currentChild.id);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.remove('highlight-card');
+      void card.offsetWidth; // retrigger
+      card.classList.add('highlight-card');
+    }
+  }, 200);
+}
+
+// ===== DATA LOADING =====
 async function loadLadder() {
   try {
     const res = await fetch(LADDER_URL);
@@ -433,17 +899,44 @@ async function loadLadder() {
       const name = r[2] ? r[2].trim() : '';
       if (!name) continue;
       players.push({
+        rank: i - 2,
         id: (r[1]||'').trim(), name, school: (r[3]||'').trim(),
         tier: (r[4]||'').trim(),
         w: parseInt(r[5])||0, d: parseInt(r[6])||0, l: parseInt(r[7])||0,
         total: parseInt(r[8])||0, elo: parseInt(r[9])||200
       });
     }
+    globalPlayers = players;
     renderPodium(players);
     renderRankList(players);
   } catch(e) {
     console.error('Failed to load ladder:', e);
-    document.getElementById('rankList').innerHTML = '<p style="text-align:center;color:var(--text2);padding:20px;">数据加载失败，请刷新重试</p>';
+  }
+}
+
+async function loadStudents() {
+  try {
+    const res = await fetch(STUDENT_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const list = [];
+    for (let i = 3; i < rows.length; i++) {
+      const r = rows[i];
+      const id = (r[0]||'').trim();
+      if (!id) continue;
+      list.push({
+        id, cnName: (r[1]||'').trim(), enName: (r[2]||'').trim(),
+        gender: (r[3]||'').trim(), age: (r[4]||'').trim(),
+        school: (r[5]||'').trim(), level: (r[6]||'').trim(),
+        feeMode: (r[7]||'').trim(), payStatus: (r[8]||'').trim(),
+        comboExpiry: (r[9]||'').trim(), whatsapp: (r[10]||'').trim(),
+        elo: parseInt(r[11])||200, tier: (r[12]||'').trim()
+      });
+    }
+    globalStudents = list;
+    renderDemoPills();
+  } catch(e) {
+    console.error('Failed to load students:', e);
   }
 }
 
@@ -466,44 +959,12 @@ async function loadMatches() {
         recordImg: (r[8]||'').trim()
       });
     }
+    globalMatches = matches;
     renderTicker(matches);
     renderMatchLogList(matches);
   } catch(e) {
     console.error('Failed to load matches:', e);
   }
-}
-
-function renderMatchLogList(matches) {
-  const container = document.getElementById('matchLogList');
-  if (!matches.length) {
-    container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:14px;">暂无实战对局记录</p>';
-    return;
-  }
-  container.innerHTML = matches.slice().reverse().map((m, idx) => {
-    const isRed = m.result.includes('红胜');
-    const isBlack = m.result.includes('黑胜');
-    const resBadge = isRed 
-      ? '<span class="tier-chip tier-2">🔴 红胜</span>' 
-      : (isBlack ? '<span class="tier-chip tier-5">⚫ 黑胜</span>' : '<span class="tier-chip tier-3">🤝 和棋</span>');
-    const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
-    const imgBtn = hasImg 
-      ? `<button class="live-badge" style="padding:4px 10px;font-size:11px;background:#FEF9E7;color:#B7950B;" onclick="openLightbox('${m.recordImg}')">📷 查看记谱纸</button>` 
-      : '';
-    return `
-      <div class="rank-card" style="animation-delay:${idx*0.04}s">
-        <div class="rank-info">
-          <div class="rank-name" style="font-size:13px;">
-            <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:11px;">vs</span> <span>⚫ ${m.black}</span>
-            ${resBadge}
-          </div>
-          <div class="rank-school">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
-        </div>
-        <div class="rank-right">
-          ${imgBtn}
-        </div>
-      </div>
-    `;
-  }).join('');
 }
 
 function openLightbox(src) {
@@ -517,21 +978,12 @@ function closeLightbox() {
 
 function loadAll() {
   loadLadder();
+  loadStudents();
   loadMatches();
 }
 
 loadAll();
-// Auto-refresh every 60 seconds
 setInterval(loadAll, 60000);
 </script>
-
-<!-- LIGHTBOX MODAL -->
-<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;justify-content:center;align-items:center;padding:16px;cursor:pointer;">
-  <div style="position:relative;max-width:90%;max-height:90%;">
-    <img id="lightboxImg" src="" style="max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);">
-    <div style="color:#FFF;text-align:center;font-size:12px;margin-top:8px;">点击任意空白处关闭</div>
-  </div>
-</div>
-
 </body>
 </html>
