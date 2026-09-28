@@ -12,7 +12,7 @@
       --primary-mid: #1A5276;
       --primary-light: #2980B9;
       --gold: #F39C12;
-      --gold-glow: rgba(243,156,18,0.3);
+      --gold-glow: rgba(243,156,18,0.35);
       --silver: #95A5A6;
       --bronze: #D35400;
       --bg: #F0F4F8;
@@ -22,11 +22,18 @@
       --border: #E8ECF0;
       --green: #27AE60;
       --red: #E74C3C;
-      --radius: 16px;
-      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --radius: 20px;
+      --shadow: 0 6px 24px rgba(0,0,0,0.07);
     }
     @media(prefers-color-scheme:dark){
-      :root{--bg:#0D1117;--card:#161B22;--text:#E6EDF3;--text2:#8B949E;--border:#30363D;--shadow:0 4px 20px rgba(0,0,0,0.3);}
+      :root{
+        --bg:#0B0F14;
+        --card:#141A23;
+        --text:#E6EDF3;
+        --text2:#9CA8B7;
+        --border:#263242;
+        --shadow:0 6px 24px rgba(0,0,0,0.4);
+      }
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     body{
@@ -41,48 +48,48 @@
        ======================================================== */
     #securityGate{
       display:flex;justify-content:center;align-items:center;
-      width:100%;min-height:100vh;padding:20px;
-      background:linear-gradient(145deg,#071A27 0%,#0E2F44 45%,#1A5276 100%);
+      width:100%;min-height:100vh;padding:24px;
+      background:linear-gradient(145deg,#061724 0%,#0E2F44 45%,#1A5276 100%);
     }
     .gate-card{
-      background:#FFF;border-radius:28px;padding:38px 28px;
-      width:100%;max-width:440px;box-shadow:0 25px 70px rgba(0,0,0,0.35);
+      background:#FFF;border-radius:30px;padding:44px 32px;
+      width:100%;max-width:460px;box-shadow:0 30px 80px rgba(0,0,0,0.4);
       text-align:center;
     }
     @media(prefers-color-scheme:dark){
       .gate-card{background:var(--card);color:var(--text);}
     }
-    .gate-logo{font-size:42px;margin-bottom:8px;}
+    .gate-logo{font-size:48px;margin-bottom:8px;}
     .gate-badge{
-      display:inline-block;padding:4px 14px;border-radius:20px;
-      font-size:11px;font-weight:800;letter-spacing:.5px;
-      background:rgba(26,82,118,0.1);color:var(--primary-mid);margin-bottom:10px;
+      display:inline-block;padding:5px 16px;border-radius:20px;
+      font-size:12px;font-weight:800;letter-spacing:.5px;
+      background:rgba(26,82,118,0.12);color:var(--primary-mid);margin-bottom:12px;
     }
-    .gate-title{font-size:22px;font-weight:900;color:var(--primary);margin-bottom:4px;}
+    .gate-title{font-size:24px;font-weight:900;color:var(--primary);margin-bottom:6px;}
     @media(prefers-color-scheme:dark){.gate-title{color:#fff;}}
-    .gate-sub{font-size:12px;color:var(--text2);margin-bottom:24px;}
+    .gate-sub{font-size:13px;color:var(--text2);margin-bottom:26px;}
 
-    .input-group{margin-bottom:14px;text-align:left;}
-    .input-label{display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--text);}
+    .input-group{margin-bottom:16px;text-align:left;}
+    .input-label{display:block;font-size:13px;font-weight:800;margin-bottom:6px;color:var(--text);}
     .gate-input{
-      width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;
-      font-size:14px;outline:none;background:var(--bg);color:var(--text);font-family:inherit;
+      width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:14px;
+      font-size:15px;outline:none;background:var(--bg);color:var(--text);font-family:inherit;
       transition:border-color .2s;
     }
     .gate-input:focus{border-color:var(--primary-mid);background:#fff;}
 
     .login-btn{
-      width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--primary-mid));
-      color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;
-      box-shadow:0 6px 20px rgba(14,47,68,0.3);transition:transform .15s;margin-top:6px;
+      width:100%;padding:15px;background:linear-gradient(135deg,var(--primary),var(--primary-mid));
+      color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;
+      box-shadow:0 8px 24px rgba(14,47,68,0.3);transition:transform .15s;margin-top:8px;
     }
     .login-btn:hover{transform:scale(1.02);}
 
-    .quick-test-box{margin-top:24px;border-top:1px dashed var(--border);padding-top:16px;}
-    .quick-test-label{font-size:11px;font-weight:800;color:var(--text2);margin-bottom:8px;display:block;}
-    .test-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+    .quick-test-box{margin-top:28px;border-top:1px dashed var(--border);padding-top:18px;}
+    .quick-test-label{font-size:12px;font-weight:800;color:var(--text2);margin-bottom:10px;display:block;}
+    .test-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
     .test-pill{
-      padding:5px 11px;border-radius:14px;font-size:11px;font-weight:700;
+      padding:6px 13px;border-radius:16px;font-size:12px;font-weight:800;
       background:var(--bg);color:var(--primary-mid);border:1px solid var(--border);
       cursor:pointer;transition:all .15s;
     }
@@ -99,111 +106,184 @@
     .topbar{
       width:100%;background:var(--primary);color:#fff;
       display:flex;justify-content:space-between;align-items:center;
-      padding:12px 20px;position:sticky;top:0;z-index:100;
-      box-shadow:0 4px 15px rgba(0,0,0,0.15);
+      padding:14px 24px;position:sticky;top:0;z-index:100;
+      box-shadow:0 4px 18px rgba(0,0,0,0.2);
     }
-    .topbar-user{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;}
-    .user-tag{background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;font-size:11px;}
+    .topbar-user{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800;}
+    .user-tag{background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700;}
     .btn-logout{
-      background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
-      color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;
+      background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);
+      color:#fff;padding:7px 16px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
     }
 
-    .container{width:100%;max-width:820px;padding:0 16px;}
+    /* ALL CENTRED MAIN CONTAINER */
+    .container{
+      width:100%;max-width:880px;padding:0 20px;
+      margin:0 auto;display:flex;flex-direction:column;align-items:center;
+    }
 
-    /* === PARENT / STUDENT EXCLUSIVE HERO === */
+    /* === BIG CENTERED STUDENT VIP HERO === */
     .student-hero{
-      background:linear-gradient(135deg,#071A27 0%,#0E2F44 50%,#1A5276 100%);
-      color:#fff;border-radius:0 0 24px 24px;padding:26px 20px 22px;
-      box-shadow:0 10px 30px rgba(14,47,68,0.25);margin-bottom:20px;
+      width:100%;
+      background:linear-gradient(145deg,#071A27 0%,#0E2F44 55%,#1A5276 100%);
+      color:#fff;border-radius:24px;padding:34px 28px 30px;
+      box-shadow:0 14px 40px rgba(14,47,68,0.3);
+      margin:24px 0 20px;
+      text-align:center;
+      position:relative;overflow:hidden;
     }
-    .hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-    .hero-name{font-size:22px;font-weight:900;}
-    .hero-meta{font-size:12px;opacity:.8;margin-top:2px;}
-    .hero-badge{background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:12px;font-size:11px;font-weight:800;}
-    .hero-elo-row{display:flex;align-items:baseline;gap:8px;margin-top:8px;}
-    .hero-elo-big{font-size:36px;font-weight:900;color:#F1C40F;}
-    .hero-tier{font-size:13px;opacity:.9;}
-    .hero-prog-bar{height:6px;background:rgba(255,255,255,0.25);border-radius:3px;overflow:hidden;margin-top:10px;}
-    .hero-prog-fill{height:100%;background:linear-gradient(90deg,#2980B9,#F1C40F);border-radius:3px;transition:width .8s;}
-    .hero-prog-labels{display:flex;justify-content:space-between;font-size:10px;opacity:.8;margin-top:4px;}
+    .hero-avatar{font-size:48px;margin-bottom:8px;}
+    .hero-name{font-size:30px;font-weight:900;letter-spacing:-0.5px;}
+    .hero-meta{font-size:14px;opacity:.85;margin-top:4px;}
+    .hero-badge-wrap{margin:10px 0 6px;}
+    .hero-badge{
+      display:inline-block;background:rgba(255,255,255,0.2);padding:5px 16px;
+      border-radius:16px;font-size:13px;font-weight:800;border:1px solid rgba(255,255,255,0.25);
+    }
+    .hero-elo-center{
+      display:flex;justify-content:center;align-items:baseline;gap:10px;margin-top:10px;
+    }
+    .hero-elo-big{font-size:48px;font-weight:900;color:#F1C40F;line-height:1;}
+    .hero-tier{font-size:15px;font-weight:700;opacity:.95;}
+    
+    .hero-prog-container{max-width:520px;margin:16px auto 0;}
+    .hero-prog-bar{height:10px;background:rgba(255,255,255,0.2);border-radius:5px;overflow:hidden;}
+    .hero-prog-fill{height:100%;background:linear-gradient(90deg,#2980B9,#F1C40F);border-radius:5px;transition:width .8s;}
+    .hero-prog-labels{display:flex;justify-content:space-between;font-size:12px;opacity:.85;margin-top:6px;font-weight:600;}
 
-    /* STUDENT EXCLUSIVE 3 CARDS */
-    .student-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;}
-    @media(max-width:540px){.student-quick-grid{grid-template-columns:1fr;}}
+    /* STUDENT EXCLUSIVE 2 BIG CARDS */
+    .student-quick-grid{
+      width:100%;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px;
+    }
+    @media(max-width:640px){.student-quick-grid{grid-template-columns:1fr;}}
     .quick-card{
-      background:var(--card);border-radius:var(--radius);padding:18px;
-      border:1px solid var(--border);box-shadow:var(--shadow);
+      background:var(--card);border-radius:var(--radius);padding:22px;
+      border:1.5px solid var(--border);box-shadow:var(--shadow);
+      text-align:center;
     }
-    .quick-card-title{font-size:13px;font-weight:800;color:var(--primary-mid);display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+    .quick-card-title{
+      font-size:15px;font-weight:900;color:var(--primary-mid);
+      display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;
+    }
+    @media(prefers-color-scheme:dark){.quick-card-title{color:var(--primary-light);}}
 
-    /* PODIUM */
-    .podium-section{margin:18px 0 20px;}
-    .podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:10px;align-items:end;}
+    /* PODIUM (BIG & BOLD & CENTERED) */
+    .podium-section{width:100%;margin:20px 0 24px;}
+    .podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:14px;align-items:end;}
     .pod{
-      background:var(--card);border-radius:var(--radius);padding:16px 8px 14px;
+      background:var(--card);border-radius:22px;padding:22px 14px 18px;
       text-align:center;position:relative;border:2px solid var(--border);
       box-shadow:var(--shadow);cursor:pointer;transition:transform .2s;
     }
-    .pod:hover{transform:translateY(-3px);}
-    .pod-1{order:2;padding:24px 8px 18px;border-color:#F1C40F;background:linear-gradient(180deg,#FFFCF0 0%,var(--card) 100%);box-shadow:0 8px 30px var(--gold-glow);}
+    .pod:hover{transform:translateY(-4px);}
+    .pod-1{
+      order:2;padding:32px 16px 24px;border-color:#F1C40F;
+      background:linear-gradient(180deg,#FFFDF0 0%,var(--card) 100%);
+      box-shadow:0 12px 35px var(--gold-glow);
+    }
     .pod-2{order:1;border-color:#D5D8DC;}
     .pod-3{order:3;border-color:#EDBB99;}
-    .crown{
-      position:absolute;top:-13px;left:50%;transform:translateX(-50%);
-      background:linear-gradient(135deg,#F1C40F,#F39C12);color:#7D6608;
-      font-size:10px;font-weight:800;padding:3px 12px;border-radius:12px;white-space:nowrap;
+    @media(prefers-color-scheme:dark){
+      .pod-1{background:linear-gradient(180deg,#2D240A 0%,var(--card) 100%);}
     }
-    .pod-medal{font-size:28px;margin-bottom:4px;}
-    .pod-1 .pod-medal{font-size:36px;}
-    .pod-name{font-size:15px;font-weight:800;}
-    .pod-school{font-size:10px;color:var(--text2);margin-bottom:6px;}
-    .pod-elo{font-size:22px;font-weight:900;color:var(--primary-mid);}
-    .pod-1 .pod-elo{font-size:26px;color:#D68910;}
-    .pod-stats{font-size:10px;color:var(--text2);margin-top:2px;}
+    .crown{
+      position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+      background:linear-gradient(135deg,#F1C40F,#F39C12);color:#7D6608;
+      font-size:11px;font-weight:900;padding:4px 14px;border-radius:14px;white-space:nowrap;
+      box-shadow:0 4px 12px rgba(241,196,15,0.4);
+    }
+    .pod-medal{font-size:36px;margin-bottom:6px;}
+    .pod-1 .pod-medal{font-size:46px;}
+    .pod-name{font-size:18px;font-weight:900;color:var(--text);margin-bottom:3px;}
+    .pod-1 .pod-name{font-size:22px;}
+    .pod-school{
+      font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .pod-elo{font-size:26px;font-weight:900;color:var(--primary-mid);line-height:1;}
+    .pod-1 .pod-elo{font-size:32px;color:#D68910;}
+    @media(prefers-color-scheme:dark){
+      .pod-elo{color:var(--primary-light);}
+      .pod-1 .pod-elo{color:#F39C12;}
+    }
+    .pod-stats{font-size:12px;color:var(--text2);margin-top:4px;font-weight:600;}
 
-    .tier-chip{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;margin-bottom:4px;}
+    .tier-chip{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;}
     .tier-5{background:#EBF5FB;color:#2980B9;}
     .tier-4{background:#E8F8F5;color:#1ABC9C;}
     .tier-3{background:#FEF9E7;color:#B7950B;}
     .tier-2{background:#FDEDEC;color:#E74C3C;}
     .tier-1{background:linear-gradient(135deg,#F9E79F,#F5CBA7);color:#7D6608;}
 
-    /* SECTION HEADERS */
-    .section-head{display:flex;justify-content:space-between;align-items:center;margin:22px 0 12px;}
-    .section-title{font-size:15px;font-weight:900;display:flex;align-items:center;gap:6px;}
+    /* CENTERED SECTION HEADERS */
+    .section-head{
+      width:100%;text-align:center;margin:30px 0 16px;
+      display:flex;flex-direction:column;align-items:center;
+    }
+    .section-title{
+      font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .section-sub{font-size:12px;color:var(--text2);margin-top:3px;}
 
-    /* RANK LIST */
-    .rank-list{display:flex;flex-direction:column;gap:8px;}
+    /* BIG CLEAR RANK LIST */
+    .rank-list{width:100%;display:flex;flex-direction:column;gap:10px;}
     .rank-card{
-      background:var(--card);border-radius:14px;padding:14px 16px;
-      display:flex;align-items:center;gap:14px;
-      border:1px solid var(--border);box-shadow:var(--shadow);
+      background:var(--card);border-radius:18px;padding:16px 20px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border:1.5px solid var(--border);box-shadow:var(--shadow);
       transition:all .2s;
     }
     .rank-card.my-card{
-      border:2px solid #F1C40F !important;
+      border:2.5px solid #F1C40F !important;
       background:linear-gradient(180deg,#FFFCF4 0%,var(--card) 100%);
-      box-shadow:0 0 20px rgba(241,196,15,0.4);
+      box-shadow:0 0 25px rgba(241,196,15,0.45);
     }
-    .rank-num{font-size:16px;font-weight:900;color:var(--text2);width:28px;text-align:center;flex-shrink:0;}
-    .rank-info{flex:1;min-width:0;}
-    .rank-name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px;}
-    .rank-school{font-size:11px;color:var(--text2);margin-top:1px;}
+    @media(prefers-color-scheme:dark){
+      .rank-card.my-card{background:linear-gradient(180deg,#2A2208 0%,var(--card) 100%);}
+    }
+    .rank-left{display:flex;align-items:center;gap:16px;}
+    .rank-num{font-size:20px;font-weight:900;color:var(--text2);width:32px;text-align:center;flex-shrink:0;}
+    .rank-info{flex:1;}
+    .rank-name{font-size:17px;font-weight:900;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .rank-school{font-size:13px;color:var(--text2);margin-top:2px;font-weight:600;}
     .rank-right{text-align:right;flex-shrink:0;}
-    .rank-elo{font-size:18px;font-weight:900;color:var(--primary-mid);}
-    .rank-wr{font-size:10px;color:var(--text2);margin-top:1px;}
+    .rank-elo{font-size:24px;font-weight:900;color:var(--primary-mid);line-height:1;}
+    @media(prefers-color-scheme:dark){.rank-elo{color:var(--primary-light);}}
+    .rank-wr{font-size:12px;color:var(--text2);margin-top:2px;font-weight:600;}
+
+    /* MATCH LIST */
+    .match-card{
+      background:var(--card);border-radius:16px;padding:14px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      border:1.5px solid var(--border);box-shadow:var(--shadow);
+    }
+    .match-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;}
+    .match-meta{font-size:12px;color:var(--text2);margin-top:2px;}
+
+    /* TICKER */
+    .ticker-wrap{width:100%;overflow:hidden;background:var(--card);border-radius:16px;border:1.5px solid var(--border);padding:12px 0;}
+    .ticker-track{display:flex;gap:28px;animation:ticker 30s linear infinite;width:max-content;padding:0 14px;}
+    .ticker-item{white-space:nowrap;font-size:13px;color:var(--text);font-weight:600;display:flex;align-items:center;gap:8px;}
+    @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
     /* LIGHTBOX */
     #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;justify-content:center;align-items:center;padding:16px;cursor:pointer;}
     #lightbox.show{display:flex;}
     #lightbox img{max-width:95%;max-height:85vh;border-radius:12px;}
 
-    /* TICKER */
-    .ticker-wrap{overflow:hidden;background:var(--card);border-radius:12px;border:1px solid var(--border);padding:10px 0;}
-    .ticker-track{display:flex;gap:24px;animation:ticker 30s linear infinite;width:max-content;padding:0 12px;}
-    .ticker-item{white-space:nowrap;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;}
-    @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+    @media(max-width:540px){
+      .hero-name{font-size:24px;}
+      .hero-elo-big{font-size:38px;}
+      .podium{gap:6px;}
+      .pod{padding:16px 8px 12px;}
+      .pod-name{font-size:14px;}
+      .pod-1 .pod-name{font-size:16px;}
+      .pod-elo{font-size:20px;}
+      .pod-1 .pod-elo{font-size:24px;}
+      .rank-card{padding:12px 14px;}
+      .rank-name{font-size:15px;}
+      .rank-elo{font-size:20px;}
+    }
   </style>
 </head>
 <body>
@@ -220,7 +300,7 @@
 
     <div class="input-group">
       <label class="input-label">👤 登录账号 (姓名 / 管理员)</label>
-      <input type="text" id="accInput" class="gate-input" placeholder="如: 苏进康 或 admin" autofocus>
+      <input type="text" id="accInput" class="gate-input" placeholder="如: 黄梓轩 或 admin" autofocus>
     </div>
 
     <div class="input-group">
@@ -229,17 +309,17 @@
     </div>
 
     <button class="login-btn" onclick="handleLogin()">🔐 登录进入系统</button>
-    <div id="loginMsg" style="color:var(--red);font-size:12px;font-weight:700;margin-top:10px;display:none;"></div>
+    <div id="loginMsg" style="color:var(--red);font-size:13px;font-weight:800;margin-top:10px;display:none;"></div>
 
     <!-- QUICK TESTING PILLS -->
     <div class="quick-test-box">
       <span class="quick-test-label">⚡ 快速测试体验（点击免输直接体验）：</span>
       <div class="test-pills">
         <div class="test-pill admin-pill" onclick="quickFill('admin','8888')">👑 教练后台 (admin / 8888)</div>
+        <div class="test-pill" onclick="quickFill('黄梓轩','1234')">👤 黄梓轩 (1234)</div>
         <div class="test-pill" onclick="quickFill('苏进康','1234')">👤 苏进康 (1234)</div>
         <div class="test-pill" onclick="quickFill('陈美仪','1234')">👤 陈美仪 (1234)</div>
         <div class="test-pill" onclick="quickFill('林家豪','1234')">👤 林家豪 (1234)</div>
-        <div class="test-pill" onclick="quickFill('黄梓轩','1234')">👤 黄梓轩 (1234)</div>
         <div class="test-pill" onclick="quickFill('郭雨涵','1234')">👤 郭雨涵 (1234)</div>
       </div>
     </div>
@@ -261,82 +341,85 @@
 
   <div class="container">
 
-    <!-- STUDENT / PARENT VIP HERO (Shown if logged in as student) -->
+    <!-- STUDENT / PARENT VIP HERO (BIG, BOLD & CENTERED) -->
     <div id="studentHeroSection" style="display:none;" class="student-hero">
-      <div class="hero-top">
-        <div>
-          <div class="hero-name" id="hName">-</div>
-          <div class="hero-meta" id="hSchool">-</div>
+      <div class="hero-avatar">👨‍🎓</div>
+      <div class="hero-name" id="hName">-</div>
+      <div class="hero-meta" id="hSchool">-</div>
+      <div class="hero-badge-wrap">
+        <span class="hero-badge" id="hRankBadge">🏅 全县天梯排位中</span>
+      </div>
+      <div class="hero-elo-center">
+        <span class="hero-elo-big" id="hElo">-</span>
+        <span class="hero-tier" id="hTier">-</span>
+      </div>
+      <div class="hero-prog-container">
+        <div class="hero-prog-bar">
+          <div class="hero-prog-fill" id="hProgFill" style="width:10%;"></div>
         </div>
-        <div class="hero-badge" id="hRankBadge">全县排位中</div>
-      </div>
-      <div class="hero-elo-row">
-        <div class="hero-elo-big" id="hElo">-</div>
-        <div class="hero-tier" id="hTier">-</div>
-      </div>
-      <div class="hero-prog-bar">
-        <div class="hero-prog-fill" id="hProgFill" style="width:10%;"></div>
-      </div>
-      <div class="hero-prog-labels">
-        <span id="hBaseElo">起步 200分</span>
-        <span id="hNextElo">目标 400分</span>
+        <div class="hero-prog-labels">
+          <span id="hBaseElo">起步 200分</span>
+          <span id="hNextElo">目标 400分</span>
+        </div>
       </div>
     </div>
 
-    <!-- STUDENT EXCLUSIVE CARDS: SCHEDULE & TUITION -->
+    <!-- STUDENT EXCLUSIVE 2 QUICK CARDS -->
     <div id="studentQuickGrid" style="display:none;" class="student-quick-grid">
       <!-- CARD 1: SCHEDULE -->
       <div class="quick-card">
         <div class="quick-card-title">📅 班级集训日程</div>
-        <div style="font-size:14px;font-weight:900;color:var(--primary-mid);" id="qClassTime">-</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:4px;">地点：直凉一校多媒体室 / 公会活动中心</div>
-        <div style="font-size:11px;color:var(--text2);margin-top:4px;">主讲：Nicholas 资深教练 (ELO 1400+) & yh</div>
+        <div style="font-size:16px;font-weight:900;color:var(--primary-mid);" id="qClassTime">-</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:6px;font-weight:600;">📍 直凉一校多媒体室 / 公会活动中心</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:4px;">👨‍🏫 主讲：Nicholas 资深教练 (ELO 1400+) & yh</div>
       </div>
 
       <!-- CARD 2: TUITION & SLIP -->
       <div class="quick-card">
-        <div class="quick-card-title">💳 学费与缴费状态</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-weight:800;font-size:13px;" id="qFeeMode">-</span>
+        <div class="quick-card-title">💳 学费缴纳与凭证</div>
+        <div style="display:flex;justify-content:center;align-items:center;gap:12px;">
+          <span style="font-weight:900;font-size:15px;" id="qFeeMode">-</span>
           <span id="qPayBadge">-</span>
         </div>
-        <div style="background:var(--bg);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:11px;">
-          <strong>PUBLIC BANK · 3246504527</strong>
-          <button onclick="copyBank()" style="padding:2px 6px;border-radius:6px;border:none;background:var(--primary-mid);color:#fff;font-size:10px;cursor:pointer;margin-left:6px;">复制</button>
+        <div style="background:var(--bg);border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px;font-weight:700;">
+          <span>PUBLIC BANK · 3246504527</span>
+          <button onclick="copyBank()" style="padding:3px 10px;border-radius:8px;border:none;background:var(--primary-mid);color:#fff;font-size:11px;font-weight:800;cursor:pointer;margin-left:8px;">复制账号</button>
         </div>
-        <div style="margin-top:8px;">
-          <input type="file" id="slipInput" accept="image/*" style="font-size:11px;width:100%;">
-          <button onclick="uploadSlip()" style="width:100%;margin-top:4px;padding:6px;border-radius:8px;border:none;background:var(--green);color:#fff;font-weight:700;font-size:11px;cursor:pointer;">
+        <div style="margin-top:10px;">
+          <input type="file" id="slipInput" accept="image/*" style="font-size:12px;width:100%;max-width:280px;">
+          <button onclick="uploadSlip()" style="display:block;margin:8px auto 0;padding:8px 18px;border-radius:10px;border:none;background:var(--green);color:#fff;font-weight:800;font-size:12px;cursor:pointer;">
             📤 提交付款凭证水单
           </button>
-          <div id="slipUploadMsg" style="font-size:10px;color:var(--green);margin-top:4px;display:none;"></div>
+          <div id="slipUploadMsg" style="font-size:11px;color:var(--green);margin-top:6px;font-weight:700;display:none;"></div>
         </div>
       </div>
     </div>
 
     <!-- RECENT TICKER -->
-    <div class="ticker-wrap" style="margin-bottom:20px;">
+    <div class="ticker-wrap" style="margin-bottom:24px;">
       <div id="tickerTrack" class="ticker-track"></div>
     </div>
 
-    <!-- PODIUM -->
+    <!-- PODIUM (CENTERED & PROMINENT) -->
     <div class="section-head">
       <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
+      <div class="section-sub">CXB ELO 官方排位体系 · 实时同步</div>
     </div>
     <div id="podiumArea" class="podium"></div>
 
-    <!-- RANK LIST -->
-    <div class="section-head">
+    <!-- RANK LIST (CENTERED & SPACIOUS) -->
+    <div class="section-head" style="margin-top:34px;">
       <div class="section-title">📋 现役学员总榜 (全县排位)</div>
+      <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
     </div>
     <div id="rankList" class="rank-list"></div>
 
     <!-- MATCH HISTORY & RECORD PAPERS -->
-    <div class="section-head" style="margin-top:28px;">
+    <div class="section-head" style="margin-top:36px;">
       <div class="section-title">📜 实战对局记录与记谱纸档案</div>
-      <span style="font-size:11px;color:var(--text2);">点击放大查看真实记谱纸</span>
+      <div class="section-sub">点击右侧按钮放大查看真实比赛记谱纸扫描件</div>
     </div>
-    <div id="matchLogList" class="rank-list" style="margin-bottom:40px;"></div>
+    <div id="matchLogList" class="rank-list" style="margin-bottom:50px;"></div>
 
   </div>
 </div>
@@ -356,7 +439,7 @@ const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyFY__BC0NXW87ZK1ok
 let globalPlayers = [];
 let globalStudents = [];
 let globalMatches = [];
-let currentUser = null; // { role: 'admin' | 'student', data: {...} }
+let currentUser = null;
 
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
 
@@ -500,13 +583,13 @@ function renderStudentExclusiveView(stu) {
   document.getElementById('qFeeMode').textContent = stu.feeMode || 'Combo 季度';
   const isPaid = stu.payStatus.includes('已缴费') || stu.payStatus.includes('Verified');
   document.getElementById('qPayBadge').innerHTML = isPaid 
-    ? '<span style="background:#E8F8F5;color:#1ABC9C;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">✅ 已缴费</span>'
-    : '<span style="background:#FEF9E7;color:#B7950B;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">⏳ 待缴费</span>';
+    ? '<span style="background:#E8F8F5;color:#1ABC9C;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;">✅ 已缴费</span>'
+    : '<span style="background:#FEF9E7;color:#B7950B;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;">⏳ 待缴费</span>';
 }
 
 function copyBank() {
   navigator.clipboard.writeText('3246504527');
-  alert('✅ 银行账号 3246504527 (Public Bank) 已复制到剪贴板！');
+  alert('✅ 银行账号 3246504527 (Public Bank) 已复制！');
 }
 
 function uploadSlip() {
@@ -566,13 +649,15 @@ function renderRankList(players) {
     const wr = p.total > 0 ? ((p.w / p.total) * 100).toFixed(0) : 0;
     return `
       <div class="rank-card ${isMe ? 'my-card' : ''}">
-        <div class="rank-num">${i + 1}</div>
-        <div class="rank-info">
-          <div class="rank-name">
-            ${p.name} ${isMe ? '<span style="font-size:10px;background:#F1C40F;color:#7D6608;padding:2px 6px;border-radius:4px;font-weight:900;">我的孩子</span>' : ''}
-            <span class="tier-chip ${getTierClass(p.elo)}">${getTierName(p.elo)}</span>
+        <div class="rank-left">
+          <div class="rank-num">${i + 1}</div>
+          <div class="rank-info">
+            <div class="rank-name">
+              ${p.name} ${isMe ? '<span style="font-size:11px;background:#F1C40F;color:#7D6608;padding:2px 8px;border-radius:6px;font-weight:900;">我的孩子</span>' : ''}
+              <span class="tier-chip ${getTierClass(p.elo)}">${getTierName(p.elo)}</span>
+            </div>
+            <div class="rank-school">${p.school} · ${p.total} 场实战 (${p.w}胜 ${p.d}和 ${p.l}负)</div>
           </div>
-          <div class="rank-school">${p.school} · ${p.total} 场实战 (${p.w}胜 ${p.d}和 ${p.l}负)</div>
         </div>
         <div class="rank-right">
           <div class="rank-elo">${p.elo}</div>
@@ -588,7 +673,7 @@ function renderTicker(matches) {
   const recent = matches.slice(-8).reverse();
   const items = recent.map(m => {
     let sym = m.result.includes('红胜') ? '🔴 1-0' : (m.result.includes('黑胜') ? '0-1 ⚫' : '½-½');
-    return `<div class="ticker-item">${m.red} <strong style="color:var(--primary-mid);">${sym}</strong> ${m.black} <small>${m.date}</small></div>`;
+    return `<div class="ticker-item">${m.red} <strong style="color:var(--primary-mid);">${sym}</strong> ${m.black} <small style="color:var(--text2);">${m.date}</small></div>`;
   });
   track.innerHTML = items.join('') + items.join('');
 }
@@ -599,17 +684,17 @@ function renderMatchLogList(matches) {
   c.innerHTML = matches.slice().reverse().map(m => {
     const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
     const imgBtn = hasImg 
-      ? `<button onclick="openLightbox('${m.recordImg}')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:11px;font-weight:700;cursor:pointer;">📷 记谱纸原件</button>` : '';
+      ? `<button onclick="openLightbox('${m.recordImg}')" style="padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:800;cursor:pointer;">📷 查看真实记谱纸</button>` : '';
     return `
-      <div class="rank-card">
-        <div class="rank-info">
-          <div class="rank-name" style="font-size:13px;">
-            <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:11px;">vs</span> <span>⚫ ${m.black}</span>
-            <span style="font-size:11px;font-weight:800;color:var(--primary-mid);">${m.result}</span>
+      <div class="match-card">
+        <div style="flex:1;">
+          <div class="match-title">
+            <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:12px;">vs</span> <span>⚫ ${m.black}</span>
+            <span style="font-size:12px;font-weight:800;color:var(--primary-mid);margin-left:4px;">${m.result}</span>
           </div>
-          <div class="rank-school">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
+          <div class="match-meta">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
         </div>
-        <div class="rank-right">${imgBtn}</div>
+        <div>${imgBtn}</div>
       </div>
     `;
   }).join('');
@@ -682,9 +767,7 @@ async function loadMatches() {
   } catch(e) { console.error(e); }
 }
 
-// Initial session check
 checkStoredSession();
-// Preload students quietly for quick login
 loadStudents();
 </script>
 </body>
