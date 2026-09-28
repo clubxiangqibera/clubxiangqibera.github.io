@@ -415,7 +415,7 @@ async function loadStudents(){
     const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('学员档案总册')}`;
     const res=await fetch(url);const csv=await res.text();const rows=parseCSV(csv);
     allStudents=[];
-    for(let i=3;i<rows.length;i++){
+    for(let i=1;i<rows.length;i++){
       const r=rows[i];const id=(r[0]||'').trim();if(!id)continue;
       allStudents.push({
         id,cnName:(r[1]||'').trim(),enName:(r[2]||'').trim(),
@@ -434,7 +434,7 @@ async function loadMatches(){
     const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('实战对局记录表')}`;
     const res=await fetch(url);const csv=await res.text();const rows=parseCSV(csv);
     allMatches=[];
-    for(let i=3;i<rows.length;i++){
+    for(let i=1;i<rows.length;i++){
       const r=rows[i];const date=(r[0]||'').trim();if(!date)continue;
       allMatches.push({
         date,round:(r[1]||'').trim(),redId:(r[2]||'').trim(),red:(r[3]||'').trim(),

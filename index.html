@@ -954,12 +954,12 @@ async function loadLadder() {
     const csv = await res.text();
     const rows = parseCSV(csv);
     globalPlayers = [];
-    for (let i = 3; i < rows.length; i++) {
+    for (let i = 1; i < rows.length; i++) {
       const r = rows[i];
       const name = (r[2]||'').trim();
       if (!name) continue;
       globalPlayers.push({
-        rank: i - 2, id: (r[1]||'').trim(), name, school: (r[3]||'').trim(),
+        rank: i, id: (r[1]||'').trim(), name, school: (r[3]||'').trim(),
         tier: (r[4]||'').trim(), w: parseInt(r[5])||0, d: parseInt(r[6])||0, l: parseInt(r[7])||0,
         total: parseInt(r[8])||0, elo: parseInt(r[9])||200
       });
@@ -973,7 +973,7 @@ async function loadStudents() {
     const csv = await res.text();
     const rows = parseCSV(csv);
     globalStudents = [];
-    for (let i = 3; i < rows.length; i++) {
+    for (let i = 1; i < rows.length; i++) {
       const r = rows[i];
       const id = (r[0]||'').trim();
       if (!id) continue;
@@ -996,7 +996,7 @@ async function loadMatches() {
     const csv = await res.text();
     const rows = parseCSV(csv);
     globalMatches = [];
-    for (let i = 3; i < rows.length; i++) {
+    for (let i = 1; i < rows.length; i++) {
       const r = rows[i];
       const date = (r[0]||'').trim();
       if (!date) continue;
