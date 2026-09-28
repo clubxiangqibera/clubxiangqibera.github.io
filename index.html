@@ -151,11 +151,11 @@
     .hero-prog-fill{height:100%;background:linear-gradient(90deg,#2980B9,#F1C40F);border-radius:5px;transition:width .8s;}
     .hero-prog-labels{display:flex;justify-content:space-between;font-size:12px;opacity:.85;margin-top:6px;font-weight:600;}
 
-    /* STUDENT EXCLUSIVE 2 BIG CARDS */
+    /* STUDENT EXCLUSIVE BIG CARDS */
     .student-quick-grid{
-      width:100%;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px;
+      width:100%;display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-bottom:26px;
     }
-    @media(max-width:640px){.student-quick-grid{grid-template-columns:1fr;}}
+    @media(max-width:850px){.student-quick-grid{grid-template-columns:1fr;}}
     .quick-card{
       background:var(--card);border-radius:var(--radius);padding:22px;
       border:1.5px solid var(--border);box-shadow:var(--shadow);
@@ -362,6 +362,21 @@
           <span id="hNextElo">目标 400分</span>
         </div>
       </div>
+      <!-- STATS GRID -->
+      <div class="hero-stats-grid" style="display:flex; justify-content:space-evenly; margin-top:24px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.06);">
+        <div class="stat-box" style="text-align:center;">
+          <div style="font-size:12px; color:var(--text2); font-weight:700;">总对局</div>
+          <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatTotal">-</div>
+        </div>
+        <div class="stat-box" style="text-align:center;">
+          <div style="font-size:12px; color:var(--text2); font-weight:700;">胜率</div>
+          <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatWinRate">-</div>
+        </div>
+        <div class="stat-box" style="text-align:center;">
+          <div style="font-size:12px; color:var(--text2); font-weight:700;">实战战绩</div>
+          <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatRecord">-</div>
+        </div>
+      </div>
     </div>
 
     <!-- STUDENT EXCLUSIVE 2 QUICK CARDS -->
@@ -391,6 +406,15 @@
             📤 提交付款凭证水单
           </button>
           <div id="slipUploadMsg" style="font-size:11px;color:var(--green);margin-top:6px;font-weight:700;display:none;"></div>
+        </div>
+      </div>
+
+      <!-- CARD 3: CURRICULUM & COACH MESSAGE -->
+      <div class="quick-card">
+        <div class="quick-card-title">📖 学习进度与教练寄语</div>
+        <div style="font-size:14px; font-weight:800; color:var(--primary-mid); margin-top:8px;">本月核心：布局原理与基本杀法</div>
+        <div style="font-size:12px; color:var(--text2); margin-top:12px; line-height:1.6; font-weight:600; background:var(--bg); padding:12px; border-radius:10px; text-align:left;">
+          "下棋先顾大局，起步不贪一子。稳扎稳打，继续保持认真的学习态度！记得多复盘对局哦。" <br><span style="display:block;margin-top:6px;font-style:italic;color:var(--text2);text-align:right;">—— Nicholas 资深教练</span>
         </div>
       </div>
     </div>
@@ -594,6 +618,13 @@ function renderStudentExclusiveView(stu) {
   document.getElementById('qPayBadge').innerHTML = isPaid 
     ? '<span style="background:#E8F8F5;color:#1ABC9C;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;">✅ 已缴费</span>'
     : '<span style="background:#FEF9E7;color:#B7950B;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;">⏳ 待缴费</span>';
+
+  // Stats Grid
+  const total = lad.total || 0;
+  const winRate = total > 0 ? Math.round(((lad.w || 0) / total) * 100) + '%' : '0%';
+  document.getElementById('hStatTotal').textContent = total;
+  document.getElementById('hStatWinRate').textContent = winRate;
+  document.getElementById('hStatRecord').textContent = `${lad.w || 0}胜 ${lad.d || 0}和 ${lad.l || 0}负`;
 }
 
 function copyBank() {
@@ -694,12 +725,21 @@ function renderMatchLogList(matches) {
     const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
     const imgBtn = hasImg 
       ? `<button onclick="openLightbox('${m.recordImg}')" style="padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:800;cursor:pointer;">📷 查看真实记谱纸</button>` : '';
+    
+    let isMyMatch = false;
+    if (currentUser && currentUser.role === 'student' && currentUser.data) {
+      if (m.red === currentUser.data.cnName || m.black === currentUser.data.cnName) isMyMatch = true;
+    }
+    const borderStyle = isMyMatch ? "border-left: 5px solid #F1C40F; background: #FFFCF2;" : "";
+    const badge = isMyMatch ? '<span style="font-size:11px;background:#F1C40F;color:#7D6608;padding:2px 8px;border-radius:6px;font-weight:900;margin-left:8px;">★ 专属对局</span>' : '';
+
     return `
-      <div class="match-card">
+      <div class="match-card" style="${borderStyle}">
         <div style="flex:1;">
           <div class="match-title">
             <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:12px;">vs</span> <span>⚫ ${m.black}</span>
             <span style="font-size:12px;font-weight:800;color:var(--primary-mid);margin-left:4px;">${m.result}</span>
+            ${badge}
           </div>
           <div class="match-meta">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
         </div>
