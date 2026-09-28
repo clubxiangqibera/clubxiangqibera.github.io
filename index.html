@@ -164,6 +164,54 @@
       .btn-logout { display: none; }
     }
 
+    /* ========================================================
+       NEW UI COMPONENTS (ICONS & LISTS)
+       ======================================================== */
+    /* ICON MENU GRID */
+    .icon-menu-card {
+      width: 100%; background: var(--card); border-radius: 20px; padding: 24px;
+      box-shadow: var(--shadow); border: 1px solid var(--border);
+      margin-bottom: 24px; text-align: center;
+    }
+    .icon-menu-title { font-size:14px; font-weight:800; color:var(--text2); margin-bottom: 16px; text-transform: uppercase; letter-spacing:1px; }
+    .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 600px) { .icon-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+    .icon-item { display:flex; flex-direction:column; align-items:center; cursor:pointer; gap:10px; }
+    .icon-item:hover .icon-circle { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+    .icon-circle { 
+      width: 64px; height: 64px; background: var(--bg); border-radius: 18px; 
+      display: flex; justify-content: center; align-items: center; font-size: 28px;
+      transition: all 0.2s; border: 1.5px solid var(--border);
+    }
+    .icon-label { font-size: 13px; font-weight: 800; color: var(--text1); }
+
+    /* CLASS LIST STYLE (LIST-VIEW SCHEDULE) */
+    .class-list-card {
+      width: 100%; background: var(--card); border-radius: 20px; padding: 0; overflow: hidden;
+      box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 24px;
+    }
+    .class-list-header {
+      padding: 18px 24px; border-bottom: 1px solid var(--border); background: var(--bg);
+      font-size: 15px; font-weight: 900; color: var(--text1); display: flex; align-items: center; justify-content: space-between;
+    }
+    .class-item {
+      display: flex; padding: 20px 24px; border-bottom: 1px solid var(--border); align-items: center; gap: 20px; text-align: left;
+    }
+    @media (max-width: 600px) { .class-item { flex-direction: column; text-align: center; gap: 12px; } .class-date { border-right: none !important; border-bottom: 2px solid var(--border); padding-right: 0 !important; padding-bottom: 12px; width:100%; } .class-time { text-align: center !important; } }
+    .class-item:last-child { border-bottom: none; }
+    .class-date { min-width: 60px; text-align: center; border-right: 2px solid var(--border); padding-right: 20px; }
+    .class-date-day { font-size: 12px; color: var(--text2); font-weight: 700; text-transform: uppercase; }
+    .class-date-num { font-size: 22px; font-weight: 900; color: var(--primary-mid); line-height: 1.2; margin-top:2px; }
+    .class-details { flex: 1; }
+    .class-title { font-size: 16px; font-weight: 900; margin-bottom: 6px; color: var(--text1); }
+    .class-meta { font-size: 12px; color: var(--text2); font-weight: 600; margin-bottom: 8px; }
+    .class-wa-btn {
+      display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #fff;
+      padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; text-decoration: none; transition: transform 0.15s;
+    }
+    .class-wa-btn:hover { transform: scale(1.05); }
+    .class-time { text-align: right; font-size: 13px; font-weight: 800; color: var(--primary-mid); line-height: 1.4; }
+
     /* === BIG CENTERED STUDENT VIP HERO === */
     .student-hero{
       width:100%;
