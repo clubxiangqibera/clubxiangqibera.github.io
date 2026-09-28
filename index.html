@@ -149,6 +149,11 @@
       display:flex;flex-direction:column;align-items:center;
     }
 
+    /* SPA VIEWS */
+    .app-view { display: none; width: 100%; animation: fadeIn 0.2s ease-in-out; flex-direction: column; align-items: center; }
+    .app-view.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
     @media (max-width: 850px) {
       .app-sidebar {
         position: fixed; left: 0; top: 0; bottom: 0;
@@ -375,10 +380,10 @@
        <div id="sbUserName" style="font-size:16px;font-weight:900;margin-top:2px;color:var(--primary-dark);">-</div>
     </div>
     <nav class="sb-nav">
-      <a onclick="document.getElementById('studentHeroSection').scrollIntoView({behavior:'smooth'})" class="sb-link active">🏠 个人主页</a>
-      <a onclick="document.getElementById('studentQuickGrid').scrollIntoView({behavior:'smooth'})" class="sb-link">🎯 快捷功能</a>
-      <a onclick="document.getElementById('podiumArea').scrollIntoView({behavior:'smooth'})" class="sb-link">🏆 天梯排位</a>
-      <a onclick="document.getElementById('matchLogList').scrollIntoView({behavior:'smooth'})" class="sb-link">📜 实战记录</a>
+      <a onclick="switchView('viewDashboard', this)" class="sb-link active">🏠 个人主页</a>
+      <a onclick="switchView('viewSchedule', this)" class="sb-link">📅 课程与学费</a>
+      <a onclick="switchView('viewLadder', this)" class="sb-link">🏆 天梯排位</a>
+      <a onclick="switchView('viewMatchLog', this)" class="sb-link">📜 实战记录</a>
     </nav>
     <button class="sb-logout" onclick="logout()">🚪 退出登录</button>
   </aside>
@@ -397,73 +402,83 @@
 
     <div class="container" id="appMainContainer">
 
-    <!-- STUDENT / PARENT VIP HERO (BIG, BOLD & CENTERED) -->
-    <div id="studentHeroSection" style="display:none;" class="student-hero">
-      <div class="hero-avatar">👨‍🎓</div>
-      <div class="hero-name" id="hName">-</div>
-      <div class="hero-meta" id="hSchool">-</div>
-      <div class="hero-badge-wrap">
-        <span class="hero-badge" id="hRankBadge">🏅 全县天梯排位中</span>
-      </div>
-      <div class="hero-elo-center">
-        <span class="hero-elo-big" id="hElo">-</span>
-        <span class="hero-tier" id="hTier">-</span>
-      </div>
-      <div class="hero-prog-container">
-        <div class="hero-prog-bar">
-          <div class="hero-prog-fill" id="hProgFill" style="width:10%;"></div>
+    <!-- VIEW: DASHBOARD -->
+    <div id="viewDashboard" class="app-view active">
+      <!-- STUDENT / PARENT VIP HERO (BIG, BOLD & CENTERED) -->
+      <div id="studentHeroSection" class="student-hero">
+        <div class="hero-avatar">👨‍🎓</div>
+        <div class="hero-name" id="hName">-</div>
+        <div class="hero-meta" id="hSchool">-</div>
+        <div class="hero-badge-wrap">
+          <span class="hero-badge" id="hRankBadge">🏅 全县天梯排位中</span>
         </div>
-        <div class="hero-prog-labels">
-          <span id="hBaseElo">起步 200分</span>
-          <span id="hNextElo">目标 400分</span>
+        <div class="hero-elo-center">
+          <span class="hero-elo-big" id="hElo">-</span>
+          <span class="hero-tier" id="hTier">-</span>
         </div>
-      </div>
-      <!-- STATS GRID -->
-      <div class="hero-stats-grid" style="display:flex; justify-content:space-evenly; margin-top:24px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.06);">
-        <div class="stat-box" style="text-align:center;">
-          <div style="font-size:12px; color:var(--text2); font-weight:700;">总对局</div>
-          <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatTotal">-</div>
-        </div>
-        <div class="stat-box" style="text-align:center;">
-          <div style="font-size:12px; color:var(--text2); font-weight:700;">胜率</div>
-          <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatWinRate">-</div>
-        </div>
-        <div class="stat-box" style="text-align:center;">
-          <div style="font-size:12px; color:var(--text2); font-weight:700;">实战战绩</div>
-          <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatRecord">-</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- QUICK ACCESS ICON MENU -->
-    <div id="studentQuickGrid" style="display:none; width:100%;">
-      <div class="icon-menu-card">
-        <div class="icon-menu-title">🌟 快捷导航 Menu</div>
-        <div class="icon-grid">
-          <div class="icon-item" onclick="document.getElementById('classScheduleBlock').scrollIntoView({behavior:'smooth'})">
-            <div class="icon-circle">📅</div>
-            <span class="icon-label">课程日程</span>
+        <div class="hero-prog-container">
+          <div class="hero-prog-bar">
+            <div class="hero-prog-fill" id="hProgFill" style="width:10%;"></div>
           </div>
-          <div class="icon-item" onclick="document.getElementById('tuitionBlock').scrollIntoView({behavior:'smooth'})">
-            <div class="icon-circle">💳</div>
-            <span class="icon-label">学费缴交</span>
+          <div class="hero-prog-labels">
+            <span id="hBaseElo">起步 200分</span>
+            <span id="hNextElo">目标 400分</span>
           </div>
-          <div class="icon-item" onclick="document.getElementById('podiumArea').scrollIntoView({behavior:'smooth'})">
-            <div class="icon-circle">🏆</div>
-            <span class="icon-label">全县排位</span>
+        </div>
+        <!-- STATS GRID -->
+        <div class="hero-stats-grid" style="display:flex; justify-content:space-evenly; margin-top:24px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.06);">
+          <div class="stat-box" style="text-align:center;">
+            <div style="font-size:12px; color:var(--text2); font-weight:700;">总对局</div>
+            <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatTotal">-</div>
           </div>
-          <div class="icon-item" onclick="document.getElementById('matchLogList').scrollIntoView({behavior:'smooth'})">
-            <div class="icon-circle">📜</div>
-            <span class="icon-label">实战记录</span>
+          <div class="stat-box" style="text-align:center;">
+            <div style="font-size:12px; color:var(--text2); font-weight:700;">胜率</div>
+            <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatWinRate">-</div>
+          </div>
+          <div class="stat-box" style="text-align:center;">
+            <div style="font-size:12px; color:var(--text2); font-weight:700;">实战战绩</div>
+            <div style="font-size:22px; font-weight:900; color:var(--primary-dark); margin-top:4px;" id="hStatRecord">-</div>
           </div>
         </div>
       </div>
 
+      <!-- QUICK ACCESS ICON MENU -->
+      <div id="studentQuickGrid" style="width:100%;">
+        <div class="icon-menu-card">
+          <div class="icon-menu-title">🌟 快捷导航 Menu</div>
+          <div class="icon-grid">
+            <div class="icon-item" onclick="switchView('viewSchedule')">
+              <div class="icon-circle">📅</div>
+              <span class="icon-label">课程日程</span>
+            </div>
+            <div class="icon-item" onclick="switchView('viewSchedule')">
+              <div class="icon-circle">💳</div>
+              <span class="icon-label">学费缴交</span>
+            </div>
+            <div class="icon-item" onclick="switchView('viewLadder')">
+              <div class="icon-circle">🏆</div>
+              <span class="icon-label">全县排位</span>
+            </div>
+            <div class="icon-item" onclick="switchView('viewMatchLog')">
+              <div class="icon-circle">📜</div>
+              <span class="icon-label">实战记录</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- RECENT TICKER -->
+      <div class="ticker-wrap" style="margin-bottom:24px;width:100%;">
+        <div id="tickerTrack" class="ticker-track"></div>
+      </div>
+    </div> <!-- END VIEW DASHBOARD -->
+
+    <!-- VIEW: SCHEDULE -->
+    <div id="viewSchedule" class="app-view">
       <!-- LIST STYLE SCHEDULE -->
       <div id="classScheduleBlock" class="class-list-card">
         <div class="class-list-header">
           <span>📍 培训班级与日程 (Upcoming Classes)</span>
-          <span style="font-size:12px;background:#E8F8F5;color:#1ABC9C;padding:4px 10px;border-radius:12px;">实时同步</span>
+          <span style="font-size:12px;background:rgba(26,188,156,0.15);color:#1ABC9C;padding:4px 10px;border-radius:12px;">实时同步</span>
         </div>
         
         <div class="class-item">
@@ -481,7 +496,7 @@
           </div>
         </div>
 
-        <div class="class-item" style="background:#FDFEFE;">
+        <div class="class-item" style="background:var(--bg);">
           <div class="class-date">
             <div class="class-date-day">学习</div>
             <div class="class-date-num" style="font-size:16px;">进度</div>
@@ -495,7 +510,7 @@
 
       <!-- TUITION CARD (Refined) -->
       <div id="tuitionBlock" class="class-list-card" style="margin-top:24px;">
-        <div class="class-list-header" style="background:#FEF9E7;color:#B7950B;border-bottom:1px solid #F1C40F;">
+        <div class="class-list-header" style="background:var(--bg); border-bottom:1px solid var(--border);">
           <span>💳 学费缴纳与凭证 (Payment History)</span>
           <span id="qPayBadge" style="font-size:12px;">-</span>
         </div>
@@ -517,33 +532,31 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> <!-- END VIEW SCHEDULE -->
 
-    <!-- RECENT TICKER -->
-    <div class="ticker-wrap" style="margin-bottom:24px;">
-      <div id="tickerTrack" class="ticker-track"></div>
-    </div>
+    <!-- VIEW: LADDER -->
+    <div id="viewLadder" class="app-view">
+      <div class="section-head">
+        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
+        <div class="section-sub">CXB ELO 官方排位体系 · 实时同步</div>
+      </div>
+      <div id="podiumArea" class="podium"></div>
 
-    <!-- PODIUM (CENTERED & PROMINENT) -->
-    <div class="section-head">
-      <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
-      <div class="section-sub">CXB ELO 官方排位体系 · 实时同步</div>
-    </div>
-    <div id="podiumArea" class="podium"></div>
+      <div class="section-head" style="margin-top:34px;">
+        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
+        <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
+      </div>
+      <div id="rankList" class="rank-list" style="width:100%;"></div>
+    </div> <!-- END VIEW LADDER -->
 
-    <!-- RANK LIST (CENTERED & SPACIOUS) -->
-    <div class="section-head" style="margin-top:34px;">
-      <div class="section-title">📋 现役学员总榜 (全县排位)</div>
-      <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
-    </div>
-    <div id="rankList" class="rank-list"></div>
-
-    <!-- MATCH HISTORY & RECORD PAPERS -->
-    <div class="section-head" style="margin-top:36px;">
-      <div class="section-title">📜 实战对局记录与记谱纸档案</div>
-      <div class="section-sub">点击右侧按钮放大查看真实比赛记谱纸扫描件</div>
-    </div>
-    <div id="matchLogList" class="rank-list" style="margin-bottom:50px;"></div>
+    <!-- VIEW: MATCH LOGS -->
+    <div id="viewMatchLog" class="app-view">
+      <div class="section-head" style="margin-top:20px;">
+        <div class="section-title">📜 实战对局记录与记谱纸档案</div>
+        <div class="section-sub">点击右侧按钮放大查看真实比赛记谱纸扫描件</div>
+      </div>
+      <div id="matchLogList" class="rank-list" style="margin-bottom:50px;width:100%;"></div>
+    </div> <!-- END VIEW MATCH LOGS -->
 
   </div>
   </div>
@@ -565,6 +578,23 @@ let globalPlayers = [];
 let globalStudents = [];
 let globalMatches = [];
 let currentUser = null;
+
+function switchView(viewId, el = null) {
+  // Hide all views
+  document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+  // Show target view
+  const target = document.getElementById(viewId);
+  if(target) target.classList.add('active');
+
+  // Update sidebar active state
+  if (el && el.classList.contains('sb-link')) {
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Close sidebar on mobile
+  document.getElementById('appSidebar').classList.remove('show');
+}
 
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
 
@@ -683,18 +713,19 @@ async function showAuthenticatedApp() {
 
 function renderAdminTopBar() {
   document.getElementById('topbarRole').innerHTML = `👑 教练管理层 <a href="admin.html" style="margin-left:10px;background:#F1C40F;color:#7D6608;padding:4px 12px;border-radius:10px;text-decoration:none;font-weight:900;font-size:12px;box-shadow:0 3px 10px rgba(241,196,15,0.4);">⚡ 进入教练后台</a>`;
-  document.getElementById('studentHeroSection').style.display = 'none';
-  document.getElementById('studentQuickGrid').style.display = 'none';
+  switchView('viewLadder');
   const sb = document.getElementById('appSidebar');
   if(sb) sb.style.display = 'none';
 }
 
 function renderStudentExclusiveView(stu) {
   document.getElementById('topbarRole').textContent = `学员: ${stu.cnName}`;
-  document.getElementById('studentHeroSection').style.display = 'block';
-  document.getElementById('studentQuickGrid').style.display = 'block';
+  
   const sb = document.getElementById('appSidebar');
   if(sb) sb.style.display = 'flex';
+
+  // Force reset to dashboard when logging in
+  switchView('viewDashboard');
 
   const lad = globalPlayers.find(p => p.id === stu.id || p.name === stu.cnName) || { elo: stu.elo, rank: '-' };
 
