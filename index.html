@@ -810,7 +810,13 @@ async function handleLogin() {
   );
 
   if (found) {
-    const validPwd = found.password || '1234';
+    // Default password = Level digit + ID number (e.g. Lv2 + XQB-001 → 2001)
+    const lvMatch = (found.level || '').match(/Lv\s*(\d)/);
+    const lvNum = lvMatch ? lvMatch[1] : '1';
+    const idMatch = (found.id || '').match(/(\d+)$/);
+    const idNum = idMatch ? idMatch[1] : '001';
+    const defaultPwd = lvNum + idNum;
+    const validPwd = found.password && found.password !== defaultPwd ? found.password : (found.password || defaultPwd);
     if (pwd === validPwd) {
       currentUser = { role: 'student', data: found };
       localStorage.setItem('cxb_auth_user', JSON.stringify(currentUser));

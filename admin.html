@@ -497,8 +497,9 @@
 <script>
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
 const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyFY__BC0NXW87ZK1okkzhlskQ4PPBJx2QEXf0-8Icv8tbFHZcRSVge60TqU11DU4v_/exec';
-const SUPER_PIN = '8888';
-const COACH_PIN = '6666';
+const SUPER_PIN = '7789';
+// Coach PIN is editable by superadmin and stored in localStorage
+function getCoachPin() { return localStorage.getItem('cxb_coach_pin') || '6666'; }
 
 let allStudents = [];
 let allMatches = [];
@@ -510,14 +511,14 @@ function checkAuth(){
   const s = localStorage.getItem('cxb_auth');
   if (s) {
     const d = JSON.parse(s);
-    if ((d.pin === SUPER_PIN || d.pin === COACH_PIN) && Date.now() - d.ts < 86400000) return true;
+    if ((d.pin === SUPER_PIN || d.pin === getCoachPin()) && Date.now() - d.ts < 86400000) return true;
   }
   return false;
 }
 function tryLogin(){
   const boxes=document.querySelectorAll('.pin-box');
   const p=Array.from(boxes).map(b=>b.value).join('');
-  if(p===SUPER_PIN || p===COACH_PIN){
+  if(p===SUPER_PIN || p===getCoachPin()){
     localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
     localStorage.setItem('cxb_auth_user',JSON.stringify({role: p===SUPER_PIN ? 'superadmin' : 'admin'}));
     showApp();
@@ -534,7 +535,6 @@ function showApp(){
   document.getElementById('mainApp').style.display='block';
   const auth = JSON.parse(localStorage.getItem('cxb_auth'));
   const isSuperAdmin = auth && auth.pin === SUPER_PIN;
-  const isCoach = auth && auth.pin === COACH_PIN;
 
   // Students & Payments: superadmin only
   document.querySelector('[data-tab="students"]').style.display = isSuperAdmin ? 'block' : 'none';
@@ -610,54 +610,97 @@ function getPlayerStats(id, name) {
 }
 
 // ── ACCOUNT MANAGER ──────────────────────────────────────────
+function getDefaultPwd(student) {
+  // Default password = Level digit + ID number, e.g. Lv2 XQB-001 → 2001
+  const lvMatch = (student.level || '').match(/Lv\s*(\d)/);
+  const lvNum = lvMatch ? lvMatch[1] : '1';
+  const idMatch = (student.id || '').match(/(\d+)$/);
+  const idNum = idMatch ? idMatch[1] : '000';
+  return lvNum + idNum;
+}
+
 function renderAccountList() {
   const el = document.getElementById('accountListTable');
   const countEl = document.getElementById('accStudentCount');
   if (!el) return;
   if (countEl) countEl.textContent = `共 ${allStudents.length} 名学员`;
 
+  // Teacher PIN editor
   el.innerHTML = `
+    <div style="background:rgba(41,128,185,0.08);border:1.5px solid rgba(41,128,185,0.3);border-radius:14px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:14px;font-weight:900;color:#2980B9;flex-shrink:0;">🎓 教练登录密码 (Coach PIN)</div>
+      <input type="text" id="coachPinInput" value="${getCoachPin()}" maxlength="6"
+        style="width:120px;padding:8px 12px;border:1.5px solid rgba(41,128,185,0.4);border-radius:10px;font-size:16px;font-weight:900;letter-spacing:4px;text-align:center;background:#fff;"
+        onblur="saveCoachPin(this.value)" oninput="this.style.borderColor='#F39C12'">
+      <span style="font-size:12px;color:var(--text2);">失焦后自动保存 · 当前: <strong id="coachPinDisplay">${getCoachPin()}</strong></span>
+    </div>
+
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-size:13px;">
         <thead>
           <tr style="background:var(--bg);border-bottom:2px solid var(--border);">
             <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">学号</th>
             <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">中文姓名 (账号)</th>
-            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">密码</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">密码 <span style="font-weight:500;color:var(--text2);font-size:11px;">(默认=级别+编号)</span></th>
             <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">班级</th>
-            <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">操作</th>
+            <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">状态</th>
           </tr>
         </thead>
         <tbody>
-          ${allStudents.map((s, i) => `
-            <tr style="border-bottom:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">
+          ${allStudents.map((s, i) => {
+            const defaultPwd = getDefaultPwd(s);
+            const currentPwd = s.password || defaultPwd;
+            const isDefault = currentPwd === defaultPwd;
+            return `
+            <tr style="border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">
               <td style="padding:10px 12px;font-weight:700;color:var(--text2);">${s.id}</td>
               <td style="padding:10px 12px;">
-                <input type="text" id="acc_name_${i}" value="${s.cnName}" 
-                  style="width:100%;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);">
+                <input type="text" id="acc_name_${i}" value="${s.cnName}"
+                  style="width:100%;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#F39C12'"
+                  onblur="autoSaveAccount(${i},'${s.id}',this)">
               </td>
               <td style="padding:10px 12px;">
-                <input type="text" id="acc_pwd_${i}" value="${s.password || '1234'}" 
-                  style="width:90px;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <input type="text" id="acc_pwd_${i}" value="${currentPwd}" maxlength="8"
+                    style="width:90px;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);transition:border-color .2s;"
+                    onfocus="this.style.borderColor='#F39C12'"
+                    onblur="autoSaveAccount(${i},'${s.id}',this)">
+                  ${isDefault ? '<span style="font-size:10px;background:rgba(41,128,185,0.12);color:#2980B9;padding:2px 6px;border-radius:6px;font-weight:700;">默认</span>' : '<span style="font-size:10px;background:rgba(39,174,96,0.12);color:#27AE60;padding:2px 6px;border-radius:6px;font-weight:700;">已改</span>'}
+                </div>
               </td>
               <td style="padding:10px 12px;font-size:12px;color:var(--text2);">${s.level}</td>
-              <td style="padding:10px 12px;text-align:center;">
-                <button onclick="saveAccountChange(${i},'${s.id}')" 
-                  style="padding:6px 14px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;">
-                  💾 保存
-                </button>
+              <td style="padding:10px 12px;text-align:center;" id="acc_status_${i}">
+                <span style="font-size:11px;color:var(--text2);">-</span>
               </td>
-            </tr>
-          `).join('')}
+            </tr>`;
+          }).join('')}
         </tbody>
       </table>
     </div>`;
 }
 
-async function saveAccountChange(idx, studentId) {
+function saveCoachPin(newPin) {
+  const trimmed = newPin.trim();
+  if (!trimmed || trimmed.length < 4) { toast('教练密码至少需要4位！', 'error'); return; }
+  if (trimmed === SUPER_PIN) { toast('教练密码不能与总控密码相同！', 'error'); return; }
+  localStorage.setItem('cxb_coach_pin', trimmed);
+  const disp = document.getElementById('coachPinDisplay');
+  if (disp) disp.textContent = trimmed;
+  const input = document.getElementById('coachPinInput');
+  if (input) input.style.borderColor = '#27AE60';
+  toast(`✅ 教练密码已更新为: ${trimmed}`, 'success');
+}
+
+async function autoSaveAccount(idx, studentId, inputEl) {
   const newName = document.getElementById(`acc_name_${idx}`).value.trim();
   const newPwd  = document.getElementById(`acc_pwd_${idx}`).value.trim();
-  if (!newName || !newPwd) { toast('姓名与密码不能为空！', 'error'); return; }
+  if (!newName || !newPwd) return;
+
+  const statusEl = document.getElementById(`acc_status_${idx}`);
+  if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:#F39C12;">⏳ 保存中...</span>';
+  if (inputEl) inputEl.style.borderColor = '#F39C12';
+
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
@@ -665,14 +708,16 @@ async function saveAccountChange(idx, studentId) {
     });
     const data = await res.json();
     if (data.status === 'ok') {
-      toast(`✅ ${newName} 的账号信息已更新！`, 'success');
-      await loadStudents();
-      renderAccountList();
+      if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:#27AE60;">✅ 已保存</span>';
+      if (inputEl) inputEl.style.borderColor = '#27AE60';
+      setTimeout(() => { if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:var(--text2);">-</span>'; }, 3000);
     } else {
-      toast('保存失败，请检查 GAS 脚本是否支持 updateAccount！', 'error');
+      if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:#E74C3C;">⚠️ 失败</span>';
+      if (inputEl) inputEl.style.borderColor = '#E74C3C';
     }
   } catch(e) {
-    toast('⚠️ 网络错误，无法连接云端。', 'error');
+    if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:#E74C3C;">⚠️ 离线</span>';
+    if (inputEl) inputEl.style.borderColor = '#E74C3C';
   }
 }
 
