@@ -46,11 +46,58 @@
     /* ========================================================
        1. SECURITY LOGIN GATE
        ======================================================== */
-    #securityGate{
-      display:flex;justify-content:center;align-items:center;
-      width:100%;min-height:100vh;padding:24px;
-      background:linear-gradient(145deg,#061724 0%,#0E2F44 45%,#1A5276 100%);
+    
+    /* PUBLIC PORTAL HEADER & LAYOUT */
+    #securityGate {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; min-height: 100vh; padding: 0;
+      background: linear-gradient(145deg, #061724 0%, #0E2F44 45%, #1A5276 100%);
+      color: #fff;
     }
+    .public-nav-bar {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 24px; background: rgba(6, 23, 36, 0.88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); flex-wrap: wrap; gap: 12px;
+    }
+    .p-nav-brand { display: flex; align-items: center; gap: 12px; }
+    .p-nav-icon { font-size: 30px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+    .p-nav-title { font-size: 19px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .p-nav-sub { font-size: 11px; font-weight: 800; color: #F1C40F; letter-spacing: 0.5px; }
+    .p-nav-btns { display: flex; align-items: center; gap: 10px; }
+    .p-tab-btn {
+      padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 800; cursor: pointer;
+      background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid rgba(255, 255, 255, 0.22);
+      transition: all 0.2s; backdrop-filter: blur(8px);
+    }
+    .p-tab-btn:hover { background: rgba(255, 255, 255, 0.22); }
+    .p-tab-btn.active {
+      background: #F1C40F; color: #7D6608; border-color: #F1C40F;
+      box-shadow: 0 4px 14px rgba(241, 196, 15, 0.4);
+    }
+    .p-coach-btn {
+      padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 800;
+      background: rgba(241, 196, 15, 0.15); color: #F1C40F; border: 1px solid rgba(241, 196, 15, 0.35);
+      text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .p-coach-btn:hover { background: #F1C40F; color: #7D6608; }
+    .public-content-wrap {
+      width: 100%; max-width: 920px; padding: 28px 20px 60px;
+    }
+    .vip-invite-card {
+      background: linear-gradient(135deg, rgba(241,196,15,0.12) 0%, rgba(26,82,118,0.3) 100%);
+      border: 1.5px solid rgba(241,196,15,0.4); border-radius: 20px;
+      padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;
+      margin-top: 36px; gap: 16px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .vip-invite-text { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.4; }
+    .vip-invite-btn {
+      background: #F1C40F; color: #7D6608; padding: 11px 22px; border-radius: 14px;
+      font-size: 14px; font-weight: 900; border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(241,196,15,0.4); transition: transform 0.15s; white-space: nowrap;
+    }
+    .vip-invite-btn:hover { transform: scale(1.04); }
+
     .gate-card{
       background:#FFF;border-radius:30px;padding:44px 32px;
       width:100%;max-width:460px;box-shadow:0 30px 80px rgba(0,0,0,0.4);
@@ -379,38 +426,86 @@
 <body>
 
 <!-- ========================================================
-     1. SECURITY LOGIN GATEWAY (UNIFIED PORTAL)
+     1. PUBLIC PORTAL & SECURITY GATEWAY
      ======================================================== -->
 <div id="securityGate">
-  <div class="gate-card">
-    <div class="gate-logo">♟️</div>
-    <div class="gate-badge">CLUB XIANGQI BERA · 私密专属系统</div>
-    <h1 class="gate-title">百乐象棋俱乐部</h1>
-    <p class="gate-sub">请使用俱乐部发放的专属账号（姓名）与密码登录</p>
+  <!-- PUBLIC STICKY NAV -->
+  <header class="public-nav-bar">
+    <div class="p-nav-brand">
+      <span class="p-nav-icon">♟️</span>
+      <div>
+        <div class="p-nav-title">百乐象棋俱乐部</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA · 官方全县天梯榜</div>
+      </div>
+    </div>
+    <div class="p-nav-btns">
+      <button class="p-tab-btn active" id="tabBtnLadder" onclick="togglePublicTab('ladder')">🏆 全县天梯榜</button>
+      <button class="p-tab-btn" id="tabBtnLogin" onclick="togglePublicTab('login')">🔐 学员/家长登录</button>
+      <a href="admin.html" class="p-coach-btn">👑 教练入口</a>
+    </div>
+  </header>
 
-    <div class="input-group">
-      <label class="input-label">👤 登录账号 (姓名 / 管理员)</label>
-      <input type="text" id="accInput" class="gate-input" placeholder="如: 黄梓轩 或 admin" autofocus>
+  <div class="public-content-wrap">
+    <!-- VIEW 1: PUBLIC LEADERBOARD (OPEN FOR ALL) -->
+    <div id="publicLadderSection">
+      <div class="section-head">
+        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
+        <div class="section-sub">CXB ELO 官方排位体系 · 实时同步</div>
+      </div>
+      <div id="publicPodiumArea" class="podium"></div>
+
+      <div class="section-head" style="margin-top:36px;">
+        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
+        <div class="section-sub">全县所有在册学员实战 ELO 积分与胜率总览</div>
+      </div>
+      <div id="publicRankList" class="rank-list" style="width:100%;"></div>
+
+      <!-- VIP INVITATION BANNER -->
+      <div class="vip-invite-card">
+        <div class="vip-invite-text">
+          👋 <strong>在册学员或家长？</strong><br>
+          <span style="font-size:13px;opacity:0.85;font-weight:600;">登录专属 VIP 空间，查阅个人出勤日程、对局记谱纸及详细考勤。</span>
+        </div>
+        <button class="vip-invite-btn" onclick="togglePublicTab('login')">进入学员专区 🔐</button>
+      </div>
     </div>
 
-    <div class="input-group">
-      <label class="input-label">🔑 专属密码 (Password)</label>
-      <input type="password" id="pwdInput" class="gate-input" placeholder="请输入密码">
-    </div>
+    <!-- VIEW 2: LOGIN CARD (STUDENT & PARENT VIP) -->
+    <div id="publicLoginSection" style="display:none; justify-content:center; align-items:center; min-height:65vh;">
+      <div class="gate-card" style="margin:20px auto;">
+        <div class="gate-logo">♟️</div>
+        <div class="gate-badge">CLUB XIANGQI BERA · 学员专属登录</div>
+        <h1 class="gate-title">百乐象棋俱乐部</h1>
+        <p class="gate-sub">请使用俱乐部发放的学员账号（姓名）与密码登录</p>
 
-    <button class="login-btn" onclick="handleLogin()">🔐 登录进入系统</button>
-    <div id="loginMsg" style="color:var(--red);font-size:13px;font-weight:800;margin-top:10px;display:none;"></div>
+        <div class="input-group">
+          <label class="input-label">👤 登录账号 (姓名 / 管理员)</label>
+          <input type="text" id="accInput" class="gate-input" placeholder="如: 黄梓轩 或 admin" autofocus>
+        </div>
 
-    <!-- QUICK TESTING PILLS -->
-    <div class="quick-test-box">
-      <span class="quick-test-label">⚡ 快速测试体验（点击免输直接体验）：</span>
-      <div class="test-pills">
-        <div class="test-pill admin-pill" onclick="quickFill('admin','8888')">👑 教练后台 (admin / 8888)</div>
-        <div class="test-pill" onclick="quickFill('黄梓轩','1234')">👤 黄梓轩 (1234)</div>
-        <div class="test-pill" onclick="quickFill('苏进康','1234')">👤 苏进康 (1234)</div>
-        <div class="test-pill" onclick="quickFill('陈美仪','1234')">👤 陈美仪 (1234)</div>
-        <div class="test-pill" onclick="quickFill('林家豪','1234')">👤 林家豪 (1234)</div>
-        <div class="test-pill" onclick="quickFill('郭雨涵','1234')">👤 郭雨涵 (1234)</div>
+        <div class="input-group">
+          <label class="input-label">🔑 专属密码 (Password)</label>
+          <input type="password" id="pwdInput" class="gate-input" placeholder="请输入密码">
+        </div>
+
+        <button class="login-btn" onclick="handleLogin()">🔐 登录进入系统</button>
+        <div id="loginMsg" style="color:var(--red);font-size:13px;font-weight:800;margin-top:10px;display:none;"></div>
+
+        <!-- QUICK TESTING PILLS -->
+        <div class="quick-test-box">
+          <span class="quick-test-label">⚡ 在册学员一键免输体验：</span>
+          <div class="test-pills">
+            <div class="test-pill" onclick="quickFill('黄梓轩','1234')">👤 黄梓轩</div>
+            <div class="test-pill" onclick="quickFill('苏进康','1234')">👤 苏进康</div>
+            <div class="test-pill" onclick="quickFill('陈美仪','1234')">👤 陈美仪</div>
+            <div class="test-pill" onclick="quickFill('林家豪','1234')">👤 林家豪</div>
+            <div class="test-pill" onclick="quickFill('郭雨涵','1234')">👤 郭雨涵</div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px; text-align:center;">
+          <a href="javascript:void(0)" onclick="togglePublicTab('ladder')" style="font-size:13px; font-weight:700; color:var(--primary-mid); text-decoration:none;">← 返回全县天梯榜</a>
+        </div>
       </div>
     </div>
   </div>
@@ -430,6 +525,7 @@
     <nav class="sb-nav">
       <a onclick="switchView('viewDashboard', this)" class="sb-link active">🏠 个人主页</a>
       <a onclick="switchView('viewSchedule', this)" class="sb-link">📅 课程与学费</a>
+      <a onclick="switchView('viewLadder', this)" class="sb-link">🏆 天梯排位</a>
       <a onclick="switchView('viewMatchLog', this)" class="sb-link">📜 实战记录</a>
     </nav>
     <button class="sb-logout" onclick="logout()">🚪 退出登录</button>
@@ -501,6 +597,10 @@
             <div class="icon-item" onclick="switchView('viewSchedule')">
               <div class="icon-circle">💳</div>
               <span class="icon-label">学费缴交</span>
+            </div>
+            <div class="icon-item" onclick="switchView('viewLadder')">
+              <div class="icon-circle">🏆</div>
+              <span class="icon-label">全县排位</span>
             </div>
             <div class="icon-item" onclick="switchView('viewMatchLog')">
               <div class="icon-circle">📜</div>
@@ -578,6 +678,21 @@
     </div> <!-- END VIEW SCHEDULE -->
 
 
+
+    <!-- VIEW: LADDER -->
+    <div id="viewLadder" class="app-view">
+      <div class="section-head">
+        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
+        <div class="section-sub">CXB ELO 官方排位体系 · 实时同步</div>
+      </div>
+      <div id="podiumArea" class="podium"></div>
+
+      <div class="section-head" style="margin-top:34px;">
+        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
+        <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
+      </div>
+      <div id="rankList" class="rank-list" style="width:100%;"></div>
+    </div> <!-- END VIEW LADDER -->
 
     <!-- VIEW: MATCH LOGS -->
     <div id="viewMatchLog" class="app-view">
@@ -739,7 +854,8 @@ async function showAuthenticatedApp() {
     renderAdminTopBar();
     return;
   }
-  renderPodium(globalPlayers);
+  renderPublicLadder(globalPlayers);
+    renderPodium(globalPlayers);
   renderRankList(globalPlayers);
   renderTicker(globalMatches);
   renderMatchLogList(globalMatches);
@@ -830,6 +946,76 @@ function uploadSlip() {
     }
   };
   rd.readAsDataURL(f);
+}
+
+
+function togglePublicTab(tab) {
+  const ladderSec = document.getElementById('publicLadderSection');
+  const loginSec = document.getElementById('publicLoginSection');
+  const btnLadder = document.getElementById('tabBtnLadder');
+  const btnLogin = document.getElementById('tabBtnLogin');
+  if (tab === 'ladder') {
+    if (ladderSec) ladderSec.style.display = 'block';
+    if (loginSec) loginSec.style.display = 'none';
+    if (btnLadder) btnLadder.classList.add('active');
+    if (btnLogin) btnLogin.classList.remove('active');
+    renderPublicLadder(globalPlayers);
+  } else {
+    if (ladderSec) ladderSec.style.display = 'none';
+    if (loginSec) loginSec.style.display = 'flex';
+    if (btnLadder) btnLadder.classList.remove('active');
+    if (btnLogin) btnLogin.classList.add('active');
+  }
+}
+
+function renderPublicLadder(players) {
+  const p = [...players].sort((a,b)=>b.elo - a.elo);
+  const area = document.getElementById('publicPodiumArea');
+  if (area && p.length) {
+    const medals = ['🥇','🥈','🥉'];
+    let html = '';
+    [1, 0, 2].forEach(idx => {
+      const pl = p[idx];
+      if (!pl) return;
+      const cls = idx === 0 ? 'pod-1' : idx === 1 ? 'pod-2' : 'pod-3';
+      const crown = idx === 0 ? '<div class="crown">👑 榜首第一人</div>' : '';
+      html += `
+        <div class="pod ${cls}">
+          ${crown}
+          <div class="pod-medal">${medals[idx]}</div>
+          <div class="pod-name">${pl.name}</div>
+          <div class="pod-school">${pl.school}</div>
+          <div class="tier-chip ${getTierClass(pl.elo)}">${getTierName(pl.elo)}</div>
+          <div class="pod-elo">${pl.elo}</div>
+          <div class="pod-stats">${pl.w}胜 ${pl.d}和 ${pl.l}负</div>
+        </div>`;
+    });
+    area.innerHTML = html;
+  }
+
+  const list = document.getElementById('publicRankList');
+  if (list && p.length) {
+    list.innerHTML = p.map((pl, i) => {
+      const wr = pl.total > 0 ? ((pl.w / pl.total) * 100).toFixed(0) : 0;
+      return `
+        <div class="rank-card">
+          <div class="rank-left">
+            <div class="rank-num">${i + 1}</div>
+            <div class="rank-info">
+              <div class="rank-name">
+                ${pl.name}
+                <span class="tier-chip ${getTierClass(pl.elo)}">${getTierName(pl.elo)}</span>
+              </div>
+              <div class="rank-school">${pl.school} · ${pl.total} 场实战 (${pl.w}胜 ${pl.d}和 ${pl.l}负)</div>
+            </div>
+          </div>
+          <div class="rank-right">
+            <div class="rank-elo">${pl.elo}</div>
+            <div class="rank-wr">胜率 ${wr}%</div>
+          </div>
+        </div>`;
+    }).join('');
+  }
 }
 
 // RENDERING LADDER
@@ -993,8 +1179,12 @@ async function loadMatches() {
   } catch(e) { console.error(e); }
 }
 
-checkStoredSession();
-loadStudents();
+async function initPublicApp() {
+  await Promise.all([loadLadder(), loadStudents(), loadMatches()]);
+  renderPublicLadder(globalPlayers);
+  checkStoredSession();
+}
+initPublicApp();
 </script>
 </body>
 </html>
