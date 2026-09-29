@@ -248,15 +248,17 @@
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
           <div>
             <label class="form-label">班级级别</label>
-            <select id="qLevel" class="form-select">
-              <option>Lv 1 启蒙班</option><option>Lv 2 进阶班</option><option>Lv 3 精英班</option>
+            <select id="qLevel" class="form-select" onchange="updateFeeOptions()">
+              <option value="Lv 1 启蒙班">Lv 1 启蒙班</option>
+              <option value="Lv 2 进阶班">Lv 2 进阶班</option>
+              <option value="Lv 3 精英班">Lv 3 精英班</option>
             </select>
           </div>
           <div>
             <label class="form-label">学费模式</label>
             <select id="qFee" class="form-select">
-              <option>Combo 季度 (RM200)</option><option>月缴 (RM70)</option>
-              <option>Combo 季度 (RM250)</option><option>Combo 季度 (RM300)</option>
+              <option value="Combo 季度 (RM200)">Combo 季度 (RM200)</option>
+              <option value="月缴 (RM70)">月缴 (RM70)</option>
             </select>
           </div>
           <div>
@@ -533,6 +535,23 @@ function renderGallery(){
       </div>
     `;
   }).join('');
+}
+
+function updateFeeOptions() {
+  const level = document.getElementById('qLevel').value;
+  const feeSelect = document.getElementById('qFee');
+  feeSelect.innerHTML = ''; // clear options
+  
+  if (level.includes('Lv 1')) {
+    feeSelect.add(new Option('Combo 季度 (RM200)', 'Combo 季度 (RM200)'));
+    feeSelect.add(new Option('月缴 (RM70)', '月缴 (RM70)'));
+  } else if (level.includes('Lv 2')) {
+    feeSelect.add(new Option('Combo 季度 (RM250)', 'Combo 季度 (RM250)'));
+    feeSelect.add(new Option('月缴 (RM85)', '月缴 (RM85)'));
+  } else if (level.includes('Lv 3')) {
+    feeSelect.add(new Option('Combo 季度 (RM300)', 'Combo 季度 (RM300)'));
+    feeSelect.add(new Option('月缴 (RM110)', '月缴 (RM110)'));
+  }
 }
 
 function pickSchool(s){document.getElementById('qSchool').value=s;}
