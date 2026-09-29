@@ -1178,9 +1178,9 @@ function renderTournamentManage() {
 
 // --- K-Factor ELO ---
 function calcKFactor(elo, totalGames) {
-  if (totalGames < 20 || elo < 400) return 30;
-  if (elo < 700) return 20;
-  return 10;
+  if (totalGames < 20 || elo < 400) return 24;
+  if (elo < 700) return 16;
+  return 8;
 }
 
 function calcExpected(playerElo, opponentElo) {
