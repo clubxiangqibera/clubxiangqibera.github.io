@@ -190,7 +190,6 @@
 
   <div class="nav-tabs">
     <div class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 运营看板</div>
-    <div class="nav-tab" data-tab="matches" onclick="switchTab('matches')">🎮 极速对局录入</div>
     <div class="nav-tab" data-tab="students" onclick="switchTab('students')">👥 学员快速建档</div>
     <div class="nav-tab" data-tab="payments" onclick="switchTab('payments')">💰 学费审核追踪</div>
     <div class="nav-tab" data-tab="records" onclick="switchTab('records')">📄 对局纸档案库</div>
@@ -219,69 +218,7 @@
       </div>
     </div>
 
-    <!-- TAB 2: MATCHES (VISUAL ULTRA FAST ENTRY) -->
-    <div class="tab-panel" id="panel-matches">
-      <div class="form-card">
-        <h3>⚡ 极速对局录入（点击棋手头像直接选定）</h3>
-        
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-          <div><label class="form-label">📅 对局日期</label><input type="date" id="mDate" class="form-input"></div>
-          <div><label class="form-label">🏆 比赛类别</label>
-            <select id="mType" class="form-select">
-              <option>周末常态排位赛</option><option>SP98 瑞士制月赛 R1</option><option>SP98 瑞士制月赛 R2</option>
-              <option>SP98 瑞士制月赛 R3</option><option>升降级定级实战</option>
-            </select>
-          </div>
-        </div>
 
-        <!-- RED FIGHTER SELECTION -->
-        <div class="form-group">
-          <label class="form-label">🔴 执红方棋手 (先手)：<span id="selectedRedName" style="color:var(--red);font-weight:900;">请点击选择</span></label>
-          <div class="fighter-grid" id="redFighters"></div>
-        </div>
-
-        <!-- RESULT SELECTOR -->
-        <div class="form-group">
-          <label class="form-label">⚖️ 对局赛果 (点击单选)：</label>
-          <div class="res-btns">
-            <div class="res-btn sel-red" id="bRed" onclick="pickRes('red')">🔴 红胜 (1 - 0)<br><small style="font-size:10px;">红+20 / 黑-10</small></div>
-            <div class="res-btn" id="bDraw" onclick="pickRes('draw')">🤝 和棋 (0.5 - 0.5)<br><small style="font-size:10px;">双方各+5分</small></div>
-            <div class="res-btn" id="bBlack" onclick="pickRes('black')">⚫ 黑胜 (0 - 1)<br><small style="font-size:10px;">黑+20 / 红-10</small></div>
-          </div>
-        </div>
-
-        <!-- BLACK FIGHTER SELECTION -->
-        <div class="form-group">
-          <label class="form-label">⚫ 执黑方棋手 (后手)：<span id="selectedBlackName" style="color:var(--pri);font-weight:900;">请点击选择</span></label>
-          <div class="fighter-grid" id="blackFighters"></div>
-        </div>
-
-        <!-- UPLOAD SCORE SHEET -->
-        <div class="form-group">
-          <label class="form-label">📸 上传对局记谱纸 (拍照或选图)</label>
-          <div class="upload-area" id="upArea">
-            <input type="file" accept="image/*" onchange="handleFile(event)">
-            <div style="font-size:24px;">📷</div>
-            <div style="font-size:12px;color:var(--text2);margin-top:2px;">点击或拖拽记谱纸原件相片</div>
-          </div>
-          <div id="upPreview" style="display:none;margin-top:8px;">
-            <img id="previewImg" src="" style="max-height:120px;border-radius:8px;border:1px solid var(--border);">
-            <button class="btn-sm" style="display:block;margin-top:4px;" onclick="clearFile()">✕ 清除</button>
-          </div>
-        </div>
-
-        <button class="submit-btn" onclick="submitFastMatch()">🚀 提交对局并同步云端 ELO 计算</button>
-      </div>
-
-      <!-- RECENT TABLE -->
-      <h3 style="font-size:15px;font-weight:900;margin:20px 0 10px;">📜 最近实战对局记录</h3>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>日期</th><th>轮次</th><th>红方</th><th>赛果</th><th>黑方</th><th>判定</th><th>记谱纸</th></tr></thead>
-          <tbody id="matchHistoryTable"></tbody>
-        </table>
-      </div>
-    </div>
 
     <!-- TAB 3: STUDENTS (ULTRA FAST ADD) -->
     <div class="tab-panel" id="panel-students">
@@ -440,13 +377,11 @@
 <script>
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
 const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyFY__BC0NXW87ZK1okkzhlskQ4PPBJx2QEXf0-8Icv8tbFHZcRSVge60TqU11DU4v_/exec';
-const PIN = '8888';
+const SUPER_PIN = '8888';
+const COACH_PIN = '6666';
 
 let allStudents = [];
 let allMatches = [];
-let selRedId = null;
-let selBlackId = null;
-let curRes = '🔴 红胜 (1 - 0)';
 let uploadBase64 = null;
 
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
@@ -455,23 +390,16 @@ function checkAuth(){
   const s = localStorage.getItem('cxb_auth');
   if (s) {
     const d = JSON.parse(s);
-    if (d.pin === PIN && Date.now() - d.ts < 86400000) return true;
-  }
-  const u = localStorage.getItem('cxb_auth_user');
-  if (u) {
-    try {
-      const du = JSON.parse(u);
-      if (du.role === 'admin') return true;
-    } catch(e) {}
+    if ((d.pin === SUPER_PIN || d.pin === COACH_PIN) && Date.now() - d.ts < 86400000) return true;
   }
   return false;
 }
 function tryLogin(){
   const boxes=document.querySelectorAll('.pin-box');
   const p=Array.from(boxes).map(b=>b.value).join('');
-  if(p===PIN){
+  if(p===SUPER_PIN || p===COACH_PIN){
     localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
-    localStorage.setItem('cxb_auth_user',JSON.stringify({role:'admin',name:'教练管理员'}));
+    localStorage.setItem('cxb_auth_user',JSON.stringify({role: p===SUPER_PIN ? 'superadmin' : 'admin'}));
     showApp();
   }
   else{boxes.forEach(b=>{b.classList.add('error');b.value='';});document.getElementById('loginError').style.display='block';boxes[0].focus();setTimeout(()=>boxes.forEach(b=>b.classList.remove('error')),500);}
@@ -481,7 +409,19 @@ function logout(){
   localStorage.removeItem('cxb_auth_user');
   window.location.href = 'index.html';
 }
-function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('mainApp').style.display='block';loadAllData();}
+function showApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  const auth = JSON.parse(localStorage.getItem('cxb_auth'));
+  if (auth && auth.pin === COACH_PIN) {
+    document.querySelector('[data-tab="students"]').style.display = 'none';
+    document.querySelector('[data-tab="payments"]').style.display = 'none';
+  } else {
+    document.querySelector('[data-tab="students"]').style.display = 'block';
+    document.querySelector('[data-tab="payments"]').style.display = 'block';
+  }
+  loadAllData();
+}
 
 document.querySelectorAll('.pin-box').forEach((box,i,boxes)=>{
   box.addEventListener('input',()=>{if(box.value&&i<boxes.length-1)boxes[i+1].focus();if(i===boxes.length-1&&box.value)tryLogin();});
@@ -496,7 +436,6 @@ function switchTab(t){
 async function loadAllData(){
   await Promise.all([loadStudents(), loadMatches()]);
   renderDashboard();
-  renderFighters();
 }
 
 async function loadStudents(){
@@ -594,100 +533,6 @@ function renderGallery(){
       </div>
     `;
   }).join('');
-}
-
-// VISUAL FIGHTER PICKER
-function renderFighters(){
-  const rF=document.getElementById('redFighters');
-  const bF=document.getElementById('blackFighters');
-  rF.innerHTML=allStudents.map(s=>
-    `<div class="fighter-card ${selRedId===s.id?'active-red':''}" onclick="chooseFighter('red','${s.id}')">
-      <div class="fighter-name">${s.cnName}</div>
-      <div class="fighter-meta">${s.id} · ${s.elo}分</div>
-    </div>`
-  ).join('');
-
-  bF.innerHTML=allStudents.map(s=>
-    `<div class="fighter-card ${selBlackId===s.id?'active-black':''}" onclick="chooseFighter('black','${s.id}')">
-      <div class="fighter-name">${s.cnName}</div>
-      <div class="fighter-meta">${s.id} · ${s.elo}分</div>
-    </div>`
-  ).join('');
-}
-
-function chooseFighter(side,id){
-  const s=allStudents.find(x=>x.id===id);
-  if(side==='red'){
-    selRedId=id;
-    document.getElementById('selectedRedName').textContent=`🔴 ${s.cnName} (${s.id} · ${s.elo}分)`;
-  }else{
-    selBlackId=id;
-    document.getElementById('selectedBlackName').textContent=`⚫ ${s.cnName} (${s.id} · ${s.elo}分)`;
-  }
-  renderFighters();
-}
-
-function pickRes(r){
-  document.getElementById('bRed').className='res-btn';
-  document.getElementById('bDraw').className='res-btn';
-  document.getElementById('bBlack').className='res-btn';
-  if(r==='red'){document.getElementById('bRed').className='res-btn sel-red';curRes='🔴 红胜 (1 - 0)';}
-  else if(r==='draw'){document.getElementById('bDraw').className='res-btn sel-draw';curRes='🤝 和棋 (0.5 - 0.5)';}
-  else{document.getElementById('bBlack').className='res-btn sel-black';curRes='⚫ 黑胜 (0 - 1)';}
-}
-
-function handleFile(e){
-  const f=e.target.files[0];if(!f)return;
-  const rd=new FileReader();
-  rd.onload=ev=>{
-    uploadBase64=ev.target.result;
-    document.getElementById('previewImg').src=uploadBase64;
-    document.getElementById('upPreview').style.display='block';
-    document.getElementById('upArea').style.display='none';
-  };
-  rd.readAsDataURL(f);
-}
-
-function clearFile(){
-  uploadBase64=null;
-  document.getElementById('upPreview').style.display='none';
-  document.getElementById('upArea').style.display='block';
-}
-
-async function submitFastMatch(){
-  if(!selRedId||!selBlackId){toast('请点击选择执红和执黑的棋手！','error');return;}
-  if(selRedId===selBlackId){toast('红黑方不能是同一人！','error');return;}
-
-  const redP=allStudents.find(s=>s.id===selRedId);
-  const blackP=allStudents.find(s=>s.id===selBlackId);
-  const date=document.getElementById('mDate').value;
-  const round=document.getElementById('mType').value;
-
-  let verdict='';
-  if(curRes.includes('红胜'))verdict=redP.cnName+' 胜';
-  else if(curRes.includes('黑胜'))verdict=blackP.cnName+' 胜';
-  else verdict='双方战和';
-
-  toast('⏳ 正在同步录入并计算云端 ELO 积分...','info');
-  try{
-    const payload={
-      pin:PIN,action:'addMatch',date,round,
-      redId:redP.id,redName:redP.cnName,result:curRes,
-      blackId:blackP.id,blackName:blackP.cnName,verdict,
-      recordImage:uploadBase64
-    };
-    const res=await fetch(GAS_API_URL,{method:'POST',body:JSON.stringify(payload)});
-    const d=await res.json();
-    if(d.success){
-      toast('🎉 对局成功录入并自动更新 ELO 段位与云端表格！','success');
-      clearFile();
-      await loadAllData();
-    }else{
-      toast('录入失败: '+(d.error||''),'error');
-    }
-  }catch(e){
-    toast('网络提交错误: '+e.message,'error');
-  }
 }
 
 function pickSchool(s){document.getElementById('qSchool').value=s;}
