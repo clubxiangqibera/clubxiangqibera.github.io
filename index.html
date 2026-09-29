@@ -530,7 +530,7 @@
       <a onclick="switchView('viewMatchLog', this)" class="sb-link">📜 实战棋谱</a>
 
       <div style="font-size:11px;font-weight:800;color:var(--text2);margin:18px 0 4px 8px;text-transform:uppercase;letter-spacing:0.5px;">👨‍👩‍👧 家长通道 (Parent Sub-zone)</div>
-      <a onclick="switchView('viewSchedule', this); scrollToTuition();" class="sb-link" style="opacity:0.85;">💳 学费与水单</a>
+      <a onclick="switchView('viewSchedule', this); scrollToTuition();" class="sb-link" style="opacity:0.85;">💳 学费与收据 (Bank Slip)</a>
     </nav>
     <button class="sb-logout" onclick="logout()">🚪 退出登录</button>
   </aside>
@@ -673,10 +673,10 @@
           <div style="text-align:right;">
              <input type="file" id="slipInput" accept="image/*" style="display:none;" onchange="uploadSlip()">
              <button id="btnUploadSlip" onclick="document.getElementById('slipInput').click()" style="padding:9px 18px;border-radius:10px;border:none;background:var(--green);color:#fff;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 10px rgba(46,204,113,0.3);">
-               📤 上传水单 (家长代办)
+               📤 上传转账收据 (Bank Slip)
              </button>
              <div id="slipPaidNotice" style="display:none;font-size:12px;color:var(--green);font-weight:800;background:rgba(39,174,96,0.12);padding:8px 16px;border-radius:10px;border:1px solid rgba(39,174,96,0.3);">
-               ✅ 本期学费已结清 (无需上传)
+               ✅ 本期学费已结清 (无需上传收据)
              </div>
              <div id="slipUploadMsg" style="font-size:11px;color:var(--green);margin-top:6px;font-weight:700;display:none;"></div>
           </div>
@@ -738,14 +738,20 @@ function switchView(viewId, el = null) {
   const target = document.getElementById(viewId);
   if(target) target.classList.add('active');
 
-  // Update sidebar active state
-  if (el && el.classList.contains('sb-link')) {
-    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-    el.classList.add('active');
-  }
+  // Update sidebar active state automatically
+  document.querySelectorAll('.sb-link').forEach(l => {
+    l.classList.remove('active');
+    const oc = l.getAttribute('onclick') || '';
+    if (el && el.classList.contains('sb-link') && el === l) {
+      l.classList.add('active');
+    } else if (!el && oc.includes(`'${viewId}'`)) {
+      l.classList.add('active');
+    }
+  });
 
   // Close sidebar on mobile
-  document.getElementById('appSidebar').classList.remove('show');
+  const sb = document.getElementById('appSidebar');
+  if(sb) sb.classList.remove('show');
 }
 
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
@@ -950,10 +956,10 @@ function copyBank() {
 
 function uploadSlip() {
   const f = document.getElementById('slipInput').files[0];
-  if (!f) { alert('请先选择要上传的水单图片文件！'); return; }
+  if (!f) { alert('请先选择要上传的转账收据 (Bank Slip) 图片！'); return; }
   const el = document.getElementById('slipUploadMsg');
   el.style.display = 'block';
-  el.textContent = '⏳ 正在上传转账水单至云端，请稍候...';
+  el.textContent = '⏳ 正在上传转账收据至云端，请稍候...';
 
   const rd = new FileReader();
   rd.onload = async function(e) {
@@ -964,9 +970,9 @@ function uploadSlip() {
         receiptImage: e.target.result
       };
       await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(payload) });
-      el.textContent = '✅ 水单凭证已提交，已通知教练进行核实！';
+      el.textContent = '✅ 转账收据已提交，已通知教练核实！';
     } catch(err) {
-      el.textContent = '✅ 水单已接收，管理团队将核实入账。';
+      el.textContent = '✅ 转账收据已接收，管理团队将核实入账。';
     }
   };
   rd.readAsDataURL(f);
