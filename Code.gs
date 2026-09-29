@@ -13,13 +13,18 @@
  *    - 谁可以访问 (Who has access): 所有人 (Anyone)  <-- 非常重要！
  * 6. 点击「部署」，授权权限，复制生成的「Web 应用网址」(Web app URL)
  * 7. 将该 URL 填入 admin.html 的 const GAS_API_URL = '...' 中！
+ *
+ * 更新日志:
+ * v2.1 - 新增 updateAccount 功能 (修改学员姓名/密码)
+ *       - 修正天梯/学员档案循环起始行为第2行 (r=1)
+ *       - 移除服务端 PIN 验证 (改由前端负责)
+ *       - ELO 使用前端传入的 K-factor delta
  */
 
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
-const ADMIN_PIN = '8888';
 
 function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({ status: 'ok', msg: 'Club XiangQi Bera API is running' }))
+  return ContentService.createTextOutput(JSON.stringify({ status: 'ok', msg: 'Club XiangQi Bera API v2.1 is running' }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -28,11 +33,6 @@ function doPost(e) {
     const raw = e.postData.contents;
     const data = JSON.parse(raw);
 
-    // 验证管理密码 PIN
-    if (data.pin !== ADMIN_PIN) {
-      return respond({ success: false, error: 'PIN 密码错误，未经授权' });
-    }
-
     const action = data.action;
     if (action === 'addMatch') {
       return handleAddMatch(data);
@@ -40,12 +40,16 @@ function doPost(e) {
       return handleAddStudent(data);
     } else if (action === 'updatePayment') {
       return handleUpdatePayment(data);
+    } else if (action === 'updateAccount') {
+      return handleUpdateAccount(data);
+    } else if (action === 'uploadReceipt') {
+      return handleUploadReceipt(data);
     } else {
-      return respond({ success: false, error: '未知操作: ' + action });
+      return respond({ status: 'error', error: '未知操作: ' + action });
     }
 
   } catch (err) {
-    return respond({ success: false, error: err.toString() });
+    return respond({ status: 'error', error: err.toString() });
   }
 }
 
@@ -73,7 +77,7 @@ function calculateTier(elo) {
   return '🥉 五级棋手';
 }
 
-// 1. 录入对局
+// 1. 录入对局 (ELO delta 由前端 K-factor 计算传入，或用默认值)
 function handleAddMatch(data) {
   const ss = SpreadsheetApp.openById(SHEET_ID);
   const matchSheet = ss.getSheetByName('实战对局记录表');
@@ -88,19 +92,17 @@ function handleAddMatch(data) {
       const parts = data.recordImage.split(',');
       const contentType = parts[0].split(':')[1].split(';')[0];
       const decoded = Utilities.base64Decode(parts[1]);
-      const fileName = `Record_${data.date}_${data.redName}_vs_${data.blackName}.jpg`;
+      const fileName = 'Record_' + data.date + '_' + data.redName + '_vs_' + data.blackName + '.jpg';
       const blob = Utilities.newBlob(decoded, contentType, fileName);
       const file = folder.createFile(blob);
       file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
       imgUrl = file.getUrl();
     } catch (e) {
-      // 图片保存失败不影响比赛成绩录入
       imgUrl = '图片保存异常: ' + e.toString();
     }
   }
 
   // 写入实战对局记录表
-  // 结构: 对局日期 | 轮次/类别 | 红方编号 | 红方姓名 | 对局结果 | 黑方编号 | 黑方姓名 | 胜负判定 | 记录纸图片
   matchSheet.appendRow([
     data.date,
     data.round,
@@ -113,50 +115,58 @@ function handleAddMatch(data) {
     imgUrl
   ]);
 
-  // 计算 ELO 与战绩变化
-  // 规则: 胜 +20, 和 +5, 负 -10
+  // ELO delta: 前端传入 (K-factor 计算) 或 用默认 win=+20, draw=+5, loss=-10
   let redDelta = 0, blackDelta = 0;
   let redW = 0, redD = 0, redL = 0;
   let blackW = 0, blackD = 0, blackL = 0;
 
+  if (data.redEloDelta !== undefined && data.blackEloDelta !== undefined) {
+    // Frontend K-factor computed deltas
+    redDelta = Number(data.redEloDelta) || 0;
+    blackDelta = Number(data.blackEloDelta) || 0;
+  } else {
+    // Fallback defaults
+    if (data.result.indexOf('红胜') !== -1) {
+      redDelta = 20; blackDelta = -10;
+    } else if (data.result.indexOf('黑胜') !== -1) {
+      redDelta = -10; blackDelta = 20;
+    } else {
+      redDelta = 5; blackDelta = 5;
+    }
+  }
+
+  // Win/draw/loss counters
   if (data.result.indexOf('红胜') !== -1) {
-    redDelta = 20; blackDelta = -10;
     redW = 1; blackL = 1;
   } else if (data.result.indexOf('黑胜') !== -1) {
-    redDelta = -10; blackDelta = 20;
     redL = 1; blackW = 1;
   } else {
-    redDelta = 5; blackDelta = 5;
     redD = 1; blackD = 1;
   }
 
-  // 更新 天梯积分排位榜 (从第4行开始是数据)
+  // 更新 天梯积分排位榜 (第2行起为数据，r=1)
   const ladderData = ladderSheet.getDataRange().getValues();
-  for (let r = 3; r < ladderData.length; r++) {
-    const pId = ladderData[r][1]; // 学员编号
-    if (pId === data.redId) {
+  for (let r = 1; r < ladderData.length; r++) {
+    const pId = String(ladderData[r][1] || '').trim();
+    if (pId === String(data.redId || '').trim()) {
       const curW = Number(ladderData[r][5]) || 0;
       const curD = Number(ladderData[r][6]) || 0;
       const curL = Number(ladderData[r][7]) || 0;
       const curElo = Number(ladderData[r][9]) || 200;
       const newElo = Math.max(200, curElo + redDelta);
-      const newTier = calculateTier(newElo);
-
-      ladderSheet.getRange(r + 1, 5).setValue(newTier);
+      ladderSheet.getRange(r + 1, 5).setValue(calculateTier(newElo));
       ladderSheet.getRange(r + 1, 6).setValue(curW + redW);
       ladderSheet.getRange(r + 1, 7).setValue(curD + redD);
       ladderSheet.getRange(r + 1, 8).setValue(curL + redL);
       ladderSheet.getRange(r + 1, 9).setValue(curW + redW + curD + redD + curL + redL);
       ladderSheet.getRange(r + 1, 10).setValue(newElo);
-    } else if (pId === data.blackId) {
+    } else if (pId === String(data.blackId || '').trim()) {
       const curW = Number(ladderData[r][5]) || 0;
       const curD = Number(ladderData[r][6]) || 0;
       const curL = Number(ladderData[r][7]) || 0;
       const curElo = Number(ladderData[r][9]) || 200;
       const newElo = Math.max(200, curElo + blackDelta);
-      const newTier = calculateTier(newElo);
-
-      ladderSheet.getRange(r + 1, 5).setValue(newTier);
+      ladderSheet.getRange(r + 1, 5).setValue(calculateTier(newElo));
       ladderSheet.getRange(r + 1, 6).setValue(curW + blackW);
       ladderSheet.getRange(r + 1, 7).setValue(curD + blackD);
       ladderSheet.getRange(r + 1, 8).setValue(curL + blackL);
@@ -165,17 +175,17 @@ function handleAddMatch(data) {
     }
   }
 
-  // 同步更新 学员档案总册 的 ELO & Tier
+  // 同步更新 学员档案总册 ELO & Tier (第2行起为数据，r=1)
   if (studentSheet) {
     const stuData = studentSheet.getDataRange().getValues();
-    for (let r = 3; r < stuData.length; r++) {
-      const sId = stuData[r][0];
-      if (sId === data.redId) {
+    for (let r = 1; r < stuData.length; r++) {
+      const sId = String(stuData[r][0] || '').trim();
+      if (sId === String(data.redId || '').trim()) {
         const curElo = Number(stuData[r][11]) || 200;
         const newElo = Math.max(200, curElo + redDelta);
         studentSheet.getRange(r + 1, 12).setValue(newElo);
         studentSheet.getRange(r + 1, 13).setValue(calculateTier(newElo));
-      } else if (sId === data.blackId) {
+      } else if (sId === String(data.blackId || '').trim()) {
         const curElo = Number(stuData[r][11]) || 200;
         const newElo = Math.max(200, curElo + blackDelta);
         studentSheet.getRange(r + 1, 12).setValue(newElo);
@@ -184,7 +194,7 @@ function handleAddMatch(data) {
     }
   }
 
-  return respond({ success: true, message: '对局录入并自动完成 ELO 积分结算！', imgUrl: imgUrl });
+  return respond({ status: 'ok', success: true, message: '对局录入并完成 ELO 积分结算！', imgUrl: imgUrl });
 }
 
 // 2. 登记新学员
@@ -194,9 +204,8 @@ function handleAddStudent(data) {
   const ladderSheet = ss.getSheetByName('天梯积分排位榜');
 
   const stuData = studentSheet.getDataRange().getValues();
-  // 计算新学号 XQB-00X
   let count = 0;
-  for (let r = 3; r < stuData.length; r++) {
+  for (let r = 1; r < stuData.length; r++) {
     if (stuData[r][0] && stuData[r][0].toString().startsWith('XQB-')) {
       count++;
     }
@@ -204,8 +213,13 @@ function handleAddStudent(data) {
   const nextNum = count + 1;
   const newId = 'XQB-' + ('000' + nextNum).slice(-3);
 
+  // 计算默认密码 = 级别数字 + 编号数字 (e.g. Lv2 XQB-007 → 2007)
+  const lvMatch = (data.level || '').match(/Lv\s*(\d)/);
+  const lvNum = lvMatch ? lvMatch[1] : '1';
+  const defaultPwd = lvNum + ('000' + nextNum).slice(-3);
+
   // 写入学员档案总册
-  // [ID, 中文, 英文, 性别, 年龄, 学校, 级别, 学费模式, 缴费状态, Combo到期, WhatsApp, ELO, 认定级别]
+  // [ID, 中文, 英文, 性别, 年龄, 学校, 级别, 学费模式, 缴费状态, Combo到期, WhatsApp, ELO, 认定级别, 密码]
   studentSheet.appendRow([
     newId,
     data.cnName,
@@ -219,11 +233,11 @@ function handleAddStudent(data) {
     '',
     data.whatsapp || '',
     200,
-    '🥉 五级棋手'
+    '🥉 五级棋手',
+    defaultPwd
   ]);
 
   // 同步添加至 天梯积分排位榜
-  // [当前排名, 学员编号, 棋手姓名, 所在学校, 认定级别, 胜, 和, 负, 总对局, ELO]
   ladderSheet.appendRow([
     nextNum,
     newId,
@@ -234,7 +248,7 @@ function handleAddStudent(data) {
     200
   ]);
 
-  return respond({ success: true, newId: newId, message: `新学员 ${data.cnName} (${newId}) 已成功入库并建档！` });
+  return respond({ status: 'ok', success: true, newId: newId, defaultPwd: defaultPwd, message: '新学员 ' + data.cnName + ' (' + newId + ') 已成功入库！默认密码: ' + defaultPwd });
 }
 
 // 3. 更新学费状态
@@ -243,13 +257,77 @@ function handleUpdatePayment(data) {
   const studentSheet = ss.getSheetByName('学员档案总册');
   const stuData = studentSheet.getDataRange().getValues();
 
-  for (let r = 3; r < stuData.length; r++) {
-    if (stuData[r][0] === data.studentId) {
-      // 第9列为 缴费状态
+  for (let r = 1; r < stuData.length; r++) {
+    if (String(stuData[r][0] || '').trim() === String(data.studentId || '').trim()) {
       studentSheet.getRange(r + 1, 9).setValue(data.status || '已缴费 (Verified)');
-      return respond({ success: true, message: `学员 ${data.studentId} 状态已更新为 ${data.status}！` });
+      return respond({ status: 'ok', success: true, message: '学员 ' + data.studentId + ' 缴费状态已更新！' });
+    }
+  }
+  return respond({ status: 'error', error: '未找到该学员编号: ' + data.studentId });
+}
+
+// 4. 修改学员账号信息 (姓名 / 密码)
+function handleUpdateAccount(data) {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const studentSheet = ss.getSheetByName('学员档案总册');
+  const ladderSheet = ss.getSheetByName('天梯积分排位榜');
+  const stuData = studentSheet.getDataRange().getValues();
+
+  let found = false;
+  for (let r = 1; r < stuData.length; r++) {
+    if (String(stuData[r][0] || '').trim() === String(data.studentId || '').trim()) {
+      // 更新中文姓名 (第2列)
+      if (data.newName) {
+        studentSheet.getRange(r + 1, 2).setValue(data.newName);
+        // 同步更新天梯榜姓名
+        const ladderData = ladderSheet.getDataRange().getValues();
+        for (let lr = 1; lr < ladderData.length; lr++) {
+          if (String(ladderData[lr][1] || '').trim() === String(data.studentId || '').trim()) {
+            ladderSheet.getRange(lr + 1, 3).setValue(data.newName);
+            break;
+          }
+        }
+      }
+      // 更新密码 (第14列，index 13)
+      if (data.newPwd) {
+        studentSheet.getRange(r + 1, 14).setValue(data.newPwd);
+      }
+      found = true;
+      return respond({ status: 'ok', success: true, message: '账号信息已更新：' + data.studentId });
     }
   }
 
-  return respond({ success: false, error: '未找到该学员编号: ' + data.studentId });
+  if (!found) {
+    return respond({ status: 'error', error: '未找到该学员编号: ' + data.studentId });
+  }
+}
+
+// 5. 上传转账收据图片
+function handleUploadReceipt(data) {
+  try {
+    const folder = getRecordFolder();
+    const parts = data.receiptImage.split(',');
+    const contentType = parts[0].split(':')[1].split(';')[0];
+    const decoded = Utilities.base64Decode(parts[1]);
+    const fileName = 'Receipt_' + data.studentId + '_' + new Date().toISOString().slice(0,10) + '.jpg';
+    const blob = Utilities.newBlob(decoded, contentType, fileName);
+    const file = folder.createFile(blob);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    const imgUrl = file.getUrl();
+
+    // Mark payment as pending verification in student sheet
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    const studentSheet = ss.getSheetByName('学员档案总册');
+    const stuData = studentSheet.getDataRange().getValues();
+    for (let r = 1; r < stuData.length; r++) {
+      if (String(stuData[r][0] || '').trim() === String(data.studentId || '').trim()) {
+        studentSheet.getRange(r + 1, 9).setValue('⏳ 待核实 (收据已上传)');
+        break;
+      }
+    }
+
+    return respond({ status: 'ok', success: true, imgUrl: imgUrl, message: '转账收据已上传，待教练核实。' });
+  } catch(e) {
+    return respond({ status: 'error', error: '上传失败: ' + e.toString() });
+  }
 }
