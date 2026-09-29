@@ -262,6 +262,7 @@
     <div class="nav-tab" data-tab="records" onclick="switchTab('records')">📄 对局纸档案库</div>
     <div class="nav-tab" data-tab="tournament" onclick="switchTab('tournament')">🏆 锦标赛</div>
     <div class="nav-tab" data-tab="ladder" onclick="switchTab('ladder')">🏅 ELO天梯榜</div>
+    <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:2px solid rgba(241,196,15,0.5);">🔑 账号管理</div>
   </div>
 
   <div class="main-content">
@@ -421,6 +422,40 @@
       <div id="rankList" class="rank-list" style="width:100%; padding-bottom:40px;"></div>
     </div>
 
+    <!-- TAB 8: ACCOUNT MANAGER (SUPER ADMIN ONLY) -->
+    <div class="tab-panel" id="panel-accounts">
+      <!-- Permission Summary Card -->
+      <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(241,196,15,0.4);">
+        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👑 权限层级说明 (Permission Levels)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div style="background:linear-gradient(135deg,rgba(241,196,15,0.12),rgba(241,196,15,0.04));border:1.5px solid rgba(241,196,15,0.4);border-radius:14px;padding:16px;">
+            <div style="font-size:14px;font-weight:900;color:#B7950B;margin-bottom:8px;">👑 总控 (PIN: 8888)</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.8;">
+              ✅ 运营看板<br>✅ 学员建档<br>✅ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>✅ <strong>账号管理 (本页)</strong>
+            </div>
+          </div>
+          <div style="background:rgba(41,128,185,0.08);border:1.5px solid rgba(41,128,185,0.3);border-radius:14px;padding:16px;">
+            <div style="font-size:14px;font-weight:900;color:#2980B9;margin-bottom:8px;">🎓 教练 (PIN: 6666)</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.8;">
+              ✅ 运营看板<br>❌ 学员建档<br>❌ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>❌ 账号管理
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(39,174,96,0.08);border-radius:10px;border:1px solid rgba(39,174,96,0.2);">
+          <span style="font-size:12px;font-weight:700;color:#27AE60;">💡 学员/家长登录：使用学员中文姓名作为账号，默认密码 1234，可在下方修改。</span>
+        </div>
+      </div>
+
+      <!-- Student Account List -->
+      <div class="form-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-size:16px;font-weight:900;">🔑 学员账号管理 (修改姓名 / 密码)</div>
+          <span class="badge badge-blue" style="font-size:12px;" id="accStudentCount">共 0 名学员</span>
+        </div>
+        <div id="accountListTable"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -498,13 +533,16 @@ function showApp(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('mainApp').style.display='block';
   const auth = JSON.parse(localStorage.getItem('cxb_auth'));
-  if (auth && auth.pin === COACH_PIN) {
-    document.querySelector('[data-tab="students"]').style.display = 'none';
-    document.querySelector('[data-tab="payments"]').style.display = 'none';
-  } else {
-    document.querySelector('[data-tab="students"]').style.display = 'block';
-    document.querySelector('[data-tab="payments"]').style.display = 'block';
-  }
+  const isSuperAdmin = auth && auth.pin === SUPER_PIN;
+  const isCoach = auth && auth.pin === COACH_PIN;
+
+  // Students & Payments: superadmin only
+  document.querySelector('[data-tab="students"]').style.display = isSuperAdmin ? 'block' : 'none';
+  document.querySelector('[data-tab="payments"]').style.display = isSuperAdmin ? 'block' : 'none';
+
+  // Accounts tab: superadmin only
+  document.querySelector('[data-tab="accounts"]').style.display = isSuperAdmin ? 'block' : 'none';
+
   loadAllData();
 }
 
@@ -522,6 +560,7 @@ async function loadAllData(){
   await Promise.all([loadStudents(), loadMatches()]);
   renderDashboard();
   renderLadder(allStudents);
+  renderAccountList();
 }
 
 async function loadStudents(){
@@ -568,6 +607,73 @@ function getPlayerStats(id, name) {
   const total = w + d + l;
   const wr = total > 0 ? ((w / total) * 100).toFixed(0) : 0;
   return { w, d, l, total, wr };
+}
+
+// ── ACCOUNT MANAGER ──────────────────────────────────────────
+function renderAccountList() {
+  const el = document.getElementById('accountListTable');
+  const countEl = document.getElementById('accStudentCount');
+  if (!el) return;
+  if (countEl) countEl.textContent = `共 ${allStudents.length} 名学员`;
+
+  el.innerHTML = `
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:var(--bg);border-bottom:2px solid var(--border);">
+            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">学号</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">中文姓名 (账号)</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">密码</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">班级</th>
+            <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${allStudents.map((s, i) => `
+            <tr style="border-bottom:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">
+              <td style="padding:10px 12px;font-weight:700;color:var(--text2);">${s.id}</td>
+              <td style="padding:10px 12px;">
+                <input type="text" id="acc_name_${i}" value="${s.cnName}" 
+                  style="width:100%;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);">
+              </td>
+              <td style="padding:10px 12px;">
+                <input type="text" id="acc_pwd_${i}" value="${s.password || '1234'}" 
+                  style="width:90px;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);">
+              </td>
+              <td style="padding:10px 12px;font-size:12px;color:var(--text2);">${s.level}</td>
+              <td style="padding:10px 12px;text-align:center;">
+                <button onclick="saveAccountChange(${i},'${s.id}')" 
+                  style="padding:6px 14px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;">
+                  💾 保存
+                </button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+async function saveAccountChange(idx, studentId) {
+  const newName = document.getElementById(`acc_name_${idx}`).value.trim();
+  const newPwd  = document.getElementById(`acc_pwd_${idx}`).value.trim();
+  if (!newName || !newPwd) { toast('姓名与密码不能为空！', 'error'); return; }
+  try {
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'updateAccount', studentId, newName, newPwd })
+    });
+    const data = await res.json();
+    if (data.status === 'ok') {
+      toast(`✅ ${newName} 的账号信息已更新！`, 'success');
+      await loadStudents();
+      renderAccountList();
+    } else {
+      toast('保存失败，请检查 GAS 脚本是否支持 updateAccount！', 'error');
+    }
+  } catch(e) {
+    toast('⚠️ 网络错误，无法连接云端。', 'error');
+  }
 }
 
 function renderLadder(players) {
