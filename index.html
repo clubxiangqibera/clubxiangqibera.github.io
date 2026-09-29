@@ -430,7 +430,6 @@
     <nav class="sb-nav">
       <a onclick="switchView('viewDashboard', this)" class="sb-link active">🏠 个人主页</a>
       <a onclick="switchView('viewSchedule', this)" class="sb-link">📅 课程与学费</a>
-      <a onclick="switchView('viewLadder', this)" class="sb-link">🏆 天梯排位</a>
       <a onclick="switchView('viewMatchLog', this)" class="sb-link">📜 实战记录</a>
     </nav>
     <button class="sb-logout" onclick="logout()">🚪 退出登录</button>
@@ -502,10 +501,6 @@
             <div class="icon-item" onclick="switchView('viewSchedule')">
               <div class="icon-circle">💳</div>
               <span class="icon-label">学费缴交</span>
-            </div>
-            <div class="icon-item" onclick="switchView('viewLadder')">
-              <div class="icon-circle">🏆</div>
-              <span class="icon-label">全县排位</span>
             </div>
             <div class="icon-item" onclick="switchView('viewMatchLog')">
               <div class="icon-circle">📜</div>
@@ -582,20 +577,7 @@
       </div>
     </div> <!-- END VIEW SCHEDULE -->
 
-    <!-- VIEW: LADDER -->
-    <div id="viewLadder" class="app-view">
-      <div class="section-head">
-        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
-        <div class="section-sub">CXB ELO 官方排位体系 · 实时同步</div>
-      </div>
-      <div id="podiumArea" class="podium"></div>
 
-      <div class="section-head" style="margin-top:34px;">
-        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
-        <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
-      </div>
-      <div id="rankList" class="rank-list" style="width:100%;"></div>
-    </div> <!-- END VIEW LADDER -->
 
     <!-- VIEW: MATCH LOGS -->
     <div id="viewMatchLog" class="app-view">
@@ -683,12 +665,11 @@ async function handleLogin() {
   }
 
   // 1. ADMIN CHECK
-  if ((acc.toLowerCase() === 'admin' || acc.toLowerCase() === 'yh' || acc.toLowerCase() === 'nicholas') && pwd === '8888') {
-    const adminUser = { role: 'admin', name: '教练管理员 (yh / Nicholas)' };
+  if ((acc.toLowerCase() === 'admin' || acc.toLowerCase() === 'yh' || acc.toLowerCase() === 'nicholas' || acc === '教练') && (pwd === '8888' || pwd === '6666')) {
+    const adminUser = { role: 'admin', name: '教练管理员' };
     localStorage.setItem('cxb_auth_user', JSON.stringify(adminUser));
-    localStorage.setItem('cxb_auth', JSON.stringify({ pin: '8888', ts: Date.now() }));
-    currentUser = adminUser;
-    showAuthenticatedApp();
+    localStorage.setItem('cxb_auth', JSON.stringify({ pin: pwd, ts: Date.now() }));
+    window.location.href = 'admin.html';
     return;
   }
 
@@ -729,7 +710,11 @@ function checkStoredSession() {
   if (saved) {
     try {
       const u = JSON.parse(saved);
-      if (u.role === 'admin' || (u.role === 'student' && u.data)) {
+      if (u.role === 'admin') {
+        window.location.href = 'admin.html';
+        return;
+      }
+      if (u.role === 'student' && u.data) {
         currentUser = u;
         showAuthenticatedApp();
       }
@@ -752,6 +737,7 @@ async function showAuthenticatedApp() {
     renderStudentExclusiveView(currentUser.data);
   } else if (currentUser && currentUser.role === 'admin') {
     renderAdminTopBar();
+    return;
   }
   renderPodium(globalPlayers);
   renderRankList(globalPlayers);
@@ -760,10 +746,7 @@ async function showAuthenticatedApp() {
 }
 
 function renderAdminTopBar() {
-  document.getElementById('topbarRole').innerHTML = `👑 教练管理层 <a href="admin.html" style="margin-left:10px;background:#F1C40F;color:#7D6608;padding:4px 12px;border-radius:10px;text-decoration:none;font-weight:900;font-size:12px;box-shadow:0 3px 10px rgba(241,196,15,0.4);">⚡ 进入教练后台</a>`;
-  switchView('viewLadder');
-  const sb = document.getElementById('appSidebar');
-  if(sb) sb.style.display = 'none';
+  window.location.href = 'admin.html';
 }
 
 function renderStudentExclusiveView(stu) {
@@ -852,7 +835,7 @@ function uploadSlip() {
 // RENDERING LADDER
 function renderPodium(players) {
   const area = document.getElementById('podiumArea');
-  if (!players.length) return;
+  if (!area || !players.length) return;
   const medals = ['🥇','🥈','🥉'];
   let html = '';
   [1, 0, 2].forEach((idx) => {
@@ -876,6 +859,7 @@ function renderPodium(players) {
 
 function renderRankList(players) {
   const list = document.getElementById('rankList');
+  if (!list) return;
   const myId = currentUser && currentUser.data ? currentUser.data.id : null;
   list.innerHTML = players.map((p, i) => {
     const isMe = myId && p.id === myId;
