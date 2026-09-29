@@ -426,23 +426,23 @@
     <div class="tab-panel" id="panel-accounts">
       <!-- Permission Summary Card -->
       <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(241,196,15,0.4);">
-        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👑 权限层级说明 (Permission Levels)</div>
+        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👑 权限层级说明</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div style="background:linear-gradient(135deg,rgba(241,196,15,0.12),rgba(241,196,15,0.04));border:1.5px solid rgba(241,196,15,0.4);border-radius:14px;padding:16px;">
-            <div style="font-size:14px;font-weight:900;color:#B7950B;margin-bottom:8px;">👑 总控 (PIN: 8888)</div>
+            <div style="font-size:14px;font-weight:900;color:#B7950B;margin-bottom:8px;">👑 总控 (PIN: <span id="displaySuperPin">7789</span>)</div>
             <div style="font-size:13px;color:var(--text);line-height:1.8;">
               ✅ 运营看板<br>✅ 学员建档<br>✅ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>✅ <strong>账号管理 (本页)</strong>
             </div>
           </div>
           <div style="background:rgba(41,128,185,0.08);border:1.5px solid rgba(41,128,185,0.3);border-radius:14px;padding:16px;">
-            <div style="font-size:14px;font-weight:900;color:#2980B9;margin-bottom:8px;">🎓 教练 (PIN: 6666)</div>
+            <div style="font-size:14px;font-weight:900;color:#2980B9;margin-bottom:8px;">🎓 教练 (PIN: <span id="displayCoachPin">-</span>)</div>
             <div style="font-size:13px;color:var(--text);line-height:1.8;">
               ✅ 运营看板<br>❌ 学员建档<br>❌ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>❌ 账号管理
             </div>
           </div>
         </div>
         <div style="margin-top:16px;padding:12px 16px;background:rgba(39,174,96,0.08);border-radius:10px;border:1px solid rgba(39,174,96,0.2);">
-          <span style="font-size:12px;font-weight:700;color:#27AE60;">💡 学员/家长登录：使用学员中文姓名作为账号，默认密码 1234，可在下方修改。</span>
+          <span style="font-size:12px;font-weight:700;color:#27AE60;">💡 学员/家长登录：账号为学员中文姓名，默认密码 = 级别数字 + 编号（如 Lv2 XQB-001 → 密码 <strong>2001</strong>）</span>
         </div>
       </div>
 
@@ -624,6 +624,12 @@ function renderAccountList() {
   const countEl = document.getElementById('accStudentCount');
   if (!el) return;
   if (countEl) countEl.textContent = `共 ${allStudents.length} 名学员`;
+
+  // Update PIN display in the permission card
+  const dispSuper = document.getElementById('displaySuperPin');
+  const dispCoach = document.getElementById('displayCoachPin');
+  if (dispSuper) dispSuper.textContent = '7789';
+  if (dispCoach) dispCoach.textContent = getCoachPin();
 
   // Teacher PIN editor
   el.innerHTML = `
