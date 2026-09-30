@@ -857,7 +857,9 @@ function renderStudentTables(){
 }
 
 function renderMatchesTable(){
-  document.getElementById('matchHistoryTable').innerHTML=allMatches.slice().reverse().map(m=>{
+  const el = document.getElementById('matchHistoryTable');
+  if (!el) return;
+  el.innerHTML=allMatches.slice().reverse().map(m=>{
     const imgBtn=m.recordImg&&m.recordImg.startsWith('http')
       ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📷 查看</button>`:'-';
     return`<tr><td>${m.date}</td><td>${m.round}</td><td><strong>${m.red}</strong></td><td>${m.result}</td><td><strong>${m.black}</strong></td><td>${m.verdict}</td><td>${imgBtn}</td></tr>`;
@@ -952,7 +954,7 @@ function toast(m,t='info'){
   setTimeout(()=>{el.style.opacity='0';setTimeout(()=>el.remove(),300);},3500);
 }
 
-document.getElementById('mDate').valueAsDate=new Date();
+const mDateEl = document.getElementById('mDate'); if (mDateEl) mDateEl.valueAsDate = new Date();
 if(checkAuth())showApp();
 
 // ============================================================
@@ -988,10 +990,24 @@ function switchTourneySubTab(tab) {
 }
 
 // --- Modal for Creating Tournament ---
-function showCreateModal() {
+async function showCreateModal() {
   const list = document.getElementById('tPlayerList');
+  const nameInput = document.getElementById('tName');
+
+  // Auto-fill a friendly default tournament name if empty
+  if (nameInput && !nameInput.value.trim()) {
+    const todayStr = new Date().toISOString().split('T')[0];
+    nameInput.value = `CXB 比赛 (${todayStr})`;
+  }
+
+  // If students not loaded yet, fetch immediately
   if (!allStudents.length) {
-    list.innerHTML = '<div style="color:var(--text2);padding:10px;">正在加载学员数据，请稍候...</div>';
+    list.innerHTML = '<div style="color:var(--text2);padding:10px;">⏳ 正在读取学员名单...</div>';
+    await loadStudents();
+  }
+
+  if (!allStudents.length) {
+    list.innerHTML = '<div style="color:var(--red);padding:10px;">暂未获取到学员数据，请检查网络或重新刷新页面。</div>';
   } else {
     list.innerHTML = allStudents.map(s =>
       `<label class="player-check" style="display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer;">
@@ -1001,6 +1017,7 @@ function showCreateModal() {
       </label>`
     ).join('');
   }
+
   updatePlayerCount();
   document.getElementById('createTournamentModal').classList.add('show');
 }
@@ -1028,12 +1045,19 @@ document.addEventListener('change', e => {
 
 // --- Create Tournament ---
 function createTournament() {
-  const name = document.getElementById('tName').value.trim();
+  let name = document.getElementById('tName').value.trim();
   const totalRounds = parseInt(document.getElementById('tRounds').value) || 4;
   const checked = document.querySelectorAll('.t-player-cb:checked');
 
-  if (!name) { toast('请输入比赛名称！', 'error'); return; }
-  if (checked.length < 2) { toast('至少需要 2 名参赛选手！', 'error'); return; }
+  if (!name) {
+    const todayStr = new Date().toISOString().split('T')[0];
+    name = `CXB 比赛 (${todayStr})`;
+  }
+
+  if (checked.length < 2) {
+    toast('至少需要勾选 2 名参赛棋手！请在列表勾选选手。', 'error');
+    return;
+  }
 
   const players = [];
   checked.forEach(cb => {
