@@ -376,36 +376,89 @@
       <div id="recordsGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;"></div>
     </div>
 
-    <!-- TAB 6: TOURNAMENT -->
+    <!-- TAB 6: TOURNAMENT & SP98 -->
     <div class="tab-panel" id="panel-tournament">
 
-      <div id="tournamentListView">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <h3 style="font-size:18px; font-weight:900;">🏆 瑞士制锦标赛</h3>
-          <button class="btn-sm green" style="padding:8px 16px; font-size:13px;" onclick="showCreateModal()">+ 创建新比赛</button>
-        </div>
-        <div id="tournamentCards"></div>
+      <!-- SUB-NAVIGATION BAR FOR TOURNAMENT / SP98 -->
+      <div style="display:flex; gap:10px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px; flex-wrap:wrap;">
+        <button class="btn-sm active" id="btnTourneyEngine" style="padding:8px 18px; font-weight:800; font-size:13px;" onclick="switchTourneySubTab('engine')">⚡ 瑞士制赛事编排系统 (SP98)</button>
+        <button class="btn-sm" id="btnTourneyBatch" style="padding:8px 18px; font-weight:800; font-size:13px; background:var(--bg); color:var(--text);" onclick="switchTourneySubTab('batch')">📋 SP98 软件战报快速导入</button>
       </div>
-      <div id="tournamentManageView" style="display:none;">
-        <button class="btn-sm" style="margin-bottom:12px;" onclick="closeTournamentManage()">← 返回列表</button>
+
+      <!-- SECTION 1: IN-BROWSER SWISS ENGINE -->
+      <div id="tourneyEngineSection">
+        <div id="tournamentListView">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <div>
+              <h3 style="font-size:18px; font-weight:900;">🏆 瑞士制比赛管理 (Swiss-System SP98)</h3>
+              <div style="font-size:12px; color:var(--text2); margin-top:2px;">智能编排 · 破同分 Buchholz · K-Factor 积分结算</div>
+            </div>
+            <button class="btn-sm green" style="padding:9px 18px; font-size:13px; font-weight:800;" onclick="showCreateModal()">+ 创建新比赛</button>
+          </div>
+          <div id="tournamentCards"></div>
+        </div>
+
+        <div id="tournamentManageView" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+            <button class="btn-sm" style="padding:8px 16px; font-weight:800;" onclick="closeTournamentManage()">← 返回比赛列表</button>
+            <div id="tourneyStatusBadge"></div>
+          </div>
+          <div class="form-card">
+            <h3 id="manageTitle" style="font-size:20px; font-weight:900; color:var(--pri);">比赛名称</h3>
+            <div style="font-size:12px; color:var(--text2); margin:4px 0 16px;">点击轮次圆点可切换查阅历史对阵与赛果：</div>
+            <div class="round-timeline" id="roundTimeline"></div>
+
+            <div id="pairingsSection">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h4 style="font-weight:800; color:var(--pri2);" id="pairingsHeading">⚔️ 第 1 轮对阵</h4>
+                <span id="roundProgressText" style="font-size:12px; font-weight:800; color:var(--text2);"></span>
+              </div>
+              <div id="pairingsList"></div>
+
+              <div style="display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;">
+                <button id="confirmRoundBtn" class="submit-btn" style="flex:1;" onclick="confirmRound()">✅ 确认本轮赛果并生成下轮配对</button>
+                <button id="endTournamentBtn" class="submit-btn green" style="flex:1; display:none;" onclick="endTournament()">🏁 结束比赛 & 同步云端 ELO</button>
+              </div>
+            </div>
+
+            <h4 style="margin:28px 0 12px; font-weight:900; color:var(--pri2);">📊 实时总积分榜 (Standings & Buchholz)</h4>
+            <div class="tbl-wrap">
+              <table class="standings-table">
+                <thead id="standingsHead"></thead>
+                <tbody id="standingsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: SP98 TEXT BATCH IMPORTER -->
+      <div id="tourneyBatchSection" style="display:none;">
         <div class="form-card">
-          <h3 id="manageTitle">比赛名称</h3>
-          <div class="round-timeline" id="roundTimeline"></div>
-          <div id="pairingsSection">
-            <h4 style="margin-bottom:12px; font-weight:800; color:var(--pri2);">⚔️ 本轮对阵</h4>
-            <div id="pairingsList"></div>
-            <button id="confirmRoundBtn" class="submit-btn" style="margin-top:16px;" onclick="confirmRound()">✅ 确认本轮赛果并生成下轮配对</button>
-            <button id="endTournamentBtn" class="submit-btn green" style="margin-top:16px; display:none;" onclick="endTournament()">🏁 结束比赛 & 同步云端 ELO</button>
+          <h3 style="font-size:18px; font-weight:900; margin-bottom:6px;">📋 Swiss Perfect 98 (SP98) 战报文本一键导入</h3>
+          <p style="font-size:13px; color:var(--text2); margin-bottom:18px;">
+            如果您在电脑上使用官方 <strong>Swiss Perfect 98</strong> 软件编排比赛，可直接在此粘贴导出的对阵文本，系统将自动识别棋手与赛果，并完成 ELO 云端同步。
+          </p>
+
+          <div class="form-group">
+            <label class="form-label">比赛名称 / 轮次标注</label>
+            <input type="text" id="sp98BatchTourneyName" class="form-input" placeholder="例如: 2024 年末俱乐部排位赛 R1" value="SP98 赛事">
           </div>
-          <h4 style="margin:24px 0 12px; font-weight:800; color:var(--pri2);">📊 实时积分榜</h4>
-          <div class="tbl-wrap">
-            <table class="standings-table">
-              <thead id="standingsHead"></thead>
-              <tbody id="standingsBody"></tbody>
-            </table>
+
+          <div class="form-group">
+            <label class="form-label">📋 直接粘贴 SP98 对阵战报文本 (支持任意多行格式)</label>
+            <textarea id="sp98Text" class="form-textarea" style="height:160px; font-family:monospace; font-size:13px;" placeholder="支持多种格式，例如：&#10;林家豪 1 - 0 陈美仪&#10;苏进康 0.5 - 0.5 郭雨涵&#10;1  黄梓轩 [1]  1 - 0  陈美仪 [0]&#10;2  林家豪 [1]  0 - 1  苏进康 [1]"></textarea>
           </div>
+
+          <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+            <button class="submit-btn" style="flex:1; background:var(--pri2);" onclick="parseSP98Batch()">🔍 智能识别与预览</button>
+            <button class="submit-btn green" id="btnSubmitSP98Batch" style="flex:1; display:none;" onclick="submitSP98Batch()">⚡ 确认并一键批量入库 ELO</button>
+          </div>
+
+          <div id="parsedPreview" style="margin-top:20px; display:none; border-radius:12px; padding:16px; border:1px solid var(--border); background:var(--bg);"></div>
         </div>
       </div>
+
     </div>
     
     <!-- TAB 7: LADDER -->
@@ -857,7 +910,7 @@ async function submitFastStudent(){
   toast('⏳ 正在分配学号并入库建档...','info');
   try{
     const payload={
-      pin:PIN,action:'addStudent',cnName:cn,
+      action:'addStudent',pin:SUPER_PIN,cnName:cn,
       enName:document.getElementById('qEn').value.trim(),
       school,level:document.getElementById('qLevel').value,
       feeMode:document.getElementById('qFee').value,
@@ -878,7 +931,7 @@ async function submitFastStudent(){
 async function markPaid(id){
   toast('⏳ 正在同步更新缴费状态...','info');
   try{
-    const res=await fetch(GAS_API_URL,{method:'POST',body:JSON.stringify({pin:PIN,action:'updatePayment',studentId:id,status:'已缴费 (Verified)'})});
+    const res=await fetch(GAS_API_URL,{method:'POST',body:JSON.stringify({action:'updatePayment',pin:SUPER_PIN,studentId:id,status:'已缴费 (Verified)'})});
     const d=await res.json();
     if(d.success){
       toast(`✅ 学员 ${id} 缴费状态已核准！`,'success');
@@ -903,53 +956,107 @@ document.getElementById('mDate').valueAsDate=new Date();
 if(checkAuth())showApp();
 
 // ============================================================
-//  🏆 TOURNAMENT SYSTEM — Swiss Pairing + K-Factor ELO
+//  🏆 TOURNAMENT & SP98 SYSTEM (Swiss-System Engine + Batch Import)
 // ============================================================
 let tournaments = JSON.parse(localStorage.getItem('cxb_tournaments') || '[]');
 let currentTournament = null;
+let currentViewingRound = 0; // 0-indexed round viewing in manager
+let parsedSP98Matches = [];
 
 function saveTournaments() {
   localStorage.setItem('cxb_tournaments', JSON.stringify(tournaments));
 }
 
-// --- Modal ---
+// --- Sub-Tab Switching (Engine vs Batch) ---
+function switchTourneySubTab(tab) {
+  const engSec = document.getElementById('tourneyEngineSection');
+  const batSec = document.getElementById('tourneyBatchSection');
+  const btnEng = document.getElementById('btnTourneyEngine');
+  const btnBat = document.getElementById('btnTourneyBatch');
+
+  if (tab === 'engine') {
+    if (engSec) engSec.style.display = 'block';
+    if (batSec) batSec.style.display = 'none';
+    if (btnEng) { btnEng.classList.add('active'); btnEng.style.background = 'var(--pri)'; btnEng.style.color = '#fff'; }
+    if (btnBat) { btnBat.classList.remove('active'); btnBat.style.background = 'var(--bg)'; btnBat.style.color = 'var(--text)'; }
+  } else {
+    if (engSec) engSec.style.display = 'none';
+    if (batSec) batSec.style.display = 'block';
+    if (btnBat) { btnBat.classList.add('active'); btnBat.style.background = 'var(--pri)'; btnBat.style.color = '#fff'; }
+    if (btnEng) { btnEng.classList.remove('active'); btnEng.style.background = 'var(--bg)'; btnEng.style.color = 'var(--text)'; }
+  }
+}
+
+// --- Modal for Creating Tournament ---
 function showCreateModal() {
   const list = document.getElementById('tPlayerList');
-  list.innerHTML = allStudents.map(s =>
-    `<label class="player-check"><input type="checkbox" class="t-player-cb" value="${s.id}" checked> ${s.cnName} (${s.id} · ELO ${s.elo})</label>`
-  ).join('');
+  if (!allStudents.length) {
+    list.innerHTML = '<div style="color:var(--text2);padding:10px;">正在加载学员数据，请稍候...</div>';
+  } else {
+    list.innerHTML = allStudents.map(s =>
+      `<label class="player-check" style="display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer;">
+        <input type="checkbox" class="t-player-cb" value="${s.id}" checked>
+        <span style="font-weight:700;">${s.cnName}</span>
+        <span style="font-size:12px;color:var(--text2);">(${s.id} · ELO ${s.elo})</span>
+      </label>`
+    ).join('');
+  }
   updatePlayerCount();
   document.getElementById('createTournamentModal').classList.add('show');
 }
-function hideCreateModal() { document.getElementById('createTournamentModal').classList.remove('show'); }
+
+function hideCreateModal() {
+  document.getElementById('createTournamentModal').classList.remove('show');
+}
+
 function selectAllPlayers() {
   document.querySelectorAll('.t-player-cb').forEach(cb => cb.checked = true);
   updatePlayerCount();
 }
+
 function updatePlayerCount() {
   const n = document.querySelectorAll('.t-player-cb:checked').length;
-  document.getElementById('tPlayerCount').textContent = n;
+  const countEl = document.getElementById('tPlayerCount');
+  if (countEl) countEl.textContent = n;
 }
-document.addEventListener('change', e => { if (e.target.classList.contains('t-player-cb')) updatePlayerCount(); });
+
+document.addEventListener('change', e => {
+  if (e.target && e.target.classList && e.target.classList.contains('t-player-cb')) {
+    updatePlayerCount();
+  }
+});
 
 // --- Create Tournament ---
 function createTournament() {
   const name = document.getElementById('tName').value.trim();
-  const totalRounds = parseInt(document.getElementById('tRounds').value);
+  const totalRounds = parseInt(document.getElementById('tRounds').value) || 4;
   const checked = document.querySelectorAll('.t-player-cb:checked');
+
   if (!name) { toast('请输入比赛名称！', 'error'); return; }
-  if (checked.length < 3) { toast('至少需要 3 名参赛选手！', 'error'); return; }
+  if (checked.length < 2) { toast('至少需要 2 名参赛选手！', 'error'); return; }
 
   const players = [];
   checked.forEach(cb => {
     const s = allStudents.find(x => x.id === cb.value);
-    if (s) players.push({ id: s.id, name: s.cnName, elo: s.elo, scores: [], opponents: [], colors: [], hadBye: false });
+    if (s) {
+      players.push({
+        id: s.id,
+        name: s.cnName,
+        elo: parseInt(s.elo) || 200,
+        scores: [],
+        opponents: [],
+        colors: [],
+        hadBye: false
+      });
+    }
   });
 
   const t = {
     id: 'T' + Date.now(),
-    name, totalRounds, currentRound: 0,
-    status: 'active',
+    name,
+    totalRounds,
+    currentRound: 0,
+    status: 'active', // 'active' or 'completed'
     players,
     rounds: [],
     createdAt: new Date().toISOString().split('T')[0]
@@ -958,160 +1065,156 @@ function createTournament() {
   tournaments.push(t);
   saveTournaments();
   hideCreateModal();
-  toast(`🏆 比赛 "${name}" 已创建！`, 'success');
+  toast(`🏆 比赛 "${name}" 已成功创建！`, 'success');
+
   currentTournament = t;
   startNextRound();
   showTournamentManage();
 }
 
-// --- Tournament List ---
-function showTournamentList() {
-  document.getElementById('tournamentListView').style.display = 'block';
-  document.getElementById('tournamentManageView').style.display = 'none';
-  const el = document.getElementById('tournamentCards');
-  if (tournaments.length === 0) {
-    el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text2);">暂无比赛记录。点击上方「+ 创建新比赛」开始！</div>';
-    return;
-  }
-  el.innerHTML = tournaments.slice().reverse().map(t => {
-    const statusBadge = t.status === 'completed'
-      ? '<span class="badge badge-green">✅ 已结束</span>'
-      : `<span class="badge badge-blue">🟢 进行中 (R${t.currentRound}/${t.totalRounds})</span>`;
-    return `<div class="tournament-card">
-      <div>
-        <h4>🏆 ${t.name}</h4>
-        <div class="meta">📅 ${t.createdAt} · ${t.totalRounds}轮 · ${t.players.length}人参赛 ${statusBadge}</div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn-sm" onclick="openTournament('${t.id}')">${t.status === 'completed' ? '查看结果' : '进入管理'} →</button>
-        <button class="btn-sm" style="color:var(--red);" onclick="deleteTournament('${t.id}')">🗑️</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function deleteTournament(id) {
-  if (!confirm('确定删除此比赛吗？此操作不可撤销。')) return;
-  tournaments = tournaments.filter(t => t.id !== id);
-  saveTournaments();
-  showTournamentList();
-  toast('比赛已删除', 'info');
-}
-
-function openTournament(id) {
-  currentTournament = tournaments.find(t => t.id === id);
-  if (!currentTournament) return;
-  showTournamentManage();
-}
-
-function closeTournamentManage() {
-  currentTournament = null;
-  showTournamentList();
-}
-
-// --- Swiss Pairing Algorithm ---
-function getPlayerScore(player) {
+// --- Swiss Pairing Algorithm (SP98 FIDE Engine) ---
+function getPlayerTotalPoints(player) {
+  if (!player.scores || !player.scores.length) return 0;
   return player.scores.reduce((a, b) => a + b, 0);
 }
 
 function swissPair(tournament) {
-  const round = tournament.currentRound; // 1-indexed (current round being generated)
-  let players = [...tournament.players];
-  const pairings = [];
+  const roundNum = tournament.currentRound + 1; // 1-indexed next round
+  let activePlayers = [...tournament.players];
+  const allPairings = [];
 
-  // Sort: by score desc, then ELO desc
-  players.sort((a, b) => {
-    const sa = getPlayerScore(a), sb = getPlayerScore(b);
+  // Sort players by total tournament score desc, then ELO desc
+  activePlayers.sort((a, b) => {
+    const sa = getPlayerTotalPoints(a);
+    const sb = getPlayerTotalPoints(b);
     return sb - sa || b.elo - a.elo;
   });
 
   // Handle BYE for odd number of players
   let byePlayer = null;
-  if (players.length % 2 === 1) {
-    // Give bye to lowest-scored player who hasn't had one
-    for (let i = players.length - 1; i >= 0; i--) {
-      if (!players[i].hadBye) {
-        byePlayer = players.splice(i, 1)[0];
+  if (activePlayers.length % 2 === 1) {
+    // Pick the lowest ranked player who hasn't received a bye yet
+    for (let i = activePlayers.length - 1; i >= 0; i--) {
+      if (!activePlayers[i].hadBye) {
+        byePlayer = activePlayers.splice(i, 1)[0];
         break;
       }
     }
-    // If everyone had a bye, give to lowest anyway
+    // If all had a bye, pick lowest
     if (!byePlayer) {
-      byePlayer = players.splice(players.length - 1, 1)[0];
+      byePlayer = activePlayers.pop();
     }
   }
 
-  // Group players by score
-  const scoreGroups = {};
-  players.forEach(p => {
-    const s = getPlayerScore(p);
-    if (!scoreGroups[s]) scoreGroups[s] = [];
-    scoreGroups[s].push(p);
+  // Group remaining players by score brackets
+  const brackets = {};
+  activePlayers.forEach(p => {
+    const sc = getPlayerTotalPoints(p);
+    if (!brackets[sc]) brackets[sc] = [];
+    brackets[sc].push(p);
   });
 
-  // Flatten all players in sorted order for pairing
-  const sorted = [];
-  Object.keys(scoreGroups).sort((a, b) => b - a).forEach(k => {
-    scoreGroups[k].forEach(p => sorted.push(p));
-  });
+  // Score keys descending
+  const sortedScoreKeys = Object.keys(brackets).map(Number).sort((a, b) => b - a);
 
-  // Pair using top-half vs bottom-half within score groups
-  const paired = new Set();
-  const allPairings = [];
+  // Pool for pairing with downfloater carry-over
+  let carryOver = [];
+  const pairedPlayerIds = new Set();
 
-  for (let i = 0; i < sorted.length; i++) {
-    if (paired.has(sorted[i].id)) continue;
-    const p1 = sorted[i];
-    let bestOpponent = null;
+  sortedScoreKeys.forEach(scKey => {
+    let group = [...carryOver, ...brackets[scKey]];
+    carryOver = [];
 
-    // Find best available opponent (not already paired, not already played)
-    for (let j = i + 1; j < sorted.length; j++) {
-      if (paired.has(sorted[j].id)) continue;
-      if (p1.opponents.includes(sorted[j].id)) continue; // No repeat
-      bestOpponent = sorted[j];
-      break;
+    // Sort group by ELO descending
+    group.sort((a, b) => b.elo - a.elo);
+
+    // If odd number in this bracket, float the lowest player to next bracket
+    if (group.length % 2 === 1) {
+      carryOver.push(group.pop());
     }
 
-    // If no valid opponent (all played before), allow repeat
-    if (!bestOpponent) {
-      for (let j = i + 1; j < sorted.length; j++) {
-        if (paired.has(sorted[j].id)) continue;
-        bestOpponent = sorted[j];
-        break;
+    // SP98 Dutch Pairing: Split group into top half and bottom half
+    const half = Math.floor(group.length / 2);
+    const topHalf = group.slice(0, half);
+    let bottomHalf = group.slice(half);
+
+    for (let i = 0; i < topHalf.length; i++) {
+      const p1 = topHalf[i];
+      let matchIdx = -1;
+
+      // Find an opponent in bottomHalf who p1 hasn't played yet
+      for (let j = 0; j < bottomHalf.length; j++) {
+        if (!p1.opponents.includes(bottomHalf[j].id)) {
+          matchIdx = j;
+          break;
+        }
+      }
+
+      // If everyone in bottomHalf has played p1, try first available
+      if (matchIdx === -1 && bottomHalf.length > 0) {
+        matchIdx = 0;
+      }
+
+      if (matchIdx !== -1) {
+        const p2 = bottomHalf.splice(matchIdx, 1)[0];
+        pairedPlayerIds.add(p1.id);
+        pairedPlayerIds.add(p2.id);
+
+        // Determine colors (alternate based on last color)
+        const p1LastColor = p1.colors && p1.colors.length ? p1.colors[p1.colors.length - 1] : null;
+        let red, black;
+        if (p1LastColor === 'red') {
+          red = p2; black = p1;
+        } else if (p1LastColor === 'black') {
+          red = p1; black = p2;
+        } else {
+          // Round 1 or no color: higher seed gets red on odd boards
+          if ((allPairings.length + 1) % 2 === 1) {
+            red = p1; black = p2;
+          } else {
+            red = p2; black = p1;
+          }
+        }
+
+        allPairings.push({
+          board: allPairings.length + 1,
+          redId: red.id,
+          redName: red.name,
+          blackId: black.id,
+          blackName: black.name,
+          result: null
+        });
       }
     }
 
-    if (bestOpponent) {
-      paired.add(p1.id);
-      paired.add(bestOpponent.id);
+    // Any remaining in bottomHalf float to carryOver
+    if (bottomHalf.length > 0) {
+      carryOver.push(...bottomHalf);
+    }
+  });
 
-      // Determine colors: alternate if possible
-      const p1LastColor = p1.colors.length ? p1.colors[p1.colors.length - 1] : null;
-      let red, black;
-      if (p1LastColor === 'red') {
-        red = bestOpponent; black = p1;
-      } else if (p1LastColor === 'black') {
-        red = p1; black = bestOpponent;
-      } else {
-        // Higher score/ELO gets red
-        red = p1; black = bestOpponent;
-      }
-
+  // Handle any remaining carryOver (if any)
+  if (carryOver.length >= 2) {
+    for (let k = 0; k < carryOver.length - 1; k += 2) {
       allPairings.push({
         board: allPairings.length + 1,
-        redId: red.id, redName: red.name,
-        blackId: black.id, blackName: black.name,
+        redId: carryOver[k].id,
+        redName: carryOver[k].name,
+        blackId: carryOver[k + 1].id,
+        blackName: carryOver[k + 1].name,
         result: null
       });
     }
   }
 
-  // Add bye
+  // Append bye pairing if applicable
   if (byePlayer) {
     allPairings.push({
       board: 'BYE',
-      redId: byePlayer.id, redName: byePlayer.name,
-      blackId: null, blackName: null,
+      redId: byePlayer.id,
+      redName: byePlayer.name,
+      blackId: null,
+      blackName: '轮空 (BYE)',
       result: 'bye'
     });
   }
@@ -1119,16 +1222,53 @@ function swissPair(tournament) {
   return allPairings;
 }
 
+// --- Start Next Round ---
 function startNextRound() {
   const t = currentTournament;
-  if (t.currentRound >= t.totalRounds) return;
+  if (!t || t.currentRound >= t.totalRounds) return;
 
-  const pairings = swissPair(t);
-  t.rounds.push(pairings);
+  const nextPairings = swissPair(t);
   t.currentRound++;
+  t.rounds.push({
+    roundNum: t.currentRound,
+    confirmed: false,
+    pairings: nextPairings
+  });
 
-  // Record opponent info and colors for this round
-  pairings.forEach(p => {
+  currentViewingRound = t.currentRound - 1;
+  saveTournaments();
+}
+
+// --- Set Match Result ---
+function setMatchResult(roundIdx, boardIdx, result) {
+  const t = currentTournament;
+  if (!t || !t.rounds[roundIdx]) return;
+  if (t.rounds[roundIdx].confirmed) {
+    toast('该轮次赛果已确认，无法修改。', 'warning');
+    return;
+  }
+  t.rounds[roundIdx].pairings[boardIdx].result = result;
+  saveTournaments();
+  renderTournamentManage();
+}
+
+// --- Confirm Round ---
+function confirmRound() {
+  const t = currentTournament;
+  if (!t) return;
+  const roundIdx = t.currentRound - 1;
+  const roundObj = t.rounds[roundIdx];
+  if (!roundObj) return;
+
+  // Verify all boards filled
+  const unassigned = roundObj.pairings.filter(p => p.result === null);
+  if (unassigned.length > 0) {
+    toast(`还有 ${unassigned.length} 盘对局未录入赛果，请点击胜负后再确认！`, 'error');
+    return;
+  }
+
+  // Apply scores and history to players for this round
+  roundObj.pairings.forEach(p => {
     if (p.result === 'bye') {
       const byeP = t.players.find(x => x.id === p.redId);
       if (byeP) {
@@ -1140,74 +1280,51 @@ function startNextRound() {
     } else {
       const redP = t.players.find(x => x.id === p.redId);
       const blackP = t.players.find(x => x.id === p.blackId);
-      if (redP) { redP.opponents.push(p.blackId); redP.colors.push('red'); }
-      if (blackP) { blackP.opponents.push(p.redId); blackP.colors.push('black'); }
+
+      if (redP) {
+        redP.opponents.push(p.blackId);
+        redP.colors.push('red');
+      }
+      if (blackP) {
+        blackP.opponents.push(p.redId);
+        blackP.colors.push('black');
+      }
+
+      if (p.result === 'red') {
+        if (redP) redP.scores.push(1);
+        if (blackP) blackP.scores.push(0);
+      } else if (p.result === 'black') {
+        if (redP) redP.scores.push(0);
+        if (blackP) blackP.scores.push(1);
+      } else {
+        if (redP) redP.scores.push(0.5);
+        if (blackP) blackP.scores.push(0.5);
+      }
     }
   });
 
-  saveTournaments();
-}
-
-// --- Set Match Result ---
-function setMatchResult(roundIdx, boardIdx, result) {
-  const t = currentTournament;
-  t.rounds[roundIdx][boardIdx].result = result;
-  saveTournaments();
-  renderTournamentManage();
-}
-
-// --- Confirm Round ---
-function confirmRound() {
-  const t = currentTournament;
-  const roundIdx = t.currentRound - 1;
-  const round = t.rounds[roundIdx];
-
-  // Check all results filled
-  const unfinished = round.filter(p => p.result === null);
-  if (unfinished.length > 0) {
-    toast('请先填写所有对局的赛果！', 'error');
-    return;
-  }
-
-  // Update player scores for this round
-  round.forEach(p => {
-    if (p.result === 'bye') return; // Already scored
-    const redP = t.players.find(x => x.id === p.redId);
-    const blackP = t.players.find(x => x.id === p.blackId);
-    if (p.result === 'red') {
-      if (redP) redP.scores.push(1);
-      if (blackP) blackP.scores.push(0);
-    } else if (p.result === 'black') {
-      if (redP) redP.scores.push(0);
-      if (blackP) blackP.scores.push(1);
-    } else {
-      if (redP) redP.scores.push(0.5);
-      if (blackP) blackP.scores.push(0.5);
-    }
-  });
-
+  roundObj.confirmed = true;
   saveTournaments();
 
   if (t.currentRound < t.totalRounds) {
     startNextRound();
-    toast(`✅ 第 ${roundIdx + 1} 轮赛果已确认！第 ${t.currentRound} 轮配对已生成。`, 'success');
+    toast(`✅ 第 ${t.currentRound - 1} 轮已锁定，已自动生成第 ${t.currentRound} 轮配对！`, 'success');
   } else {
-    toast('🏁 所有轮次已完成！请点击「结束比赛」同步 ELO。', 'success');
+    toast('🏁 全部轮次已赛完！请点击下方「结束比赛 & 同步云端 ELO」进行积分结算。', 'success');
   }
 
   renderTournamentManage();
 }
 
-// --- Standings ---
+// --- Calculate Standings & Buchholz ---
 function calculateStandings(tournament) {
   const standings = tournament.players.map(p => {
-    const totalPoints = getPlayerScore(p);
-    // Buchholz: sum of opponents' scores
+    const totalPoints = getPlayerTotalPoints(p);
     let buchholz = 0;
-    p.opponents.forEach(oppId => {
+    (p.opponents || []).forEach(oppId => {
       if (oppId === 'BYE') return;
       const opp = tournament.players.find(x => x.id === oppId);
-      if (opp) buchholz += getPlayerScore(opp);
+      if (opp) buchholz += getPlayerTotalPoints(opp);
     });
     return { ...p, totalPoints, buchholz };
   });
@@ -1216,124 +1333,225 @@ function calculateStandings(tournament) {
   return standings;
 }
 
-// --- Render ---
+// --- Tournament Views Navigation ---
+function showTournamentList() {
+  const listView = document.getElementById('tournamentListView');
+  const manageView = document.getElementById('tournamentManageView');
+  if (listView) listView.style.display = 'block';
+  if (manageView) manageView.style.display = 'none';
+
+  const el = document.getElementById('tournamentCards');
+  if (!el) return;
+
+  if (tournaments.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text2);background:var(--card);border-radius:14px;border:1px dashed var(--border);">暂无比赛记录。点击右上角「+ 创建新比赛」开始！</div>';
+    return;
+  }
+
+  el.innerHTML = tournaments.slice().reverse().map(t => {
+    const statusBadge = t.status === 'completed'
+      ? '<span class="badge badge-green">✅ 已结束</span>'
+      : `<span class="badge badge-blue">🟢 比赛进行中 (第 ${t.currentRound}/${t.totalRounds} 轮)</span>`;
+    return `
+      <div class="tournament-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h4 style="font-size:16px;font-weight:900;color:var(--pri);margin-bottom:4px;">🏆 ${t.name}</h4>
+          <div style="font-size:12px;color:var(--text2);">📅 ${t.createdAt} · 赛程 ${t.totalRounds} 轮 · ${t.players.length} 名棋手 ${statusBadge}</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-sm" style="font-weight:800;" onclick="openTournament('${t.id}')">${t.status === 'completed' ? '查看战绩榜' : '继续对战管理'} →</button>
+          <button class="btn-sm" style="color:var(--red);border-color:var(--red);" onclick="deleteTournament('${t.id}')">🗑️ 删除</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function openTournament(id) {
+  currentTournament = tournaments.find(t => t.id === id);
+  if (!currentTournament) return;
+  currentViewingRound = Math.max(0, currentTournament.currentRound - 1);
+  showTournamentManage();
+}
+
+function closeTournamentManage() {
+  currentTournament = null;
+  showTournamentList();
+}
+
 function showTournamentManage() {
-  document.getElementById('tournamentListView').style.display = 'none';
-  document.getElementById('tournamentManageView').style.display = 'block';
+  const listView = document.getElementById('tournamentListView');
+  const manageView = document.getElementById('tournamentManageView');
+  if (listView) listView.style.display = 'none';
+  if (manageView) manageView.style.display = 'block';
   renderTournamentManage();
 }
 
+function selectViewingRound(idx) {
+  currentViewingRound = idx;
+  renderTournamentManage();
+}
+
+function deleteTournament(id) {
+  if (!confirm('确定删除这场比赛记录吗？此操作无法撤销。')) return;
+  tournaments = tournaments.filter(t => t.id !== id);
+  saveTournaments();
+  showTournamentList();
+  toast('比赛记录已删除', 'info');
+}
+
+// --- Render Tournament Management View ---
 function renderTournamentManage() {
   const t = currentTournament;
   if (!t) return;
 
   document.getElementById('manageTitle').textContent = `🏆 ${t.name}`;
 
-  // Timeline
+  // Status badge
+  const statusEl = document.getElementById('tourneyStatusBadge');
+  if (statusEl) {
+    statusEl.innerHTML = t.status === 'completed'
+      ? '<span class="badge badge-green" style="font-size:13px;padding:6px 14px;">✅ 比赛已完赛并结算 ELO</span>'
+      : `<span class="badge badge-blue" style="font-size:13px;padding:6px 14px;">🟢 正在进行第 ${t.currentRound} / ${t.totalRounds} 轮</span>`;
+  }
+
+  // Round Timeline
   const timeline = document.getElementById('roundTimeline');
   let tlHTML = '<div class="round-line"></div>';
   for (let i = 1; i <= t.totalRounds; i++) {
+    const rObj = t.rounds[i - 1];
     let cls = 'round-dot';
-    if (i < t.currentRound) cls += ' completed';
+    if (rObj && rObj.confirmed) cls += ' completed';
     else if (i === t.currentRound) cls += ' active';
-    tlHTML += `<div class="${cls}">R${i}</div>`;
+    if (i - 1 === currentViewingRound) cls += ' current-viewing';
+
+    tlHTML += `<div class="${cls}" onclick="selectViewingRound(${i - 1})" style="cursor:pointer;" title="点击切换查看第 ${i} 轮">R${i}</div>`;
   }
   timeline.innerHTML = tlHTML;
 
-  // Pairings for current round
-  const roundIdx = t.currentRound - 1;
-  const round = t.rounds[roundIdx];
-  if (!round) return;
-
-  const allConfirmed = t.currentRound <= t.rounds.length &&
-    round.every(p => p.result !== null);
-  const isLastRound = t.currentRound >= t.totalRounds;
-  const roundScoresRecorded = t.players[0] && t.players[0].scores.length >= t.currentRound;
-
+  // Pairings Section
+  const viewRound = t.rounds[currentViewingRound];
+  const pHeading = document.getElementById('pairingsHeading');
+  const pProgText = document.getElementById('roundProgressText');
   const pList = document.getElementById('pairingsList');
-  pList.innerHTML = round.map((p, idx) => {
-    if (p.result === 'bye') {
-      return `<div class="board-row">
-        <div class="board-header"><span>轮空 (BYE)</span><span>+1 分</span></div>
-        <div class="board-players" style="justify-content:center;">💤 ${p.redName} — 自动获得 1 分</div>
-      </div>`;
-    }
+  const confirmBtn = document.getElementById('confirmRoundBtn');
+  const endBtn = document.getElementById('endTournamentBtn');
 
-    const redScore = getPlayerScore(t.players.find(x => x.id === p.redId) || {scores:[]});
-    const blackScore = getPlayerScore(t.players.find(x => x.id === p.blackId) || {scores:[]});
+  if (pHeading) pHeading.textContent = `⚔️ 第 ${currentViewingRound + 1} 轮对阵名单`;
+
+  if (!viewRound) {
+    pList.innerHTML = '<div style="padding:20px;color:var(--text2);text-align:center;">此轮次尚未配对。</div>';
+    if (confirmBtn) confirmBtn.style.display = 'none';
+    if (endBtn) endBtn.style.display = 'none';
+    return;
+  }
+
+  if (pProgText) {
+    pProgText.innerHTML = viewRound.confirmed
+      ? '<span style="color:var(--green);font-weight:900;">✅ 本轮赛果已锁定</span>'
+      : '<span style="color:var(--yellow);font-weight:900;">⏳ 请点选本轮每盘赛果</span>';
+  }
+
+  pList.innerHTML = viewRound.pairings.map((p, bIdx) => {
+    if (p.result === 'bye') {
+      return `
+        <div class="board-row" style="background:var(--bg);border-radius:12px;padding:12px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:800;color:var(--pri3);">💤 轮空 (BYE)</div>
+          <div style="font-weight:900;color:var(--text);">${p.redName}</div>
+          <div style="font-size:12px;font-weight:800;color:var(--green);background:rgba(39,174,96,0.12);padding:4px 10px;border-radius:8px;">+1.0 分</div>
+        </div>`;
+    }
 
     const rSel = p.result === 'red' ? 'selected r-red' : '';
     const dSel = p.result === 'draw' ? 'selected r-draw' : '';
     const bSel = p.result === 'black' ? 'selected r-black' : '';
-    const disabled = roundScoresRecorded ? 'style="pointer-events:none;opacity:.6;"' : '';
 
-    return `<div class="board-row">
-      <div class="board-header"><span>台 ${p.board}</span><span>第 ${t.currentRound} 轮</span></div>
-      <div class="board-players">
-        <span class="red">🔴 ${p.redName} (${redScore.toFixed(1)}分)</span>
-        <span style="color:var(--text2);">VS</span>
-        <span class="black">⚫ ${p.blackName} (${blackScore.toFixed(1)}分)</span>
-      </div>
-      <div class="result-btn-group" ${disabled}>
-        <button class="result-btn ${rSel}" onclick="setMatchResult(${roundIdx},${idx},'red')">🔴 红胜</button>
-        <button class="result-btn ${dSel}" onclick="setMatchResult(${roundIdx},${idx},'draw')">🤝 和棋</button>
-        <button class="result-btn ${bSel}" onclick="setMatchResult(${roundIdx},${idx},'black')">⚫ 黑胜</button>
-      </div>
-    </div>`;
+    const redPlayer = t.players.find(x => x.id === p.redId);
+    const blackPlayer = t.players.find(x => x.id === p.blackId);
+    const redSc = redPlayer ? getPlayerTotalPoints(redPlayer) : 0;
+    const blackSc = blackPlayer ? getPlayerTotalPoints(blackPlayer) : 0;
+
+    return `
+      <div class="board-row" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text2);margin-bottom:8px;">
+          <span><strong>台次 ${p.board}</strong></span>
+          <span>第 ${currentViewingRound + 1} 轮</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:15px;font-weight:900;">
+          <div style="color:var(--red);flex:1;text-align:left;">
+            🔴 ${p.redName} <span style="font-size:12px;color:var(--text2);font-weight:600;">(${redSc.toFixed(1)}分 · ${redPlayer ? redPlayer.elo : ''})</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);padding:0 10px;">VS</div>
+          <div style="color:var(--pri);flex:1;text-align:right;">
+            <span style="font-size:12px;color:var(--text2);font-weight:600;">(${blackPlayer ? blackPlayer.elo : ''} · ${blackSc.toFixed(1)}分)</span> ${p.blackName} ⚫
+          </div>
+        </div>
+        <div class="result-btn-group" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <button class="result-btn ${rSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'red')">🔴 红胜</button>
+          <button class="result-btn ${dSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'draw')">🤝 和棋</button>
+          <button class="result-btn ${bSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'black')">⚫ 黑胜</button>
+        </div>
+      </div>`;
   }).join('');
 
-  // Show/hide buttons
-  const confirmBtn = document.getElementById('confirmRoundBtn');
-  const endBtn = document.getElementById('endTournamentBtn');
+  // Control Buttons Visibility
+  const isCurrentActiveRound = currentViewingRound === t.currentRound - 1;
+  const isLastRound = t.currentRound === t.totalRounds;
 
   if (t.status === 'completed') {
-    confirmBtn.style.display = 'none';
-    endBtn.style.display = 'none';
-  } else if (roundScoresRecorded && isLastRound) {
-    confirmBtn.style.display = 'none';
-    endBtn.style.display = 'block';
-  } else if (roundScoresRecorded) {
-    confirmBtn.style.display = 'none';
-    endBtn.style.display = 'none';
+    if (confirmBtn) confirmBtn.style.display = 'none';
+    if (endBtn) endBtn.style.display = 'none';
+  } else if (isCurrentActiveRound && !viewRound.confirmed) {
+    if (confirmBtn) {
+      confirmBtn.style.display = 'block';
+      confirmBtn.textContent = `✅ 确认第 ${t.currentRound} 轮赛果并生成下轮对阵`;
+    }
+    if (endBtn) endBtn.style.display = 'none';
+  } else if (isCurrentActiveRound && viewRound.confirmed && isLastRound) {
+    if (confirmBtn) confirmBtn.style.display = 'none';
+    if (endBtn) {
+      endBtn.style.display = 'block';
+      endBtn.textContent = '🏁 结束比赛 & 同步云端 ELO (K-Factor 结算)';
+    }
   } else {
-    confirmBtn.style.display = 'block';
-    endBtn.style.display = 'none';
+    if (confirmBtn) confirmBtn.style.display = 'none';
+    if (endBtn) endBtn.style.display = 'none';
   }
 
   // Standings Table
   const standings = calculateStandings(t);
   const sHead = document.getElementById('standingsHead');
-  let hHTML = '<tr><th>排名</th><th>姓名</th>';
-  for (let i = 1; i <= t.currentRound; i++) hHTML += `<th>R${i}</th>`;
-  hHTML += '<th>总分</th><th>Buchholz</th><th>ELO</th></tr>';
+  let hHTML = '<tr><th style="padding:10px;">排名</th><th style="padding:10px;text-align:left;">姓名</th>';
+  for (let r = 1; r <= t.currentRound; r++) {
+    hHTML += `<th style="padding:10px;">R${r}</th>`;
+  }
+  hHTML += '<th style="padding:10px;">总积分</th><th style="padding:10px;">对手分 (Buchholz)</th><th style="padding:10px;">初始ELO</th></tr>';
   sHead.innerHTML = hHTML;
 
   const sBody = document.getElementById('standingsBody');
   sBody.innerHTML = standings.map((p, idx) => {
-    let rHTML = '';
-    for (let i = 0; i < t.currentRound; i++) {
-      const score = p.scores[i] !== undefined ? p.scores[i] : '-';
-      const opp = p.opponents[i] || '';
-      const oppName = opp === 'BYE' ? '轮空' : (t.players.find(x => x.id === opp) || {}).name || '';
-      const tip = oppName ? `title="vs ${oppName}"` : '';
-      let color = '';
-      if (score === 1) color = 'color:var(--green);font-weight:900;';
-      else if (score === 0) color = 'color:var(--red);';
-      else if (score === 0.5) color = 'color:var(--yellow);font-weight:700;';
-      rHTML += `<td ${tip} style="${color}">${score}</td>`;
+    let rScoresHTML = '';
+    for (let r = 0; r < t.currentRound; r++) {
+      const sc = p.scores[r] !== undefined ? p.scores[r] : '-';
+      let colorStyle = '';
+      if (sc === 1) colorStyle = 'color:var(--green);font-weight:900;';
+      else if (sc === 0) colorStyle = 'color:var(--red);font-weight:700;';
+      else if (sc === 0.5) colorStyle = 'color:var(--yellow);font-weight:900;';
+      rScoresHTML += `<td style="padding:10px;text-align:center;${colorStyle}">${sc}</td>`;
     }
-    return `<tr>
-      <td><strong>${idx + 1}</strong></td>
-      <td style="text-align:left;"><strong>${p.name}</strong></td>
-      ${rHTML}
-      <td><strong>${p.totalPoints.toFixed(1)}</strong></td>
-      <td>${p.buchholz.toFixed(1)}</td>
-      <td>${p.elo}</td>
-    </tr>`;
+
+    return `
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px;text-align:center;font-weight:900;">${idx + 1}</td>
+        <td style="padding:10px;text-align:left;font-weight:900;">${p.name}</td>
+        ${rScoresHTML}
+        <td style="padding:10px;text-align:center;font-weight:900;color:var(--pri);">${p.totalPoints.toFixed(1)}</td>
+        <td style="padding:10px;text-align:center;font-weight:700;color:var(--text2);">${p.buchholz.toFixed(1)}</td>
+        <td style="padding:10px;text-align:center;color:var(--text2);">${p.elo}</td>
+      </tr>`;
   }).join('');
 }
 
-// --- K-Factor ELO ---
+// --- K-Factor ELO Calculator ---
 function calcKFactor(elo, totalGames) {
   if (totalGames < 20 || elo < 400) return 24;
   if (elo < 700) return 16;
@@ -1349,94 +1567,263 @@ function calcEloChange(playerElo, opponentElo, actualScore, K) {
   return Math.round(K * (actualScore - expected));
 }
 
-// --- End Tournament & Sync ELO ---
+// --- End Tournament & Sync to Cloud ---
 async function endTournament() {
   const t = currentTournament;
-  if (!confirm(`确定结束比赛「${t.name}」并同步所有 ELO 变化到云端？`)) return;
+  if (!t) return;
+  if (!confirm(`确定结束比赛「${t.name}」并将对局成绩与 ELO 结算结果同步到云端表格吗？`)) return;
 
-  toast('⏳ 正在同步比赛数据到云端...', 'info');
+  toast('⏳ 正在计算 ELO 并同步所有对局到云端...', 'info');
 
-  // Calculate ELO changes for display
   const eloChanges = {};
-  t.players.forEach(p => { eloChanges[p.id] = { name: p.name, oldElo: p.elo, delta: 0, games: 0 }; });
+  t.players.forEach(p => {
+    eloChanges[p.id] = { name: p.name, oldElo: p.elo, delta: 0, games: 0 };
+  });
 
-  // Process all rounds
+  // Calculate ELO changes round by round
   for (let ri = 0; ri < t.rounds.length; ri++) {
-    for (const match of t.rounds[ri]) {
+    const roundObj = t.rounds[ri];
+    for (const match of roundObj.pairings) {
       if (match.result === 'bye' || !match.blackId) continue;
 
       const redP = t.players.find(x => x.id === match.redId);
       const blackP = t.players.find(x => x.id === match.blackId);
       if (!redP || !blackP) continue;
 
-      const redElo = redP.elo + (eloChanges[redP.id]?.delta || 0);
-      const blackElo = blackP.elo + (eloChanges[blackP.id]?.delta || 0);
+      const curRedElo = redP.elo + (eloChanges[redP.id]?.delta || 0);
+      const curBlackElo = blackP.elo + (eloChanges[blackP.id]?.delta || 0);
 
-      const redK = calcKFactor(redElo, (eloChanges[redP.id]?.games || 0) + 10);
-      const blackK = calcKFactor(blackElo, (eloChanges[blackP.id]?.games || 0) + 10);
+      const redK = calcKFactor(curRedElo, (eloChanges[redP.id]?.games || 0) + 10);
+      const blackK = calcKFactor(curBlackElo, (eloChanges[blackP.id]?.games || 0) + 10);
 
-      let redActual, blackActual;
-      if (match.result === 'red') { redActual = 1; blackActual = 0; }
-      else if (match.result === 'black') { redActual = 0; blackActual = 1; }
-      else { redActual = 0.5; blackActual = 0.5; }
+      let redActual = 0.5, blackActual = 0.5;
+      let resText = '🤝 和棋 (0.5 - 0.5)';
+      let verdict = '双方战和';
 
-      const redDelta = calcEloChange(redElo, blackElo, redActual, redK);
-      const blackDelta = calcEloChange(blackElo, redElo, blackActual, blackK);
+      if (match.result === 'red') {
+        redActual = 1; blackActual = 0;
+        resText = '🔴 红胜 (1 - 0)';
+        verdict = match.redName + ' 胜';
+      } else if (match.result === 'black') {
+        redActual = 0; blackActual = 1;
+        resText = '⚫ 黑胜 (0 - 1)';
+        verdict = match.blackName + ' 胜';
+      }
+
+      const redDelta = calcEloChange(curRedElo, curBlackElo, redActual, redK);
+      const blackDelta = calcEloChange(curBlackElo, curRedElo, blackActual, blackK);
 
       eloChanges[redP.id].delta += redDelta;
       eloChanges[redP.id].games++;
       eloChanges[blackP.id].delta += blackDelta;
       eloChanges[blackP.id].games++;
 
-      // Sync each match to Google Sheets
-      let result, verdict;
-      if (match.result === 'red') {
-        result = '🔴 红胜 (1 - 0)';
-        verdict = match.redName + ' 胜';
-      } else if (match.result === 'black') {
-        result = '⚫ 黑胜 (0 - 1)';
-        verdict = match.blackName + ' 胜';
-      } else {
-        result = '🤝 和棋 (0.5 - 0.5)';
-        verdict = '双方战和';
-      }
-
+      // POST to Google Sheets
       try {
         await fetch(GAS_API_URL, {
           method: 'POST',
           body: JSON.stringify({
-            pin: PIN, action: 'addMatch',
+            action: 'addMatch',
+            pin: SUPER_PIN,
             date: t.createdAt,
             round: `${t.name} R${ri + 1}`,
-            redId: match.redId, redName: match.redName,
-            result, blackId: match.blackId, blackName: match.blackName,
-            verdict, recordImage: null
+            redId: match.redId,
+            redName: match.redName,
+            result: resText,
+            blackId: match.blackId,
+            blackName: match.blackName,
+            verdict,
+            redEloDelta: redDelta,
+            blackEloDelta: blackDelta,
+            recordImage: null
           })
         });
-      } catch (e) { console.error('Sync error:', e); }
+      } catch (err) {
+        console.error('Match sync error:', err);
+      }
     }
   }
 
-  // Show ELO summary
-  let summary = '📊 ELO 变动汇总:\n';
+  // Summary
+  let summary = `🏆 比赛「${t.name}」ELO 积分结算清单 (K=24/16/8体系):
+
+`;
   Object.values(eloChanges).forEach(c => {
     const sign = c.delta >= 0 ? '+' : '';
-    summary += `${c.name}: ${c.oldElo} → ${c.oldElo + c.delta} (${sign}${c.delta}) [K因子]\n`;
+    summary += `👤 ${c.name}: ${c.oldElo} → ${c.oldElo + c.delta} (${sign}${c.delta} 分)
+`;
   });
   alert(summary);
 
   t.status = 'completed';
   saveTournaments();
   await loadAllData();
-  toast('🏁 比赛已结束！所有对局已同步到云端。', 'success');
+  toast('🎉 比赛圆满结束！对局记录与 ELO 积分已全自动同步完成。', 'success');
   renderTournamentManage();
+}
+
+// ============================================================
+//  📋 SP98 BATCH IMPORTER (Parse raw Swiss Perfect text)
+// ============================================================
+function parseSP98Batch() {
+  const text = document.getElementById('sp98Text').value.trim();
+  const preview = document.getElementById('parsedPreview');
+  const submitBtn = document.getElementById('btnSubmitSP98Batch');
+
+  if (!text) {
+    toast('请先粘贴 SP98 赛果文本！', 'error');
+    return;
+  }
+
+  const lines = text.split('\n');
+  parsedSP98Matches = [];
+
+  lines.forEach(rawLine => {
+    const line = rawLine.trim();
+    if (!line) return;
+
+    // Match scores: 1-0, 0-1, 0.5-0.5, 1/2-1/2, 和
+    const resPattern = /(1\s*[-:]\s*0|0\s*[-:]\s*1|0\.5\s*[-:]\s*0\.5|1\/2\s*[-:]\s*1\/2|和)/i;
+    const match = line.match(resPattern);
+
+    if (match) {
+      const parts = line.split(match[0]);
+      let redRaw = parts[0].replace(/^[0-9\.\s]+/, '').replace(/\[.*?\]|\(.*?\)/g, '').trim();
+      let blackRaw = parts[1].replace(/\[.*?\]|\(.*?\)/g, '').trim();
+
+      // Find matching students in allStudents
+      const redStudent = allStudents.find(s => s.cnName.trim() === redRaw || redRaw.includes(s.cnName.trim()));
+      const blackStudent = allStudents.find(s => s.cnName.trim() === blackRaw || blackRaw.includes(s.cnName.trim()));
+
+      let resType = 'draw';
+      let resText = '🤝 和棋 (0.5 - 0.5)';
+      if (match[0].replace(/\s+/g, '') === '1-0' || match[0].includes('1:0')) {
+        resType = 'red';
+        resText = '🔴 红胜 (1 - 0)';
+      } else if (match[0].replace(/\s+/g, '') === '0-1' || match[0].includes('0:1')) {
+        resType = 'black';
+        resText = '⚫ 黑胜 (0 - 1)';
+      }
+
+      parsedSP98Matches.push({
+        redName: redStudent ? redStudent.cnName : redRaw,
+        redId: redStudent ? redStudent.id : '',
+        redElo: redStudent ? redStudent.elo : 200,
+        blackName: blackStudent ? blackStudent.cnName : blackRaw,
+        blackId: blackStudent ? blackStudent.id : '',
+        blackElo: blackStudent ? blackStudent.elo : 200,
+        resType,
+        resText,
+        matched: !!(redStudent && blackStudent),
+        raw: line
+      });
+    }
+  });
+
+  if (parsedSP98Matches.length === 0) {
+    preview.style.display = 'block';
+    preview.innerHTML = '<div style="color:var(--red);font-weight:700;">⚠️ 未能成功识别任何对局，请检查格式是否包含棋手与比分（如：林家豪 1 - 0 陈美仪）。</div>';
+    if (submitBtn) submitBtn.style.display = 'none';
+  } else {
+    preview.style.display = 'block';
+    const allMatched = parsedSP98Matches.every(m => m.matched);
+    let html = `<div style="font-weight:900;color:var(--pri);margin-bottom:10px;">✅ 成功识别 ${parsedSP98Matches.length} 盘 SP98 对局：</div>`;
+    html += parsedSP98Matches.map((m, i) => `
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+        <div>
+          <span style="font-weight:800;color:var(--pri);">#${i + 1}</span>
+          <span style="margin-left:8px;font-weight:700;">${m.redName}</span>
+          ${m.redId ? `<span style="font-size:11px;color:var(--text2);">(${m.redId})</span>` : '<span style="color:red;font-size:11px;">[未建档]</span>'}
+          <span style="color:var(--text2);margin:0 6px;">VS</span>
+          <span style="font-weight:700;">${m.blackName}</span>
+          ${m.blackId ? `<span style="font-size:11px;color:var(--text2);">(${m.blackId})</span>` : '<span style="color:red;font-size:11px;">[未建档]</span>'}
+        </div>
+        <div style="font-weight:800;">${m.resText}</div>
+      </div>
+    `).join('');
+
+    if (!allMatched) {
+      html += '<div style="margin-top:10px;font-size:12px;color:var(--red);font-weight:700;">⚠️ 提示：部分棋手姓名未能匹配到系统档案，请先在「学员快速建档」登记后再导入。</div>';
+    }
+
+    preview.innerHTML = html;
+    if (submitBtn) submitBtn.style.display = 'block';
+  }
+}
+
+async function submitSP98Batch() {
+  if (!parsedSP98Matches.length) {
+    parseSP98Batch();
+  }
+  if (!parsedSP98Matches.length) return;
+
+  const tourneyName = document.getElementById('sp98BatchTourneyName').value.trim() || 'SP98 赛事';
+  if (!confirm(`确定将识别出的 ${parsedSP98Matches.length} 盘对局提交入库并同步更新 ELO 积分吗？`)) return;
+
+  toast(`⏳ 正在同步录入 ${parsedSP98Matches.length} 盘对局...`, 'info');
+
+  const today = new Date().toISOString().split('T')[0];
+  let successCount = 0;
+
+  for (let i = 0; i < parsedSP98Matches.length; i++) {
+    const m = parsedSP98Matches[i];
+    let verdict = '双方战和';
+    let redActual = 0.5, blackActual = 0.5;
+
+    if (m.resType === 'red') {
+      verdict = m.redName + ' 胜';
+      redActual = 1; blackActual = 0;
+    } else if (m.resType === 'black') {
+      verdict = m.blackName + ' 胜';
+      redActual = 0; blackActual = 1;
+    }
+
+    const redK = calcKFactor(m.redElo, 10);
+    const blackK = calcKFactor(m.blackElo, 10);
+    const redDelta = calcEloChange(m.redElo, m.blackElo, redActual, redK);
+    const blackDelta = calcEloChange(m.blackElo, m.redElo, blackActual, blackK);
+
+    try {
+      await fetch(GAS_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'addMatch',
+          pin: SUPER_PIN,
+          date: today,
+          round: `${tourneyName} #${i + 1}`,
+          redId: m.redId,
+          redName: m.redName,
+          result: m.resText,
+          blackId: m.blackId,
+          blackName: m.blackName,
+          verdict,
+          redEloDelta: redDelta,
+          blackEloDelta: blackDelta,
+          recordImage: null
+        })
+      });
+      successCount++;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  document.getElementById('sp98Text').value = '';
+  document.getElementById('parsedPreview').style.display = 'none';
+  document.getElementById('btnSubmitSP98Batch').style.display = 'none';
+  parsedSP98Matches = [];
+
+  await loadAllData();
+  toast(`🎉 成功批量录入 ${successCount} 盘对局，天梯榜与学员 ELO 已实时更新！`, 'success');
 }
 
 // Auto-render tournament list when switching to tab
 const origSwitchTab = switchTab;
 switchTab = function(t) {
   origSwitchTab(t);
-  if (t === 'tournament') showTournamentList();
+  if (t === 'tournament') {
+    showTournamentList();
+  }
 };
 
 </script>
