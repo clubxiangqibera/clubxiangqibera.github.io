@@ -349,9 +349,9 @@
     
     <!-- PRINT ONLY TITLE -->
     <div class="print-header">
-      <h1 style="font-size:24pt; font-weight:900;" id="printSchoolName">百乐县校际象棋邀请赛</h1>
+      <h1 style="font-size:24pt; font-weight:900;" id="printSchoolName">校内象棋锦标赛</h1>
       <h3 style="font-size:14pt; margin-top:4px;" id="printRoundSubtitle">官方正规成绩记录报告单 (SP98 Swiss System)</h3>
-      <p style="font-size:10pt; color:#555; margin-top:6px;" id="printDate">日期: 2026-10-01 · 技术认证: Club XiangQi Bera</p>
+      <p style="font-size:10pt; color:#555; margin-top:6px;" id="printDate">比赛时间: - · 官方技术认证: Club XiangQi Bera</p>
     </div>
 
     <!-- WIZARD: STEP 1 - CREATE / SETUP TOURNAMENT -->
@@ -364,7 +364,7 @@
       <div style="display:grid; grid-template-columns: 2fr 1fr; gap:16px; margin-bottom:16px;">
         <div>
           <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛名称 / 所在学校</label>
-          <input type="text" id="schTourneyName" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;" value="直凉一校校内选拔赛">
+          <input type="text" id="schTourneyName" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;" placeholder="请输入赛事名称 (例如: XX华小校内选拔赛)" value="">
         </div>
         <div>
           <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛总轮数 (10~20人建议 4 或 5 轮)</label>
@@ -565,6 +565,21 @@ function checkSchoolSession() {
 function showSchoolApp() {
   document.getElementById('schoolLoginScreen').style.display = 'none';
   document.getElementById('schoolApp').style.display = 'block';
+
+  // Read school name from authenticated session
+  const s = localStorage.getItem('cxb_school_session');
+  if (s) {
+    try {
+      const d = JSON.parse(s);
+      const nameInput = document.getElementById('schTourneyName');
+      if (nameInput && (!nameInput.value || nameInput.value === '直凉一校校内选拔赛')) {
+        nameInput.value = d.name || '校内象棋锦标赛';
+      }
+      const titleEl = document.getElementById('appSchoolTitle');
+      if (titleEl) titleEl.textContent = d.name || '校内象棋锦标赛控制台';
+    } catch(e){}
+  }
+
   loadStoredSchoolTourney();
 }
 
@@ -861,7 +876,9 @@ function renderActiveTourney() {
   document.getElementById('curTourneyHeading').textContent = `🏆 ${schoolTourney.name}`;
   document.getElementById('roundTitleDisplay').textContent = `⚔️ 第 ${viewRoundIdx + 1} 轮 正规对阵表`;
   document.getElementById('printRoundSubtitle').textContent = `第 ${viewRoundIdx + 1} 轮 对阵与成绩单`;
-  document.getElementById('printDate').textContent = `比赛日期: ${schoolTourney.createdAt} · 技术支持: Club XiangQi Bera`;
+  const now = new Date();
+  const printTimeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  document.getElementById('printDate').textContent = `打印时间: ${printTimeStr} (比赛日期: ${schoolTourney.createdAt}) · 官方技术认证: Club XiangQi Bera`;
 
   // Render Timeline
   const tl = document.getElementById('schTimeline');

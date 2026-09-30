@@ -2090,7 +2090,7 @@ async function loadSchoolLicenses() {
               <th style="padding:10px 12px; text-align:left;">授权激活码</th>
               <th style="padding:10px 12px; text-align:left;">授权学校 / 赛事</th>
               <th style="padding:10px 12px; text-align:center;">状态</th>
-              <th style="padding:10px 12px; text-align:left;">到期时间 (UTC)</th>
+              <th style="padding:10px 12px; text-align:left;">到期时间 (本地时间)</th>
               <th style="padding:10px 12px; text-align:center;">操作</th>
             </tr>
           </thead>
@@ -2102,7 +2102,9 @@ async function loadSchoolLicenses() {
                 <td style="padding:10px 12px; text-align:center;">
                   <span class="badge ${item.status === 'active' ? 'badge-green' : 'badge-yellow'}">${item.status === 'active' ? '🟢 租期内' : '已停用'}</span>
                 </td>
-                <td style="padding:10px 12px; font-size:12px; color:var(--text2);">${item.expiresAt ? item.expiresAt.split('T')[0] : '-'}</td>
+                <td style="padding:10px 12px; font-size:12px; color:var(--text2);">
+  ${item.expiresAt ? new Date(item.expiresAt).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
+</td>
                 <td style="padding:10px 12px; text-align:center;">
                   <button class="btn-sm" style="color:var(--red); border-color:var(--red); font-size:11px;" onclick="revokeSchoolLicense('${item.key}')">
                     🗑️ 立即吊销
