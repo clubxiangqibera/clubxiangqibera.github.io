@@ -439,7 +439,7 @@
       </span>
       <span id="tFootCert" style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        百乐象棋公会认证
+        百乐县象棋公会认证
       </span>
     </div>
   </div>
@@ -450,20 +450,26 @@
   <!-- TOPBAR -->
   <div class="nav-header">
     <div style="display:flex; align-items:center; gap:12px;">
-      <span style="font-size:24px;">🏫</span>
+      <img src="cxb_round_emblem.png" alt="CXB Logo" style="width:38px; height:38px; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.25);">
       <div>
         <div style="font-size:16px; font-weight:900;" id="appSchoolTitle">校内象棋锦标赛控制台</div>
-        <div style="font-size:11px; opacity:0.8;">SP98 国际正规瑞士积分制赛事系统</div>
+        <div style="font-size:11px; opacity:0.85;" id="appSchoolSub">SP98 国际正规瑞士积分制赛事系统 · Club XiangQi Bera</div>
       </div>
     </div>
-    <div style="display:flex; gap:10px;">
-      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.3);" onclick="openProjector()">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <!-- In-system CN / EN language switch -->
+      <div class="lang-switch" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.25);">
+        <button type="button" class="lang-btn active" id="btnSysLangZh" style="color:#FFF;" onclick="setLoginLang('zh')">中文</button>
+        <button type="button" class="lang-btn" id="btnSysLangEn" style="color:#FFF;" onclick="setLoginLang('en')">English</button>
+      </div>
+
+      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysProjector" onclick="openProjector()">
         🖥️ 投影仪大屏模式
       </button>
-      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.3);" onclick="window.print()">
-        🖨️ 打印正式成绩单
+      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysPrint" onclick="window.print()">
+        🖨️ 打印成绩单
       </button>
-      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.3);" onclick="schoolLogout()">
+      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysLogout" onclick="schoolLogout()">
         退出
       </button>
     </div>
@@ -471,11 +477,19 @@
 
   <div class="main-wrap">
     
-    <!-- PRINT ONLY TITLE -->
+    <!-- PRINT ONLY TITLE WITH OFFICIAL CLUB LOGO -->
     <div class="print-header">
-      <h1 style="font-size:24pt; font-weight:900;" id="printSchoolName">校内象棋锦标赛</h1>
-      <h3 style="font-size:14pt; margin-top:4px;" id="printRoundSubtitle">官方正规成绩记录报告单 (SP98 Swiss System)</h3>
-      <p style="font-size:10pt; color:#555; margin-top:6px;" id="printDate">比赛时间: - · 官方技术认证: Club XiangQi Bera</p>
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:12px;">
+        <img src="cxb_round_emblem.png" alt="Club XiangQi Bera Emblem" style="width:72px; height:72px; border-radius:50%;">
+        <div style="text-align:left;">
+          <div style="font-size:13pt; font-weight:900; letter-spacing:1px; color:#1A3144;">CLUB XIANGQI BERA · 百乐县象棋公会</div>
+          <div style="font-size:9pt; color:#555; font-weight:700;">全国校际象棋赛事技术委员会 · 官方认证系统</div>
+        </div>
+      </div>
+      <h1 style="font-size:22pt; font-weight:900; color:#000; margin-top:4px;" id="printSchoolName">校内象棋锦标赛</h1>
+      <h3 style="font-size:13pt; margin-top:4px; font-weight:800;" id="printRoundSubtitle">官方正规成绩记录报告单 (SP98 Swiss System)</h3>
+      <p style="font-size:10pt; color:#444; margin-top:6px;" id="printDate">比赛时间: - · 官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)</p>
+      <div style="border-bottom:2px solid #000; margin:14px auto 18px; width:100%;"></div>
     </div>
 
     <!-- WIZARD: STEP 1 - CREATE / SETUP TOURNAMENT -->
@@ -998,12 +1012,15 @@ function renderActiveTourney() {
 
   document.getElementById('appSchoolTitle').textContent = schoolTourney.name;
   document.getElementById('printSchoolName').textContent = schoolTourney.name;
+  const isZh = currentLang === 'zh';
   document.getElementById('curTourneyHeading').textContent = `🏆 ${schoolTourney.name}`;
-  document.getElementById('roundTitleDisplay').textContent = `⚔️ 第 ${viewRoundIdx + 1} 轮 正规对阵表`;
-  document.getElementById('printRoundSubtitle').textContent = `第 ${viewRoundIdx + 1} 轮 对阵与成绩单`;
+  document.getElementById('roundTitleDisplay').textContent = isZh ? `⚔️ 第 ${viewRoundIdx + 1} 轮 正规对阵表` : `⚔️ Round ${viewRoundIdx + 1} Pairings Table`;
+  document.getElementById('printRoundSubtitle').textContent = isZh ? `第 ${viewRoundIdx + 1} 轮 官方对阵与成绩单` : `Round ${viewRoundIdx + 1} Official Pairings & Standings`;
   const now = new Date();
   const printTimeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  document.getElementById('printDate').textContent = `打印时间: ${printTimeStr} (比赛日期: ${schoolTourney.createdAt}) · 官方技术认证: Club XiangQi Bera`;
+  document.getElementById('printDate').textContent = isZh
+    ? `打印时间: ${printTimeStr} (比赛日期: ${schoolTourney.createdAt}) · 官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)`
+    : `Printed: ${printTimeStr} (Event Date: ${schoolTourney.createdAt}) · Technical Authority: Club XiangQi Bera`;
 
   // Render Timeline
   const tl = document.getElementById('schTimeline');
@@ -1178,7 +1195,7 @@ const I18N = {
     errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
     btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
     footSec: 'Cloudflare® SSL 安全加密鉴权',
-    footCert: '百乐象棋公会认证'
+    footCert: '百乐县象棋公会认证'
   },
   en: {
     brandSub: 'Bera Xiangqi Association · Official Tech Partner',
@@ -1200,11 +1217,22 @@ function setLoginLang(lang) {
   currentLang = lang;
   localStorage.setItem('cxb_school_lang', lang);
   
+  // Login screen switch pills
   const bZh = document.getElementById('btnLangZh');
   const bEn = document.getElementById('btnLangEn');
   if (bZh && bEn) {
     bZh.classList.toggle('active', lang === 'zh');
     bEn.classList.toggle('active', lang === 'en');
+  }
+
+  // System topbar switch pills
+  const bSysZh = document.getElementById('btnSysLangZh');
+  const bSysEn = document.getElementById('btnSysLangEn');
+  if (bSysZh && bSysEn) {
+    bSysZh.classList.toggle('active', lang === 'zh');
+    bSysEn.classList.toggle('active', lang === 'en');
+    bSysZh.style.background = lang === 'zh' ? '#1A5276' : 'transparent';
+    bSysEn.style.background = lang === 'en' ? '#1A5276' : 'transparent';
   }
 
   const t = I18N[lang];
@@ -1236,6 +1264,24 @@ function setLoginLang(lang) {
   const footCert = document.getElementById('tFootCert');
   if (footCert) {
     footCert.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${t.footCert}`;
+  }
+
+  // System topbar buttons
+  const btnProj = document.getElementById('btnSysProjector');
+  if (btnProj) btnProj.innerHTML = lang === 'zh' ? '🖥️ 投影仪大屏模式' : '🖥️ Projector Display';
+
+  const btnPrint = document.getElementById('btnSysPrint');
+  if (btnPrint) btnPrint.innerHTML = lang === 'zh' ? '🖨️ 打印正式成绩单' : '🖨️ Print Official Report';
+
+  const btnLogout = document.getElementById('btnSysLogout');
+  if (btnLogout) btnLogout.textContent = lang === 'zh' ? '退出' : 'Logout';
+
+  const appSub = document.getElementById('appSchoolSub');
+  if (appSub) appSub.textContent = lang === 'zh' ? 'SP98 国际正规瑞士积分制赛事系统 · Club XiangQi Bera' : 'SP98 Official Swiss-System · Club XiangQi Bera';
+
+  // If tournament active, re-render texts in current language
+  if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
+    renderActiveTourney();
   }
 }
 
