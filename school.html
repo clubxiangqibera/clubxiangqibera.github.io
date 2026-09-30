@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校际象棋赛事管理系统 · SP98 瑞士制</title>
+  <title>校际象棋赛事管理系统 · Club XiangQi Bera Pairing System</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -414,7 +414,7 @@
         校内象棋比赛管理系统
       </h2>
       <p id="tSubDesc" style="font-size:13px; color:var(--text2); margin-top:8px; line-height:1.6;">
-        SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影
+        Club XiangQi Bera 专属配对制 · 自动破同分 · 现场大屏投影
       </p>
     </div>
 
@@ -453,7 +453,7 @@
       <img src="cxb_round_emblem.png" alt="CXB Logo" style="width:38px; height:38px; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.25);">
       <div>
         <div style="font-size:16px; font-weight:900;" id="appSchoolTitle">校内象棋锦标赛控制台</div>
-        <div style="font-size:11px; opacity:0.85;" id="appSchoolSub">SP98 国际正规瑞士积分制赛事系统 · Club XiangQi Bera</div>
+        <div style="font-size:11px; opacity:0.85;" id="appSchoolSub">Club XiangQi Bera Pairing System · 官方赛事管理</div>
       </div>
     </div>
     <div style="display:flex; align-items:center; gap:10px;">
@@ -487,45 +487,45 @@
         </div>
       </div>
       <h1 style="font-size:22pt; font-weight:900; color:#000; margin-top:4px;" id="printSchoolName">校内象棋锦标赛</h1>
-      <h3 style="font-size:13pt; margin-top:4px; font-weight:800;" id="printRoundSubtitle">官方正规成绩记录报告单 (SP98 Swiss System)</h3>
+      <h3 style="font-size:13pt; margin-top:4px; font-weight:800;" id="printRoundSubtitle">官方正规成绩记录报告单 · Club XiangQi Bera Pairing System</h3>
       <p style="font-size:10pt; color:#444; margin-top:6px;" id="printDate">比赛时间: - · 官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)</p>
       <div style="border-bottom:2px solid #000; margin:14px auto 18px; width:100%;"></div>
     </div>
 
     <!-- WIZARD: STEP 1 - CREATE / SETUP TOURNAMENT -->
     <div class="card no-print" id="setupCard">
-      <h3 style="font-size:18px; font-weight:900; margin-bottom:6px; color:var(--pri);">⚙️ 比赛基本设置</h3>
-      <p style="font-size:13px; color:var(--text2); margin-bottom:18px;">
-        仅需粘贴参赛学生名单，系统将全自动完成正规瑞士制（SP98）配对与胜负记分。
+      <h3 id="tSetupTitle" style="font-size:18px; font-weight:900; margin-bottom:6px; color:var(--pri);">⚙️ 比赛基本设置</h3>
+      <p id="tSetupDesc" style="font-size:13px; color:var(--text2); margin-bottom:18px;">
+        仅需粘贴参赛学生名单，系统将全自动完成 Club XiangQi Bera Pairing System 配对与胜负记分。
       </p>
 
       <div style="display:grid; grid-template-columns: 2fr 1fr; gap:16px; margin-bottom:16px;">
         <div>
-          <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛名称 / 所在学校</label>
+          <label id="tLabelTourneyName" style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛名称 / 所在学校</label>
           <input type="text" id="schTourneyName" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;" placeholder="请输入赛事名称 (例如: XX华小校内选拔赛)" value="">
         </div>
         <div>
-          <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛总轮数 (10~20人建议 4 或 5 轮)</label>
+          <label id="tLabelTotalRounds" style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛总轮数 (10~20人建议 4 或 5 轮)</label>
           <select id="schTotalRounds" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;">
-            <option value="3">3 轮</option>
-            <option value="4" selected>4 轮 (约 8~16 人最佳)</option>
-            <option value="5">5 轮 (约 16~32 人最佳)</option>
-            <option value="6">6 轮</option>
+            <option value="3">3 轮 / 3 Rounds</option>
+            <option value="4" selected>4 轮 (约 8~16 人) / 4 Rounds</option>
+            <option value="5">5 轮 (约 16~32 人) / 5 Rounds</option>
+            <option value="6">6 轮 / 6 Rounds</option>
           </select>
         </div>
       </div>
 
       <div style="margin-bottom:18px;">
-        <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">
+        <label id="tLabelPlayers" style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">
           📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)
         </label>
-        <textarea id="schPlayerNamesText" style="width:100%; height:140px; padding:12px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-family:monospace; line-height:1.6;" placeholder="示例：&#10;曾俊杰&#10;李浩宇&#10;张小明&#10;陈伟豪&#10;王家伦&#10;刘思颖&#10;黄子豪&#10;周凯文"></textarea>
+        <textarea id="schPlayerNamesText" style="width:100%; height:140px; padding:12px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-family:monospace; line-height:1.6;" placeholder="示例 / Example:&#10;曾俊杰&#10;李浩宇&#10;张小明&#10;陈伟豪&#10;王家伦&#10;刘思颖&#10;黄子豪&#10;周凯文"></textarea>
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
         <div style="font-size:13px; font-weight:800; color:var(--pri3);" id="nameCountPreview">当前识别: 0 人</div>
-        <button class="btn btn-green" style="padding:12px 28px; font-size:15px;" onclick="startSchoolTournament()">
-          ⚡ 一键生成 SP98 第 1 轮正规对阵
+        <button id="tBtnStartTourney" class="btn btn-green" style="padding:12px 28px; font-size:15px;" onclick="startSchoolTournament()">
+          ⚡ 一键生成第 1 轮对阵 / Generate Round 1
         </button>
       </div>
     </div>
@@ -547,11 +547,11 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;" class="no-print">
           <div>
             <h4 style="font-size:17px; font-weight:900; color:var(--pri);" id="roundTitleDisplay">⚔️ 第 1 轮正规对阵表</h4>
-            <div style="font-size:12px; color:var(--text2); margin-top:2px;">
+            <div id="tRoundSideHint" style="font-size:12px; color:var(--text2); margin-top:2px;">
               左侧执红（先手）· 右侧执黑（后手）· 点选胜负
             </div>
           </div>
-          <button class="btn btn-outline" style="font-size:13px;" onclick="openProjector()">
+          <button id="tBtnLiveProjector" class="btn btn-outline" style="font-size:13px;" onclick="openProjector()">
             📺 投屏到白板
           </button>
         </div>
@@ -560,11 +560,11 @@
         <table class="formal-table">
           <thead>
             <tr>
-              <th class="cell-board">台次</th>
-              <th style="background:#FDEDEC; color:var(--red);">🔴 红方 (执先手)</th>
-              <th style="background:#EAECEE; color:var(--black-side);">⚫ 黑方 (执后手)</th>
-              <th class="cell-score">比赛结果</th>
-              <th class="cell-act no-print">裁判录入</th>
+              <th class="cell-board" id="thBoard">台次</th>
+              <th style="background:#FDEDEC; color:var(--red);" id="thRed">🔴 红方 (执先手)</th>
+              <th style="background:#EAECEE; color:var(--black-side);" id="thBlack">⚫ 黑方 (执后手)</th>
+              <th class="cell-score" id="thResult">比赛结果</th>
+              <th class="cell-act no-print" id="thScoreInput">裁判录入</th>
             </tr>
           </thead>
           <tbody id="formalPairingsBody"></tbody>
@@ -582,12 +582,12 @@
       <div class="card" style="padding:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
           <div>
-            <h4 style="font-size:17px; font-weight:900; color:var(--pri);">📊 实时总积分排行榜 (Standings & Buchholz)</h4>
-            <div style="font-size:12px; color:var(--text2); margin-top:2px;">
+            <h4 id="tStandingsTitle" style="font-size:17px; font-weight:900; color:var(--pri);">📊 实时总积分排行榜 (Standings & Buchholz)</h4>
+            <div id="tStandingsSub" style="font-size:12px; color:var(--text2); margin-top:2px;">
               按个人总分排序 · 积分相同时自动依布赫兹对手分 (Buchholz) 破同分
             </div>
           </div>
-          <button class="btn btn-outline no-print" onclick="window.print()">🖨️ 打印成绩榜</button>
+          <button id="tBtnPrintStandings" class="btn btn-outline no-print" onclick="window.print()">🖨️ 打印成绩榜</button>
         </div>
 
         <div style="overflow-x:auto;">
@@ -1094,13 +1094,14 @@ function renderActiveTourney() {
   }
 
   // Render Standings
+  const t = I18N[currentLang] || I18N.zh;
   const standings = calcSchoolStandings();
   const sHead = document.getElementById('schStandingsHead');
-  let headHTML = '<th>名次</th><th style="text-align:left;padding-left:14px;">棋手姓名</th>';
+  let headHTML = `<th>${t.rankTh[0]}</th><th style="text-align:left;padding-left:14px;">${t.rankTh[1]}</th>`;
   for (let r = 1; r <= schoolTourney.currentRound; r++) {
     headHTML += `<th>R${r}</th>`;
   }
-  headHTML += '<th>总分</th><th>对手分 (Buchholz)</th><th>初排位</th>';
+  headHTML += `<th>${t.rankTh[2]}</th><th>${t.rankTh[3]}</th><th>${t.rankTh[4]}</th>`;
   sHead.innerHTML = headHTML;
 
   const sBody = document.getElementById('schStandingsBody');
@@ -1116,9 +1117,9 @@ function renderActiveTourney() {
     }
 
     let medal = `${i + 1}`;
-    if (i === 0) medal = '🥇 冠军';
-    else if (i === 1) medal = '🥈 亚军';
-    else if (i === 2) medal = '🥉 季军';
+    if (i === 0) medal = t.rankMedals[0];
+    else if (i === 1) medal = t.rankMedals[1];
+    else if (i === 2) medal = t.rankMedals[2];
 
     return `
       <tr>
@@ -1187,7 +1188,7 @@ const I18N = {
     brandSub: '百乐县象棋公会 · 官方技术认证体系',
     badgeText: '全国中小学及校际赛事专用系统',
     mainTitle: '校内象棋比赛管理系统',
-    subDesc: 'SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影',
+    subDesc: 'Club XiangQi Bera 专属配对制 · 自动破同分 · 现场大屏投影',
     pinPlaceholder: '输入比赛授权码 (如 CXB-8888)',
     submitBtn: '🛡️ 验证授权并进入比赛台',
     errInvalid: '❌ 授权码无效或已到期，请联系俱乐部获取',
@@ -1195,13 +1196,37 @@ const I18N = {
     errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
     btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
     footSec: 'Cloudflare® SSL 安全加密鉴权',
-    footCert: '百乐县象棋公会认证'
+    footCert: '百乐县象棋公会认证',
+    appSub: 'Club XiangQi Bera Pairing System · 官方赛事管理',
+    btnProj: '🖥️ 投影仪大屏模式',
+    btnPrint: '🖨️ 打印正式成绩单',
+    btnLogout: '退出',
+    setupTitle: '⚙️ 比赛基本设置',
+    setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成 Club XiangQi Bera Pairing System 配对与胜负记分。',
+    labelTourneyName: '比赛名称 / 所在学校',
+    placeholderTourneyName: '请输入赛事名称 (例如: XX华小校内选拔赛)',
+    labelTotalRounds: '比赛总轮数 (10~20人建议 4 或 5 轮)',
+    labelPlayers: '📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)',
+    btnStartTourney: '⚡ 一键生成第 1 轮对阵',
+    roundSideHint: '左侧执红（先手）· 右侧执黑（后手）· 点选胜负',
+    btnLiveProj: '📺 投屏到白板',
+    thBoard: '台次',
+    thRed: '🔴 红方 (执先手)',
+    thBlack: '⚫ 黑方 (执后手)',
+    thResult: '比赛结果',
+    thScoreInput: '裁判录入',
+    standingsTitle: '📊 实时总积分排行榜 (Standings & Buchholz)',
+    standingsSub: '按个人总分排序 · 积分相同时自动依布赫兹对手分 (Buchholz) 破同分',
+    btnPrintStandings: '🖨️ 打印成绩榜',
+    btnReset: '重新创建新比赛',
+    rankMedals: ['🥇 冠军', '🥈 亚军', '🥉 季军'],
+    rankTh: ['名次', '棋手姓名', '总分', '对手分 (Buchholz)', '初排位']
   },
   en: {
     brandSub: 'Bera Xiangqi Association · Official Tech Partner',
     badgeText: 'Official Tournament Portal for Schools',
     mainTitle: 'School Tournament System',
-    subDesc: 'Official Swiss-System · Auto Buchholz · Live Projector',
+    subDesc: 'Club XiangQi Bera Pairing System · Auto Buchholz · Live Projector',
     pinPlaceholder: 'Enter License Key (e.g. CXB-8888)',
     submitBtn: '🛡️ Verify License & Enter Arena',
     errInvalid: '❌ License Key is invalid or expired. Please contact CXB.',
@@ -1209,7 +1234,31 @@ const I18N = {
     errNet: '⚠️ Unable to connect to security gateway. Check network!',
     btnVerifying: '⏳ Authenticating via Cloudflare SSL...',
     footSec: 'Cloudflare® SSL Secured',
-    footCert: 'Association Verified'
+    footCert: 'Association Verified',
+    appSub: 'Club XiangQi Bera Pairing System · Official Tech Engine',
+    btnProj: '🖥️ Projector Display',
+    btnPrint: '🖨️ Print Official Report',
+    btnLogout: 'Logout',
+    setupTitle: '⚙️ Tournament Setup',
+    setupDesc: 'Paste player names below. System pairs automatically via Club XiangQi Bera Pairing System.',
+    labelTourneyName: 'Tournament / School Name',
+    placeholderTourneyName: 'e.g. SJKC Tournament 2026',
+    labelTotalRounds: 'Total Rounds (4 or 5 rounds recommended for 10-20 players)',
+    labelPlayers: '📋 Player Names List (One name per line, paste from WhatsApp/Excel)',
+    btnStartTourney: '⚡ Generate Round 1 Pairings',
+    roundSideHint: 'Left is RED (First Move) · Right is BLACK · Select results below',
+    btnLiveProj: '📺 Display on Board',
+    thBoard: 'Board',
+    thRed: '🔴 Red (First Move)',
+    thBlack: '⚫ Black (Second Move)',
+    thResult: 'Result',
+    thScoreInput: 'Score Input',
+    standingsTitle: '📊 Live Standings & Buchholz Scoreboard',
+    standingsSub: 'Ranked by Total Points · Tied players broken by Buchholz opponent scores',
+    btnPrintStandings: '🖨️ Print Standings',
+    btnReset: 'Create New Tournament',
+    rankMedals: ['🥇 Champion', '🥈 1st Runner-up', '🥉 2nd Runner-up'],
+    rankTh: ['Rank', 'Player Name', 'Total', 'Buchholz', 'Seed']
   }
 };
 
@@ -1268,16 +1317,55 @@ function setLoginLang(lang) {
 
   // System topbar buttons
   const btnProj = document.getElementById('btnSysProjector');
-  if (btnProj) btnProj.innerHTML = lang === 'zh' ? '🖥️ 投影仪大屏模式' : '🖥️ Projector Display';
+  if (btnProj) btnProj.innerHTML = t.btnProj;
 
   const btnPrint = document.getElementById('btnSysPrint');
-  if (btnPrint) btnPrint.innerHTML = lang === 'zh' ? '🖨️ 打印正式成绩单' : '🖨️ Print Official Report';
+  if (btnPrint) btnPrint.innerHTML = t.btnPrint;
 
   const btnLogout = document.getElementById('btnSysLogout');
-  if (btnLogout) btnLogout.textContent = lang === 'zh' ? '退出' : 'Logout';
+  if (btnLogout) btnLogout.textContent = t.btnLogout;
 
   const appSub = document.getElementById('appSchoolSub');
-  if (appSub) appSub.textContent = lang === 'zh' ? 'SP98 国际正规瑞士积分制赛事系统 · Club XiangQi Bera' : 'SP98 Official Swiss-System · Club XiangQi Bera';
+  if (appSub) appSub.textContent = t.appSub;
+
+  // Setup Card translations
+  const setupTitle = document.getElementById('tSetupTitle');
+  if (setupTitle) setupTitle.textContent = t.setupTitle;
+
+  const setupDesc = document.getElementById('tSetupDesc');
+  if (setupDesc) setupDesc.textContent = t.setupDesc;
+
+  const lTourneyName = document.getElementById('tLabelTourneyName');
+  if (lTourneyName) lTourneyName.textContent = t.labelTourneyName;
+
+  const inpTourneyName = document.getElementById('schTourneyName');
+  if (inpTourneyName) inpTourneyName.placeholder = t.placeholderTourneyName;
+
+  const lTotalRounds = document.getElementById('tLabelTotalRounds');
+  if (lTotalRounds) lTotalRounds.textContent = t.labelTotalRounds;
+
+  const lPlayers = document.getElementById('tLabelPlayers');
+  if (lPlayers) lPlayers.textContent = t.labelPlayers;
+
+  const btnStart = document.getElementById('tBtnStartTourney');
+  if (btnStart) btnStart.textContent = t.btnStartTourney;
+
+  // Active tourney translations
+  const sideHint = document.getElementById('tRoundSideHint');
+  if (sideHint) sideHint.textContent = t.roundSideHint;
+
+  const liveProj = document.getElementById('tBtnLiveProjector');
+  if (liveProj) liveProj.textContent = t.btnLiveProj;
+
+  const thB = document.getElementById('thBoard'); if (thB) thB.textContent = t.thBoard;
+  const thR = document.getElementById('thRed'); if (thR) thR.textContent = t.thRed;
+  const thBl = document.getElementById('thBlack'); if (thBl) thBl.textContent = t.thBlack;
+  const thRes = document.getElementById('thResult'); if (thRes) thRes.textContent = t.thResult;
+  const thInp = document.getElementById('thScoreInput'); if (thInp) thInp.textContent = t.thScoreInput;
+
+  const sTitle = document.getElementById('tStandingsTitle'); if (sTitle) sTitle.textContent = t.standingsTitle;
+  const sSub = document.getElementById('tStandingsSub'); if (sSub) sSub.textContent = t.standingsSub;
+  const sPrint = document.getElementById('tBtnPrintStandings'); if (sPrint) sPrint.textContent = t.btnPrintStandings;
 
   // If tournament active, re-render texts in current language
   if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
