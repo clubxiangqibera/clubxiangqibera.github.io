@@ -80,11 +80,11 @@
     }
     .pin-input {
       width: 100%;
-      padding: 14px 18px;
-      font-size: 18px;
-      font-weight: 900;
+      padding: 14px 16px;
+      font-size: 17px;
+      font-weight: 800;
       text-align: center;
-      letter-spacing: 4px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       border: 2px solid var(--border);
       border-radius: 14px;
@@ -92,6 +92,12 @@
       transition: all .2s;
       background: #FAFBFD;
       color: var(--pri);
+    }
+    .pin-input::placeholder {
+      font-size: 13px;
+      letter-spacing: 0px;
+      font-weight: 600;
+      color: #94A3B8;
     }
     .pin-input:focus {
       border-color: var(--pri3);
@@ -108,20 +114,6 @@
       border-radius: 20px;
       margin-bottom: 12px;
     }
-    .pin-input {
-      width: 100%;
-      padding: 12px;
-      font-size: 20px;
-      font-weight: 900;
-      text-align: center;
-      letter-spacing: 6px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      margin: 18px 0;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .pin-input:focus { border-color: var(--pri3); }
 
     /* APP CONTAINER */
     #schoolApp { display: none; }
@@ -362,31 +354,35 @@
     <div style="margin:20px 0 16px;">
       <span class="login-brand-badge">
         <span>🏫</span>
-        <span>全国中小学及校际赛事专属通道</span>
+        <span>中小学及校际赛事专用通道 · School Portal</span>
       </span>
-      <h2 style="font-size:24px; font-weight:900; color:var(--pri); margin-top:12px; letter-spacing:0.5px;">
+      <h2 style="font-size:23px; font-weight:900; color:var(--pri); margin-top:12px; letter-spacing:0.5px;">
         校内象棋比赛管理系统
       </h2>
-      <p style="font-size:13px; color:var(--text2); margin-top:6px; line-height:1.6;">
-        SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影
+      <div style="font-size:12px; font-weight:700; color:var(--pri3); margin-top:2px; letter-spacing:0.5px;">
+        School Xiangqi Tournament Management System
+      </div>
+      <p style="font-size:12px; color:var(--text2); margin-top:8px; line-height:1.6;">
+        SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影<br>
+        <span style="font-size:11px; opacity:0.85;">Swiss-System Pairing · Auto Buchholz · Live Projector</span>
       </p>
     </div>
 
     <div class="login-input-wrap">
-      <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXB-XXXX)" maxlength="12" autofocus autocomplete="off">
+      <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入授权码 / License Key (如 CXB-8888)" maxlength="12" autofocus autocomplete="off">
     </div>
 
-    <button class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:1px; box-shadow:0 6px 18px rgba(14,47,68,0.25);" onclick="verifySchoolLogin()">
-      🔐 验证授权并进入比赛台
+    <button class="btn btn-pri" style="width:100%; justify-content:center; padding:14px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 6px 18px rgba(14,47,68,0.25);" onclick="verifySchoolLogin()">
+      🔐 验证授权并进入比赛台 / Enter Arena
     </button>
 
-    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2);">
-      ❌ 授权码无效或已到期，请联系俱乐部获取
+    <div id="schoolLoginErr" style="color:var(--red); font-size:12px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2);">
+      ❌ 授权码无效或已到期，请联系俱乐部获取 / Invalid or Expired License Key
     </div>
 
-    <div style="margin-top:28px; padding-top:18px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text2);">
-      <span>🔒 银行级安全加密鉴权 (Cloudflare)</span>
-      <span style="font-weight:700; color:var(--pri2);">百乐象棋公会认证</span>
+    <div style="margin-top:26px; padding-top:16px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text2);">
+      <span>🔒 Cloudflare 银行级安全加密鉴权</span>
+      <span style="font-weight:700; color:var(--pri2);">百乐象棋公会认证 · Verified</span>
     </div>
   </div>
 </div>
