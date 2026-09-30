@@ -182,7 +182,7 @@
       margin-bottom: 20px;
     }
     .btn {
-      padding: 10px 20px;
+      padding: 10px 18px;
       font-size: 14px;
       font-weight: 800;
       border: none;
@@ -190,8 +190,18 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       transition: opacity .15s;
+      white-space: nowrap;
+    }
+    .topbar-btn {
+      min-width: 155px;
+      justify-content: center;
+    }
+    .topbar-btn-sm {
+      min-width: 75px;
+      justify-content: center;
     }
     .btn:hover { opacity: 0.9; }
     .btn-pri { background: var(--pri); color: #FFF; }
@@ -463,13 +473,13 @@
         <button type="button" class="lang-btn" id="btnSysLangEn" style="color:#FFF;" onclick="setLoginLang('en')">English</button>
       </div>
 
-      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysProjector" onclick="openProjector()">
+      <button class="btn btn-outline topbar-btn" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysProjector" onclick="openProjector()">
         🖥️ 投影仪大屏模式
       </button>
-      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysPrint" onclick="window.print()">
+      <button class="btn btn-outline topbar-btn" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysPrint" onclick="window.print()">
         🖨️ 打印成绩单
       </button>
-      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysLogout" onclick="schoolLogout()">
+      <button class="btn btn-outline topbar-btn-sm" style="color:#FFF; border-color:rgba(255,255,255,0.35);" id="btnSysLogout" onclick="schoolLogout()">
         退出
       </button>
     </div>
@@ -482,12 +492,12 @@
       <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:12px;">
         <img src="cxb_round_emblem.png" alt="Club XiangQi Bera Emblem" style="width:72px; height:72px; border-radius:50%;">
         <div style="text-align:left;">
-          <div style="font-size:13pt; font-weight:900; letter-spacing:1px; color:#1A3144;">CLUB XIANGQI BERA · 百乐县象棋公会</div>
-          <div style="font-size:9pt; color:#555; font-weight:700;">全国校际象棋赛事技术委员会 · 官方认证系统</div>
+          <div id="printBrandTitle" style="font-size:13pt; font-weight:900; letter-spacing:1px; color:#1A3144;">CLUB XIANGQI BERA · 百乐县象棋公会</div>
+          <div id="printBrandSub" style="font-size:9pt; color:#555; font-weight:700;">全国校际象棋赛事技术委员会 · 官方认证系统</div>
         </div>
       </div>
       <h1 style="font-size:22pt; font-weight:900; color:#000; margin-top:4px;" id="printSchoolName">校内象棋锦标赛</h1>
-      <h3 style="font-size:13pt; margin-top:4px; font-weight:800;" id="printRoundSubtitle">官方正规成绩记录报告单 · Club XiangQi Bera Pairing System</h3>
+      <h3 style="font-size:13pt; margin-top:4px; font-weight:800;" id="printRoundSubtitle">官方正规成绩记录报告单 · 百乐象棋对阵编排系统</h3>
       <p style="font-size:10pt; color:#444; margin-top:6px;" id="printDate">比赛时间: - · 官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)</p>
       <div style="border-bottom:2px solid #000; margin:14px auto 18px; width:100%;"></div>
     </div>
@@ -1012,15 +1022,18 @@ function renderActiveTourney() {
 
   document.getElementById('appSchoolTitle').textContent = schoolTourney.name;
   document.getElementById('printSchoolName').textContent = schoolTourney.name;
+  const t = I18N[currentLang] || I18N.zh;
   const isZh = currentLang === 'zh';
   document.getElementById('curTourneyHeading').textContent = `🏆 ${schoolTourney.name}`;
   document.getElementById('roundTitleDisplay').textContent = isZh ? `⚔️ 第 ${viewRoundIdx + 1} 轮 正规对阵表` : `⚔️ Round ${viewRoundIdx + 1} Pairings Table`;
-  document.getElementById('printRoundSubtitle').textContent = isZh ? `第 ${viewRoundIdx + 1} 轮 官方对阵与成绩单` : `Round ${viewRoundIdx + 1} Official Pairings & Standings`;
+  document.getElementById('printRoundSubtitle').textContent = isZh ? `第 ${viewRoundIdx + 1} 轮 ${t.printSubtitlePrefix}` : `Round ${viewRoundIdx + 1} · ${t.printSubtitlePrefix}`;
   const now = new Date();
   const printTimeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
   document.getElementById('printDate').textContent = isZh
-    ? `打印时间: ${printTimeStr} (比赛日期: ${schoolTourney.createdAt}) · 官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)`
-    : `Printed: ${printTimeStr} (Event Date: ${schoolTourney.createdAt}) · Technical Authority: Club XiangQi Bera`;
+    ? `打印时间: ${printTimeStr} (比赛日期: ${schoolTourney.createdAt}) · ${t.printAuthText}`
+    : `Printed: ${printTimeStr} (Event Date: ${schoolTourney.createdAt}) · ${t.printAuthText}`;
+  const pBrandTitle = document.getElementById('printBrandTitle'); if (pBrandTitle) pBrandTitle.textContent = t.printBrandTitle;
+  const pBrandSub = document.getElementById('printBrandSub'); if (pBrandSub) pBrandSub.textContent = t.printBrandSub;
 
   // Render Timeline
   const tl = document.getElementById('schTimeline');
@@ -1048,9 +1061,9 @@ function renderActiveTourney() {
         <tr>
           <td class="cell-board">BYE</td>
           <td class="cell-red" style="text-align:center !important; width:45%;">🔴 ${p.redName}</td>
-          <td class="cell-black" style="text-align:center !important; width:45%;">💤 轮空 (BYE)</td>
-          <td class="cell-score" style="color:var(--green);">+1.0 分</td>
-          <td class="no-print"><span style="font-size:12px;color:var(--green);font-weight:800;">自动胜出</span></td>
+          <td class="cell-black" style="text-align:center !important; width:45%;">${isZh ? '💤 轮空 (BYE)' : '💤 BYE (Walkover)'}</td>
+          <td class="cell-score" style="color:var(--green);">${isZh ? '+1.0 分' : '+1.0 Pt'}</td>
+          <td class="no-print"><span style="font-size:12px;color:var(--green);font-weight:800;">${isZh ? '自动胜出' : 'Auto Win'}</span></td>
         </tr>`;
     }
 
@@ -1071,9 +1084,9 @@ function renderActiveTourney() {
         <td class="cell-score">${scoreTxt}</td>
         <td class="no-print">
           <div class="res-btn-group">
-            <button class="res-opt ${rSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'red')">红胜</button>
-            <button class="res-opt ${dSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'draw')">和</button>
-            <button class="res-opt ${bSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'black')">黑胜</button>
+            <button class="res-opt ${rSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'red')">${isZh ? '红胜' : 'Red'}</button>
+            <button class="res-opt ${dSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'draw')">${isZh ? '和' : 'Draw'}</button>
+            <button class="res-opt ${bSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'black')">${isZh ? '黑胜' : 'Black'}</button>
           </div>
         </td>
       </tr>`;
@@ -1087,9 +1100,15 @@ function renderActiveTourney() {
       confirmBtn.style.display = 'none';
     } else {
       confirmBtn.style.display = 'inline-flex';
-      confirmBtn.textContent = schoolTourney.currentRound === schoolTourney.totalRounds
-        ? '🏁 确认最终轮赛果并锁定总名次'
-        : `✅ 确认第 ${schoolTourney.currentRound} 轮赛果并排定下轮对阵`;
+      if (isZh) {
+        confirmBtn.textContent = schoolTourney.currentRound === schoolTourney.totalRounds
+          ? '🏁 确认最终轮赛果并锁定总名次'
+          : `✅ 确认第 ${schoolTourney.currentRound} 轮赛果并排定下轮对阵`;
+      } else {
+        confirmBtn.textContent = schoolTourney.currentRound === schoolTourney.totalRounds
+          ? '🏁 Confirm Final Round & Lock Standings'
+          : `✅ Confirm Round ${schoolTourney.currentRound} Results & Next Round`;
+      }
     }
   }
 
@@ -1188,7 +1207,7 @@ const I18N = {
     brandSub: '百乐县象棋公会 · 官方技术认证体系',
     badgeText: '全国中小学及校际赛事专用系统',
     mainTitle: '校内象棋比赛管理系统',
-    subDesc: 'Club XiangQi Bera 专属配对制 · 自动破同分 · 现场大屏投影',
+    subDesc: '百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影',
     pinPlaceholder: '输入比赛授权码 (如 CXB-8888)',
     submitBtn: '🛡️ 验证授权并进入比赛台',
     errInvalid: '❌ 授权码无效或已到期，请联系俱乐部获取',
@@ -1197,12 +1216,12 @@ const I18N = {
     btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
     footSec: 'Cloudflare® SSL 安全加密鉴权',
     footCert: '百乐县象棋公会认证',
-    appSub: 'Club XiangQi Bera Pairing System · 官方赛事管理',
-    btnProj: '🖥️ 投影仪大屏模式',
-    btnPrint: '🖨️ 打印正式成绩单',
+    appSub: '百乐象棋对阵编排系统 · 官方赛事管理',
+    btnProj: '🖥️ 投影仪大屏',
+    btnPrint: '🖨️ 打印成绩单',
     btnLogout: '退出',
     setupTitle: '⚙️ 比赛基本设置',
-    setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成 Club XiangQi Bera Pairing System 配对与胜负记分。',
+    setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成百乐象棋对阵编排系统（CXB Pairing System）配对与胜负记分。',
     labelTourneyName: '比赛名称 / 所在学校',
     placeholderTourneyName: '请输入赛事名称 (例如: XX华小校内选拔赛)',
     labelTotalRounds: '比赛总轮数 (10~20人建议 4 或 5 轮)',
@@ -1220,7 +1239,13 @@ const I18N = {
     btnPrintStandings: '🖨️ 打印成绩榜',
     btnReset: '重新创建新比赛',
     rankMedals: ['🥇 冠军', '🥈 亚军', '🥉 季军'],
-    rankTh: ['名次', '棋手姓名', '总分', '对手分 (Buchholz)', '初排位']
+    rankTh: ['名次', '棋手姓名', '总分', '对手分 (Buchholz)', '初排位'],
+    printBrandTitle: 'CLUB XIANGQI BERA · 百乐县象棋公会',
+    printBrandSub: '全国校际象棋赛事技术委员会 · 官方认证系统',
+    printSubtitlePrefix: '官方正规成绩记录报告单 · 百乐象棋对阵编排系统',
+    printAuthText: '官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)',
+    projHeadingPrefix: '第 {r} 轮 现场大屏对阵表',
+    projFootHint: '* 请选手按台次迅速就座 · 执红棋者先走 · 祝各位棋手发挥出色！'
   },
   en: {
     brandSub: 'Bera Xiangqi Association · Official Tech Partner',
@@ -1235,9 +1260,9 @@ const I18N = {
     btnVerifying: '⏳ Authenticating via Cloudflare SSL...',
     footSec: 'Cloudflare® SSL Secured',
     footCert: 'Association Verified',
-    appSub: 'Club XiangQi Bera Pairing System · Official Tech Engine',
-    btnProj: '🖥️ Projector Display',
-    btnPrint: '🖨️ Print Official Report',
+    appSub: 'Club XiangQi Bera Pairing System · Tech Engine',
+    btnProj: '🖥️ Projector Screen',
+    btnPrint: '🖨️ Print Report',
     btnLogout: 'Logout',
     setupTitle: '⚙️ Tournament Setup',
     setupDesc: 'Paste player names below. System pairs automatically via Club XiangQi Bera Pairing System.',
@@ -1258,7 +1283,13 @@ const I18N = {
     btnPrintStandings: '🖨️ Print Standings',
     btnReset: 'Create New Tournament',
     rankMedals: ['🥇 Champion', '🥈 1st Runner-up', '🥉 2nd Runner-up'],
-    rankTh: ['Rank', 'Player Name', 'Total', 'Buchholz', 'Seed']
+    rankTh: ['Rank', 'Player Name', 'Total', 'Buchholz', 'Seed'],
+    printBrandTitle: 'BERA CHINESE CHESS ASSOCIATION · CXB',
+    printBrandSub: 'National Interschool Xiangqi Technical Committee · Official Engine',
+    printSubtitlePrefix: 'Official Tournament Results Report · CXB Pairing System',
+    printAuthText: 'Technical Certification: Club XiangQi Bera (Bera Xiangqi Association)',
+    projHeadingPrefix: 'Round {r} Live Pairings Board',
+    projFootHint: '* Players please take seats by board number · Red moves first · Good luck!'
   }
 };
 
@@ -1366,6 +1397,21 @@ function setLoginLang(lang) {
   const sTitle = document.getElementById('tStandingsTitle'); if (sTitle) sTitle.textContent = t.standingsTitle;
   const sSub = document.getElementById('tStandingsSub'); if (sSub) sSub.textContent = t.standingsSub;
   const sPrint = document.getElementById('tBtnPrintStandings'); if (sPrint) sPrint.textContent = t.btnPrintStandings;
+
+  // Print Header translations
+  const pBrandTitle = document.getElementById('printBrandTitle');
+  if (pBrandTitle) pBrandTitle.textContent = t.printBrandTitle;
+
+  const pBrandSub = document.getElementById('printBrandSub');
+  if (pBrandSub) pBrandSub.textContent = t.printBrandSub;
+
+  const pSubtitle = document.getElementById('printRoundSubtitle');
+  if (pSubtitle) {
+    const rNum = (viewRoundIdx !== undefined ? viewRoundIdx + 1 : 1);
+    pSubtitle.textContent = lang === 'zh'
+      ? `第 ${rNum} 轮 ` + t.printSubtitlePrefix
+      : `Round ${rNum} · ` + t.printSubtitlePrefix;
+  }
 
   // If tournament active, re-render texts in current language
   if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
