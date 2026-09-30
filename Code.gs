@@ -44,6 +44,12 @@ function doPost(e) {
       return handleUpdateAccount(data);
     } else if (action === 'uploadReceipt') {
       return handleUploadReceipt(data);
+    } else if (action === 'deleteMatch') {
+      return handleDeleteMatch(data);
+    } else if (action === 'deleteStudent') {
+      return handleDeleteStudent(data);
+    } else if (action === 'clearTestData') {
+      return handleClearTestData(data);
     } else {
       return respond({ status: 'error', error: '未知操作: ' + action });
     }
@@ -330,4 +336,79 @@ function handleUploadReceipt(data) {
   } catch(e) {
     return respond({ status: 'error', error: '上传失败: ' + e.toString() });
   }
+}
+
+// 6. 删除单条实战对局记录
+function handleDeleteMatch(data) {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const matchSheet = ss.getSheetByName('实战对局记录表');
+  const values = matchSheet.getDataRange().getValues();
+
+  for (let r = 1; r < values.length; r++) {
+    const rowDate = String(values[r][0] || '').trim();
+    const rowRound = String(values[r][1] || '').trim();
+    const rowRed = String(values[r][3] || '').trim();
+    const rowBlack = String(values[r][6] || '').trim();
+
+    // Match criteria: row index or match details
+    if (data.rowIndex && Number(data.rowIndex) === r + 1) {
+      matchSheet.deleteRow(r + 1);
+      return respond({ status: 'ok', success: true, message: '对局记录已成功删除！' });
+    }
+    if (data.date === rowDate && data.round === rowRound && data.redName === rowRed && data.blackName === rowBlack) {
+      matchSheet.deleteRow(r + 1);
+      return respond({ status: 'ok', success: true, message: '对局记录已成功删除！' });
+    }
+  }
+  return respond({ status: 'error', error: '未找到匹配的对局记录' });
+}
+
+// 7. 删除学员 (同时自档案总册与天梯榜移除)
+function handleDeleteStudent(data) {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const studentSheet = ss.getSheetByName('学员档案总册');
+  const ladderSheet = ss.getSheetByName('天梯积分排位榜');
+
+  const sId = String(data.studentId || '').trim();
+  let deleted = false;
+
+  if (studentSheet) {
+    const sData = studentSheet.getDataRange().getValues();
+    for (let r = 1; r < sData.length; r++) {
+      if (String(sData[r][0] || '').trim() === sId) {
+        studentSheet.deleteRow(r + 1);
+        deleted = true;
+        break;
+      }
+    }
+  }
+
+  if (ladderSheet) {
+    const lData = ladderSheet.getDataRange().getValues();
+    for (let r = 1; r < lData.length; r++) {
+      if (String(lData[r][1] || '').trim() === sId) {
+        ladderSheet.deleteRow(r + 1);
+        break;
+      }
+    }
+  }
+
+  if (deleted) {
+    return respond({ status: 'ok', success: true, message: `学员 ${sId} 已成功从档案及天梯榜删除！` });
+  } else {
+    return respond({ status: 'error', error: '未在学员档案中找到学号: ' + sId });
+  }
+}
+
+// 8. 一键清空所有测试对局记录
+function handleClearTestData(data) {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const matchSheet = ss.getSheetByName('实战对局记录表');
+  if (matchSheet) {
+    const lastRow = matchSheet.getLastRow();
+    if (lastRow > 1) {
+      matchSheet.deleteRows(2, lastRow - 1);
+    }
+  }
+  return respond({ status: 'ok', success: true, message: '所有实战对局记录已全部清空！' });
 }

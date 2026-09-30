@@ -344,7 +344,7 @@
       <h3 style="font-size:15px;font-weight:900;margin:20px 0 10px;">👥 全体在册学员档案</h3>
       <div class="tbl-wrap">
         <table>
-          <thead><tr><th>学号</th><th>中文名</th><th>英文名</th><th>性别</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费</th></tr></thead>
+          <thead><tr><th>学号</th><th>中文名</th><th>英文名</th><th>性别</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费</th><th style='text-align:center;'>操作</th></tr></thead>
           <tbody id="studentTable"></tbody>
         </table>
       </div>
@@ -372,8 +372,16 @@
 
     <!-- TAB 5: RECORDS -->
     <div class="tab-panel" id="panel-records">
-      <h3 style="font-size:16px;font-weight:900;margin-bottom:12px;">📄 实战对局纸原件归档库</h3>
-      <div id="recordsGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h3 style="font-size:18px;font-weight:900;">📄 实战对局纸原件归档库</h3>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;">记录每一场真实对局 · 支持单条删除或批量清理测试数据</div>
+        </div>
+        <button class="btn-sm" style="color:var(--red);border-color:var(--red);font-weight:800;padding:8px 14px;" onclick="clearAllTestMatches()">
+          🗑️ 清空所有测试对局数据
+        </button>
+      </div>
+      <div id="recordsGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;"></div>
     </div>
 
     <!-- TAB 6: TOURNAMENT & SP98 -->
@@ -703,6 +711,7 @@ function renderAccountList() {
             <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">密码 <span style="font-weight:500;color:var(--text2);font-size:11px;">(默认=级别+编号)</span></th>
             <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">班级</th>
             <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">状态</th>
+            <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -731,6 +740,13 @@ function renderAccountList() {
               <td style="padding:10px 12px;font-size:12px;color:var(--text2);">${s.level}</td>
               <td style="padding:10px 12px;text-align:center;" id="acc_status_${i}">
                 <span style="font-size:11px;color:var(--text2);">-</span>
+              </td>
+              <td style="padding:10px 12px;text-align:center;">
+                <button onclick="deleteStudentAccount('${s.id}','${s.cnName}')"
+                  style="background:none;border:1px solid var(--red);color:var(--red);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:800;cursor:pointer;"
+                  onmouseover="this.style.background='var(--red)';this.style.color='#fff';" onmouseout="this.style.background='none';this.style.color='var(--red)';">
+                  🗑️ 删除
+                </button>
               </td>
             </tr>`;
           }).join('')}
@@ -847,7 +863,19 @@ function renderDashboard(){
 
 function renderStudentTables(){
   document.getElementById('studentTable').innerHTML=allStudents.map(s=>
-    `<tr><td><strong>${s.id}</strong></td><td>${s.cnName}</td><td>${s.enName}</td><td>${s.gender}</td><td>${s.school}</td><td><span class="badge badge-blue">${s.level}</span></td><td>${s.elo}</td><td>${payBadge(s.payStatus)}</td></tr>`
+    `<tr>
+      <td><strong>${s.id}</strong></td>
+      <td><strong>${s.cnName}</strong></td>
+      <td>${s.enName||'-'}</td>
+      <td>${s.gender}</td>
+      <td>${s.school}</td>
+      <td><span class="badge badge-blue">${s.level}</span></td>
+      <td>${s.elo}</td>
+      <td>${payBadge(s.payStatus)}</td>
+      <td style="text-align:center;">
+        <button class="btn-sm" style="color:var(--red);border-color:var(--red);padding:4px 8px;font-size:11px;" onclick="deleteStudentAccount('${s.id}','${s.cnName}')">🗑️ 移除</button>
+      </td>
+    </tr>`
   ).join('');
 
   document.getElementById('paymentTable').innerHTML=allStudents.map(s=>
@@ -868,16 +896,27 @@ function renderMatchesTable(){
 
 function renderGallery(){
   const g=document.getElementById('recordsGallery');
-  g.innerHTML=allMatches.slice().reverse().map(m=>{
+  if (!allMatches.length) {
+    g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text2);background:var(--card);border-radius:14px;border:1px dashed var(--border);">暂无实战对局记录。测试数据已被清理或尚无比赛！</div>';
+    return;
+  }
+  g.innerHTML=allMatches.slice().reverse().map((m, idx)=>{
     const hasImg=m.recordImg&&(m.recordImg.startsWith('http')||m.recordImg.startsWith('data:image'));
     const img=hasImg?`<img src="${m.recordImg}" onclick="openLightbox('${m.recordImg}')" style="width:100%;height:150px;object-fit:cover;cursor:pointer;border-top:1px solid var(--border);">`
-      :`<div style="padding:20px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);">暂无实体记谱纸照片</div>`;
-    return`
-      <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);">
-        <div style="padding:12px;">
-          <div style="font-size:11px;color:var(--text2);">${m.date} · ${m.round}</div>
-          <div style="font-weight:800;font-size:14px;margin-top:2px;">🔴 ${m.red} vs ⚫ ${m.black}</div>
-          <div style="font-size:12px;color:var(--pri2);font-weight:700;">${m.verdict}</div>
+      :`<div style="padding:16px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);">暂无实体记谱纸照片</div>`;
+    return `
+      <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="padding:12px 14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:11px;color:var(--text2);">${m.date} · ${m.round}</div>
+            <button onclick="deleteSingleMatch('${m.date}','${m.round}','${m.red}','${m.black}')"
+              style="background:none;border:none;color:var(--red);cursor:pointer;font-size:13px;padding:2px 6px;border-radius:6px;"
+              title="删除此盘对局" onmouseover="this.style.background='rgba(231,76,60,0.1)'" onmouseout="this.style.background='none'">
+              🗑️
+            </button>
+          </div>
+          <div style="font-weight:900;font-size:14px;margin-top:4px;">🔴 ${m.red} vs ⚫ ${m.black}</div>
+          <div style="font-size:12px;color:var(--pri2);font-weight:800;margin-top:2px;">${m.result} · ${m.verdict}</div>
         </div>
         ${img}
       </div>
@@ -1849,6 +1888,74 @@ switchTab = function(t) {
     showTournamentList();
   }
 };
+
+
+// ── DELETION & CLEANUP FUNCTIONS ──────────────────────────────
+async function deleteSingleMatch(date, round, redName, blackName) {
+  if (!confirm(`确定删除对局记录：${date} ${round} (${redName} vs ${blackName}) 吗？`)) return;
+  toast('⏳ 正在从云端删除对局记录...', 'info');
+  try {
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'deleteMatch', date, round, redName, blackName, pin: SUPER_PIN })
+    });
+    const d = await res.json();
+    if (d.success || d.status === 'ok') {
+      toast('✅ 对局记录已成功删除！', 'success');
+      await loadMatches();
+      renderGallery();
+    } else {
+      toast('删除失败: ' + (d.error || ''), 'error');
+    }
+  } catch(e) {
+    toast('网络错误: ' + e.message, 'error');
+  }
+}
+
+async function clearAllTestMatches() {
+  const code = prompt('⚠️ 警告：此操作将清空「实战对局记录表」中的全部测试数据！\n\n如确认清空，请输入确认码: 7789');
+  if (code !== '7789') {
+    if (code !== null) toast('确认码错误，操作取消。', 'warning');
+    return;
+  }
+  toast('⏳ 正在清空云端所有测试对局...', 'info');
+  try {
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'clearTestData', pin: SUPER_PIN })
+    });
+    const d = await res.json();
+    if (d.success || d.status === 'ok') {
+      toast('🎉 所有测试对局记录已全部清空！', 'success');
+      await loadMatches();
+      renderGallery();
+    } else {
+      toast('清空失败: ' + (d.error || ''), 'error');
+    }
+  } catch(e) {
+    toast('网络错误: ' + e.message, 'error');
+  }
+}
+
+async function deleteStudentAccount(studentId, studentName) {
+  if (!confirm(`⚠️ 危险操作：确定要彻底删除学员「${studentName}」(${studentId}) 吗？\n\n删除后，该学员将从「学员档案总册」和「天梯榜」完全注销移除！`)) return;
+  toast(`⏳ 正在注销学员 ${studentName}...`, 'info');
+  try {
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'deleteStudent', studentId, pin: SUPER_PIN })
+    });
+    const d = await res.json();
+    if (d.success || d.status === 'ok') {
+      toast(`✅ 学员 ${studentName} (${studentId}) 已成功删除移除！`, 'success');
+      await loadAllData();
+    } else {
+      toast('删除失败: ' + (d.error || ''), 'error');
+    }
+  } catch(e) {
+    toast('网络错误: ' + e.message, 'error');
+  }
+}
 
 </script>
 </body>
