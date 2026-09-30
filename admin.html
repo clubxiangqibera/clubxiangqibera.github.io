@@ -277,7 +277,7 @@
       </div>
 
       <div class="form-card">
-        <h3>📋 现役学员名册总览 (5位测试学员)</h3>
+        <h3>📋 现役学员名册总览</h3>
         <div class="tbl-wrap">
           <table>
             <thead><tr><th>学号</th><th>中文名</th><th>所在学校</th><th>班级级别</th><th>ELO</th><th>学费状态</th></tr></thead>
@@ -378,7 +378,7 @@
           <div style="font-size:12px;color:var(--text2);margin-top:2px;">记录每一场真实对局 · 支持单条删除或批量清理测试数据</div>
         </div>
         <button class="btn-sm" style="color:var(--red);border-color:var(--red);font-weight:800;padding:8px 14px;" onclick="clearAllTestMatches()">
-          🗑️ 清空所有测试对局数据
+          🗑️ 一键清空所有历史对局数据
         </button>
       </div>
       <div id="recordsGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;"></div>
@@ -897,7 +897,7 @@ function renderMatchesTable(){
 function renderGallery(){
   const g=document.getElementById('recordsGallery');
   if (!allMatches.length) {
-    g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text2);background:var(--card);border-radius:14px;border:1px dashed var(--border);">暂无实战对局记录。测试数据已被清理或尚无比赛！</div>';
+    g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text2);background:var(--card);border-radius:14px;border:1px dashed var(--border);">暂无实战对局记录，尚无已录入比赛！</div>';
     return;
   }
   g.innerHTML=allMatches.slice().reverse().map((m, idx)=>{
@@ -1913,12 +1913,12 @@ async function deleteSingleMatch(date, round, redName, blackName) {
 }
 
 async function clearAllTestMatches() {
-  const code = prompt('⚠️ 警告：此操作将清空「实战对局记录表」中的全部测试数据！\n\n如确认清空，请输入确认码: 7789');
+  const code = prompt('⚠️ 警告：此操作将清空「实战对局记录表」中的全部对局历史数据！\n\n如确认清空，请输入确认码: 7789');
   if (code !== '7789') {
     if (code !== null) toast('确认码错误，操作取消。', 'warning');
     return;
   }
-  toast('⏳ 正在清空云端所有测试对局...', 'info');
+  toast('⏳ 正在清空云端所有历史对局...', 'info');
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
@@ -1926,7 +1926,7 @@ async function clearAllTestMatches() {
     });
     const d = await res.json();
     if (d.success || d.status === 'ok') {
-      toast('🎉 所有测试对局记录已全部清空！', 'success');
+      toast('🎉 所有实战对局记录已清空！', 'success');
       await loadMatches();
       renderGallery();
     } else {
