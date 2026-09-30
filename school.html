@@ -496,24 +496,56 @@
 </div>
 
 <script>
-// --- AUTHENTICATION & SCHOOL KEYS ---
-// Allowed PINs for rented schools (Can be added or customized by Club Admin)
-const VALID_SCHOOL_PINS = {
-  '8899': '百乐县华小象棋选拔赛',
-  '1234': '直凉一校象棋选拔赛',
-  '7789': 'Club XiangQi Bera 特别租用通道'
-};
+// --- AUTHENTICATION VIA CLOUDFLARE WORKER + KV ---
+const CF_WORKER_URL = 'https://cxb-license.clubxiangqibera.workers.dev';
 
-function verifySchoolLogin() {
-  const pin = document.getElementById('schoolPinInput').value.trim();
+async function verifySchoolLogin() {
+  const pin = document.getElementById('schoolPinInput').value.trim().toUpperCase();
   const err = document.getElementById('schoolLoginErr');
-  
-  if (VALID_SCHOOL_PINS[pin] || pin === '6666' || pin === '7789') {
-    localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: VALID_SCHOOL_PINS[pin] || '校内象棋比赛', ts: Date.now() }));
-    showSchoolApp();
-  } else {
+  const btn = document.querySelector('#schoolLoginScreen button');
+
+  if (!pin) {
+    err.textContent = '❌ 请输入比赛授权激活码！';
     err.style.display = 'block';
-    setTimeout(() => { err.style.display = 'none'; }, 3000);
+    return;
+  }
+
+  if (btn) btn.textContent = '⏳ 正在通过 Cloudflare 安全验证...';
+
+  try {
+    const res = await fetch(`${CF_WORKER_URL}/api/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ licenseKey: pin })
+    });
+    const d = await res.json();
+
+    if (d.valid) {
+      localStorage.setItem('cxb_school_session', JSON.stringify({
+        pin,
+        name: d.school || '校内象棋比赛',
+        expiresAt: d.expiresAt,
+        token: d.token,
+        ts: Date.now()
+      }));
+      showSchoolApp();
+    } else {
+      err.textContent = d.error || '❌ 无效的授权码或授权已过期！';
+      err.style.display = 'block';
+      setTimeout(() => { err.style.display = 'none'; }, 4000);
+    }
+  } catch (e) {
+    // Offline / fallback verification for superadmin pin
+    if (pin === '7789' || pin === '8899') {
+      localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '校际象棋选拔赛', ts: Date.now() }));
+      showSchoolApp();
+    } else {
+      err.textContent = '⚠️ 无法连接云端安全鉴权网关，请检查网络！';
+      err.style.display = 'block';
+      setTimeout(() => { err.style.display = 'none'; }, 4000);
+    }
+  } finally {
+    if (btn) btn.textContent = '🔐 验证进入比赛控制台';
   }
 }
 
