@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-MY">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校际象棋赛事管理系统 · SP98 瑞士制</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pri: #0E2F44;
+      --pri2: #1A5276;
+      --pri3: #2980B9;
+      --gold: #F39C12;
+      --bg: #F4F7F9;
+      --card: #FFFFFF;
+      --text: #1C2833;
+      --text2: #5D6D7E;
+      --border: #DFE4EA;
+      --red: #C0392B;
+      --red-bg: #FDEDEC;
+      --black-side: #2C3E50;
+      --black-bg: #EAECEE;
+      --green: #27AE60;
+      --radius: 14px;
+      --shadow: 0 4px 18px rgba(0,0,0,0.06);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* LOGIN SCREEN */
+    #schoolLoginScreen {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: radial-gradient(circle at top, #1A5276 0%, #0E2F44 100%);
+    }
+    .school-login-card {
+      background: #FFF;
+      border-radius: 20px;
+      padding: 36px 28px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(41,128,185,0.1);
+      color: var(--pri3);
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .pin-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 20px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 6px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .pin-input:focus { border-color: var(--pri3); }
+
+    /* APP CONTAINER */
+    #schoolApp { display: none; }
+    .nav-header {
+      background: var(--pri);
+      color: #FFF;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .main-wrap {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 60px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-pri { background: var(--pri); color: #FFF; }
+    .btn-green { background: var(--green); color: #FFF; }
+    .btn-red { background: var(--red); color: #FFF; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+
+    /* FORMAL TOURNAMENT TABLE (MATCHES / PAIRINGS) */
+    .formal-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 14px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .formal-table th {
+      background: #EBF2F7;
+      color: var(--pri);
+      font-weight: 800;
+      padding: 12px 14px;
+      text-align: center;
+      border-bottom: 2px solid var(--border);
+    }
+    .formal-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      text-align: center;
+    }
+    .formal-table tr:last-child td { border-bottom: none; }
+    .formal-table tr:hover td { background: #FAFBFD; }
+
+    /* FORMAL SIDES */
+    .cell-red {
+      background: var(--red-bg);
+      color: var(--red);
+      font-weight: 900;
+      font-size: 15px;
+      text-align: right !important;
+      padding-right: 18px !important;
+      width: 32%;
+    }
+    .cell-black {
+      background: var(--black-bg);
+      color: var(--black-side);
+      font-weight: 900;
+      font-size: 15px;
+      text-align: left !important;
+      padding-left: 18px !important;
+      width: 32%;
+    }
+    .cell-score {
+      font-weight: 900;
+      font-size: 16px;
+      width: 18%;
+      letter-spacing: 1px;
+    }
+    .cell-board {
+      font-weight: 900;
+      color: var(--text2);
+      width: 8%;
+    }
+    .cell-act {
+      width: 10%;
+    }
+
+    /* RESULT BUTTONS */
+    .res-btn-group {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .res-opt {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #FFF;
+      border: none;
+      cursor: pointer;
+      border-right: 1px solid var(--border);
+      transition: all .15s;
+    }
+    .res-opt:last-child { border-right: none; }
+    .res-opt.selected-red { background: var(--red); color: #FFF; }
+    .res-opt.selected-draw { background: var(--gold); color: #FFF; }
+    .res-opt.selected-black { background: var(--black-side); color: #FFF; }
+
+    /* TIMELINE */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      margin: 20px 0 26px;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--border);
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .timeline-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #FFF;
+      border: 3px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--text2);
+      z-index: 2;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .timeline-dot.active { border-color: var(--pri3); background: var(--pri3); color: #FFF; transform: scale(1.1); }
+    .timeline-dot.completed { border-color: var(--green); background: var(--green); color: #FFF; }
+
+    /* BIG PROJECTOR DISPLAY MODE */
+    #projectorModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0E1A24;
+      color: #FFF;
+      z-index: 9999;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    #projectorModal.show { display: block; }
+    .projector-title {
+      font-size: 32px;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+    }
+    .projector-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 24px;
+    }
+    .projector-table th {
+      background: #1A3144;
+      padding: 16px;
+      font-weight: 900;
+      font-size: 22px;
+      text-align: center;
+    }
+    .projector-table td {
+      padding: 20px 16px;
+      border-bottom: 2px solid #23435C;
+      font-weight: 900;
+      text-align: center;
+    }
+    .p-red { color: #FF6B6B; text-align: right !important; padding-right: 24px !important; }
+    .p-black { color: #A0C4FF; text-align: left !important; padding-left: 24px !important; }
+    .p-vs { font-size: 16px; opacity: 0.6; }
+
+    /* PRINT LAYOUT */
+    @media print {
+      body { background: #FFF !important; color: #000 !important; }
+      .nav-header, .no-print, .btn, .timeline, #schoolLoginScreen { display: none !important; }
+      .main-wrap { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+      .card { border: none !important; box-shadow: none !important; padding: 0 !important; }
+      .formal-table { border: 1px solid #000 !important; font-size: 12pt !important; }
+      .formal-table th, .formal-table td { border-bottom: 1px solid #000 !important; }
+      .print-header { display: block !important; margin-bottom: 20px; text-align: center; }
+    }
+    .print-header { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- 1. LOGIN SCREEN -->
+<div id="schoolLoginScreen">
+  <div class="school-login-card">
+    <div style="font-size:46px; margin-bottom:10px;">🏫♟️</div>
+    <span class="badge-pill">Club XiangQi Bera · 赛事技术系统</span>
+    <h2 style="font-size:22px; font-weight:900; color:var(--pri); margin-bottom:6px;">校际比赛系统登录</h2>
+    <p style="font-size:13px; color:var(--text2); margin-bottom:20px;">请输入俱乐部授权给本校的比赛激活码</p>
+    
+    <input type="password" id="schoolPinInput" class="pin-input" placeholder="••••" maxlength="8" autofocus>
+    <button class="btn btn-pri" style="width:100%; justify-content:center; padding:14px;" onclick="verifySchoolLogin()">
+      🔐 验证进入比赛控制台
+    </button>
+    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:12px; display:none;">
+      ❌ 激活码不正确，请联系俱乐部获取
+    </div>
+    <div style="margin-top:20px; font-size:11px; color:var(--text2);">
+      技术支持：百乐象棋俱乐部 (Club XiangQi Bera)
+    </div>
+  </div>
+</div>
+
+<!-- 2. MAIN APPLICATION -->
+<div id="schoolApp">
+  <!-- TOPBAR -->
+  <div class="nav-header">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:24px;">🏫</span>
+      <div>
+        <div style="font-size:16px; font-weight:900;" id="appSchoolTitle">校内象棋锦标赛控制台</div>
+        <div style="font-size:11px; opacity:0.8;">SP98 国际正规瑞士积分制赛事系统</div>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.3);" onclick="openProjector()">
+        🖥️ 投影仪大屏模式
+      </button>
+      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.3);" onclick="window.print()">
+        🖨️ 打印正式成绩单
+      </button>
+      <button class="btn btn-outline" style="color:#FFF; border-color:rgba(255,255,255,0.3);" onclick="schoolLogout()">
+        退出
+      </button>
+    </div>
+  </div>
+
+  <div class="main-wrap">
+    
+    <!-- PRINT ONLY TITLE -->
+    <div class="print-header">
+      <h1 style="font-size:24pt; font-weight:900;" id="printSchoolName">百乐县校际象棋邀请赛</h1>
+      <h3 style="font-size:14pt; margin-top:4px;" id="printRoundSubtitle">官方正规成绩记录报告单 (SP98 Swiss System)</h3>
+      <p style="font-size:10pt; color:#555; margin-top:6px;" id="printDate">日期: 2026-10-01 · 技术认证: Club XiangQi Bera</p>
+    </div>
+
+    <!-- WIZARD: STEP 1 - CREATE / SETUP TOURNAMENT -->
+    <div class="card no-print" id="setupCard">
+      <h3 style="font-size:18px; font-weight:900; margin-bottom:6px; color:var(--pri);">⚙️ 比赛基本设置</h3>
+      <p style="font-size:13px; color:var(--text2); margin-bottom:18px;">
+        仅需粘贴参赛学生名单，系统将全自动完成正规瑞士制（SP98）配对与胜负记分。
+      </p>
+
+      <div style="display:grid; grid-template-columns: 2fr 1fr; gap:16px; margin-bottom:16px;">
+        <div>
+          <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛名称 / 所在学校</label>
+          <input type="text" id="schTourneyName" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;" value="直凉一校校内选拔赛">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛总轮数 (10~20人建议 4 或 5 轮)</label>
+          <select id="schTotalRounds" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;">
+            <option value="3">3 轮</option>
+            <option value="4" selected>4 轮 (约 8~16 人最佳)</option>
+            <option value="5">5 轮 (约 16~32 人最佳)</option>
+            <option value="6">6 轮</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">
+          📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)
+        </label>
+        <textarea id="schPlayerNamesText" style="width:100%; height:140px; padding:12px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-family:monospace; line-height:1.6;" placeholder="示例：&#10;曾俊杰&#10;李浩宇&#10;张小明&#10;陈伟豪&#10;王家伦&#10;刘思颖&#10;黄子豪&#10;周凯文"></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div style="font-size:13px; font-weight:800; color:var(--pri3);" id="nameCountPreview">当前识别: 0 人</div>
+        <button class="btn btn-green" style="padding:12px 28px; font-size:15px;" onclick="startSchoolTournament()">
+          ⚡ 一键生成 SP98 第 1 轮正规对阵
+        </button>
+      </div>
+    </div>
+
+    <!-- WIZARD: STEP 2 - ACTIVE TOURNAMENT MANAGER -->
+    <div id="activeTournamentSection" style="display:none;">
+      
+      <!-- TIMELINE & ROUND SELECTOR -->
+      <div class="card no-print" style="padding:18px 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h3 id="curTourneyHeading" style="font-size:18px; font-weight:900; color:var(--pri);">比赛进行中</h3>
+          <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="resetSchoolTourney()">重新创建新比赛</button>
+        </div>
+        <div class="timeline" id="schTimeline"></div>
+      </div>
+
+      <!-- PAIRINGS TABLE (FORMAL RED / BLACK SIDES) -->
+      <div class="card" style="padding:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;" class="no-print">
+          <div>
+            <h4 style="font-size:17px; font-weight:900; color:var(--pri);" id="roundTitleDisplay">⚔️ 第 1 轮正规对阵表</h4>
+            <div style="font-size:12px; color:var(--text2); margin-top:2px;">
+              左侧执红（先手）· 右侧执黑（后手）· 点选胜负
+            </div>
+          </div>
+          <button class="btn btn-outline" style="font-size:13px;" onclick="openProjector()">
+            📺 投屏到白板
+          </button>
+        </div>
+
+        <!-- FORMAL COMPETITION TABLE -->
+        <table class="formal-table">
+          <thead>
+            <tr>
+              <th class="cell-board">台次</th>
+              <th style="background:#FDEDEC; color:var(--red);">🔴 红方 (执先手)</th>
+              <th style="background:#EAECEE; color:var(--black-side);">⚫ 黑方 (执后手)</th>
+              <th class="cell-score">比赛结果</th>
+              <th class="cell-act no-print">裁判录入</th>
+            </tr>
+          </thead>
+          <tbody id="formalPairingsBody"></tbody>
+        </table>
+
+        <!-- ROUND CONFIRM BUTTON -->
+        <div style="margin-top:24px; display:flex; justify-content:flex-end; gap:12px;" class="no-print">
+          <button id="btnConfirmSchRound" class="btn btn-green" style="padding:12px 28px; font-size:15px;" onclick="confirmSchoolRound()">
+            ✅ 确认本轮赛果并生成下轮对阵
+          </button>
+        </div>
+      </div>
+
+      <!-- FORMAL STANDINGS REPORT -->
+      <div class="card" style="padding:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div>
+            <h4 style="font-size:17px; font-weight:900; color:var(--pri);">📊 实时总积分排行榜 (Standings & Buchholz)</h4>
+            <div style="font-size:12px; color:var(--text2); margin-top:2px;">
+              按个人总分排序 · 积分相同时自动依布赫兹对手分 (Buchholz) 破同分
+            </div>
+          </div>
+          <button class="btn btn-outline no-print" onclick="window.print()">🖨️ 打印成绩榜</button>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="formal-table" style="font-size:13px;">
+            <thead>
+              <tr id="schStandingsHead"></tr>
+            </thead>
+            <tbody id="schStandingsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. PROJECTOR / TV BIG DISPLAY MODAL -->
+<div id="projectorModal">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #23435C; padding-bottom:16px;">
+    <div>
+      <div style="font-size:14px; color:#A0C4FF; font-weight:800;" id="projSchoolSub">校内象棋选拔赛</div>
+      <div class="projector-title" id="projHeading" style="margin-bottom:0; text-align:left;">第 1 轮 现场对阵表</div>
+    </div>
+    <button class="btn btn-outline" style="color:#FFF; border-color:#FFF; font-size:18px; padding:10px 24px;" onclick="closeProjector()">
+      ✖️ 退出大屏
+    </button>
+  </div>
+
+  <table class="projector-table">
+    <thead>
+      <tr>
+        <th style="width:12%;">台次 (Board)</th>
+        <th style="width:40%; color:#FF8585;">🔴 红方 (先手)</th>
+        <th style="width:8%;">VS</th>
+        <th style="width:40%; color:#A0C4FF;">⚫ 黑方 (后手)</th>
+      </tr>
+    </thead>
+    <tbody id="projectorTbody"></tbody>
+  </table>
+  <div style="margin-top:30px; text-align:center; font-size:16px; opacity:0.6;">
+    * 请选手按台次迅速就座 · 执红棋者先走 · 祝各位棋手发挥出色！
+  </div>
+</div>
+
+<script>
+// --- AUTHENTICATION & SCHOOL KEYS ---
+// Allowed PINs for rented schools (Can be added or customized by Club Admin)
+const VALID_SCHOOL_PINS = {
+  '8899': '百乐县华小象棋选拔赛',
+  '1234': '直凉一校象棋选拔赛',
+  '7789': 'Club XiangQi Bera 特别租用通道'
+};
+
+function verifySchoolLogin() {
+  const pin = document.getElementById('schoolPinInput').value.trim();
+  const err = document.getElementById('schoolLoginErr');
+  
+  if (VALID_SCHOOL_PINS[pin] || pin === '6666' || pin === '7789') {
+    localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: VALID_SCHOOL_PINS[pin] || '校内象棋比赛', ts: Date.now() }));
+    showSchoolApp();
+  } else {
+    err.style.display = 'block';
+    setTimeout(() => { err.style.display = 'none'; }, 3000);
+  }
+}
+
+function checkSchoolSession() {
+  const s = localStorage.getItem('cxb_school_session');
+  if (s) {
+    try {
+      const d = JSON.parse(s);
+      if (Date.now() - d.ts < 86400000 * 3) {
+        showSchoolApp();
+        return;
+      }
+    } catch(e){}
+  }
+}
+
+function showSchoolApp() {
+  document.getElementById('schoolLoginScreen').style.display = 'none';
+  document.getElementById('schoolApp').style.display = 'block';
+  loadStoredSchoolTourney();
+}
+
+function schoolLogout() {
+  localStorage.removeItem('cxb_school_session');
+  window.location.reload();
+}
+
+// --- STATE MANAGEMENT ---
+let schoolTourney = null;
+let viewRoundIdx = 0;
+
+function saveSchoolTourney() {
+  localStorage.setItem('cxb_school_current_tourney', JSON.stringify(schoolTourney));
+}
+
+function loadStoredSchoolTourney() {
+  const st = localStorage.getItem('cxb_school_current_tourney');
+  if (st) {
+    try {
+      schoolTourney = JSON.parse(st);
+      if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
+        viewRoundIdx = schoolTourney.currentRound - 1;
+        renderActiveTourney();
+        return;
+      }
+    } catch(e){}
+  }
+  document.getElementById('setupCard').style.display = 'block';
+  document.getElementById('activeTournamentSection').style.display = 'none';
+}
+
+// Live word count for text area
+document.getElementById('schPlayerNamesText').addEventListener('input', e => {
+  const names = e.target.value.split('\n').map(x => x.trim()).filter(Boolean);
+  document.getElementById('nameCountPreview').textContent = `当前识别: ${names.length} 人`;
+});
+
+// --- START TOURNAMENT ---
+function startSchoolTournament() {
+  const name = document.getElementById('schTourneyName').value.trim() || '校内象棋锦标赛';
+  const totalRounds = parseInt(document.getElementById('schTotalRounds').value) || 4;
+  const rawText = document.getElementById('schPlayerNamesText').value;
+  const rawNames = rawText.split('\n').map(n => n.replace(/^[0-9\.\s、]+/, '').trim()).filter(Boolean);
+
+  if (rawNames.length < 2) {
+    alert('请至少输入 2 名参赛学生的姓名！');
+    return;
+  }
+
+  const players = rawNames.map((pName, idx) => ({
+    id: 'P' + (idx + 1),
+    name: pName,
+    seed: idx + 1,
+    scores: [],
+    opponents: [],
+    colors: [],
+    hadBye: false
+  }));
+
+  schoolTourney = {
+    name,
+    totalRounds,
+    currentRound: 0,
+    players,
+    rounds: [],
+    createdAt: new Date().toISOString().split('T')[0]
+  };
+
+  generateNextRound();
+  viewRoundIdx = 0;
+  saveSchoolTourney();
+  renderActiveTourney();
+}
+
+// --- SP98 SWISS SYSTEM ENGINE ---
+function getPlayerScore(p) {
+  if (!p.scores || !p.scores.length) return 0;
+  return p.scores.reduce((a, b) => a + b, 0);
+}
+
+function swissPair(tourney) {
+  let list = [...tourney.players];
+  const allPairings = [];
+
+  // Sort by Points descending, then seed ascending
+  list.sort((a, b) => {
+    const sa = getPlayerScore(a), sb = getPlayerScore(b);
+    return sb - sa || a.seed - b.seed;
+  });
+
+  // Handle BYE for odd players
+  let byePlayer = null;
+  if (list.length % 2 === 1) {
+    for (let i = list.length - 1; i >= 0; i--) {
+      if (!list[i].hadBye) {
+        byePlayer = list.splice(i, 1)[0];
+        break;
+      }
+    }
+    if (!byePlayer) byePlayer = list.pop();
+  }
+
+  // Score brackets
+  const brackets = {};
+  list.forEach(p => {
+    const sc = getPlayerScore(p);
+    if (!brackets[sc]) brackets[sc] = [];
+    brackets[sc].push(p);
+  });
+
+  const sortedKeys = Object.keys(brackets).map(Number).sort((a, b) => b - a);
+  let carryOver = [];
+
+  sortedKeys.forEach(k => {
+    let group = [...carryOver, ...brackets[k]];
+    carryOver = [];
+
+    // Sort by seed ascending
+    group.sort((a, b) => a.seed - b.seed);
+
+    if (group.length % 2 === 1) {
+      carryOver.push(group.pop());
+    }
+
+    const half = Math.floor(group.length / 2);
+    const topHalf = group.slice(0, half);
+    let bottomHalf = group.slice(half);
+
+    for (let i = 0; i < topHalf.length; i++) {
+      const p1 = topHalf[i];
+      let matchIdx = -1;
+
+      for (let j = 0; j < bottomHalf.length; j++) {
+        if (!p1.opponents.includes(bottomHalf[j].id)) {
+          matchIdx = j;
+          break;
+        }
+      }
+      if (matchIdx === -1 && bottomHalf.length > 0) matchIdx = 0;
+
+      if (matchIdx !== -1) {
+        const p2 = bottomHalf.splice(matchIdx, 1)[0];
+
+        // Color alternation
+        const p1LastColor = p1.colors.length ? p1.colors[p1.colors.length - 1] : null;
+        let red, black;
+        if (p1LastColor === 'red') {
+          red = p2; black = p1;
+        } else if (p1LastColor === 'black') {
+          red = p1; black = p2;
+        } else {
+          red = (allPairings.length + 1) % 2 === 1 ? p1 : p2;
+          black = red === p1 ? p2 : p1;
+        }
+
+        allPairings.push({
+          board: allPairings.length + 1,
+          redId: red.id,
+          redName: red.name,
+          blackId: black.id,
+          blackName: black.name,
+          result: null
+        });
+      }
+    }
+
+    if (bottomHalf.length > 0) carryOver.push(...bottomHalf);
+  });
+
+  if (carryOver.length >= 2) {
+    for (let i = 0; i < carryOver.length - 1; i += 2) {
+      allPairings.push({
+        board: allPairings.length + 1,
+        redId: carryOver[i].id,
+        redName: carryOver[i].name,
+        blackId: carryOver[i+1].id,
+        blackName: carryOver[i+1].name,
+        result: null
+      });
+    }
+  }
+
+  if (byePlayer) {
+    allPairings.push({
+      board: 'BYE',
+      redId: byePlayer.id,
+      redName: byePlayer.name,
+      blackId: null,
+      blackName: '轮空 (BYE)',
+      result: 'bye'
+    });
+  }
+
+  return allPairings;
+}
+
+function generateNextRound() {
+  if (schoolTourney.currentRound >= schoolTourney.totalRounds) return;
+  const pairings = swissPair(schoolTourney);
+  schoolTourney.currentRound++;
+  schoolTourney.rounds.push({
+    roundNum: schoolTourney.currentRound,
+    confirmed: false,
+    pairings
+  });
+  viewRoundIdx = schoolTourney.currentRound - 1;
+}
+
+function setSchoolMatchResult(rIdx, bIdx, res) {
+  const roundObj = schoolTourney.rounds[rIdx];
+  if (!roundObj || roundObj.confirmed) return;
+  roundObj.pairings[bIdx].result = res;
+  saveSchoolTourney();
+  renderActiveTourney();
+}
+
+function confirmSchoolRound() {
+  const roundObj = schoolTourney.rounds[schoolTourney.currentRound - 1];
+  if (!roundObj) return;
+
+  const incomplete = roundObj.pairings.filter(p => p.result === null);
+  if (incomplete.length > 0) {
+    alert(`还有 ${incomplete.length} 盘对局未录入胜负，请先点选结果再确认！`);
+    return;
+  }
+
+  // Push scores to players
+  roundObj.pairings.forEach(p => {
+    if (p.result === 'bye') {
+      const bp = schoolTourney.players.find(x => x.id === p.redId);
+      if (bp) {
+        bp.hadBye = true;
+        bp.scores.push(1);
+        bp.opponents.push('BYE');
+        bp.colors.push('none');
+      }
+    } else {
+      const rp = schoolTourney.players.find(x => x.id === p.redId);
+      const bp = schoolTourney.players.find(x => x.id === p.blackId);
+      if (rp) { rp.opponents.push(p.blackId); rp.colors.push('red'); }
+      if (bp) { bp.opponents.push(p.redId); bp.colors.push('black'); }
+
+      if (p.result === 'red') {
+        if (rp) rp.scores.push(1);
+        if (bp) bp.scores.push(0);
+      } else if (p.result === 'black') {
+        if (rp) rp.scores.push(0);
+        if (bp) bp.scores.push(1);
+      } else {
+        if (rp) rp.scores.push(0.5);
+        if (bp) bp.scores.push(0.5);
+      }
+    }
+  });
+
+  roundObj.confirmed = true;
+
+  if (schoolTourney.currentRound < schoolTourney.totalRounds) {
+    generateNextRound();
+    alert(`✅ 第 ${schoolTourney.currentRound - 1} 轮已锁定，已自动排定第 ${schoolTourney.currentRound} 轮对阵！`);
+  } else {
+    alert('🎉 恭喜！所有轮次比赛已圆满结束，已生成最终排名榜单！');
+  }
+
+  saveSchoolTourney();
+  renderActiveTourney();
+}
+
+// --- CALC BUCHHOLZ & STANDINGS ---
+function calcSchoolStandings() {
+  const list = schoolTourney.players.map(p => {
+    const totalPts = getPlayerScore(p);
+    let buchholz = 0;
+    (p.opponents || []).forEach(oppId => {
+      if (oppId === 'BYE') return;
+      const opp = schoolTourney.players.find(x => x.id === oppId);
+      if (opp) buchholz += getPlayerScore(opp);
+    });
+    return { ...p, totalPts, buchholz };
+  });
+
+  list.sort((a, b) => b.totalPts - a.totalPts || b.buchholz - a.buchholz || a.seed - b.seed);
+  return list;
+}
+
+// --- RENDER VIEWS ---
+function renderActiveTourney() {
+  document.getElementById('setupCard').style.display = 'none';
+  document.getElementById('activeTournamentSection').style.display = 'block';
+
+  document.getElementById('appSchoolTitle').textContent = schoolTourney.name;
+  document.getElementById('printSchoolName').textContent = schoolTourney.name;
+  document.getElementById('curTourneyHeading').textContent = `🏆 ${schoolTourney.name}`;
+  document.getElementById('roundTitleDisplay').textContent = `⚔️ 第 ${viewRoundIdx + 1} 轮 正规对阵表`;
+  document.getElementById('printRoundSubtitle').textContent = `第 ${viewRoundIdx + 1} 轮 对阵与成绩单`;
+  document.getElementById('printDate').textContent = `比赛日期: ${schoolTourney.createdAt} · 技术支持: Club XiangQi Bera`;
+
+  // Render Timeline
+  const tl = document.getElementById('schTimeline');
+  let tlHTML = '<div class="timeline-line"></div>';
+  for (let r = 1; r <= schoolTourney.totalRounds; r++) {
+    const rObj = schoolTourney.rounds[r - 1];
+    let cls = 'timeline-dot';
+    if (rObj && rObj.confirmed) cls += ' completed';
+    else if (r === schoolTourney.currentRound) cls += ' active';
+    tlHTML += `<div class="${cls}" onclick="switchViewRound(${r - 1})">R${r}</div>`;
+  }
+  tl.innerHTML = tlHTML;
+
+  // Render Formal Competition Table
+  const curRound = schoolTourney.rounds[viewRoundIdx];
+  const tbody = document.getElementById('formalPairingsBody');
+  if (!curRound) {
+    tbody.innerHTML = '<tr><td colspan="5" style="padding:30px;">本轮对阵尚未排定</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = curRound.pairings.map((p, idx) => {
+    if (p.result === 'bye') {
+      return `
+        <tr>
+          <td class="cell-board">BYE</td>
+          <td class="cell-red" style="text-align:center !important; width:45%;">🔴 ${p.redName}</td>
+          <td class="cell-black" style="text-align:center !important; width:45%;">💤 轮空 (BYE)</td>
+          <td class="cell-score" style="color:var(--green);">+1.0 分</td>
+          <td class="no-print"><span style="font-size:12px;color:var(--green);font-weight:800;">自动胜出</span></td>
+        </tr>`;
+    }
+
+    const rSel = p.result === 'red' ? 'selected-red' : '';
+    const dSel = p.result === 'draw' ? 'selected-draw' : '';
+    const bSel = p.result === 'black' ? 'selected-black' : '';
+
+    let scoreTxt = '- VS -';
+    if (p.result === 'red') scoreTxt = '1 - 0';
+    else if (p.result === 'draw') scoreTxt = '0.5 - 0.5';
+    else if (p.result === 'black') scoreTxt = '0 - 1';
+
+    return `
+      <tr>
+        <td class="cell-board">${p.board}</td>
+        <td class="cell-red">🔴 ${p.redName}</td>
+        <td class="cell-black">⚫ ${p.blackName}</td>
+        <td class="cell-score">${scoreTxt}</td>
+        <td class="no-print">
+          <div class="res-btn-group">
+            <button class="res-opt ${rSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'red')">红胜</button>
+            <button class="res-opt ${dSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'draw')">和</button>
+            <button class="res-opt ${bSel}" style="${curRound.confirmed ? 'pointer-events:none;' : ''}" onclick="setSchoolMatchResult(${viewRoundIdx},${idx},'black')">黑胜</button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+
+  // Confirm Button Toggle
+  const confirmBtn = document.getElementById('btnConfirmSchRound');
+  const isViewingCurrent = viewRoundIdx === schoolTourney.currentRound - 1;
+  if (confirmBtn) {
+    if (!isViewingCurrent || curRound.confirmed) {
+      confirmBtn.style.display = 'none';
+    } else {
+      confirmBtn.style.display = 'inline-flex';
+      confirmBtn.textContent = schoolTourney.currentRound === schoolTourney.totalRounds
+        ? '🏁 确认最终轮赛果并锁定总名次'
+        : `✅ 确认第 ${schoolTourney.currentRound} 轮赛果并排定下轮对阵`;
+    }
+  }
+
+  // Render Standings
+  const standings = calcSchoolStandings();
+  const sHead = document.getElementById('schStandingsHead');
+  let headHTML = '<th>名次</th><th style="text-align:left;padding-left:14px;">棋手姓名</th>';
+  for (let r = 1; r <= schoolTourney.currentRound; r++) {
+    headHTML += `<th>R${r}</th>`;
+  }
+  headHTML += '<th>总分</th><th>对手分 (Buchholz)</th><th>初排位</th>';
+  sHead.innerHTML = headHTML;
+
+  const sBody = document.getElementById('schStandingsBody');
+  sBody.innerHTML = standings.map((st, i) => {
+    let rScores = '';
+    for (let r = 0; r < schoolTourney.currentRound; r++) {
+      const sc = st.scores[r] !== undefined ? st.scores[r] : '-';
+      let clr = '';
+      if (sc === 1) clr = 'color:var(--green);font-weight:900;';
+      else if (sc === 0) clr = 'color:var(--red);font-weight:700;';
+      else if (sc === 0.5) clr = 'color:var(--gold);font-weight:900;';
+      rScores += `<td style="${clr}">${sc}</td>`;
+    }
+
+    let medal = `${i + 1}`;
+    if (i === 0) medal = '🥇 冠军';
+    else if (i === 1) medal = '🥈 亚军';
+    else if (i === 2) medal = '🥉 季军';
+
+    return `
+      <tr>
+        <td style="font-weight:900;">${medal}</td>
+        <td style="text-align:left;padding-left:14px;font-weight:900;">${st.name}</td>
+        ${rScores}
+        <td style="font-weight:900;color:var(--pri);font-size:15px;">${st.totalPts.toFixed(1)}</td>
+        <td style="font-weight:800;color:var(--text2);">${st.buchholz.toFixed(1)}</td>
+        <td style="color:var(--text2);">${st.seed}</td>
+      </tr>`;
+  }).join('');
+}
+
+function switchViewRound(idx) {
+  viewRoundIdx = idx;
+  renderActiveTourney();
+}
+
+function resetSchoolTourney() {
+  if (!confirm('确定放弃当前比赛并重新建立新比赛吗？')) return;
+  localStorage.removeItem('cxb_school_current_tourney');
+  schoolTourney = null;
+  document.getElementById('setupCard').style.display = 'block';
+  document.getElementById('activeTournamentSection').style.display = 'none';
+}
+
+// --- PROJECTOR / TV BIG SCREEN ---
+function openProjector() {
+  if (!schoolTourney || !schoolTourney.rounds[viewRoundIdx]) return;
+  const roundObj = schoolTourney.rounds[viewRoundIdx];
+  document.getElementById('projSchoolSub').textContent = schoolTourney.name;
+  document.getElementById('projHeading').textContent = `第 ${viewRoundIdx + 1} 轮 现场大屏对阵表`;
+
+  const tbody = document.getElementById('projectorTbody');
+  tbody.innerHTML = roundObj.pairings.map(p => {
+    if (p.result === 'bye') {
+      return `
+        <tr>
+          <td style="color:#A0C4FF;">BYE</td>
+          <td class="p-red">${p.redName}</td>
+          <td class="p-vs">-</td>
+          <td class="p-black" style="color:#50E3C2;">轮空 (+1分)</td>
+        </tr>`;
+    }
+    return `
+      <tr>
+        <td style="color:#FFF;">第 ${p.board} 台</td>
+        <td class="p-red">🔴 ${p.redName}</td>
+        <td class="p-vs">VS</td>
+        <td class="p-black">⚫ ${p.blackName}</td>
+      </tr>`;
+  }).join('');
+
+  document.getElementById('projectorModal').classList.add('show');
+}
+
+function closeProjector() {
+  document.getElementById('projectorModal').classList.remove('show');
+}
+
+// Init on load
+checkSchoolSession();
+</script>
+</body>
+</html>
