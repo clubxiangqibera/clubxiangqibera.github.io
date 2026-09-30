@@ -47,13 +47,41 @@
     .school-login-card {
       background: #FFFFFF;
       border-radius: 28px;
-      padding: 42px 38px;
+      padding: 38px 36px 36px;
       width: 100%;
-      max-width: 490px;
+      max-width: 480px;
       box-shadow: 0 24px 70px rgba(10, 31, 48, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
       text-align: center;
       position: relative;
       border: 1px solid rgba(255,255,255,0.18);
+    }
+    .lang-switch-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+    .lang-switch {
+      display: inline-flex;
+      background: #F0F4F8;
+      border-radius: 20px;
+      padding: 3px;
+      border: 1px solid var(--border);
+    }
+    .lang-btn {
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text2);
+      transition: all .2s;
+    }
+    .lang-btn.active {
+      background: #1A5276;
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(26,82,118,0.25);
     }
     .cxb-emblem-wrap {
       display: inline-flex;
@@ -352,58 +380,66 @@
 <div id="schoolLoginScreen">
   <div class="school-login-card">
     
-    <div class="login-brand-header" style="flex-direction:column; gap:10px; margin-bottom:18px;">
-      <div class="cxb-emblem-wrap" style="padding:4px;">
-        <img src="cxb_logo_white_gold.jpg" alt="Club XiangQi Bera Logo" style="width:110px; height:110px; object-fit:contain; border-radius:24px; filter:drop-shadow(0 10px 24px rgba(14,47,68,0.18));">
+    <!-- Language Switcher Pill -->
+    <div class="lang-switch-wrap">
+      <div class="lang-switch">
+        <button type="button" class="lang-btn active" id="btnLangZh" onclick="setLoginLang('zh')">中文</button>
+        <button type="button" class="lang-btn" id="btnLangEn" onclick="setLoginLang('en')">English</button>
+      </div>
+    </div>
+
+    <!-- Official Club Emblem Header (Crystal Clear Picture 2 HD) -->
+    <div class="login-brand-header" style="flex-direction:column; gap:10px; margin-bottom:16px;">
+      <div class="cxb-emblem-wrap" style="padding:0;">
+        <img src="cxb_logo_hd.png" alt="Club XiangQi Bera Official Emblem" style="width:130px; height:130px; object-fit:contain; border-radius:50%; box-shadow:0 8px 24px rgba(14,47,68,0.14);">
       </div>
       <div style="text-align:center;">
         <div style="font-size:18px; font-weight:900; color:var(--pri); letter-spacing:0.5px; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
           Club XiangQi Bera
           <span style="font-size:10px; background:linear-gradient(135deg,#D4AC0D,#B7950B); color:#FFF; padding:2px 7px; border-radius:6px; font-weight:800;">OFFICIAL</span>
         </div>
-        <div style="font-size:12px; color:var(--text2); font-weight:700; margin-top:3px; letter-spacing:0.5px;">
+        <div id="tBrandSub" style="font-size:12px; color:var(--text2); font-weight:700; margin-top:3px; letter-spacing:0.4px;">
           百乐县象棋公会 · 官方技术认证体系
         </div>
       </div>
     </div>
 
-    <div style="margin:20px 0 16px;">
-      <span class="login-brand-badge" style="background:#EBF3FA; border:1px solid #D0E1F0; padding:6px 16px; box-shadow:0 2px 6px rgba(14,47,68,0.04);">
+    <!-- Target Audience & Purpose -->
+    <div style="margin:16px 0 14px;">
+      <span class="login-brand-badge" style="background:#EBF3FA; border:1px solid #D0E1F0; padding:6px 16px;">
         <span style="font-size:13px;">🏛️</span>
-        <span style="font-weight:800; color:#1A5276; font-size:12px;">全国中小学及校际赛事专用系统 · Official School Portal</span>
+        <span id="tBadgeText" style="font-weight:800; color:#1A5276; font-size:12px;">全国中小学及校际赛事专用系统</span>
       </span>
-      <h2 style="font-size:23px; font-weight:900; color:var(--pri); margin-top:12px; letter-spacing:0.5px;">
+      <h2 id="tMainTitle" style="font-size:24px; font-weight:900; color:var(--pri); margin-top:12px; letter-spacing:0.5px;">
         校内象棋比赛管理系统
       </h2>
-      <div style="font-size:12px; font-weight:700; color:var(--pri3); margin-top:2px; letter-spacing:0.5px;">
-        School Xiangqi Tournament Management System
-      </div>
-      <p style="font-size:12px; color:var(--text2); margin-top:8px; line-height:1.6;">
-        SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影<br>
-        <span style="font-size:11px; opacity:0.85;">Swiss-System Pairing · Auto Buchholz · Live Projector</span>
+      <p id="tSubDesc" style="font-size:13px; color:var(--text2); margin-top:8px; line-height:1.6;">
+        SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影
       </p>
     </div>
 
+    <!-- Input Form -->
     <div class="login-input-wrap">
-      <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入授权码 / License Key (如 CXB-8888)" maxlength="12" autofocus autocomplete="off">
+      <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXB-8888)" maxlength="14" autofocus autocomplete="off">
     </div>
 
-    <button class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.8px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); transition:all 0.2s;" onclick="verifySchoolLogin()">
-      <span>🛡️</span> 验证授权并进入比赛台 · Enter Arena
+    <button id="tSubmitBtn" class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); transition:all 0.2s;" onclick="verifySchoolLogin()">
+      🛡️ 验证授权并进入比赛台
     </button>
 
-    <div id="schoolLoginErr" style="color:var(--red); font-size:12px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2);">
-      ❌ 授权码无效或已到期，请联系俱乐部获取 / Invalid or Expired License Key
+    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2);">
+      ❌ 授权码无效或已到期，请联系俱乐部获取
     </div>
 
+    <!-- Security & Trust Footer -->
     <div style="margin-top:26px; padding-top:16px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#6B7B8D;">
-      <span style="display:flex; align-items:center; gap:4px;">
+      <span id="tFootSec" style="display:flex; align-items:center; gap:4px;">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         Cloudflare® SSL 安全加密鉴权
       </span>
-      <span style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
+      <span id="tFootCert" style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        百乐象棋公会认证 · Verified
+        百乐象棋公会认证
       </span>
     </div>
   </div>
@@ -590,15 +626,16 @@ const CF_WORKER_URL = 'https://cxb-license.clubxiangqibera.workers.dev';
 async function verifySchoolLogin() {
   const pin = document.getElementById('schoolPinInput').value.trim().toUpperCase();
   const err = document.getElementById('schoolLoginErr');
-  const btn = document.querySelector('#schoolLoginScreen button');
+  const btn = document.getElementById('tSubmitBtn');
+  const t = I18N[currentLang] || I18N.zh;
 
   if (!pin) {
-    err.textContent = '❌ 请输入比赛授权激活码！';
+    err.textContent = t.errEmpty;
     err.style.display = 'block';
     return;
   }
 
-  if (btn) btn.textContent = '⏳ 正在通过 Cloudflare 安全验证...';
+  if (btn) btn.textContent = t.btnVerifying;
 
   try {
     const res = await fetch(`${CF_WORKER_URL}/api/verify`, {
@@ -618,7 +655,7 @@ async function verifySchoolLogin() {
       }));
       showSchoolApp();
     } else {
-      err.textContent = d.error || '❌ 无效的授权码或授权已过期！';
+      err.textContent = d.error || t.errInvalid;
       err.style.display = 'block';
       setTimeout(() => { err.style.display = 'none'; }, 4000);
     }
@@ -628,12 +665,12 @@ async function verifySchoolLogin() {
       localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '校际象棋选拔赛', ts: Date.now() }));
       showSchoolApp();
     } else {
-      err.textContent = '⚠️ 无法连接云端安全鉴权网关，请检查网络！';
+      err.textContent = t.errNet;
       err.style.display = 'block';
       setTimeout(() => { err.style.display = 'none'; }, 4000);
     }
   } finally {
-    if (btn) btn.textContent = '🔐 验证进入比赛控制台';
+    if (btn) btn.innerHTML = t.submitBtn;
   }
 }
 
@@ -1124,6 +1161,86 @@ function openProjector() {
 function closeProjector() {
   document.getElementById('projectorModal').classList.remove('show');
 }
+
+// --- LANGUAGE SWITCHER FOR LOGIN & SYSTEM ---
+let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
+
+const I18N = {
+  zh: {
+    brandSub: '百乐县象棋公会 · 官方技术认证体系',
+    badgeText: '全国中小学及校际赛事专用系统',
+    mainTitle: '校内象棋比赛管理系统',
+    subDesc: 'SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影',
+    pinPlaceholder: '输入比赛授权码 (如 CXB-8888)',
+    submitBtn: '🛡️ 验证授权并进入比赛台',
+    errInvalid: '❌ 授权码无效或已到期，请联系俱乐部获取',
+    errEmpty: '❌ 请输入比赛授权激活码！',
+    errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
+    btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
+    footSec: 'Cloudflare® SSL 安全加密鉴权',
+    footCert: '百乐象棋公会认证'
+  },
+  en: {
+    brandSub: 'Bera Chinese Chess Association · Technical Authority',
+    badgeText: 'Official In-School & Interschool Tournament Portal',
+    mainTitle: 'School Tournament Management System',
+    subDesc: 'SP98 Official Swiss-System · Buchholz Tie-break · Big Screen Display',
+    pinPlaceholder: 'Enter License Key (e.g. CXB-8888)',
+    submitBtn: '🛡️ Verify License & Enter Arena',
+    errInvalid: '❌ License Key is invalid or expired. Please contact CXB.',
+    errEmpty: '❌ Please enter your tournament license key!',
+    errNet: '⚠️ Unable to connect to security gateway. Check network!',
+    btnVerifying: '⏳ Authenticating via Cloudflare SSL...',
+    footSec: 'Cloudflare® SSL Secured Gateway',
+    footCert: 'Bera Xiangqi Association Verified'
+  }
+};
+
+function setLoginLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cxb_school_lang', lang);
+  
+  const bZh = document.getElementById('btnLangZh');
+  const bEn = document.getElementById('btnLangEn');
+  if (bZh && bEn) {
+    bZh.classList.toggle('active', lang === 'zh');
+    bEn.classList.toggle('active', lang === 'en');
+  }
+
+  const t = I18N[lang];
+  if (!t) return;
+
+  const brandSub = document.getElementById('tBrandSub');
+  if (brandSub) brandSub.textContent = t.brandSub;
+
+  const badgeText = document.getElementById('tBadgeText');
+  if (badgeText) badgeText.textContent = t.badgeText;
+
+  const mainTitle = document.getElementById('tMainTitle');
+  if (mainTitle) mainTitle.textContent = t.mainTitle;
+
+  const subDesc = document.getElementById('tSubDesc');
+  if (subDesc) subDesc.textContent = t.subDesc;
+
+  const pinInput = document.getElementById('schoolPinInput');
+  if (pinInput) pinInput.placeholder = t.pinPlaceholder;
+
+  const submitBtn = document.getElementById('tSubmitBtn');
+  if (submitBtn) submitBtn.innerHTML = t.submitBtn;
+
+  const footSec = document.getElementById('tFootSec');
+  if (footSec) {
+    footSec.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> ${t.footSec}`;
+  }
+
+  const footCert = document.getElementById('tFootCert');
+  if (footCert) {
+    footCert.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${t.footCert}`;
+  }
+}
+
+// Apply saved language on load
+setLoginLang(currentLang);
 
 // Init on load
 checkSchoolSession();
