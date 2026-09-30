@@ -46,12 +46,57 @@
     }
     .school-login-card {
       background: #FFF;
-      border-radius: 20px;
-      padding: 36px 28px;
+      border-radius: 24px;
+      padding: 44px 36px;
       width: 100%;
-      max-width: 440px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      max-width: 480px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .login-brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .login-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #F0F4F8;
+      color: var(--pri);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      border: 1px solid var(--border);
+    }
+    .login-input-wrap {
+      position: relative;
+      margin: 22px 0 16px;
+    }
+    .pin-input {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 18px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      outline: none;
+      transition: all .2s;
+      background: #FAFBFD;
+      color: var(--pri);
+    }
+    .pin-input:focus {
+      border-color: var(--pri3);
+      background: #FFF;
+      box-shadow: 0 0 0 4px rgba(41,128,185,0.12);
     }
     .badge-pill {
       display: inline-block;
@@ -300,23 +345,48 @@
 </head>
 <body>
 
-<!-- 1. LOGIN SCREEN -->
+<!-- 1. FORMAL SCHOOL LOGIN SCREEN -->
 <div id="schoolLoginScreen">
   <div class="school-login-card">
-    <div style="font-size:46px; margin-bottom:10px;">🏫♟️</div>
-    <span class="badge-pill">Club XiangQi Bera · 赛事技术系统</span>
-    <h2 style="font-size:22px; font-weight:900; color:var(--pri); margin-bottom:6px;">校际比赛系统登录</h2>
-    <p style="font-size:13px; color:var(--text2); margin-bottom:20px;">请输入俱乐部授权给本校的比赛激活码</p>
     
-    <input type="password" id="schoolPinInput" class="pin-input" placeholder="••••" maxlength="8" autofocus>
-    <button class="btn btn-pri" style="width:100%; justify-content:center; padding:14px;" onclick="verifySchoolLogin()">
-      🔐 验证进入比赛控制台
-    </button>
-    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:12px; display:none;">
-      ❌ 激活码不正确，请联系俱乐部获取
+    <div class="login-brand-header">
+      <div style="width:48px; height:48px; background:linear-gradient(135deg,#0E2F44,#1A5276); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 4px 12px rgba(14,47,68,0.3);">
+        ♟️
+      </div>
+      <div style="text-align:left;">
+        <div style="font-size:16px; font-weight:900; color:var(--pri); line-height:1.2;">Club XiangQi Bera</div>
+        <div style="font-size:11px; color:var(--text2); font-weight:700;">百乐象棋俱乐部 · 赛事系统</div>
+      </div>
     </div>
-    <div style="margin-top:20px; font-size:11px; color:var(--text2);">
-      技术支持：百乐象棋俱乐部 (Club XiangQi Bera)
+
+    <div style="margin:20px 0 16px;">
+      <span class="login-brand-badge">
+        <span>🏫</span>
+        <span>全国中小学及校际赛事专属通道</span>
+      </span>
+      <h2 style="font-size:24px; font-weight:900; color:var(--pri); margin-top:12px; letter-spacing:0.5px;">
+        校内象棋比赛管理系统
+      </h2>
+      <p style="font-size:13px; color:var(--text2); margin-top:6px; line-height:1.6;">
+        SP98 正规瑞士积分制 · 自动破同分 · 现场大屏投影
+      </p>
+    </div>
+
+    <div class="login-input-wrap">
+      <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXB-XXXX)" maxlength="12" autofocus autocomplete="off">
+    </div>
+
+    <button class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:1px; box-shadow:0 6px 18px rgba(14,47,68,0.25);" onclick="verifySchoolLogin()">
+      🔐 验证授权并进入比赛台
+    </button>
+
+    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2);">
+      ❌ 授权码无效或已到期，请联系俱乐部获取
+    </div>
+
+    <div style="margin-top:28px; padding-top:18px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text2);">
+      <span>🔒 银行级安全加密鉴权 (Cloudflare)</span>
+      <span style="font-weight:700; color:var(--pri2);">百乐象棋公会认证</span>
     </div>
   </div>
 </div>

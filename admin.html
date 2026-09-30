@@ -2100,15 +2100,33 @@ async function loadSchoolLicenses() {
                 <td style="padding:10px 12px; font-weight:900; color:var(--pri); font-family:monospace; font-size:14px;">${item.key}</td>
                 <td style="padding:10px 12px; font-weight:800;">${item.school}</td>
                 <td style="padding:10px 12px; text-align:center;">
-                  <span class="badge ${item.status === 'active' ? 'badge-green' : 'badge-yellow'}">${item.status === 'active' ? '🟢 租期内' : '已停用'}</span>
+                  ${item.status === 'ended' 
+                    ? '<span class="badge" style="background:#EAECEE;color:#7F8C8D;font-size:11px;">⛔ 已终止停用</span>'
+                    : (new Date(item.expiresAt).getTime() < Date.now() 
+                        ? '<span class="badge" style="background:#FDEDEC;color:#C0392B;font-size:11px;">⏰ 租约已超期</span>' 
+                        : '<span class="badge badge-green" style="font-size:11px;">🟢 租期有效</span>')}
                 </td>
                 <td style="padding:10px 12px; font-size:12px; color:var(--text2);">
-  ${item.expiresAt ? new Date(item.expiresAt).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
-</td>
+                  ${item.expiresAt ? new Date(item.expiresAt).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
+                </td>
                 <td style="padding:10px 12px; text-align:center;">
-                  <button class="btn-sm" style="color:var(--red); border-color:var(--red); font-size:11px;" onclick="revokeSchoolLicense('${item.key}')">
-                    🗑️ 立即吊销
-                  </button>
+                  <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:center;">
+                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 1)" title="延长比赛时间1天">
+                      ⏳ +1天
+                    </button>
+                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 3)" title="延长比赛时间3天">
+                      ⏳ +3天
+                    </button>
+                    ${item.status === 'ended' ? `
+                      <button class="btn-sm" style="color:var(--pri2); border-color:var(--pri2); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')">
+                        ▶️ 重新启用
+                      </button>
+                    ` : `
+                      <button class="btn-sm" style="color:var(--red); border-color:var(--red); padding:4px 8px; font-size:11px;" onclick="endSchoolLicense('${item.key}')" title="终止开赛权限但不删除记录">
+                        ⛔ 终止开赛
+                      </button>
+                    `}
+                  </div>
                 </td>
               </tr>
             `).join('')}
@@ -2119,6 +2137,68 @@ async function loadSchoolLicenses() {
     }
   } catch (e) {
     container.innerHTML = `<div style="padding:20px;text-align:center;color:var(--red);">网络错误: ${e.message}</div>`;
+  }
+}
+
+
+async function extendSchoolLicense(key, days) {
+  toast(`⏳ 正在为授权码 ${key} 延长 ${days} 天租期...`, 'info');
+  try {
+    const res = await fetch(`${CF_WORKER_URL}/api/admin/extend`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key, addDays: days })
+    });
+    const d = await res.json();
+    if (d.success) {
+      toast(`🎉 ${d.message}`, 'success');
+      loadSchoolLicenses();
+    } else {
+      toast('续期失败: ' + (d.error || ''), 'error');
+    }
+  } catch(e) {
+    toast('网络错误: ' + e.message, 'error');
+  }
+}
+
+async function endSchoolLicense(key) {
+  if (!confirm(`确定提前终止授权码「${key}」吗？\n\n终止后，学校端将无法再开赛或登录，但该记录依然保留在列表以供日后查阅或重新启用！`)) return;
+  toast('⏳ 正在终止授权...', 'info');
+  try {
+    const res = await fetch(`${CF_WORKER_URL}/api/admin/end-key`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key })
+    });
+    const d = await res.json();
+    if (d.success) {
+      toast(`⛔ ${d.message}`, 'success');
+      loadSchoolLicenses();
+    } else {
+      toast('终止失败: ' + (d.error || ''), 'error');
+    }
+  } catch(e) {
+    toast('网络错误: ' + e.message, 'error');
+  }
+}
+
+async function resumeSchoolLicense(key) {
+  toast('⏳ 正在重新激活授权...', 'info');
+  try {
+    const res = await fetch(`${CF_WORKER_URL}/api/admin/resume-key`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key })
+    });
+    const d = await res.json();
+    if (d.success) {
+      toast(`✅ ${d.message}`, 'success');
+      loadSchoolLicenses();
+    } else {
+      toast('恢复失败: ' + (d.error || ''), 'error');
+    }
+  } catch(e) {
+    toast('网络错误: ' + e.message, 'error');
   }
 }
 
