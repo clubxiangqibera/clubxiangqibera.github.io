@@ -2110,22 +2110,25 @@ async function loadSchoolLicenses() {
                   ${item.expiresAt ? new Date(item.expiresAt).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
                 </td>
                 <td style="padding:10px 12px; text-align:center;">
-                  <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:center;">
-                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 1)" title="延长比赛时间1天">
+                  <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:center; align-items:center;">
+                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 1)" title="顺延比赛时间 1 天">
                       ⏳ +1天
                     </button>
-                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 3)" title="延长比赛时间3天">
+                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 3)" title="顺延比赛时间 3 天">
                       ⏳ +3天
                     </button>
                     ${item.status === 'ended' ? `
-                      <button class="btn-sm" style="color:var(--pri2); border-color:var(--pri2); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')">
+                      <button class="btn-sm" style="color:var(--pri2); border-color:var(--pri2); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')" title="重新激活该授权">
                         ▶️ 重新启用
                       </button>
                     ` : `
-                      <button class="btn-sm" style="color:var(--red); border-color:var(--red); padding:4px 8px; font-size:11px;" onclick="endSchoolLicense('${item.key}')" title="终止开赛权限但不删除记录">
+                      <button class="btn-sm" style="color:var(--red); border-color:var(--red); padding:4px 8px; font-size:11px;" onclick="endSchoolLicense('${item.key}')" title="终止开赛权限（保留记录）">
                         ⛔ 终止开赛
                       </button>
                     `}
+                    <button class="btn-sm" style="color:#7F8C8D; border-color:#BDC3C7; padding:4px 8px; font-size:11px;" onclick="revokeSchoolLicense('${item.key}')" title="彻底删除此授权码记录">
+                      🗑️ 彻底移除
+                    </button>
                   </div>
                 </td>
               </tr>
