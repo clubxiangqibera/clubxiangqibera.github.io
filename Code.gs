@@ -298,6 +298,12 @@ function handleUpdateAccount(data) {
       if (data.newPwd) {
         studentSheet.getRange(r + 1, 14).setValue(data.newPwd);
       }
+      if (data.newLevel) {
+        studentSheet.getRange(r + 1, 7).setValue(data.newLevel);
+      }
+      if (data.newLevel) {
+        studentSheet.getRange(r + 1, 7).setValue(data.newLevel);
+      }
       found = true;
       return respond({ status: 'ok', success: true, message: '账号信息已更新：' + data.studentId });
     }
