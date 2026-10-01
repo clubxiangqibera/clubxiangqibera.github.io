@@ -1397,7 +1397,8 @@ initPublicApp();
 async function loadPublicEvents() {
   try {
     const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/events');
-    const events = await res.json();
+    const data = await res.json();
+    const events = data.events || data || [];
     const container = document.getElementById('publicGalleryArea');
     if(!events || events.length === 0) {
       container.innerHTML = '<div style="color:var(--text2); font-size:13px;">暂无公开相册。</div>';
