@@ -648,18 +648,26 @@
 const CF_WORKER_URL = 'https://cxb-license.clubxiangqibera.workers.dev';
 
 async function verifySchoolLogin() {
-  const pin = document.getElementById('schoolPinInput').value.trim().toUpperCase();
+  const pinInput = document.getElementById('schoolPinInput');
+  const pin = pinInput ? pinInput.value.trim().toUpperCase() : '';
   const err = document.getElementById('schoolLoginErr');
   const btn = document.getElementById('tSubmitBtn');
   const t = I18N[currentLang] || I18N.zh;
 
+  if (err) err.style.display = 'none';
+
   if (!pin) {
-    err.textContent = t.errEmpty;
-    err.style.display = 'block';
+    if (err) {
+      err.textContent = t.errEmpty;
+      err.style.display = 'block';
+    }
     return;
   }
 
-  if (btn) btn.textContent = t.btnVerifying;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = t.btnVerifying;
+  }
 
   try {
     const res = await fetch(`${CF_WORKER_URL}/api/verify`, {
@@ -679,22 +687,30 @@ async function verifySchoolLogin() {
       }));
       showSchoolApp();
     } else {
-      err.textContent = d.error || t.errInvalid;
-      err.style.display = 'block';
-      setTimeout(() => { err.style.display = 'none'; }, 4000);
+      if (err) {
+        err.textContent = d.error || t.errInvalid;
+        err.style.display = 'block';
+        setTimeout(() => { if (err) err.style.display = 'none'; }, 4000);
+      }
     }
   } catch (e) {
+    console.error('Login verification error:', e);
     // Offline / fallback verification for superadmin pin
     if (pin === '7789' || pin === '8899') {
       localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '校际象棋选拔赛', ts: Date.now() }));
       showSchoolApp();
     } else {
-      err.textContent = t.errNet;
-      err.style.display = 'block';
-      setTimeout(() => { err.style.display = 'none'; }, 4000);
+      if (err) {
+        err.textContent = (t.errNet || '网络连接异常') + (e && e.message ? ` (${e.message})` : '');
+        err.style.display = 'block';
+        setTimeout(() => { if (err) err.style.display = 'none'; }, 5000);
+      }
     }
   } finally {
-    if (btn) btn.innerHTML = t.submitBtn;
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = t.submitBtn;
+    }
   }
 }
 
@@ -712,24 +728,36 @@ function checkSchoolSession() {
 }
 
 function showSchoolApp() {
-  document.getElementById('schoolLoginScreen').style.display = 'none';
-  document.getElementById('schoolApp').style.display = 'block';
+  try {
+    const loginScreen = document.getElementById('schoolLoginScreen');
+    const appScreen = document.getElementById('schoolApp');
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (appScreen) appScreen.style.display = 'block';
 
-  // Read school name from authenticated session
-  const s = localStorage.getItem('cxb_school_session');
-  if (s) {
-    try {
-      const d = JSON.parse(s);
-      const nameInput = document.getElementById('schTourneyName');
-      if (nameInput && (!nameInput.value || nameInput.value === '直凉一校校内选拔赛')) {
-        nameInput.value = d.name || '校内象棋锦标赛';
-      }
-      const titleEl = document.getElementById('appSchoolTitle');
-      if (titleEl) titleEl.textContent = d.name || '校内象棋锦标赛控制台';
-    } catch(e){}
+    // Read school name from authenticated session
+    const s = localStorage.getItem('cxb_school_session');
+    if (s) {
+      try {
+        const d = JSON.parse(s);
+        const nameInput = document.getElementById('schTourneyName');
+        if (nameInput && (!nameInput.value || nameInput.value === '直凉一校校内选拔赛')) {
+          nameInput.value = d.name || '校内象棋锦标赛';
+        }
+        const titleEl = document.getElementById('appSchoolTitle');
+        if (titleEl) titleEl.textContent = d.name || '校内象棋锦标赛控制台';
+      } catch(e){}
+    }
+
+    loadStoredSchoolTourney();
+  } catch (err) {
+    console.error('Error entering school app:', err);
+    const loginScreen = document.getElementById('schoolLoginScreen');
+    const appScreen = document.getElementById('schoolApp');
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (appScreen) appScreen.style.display = 'block';
+    const setupCard = document.getElementById('setupCard');
+    if (setupCard) setupCard.style.display = 'block';
   }
-
-  loadStoredSchoolTourney();
 }
 
 function schoolLogout() {
@@ -750,15 +778,21 @@ function loadStoredSchoolTourney() {
   if (st) {
     try {
       schoolTourney = JSON.parse(st);
-      if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
-        viewRoundIdx = schoolTourney.currentRound - 1;
+      if (schoolTourney && schoolTourney.players && schoolTourney.players.length && Array.isArray(schoolTourney.rounds) && schoolTourney.rounds.length > 0) {
+        viewRoundIdx = Math.max(0, (schoolTourney.currentRound || 1) - 1);
         renderActiveTourney();
         return;
       }
-    } catch(e){}
+    } catch(e){
+      console.warn('Failed to parse previous tourney, resetting:', e);
+      localStorage.removeItem('cxb_school_current_tourney');
+      schoolTourney = null;
+    }
   }
-  document.getElementById('setupCard').style.display = 'block';
-  document.getElementById('activeTournamentSection').style.display = 'none';
+  const setupCard = document.getElementById('setupCard');
+  if (setupCard) setupCard.style.display = 'block';
+  const activeSec = document.getElementById('activeTournamentSection');
+  if (activeSec) activeSec.style.display = 'none';
 }
 
 // Live word count for text area
@@ -1421,6 +1455,17 @@ function setLoginLang(lang) {
 
 // Apply saved language on load
 setLoginLang(currentLang);
+
+// Init Enter key trigger on pin input
+const pinInputEl = document.getElementById('schoolPinInput');
+if (pinInputEl) {
+  pinInputEl.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      verifySchoolLogin();
+    }
+  });
+}
 
 // Init on load
 checkSchoolSession();
