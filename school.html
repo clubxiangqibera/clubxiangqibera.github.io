@@ -382,6 +382,63 @@
       .print-header { display: block !important; margin-bottom: 20px; text-align: center; }
     }
     .print-header { display: none; }
+  
+    /* SECURITY TERMINATION MODAL & LOCK OVERLAY */
+    #securityLockOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 25, 36, 0.94);
+      backdrop-filter: blur(8px);
+      z-index: 999999;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+    #securityLockOverlay.show {
+      display: flex !important;
+    }
+    .lock-card {
+      background: #FFF;
+      border-radius: 20px;
+      max-width: 480px;
+      width: 100%;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      border: 2px solid #E74C3C;
+      animation: lockBounce 0.4s ease;
+    }
+    @keyframes lockBounce {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .lock-icon-wrap {
+      width: 72px;
+      height: 72px;
+      background: #FDEDEC;
+      color: #E74C3C;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      margin-bottom: 20px;
+      border: 3px solid rgba(231,76,60,0.2);
+    }
+    .lock-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #1C2833;
+      margin-bottom: 10px;
+    }
+    .lock-desc {
+      font-size: 14px;
+      color: #6B7B8D;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
   </style>
 </head>
 <body>
@@ -645,6 +702,21 @@
   </div>
 </div>
 
+
+<!-- SECURITY LOCK & REVOCATION MODAL -->
+<div id="securityLockOverlay">
+  <div class="lock-card">
+    <div class="lock-icon-wrap">🔒</div>
+    <div class="lock-title" id="lockTitle">比赛授权已被管理员终止</div>
+    <div class="lock-desc" id="lockDesc">
+      总控管理后台已停用或删除了该比赛授权码。当前比赛对阵系统已强制锁定，无法继续进行录分与对局。如需重新开赛，请联系百乐象棋俱乐部管理员。
+    </div>
+    <button type="button" class="btn btn-pri" style="width:100%; justify-content:center; padding:13px; font-size:15px; border-radius:12px; background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); cursor:pointer;" onclick="schoolLogout()">
+      返回登录验证页
+    </button>
+  </div>
+</div>
+
 <script>
 // --- AUTHENTICATION VIA CLOUDFLARE WORKER + KV ---
 const CF_WORKER_URL = 'https://cxb-license.clubxiangqibera.workers.dev';
@@ -670,6 +742,9 @@ const I18N = {
     btnProj: '🖥️ 投影仪大屏',
     btnPrint: '🖨️ 打印成绩单',
     btnLogout: '退出',
+    lockTitle: '⛔ 比赛授权已被管理员终止',
+    lockDesc: '总控后台已停用或删除了本场比赛授权码，当前对阵系统已被实时锁定！如需开赛请联系百乐象棋俱乐部获取新授权。',
+    btnReturnLogin: '返回登录验证页',
     setupTitle: '⚙️ 比赛基本设置',
     setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成百乐象棋对阵编排系统（CXB Pairing System）配对与胜负记分。',
     labelTourneyName: '比赛名称 / 所在学校',
@@ -714,6 +789,9 @@ const I18N = {
     btnProj: '🖥️ Projector Screen',
     btnPrint: '🖨️ Print Report',
     btnLogout: 'Logout',
+    lockTitle: '⛔ Tournament License Terminated',
+    lockDesc: 'The administrator has disabled or revoked this tournament license. The system is locked! Please contact Club XiangQi Bera for authorization.',
+    btnReturnLogin: 'Return to Login',
     setupTitle: '⚙️ Tournament Setup',
     setupDesc: 'Paste player names below. System pairs automatically via Club XiangQi Bera Pairing System.',
     labelTourneyName: 'Tournament / School Name',
@@ -974,6 +1052,7 @@ function showSchoolApp() {
     }
 
     loadStoredSchoolTourney();
+    startLicenseLiveMonitor();
   } catch (err) {
     console.error('Error entering school app:', err);
     const setupCard = document.getElementById('setupCard');
@@ -983,8 +1062,78 @@ function showSchoolApp() {
 
 function schoolLogout() {
   localStorage.removeItem('cxb_school_session');
-  window.location.reload();
+  // Strip pin and key query parameters from URL so user lands on clear login page
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('pin');
+    url.searchParams.delete('key');
+    window.location.href = url.pathname + (url.search ? url.search : '');
+  } catch(e) {
+    window.location.href = window.location.pathname;
+  }
 }
+
+
+// --- CLOUDFLARE LIVE LICENSE VERIFICATION & FORCE LOCK ENGINE ---
+let liveLicenseTimer = null;
+let isLicenseTerminated = false;
+
+function triggerSecurityLock(errorMsg) {
+  isLicenseTerminated = true;
+  localStorage.removeItem('cxb_school_session');
+  
+  const overlay = document.getElementById('securityLockOverlay');
+  if (overlay) {
+    overlay.classList.add('show');
+    const t = (typeof I18N !== 'undefined' && I18N[currentLang]) ? I18N[currentLang] : (typeof I18N !== 'undefined' ? I18N.zh : {});
+    const titleEl = document.getElementById('lockTitle');
+    const descEl = document.getElementById('lockDesc');
+    if (titleEl && t.lockTitle) titleEl.textContent = t.lockTitle;
+    if (descEl) descEl.textContent = errorMsg || t.lockDesc || '比赛授权已被管理员终止，如需开赛请联系俱乐部。';
+  }
+  
+  // Disable all active buttons
+  document.querySelectorAll('button').forEach(btn => {
+    if (!btn.closest('#securityLockOverlay')) {
+      btn.disabled = true;
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+    }
+  });
+}
+
+async function verifyLiveLicenseStatus() {
+  const s = localStorage.getItem('cxb_school_session');
+  if (!s) return;
+
+  try {
+    const d = JSON.parse(s);
+    const pin = d.pin;
+    if (!pin || pin === '7789' || pin === '8899') return; // superadmin exempt
+
+    const res = await fetch(`${CF_WORKER_URL}/api/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ licenseKey: pin })
+    });
+    const result = await res.json();
+
+    if (!result.valid) {
+      console.warn('License status revoked by dashboard:', result.error);
+      triggerSecurityLock(result.error);
+    }
+  } catch(e) {
+    console.warn('Live license verification check error:', e);
+  }
+}
+
+function startLicenseLiveMonitor() {
+  if (liveLicenseTimer) clearInterval(liveLicenseTimer);
+  // Check immediately, then poll every 15 seconds
+  verifyLiveLicenseStatus();
+  liveLicenseTimer = setInterval(verifyLiveLicenseStatus, 15000);
+}
+
 
 // --- STATE MANAGEMENT ---
 let schoolTourney = null;
@@ -1024,6 +1173,10 @@ document.getElementById('schPlayerNamesText').addEventListener('input', e => {
 
 // --- START TOURNAMENT ---
 function startSchoolTournament() {
+  if (isLicenseTerminated) {
+    alert('比赛授权已被管理员终止，无法执行此操作！');
+    return;
+  }
   const name = document.getElementById('schTourneyName').value.trim() || '校内象棋锦标赛';
   const totalRounds = parseInt(document.getElementById('schTotalRounds').value) || 4;
   const rawText = document.getElementById('schPlayerNamesText').value;
@@ -1202,6 +1355,10 @@ function setSchoolMatchResult(rIdx, bIdx, res) {
 }
 
 function confirmSchoolRound() {
+  if (isLicenseTerminated) {
+    alert('比赛授权已被管理员终止，无法执行此操作！');
+    return;
+  }
   const roundObj = schoolTourney.rounds[schoolTourney.currentRound - 1];
   if (!roundObj) return;
 
