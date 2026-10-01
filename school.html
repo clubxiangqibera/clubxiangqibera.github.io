@@ -429,15 +429,17 @@
     </div>
 
     <!-- Input Form -->
-    <div class="login-input-wrap">
-      <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXB-8888)" maxlength="14" autofocus autocomplete="off">
-    </div>
+    <form id="schoolLoginForm" onsubmit="event.preventDefault(); verifySchoolLogin(); return false;">
+      <div class="login-input-wrap">
+        <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXB-8888)" maxlength="16" autofocus autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+      </div>
 
-    <button id="tSubmitBtn" class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); transition:all 0.2s;" onclick="verifySchoolLogin()">
-      🛡️ 验证授权并进入比赛台
-    </button>
+      <button id="tSubmitBtn" type="submit" class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); cursor:pointer; pointer-events:auto; touch-action:manipulation; user-select:none; -webkit-tap-highlight-color:transparent;">
+        🛡️ 验证授权并进入比赛台
+      </button>
+    </form>
 
-    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2);">
+    <div id="schoolLoginErr" style="color:var(--red); font-size:13px; font-weight:800; margin-top:14px; display:none; background:#FDEDEC; padding:10px; border-radius:10px; border:1px solid rgba(192,57,43,0.2); word-break:break-word;">
       ❌ 授权码无效或已到期，请联系俱乐部获取
     </div>
 
@@ -1456,7 +1458,18 @@ function setLoginLang(lang) {
 // Apply saved language on load
 setLoginLang(currentLang);
 
-// Init Enter key trigger on pin input
+// Explicit Button Event Listeners (Click + Touch) & Form Support
+const submitBtnEl = document.getElementById('tSubmitBtn');
+if (submitBtnEl) {
+  submitBtnEl.addEventListener('click', function(e) {
+    verifySchoolLogin();
+  });
+  submitBtnEl.addEventListener('touchend', function(e) {
+    verifySchoolLogin();
+  });
+}
+
+// Enter key trigger on pin input
 const pinInputEl = document.getElementById('schoolPinInput');
 if (pinInputEl) {
   pinInputEl.addEventListener('keydown', function(e) {
@@ -1467,8 +1480,22 @@ if (pinInputEl) {
   });
 }
 
-// Init on load
+// Check session on load
 checkSchoolSession();
+
+// Auto-fill and auto-login if pin is provided in URL (e.g. school.html?pin=CXB-NKZY)
+try {
+  const urlParams = new URLSearchParams(window.location.search);
+  const qPin = urlParams.get('pin') || urlParams.get('key');
+  if (qPin && pinInputEl) {
+    pinInputEl.value = qPin.trim().toUpperCase();
+    setTimeout(() => {
+      verifySchoolLogin();
+    }, 300);
+  }
+} catch(e) {
+  console.warn('URL param parse error:', e);
+}
 </script>
 </body>
 </html>
