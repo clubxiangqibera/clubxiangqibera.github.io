@@ -533,7 +533,7 @@
         <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👑 权限层级说明</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div style="background:linear-gradient(135deg,rgba(241,196,15,0.12),rgba(241,196,15,0.04));border:1.5px solid rgba(241,196,15,0.4);border-radius:14px;padding:16px;">
-            <div style="font-size:14px;font-weight:900;color:#B7950B;margin-bottom:8px;">👑 总控 (PIN: <span id="displaySuperPin">7789</span>)</div>
+            <div style="font-size:14px;font-weight:900;color:#B7950B;margin-bottom:8px;">👑 总控 (PIN: <span id="displaySuperPin">********</span>)</div>
             <div style="font-size:13px;color:var(--text);line-height:1.8;">
               ✅ 运营看板<br>✅ 学员建档<br>✅ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>✅ <strong>账号管理 (本页)</strong>
             </div>
@@ -656,9 +656,10 @@
 <script>
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
 const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyFY__BC0NXW87ZK1okkzhlskQ4PPBJx2QEXf0-8Icv8tbFHZcRSVge60TqU11DU4v_/exec';
-const SUPER_PIN = '7789';
-// Coach PIN is editable by superadmin and stored in localStorage
-function getCoachPin() { return localStorage.getItem('cxb_coach_pin') || '6666'; }
+function getAuthPin() {
+  const s = localStorage.getItem('cxb_auth');
+  return s ? JSON.parse(s).pin : '';
+}
 
 let allStudents = [];
 let allMatches = [];
@@ -670,24 +671,46 @@ function checkAuth(){
   const s = localStorage.getItem('cxb_auth');
   if (s) {
     const d = JSON.parse(s);
-    if ((d.pin === SUPER_PIN || d.pin === getCoachPin()) && Date.now() - d.ts < 86400000) return true;
+    if (d.pin && Date.now() - d.ts < 86400000) return true;
   }
   return false;
 }
-function tryLogin(){
+
+async function tryLogin(){
   const input = document.getElementById('adminPinInput');
   const p = input.value.trim();
-  if(p===SUPER_PIN || p===getCoachPin()){
-    localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
-    localStorage.setItem('cxb_auth_user',JSON.stringify({role: p===SUPER_PIN ? 'superadmin' : 'admin'}));
-    showApp();
-  }
-  else{
-    input.classList.add('error');
-    input.value='';
-    document.getElementById('loginError').style.display='block';
-    input.focus();
-    setTimeout(()=>input.classList.remove('error'),500);
+  const btn = document.getElementById('aBtn');
+  const og = btn.innerHTML;
+  btn.innerHTML = '🔄 验证中...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ pin: p })
+    });
+    const data = await res.json();
+    if (data.valid) {
+      localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
+      localStorage.setItem('cxb_auth_user',JSON.stringify({role: data.role}));
+      showApp();
+    } else {
+      input.classList.add('error');
+      input.value='';
+      const err = document.getElementById('loginError');
+      err.textContent = data.error || '❌ 密码错误，请重新输入';
+      err.style.display='block';
+      input.focus();
+      setTimeout(()=>input.classList.remove('error'),500);
+    }
+  } catch (e) {
+    const err = document.getElementById('loginError');
+    err.textContent = '❌ 网络连接错误，请检查网络';
+    err.style.display='block';
+  } finally {
+    btn.innerHTML = og;
+    btn.disabled = false;
   }
 }
 
@@ -810,17 +833,17 @@ function renderAccountList() {
   // Update PIN display in the permission card
   const dispSuper = document.getElementById('displaySuperPin');
   const dispCoach = document.getElementById('displayCoachPin');
-  if (dispSuper) dispSuper.textContent = '7789';
-  if (dispCoach) dispCoach.textContent = getCoachPin();
+  if (dispSuper) dispSuper.textContent = '********';
+  if (dispCoach) dispCoach.textContent = '********';
 
   // Teacher PIN editor
   el.innerHTML = `
     <div style="background:rgba(41,128,185,0.08);border:1.5px solid rgba(41,128,185,0.3);border-radius:14px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-      <div style="font-size:14px;font-weight:900;color:#2980B9;flex-shrink:0;">🎓 教练登录密码 (Coach PIN)</div>
-      <input type="text" id="coachPinInput" value="${getCoachPin()}" maxlength="6"
-        style="width:120px;padding:8px 12px;border:1.5px solid rgba(41,128,185,0.4);border-radius:10px;font-size:16px;font-weight:900;letter-spacing:4px;text-align:center;background:#fff;"
+      <div style="font-size:14px;font-weight:900;color:#2980B9;flex-shrink:0;">🎓 设置教练密码 (Set Coach PIN)</div>
+      <input type="password" id="coachPinInput" placeholder="新密码" maxlength="16"
+        style="width:140px;padding:8px 12px;border:1.5px solid rgba(41,128,185,0.4);border-radius:10px;font-size:16px;font-weight:900;text-align:center;background:#fff;"
         onblur="saveCoachPin(this.value)" oninput="this.style.borderColor='#F39C12'">
-      <span style="font-size:12px;color:var(--text2);">失焦后自动保存 · 当前: <strong id="coachPinDisplay">${getCoachPin()}</strong></span>
+      <span style="font-size:12px;color:var(--text2);">输入后点击空白处保存 · 状态: <strong id="coachPinDisplay">********</strong></span>
     </div>
 
     <div style="overflow-x:auto;">
@@ -876,16 +899,33 @@ function renderAccountList() {
     </div>`;
 }
 
-function saveCoachPin(newPin) {
+async function saveCoachPin(newPin) {
   const trimmed = newPin.trim();
   if (!trimmed || trimmed.length < 4) { toast('教练密码至少需要4位！', 'error'); return; }
-  if (trimmed === SUPER_PIN) { toast('教练密码不能与总控密码相同！', 'error'); return; }
-  localStorage.setItem('cxb_coach_pin', trimmed);
-  const disp = document.getElementById('coachPinDisplay');
-  if (disp) disp.textContent = trimmed;
+  
   const input = document.getElementById('coachPinInput');
-  if (input) input.style.borderColor = '#27AE60';
-  toast(`✅ 教练密码已更新为: ${trimmed}`, 'success');
+  if (input) input.style.borderColor = '#F39C12';
+  
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/set-coach-pin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: getAuthPin(), newCoachPin: trimmed })
+    });
+    const data = await res.json();
+    if (data.success) {
+      if (input) input.style.borderColor = '#27AE60';
+      toast(`✅ 教练密码已同步到云端数据库`, 'success');
+      // Hide the actual pin from display
+      const disp = document.getElementById('coachPinDisplay');
+      if (disp) disp.textContent = '********';
+    } else {
+      toast('修改失败：' + (data.error || '权限不足'), 'error');
+      if (input) input.style.borderColor = '#E74C3C';
+    }
+  } catch (e) {
+    toast('网络连接失败', 'error');
+  }
 }
 
 async function autoSaveAccount(idx, studentId, inputEl) {
@@ -1072,7 +1112,7 @@ async function submitFastStudent(){
   toast('⏳ 正在分配学号并入库建档...','info');
   try{
     const payload={
-      action:'addStudent',pin:SUPER_PIN,cnName:cn,
+      action:'addStudent',pin: getAuthPin(),cnName:cn,
       enName:document.getElementById('qEn').value.trim(),
       school,level:document.getElementById('qLevel').value,
       feeMode:document.getElementById('qFee').value,
@@ -1093,7 +1133,7 @@ async function submitFastStudent(){
 async function markPaid(id){
   toast('⏳ 正在同步更新缴费状态...','info');
   try{
-    const res=await fetch(GAS_API_URL,{method:'POST',body:JSON.stringify({action:'updatePayment',pin:SUPER_PIN,studentId:id,status:'已缴费 (Verified)'})});
+    const res=await fetch(GAS_API_URL,{method:'POST',body:JSON.stringify({action:'updatePayment',pin: getAuthPin(),studentId:id,status:'已缴费 (Verified)'})});
     const d=await res.json();
     if(d.success){
       toast(`✅ 学员 ${id} 缴费状态已核准！`,'success');
@@ -1808,7 +1848,7 @@ async function endTournament() {
           method: 'POST',
           body: JSON.stringify({
             action: 'addMatch',
-            pin: SUPER_PIN,
+            pin: getAuthPin(),
             date: t.createdAt,
             round: `${t.name} R${ri + 1}`,
             redId: match.redId,
@@ -1972,7 +2012,7 @@ async function submitSP98Batch() {
         method: 'POST',
         body: JSON.stringify({
           action: 'addMatch',
-          pin: SUPER_PIN,
+          pin: getAuthPin(),
           date: today,
           round: `${tourneyName} #${i + 1}`,
           redId: m.redId,
@@ -2018,7 +2058,7 @@ async function deleteSingleMatch(date, round, redName, blackName) {
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'deleteMatch', date, round, redName, blackName, pin: SUPER_PIN })
+      body: JSON.stringify({ action: 'deleteMatch', date, round, redName, blackName, pin: getAuthPin() })
     });
     const d = await res.json();
     if (d.success || d.status === 'ok') {
@@ -2034,16 +2074,16 @@ async function deleteSingleMatch(date, round, redName, blackName) {
 }
 
 async function clearAllTestMatches() {
-  const code = prompt('⚠️ 警告：此操作将清空「实战对局记录表」中的全部对局历史数据！\n\n如确认清空，请输入确认码: 7789');
-  if (code !== '7789') {
-    if (code !== null) toast('确认码错误，操作取消。', 'warning');
+  const code = prompt('⚠️ 警告：此操作将清空「实战对局记录表」中的全部对局历史数据！\n\n如确认清空，请输入总控密码:');
+  if (code !== getAuthPin()) {
+    if (code !== null) toast('密码错误，操作取消。', 'warning');
     return;
   }
   toast('⏳ 正在清空云端所有历史对局...', 'info');
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'clearTestData', pin: SUPER_PIN })
+      body: JSON.stringify({ action: 'clearTestData', pin: getAuthPin() })
     });
     const d = await res.json();
     if (d.success || d.status === 'ok') {
@@ -2064,7 +2104,7 @@ async function deleteStudentAccount(studentId, studentName) {
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'deleteStudent', studentId, pin: SUPER_PIN })
+      body: JSON.stringify({ action: 'deleteStudent', studentId, pin: getAuthPin() })
     });
     const d = await res.json();
     if (d.success || d.status === 'ok') {
@@ -2099,7 +2139,7 @@ async function createSchoolLicense() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        adminPin: SUPER_PIN,
+        adminPin: getAuthPin(),
         schoolName,
         validDays,
         maxRounds: 5
@@ -2136,7 +2176,7 @@ async function loadSchoolLicenses() {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/list-licenses`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminPin: SUPER_PIN })
+      body: JSON.stringify({ adminPin: getAuthPin() })
     });
     const d = await res.json();
 
@@ -2213,7 +2253,7 @@ async function extendSchoolLicense(key, days) {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/extend`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key, addDays: days })
+      body: JSON.stringify({ adminPin: getAuthPin(), licenseKey: key, addDays: days })
     });
     const d = await res.json();
     if (d.success) {
@@ -2234,7 +2274,7 @@ async function endSchoolLicense(key) {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/end-key`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key })
+      body: JSON.stringify({ adminPin: getAuthPin(), licenseKey: key })
     });
     const d = await res.json();
     if (d.success) {
@@ -2254,7 +2294,7 @@ async function resumeSchoolLicense(key) {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/resume-key`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key })
+      body: JSON.stringify({ adminPin: getAuthPin(), licenseKey: key })
     });
     const d = await res.json();
     if (d.success) {
@@ -2276,7 +2316,7 @@ async function revokeSchoolLicense(key) {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/revoke`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminPin: SUPER_PIN, licenseKey: key })
+      body: JSON.stringify({ adminPin: getAuthPin(), licenseKey: key })
     });
     const d = await res.json();
     if (d.success) {
