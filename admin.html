@@ -741,8 +741,8 @@ function logout(){
 function showApp(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('mainApp').style.display='block';
-  const auth = JSON.parse(localStorage.getItem('cxb_auth'));
-  const isSuperAdmin = auth && auth.pin === SUPER_PIN;
+  const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
+  const isSuperAdmin = user && user.role === 'superadmin';
 
   // Students & Payments: superadmin only
   document.querySelector('[data-tab="students"]').style.display = isSuperAdmin ? 'block' : 'none';
