@@ -528,25 +528,16 @@
 
     <!-- TAB 8: ACCOUNT MANAGER (SUPER ADMIN ONLY) -->
     <div class="tab-panel" id="panel-accounts">
-      <!-- Permission Summary Card -->
-      <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(241,196,15,0.4);">
-        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👑 权限层级说明</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          <div style="background:linear-gradient(135deg,rgba(241,196,15,0.12),rgba(241,196,15,0.04));border:1.5px solid rgba(241,196,15,0.4);border-radius:14px;padding:16px;">
-            <div style="font-size:14px;font-weight:900;color:#B7950B;margin-bottom:8px;">👑 总控 (PIN: <span id="displaySuperPin">********</span>)</div>
-            <div style="font-size:13px;color:var(--text);line-height:1.8;">
-              ✅ 运营看板<br>✅ 学员建档<br>✅ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>✅ <strong>账号管理 (本页)</strong>
-            </div>
-          </div>
-          <div style="background:rgba(41,128,185,0.08);border:1.5px solid rgba(41,128,185,0.3);border-radius:14px;padding:16px;">
-            <div style="font-size:14px;font-weight:900;color:#2980B9;margin-bottom:8px;">🎓 教练 (PIN: <span id="displayCoachPin">-</span>)</div>
-            <div style="font-size:13px;color:var(--text);line-height:1.8;">
-              ✅ 运营看板<br>❌ 学员建档<br>❌ 学费审核<br>✅ 对局档案<br>✅ 锦标赛<br>✅ ELO天梯榜<br>❌ 账号管理
-            </div>
-          </div>
+      <!-- Coach Management -->
+      <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(41,128,185,0.4);">
+        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👥 教练管理 (Coach Management)</div>
+        <div style="margin-bottom:16px; display:flex; gap:10px;">
+          <input type="text" id="newCoachName" class="form-input" placeholder="教练姓名" style="width:150px;">
+          <input type="text" id="newCoachPin" class="form-input" placeholder="教练PIN" style="width:100px;">
+          <button onclick="addCoach()" class="btn login-btn" style="width:auto; padding:8px 16px;">添加教练</button>
         </div>
-        <div style="margin-top:16px;padding:12px 16px;background:rgba(39,174,96,0.08);border-radius:10px;border:1px solid rgba(39,174,96,0.2);">
-          <span style="font-size:12px;font-weight:700;color:#27AE60;">💡 学员/家长登录：账号为学员中文姓名，默认密码 = 级别数字 + 编号（如 Lv2 XQB-001 → 密码 <strong>2001</strong>）</span>
+        <div id="coachListTable" style="overflow-x:auto;">
+          <!-- Table dynamically generated -->
         </div>
       </div>
 
@@ -703,7 +694,7 @@ async function tryLogin(){
     const data = await res.json();
     if (data.valid) {
       localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
-      localStorage.setItem('cxb_auth_user',JSON.stringify({role: data.role}));
+      localStorage.setItem('cxb_auth_user',JSON.stringify({role: data.role, perms: data.perms || [], name: data.name || ''}));
       showApp();
     } else {
       input.classList.add('error');
@@ -749,22 +740,27 @@ function logout(){
 }
 
 function showApp(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('mainApp').style.display='block';
-  const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
-  const isSuperAdmin = user && user.role === 'superadmin';
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('mainApp').style.display='block';
+    const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
+    const isSuperAdmin = user && user.role === 'superadmin';
+    const perms = (user && user.perms) || [];
 
-  // Students & Payments: superadmin only
-  document.querySelector('[data-tab="students"]').style.display = isSuperAdmin ? 'block' : 'none';
-  document.querySelector('[data-tab="payments"]').style.display = isSuperAdmin ? 'block' : 'none';
+    const tabs = ['dashboard', 'students', 'payments', 'records', 'tournament', 'ladder', 'accounts', 'licenses'];
+    tabs.forEach(tab => {
+       const tabEl = document.querySelector(`[data-tab="${tab}"]`);
+       if (tabEl) {
+          const permName = tab === 'records' ? 'matches' : tab;
+          if (isSuperAdmin || perms.includes(permName)) {
+             tabEl.style.display = 'block';
+          } else {
+             tabEl.style.display = 'none';
+          }
+       }
+    });
 
-  // Accounts tab: superadmin only
-  document.querySelector('[data-tab="accounts"]').style.display = isSuperAdmin ? 'block' : 'none';
-  const licTab = document.querySelector('[data-tab="licenses"]');
-  if (licTab) licTab.style.display = isSuperAdmin ? 'block' : 'none';
-
-  loadAllData();
-}
+    loadAllData();
+  }
 
 function switchTab(t){
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
@@ -2381,6 +2377,138 @@ async function revokeSchoolLicense(key) {
     toast('网络错误: ' + e.message, 'error');
   }
 }
+
+
+// --- Coach Management JS ---
+async function loadCoaches() {
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/coaches?adminPin=' + getAuthPin());
+    const data = await res.json();
+    if (data.success) {
+      window._coaches = data.coaches || [];
+      renderCoaches();
+    }
+  } catch (e) {
+    console.error("Failed to load coaches");
+  }
+}
+
+function renderCoaches() {
+  const container = document.getElementById('coachListTable');
+  if (!container) return;
+  
+  if (window._coaches.length === 0) {
+    container.innerHTML = '<div style="padding:10px;color:var(--text2);">暂无教练账号。</div>';
+    return;
+  }
+
+  let html = `<table class="cxb-table" style="width:100%; border-collapse: collapse;">
+    <thead><tr style="border-bottom:2px solid var(--border); text-align:left;">
+      <th style="padding:10px;">姓名</th>
+      <th style="padding:10px;">PIN</th>
+      <th style="padding:10px;">权限配置</th>
+      <th style="padding:10px; text-align:right;">操作</th>
+    </tr></thead><tbody>`;
+
+  const availablePerms = [
+    {id: 'dashboard', name: '运营看板'},
+    {id: 'matches', name: '对局档案'},
+    {id: 'tournament', name: '锦标赛'},
+    {id: 'ladder', name: '天梯榜'},
+    {id: 'students', name: '学员建档'},
+    {id: 'payments', name: '学费审核'},
+    {id: 'licenses', name: '授权管理'}
+  ];
+
+  window._coaches.forEach((c, i) => {
+    let permsHtml = availablePerms.map(p => {
+      const checked = (c.perms && c.perms.includes(p.id)) ? 'checked' : '';
+      return `<label style="margin-right:8px;font-size:12px;cursor:pointer;"><input type="checkbox" onchange="toggleCoachPerm(${i}, '${p.id}')" ${checked}> ${p.name}</label>`;
+    }).join('');
+
+    html += `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:10px;"><b>${c.name}</b></td>
+      <td style="padding:10px;color:var(--text2);">${c.pin}</td>
+      <td style="padding:10px;"><div style="display:flex;flex-wrap:wrap;gap:4px;">${permsHtml}</div></td>
+      <td style="padding:10px; text-align:right;">
+        <button onclick="deleteCoach(${i})" class="btn" style="background:var(--red);color:#fff;padding:6px 12px;border:none;border-radius:8px;cursor:pointer;">删除</button>
+      </td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
+
+async function saveCoaches(coaches) {
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/coaches', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: getAuthPin(), coaches: coaches })
+    });
+    const data = await res.json();
+    if (data.success) {
+      if(typeof toast === 'function') toast('教练列表已保存', 'success');
+      window._coaches = coaches;
+      renderCoaches();
+    } else {
+      if(typeof toast === 'function') toast('保存失败', 'error');
+    }
+  } catch(e) {
+    if(typeof toast === 'function') toast('网络错误', 'error');
+  }
+}
+
+async function addCoach() {
+  const name = document.getElementById('newCoachName').value.trim();
+  const pin = document.getElementById('newCoachPin').value.trim();
+  if (!name || !pin) {
+    if(typeof toast === 'function') toast('请填写姓名和PIN', 'error');
+    return;
+  }
+  const coaches = [...(window._coaches || [])];
+  coaches.push({
+    id: 'coach_' + Date.now(),
+    name: name,
+    pin: pin,
+    perms: ['dashboard', 'matches', 'tournament', 'ladder', 'students', 'payments', 'licenses']
+  });
+  await saveCoaches(coaches);
+  document.getElementById('newCoachName').value = '';
+  document.getElementById('newCoachPin').value = '';
+}
+
+async function deleteCoach(idx) {
+  if (!confirm("确定要删除该教练吗？")) return;
+  const coaches = [...(window._coaches || [])];
+  coaches.splice(idx, 1);
+  await saveCoaches(coaches);
+}
+
+async function toggleCoachPerm(idx, permId) {
+  const coaches = [...(window._coaches || [])];
+  const c = coaches[idx];
+  if (!c.perms) c.perms = [];
+  if (c.perms.includes(permId)) {
+    c.perms = c.perms.filter(p => p !== permId);
+  } else {
+    c.perms.push(permId);
+  }
+  await saveCoaches(coaches);
+}
+
+// Hook into loadAllData or init to call loadCoaches if superadmin
+if (typeof loadAllData !== 'undefined') {
+  const originalLoadAllData = loadAllData;
+  loadAllData = function() {
+    originalLoadAllData();
+    const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
+    if (user && user.role === 'superadmin') {
+      loadCoaches();
+    }
+  };
+}
+// --- End Coach Management JS ---
 
 </script>
 </body>
