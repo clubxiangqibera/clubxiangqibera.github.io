@@ -435,13 +435,14 @@
 
     /* CENTERED SECTION HEADERS */
     .section-head{
-      width:100%;text-align:center;margin:30px 0 16px;
+      width:100%;text-align:center;margin:40px 0 20px;
       display:flex;flex-direction:column;align-items:center;
     }
     .section-title{
       font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:8px;
+      letter-spacing: 1px;
     }
-    .section-sub{font-size:12px;color:var(--text2);margin-top:3px;}
+    .section-sub{font-size:12px;color:var(--text2);margin-top:6px;}
 
     /* BIG CLEAR RANK LIST */
     .rank-list{width:100%;display:flex;flex-direction:column;gap:10px;}
@@ -1352,30 +1353,26 @@ async function initPublicApp() {
   renderTicker(globalMatches, 'publicTickerTrack');
   
   // Scrollspy for navbar
-  const podiumHead = document.getElementById('podiumHeader');
-  if (podiumHead && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      const ladderSec = document.getElementById('publicLadderSection');
-      if (ladderSec && ladderSec.style.display === 'none') return;
-      
-      const btnHome = document.getElementById('tabBtnHome');
-      const btnLadder = document.getElementById('tabBtnLadder');
-      if (!btnHome || !btnLadder) return;
-
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          btnHome.classList.remove('active');
-          btnLadder.classList.add('active');
-        } else {
-          if (entry.boundingClientRect.top > 0) {
-            btnLadder.classList.remove('active');
-            btnHome.classList.add('active');
-          }
-        }
-      });
-    }, { threshold: 0.1, rootMargin: "-80px 0px 0px 0px" });
-    observer.observe(podiumHead);
-  }
+  window.addEventListener('scroll', () => {
+    const ladderSec = document.getElementById('publicLadderSection');
+    if (ladderSec && ladderSec.style.display === 'none') return;
+    
+    const podiumHead = document.getElementById('podiumHeader');
+    const btnHome = document.getElementById('tabBtnHome');
+    const btnLadder = document.getElementById('tabBtnLadder');
+    
+    if (podiumHead && btnHome && btnLadder) {
+      const rect = podiumHead.getBoundingClientRect();
+      // If the podium header is within 250px from the top of the viewport or above it
+      if (rect.top <= 250) {
+        btnHome.classList.remove('active');
+        btnLadder.classList.add('active');
+      } else {
+        btnLadder.classList.remove('active');
+        btnHome.classList.add('active');
+      }
+    }
+  });
   
   checkStoredSession();
 }
