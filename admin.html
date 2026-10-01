@@ -573,18 +573,29 @@
           <span class="badge badge-green" style="font-size:12px; padding:6px 12px;">🟢 边缘节点已连通 (cxb-license)</span>
         </div>
 
-        <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:14px; margin-top:16px;">
+        <div style="display:grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap:14px; margin-top:16px;">
           <div>
             <label class="form-label">租用学校名称</label>
-            <input type="text" id="licSchoolName" class="form-input" placeholder="例如: 直凉华小一校 选拔赛">
+            <input type="text" id="licSchoolName" class="form-input" placeholder="例如: 直凉华小 选拔赛">
           </div>
           <div>
-            <label class="form-label">有效天数 (到期自动失效)</label>
+            <label class="form-label">有效天数</label>
             <select id="licValidDays" class="form-select">
               <option value="1">1 天 (临时赛)</option>
               <option value="3" selected>3 天 (常规标准)</option>
               <option value="7">7 天 (一周周赛)</option>
               <option value="30">30 天 (月度联赛)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">赛事层级限制 (Rounds)</label>
+            <select id="licMaxRounds" class="form-select">
+              <option value="2">极速赛 (最高 2 轮)</option>
+              <option value="3">小组赛 (最高 3 轮)</option>
+              <option value="4">标准赛 (最高 4 轮)</option>
+              <option value="5" selected>大型赛 (最高 5 轮)</option>
+              <option value="6">县级大赛 (最高 6 轮)</option>
+              <option value="7">国棋大赛 (最高 7 轮)</option>
             </select>
           </div>
           <div>
@@ -2126,6 +2137,7 @@ let lastGeneratedKey = '';
 async function createSchoolLicense() {
   const schoolName = document.getElementById('licSchoolName').value.trim();
   const validDays = document.getElementById('licValidDays').value;
+  const maxRounds = document.getElementById('licMaxRounds').value;
 
   if (!schoolName) {
     toast('请输入租用学校名称！', 'error');
@@ -2142,7 +2154,7 @@ async function createSchoolLicense() {
         adminPin: getAuthPin(),
         schoolName,
         validDays,
-        maxRounds: 5
+        maxRounds
       })
     });
     const d = await res.json();

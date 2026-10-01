@@ -578,12 +578,14 @@
           <input type="text" id="schTourneyName" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;" placeholder="请输入赛事名称 (例如: XX华小校内选拔赛)" value="">
         </div>
         <div>
-          <label id="tLabelTotalRounds" style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛总轮数 (10~20人建议 4 或 5 轮)</label>
+          <label id="tLabelTotalRounds" style="display:block; font-size:13px; font-weight:800; margin-bottom:6px;">比赛总轮数 (根据参赛人数自动建议 / Rounds)</label>
           <select id="schTotalRounds" style="width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; font-weight:700;">
-            <option value="3">3 轮 / 3 Rounds</option>
-            <option value="4" selected>4 轮 (约 8~16 人) / 4 Rounds</option>
-            <option value="5">5 轮 (约 16~32 人) / 5 Rounds</option>
-            <option value="6">6 轮 / 6 Rounds</option>
+            <option value="2">2 轮 (体验/极速 - 最多 4 人) / 2 Rounds</option>
+            <option value="3">3 轮 (微型/小组 - 约 5~8 人) / 3 Rounds</option>
+            <option value="4" selected>4 轮 (标准/常规 - 约 9~16 人) / 4 Rounds</option>
+            <option value="5">5 轮 (大型/锦标 - 约 17~32 人) / 5 Rounds</option>
+            <option value="6">6 轮 (县级/校际 - 约 33~64 人) / 6 Rounds</option>
+            <option value="7">7 轮 (国棋/大型 - 65人以上) / 7 Rounds</option>
           </select>
         </div>
       </div>
@@ -753,7 +755,7 @@ const I18N = {
     setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成百乐象棋对阵编排系统（CXB Pairing System）配对与胜负记分。',
     labelTourneyName: '比赛名称 / 所在学校',
     placeholderTourneyName: '请输入赛事名称 (例如: XX华小校内选拔赛)',
-    labelTotalRounds: '比赛总轮数 (10~20人建议 4 或 5 轮)',
+    labelTotalRounds: '比赛总轮数 (根据参赛人数自动建议 / Rounds)',
     labelPlayers: '📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)',
     btnStartTourney: '⚡ 一键生成第 1 轮对阵',
     roundSideHint: '左侧执红（先手）· 右侧执黑（后手）· 点选胜负',
@@ -800,7 +802,7 @@ const I18N = {
     setupDesc: 'Paste player names below. System pairs automatically via Club XiangQi Bera Pairing System.',
     labelTourneyName: 'Tournament / School Name',
     placeholderTourneyName: 'e.g. SJKC Tournament 2026',
-    labelTotalRounds: 'Total Rounds (4 or 5 rounds recommended for 10-20 players)',
+    labelTotalRounds: 'Total Rounds (Based on Players)',
     labelPlayers: '📋 Player Names List (One name per line, paste from WhatsApp/Excel)',
     btnStartTourney: '⚡ Generate Round 1 Pairings',
     roundSideHint: 'Left is RED (First Move) · Right is BLACK · Select results below',
