@@ -2592,9 +2592,6 @@ async function submitGallery() {
       const base64 = await compressImage(files[i]);
       const res = await fetch(GAS_API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({ action: 'uploadEventPhoto', eventName: name, imageBase64: base64 })
       });
       const data = await res.json();
