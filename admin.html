@@ -2555,13 +2555,16 @@ function renderEvents() {
   let html = '';
   window._events.forEach((evt, idx) => {
     const coverId = evt.photos && evt.photos.length > 0 ? evt.photos[0] : '';
-    const coverUrl = coverId ? 'https://drive.google.com/uc?export=view&id=' + coverId : '';
+    const coverUrl = coverId ? 'https://drive.google.com/thumbnail?sz=w800&id=' + coverId : '';
     html += `<div style="background:var(--bg); border-radius:12px; overflow:hidden; border:1px solid var(--border);">
       <div style="height:160px; background:#ddd url('${coverUrl}') center/cover;"></div>
       <div style="padding:16px;">
         <div style="font-weight:900; font-size:15px; margin-bottom:4px;">${evt.name}</div>
         <div style="font-size:12px; color:var(--text2); margin-bottom:12px;">📅 ${evt.date} · 📸 ${evt.photos ? evt.photos.length : 0} 张照片</div>
-        <button onclick="deleteEvent(${idx})" class="btn" style="width:100%; padding:6px; background:#FDEDEC; color:#E74C3C; border:none; border-radius:8px; font-weight:700;">删除图集</button>
+        <div style="display:flex; gap:8px;">
+          <button onclick="editEvent(${idx})" class="btn" style="flex:1; padding:6px; background:#E8F8F5; color:#1ABC9C; border:none; border-radius:8px; font-weight:700;">编辑</button>
+          <button onclick="deleteEvent(${idx})" class="btn" style="flex:1; padding:6px; background:#FDEDEC; color:#E74C3C; border:none; border-radius:8px; font-weight:700;">删除</button>
+        </div>
       </div>
     </div>`;
   });
@@ -2657,6 +2660,34 @@ async function deleteEvent(idx) {
     const result = await res.json();
     if(result.success) {
       if(typeof toast === 'function') toast('已删除', 'success');
+      window._events = events;
+      renderEvents();
+    }
+  } catch(e) {}
+}
+
+
+async function editEvent(idx) {
+  const evt = window._events[idx];
+  const newName = prompt('修改活动名称：', evt.name);
+  if (newName === null) return;
+  const newDate = prompt('修改活动日期 (YYYY-MM-DD)：', evt.date);
+  if (newDate === null) return;
+  const newDesc = prompt('修改简短描述：', evt.desc || '');
+  if (newDesc === null) return;
+  
+  evt.name = newName.trim() || evt.name;
+  evt.date = newDate.trim() || evt.date;
+  evt.desc = newDesc.trim();
+  
+  const events = [...window._events];
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+      method: 'POST',
+      body: JSON.stringify({ adminPin: getAuthPin(), events: events })
+    });
+    if((await res.json()).success) {
+      if(typeof toast === 'function') toast('已更新', 'success');
       window._events = events;
       renderEvents();
     }

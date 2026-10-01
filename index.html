@@ -1406,7 +1406,7 @@ async function loadPublicEvents() {
     let html = '';
     events.forEach((evt, idx) => {
       const coverId = evt.photos && evt.photos.length > 0 ? evt.photos[0] : '';
-      const coverUrl = coverId ? 'https://drive.google.com/uc?export=view&id=' + coverId : '';
+      const coverUrl = coverId ? 'https://drive.google.com/thumbnail?sz=w800&id=' + coverId : '';
       html += `<div style="background:var(--card); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); cursor:pointer; transition:transform 0.2s;" onclick="openEventPhotos(${idx})" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
         <div style="height:180px; background:#ddd url('${coverUrl}') center/cover;"></div>
         <div style="padding:16px;">
@@ -1429,7 +1429,7 @@ function openEventPhotos(idx) {
   const container = document.getElementById('photoModalContent');
   container.innerHTML = `<div style="color:#fff; font-size:20px; font-weight:900; margin-bottom:10px;">${evt.name}</div>`;
   evt.photos.forEach(id => {
-    container.innerHTML += `<img src="https://drive.google.com/uc?export=view&id=${id}" style="width:100%; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.5); margin-bottom:16px;" loading="lazy">`;
+    container.innerHTML += `<img src="https://drive.google.com/thumbnail?sz=w800&id=${id}" style="width:100%; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.5); margin-bottom:16px;" loading="lazy">`;
   });
   document.getElementById('photoModal').style.display = 'flex';
 }
