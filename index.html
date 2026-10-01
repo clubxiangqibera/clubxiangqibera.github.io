@@ -594,10 +594,7 @@
       </div>
       <div id="publicPodiumArea" class="podium"></div>
 
-      <div class="section-head" style="margin-top:36px;">
-        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
-        <div class="section-sub">全县所有在册学员实战 ELO 积分与胜率总览</div>
-      </div>
+      
       <div id="publicRankList" class="rank-list" style="width:100%;"></div>
 
       <!-- VIP INVITATION BANNER -->
@@ -1171,13 +1168,14 @@ function renderPublicLadder(players) {
   }
 
   const list = document.getElementById('publicRankList');
-  if (list && p.length) {
-    list.innerHTML = p.map((pl, i) => {
+  if (list && p.length > 3) {
+    list.innerHTML = p.slice(3).map((pl, i) => {
+      const realIndex = i + 3;
       const wr = pl.total > 0 ? ((pl.w / pl.total) * 100).toFixed(0) : 0;
       return `
         <div class="rank-card">
           <div class="rank-left">
-            <div class="rank-num">${i + 1}</div>
+            <div class="rank-num">${typeof realIndex !== "undefined" ? realIndex + 1 : i + 1}</div>
             <div class="rank-info">
               <div class="rank-name">
                 ${pl.name}
@@ -1230,7 +1228,7 @@ function renderRankList(players) {
     return `
       <div class="rank-card ${isMe ? 'my-card' : ''}">
         <div class="rank-left">
-          <div class="rank-num">${i + 1}</div>
+          <div class="rank-num">${typeof realIndex !== "undefined" ? realIndex + 1 : i + 1}</div>
           <div class="rank-info">
             <div class="rank-name">
               ${p.name} ${isMe ? '<span style="font-size:11px;background:#F1C40F;color:#7D6608;padding:2px 8px;border-radius:6px;font-weight:900;">⭐ 我 (Me)</span>' : ''}
