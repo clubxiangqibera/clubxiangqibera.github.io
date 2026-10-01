@@ -620,7 +620,7 @@
           <button class="btn-sm" onclick="loadSchoolLicenses()">🔄 刷新列表</button>
         </div>
         <div id="licensesTableContainer">
-          <div style="padding:20px; text-align:center; color:var(--text2);">点击右上角「刷新列表」载入 Cloudflare KV 数据</div>
+          <div style="padding:20px; text-align:center; color:var(--text2);">⏳ 正在从 Cloudflare KV 自动加载数据...</div>
         </div>
       </div>
     </div>
@@ -769,6 +769,10 @@ function showApp(){
 function switchTab(t){
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+t));
+  
+  if (t === 'licenses') {
+    loadSchoolLicenses();
+  }
 }
 
 async function loadAllData(){
