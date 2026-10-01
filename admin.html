@@ -2593,13 +2593,20 @@ async function submitGallery() {
       const res = await fetch(GAS_API_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
-        body: new URLSearchParams({ action: 'uploadEventPhoto', eventName: name, imageBase64: base64 })
+        body: JSON.stringify({ action: 'uploadEventPhoto', eventName: name, imageBase64: base64 })
       });
       const data = await res.json();
+      if(data.error && data.error.includes('未知操作')) {
+        alert('上传失败！系统检测到你的 Google Apps Script 还没更新发布。请按照我说的方法，去更新并部署新版 Code.gs！');
+        break; // stop uploading
+      }
       if(data.success && data.fileId) {
         uploadedIds.push(data.fileId);
+      } else {
+        console.error('GAS Error:', data.error);
+        if(typeof toast === 'function') toast('上传第'+(i+1)+'张失败: ' + (data.error||''), 'error');
       }
     } catch(e) {
       console.error('Upload failed for file', i);
