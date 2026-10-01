@@ -649,6 +649,229 @@
 // --- AUTHENTICATION VIA CLOUDFLARE WORKER + KV ---
 const CF_WORKER_URL = 'https://cxb-license.clubxiangqibera.workers.dev';
 
+// --- LANGUAGE SWITCHER FOR LOGIN & SYSTEM ---
+let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
+
+const I18N = {
+  zh: {
+    brandSub: '百乐县象棋公会 · 官方技术认证体系',
+    badgeText: '全国中小学及校际赛事专用系统',
+    mainTitle: '校内象棋比赛管理系统',
+    subDesc: '百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影',
+    pinPlaceholder: '输入比赛授权码 (如 CXB-8888)',
+    submitBtn: '🛡️ 验证授权并进入比赛台',
+    errInvalid: '❌ 授权码无效或已到期，请联系俱乐部获取',
+    errEmpty: '❌ 请输入比赛授权激活码！',
+    errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
+    btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
+    footSec: 'Cloudflare® SSL 安全加密鉴权',
+    footCert: '百乐县象棋公会认证',
+    appSub: '百乐象棋对阵编排系统 · 官方赛事管理',
+    btnProj: '🖥️ 投影仪大屏',
+    btnPrint: '🖨️ 打印成绩单',
+    btnLogout: '退出',
+    setupTitle: '⚙️ 比赛基本设置',
+    setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成百乐象棋对阵编排系统（CXB Pairing System）配对与胜负记分。',
+    labelTourneyName: '比赛名称 / 所在学校',
+    placeholderTourneyName: '请输入赛事名称 (例如: XX华小校内选拔赛)',
+    labelTotalRounds: '比赛总轮数 (10~20人建议 4 或 5 轮)',
+    labelPlayers: '📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)',
+    btnStartTourney: '⚡ 一键生成第 1 轮对阵',
+    roundSideHint: '左侧执红（先手）· 右侧执黑（后手）· 点选胜负',
+    btnLiveProj: '📺 投屏到白板',
+    thBoard: '台次',
+    thRed: '🔴 红方 (执先手)',
+    thBlack: '⚫ 黑方 (执后手)',
+    thResult: '比赛结果',
+    thScoreInput: '裁判录入',
+    standingsTitle: '📊 实时总积分排行榜 (Standings & Buchholz)',
+    standingsSub: '按个人总分排序 · 积分相同时自动依布赫兹对手分 (Buchholz) 破同分',
+    btnPrintStandings: '🖨️ 打印成绩榜',
+    btnReset: '重新创建新比赛',
+    rankMedals: ['🥇 冠军', '🥈 亚军', '🥉 季军'],
+    rankTh: ['名次', '棋手姓名', '总分', '对手分 (Buchholz)', '初排位'],
+    printBrandTitle: 'CLUB XIANGQI BERA · 百乐县象棋公会',
+    printBrandSub: '全国校际象棋赛事技术委员会 · 官方认证系统',
+    printSubtitlePrefix: '官方正规成绩记录报告单 · 百乐象棋对阵编排系统',
+    printAuthText: '官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)',
+    projHeadingPrefix: '第 {r} 轮 现场大屏对阵表',
+    projFootHint: '* 请选手按台次迅速就座 · 执红棋者先走 · 祝各位棋手发挥出色！'
+  },
+  en: {
+    brandSub: 'Bera Xiangqi Association · Official Tech Partner',
+    badgeText: 'Official Tournament Portal for Schools',
+    mainTitle: 'School Tournament System',
+    subDesc: 'Club XiangQi Bera Pairing System · Auto Buchholz · Live Projector',
+    pinPlaceholder: 'Enter License Key (e.g. CXB-8888)',
+    submitBtn: '🛡️ Verify License & Enter Arena',
+    errInvalid: '❌ License Key is invalid or expired. Please contact CXB.',
+    errEmpty: '❌ Please enter your tournament license key!',
+    errNet: '⚠️ Unable to connect to security gateway. Check network!',
+    btnVerifying: '⏳ Authenticating via Cloudflare SSL...',
+    footSec: 'Cloudflare® SSL Secured',
+    footCert: 'Association Verified',
+    appSub: 'Club XiangQi Bera Pairing System · Tech Engine',
+    btnProj: '🖥️ Projector Screen',
+    btnPrint: '🖨️ Print Report',
+    btnLogout: 'Logout',
+    setupTitle: '⚙️ Tournament Setup',
+    setupDesc: 'Paste player names below. System pairs automatically via Club XiangQi Bera Pairing System.',
+    labelTourneyName: 'Tournament / School Name',
+    placeholderTourneyName: 'e.g. SJKC Tournament 2026',
+    labelTotalRounds: 'Total Rounds (4 or 5 rounds recommended for 10-20 players)',
+    labelPlayers: '📋 Player Names List (One name per line, paste from WhatsApp/Excel)',
+    btnStartTourney: '⚡ Generate Round 1 Pairings',
+    roundSideHint: 'Left is RED (First Move) · Right is BLACK · Select results below',
+    btnLiveProj: '📺 Display on Board',
+    thBoard: 'Board',
+    thRed: '🔴 Red (First Move)',
+    thBlack: '⚫ Black (Second Move)',
+    thResult: 'Result',
+    thScoreInput: 'Score Input',
+    standingsTitle: '📊 Live Standings & Buchholz Scoreboard',
+    standingsSub: 'Ranked by Total Points · Tied players broken by Buchholz opponent scores',
+    btnPrintStandings: '🖨️ Print Standings',
+    btnReset: 'Create New Tournament',
+    rankMedals: ['🥇 Champion', '🥈 1st Runner-up', '🥉 2nd Runner-up'],
+    rankTh: ['Rank', 'Player Name', 'Total', 'Buchholz', 'Seed'],
+    printBrandTitle: 'BERA CHINESE CHESS ASSOCIATION · CXB',
+    printBrandSub: 'National Interschool Xiangqi Technical Committee · Official Engine',
+    printSubtitlePrefix: 'Official Tournament Results Report · CXB Pairing System',
+    printAuthText: 'Technical Certification: Club XiangQi Bera (Bera Xiangqi Association)',
+    projHeadingPrefix: 'Round {r} Live Pairings Board',
+    projFootHint: '* Players please take seats by board number · Red moves first · Good luck!'
+  }
+};
+
+function setLoginLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cxb_school_lang', lang);
+  
+  // Login screen switch pills
+  const bZh = document.getElementById('btnLangZh');
+  const bEn = document.getElementById('btnLangEn');
+  if (bZh && bEn) {
+    bZh.classList.toggle('active', lang === 'zh');
+    bEn.classList.toggle('active', lang === 'en');
+  }
+
+  // System topbar switch pills
+  const bSysZh = document.getElementById('btnSysLangZh');
+  const bSysEn = document.getElementById('btnSysLangEn');
+  if (bSysZh && bSysEn) {
+    bSysZh.classList.toggle('active', lang === 'zh');
+    bSysEn.classList.toggle('active', lang === 'en');
+    bSysZh.style.background = lang === 'zh' ? '#1A5276' : 'transparent';
+    bSysEn.style.background = lang === 'en' ? '#1A5276' : 'transparent';
+  }
+
+  const t = I18N[lang];
+  if (!t) return;
+
+  const brandSub = document.getElementById('tBrandSub');
+  if (brandSub) brandSub.textContent = t.brandSub;
+
+  const badgeText = document.getElementById('tBadgeText');
+  if (badgeText) badgeText.textContent = t.badgeText;
+
+  const mainTitle = document.getElementById('tMainTitle');
+  if (mainTitle) mainTitle.textContent = t.mainTitle;
+
+  const subDesc = document.getElementById('tSubDesc');
+  if (subDesc) subDesc.textContent = t.subDesc;
+
+  const pinInput = document.getElementById('schoolPinInput');
+  if (pinInput) pinInput.placeholder = t.pinPlaceholder;
+
+  const submitBtn = document.getElementById('tSubmitBtn');
+  if (submitBtn) submitBtn.innerHTML = t.submitBtn;
+
+  const footSec = document.getElementById('tFootSec');
+  if (footSec) {
+    footSec.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> ${t.footSec}`;
+  }
+
+  const footCert = document.getElementById('tFootCert');
+  if (footCert) {
+    footCert.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${t.footCert}`;
+  }
+
+  // System topbar buttons
+  const btnProj = document.getElementById('btnSysProjector');
+  if (btnProj) btnProj.innerHTML = t.btnProj;
+
+  const btnPrint = document.getElementById('btnSysPrint');
+  if (btnPrint) btnPrint.innerHTML = t.btnPrint;
+
+  const btnLogout = document.getElementById('btnSysLogout');
+  if (btnLogout) btnLogout.textContent = t.btnLogout;
+
+  const appSub = document.getElementById('appSchoolSub');
+  if (appSub) appSub.textContent = t.appSub;
+
+  // Setup Card translations
+  const setupTitle = document.getElementById('tSetupTitle');
+  if (setupTitle) setupTitle.textContent = t.setupTitle;
+
+  const setupDesc = document.getElementById('tSetupDesc');
+  if (setupDesc) setupDesc.textContent = t.setupDesc;
+
+  const lTourneyName = document.getElementById('tLabelTourneyName');
+  if (lTourneyName) lTourneyName.textContent = t.labelTourneyName;
+
+  const inpTourneyName = document.getElementById('schTourneyName');
+  if (inpTourneyName) inpTourneyName.placeholder = t.placeholderTourneyName;
+
+  const lTotalRounds = document.getElementById('tLabelTotalRounds');
+  if (lTotalRounds) lTotalRounds.textContent = t.labelTotalRounds;
+
+  const lPlayers = document.getElementById('tLabelPlayers');
+  if (lPlayers) lPlayers.textContent = t.labelPlayers;
+
+  const btnStart = document.getElementById('tBtnStartTourney');
+  if (btnStart) btnStart.textContent = t.btnStartTourney;
+
+  // Active tourney translations
+  const sideHint = document.getElementById('tRoundSideHint');
+  if (sideHint) sideHint.textContent = t.roundSideHint;
+
+  const liveProj = document.getElementById('tBtnLiveProjector');
+  if (liveProj) liveProj.textContent = t.btnLiveProj;
+
+  const thB = document.getElementById('thBoard'); if (thB) thB.textContent = t.thBoard;
+  const thR = document.getElementById('thRed'); if (thR) thR.textContent = t.thRed;
+  const thBl = document.getElementById('thBlack'); if (thBl) thBl.textContent = t.thBlack;
+  const thRes = document.getElementById('thResult'); if (thRes) thRes.textContent = t.thResult;
+  const thInp = document.getElementById('thScoreInput'); if (thInp) thInp.textContent = t.thScoreInput;
+
+  const sTitle = document.getElementById('tStandingsTitle'); if (sTitle) sTitle.textContent = t.standingsTitle;
+  const sSub = document.getElementById('tStandingsSub'); if (sSub) sSub.textContent = t.standingsSub;
+  const sPrint = document.getElementById('tBtnPrintStandings'); if (sPrint) sPrint.textContent = t.btnPrintStandings;
+
+  // Print Header translations
+  const pBrandTitle = document.getElementById('printBrandTitle');
+  if (pBrandTitle) pBrandTitle.textContent = t.printBrandTitle;
+
+  const pBrandSub = document.getElementById('printBrandSub');
+  if (pBrandSub) pBrandSub.textContent = t.printBrandSub;
+
+  const pSubtitle = document.getElementById('printRoundSubtitle');
+  if (pSubtitle) {
+    const rNum = (viewRoundIdx !== undefined ? viewRoundIdx + 1 : 1);
+    pSubtitle.textContent = lang === 'zh'
+      ? `第 ${rNum} 轮 ` + t.printSubtitlePrefix
+      : `Round ${rNum} · ` + t.printSubtitlePrefix;
+  }
+
+  // If tournament active, re-render texts in current language
+  if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
+    renderActiveTourney();
+  }
+}
+
+
+
+
 async function verifySchoolLogin() {
   const pinInput = document.getElementById('schoolPinInput');
   const pin = pinInput ? pinInput.value.trim().toUpperCase() : '';
@@ -730,12 +953,12 @@ function checkSchoolSession() {
 }
 
 function showSchoolApp() {
-  try {
-    const loginScreen = document.getElementById('schoolLoginScreen');
-    const appScreen = document.getElementById('schoolApp');
-    if (loginScreen) loginScreen.style.display = 'none';
-    if (appScreen) appScreen.style.display = 'block';
+  const loginScreen = document.getElementById('schoolLoginScreen');
+  const appScreen = document.getElementById('schoolApp');
+  if (loginScreen) loginScreen.style.display = 'none';
+  if (appScreen) appScreen.style.display = 'block';
 
+  try {
     // Read school name from authenticated session
     const s = localStorage.getItem('cxb_school_session');
     if (s) {
@@ -753,10 +976,6 @@ function showSchoolApp() {
     loadStoredSchoolTourney();
   } catch (err) {
     console.error('Error entering school app:', err);
-    const loginScreen = document.getElementById('schoolLoginScreen');
-    const appScreen = document.getElementById('schoolApp');
-    if (loginScreen) loginScreen.style.display = 'none';
-    if (appScreen) appScreen.style.display = 'block';
     const setupCard = document.getElementById('setupCard');
     if (setupCard) setupCard.style.display = 'block';
   }
@@ -1149,7 +1368,6 @@ function renderActiveTourney() {
   }
 
   // Render Standings
-  const t = I18N[currentLang] || I18N.zh;
   const standings = calcSchoolStandings();
   const sHead = document.getElementById('schStandingsHead');
   let headHTML = `<th>${t.rankTh[0]}</th><th style="text-align:left;padding-left:14px;">${t.rankTh[1]}</th>`;
@@ -1235,226 +1453,6 @@ function closeProjector() {
   document.getElementById('projectorModal').classList.remove('show');
 }
 
-// --- LANGUAGE SWITCHER FOR LOGIN & SYSTEM ---
-let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
-
-const I18N = {
-  zh: {
-    brandSub: '百乐县象棋公会 · 官方技术认证体系',
-    badgeText: '全国中小学及校际赛事专用系统',
-    mainTitle: '校内象棋比赛管理系统',
-    subDesc: '百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影',
-    pinPlaceholder: '输入比赛授权码 (如 CXB-8888)',
-    submitBtn: '🛡️ 验证授权并进入比赛台',
-    errInvalid: '❌ 授权码无效或已到期，请联系俱乐部获取',
-    errEmpty: '❌ 请输入比赛授权激活码！',
-    errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
-    btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
-    footSec: 'Cloudflare® SSL 安全加密鉴权',
-    footCert: '百乐县象棋公会认证',
-    appSub: '百乐象棋对阵编排系统 · 官方赛事管理',
-    btnProj: '🖥️ 投影仪大屏',
-    btnPrint: '🖨️ 打印成绩单',
-    btnLogout: '退出',
-    setupTitle: '⚙️ 比赛基本设置',
-    setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成百乐象棋对阵编排系统（CXB Pairing System）配对与胜负记分。',
-    labelTourneyName: '比赛名称 / 所在学校',
-    placeholderTourneyName: '请输入赛事名称 (例如: XX华小校内选拔赛)',
-    labelTotalRounds: '比赛总轮数 (10~20人建议 4 或 5 轮)',
-    labelPlayers: '📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)',
-    btnStartTourney: '⚡ 一键生成第 1 轮对阵',
-    roundSideHint: '左侧执红（先手）· 右侧执黑（后手）· 点选胜负',
-    btnLiveProj: '📺 投屏到白板',
-    thBoard: '台次',
-    thRed: '🔴 红方 (执先手)',
-    thBlack: '⚫ 黑方 (执后手)',
-    thResult: '比赛结果',
-    thScoreInput: '裁判录入',
-    standingsTitle: '📊 实时总积分排行榜 (Standings & Buchholz)',
-    standingsSub: '按个人总分排序 · 积分相同时自动依布赫兹对手分 (Buchholz) 破同分',
-    btnPrintStandings: '🖨️ 打印成绩榜',
-    btnReset: '重新创建新比赛',
-    rankMedals: ['🥇 冠军', '🥈 亚军', '🥉 季军'],
-    rankTh: ['名次', '棋手姓名', '总分', '对手分 (Buchholz)', '初排位'],
-    printBrandTitle: 'CLUB XIANGQI BERA · 百乐县象棋公会',
-    printBrandSub: '全国校际象棋赛事技术委员会 · 官方认证系统',
-    printSubtitlePrefix: '官方正规成绩记录报告单 · 百乐象棋对阵编排系统',
-    printAuthText: '官方技术认证: 百乐县象棋公会 (Club XiangQi Bera)',
-    projHeadingPrefix: '第 {r} 轮 现场大屏对阵表',
-    projFootHint: '* 请选手按台次迅速就座 · 执红棋者先走 · 祝各位棋手发挥出色！'
-  },
-  en: {
-    brandSub: 'Bera Xiangqi Association · Official Tech Partner',
-    badgeText: 'Official Tournament Portal for Schools',
-    mainTitle: 'School Tournament System',
-    subDesc: 'Club XiangQi Bera Pairing System · Auto Buchholz · Live Projector',
-    pinPlaceholder: 'Enter License Key (e.g. CXB-8888)',
-    submitBtn: '🛡️ Verify License & Enter Arena',
-    errInvalid: '❌ License Key is invalid or expired. Please contact CXB.',
-    errEmpty: '❌ Please enter your tournament license key!',
-    errNet: '⚠️ Unable to connect to security gateway. Check network!',
-    btnVerifying: '⏳ Authenticating via Cloudflare SSL...',
-    footSec: 'Cloudflare® SSL Secured',
-    footCert: 'Association Verified',
-    appSub: 'Club XiangQi Bera Pairing System · Tech Engine',
-    btnProj: '🖥️ Projector Screen',
-    btnPrint: '🖨️ Print Report',
-    btnLogout: 'Logout',
-    setupTitle: '⚙️ Tournament Setup',
-    setupDesc: 'Paste player names below. System pairs automatically via Club XiangQi Bera Pairing System.',
-    labelTourneyName: 'Tournament / School Name',
-    placeholderTourneyName: 'e.g. SJKC Tournament 2026',
-    labelTotalRounds: 'Total Rounds (4 or 5 rounds recommended for 10-20 players)',
-    labelPlayers: '📋 Player Names List (One name per line, paste from WhatsApp/Excel)',
-    btnStartTourney: '⚡ Generate Round 1 Pairings',
-    roundSideHint: 'Left is RED (First Move) · Right is BLACK · Select results below',
-    btnLiveProj: '📺 Display on Board',
-    thBoard: 'Board',
-    thRed: '🔴 Red (First Move)',
-    thBlack: '⚫ Black (Second Move)',
-    thResult: 'Result',
-    thScoreInput: 'Score Input',
-    standingsTitle: '📊 Live Standings & Buchholz Scoreboard',
-    standingsSub: 'Ranked by Total Points · Tied players broken by Buchholz opponent scores',
-    btnPrintStandings: '🖨️ Print Standings',
-    btnReset: 'Create New Tournament',
-    rankMedals: ['🥇 Champion', '🥈 1st Runner-up', '🥉 2nd Runner-up'],
-    rankTh: ['Rank', 'Player Name', 'Total', 'Buchholz', 'Seed'],
-    printBrandTitle: 'BERA CHINESE CHESS ASSOCIATION · CXB',
-    printBrandSub: 'National Interschool Xiangqi Technical Committee · Official Engine',
-    printSubtitlePrefix: 'Official Tournament Results Report · CXB Pairing System',
-    printAuthText: 'Technical Certification: Club XiangQi Bera (Bera Xiangqi Association)',
-    projHeadingPrefix: 'Round {r} Live Pairings Board',
-    projFootHint: '* Players please take seats by board number · Red moves first · Good luck!'
-  }
-};
-
-function setLoginLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('cxb_school_lang', lang);
-  
-  // Login screen switch pills
-  const bZh = document.getElementById('btnLangZh');
-  const bEn = document.getElementById('btnLangEn');
-  if (bZh && bEn) {
-    bZh.classList.toggle('active', lang === 'zh');
-    bEn.classList.toggle('active', lang === 'en');
-  }
-
-  // System topbar switch pills
-  const bSysZh = document.getElementById('btnSysLangZh');
-  const bSysEn = document.getElementById('btnSysLangEn');
-  if (bSysZh && bSysEn) {
-    bSysZh.classList.toggle('active', lang === 'zh');
-    bSysEn.classList.toggle('active', lang === 'en');
-    bSysZh.style.background = lang === 'zh' ? '#1A5276' : 'transparent';
-    bSysEn.style.background = lang === 'en' ? '#1A5276' : 'transparent';
-  }
-
-  const t = I18N[lang];
-  if (!t) return;
-
-  const brandSub = document.getElementById('tBrandSub');
-  if (brandSub) brandSub.textContent = t.brandSub;
-
-  const badgeText = document.getElementById('tBadgeText');
-  if (badgeText) badgeText.textContent = t.badgeText;
-
-  const mainTitle = document.getElementById('tMainTitle');
-  if (mainTitle) mainTitle.textContent = t.mainTitle;
-
-  const subDesc = document.getElementById('tSubDesc');
-  if (subDesc) subDesc.textContent = t.subDesc;
-
-  const pinInput = document.getElementById('schoolPinInput');
-  if (pinInput) pinInput.placeholder = t.pinPlaceholder;
-
-  const submitBtn = document.getElementById('tSubmitBtn');
-  if (submitBtn) submitBtn.innerHTML = t.submitBtn;
-
-  const footSec = document.getElementById('tFootSec');
-  if (footSec) {
-    footSec.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> ${t.footSec}`;
-  }
-
-  const footCert = document.getElementById('tFootCert');
-  if (footCert) {
-    footCert.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${t.footCert}`;
-  }
-
-  // System topbar buttons
-  const btnProj = document.getElementById('btnSysProjector');
-  if (btnProj) btnProj.innerHTML = t.btnProj;
-
-  const btnPrint = document.getElementById('btnSysPrint');
-  if (btnPrint) btnPrint.innerHTML = t.btnPrint;
-
-  const btnLogout = document.getElementById('btnSysLogout');
-  if (btnLogout) btnLogout.textContent = t.btnLogout;
-
-  const appSub = document.getElementById('appSchoolSub');
-  if (appSub) appSub.textContent = t.appSub;
-
-  // Setup Card translations
-  const setupTitle = document.getElementById('tSetupTitle');
-  if (setupTitle) setupTitle.textContent = t.setupTitle;
-
-  const setupDesc = document.getElementById('tSetupDesc');
-  if (setupDesc) setupDesc.textContent = t.setupDesc;
-
-  const lTourneyName = document.getElementById('tLabelTourneyName');
-  if (lTourneyName) lTourneyName.textContent = t.labelTourneyName;
-
-  const inpTourneyName = document.getElementById('schTourneyName');
-  if (inpTourneyName) inpTourneyName.placeholder = t.placeholderTourneyName;
-
-  const lTotalRounds = document.getElementById('tLabelTotalRounds');
-  if (lTotalRounds) lTotalRounds.textContent = t.labelTotalRounds;
-
-  const lPlayers = document.getElementById('tLabelPlayers');
-  if (lPlayers) lPlayers.textContent = t.labelPlayers;
-
-  const btnStart = document.getElementById('tBtnStartTourney');
-  if (btnStart) btnStart.textContent = t.btnStartTourney;
-
-  // Active tourney translations
-  const sideHint = document.getElementById('tRoundSideHint');
-  if (sideHint) sideHint.textContent = t.roundSideHint;
-
-  const liveProj = document.getElementById('tBtnLiveProjector');
-  if (liveProj) liveProj.textContent = t.btnLiveProj;
-
-  const thB = document.getElementById('thBoard'); if (thB) thB.textContent = t.thBoard;
-  const thR = document.getElementById('thRed'); if (thR) thR.textContent = t.thRed;
-  const thBl = document.getElementById('thBlack'); if (thBl) thBl.textContent = t.thBlack;
-  const thRes = document.getElementById('thResult'); if (thRes) thRes.textContent = t.thResult;
-  const thInp = document.getElementById('thScoreInput'); if (thInp) thInp.textContent = t.thScoreInput;
-
-  const sTitle = document.getElementById('tStandingsTitle'); if (sTitle) sTitle.textContent = t.standingsTitle;
-  const sSub = document.getElementById('tStandingsSub'); if (sSub) sSub.textContent = t.standingsSub;
-  const sPrint = document.getElementById('tBtnPrintStandings'); if (sPrint) sPrint.textContent = t.btnPrintStandings;
-
-  // Print Header translations
-  const pBrandTitle = document.getElementById('printBrandTitle');
-  if (pBrandTitle) pBrandTitle.textContent = t.printBrandTitle;
-
-  const pBrandSub = document.getElementById('printBrandSub');
-  if (pBrandSub) pBrandSub.textContent = t.printBrandSub;
-
-  const pSubtitle = document.getElementById('printRoundSubtitle');
-  if (pSubtitle) {
-    const rNum = (viewRoundIdx !== undefined ? viewRoundIdx + 1 : 1);
-    pSubtitle.textContent = lang === 'zh'
-      ? `第 ${rNum} 轮 ` + t.printSubtitlePrefix
-      : `Round ${rNum} · ` + t.printSubtitlePrefix;
-  }
-
-  // If tournament active, re-render texts in current language
-  if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
-    renderActiveTourney();
-  }
-}
-
 // Apply saved language on load
 setLoginLang(currentLang);
 
@@ -1488,7 +1486,7 @@ try {
   const urlParams = new URLSearchParams(window.location.search);
   const qPin = urlParams.get('pin') || urlParams.get('key');
   if (qPin && pinInputEl) {
-    pinInputEl.value = qPin.trim().toUpperCase();
+    pinInputEl.value = qPin.trim().toUpperCase(); pinInputEl.setAttribute('value', pinInputEl.value);
     setTimeout(() => {
       verifySchoolLogin();
     }, 300);
