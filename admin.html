@@ -20,14 +20,29 @@
     .login-card{background:#FFF;border-radius:24px;padding:40px 32px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
     .login-card h1{font-size:20px;font-weight:900;color:var(--pri);margin-bottom:6px;}
     .login-card .sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
-    .pin-wrap{display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
-    .pin-box{width:52px;height:60px;border:2px solid var(--border);border-radius:12px;text-align:center;font-size:24px;font-weight:900;outline:none;color:var(--pri);transition:border-color .2s;}
-    .pin-box:focus{border-color:var(--pri3);}
-    .pin-box.error{border-color:var(--red);animation:shake .4s;}
+    .login-input-wrap { width: 100%; margin-bottom: 20px; }
+    .pin-input {
+      width: 100%; padding: 15px 16px; border: 2px solid var(--border); border-radius: 12px;
+      font-size: 16px; font-weight: 800; text-align: center; outline: none; color: var(--pri);
+      background: #F9FBFC; transition: border-color .2s, background .2s;
+    }
+    .pin-input:focus { border-color: var(--pri3); background: #FFF; }
+    .pin-input.error { border-color: var(--red); animation: shake .4s; }
+    
+    .lang-switch-wrap { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+    .lang-switch {
+      display: inline-flex; background: #F0F4F8; padding: 3px; border-radius: 20px; border: 1px solid var(--border);
+    }
+    .lang-btn {
+      padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 800; color: #6B7B8D;
+      background: transparent; border: none; cursor: pointer; transition: all 0.2s;
+    }
+    .lang-btn.active { background: var(--pri); color: #FFF; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
     .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(14,47,68,0.3);transition:transform .15s;}
     .login-btn:hover{transform:scale(1.02);}
-    .login-error{color:var(--red);font-size:12px;font-weight:700;margin-top:10px;display:none;}
+    .login-error{color:var(--red);font-size:12px;font-weight:700;margin-top:14px;display:none;background:#FDEDEC;padding:10px;border-radius:10px;border:1px solid rgba(192,57,43,0.2);}
 
     /* === MAIN LAYOUT === */
     #mainApp{display:none;}
@@ -231,20 +246,44 @@
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-card">
+    
+    <div class="lang-switch-wrap">
+      <div class="lang-switch">
+        <button type="button" class="lang-btn active" id="aLangZh" onclick="setAdminLang('zh')">中文</button>
+        <button type="button" class="lang-btn" id="aLangEn" onclick="setAdminLang('en')">English</button>
+      </div>
+    </div>
+
     <div style="font-size:40px;margin-bottom:12px;">♟️</div>
-    <h1>Club XiangQi Bera</h1>
-    <p class="sub">管理控制台 · Admin Dashboard</p>
-    <div class="pin-wrap">
-      <input class="pin-box" type="password" maxlength="1" inputmode="numeric" autofocus>
-      <input class="pin-box" type="password" maxlength="1" inputmode="numeric">
-      <input class="pin-box" type="password" maxlength="1" inputmode="numeric">
-      <input class="pin-box" type="password" maxlength="1" inputmode="numeric">
-    </div>
-    <button class="login-btn" onclick="tryLogin()">🔐 进入管理控制台</button>
-    <div class="login-error" id="loginError">❌ 密码错误，请重新输入</div>
+    <h1 id="aTitle">Club XiangQi Bera</h1>
+    <p class="sub" id="aSub">管理控制台 · Admin Dashboard</p>
+    
+    <form onsubmit="event.preventDefault(); tryLogin(); return false;">
+      <div class="login-input-wrap">
+        <input type="password" id="adminPinInput" class="pin-input" placeholder="输入管理密码 (Enter Password)" maxlength="16" autofocus autocomplete="current-password">
+      </div>
+      
+      <button type="submit" class="login-btn" id="aBtn">🔐 进入管理控制台</button>
+    </form>
+    
+    <div class="login-error" id="loginError">❌ 密码错误，请重新输入 (Invalid Password)</div>
+    
     <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" style="font-size:13px; font-weight:800; color:var(--pri3); text-decoration:none;">← 返回主页 (Return to Menu)</a>
+      <a href="index.html" id="aReturn" style="font-size:13px; font-weight:800; color:var(--pri3); text-decoration:none;">← 返回主页 (Return to Menu)</a>
     </div>
+
+    <!-- Security & Trust Footer -->
+    <div style="margin-top:26px; padding-top:16px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#6B7B8D;">
+      <span style="display:flex; align-items:center; gap:4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Cloudflare® SSL
+      </span>
+      <span style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        百乐县象棋公会认证
+      </span>
+    </div>
+
   </div>
 </div>
 
@@ -636,20 +675,46 @@ function checkAuth(){
   return false;
 }
 function tryLogin(){
-  const boxes=document.querySelectorAll('.pin-box');
-  const p=Array.from(boxes).map(b=>b.value).join('');
+  const input = document.getElementById('adminPinInput');
+  const p = input.value.trim();
   if(p===SUPER_PIN || p===getCoachPin()){
     localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
     localStorage.setItem('cxb_auth_user',JSON.stringify({role: p===SUPER_PIN ? 'superadmin' : 'admin'}));
     showApp();
   }
-  else{boxes.forEach(b=>{b.classList.add('error');b.value='';});document.getElementById('loginError').style.display='block';boxes[0].focus();setTimeout(()=>boxes.forEach(b=>b.classList.remove('error')),500);}
+  else{
+    input.classList.add('error');
+    input.value='';
+    document.getElementById('loginError').style.display='block';
+    input.focus();
+    setTimeout(()=>input.classList.remove('error'),500);
+  }
 }
+
+function setAdminLang(lang) {
+  document.getElementById('aLangZh').classList.toggle('active', lang === 'zh');
+  document.getElementById('aLangEn').classList.toggle('active', lang === 'en');
+  if (lang === 'zh') {
+    document.getElementById('aSub').textContent = '管理控制台 · Admin Dashboard';
+    document.getElementById('adminPinInput').placeholder = '输入管理密码 (Enter Password)';
+    document.getElementById('aBtn').textContent = '🔐 进入管理控制台';
+    document.getElementById('loginError').textContent = '❌ 密码错误，请重新输入';
+    document.getElementById('aReturn').textContent = '← 返回主页 (Return to Menu)';
+  } else {
+    document.getElementById('aSub').textContent = 'Admin Dashboard';
+    document.getElementById('adminPinInput').placeholder = 'Enter Admin Password';
+    document.getElementById('aBtn').textContent = '🔐 Login to Dashboard';
+    document.getElementById('loginError').textContent = '❌ Invalid Password';
+    document.getElementById('aReturn').textContent = '← Return to Menu';
+  }
+}
+
 function logout(){
   localStorage.removeItem('cxb_auth');
   localStorage.removeItem('cxb_auth_user');
   window.location.href = 'index.html';
 }
+
 function showApp(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('mainApp').style.display='block';
@@ -667,11 +732,6 @@ function showApp(){
 
   loadAllData();
 }
-
-document.querySelectorAll('.pin-box').forEach((box,i,boxes)=>{
-  box.addEventListener('input',()=>{if(box.value&&i<boxes.length-1)boxes[i+1].focus();if(i===boxes.length-1&&box.value)tryLogin();});
-  box.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!box.value&&i>0)boxes[i-1].focus();});
-});
 
 function switchTab(t){
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
