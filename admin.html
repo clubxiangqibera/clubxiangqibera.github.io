@@ -1070,6 +1070,61 @@ function renderDashboard(){
   ).join('');
 }
 
+
+async function uploadReceiptFile(studentId, inputEl) {
+  if (!inputEl.files || inputEl.files.length === 0) return;
+  const file = inputEl.files[0];
+  const ogText = inputEl.previousElementSibling.innerHTML;
+  inputEl.previousElementSibling.innerHTML = '上传中...';
+  inputEl.previousElementSibling.disabled = true;
+  
+  try {
+    const base64 = await compressImage(file);
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'uploadReceipt', studentId: studentId, receiptImage: base64 })
+    });
+    const data = await res.json();
+    if(data.success) {
+      toast('凭证上传成功', 'success');
+      loadAllData(); // Reload to show updated status
+    } else {
+      toast('上传失败: ' + (data.error||''), 'error');
+    }
+  } catch (e) {
+    toast('网络错误', 'error');
+  }
+  inputEl.previousElementSibling.innerHTML = ogText;
+  inputEl.previousElementSibling.disabled = false;
+  inputEl.value = '';
+}
+
+async function uploadMatchPhotoFile(date, round, redName, blackName, inputEl) {
+  if (!inputEl.files || inputEl.files.length === 0) return;
+  const file = inputEl.files[0];
+  const ogText = inputEl.previousElementSibling.innerHTML;
+  inputEl.previousElementSibling.innerHTML = '上传中...';
+  
+  try {
+    const base64 = await compressImage(file);
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'updateMatchPhoto', date: date, round: round, redName: redName, blackName: blackName, imageBase64: base64 })
+    });
+    const data = await res.json();
+    if(data.success) {
+      toast('记谱纸上传成功', 'success');
+      loadMatches(); // Reload matches
+    } else {
+      toast('上传失败: ' + (data.error||''), 'error');
+    }
+  } catch (e) {
+    toast('网络错误', 'error');
+  }
+  inputEl.previousElementSibling.innerHTML = ogText;
+  inputEl.value = '';
+}
+
 function renderStudentTables(){
   document.getElementById('studentTable').innerHTML=allStudents.map(s=>
     `<tr>
@@ -1089,7 +1144,13 @@ function renderStudentTables(){
 
   document.getElementById('paymentTable').innerHTML=allStudents.map(s=>
     `<tr><td><strong>${s.id}</strong></td><td>${s.cnName}</td><td>${s.level}</td><td>${s.feeMode}</td><td>${s.comboExpiry||'-'}</td><td>${payBadge(s.payStatus)}</td>
-      <td><button class="btn-sm green" onclick="markPaid('${s.id}')">核准已缴</button></td></tr>`
+      <td>
+        <div style="display:flex; gap:4px; justify-content:center;">
+          <button class="btn-sm green" onclick="markPaid('${s.id}')">核准已缴</button>
+          <button class="btn-sm" style="background:var(--pri3); color:#fff; border:none;" onclick="document.getElementById('receiptUpload_${s.id}').click()">上传凭证</button>
+          <input type="file" id="receiptUpload_${s.id}" style="display:none;" accept="image/*" onchange="uploadReceiptFile('${s.id}', this)">
+        </div>
+      </td></tr>`
   ).join('');
 }
 
@@ -1112,7 +1173,8 @@ function renderGallery(){
   g.innerHTML=allMatches.slice().reverse().map((m, idx)=>{
     const hasImg=m.recordImg&&(m.recordImg.startsWith('http')||m.recordImg.startsWith('data:image'));
     const img=hasImg?`<img src="${m.recordImg}" onclick="openLightbox('${m.recordImg}')" style="width:100%;height:150px;object-fit:cover;cursor:pointer;border-top:1px solid var(--border);">`
-      :`<div style="padding:16px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);">暂无实体记谱纸照片</div>`;
+      :`<div onclick="document.getElementById('matchPhotoUpload_${idx}').click()" style="padding:16px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">上传实体记谱纸照片</div>
+      <input type="file" id="matchPhotoUpload_${idx}" style="display:none;" accept="image/*" onchange="uploadMatchPhotoFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
     return `
       <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;">
         <div style="padding:12px 14px;">
