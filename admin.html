@@ -627,7 +627,10 @@
       <div class="form-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
           <div style="font-size:18px; font-weight:900;">📸 历届活动相册管理</div>
-          <button class="btn" style="background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="document.getElementById('createGalleryModal').style.display='flex'">+ 创建新图集</button>
+          <div style="display:flex; gap:10px;">
+  <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="loadEvents(); if(typeof toast === 'function') toast('已刷新相册列表', 'info');">🔄 刷新列表</button>
+  <button class="btn" style="background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="document.getElementById('createGalleryModal').style.display='flex'">+ 创建新图集</button>
+</div>
         </div>
         <div id="galleryListArea" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));"></div>
       </div>
@@ -2549,7 +2552,7 @@ function renderEvents() {
   const container = document.getElementById('galleryListArea');
   if(!container) return;
   if(!window._events || window._events.length === 0) {
-    container.innerHTML = '<div style="color:var(--text2);">暂无活动相册，点击上方新建。</div>';
+    container.innerHTML = '<div style="color:var(--text2); padding:40px; text-align:center; width:100%; grid-column: 1 / -1;">暂无活动相册，点击上方新建。</div>';
     return;
   }
   let html = '';
