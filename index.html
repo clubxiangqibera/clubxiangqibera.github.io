@@ -517,11 +517,11 @@
     </div>
     <button class="p-nav-hamburger" onclick="document.getElementById('navBtns').classList.toggle('show')">☰</button>
     <div class="p-nav-btns" id="navBtns">
-      <button class="p-nav-btn active" id="tabBtnLadder" onclick="togglePublicTab('ladder')">🏠 首页</button>
-      <button class="p-nav-btn" onclick="document.getElementById('podiumHeader').scrollIntoView({behavior:'smooth'})">🏆 天梯榜</button>
-      <button class="p-nav-btn" id="tabBtnLogin" onclick="togglePublicTab('login')">🔐 登录</button>
-      <a href="school.html" class="p-nav-btn accent">🏫 校际赛</a>
-      <a href="admin.html" class="p-nav-btn gold">👑 教练</a>
+      <button class="p-nav-btn active" id="tabBtnHome" onclick="togglePublicTab('home')">🏠 首页</button>
+      <button class="p-nav-btn" id="tabBtnLadder" onclick="togglePublicTab('ladder')">🏆 天梯榜</button>
+      <button class="p-nav-btn" id="tabBtnLogin" onclick="togglePublicTab('login')">🔐 学员/家长登录</button>
+      <a href="school.html" class="p-nav-btn accent">🏫 学校比赛入口</a>
+      <a href="admin.html" class="p-nav-btn gold">👑 教练入口</a>
     </div>
   </header>
 
@@ -1090,18 +1090,34 @@ function uploadSlip() {
 function togglePublicTab(tab) {
   const ladderSec = document.getElementById('publicLadderSection');
   const loginSec = document.getElementById('publicLoginSection');
+  
+  const btnHome = document.getElementById('tabBtnHome');
   const btnLadder = document.getElementById('tabBtnLadder');
   const btnLogin = document.getElementById('tabBtnLogin');
-  if (tab === 'ladder') {
+  
+  // Reset all active states
+  if (btnHome) btnHome.classList.remove('active');
+  if (btnLadder) btnLadder.classList.remove('active');
+  if (btnLogin) btnLogin.classList.remove('active');
+
+  if (tab === 'home') {
+    if (ladderSec) ladderSec.style.display = 'block';
+    if (loginSec) loginSec.style.display = 'none';
+    if (btnHome) btnHome.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    renderPublicLadder(globalPlayers);
+  } else if (tab === 'ladder') {
     if (ladderSec) ladderSec.style.display = 'block';
     if (loginSec) loginSec.style.display = 'none';
     if (btnLadder) btnLadder.classList.add('active');
-    if (btnLogin) btnLogin.classList.remove('active');
+    const podiumHead = document.getElementById('podiumHeader');
+    if (podiumHead) {
+      podiumHead.scrollIntoView({behavior: 'smooth'});
+    }
     renderPublicLadder(globalPlayers);
-  } else {
+  } else if (tab === 'login') {
     if (ladderSec) ladderSec.style.display = 'none';
     if (loginSec) loginSec.style.display = 'flex';
-    if (btnLadder) btnLadder.classList.remove('active');
     if (btnLogin) btnLogin.classList.add('active');
   }
 }
