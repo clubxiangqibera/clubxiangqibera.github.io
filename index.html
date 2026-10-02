@@ -1365,30 +1365,41 @@ function renderTicker(matches, trackId = 'tickerTrack') {
 
 function renderMatchLogList(matches) {
   const c = document.getElementById('matchLogList');
-  if (!matches.length) { c.innerHTML = '<p style="text-align:center;color:var(--text2);padding:14px;">暂无对局记录</p>'; return; }
-  c.innerHTML = matches.slice().reverse().map(m => {
+  let displayMatches = matches.slice().reverse();
+  
+  if (currentUser && currentUser.role === 'student' && currentUser.data) {
+    displayMatches = displayMatches.filter(m => m.red === currentUser.data.cnName || m.black === currentUser.data.cnName);
+  }
+  
+  if (!displayMatches.length) { 
+    c.innerHTML = '<p style="text-align:center;color:var(--text2);padding:14px;">暂无对局记录</p>'; 
+    return; 
+  }
+  
+  c.innerHTML = displayMatches.map(m => {
     const hasImg = m.recordImg && (m.recordImg.startsWith('http') || m.recordImg.startsWith('data:image'));
     const imgBtn = hasImg 
-      ? `<button onclick="openLightbox('${m.recordImg}')" style="padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:800;cursor:pointer;">📷 查看真实记谱纸</button>` : '';
-    
-    let isMyMatch = false;
-    if (currentUser && currentUser.role === 'student' && currentUser.data) {
-      if (m.red === currentUser.data.cnName || m.black === currentUser.data.cnName) isMyMatch = true;
-    }
-    const borderStyle = isMyMatch ? "border-left: 5px solid #F1C40F; background: #FFFCF2;" : "";
-    const badge = isMyMatch ? '<span style="font-size:11px;background:#F1C40F;color:#7D6608;padding:2px 8px;border-radius:6px;font-weight:900;margin-left:8px;">★ 专属对局</span>' : '';
+      ? `<button onclick="openLightbox('${m.recordImg}')" style="padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:800;cursor:pointer;width:100%;">📸 实体记谱纸</button>` : '';
 
+    const hasXqf = m.xqfFile && m.xqfFile.startsWith('http');
+    const xqfBtn = hasXqf 
+      ? `<button onclick="window.open('${m.xqfFile}')" style="padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:800;cursor:pointer;margin-top:6px;width:100%;">💾 下载XQF棋谱</button>`
+      : (currentUser && currentUser.role === 'student' ? `<button onclick="document.getElementById('xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()" style="padding:6px 14px;border-radius:8px;border:1.5px dashed var(--border);background:var(--bg);font-size:12px;font-weight:800;color:var(--text2);cursor:pointer;margin-top:6px;width:100%;">📤 上传XQF</button>
+         <input type="file" id="xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">` : '');
+    
     return `
-      <div class="match-card" style="${borderStyle}">
+      <div class="match-card" style="border-left: 5px solid #F1C40F; background: #FFFCF2;">
         <div style="flex:1;">
           <div class="match-title">
             <span>🔴 ${m.red}</span> <span style="color:var(--text2);font-weight:400;font-size:12px;">vs</span> <span>⚫ ${m.black}</span>
             <span style="font-size:12px;font-weight:800;color:var(--primary-mid);margin-left:4px;">${m.result}</span>
-            ${badge}
           </div>
           <div class="match-meta">${m.date} · ${m.round} · 判定: ${m.verdict}</div>
         </div>
-        <div>${imgBtn}</div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; min-width:120px;">
+          ${imgBtn}
+          ${xqfBtn}
+        </div>
       </div>
     `;
   }).join('');

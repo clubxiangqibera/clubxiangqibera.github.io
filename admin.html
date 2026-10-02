@@ -1040,7 +1040,7 @@ async function loadMatches(){
       allMatches.push({
         date,round:(r[1]||'').trim(),redId:(r[2]||'').trim(),red:(r[3]||'').trim(),
         result:(r[4]||'').trim(),blackId:(r[5]||'').trim(),black:(r[6]||'').trim(),
-        verdict:(r[7]||'').trim(),recordImg:(r[8]||'').trim()
+        verdict:(r[7]||'').trim(),recordImg:(r[8]||'').trim(),xqfFile:(r[9]||'').trim()
       });
     }
     renderMatchesTable();
