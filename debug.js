@@ -1,738 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CXQB Admin — 俱乐部教练与管理控制台</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --pri:#0E2F44;--pri2:#1A5276;--pri3:#2980B9;--gold:#F39C12;--bg:#F0F4F8;
-      --card:#FFF;--text:#1C2833;--text2:#6B7B8D;--border:#E8ECF0;
-      --green:#27AE60;--red:#E74C3C;--yellow:#F39C12;--radius:16px;--shadow:0 4px 18px rgba(0,0,0,0.06);
-    }
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Plus Jakarta Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--text);background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;}
 
-    /* === LOGIN === */
-    #loginScreen{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;background:linear-gradient(145deg,#071A27,#1A5276);}
-    .login-card{background:#FFF;border-radius:24px;padding:40px 32px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-    .login-card h1{font-size:20px;font-weight:900;color:var(--pri);margin-bottom:6px;}
-    .login-card .sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
-    .login-input-wrap { width: 100%; margin-bottom: 20px; }
-    .pin-input {
-      width: 100%; padding: 15px 16px; border: 2px solid var(--border); border-radius: 12px;
-      font-size: 16px; font-weight: 800; text-align: center; outline: none; color: var(--pri);
-      background: #F9FBFC; transition: border-color .2s, background .2s;
-    }
-    .pin-input:focus { border-color: var(--pri3); background: #FFF; }
-    .pin-input.error { border-color: var(--red); animation: shake .4s; }
-    
-    .lang-switch-wrap { display: flex; justify-content: flex-end; margin-bottom: 12px; }
-    .lang-switch {
-      display: inline-flex; background: #F0F4F8; padding: 3px; border-radius: 20px; border: 1px solid var(--border);
-    }
-    .lang-btn {
-      padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 800; color: #6B7B8D;
-      background: transparent; border: none; cursor: pointer; transition: all 0.2s;
-    }
-    .lang-btn.active { background: var(--pri); color: #FFF; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-    
-    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
-    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(14,47,68,0.3);transition:transform .15s;}
-    .login-btn:hover{transform:scale(1.02);}
-    .login-error{color:var(--red);font-size:12px;font-weight:700;margin-top:14px;display:none;background:#FDEDEC;padding:10px;border-radius:10px;border:1px solid rgba(192,57,43,0.2);}
-
-    /* === MAIN LAYOUT === */
-    #mainApp{display:none;}
-    .topbar{background:var(--pri);color:#FFF;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;position:sticky;top:0;z-index:50;box-shadow:0 4px 15px rgba(0,0,0,0.15);}
-    .topbar-title{font-size:16px;font-weight:900;display:flex;align-items:center;gap:8px;}
-    .topbar-right{display:flex;align-items:center;gap:12px;}
-    .btn-logout{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#FFF;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
-
-    /* NAV TABS */
-    .nav-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
-    .nav-tab{flex:1;min-width:85px;padding:12px 8px;text-align:center;font-size:13px;font-weight:800;color:var(--text2);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
-    .nav-tab.active{color:var(--pri2);border-bottom-color:var(--pri2);background:rgba(26,82,118,0.05);}
-
-    .main-content{max-width:980px;margin:0 auto;padding:20px 16px;}
-
-    .tab-panel{display:none;}
-    .tab-panel.active{display:block;}
-
-    /* STATS */
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px;}
-    .stat-card{background:var(--card);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);}
-    .stat-icon{font-size:24px;margin-bottom:6px;}
-    .stat-val{font-size:28px;font-weight:900;color:var(--pri2);}
-    .stat-label{font-size:12px;color:var(--text2);font-weight:700;margin-top:2px;}
-    .stat-card.green .stat-val{color:var(--green);}
-    .stat-card.red .stat-val{color:var(--red);}
-    .stat-card.gold .stat-val{color:var(--gold);}
-
-    /* CARD CONTAINER */
-    .form-card{background:var(--card);border-radius:var(--radius);padding:22px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
-    .form-card h3{font-size:16px;font-weight:900;margin-bottom:14px;color:var(--pri2);display:flex;align-items:center;gap:6px;}
-
-    /* QUICK PILLS FOR SCHOOLS & LEVELS */
-    .pill-group{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;}
-    .tag-pill{
-      padding:6px 12px;border-radius:14px;font-size:11px;font-weight:700;
-      background:var(--bg);color:var(--text2);cursor:pointer;border:1px solid var(--border);
-      transition:all .15s;
-    }
-    .tag-pill:hover,.tag-pill.active{background:var(--pri2);color:#fff;border-color:var(--pri2);}
-
-    /* VISUAL FIGHTER CARDS SELECTOR */
-    .fighter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:6px;}
-    .fighter-card{
-      background:var(--bg);border-radius:12px;padding:10px;text-align:center;
-      cursor:pointer;border:2px solid transparent;transition:all .15s;
-    }
-    .fighter-card:hover{transform:scale(1.02);}
-    .fighter-card.active-red{border-color:#E74C3C;background:#FDEDEC;}
-    .fighter-card.active-black{border-color:#2C3E50;background:#EAECEE;}
-    .fighter-name{font-weight:800;font-size:13px;}
-    .fighter-meta{font-size:10px;color:var(--text2);margin-top:2px;}
-
-    /* RESULT BUTTONS */
-    .res-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;}
-    .res-btn{padding:14px 8px;border:2px solid var(--border);border-radius:12px;text-align:center;font-size:14px;font-weight:900;cursor:pointer;background:var(--bg);transition:all .2s;}
-    .res-btn.sel-red{border-color:#E74C3C;background:#FDEDEC;color:#C0392B;}
-    .res-btn.sel-draw{border-color:#F1C40F;background:#FEF9E7;color:#B7950B;}
-    .res-btn.sel-black{border-color:#2C3E50;background:#EAECEE;color:#1C2833;}
-
-    .form-group{margin-bottom:12px;}
-    .form-label{display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--text);}
-    .form-input,.form-select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;outline:none;background:#FFF;font-family:inherit;}
-    .form-input:focus,.form-select:focus{border-color:var(--pri3);}
-
-    .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(14,47,68,0.2);transition:transform .15s;}
-    .submit-btn:hover{transform:scale(1.02);}
-    .submit-btn.green{background:linear-gradient(135deg,var(--green),#2ECC71);}
-
-    /* TABLES */
-    .tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
-    table{width:100%;border-collapse:collapse;font-size:13px;}
-    th{background:var(--bg);padding:11px 12px;text-align:left;font-weight:800;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
-    td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:middle;}
-    tr:hover td{background:rgba(41,128,185,0.03);}
-    .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;white-space:nowrap;}
-    .badge-green{background:#E8F8F5;color:#1ABC9C;}
-    .badge-red{background:#FDEDEC;color:#E74C3C;}
-    .badge-yellow{background:#FEF9E7;color:#B7950B;}
-    .badge-blue{background:#EBF5FB;color:#2980B9;}
-
-    .btn-sm{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:all .15s;}
-    .btn-sm.green{background:#E8F8F5;color:var(--green);border-color:#A3D9CC;}
-    .btn-sm.green:hover{background:var(--green);color:#FFF;}
-
-    /* UPLOAD */
-    .upload-area{border:2px dashed var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;position:relative;}
-    .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
-
-    /* TOAST */
-    .toast-container{position:fixed;top:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px;}
-    .toast{padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;color:#FFF;box-shadow:0 6px 20px rgba(0,0,0,0.2);max-width:340px;}
-    .toast.success{background:var(--green);}
-    .toast.error{background:var(--red);}
-    .toast.info{background:var(--pri2);}
-
-    /* LIGHTBOX */
-    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;justify-content:center;align-items:center;padding:20px;cursor:pointer;}
-    .lightbox.show{display:flex;}
-    .lightbox img{max-width:95%;max-height:90vh;border-radius:8px;}
-
-    /* TOURNAMENT STYLES */
-    .tournament-card { background: var(--card); border-radius: var(--radius); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-    .tournament-card h4 { margin-bottom: 4px; color: var(--pri); font-size: 16px; }
-    .tournament-card .meta { font-size: 12px; color: var(--text2); }
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-    .modal-overlay.show { display: flex; }
-    .modal-content { background: var(--card); padding: 24px; border-radius: var(--radius); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
-    .player-check { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-    .player-check input { width: 18px; height: 18px; cursor: pointer; }
-    .round-timeline { display: flex; align-items: center; justify-content: space-between; margin: 20px 0; position: relative; }
-    .round-line { position: absolute; top: 50%; left: 0; right: 0; height: 4px; background: var(--border); z-index: 1; transform: translateY(-50%); }
-    .round-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 3px solid var(--border); display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px; color: var(--text2); z-index: 2; position: relative; }
-    .round-dot.active { border-color: var(--pri3); background: var(--pri3); color: #FFF; }
-    .round-dot.completed { border-color: var(--green); background: var(--green); color: #FFF; }
-    .board-row { display: flex; flex-direction: column; background: var(--card); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; overflow: hidden; }
-    .board-header { background: var(--bg); padding: 8px 12px; font-weight: 800; font-size: 12px; color: var(--text2); display: flex; justify-content: space-between; }
-    .board-players { display: flex; justify-content: space-between; align-items: center; padding: 12px; font-weight: 800; font-size: 14px; }
-    .board-players .red { color: var(--red); }
-    .board-players .black { color: var(--pri); }
-    .result-btn-group { display: flex; border-top: 1px solid var(--border); }
-    .result-btn { flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 800; border: none; border-right: 1px solid var(--border); background: var(--card); cursor: pointer; transition: all .2s; }
-    .result-btn:last-child { border-right: none; }
-    .result-btn.selected { background: var(--bg); }
-    .result-btn.selected.r-red { background: #FDEDEC; color: #C0392B; }
-    .result-btn.selected.r-draw { background: #FEF9E7; color: #B7950B; }
-    .result-btn.selected.r-black { background: #EAECEE; color: #1C2833; }
-    .standings-table th, .standings-table td { text-align: center; }
-    .standings-table td:nth-child(2) { text-align: left; }
-    /* PODIUM (BIG & BOLD & CENTERED) */
-    .podium-section{width:100%;margin:20px 0 24px;}
-    .podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:14px;align-items:end;}
-    .pod{
-      background:var(--card);border-radius:22px;padding:22px 14px 18px;
-      text-align:center;position:relative;border:2px solid var(--border);
-      box-shadow:var(--shadow);cursor:pointer;transition:transform .2s;
-    }
-    .pod:hover{transform:translateY(-4px);}
-    .pod-1{
-      order:2;padding:32px 16px 24px;border-color:#F1C40F;
-      background:linear-gradient(180deg,#FFFDF0 0%,var(--card) 100%);
-      box-shadow:0 12px 35px rgba(241,196,15,0.4);
-    }
-    .pod-2{order:1;border-color:#D5D8DC;}
-    .pod-3{order:3;border-color:#EDBB99;}
-    .crown{
-      position:absolute;top:-15px;left:50%;transform:translateX(-50%);
-      background:linear-gradient(135deg,#F1C40F,#F39C12);color:#7D6608;
-      font-size:11px;font-weight:900;padding:4px 14px;border-radius:14px;white-space:nowrap;
-      box-shadow:0 4px 12px rgba(241,196,15,0.4);
-    }
-    .pod-medal{font-size:36px;margin-bottom:6px;}
-    .pod-1 .pod-medal{font-size:46px;}
-    .pod-name{font-size:18px;font-weight:900;color:var(--text);margin-bottom:3px;}
-    .pod-1 .pod-name{font-size:22px;}
-    .pod-school{
-      font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    }
-    .pod-elo{font-size:26px;font-weight:900;color:var(--primary-mid);line-height:1;}
-    .pod-1 .pod-elo{font-size:32px;color:#D68910;}
-    .pod-stats{font-size:12px;color:var(--text2);margin-top:4px;font-weight:600;}
-
-    .tier-chip{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;}
-    .tier-5{background:#EBF5FB;color:#2980B9;}
-    .tier-4{background:#E8F8F5;color:#1ABC9C;}
-    .tier-3{background:#FEF9E7;color:#B7950B;}
-    .tier-2{background:#FDEDEC;color:#E74C3C;}
-    .tier-1{background:linear-gradient(135deg,#F9E79F,#F5CBA7);color:#7D6608;}
-
-    /* CENTERED SECTION HEADERS */
-    .section-head{
-      width:100%;text-align:center;margin:30px 0 16px;
-      display:flex;flex-direction:column;align-items:center;
-    }
-    .section-title{
-      font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:8px;
-    }
-    .section-sub{font-size:12px;color:var(--text2);margin-top:3px;}
-
-    /* BIG CLEAR RANK LIST */
-    .rank-list{width:100%;display:flex;flex-direction:column;gap:10px;}
-    .rank-card{
-      background:var(--card);border-radius:18px;padding:16px 20px;
-      display:flex;align-items:center;justify-content:space-between;gap:16px;
-      border:1.5px solid var(--border);box-shadow:var(--shadow);
-      transition:all .2s;
-    }
-    .rank-left{display:flex;align-items:center;gap:16px;}
-    .rank-num{font-size:20px;font-weight:900;color:var(--text2);width:32px;text-align:center;flex-shrink:0;}
-    .rank-info{flex:1;}
-    .rank-name{font-size:17px;font-weight:900;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-    .rank-school{font-size:13px;color:var(--text2);margin-top:2px;font-weight:600;}
-    .rank-right{text-align:right;flex-shrink:0;}
-    .rank-elo{font-size:24px;font-weight:900;color:var(--primary-mid);line-height:1;}
-    .rank-wr{font-size:12px;color:var(--text2);margin-top:2px;font-weight:600;}
-    table tbody tr { transition: background 0.15s; }
-    table tbody tr:hover { background: rgba(41,128,185,0.05); }
-    .btn-sm.xqf { background: #EBF5FB; color: var(--pri3); border-color: var(--pri3); }
-    .btn-sm.xqf:hover { background: var(--pri3); color: #fff; }
-  
-@keyframes popZoom {
-  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-.animate-zoom {
-  animation: popZoom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-
-/* Apple Style Segmented Control */
-.lang-switcher {
-  display: flex;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  padding: 4px;
-  margin: 0 auto 24px auto;
-  width: 200px;
-}
-.lang-switcher span {
-  flex: 1;
-  background: transparent;
-  color: #64748B;
-  padding: 8px 0;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  display: flex; justify-content: center; align-items: center;
-}
-.lang-switcher span.active {
-  background: #FFF;
-  color: #0F172A;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-</style>
-</head>
-<body>
-
-<!-- LOGIN -->
-<div id="loginScreen">
-  <div class="login-card animate-zoom">
-    
-    <div class="lang-switch-wrap" style="justify-content:center; margin-bottom:20px;">
-      <div class="lang-switch">
-        <button type="button" class="lang-btn active" id="aLangZh" onclick="setAdminLang('zh')">中文</button>
-        <button type="button" class="lang-btn" id="aLangEn" onclick="setAdminLang('en')">English</button>
-      </div>
-    </div>
-
-    <img src="cxb_round_emblem.png" alt="Logo" style="width:72px; height:72px; border-radius:50%; margin-bottom:16px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-    <h1 id="aTitle">Club XiangQi Bera</h1>
-    <p class="sub" id="aSub">管理控制台 · Admin Dashboard</p>
-    
-    <form onsubmit="event.preventDefault(); tryLogin(); return false;">
-      <div class="login-input-wrap">
-        <input type="password" id="adminPinInput" class="pin-input" placeholder="输入管理密码 (Enter Password)" maxlength="16" autofocus autocomplete="current-password">
-      </div>
-      
-      <button type="submit" class="login-btn" id="aBtn">🔐 进入管理控制台</button>
-    </form>
-    
-    <div class="login-error" id="loginError">❌ 密码错误，请重新输入 (Invalid Password)</div>
-    
-    <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" id="aReturn" style="font-size:13px; font-weight:800; color:var(--pri3); text-decoration:none;">← 返回主页 (Return to Menu)</a>
-    </div>
-
-    <!-- Security & Trust Footer -->
-    <div style="margin-top:26px; padding-top:16px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#6B7B8D;">
-      <span style="display:flex; align-items:center; gap:4px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        Cloudflare® SSL
-      </span>
-      <span style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        百乐县象棋公会认证
-      </span>
-    </div>
-
-  </div>
-</div>
-
-<!-- MAIN APP -->
-<div id="mainApp">
-  <div class="topbar">
-    <div class="topbar-title">♟️ CXQB 教练与俱乐部管理后台</div>
-    <div class="topbar-right">
-      <a href="index.html" style="color:#FFF;font-size:12px;text-decoration:none;opacity:.8;">← 公开天梯榜</a>
-      <button class="btn-logout" onclick="logout()">退出</button>
-    </div>
-  </div>
-
-  <div class="nav-tabs">
-    <div class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 运营看板</div>
-    <div class="nav-tab" data-tab="students" onclick="switchTab('students')">👥 学员快速建档</div>
-    <div class="nav-tab" data-tab="payments" onclick="switchTab('payments')">💰 学费审核追踪</div>
-    <div class="nav-tab" data-tab="records" onclick="switchTab('records')">📄 对局纸档案库</div>
-    <div class="nav-tab" data-tab="tournament" onclick="switchTab('tournament')">🏆 锦标赛</div>
-    <div class="nav-tab" data-tab="ladder" onclick="switchTab('ladder')">🏅 ELO天梯榜</div>
-    <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:2px solid rgba(241,196,15,0.5);">🔑 账号管理</div>
-    <div class="nav-tab superadmin-only" data-tab="gallery" onclick="switchTab('gallery')">📸 活动相册</div>
-    <div class="nav-tab superadmin-only" data-tab="licenses" onclick="switchTab('licenses')">🛡️ 学校租约授权 (Cloudflare)</div>
-  </div>
-
-  <div class="main-content">
-
-    <!-- TAB 1: DASHBOARD -->
-    <div class="tab-panel active" id="panel-dashboard">
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" id="sTotalStudents">5</div><div class="stat-label">总学员数 (Students)</div></div>
-        <div class="stat-card green"><div class="stat-icon">💰</div><div class="stat-val" id="sRevenue">RM 420</div><div class="stat-label">本月预估收入 (Revenue)</div></div>
-        <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-val" id="sPending">2</div><div class="stat-label">待收学费预警 (Pending)</div></div>
-        <div class="stat-card gold"><div class="stat-icon">♟️</div><div class="stat-val" id="sMatches">-</div><div class="stat-label">累计对局总数 (Matches)</div></div>
-      </div>
-
-      <div class="form-card">
-        <h3>📋 现役学员名册总览</h3>
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>学号</th><th>中文名</th><th>所在学校</th><th>班级级别</th><th>ELO</th><th>学费状态</th></tr></thead>
-            <tbody id="dashStudentTable"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-
-
-    <!-- TAB 3: STUDENTS (ULTRA FAST ADD) -->
-    <div class="tab-panel" id="panel-students">
-      <div class="form-card">
-        <h3>⚡ 1秒快速录入新学员</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <div><label class="form-label">中文姓名 *</label><input type="text" id="qName" class="form-input" placeholder="如: 张小明"></div>
-          <div><label class="form-label">英文姓名</label><input type="text" id="qEn" class="form-input" placeholder="如: Chong Xiao Ming"></div>
-        </div>
-
-        <div style="margin-top:10px;">
-          <label class="form-label">所在学校 (点击下方标签一键填入)：</label>
-          <input type="text" id="qSchool" class="form-input" placeholder="点击下方华小标签自动输入">
-          <div class="pill-group">
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Triang (1)')">直凉一校</span>
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Triang (2)')">直凉二校</span>
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Leader Kemayan')">立德华小</span>
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Kemayan')">金马扬华小</span>
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Mengkarak')">明加叻华小</span>
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Mengkuang')">明光华小</span>
-            <span class="tag-pill" onclick="pickSchool('SJK(C) Kerayong')">吉拉央华小</span>
-            <span class="tag-pill" onclick="pickSchool('SJKC Menteri')">文德里华小</span>
-            <span class="tag-pill" onclick="pickSchool('SMJK Triang')">直凉华中</span>
-          </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-          <div>
-            <label class="form-label">班级级别</label>
-            <select id="qLevel" class="form-select" onchange="updateFeeOptions()">
-              <option value="Lv 1 启蒙班">Lv 1 启蒙班</option>
-              <option value="Lv 2 进阶班">Lv 2 进阶班</option>
-              <option value="Lv 3 精英班">Lv 3 精英班</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">学费模式</label>
-            <select id="qFee" class="form-select">
-              <option value="Combo 季度 (RM200)">Combo 季度 (RM200)</option>
-              <option value="月缴 (RM70)">月缴 (RM70)</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">家长 WhatsApp</label>
-            <input type="tel" id="qPhone" class="form-input" placeholder="012-3456789">
-          </div>
-        </div>
-
-        <button class="submit-btn green" style="margin-top:14px;" onclick="submitFastStudent()">
-          ➕ 立即建档入库 (自动分配新学号)
-        </button>
-      </div>
-
-      <h3 style="font-size:15px;font-weight:900;margin:20px 0 10px;">👥 全体在册学员档案</h3>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>学号</th><th>中文名</th><th>英文名</th><th>性别</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费</th><th style='text-align:center;'>操作</th></tr></thead>
-          <tbody id="studentTable"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- TAB 4: PAYMENTS -->
-    <div class="tab-panel" id="panel-payments">
-      <div style="background:linear-gradient(135deg,#0E2F44,#1A5276);color:#FFF;border-radius:var(--radius);padding:18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-size:11px;opacity:.75;">官方收款账户 (Official Bank Account)</div>
-          <div style="font-size:20px;font-weight:900;letter-spacing:1px;margin-top:2px;">3246504527</div>
-          <div style="font-size:12px;opacity:.85;margin-top:2px;">PUBLIC BANK · Persatuan Catur Cina Daerah Bera</div>
-        </div>
-        <button class="btn-sm" style="background:rgba(255,255,255,0.2);color:#fff;border:none;" onclick="copyAcc()">📋 复制</button>
-      </div>
-
-      <h3 style="font-size:16px;font-weight:900;margin-bottom:12px;">💰 学费缴纳与凭证审核清单</h3>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>学号</th><th>姓名</th><th>就读班级</th><th>缴费模式</th><th>到期月</th><th>状态</th><th>一键审核</th></tr></thead>
-          <tbody id="paymentTable"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- TAB 5: RECORDS -->
-    <div class="tab-panel" id="panel-records">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
-        <div>
-          <h3 style="font-size:18px;font-weight:900;">📄 实战对局纸原件归档库</h3>
-          <div style="font-size:12px;color:var(--text2);margin-top:2px;">记录每一场真实对局 · 支持单条删除或批量清理测试数据</div>
-        </div>
-        <button class="btn-sm" style="color:var(--red);border-color:var(--red);font-weight:800;padding:8px 14px;" onclick="clearAllTestMatches()">
-          🗑️ 一键清空所有历史对局数据
-        </button>
-      </div>
-      <div id="recordsGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;"></div>
-    </div>
-
-    <!-- TAB 6: TOURNAMENT & SP98 -->
-    <div class="tab-panel" id="panel-tournament">
-
-      <!-- SUB-NAVIGATION BAR FOR TOURNAMENT / SP98 -->
-      <div style="display:flex; gap:10px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px; flex-wrap:wrap;">
-        <button class="btn-sm active" id="btnTourneyEngine" style="padding:8px 18px; font-weight:800; font-size:13px;" onclick="switchTourneySubTab('engine')">⚡ 瑞士制赛事编排系统 (SP98)</button>
-        <button class="btn-sm" id="btnTourneyBatch" style="padding:8px 18px; font-weight:800; font-size:13px; background:var(--bg); color:var(--text);" onclick="switchTourneySubTab('batch')">📋 SP98 软件战报快速导入</button>
-      </div>
-
-      <!-- SECTION 1: IN-BROWSER SWISS ENGINE -->
-      <div id="tourneyEngineSection">
-        <div id="tournamentListView">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-            <div>
-              <h3 style="font-size:18px; font-weight:900;">🏆 瑞士制比赛管理 (Swiss-System SP98)</h3>
-              <div style="font-size:12px; color:var(--text2); margin-top:2px;">智能编排 · 破同分 Buchholz · K-Factor 积分结算</div>
-            </div>
-            <button class="btn-sm green" style="padding:9px 18px; font-size:13px; font-weight:800;" onclick="showCreateModal()">+ 创建新比赛</button>
-          </div>
-          <div id="tournamentCards"></div>
-        </div>
-
-        <div id="tournamentManageView" style="display:none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
-            <button class="btn-sm" style="padding:8px 16px; font-weight:800;" onclick="closeTournamentManage()">← 返回比赛列表</button>
-            <div id="tourneyStatusBadge"></div>
-          </div>
-          <div class="form-card">
-            <h3 id="manageTitle" style="font-size:20px; font-weight:900; color:var(--pri);">比赛名称</h3>
-            <div style="font-size:12px; color:var(--text2); margin:4px 0 16px;">点击轮次圆点可切换查阅历史对阵与赛果：</div>
-            <div class="round-timeline" id="roundTimeline"></div>
-
-            <div id="pairingsSection">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-weight:800; color:var(--pri2);" id="pairingsHeading">⚔️ 第 1 轮对阵</h4>
-                <span id="roundProgressText" style="font-size:12px; font-weight:800; color:var(--text2);"></span>
-              </div>
-              <div id="pairingsList"></div>
-
-              <div style="display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;">
-                <button id="confirmRoundBtn" class="submit-btn" style="flex:1;" onclick="confirmRound()">✅ 确认本轮赛果并生成下轮配对</button>
-                <button id="endTournamentBtn" class="submit-btn green" style="flex:1; display:none;" onclick="endTournament()">🏁 结束比赛 & 同步云端 ELO</button>
-              </div>
-            </div>
-
-            <h4 style="margin:28px 0 12px; font-weight:900; color:var(--pri2);">📊 实时总积分榜 (Standings & Buchholz)</h4>
-            <div class="tbl-wrap">
-              <table class="standings-table">
-                <thead id="standingsHead"></thead>
-                <tbody id="standingsBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECTION 2: SP98 TEXT BATCH IMPORTER -->
-      <div id="tourneyBatchSection" style="display:none;">
-        <div class="form-card">
-          <h3 style="font-size:18px; font-weight:900; margin-bottom:6px;">📋 Swiss Perfect 98 (SP98) 战报文本一键导入</h3>
-          <p style="font-size:13px; color:var(--text2); margin-bottom:18px;">
-            如果您在电脑上使用官方 <strong>Swiss Perfect 98</strong> 软件编排比赛，可直接在此粘贴导出的对阵文本，系统将自动识别棋手与赛果，并完成 ELO 云端同步。
-          </p>
-
-          <div class="form-group">
-            <label class="form-label">比赛名称 / 轮次标注</label>
-            <input type="text" id="sp98BatchTourneyName" class="form-input" placeholder="例如: 2024 年末俱乐部排位赛 R1" value="SP98 赛事">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">📋 直接粘贴 SP98 对阵战报文本 (支持任意多行格式)</label>
-            <textarea id="sp98Text" class="form-textarea" style="height:160px; font-family:monospace; font-size:13px;" placeholder="支持多种格式，例如：&#10;林家豪 1 - 0 陈美仪&#10;苏进康 0.5 - 0.5 郭雨涵&#10;1  黄梓轩 [1]  1 - 0  陈美仪 [0]&#10;2  林家豪 [1]  0 - 1  苏进康 [1]"></textarea>
-          </div>
-
-          <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
-            <button class="submit-btn" style="flex:1; background:var(--pri2);" onclick="parseSP98Batch()">🔍 智能识别与预览</button>
-            <button class="submit-btn green" id="btnSubmitSP98Batch" style="flex:1; display:none;" onclick="submitSP98Batch()">⚡ 确认并一键批量入库 ELO</button>
-          </div>
-
-          <div id="parsedPreview" style="margin-top:20px; display:none; border-radius:12px; padding:16px; border:1px solid var(--border); background:var(--bg);"></div>
-        </div>
-      </div>
-
-    </div>
-    
-    <!-- TAB 7: LADDER -->
-    <div class="tab-panel" id="panel-ladder">
-      <div class="section-head">
-        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
-        <div class="section-sub">CXQB ELO 官方排位体系 · 实时同步</div>
-      </div>
-      <div id="podiumArea" class="podium"></div>
-      <div class="section-head" style="margin-top:34px;">
-        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
-        <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
-      </div>
-      <div id="rankList" class="rank-list" style="width:100%; padding-bottom:40px;"></div>
-    </div>
-
-    <!-- TAB 8: ACCOUNT MANAGER (SUPER ADMIN ONLY) -->
-    <div class="tab-panel" id="panel-accounts">
-      <!-- Coach Management -->
-      <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(41,128,185,0.4);">
-        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👥 教练管理 (Coach Management)</div>
-        <div style="margin-bottom:16px; display:flex; gap:10px;">
-          <input type="text" id="newCoachName" class="form-input" placeholder="教练姓名" style="width:150px;">
-          <input type="text" id="newCoachPin" class="form-input" placeholder="教练PIN" style="width:100px;">
-          <button onclick="addCoach()" class="btn login-btn" style="width:auto; padding:8px 16px;">添加教练</button>
-        </div>
-        <div id="coachListTable" style="overflow-x:auto;">
-          <!-- Table dynamically generated -->
-        </div>
-      </div>
-
-      <!-- Student Account List -->
-      <div class="form-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <div style="font-size:16px;font-weight:900;">🔑 学员账号管理 (修改姓名 / 密码)</div>
-          <span class="badge badge-blue" style="font-size:12px;" id="accStudentCount">共 0 名学员</span>
-        </div>
-        <div id="accountListTable"></div>
-      </div>
-    </div>
-
-    <!-- TAB 9: SCHOOL LICENSES (CLOUDFLARE WORKER + KV) -->
-    <div class="tab-panel" id="panel-licenses">
-      <div class="form-card" style="margin-bottom:20px; border:1.5px solid rgba(41,128,185,0.4);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
-          <div>
-            <h3 style="font-size:18px; font-weight:900; color:var(--pri);">🛡️ Cloudflare Workers + KV 商业租约授权网关</h3>
-            <div style="font-size:12px; color:var(--text2); margin-top:2px;">
-              向出租学校一键发放独立激活码 · 支持自动到期销毁 · 银行级防刷防盗用
-            </div>
-          </div>
-          <span class="badge badge-green" style="font-size:12px; padding:6px 12px;">🟢 边缘节点已连通 (cxb-license)</span>
-        </div>
-
-        <div style="display:grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap:14px; margin-top:16px;">
-          <div>
-            <label class="form-label">租用学校名称</label>
-            <input type="text" id="licSchoolName" class="form-input" placeholder="例如: 直凉华小 选拔赛">
-          </div>
-          <div>
-            <label class="form-label">有效天数</label>
-            <select id="licValidDays" class="form-select">
-              <option value="1">1 天 (临时赛)</option>
-              <option value="3" selected>3 天 (常规标准)</option>
-              <option value="7">7 天 (一周周赛)</option>
-              <option value="30">30 天 (月度联赛)</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">授权赛事层级 (Tier License)</label>
-            <select id="licMaxRounds" class="form-select">
-              <option value="3">Mini 级 (微型授权 - 最高 3 轮)</option>
-              <option value="4" selected>Standard 级 (标准授权 - 最高 4 轮)</option>
-              <option value="5">Major 级 (大型授权 - 最高 5 轮)</option>
-              <option value="7">District 级 (县级授权 - 最高 7 轮)</option>
-              <option value="10">Epic 级 (史诗授权 - 最高 10 轮)</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">操作</label>
-            <button class="submit-btn green" style="margin-top:0; height:42px; font-size:13px;" onclick="createSchoolLicense()">
-              ⚡ 生成授权激活码
-            </button>
-          </div>
-        </div>
-
-        <div id="generatedLicBox" style="display:none; margin-top:16px; padding:16px; background:rgba(39,174,96,0.08); border:1.5px dashed var(--green); border-radius:12px;">
-          <div style="font-size:12px; color:var(--text2); font-weight:700;">🎉 授权码已成功写入 Cloudflare KV 数据库：</div>
-          <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">CXQB-XXXX</div>
-          <div style="font-size:12px; color:var(--text);">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:var(--pri3);font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
-          <button class="btn-sm green" style="margin-top:10px;" onclick="copyGeneratedLicense()">📋 复制发给老师 WhatsApp</button>
-        </div>
-      </div>
-
-      <!-- ACTIVE LICENSES LIST -->
-      <div class="form-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <h4 style="font-size:16px; font-weight:900;">📋 当前在约授权列表 (KV Records)</h4>
-          <button class="btn-sm" onclick="loadSchoolLicenses()">🔄 刷新列表</button>
-        </div>
-        <div id="licensesTableContainer">
-          <div style="padding:20px; text-align:center; color:var(--text2);">⏳ 正在从 Cloudflare KV 自动加载数据...</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Create Tournament Modal -->
-
-    <!-- GALLERY TAB -->
-    <div class="tab-panel" id="panel-gallery">
-      <div class="form-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <div style="font-size:18px; font-weight:900;">📸 历届活动相册管理</div>
-          <div style="display:flex; gap:10px;">
-  <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="loadEvents(); if(typeof toast === 'function') toast('已刷新相册列表', 'info');">🔄 刷新列表</button>
-  <button class="btn" style="background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="document.getElementById('createGalleryModal').style.display='flex'">+ 创建新图集</button>
-</div>
-        </div>
-        <div id="galleryListArea" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));"></div>
-      </div>
-    </div>
-
-    <!-- CREATE GALLERY MODAL -->
-    <div id="createGalleryModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center;">
-      <div style="background:#fff; width:90%; max-width:500px; border-radius:16px; padding:24px; max-height:90vh; overflow-y:auto;">
-        <h3 style="margin-top:0; color:var(--pri);">上传新活动相册</h3>
-        <input type="text" id="galName" class="form-input" placeholder="活动名称 (例: 2026第一届棋缘教育营)" style="margin-bottom:12px;">
-        <input type="date" id="galDate" class="form-input" style="margin-bottom:12px;">
-        <textarea id="galDesc" class="form-input" placeholder="活动简短描述..." style="margin-bottom:12px; height:80px; resize:vertical;"></textarea>
-        <div style="margin-bottom:16px; background:#F8F9F9; padding:12px; border-radius:10px; border:1px dashed #BDC3C7;">
-          <label style="font-weight:700; font-size:13px; color:var(--text2); display:block; margin-bottom:8px;">选择多张照片上传 (自动压缩)</label>
-          <input type="file" id="galFiles" multiple accept="image/*" style="width:100%;">
-        </div>
-        <div id="galUploadProgress" style="font-size:13px; color:var(--pri); font-weight:800; margin-bottom:16px; display:none;">正在上传 0 / 0 ...</div>
-        <div style="display:flex; gap:10px; justify-content:flex-end;">
-          <button class="btn" style="background:#BDC3C7; color:#fff; border:none; padding:8px 16px; border-radius:10px;" onclick="document.getElementById('createGalleryModal').style.display='none'">取消</button>
-          <button id="galSubmitBtn" class="btn" style="background:var(--pri); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800;" onclick="submitGallery()">开始上传</button>
-        </div>
-      </div>
-    </div>
-
-<div class="modal-overlay" id="createTournamentModal">
-  <div class="modal-content">
-    <h3 style="margin-bottom:16px; font-size:18px; font-weight:900;">创建新比赛</h3>
-    <div class="form-group">
-      <label class="form-label">比赛名称</label>
-      <input type="text" id="tName" class="form-input" placeholder="例如: 2024 年末杯">
-    </div>
-    <div class="form-group">
-      <label class="form-label">比赛轮数</label>
-      <select id="tRounds" class="form-select">
-        <option value="2">2 轮</option><option value="3">3 轮</option><option value="4" selected>4 轮</option><option value="5">5 轮</option><option value="6">6 轮</option><option value="7">7 轮</option><option value="8">8 轮</option><option value="9">9 轮</option><option value="10">10 轮</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <label class="form-label">参赛选手 (<span id="tPlayerCount">0</span>)</label>
-        <button class="btn-sm" onclick="selectAllPlayers()">全选</button>
-      </div>
-      <div id="tPlayerList" style="max-height:200px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:10px; margin-top:8px;"></div>
-    </div>
-    <div style="display:flex; gap:12px; margin-top:20px;">
-      <button class="submit-btn" style="background:var(--text2);" onclick="hideCreateModal()">取消</button>
-      <button class="submit-btn green" onclick="createTournament()">创建比赛</button>
-    </div>
-  </div>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')">
-  <img id="lightboxImg" src="">
-</div>
-
-<div class="toast-container" id="toastContainer"></div>
-
-<script>
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
-const GAS_API_URL = 'https://cxb-license.clubxiangqibera.workers.dev/api/action';
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyFY__BC0NXW87ZK1okkzhlskQ4PPBJx2QEXf0-8Icv8tbFHZcRSVge60TqU11DU4v_/exec';
 function getAuthPin() {
   const s = localStorage.getItem('cxb_auth');
   return s ? JSON.parse(s).pin : '';
@@ -836,12 +104,9 @@ function showApp(){
     });
 
     loadAllData();
-    const savedTab = localStorage.getItem('cxb_admin_tab') || 'dashboard';
-    switchTab(savedTab);
   }
 
 function switchTab(t){
-  localStorage.setItem('cxb_admin_tab', t);
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+t));
   
@@ -1084,7 +349,7 @@ async function loadMatches(){
       allMatches.push({
         date,round:(r[1]||'').trim(),redId:(r[2]||'').trim(),red:(r[3]||'').trim(),
         result:(r[4]||'').trim(),blackId:(r[5]||'').trim(),black:(r[6]||'').trim(),
-        verdict:(r[7]||'').trim(),recordImg:(r[8]||'').trim(),xqfFile:(r[9]||'').trim()
+        verdict:(r[7]||'').trim(),recordImg:(r[8]||'').trim()
       });
     }
     renderMatchesTable();
@@ -1114,97 +379,9 @@ function renderDashboard(){
   ).join('');
 }
 
-
-async function uploadReceiptFile(studentId, inputEl) {
-  if (!inputEl.files || inputEl.files.length === 0) return;
-  const file = inputEl.files[0];
-  const ogText = inputEl.previousElementSibling.innerHTML;
-  inputEl.previousElementSibling.innerHTML = '上传中...';
-  inputEl.previousElementSibling.disabled = true;
-  
-  try {
-    const base64 = await compressImage(file);
-    const res = await fetch(GAS_API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'uploadReceipt', studentId: studentId, receiptImage: base64 })
-    });
-    const data = await res.json();
-    if(data.success) {
-      toast('凭证上传成功', 'success');
-      loadAllData(); // Reload to show updated status
-    } else {
-      toast('上传失败: ' + (data.error||''), 'error');
-    }
-  } catch (e) {
-    toast('网络错误', 'error');
-  }
-  inputEl.previousElementSibling.innerHTML = ogText;
-  inputEl.previousElementSibling.disabled = false;
-  inputEl.value = '';
-}
-
-
-async function uploadXqfFile(date, round, redName, blackName, inputEl) {
-  if (!inputEl.files || inputEl.files.length === 0) return;
-  const file = inputEl.files[0];
-  const ogText = inputEl.previousElementSibling.innerHTML;
-  inputEl.previousElementSibling.innerHTML = '上传中...';
-  
-  try {
-    const reader = new FileReader();
-    reader.onload = async function(e) {
-      const base64 = e.target.result;
-      const res = await fetch(GAS_API_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'updateMatchXQF', date: date, round: round, redName: redName, blackName: blackName, fileBase64: base64 })
-      });
-      const data = await res.json();
-      if(data.success) {
-        toast('XQF棋谱上传成功', 'success');
-        loadAllData(); // Reload matches
-      } else {
-        toast('上传失败: ' + (data.error||''), 'error');
-      }
-    };
-    reader.readAsDataURL(file);
-  } catch (e) {
-    toast('网络错误', 'error');
-  }
-  inputEl.previousElementSibling.innerHTML = ogText;
-  inputEl.value = '';
-}
-
-async function uploadMatchPhotoFile(date, round, redName, blackName, inputEl) {
-  if (!inputEl.files || inputEl.files.length === 0) return;
-  const file = inputEl.files[0];
-  const ogText = inputEl.previousElementSibling.innerHTML;
-  inputEl.previousElementSibling.innerHTML = '上传中...';
-  
-  try {
-    const base64 = await compressImage(file);
-    const res = await fetch(GAS_API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'updateMatchPhoto', date: date, round: round, redName: redName, blackName: blackName, imageBase64: base64 })
-    });
-    const data = await res.json();
-    if(data.success) {
-      toast('记谱纸上传成功', 'success');
-      loadMatches(); // Reload matches
-    } else {
-      toast('上传失败: ' + (data.error||''), 'error');
-    }
-  } catch (e) {
-    toast('网络错误', 'error');
-  }
-  inputEl.previousElementSibling.innerHTML = ogText;
-  inputEl.value = '';
-}
-
 function renderStudentTables(){
-  document.getElementById('studentTable').innerHTML=allStudents.map(s=>{
-    const parts = s.payStatus.split('|');
-    const statusText = parts[0];
-    return `<tr>
+  document.getElementById('studentTable').innerHTML=allStudents.map(s=>
+    `<tr>
       <td><strong>${s.id}</strong></td>
       <td><strong>${s.cnName}</strong></td>
       <td>${s.enName||'-'}</td>
@@ -1212,25 +389,17 @@ function renderStudentTables(){
       <td>${s.school}</td>
       <td><span class="badge badge-blue">${s.level}</span></td>
       <td>${s.elo}</td>
-      <td>${payBadge(statusText)}</td>
+      <td>${payBadge(s.payStatus)}</td>
       <td style="text-align:center;">
         <button class="btn-sm" style="color:var(--red);border-color:var(--red);padding:4px 8px;font-size:11px;" onclick="deleteStudentAccount('${s.id}','${s.cnName}')">🗑️ 移除</button>
       </td>
-    </tr>`;
-  }).join('');
+    </tr>`
+  ).join('');
 
-  document.getElementById('paymentTable').innerHTML=allStudents.map(s=>{
-    const parts = s.payStatus.split('|');
-    const statusText = parts[0];
-    const imgUrl = parts[1] || '';
-    return `<tr><td><strong>${s.id}</strong></td><td>${s.cnName}</td><td>${s.level}</td><td>${s.feeMode}</td><td>${s.comboExpiry||'-'}</td><td>${payBadge(statusText)}</td>
-      <td>
-        <div style="display:flex; gap:4px; justify-content:center;">
-          <button class="btn-sm green" onclick="markPaid('${s.id}')">核准已缴</button>
-          ${imgUrl ? `<button class="btn-sm" style="background:#F39C12; color:#fff; border:none;" onclick="openLightbox('${imgUrl}')">查看凭证</button>` : ''}
-        </div>
-      </td></tr>`;
-  }).join('');
+  document.getElementById('paymentTable').innerHTML=allStudents.map(s=>
+    `<tr><td><strong>${s.id}</strong></td><td>${s.cnName}</td><td>${s.level}</td><td>${s.feeMode}</td><td>${s.comboExpiry||'-'}</td><td>${payBadge(s.payStatus)}</td>
+      <td><button class="btn-sm green" onclick="markPaid('${s.id}')">核准已缴</button></td></tr>`
+  ).join('');
 }
 
 function renderMatchesTable(){
@@ -1238,16 +407,8 @@ function renderMatchesTable(){
   if (!el) return;
   el.innerHTML=allMatches.slice().reverse().map(m=>{
     const imgBtn=m.recordImg&&m.recordImg.startsWith('http')
-      ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📸 查看记谱纸</button>`
-      :`<button class="btn-sm" onclick="document.getElementById('matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">📤 传照片</button>
-        <input type="file" id="matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept="image/*" onchange="uploadMatchPhotoFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
-        
-    const xqfBtn=m.xqfFile&&m.xqfFile.startsWith('http')
-      ?`<button class="btn-sm" onclick="window.open('${m.xqfFile}')">💾 下载XQF</button>`
-      :`<button class="btn-sm" onclick="document.getElementById('xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">📤 传XQF</button>
-        <input type="file" id="xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
-
-    return`<tr><td>${m.date}</td><td>${m.round}</td><td><strong>${m.red}</strong></td><td>${m.result}</td><td><strong>${m.black}</strong></td><td>${m.verdict}</td><td>${imgBtn}</td><td>${xqfBtn}</td></tr>`
+      ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📷 查看</button>`:'-';
+    return`<tr><td>${m.date}</td><td>${m.round}</td><td><strong>${m.red}</strong></td><td>${m.result}</td><td><strong>${m.black}</strong></td><td>${m.verdict}</td><td>${imgBtn}</td></tr>`;
   }).join('');
 }
 
@@ -1260,14 +421,7 @@ function renderGallery(){
   g.innerHTML=allMatches.slice().reverse().map((m, idx)=>{
     const hasImg=m.recordImg&&(m.recordImg.startsWith('http')||m.recordImg.startsWith('data:image'));
     const img=hasImg?`<img src="${m.recordImg}" onclick="openLightbox('${m.recordImg}')" style="width:100%;height:150px;object-fit:cover;cursor:pointer;border-top:1px solid var(--border);">`
-      :`<div onclick="document.getElementById('matchPhotoUpload_${idx}').click()" style="padding:16px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">上传实体记谱纸照片</div>
-      <input type="file" id="matchPhotoUpload_${idx}" style="display:none;" accept="image/*" onchange="uploadMatchPhotoFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
-    
-    const hasXqf=m.xqfFile&&m.xqfFile.startsWith('http');
-    const xqfBtn=hasXqf
-      ?`<div onclick="window.open('${m.xqfFile}')" style="padding:12px;background:#EBF5FB;color:var(--pri3);font-size:12px;font-weight:700;text-align:center;cursor:pointer;border-top:1px solid var(--border);">💾 下载XQF电子棋谱</div>`
-      :`<div onclick="document.getElementById('xqfUpload_${idx}').click()" style="padding:12px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">📤 上传XQF电子棋谱</div>
-      <input type="file" id="xqfUpload_${idx}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
+      :`<div style="padding:16px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);">暂无实体记谱纸照片</div>`;
     return `
       <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;">
         <div style="padding:12px 14px;">
@@ -1283,7 +437,6 @@ function renderGallery(){
           <div style="font-size:12px;color:var(--pri2);font-weight:800;margin-top:2px;">${m.result} · ${m.verdict}</div>
         </div>
         ${img}
-        ${xqfBtn}
       </div>
     `;
   }).join('');
@@ -2708,7 +1861,7 @@ function renderEvents() {
   const container = document.getElementById('galleryListArea');
   if(!container) return;
   if(!window._events || window._events.length === 0) {
-    container.innerHTML = '<div style="color:var(--text2); padding:40px; text-align:center; width:100%; grid-column: 1 / -1;">暂无活动相册，点击上方新建。</div>';
+    container.innerHTML = '<div style="color:var(--text2);">暂无活动相册，点击上方新建。</div>';
     return;
   }
   let html = '';
@@ -2806,6 +1959,130 @@ async function submitGallery() {
   prog.style.display = 'none';
 }
 
+async function deleteEvent(idx) {
+  if(!confirm('确定删除这个图集吗？照片将留在云端，但网页将不再展示。')) return;
+  const events = [...(window._events || [])];
+  events.splice(idx, 1);
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: getAuthPin(), events: events })
+    });
+    const result = await res.json();
+    if(result.success) {
+      if(typeof toast === 'function') toast('已删除', 'success');
+      window._events = events;
+      renderEvents();
+    }
+  } catch(e) {}
+}
+
+
+
+async function editEvent(idx) {
+  const evt = window._events[idx];
+  document.getElementById('editGalIdx').value = idx;
+  document.getElementById('editGalName').value = evt.name;
+  document.getElementById('editGalDate').value = evt.date;
+  document.getElementById('editGalDesc').value = evt.desc || '';
+  
+  // Render existing photos
+  const photoContainer = document.getElementById('editGalPhotos');
+  photoContainer.innerHTML = '';
+  if (evt.photos && evt.photos.length) {
+    evt.photos.forEach((pid, pidx) => {
+      photoContainer.innerHTML += `<div style="position:relative; width:60px; height:60px; border-radius:8px; overflow:hidden; border:1px solid #ddd; background:url('https://drive.google.com/thumbnail?sz=w100&id=${pid}') center/cover;">
+        <div onclick="removePhotoFromEdit(${idx}, ${pidx})" style="position:absolute; top:0; right:0; background:rgba(231,76,60,0.9); color:#fff; width:20px; height:20px; text-align:center; line-height:20px; font-size:12px; cursor:pointer; font-weight:bold;">&times;</div>
+      </div>`;
+    });
+  }
+  
+  document.getElementById('editGalleryModal').style.display = 'flex';
+}
+
+function removePhotoFromEdit(evtIdx, photoIdx) {
+  if(!confirm('确定移除这张照片吗？')) return;
+  window._events[evtIdx].photos.splice(photoIdx, 1);
+  editEvent(evtIdx); // re-render modal
+}
+
+async function submitEditGallery() {
+  const idx = document.getElementById('editGalIdx').value;
+  const evt = window._events[idx];
+  
+  const name = document.getElementById('editGalName').value.trim();
+  const date = document.getElementById('editGalDate').value;
+  const desc = document.getElementById('editGalDesc').value.trim();
+  const fileInput = document.getElementById('editGalFiles');
+  
+  if(!name || !date) {
+    toast('名称和日期必填', 'error'); return;
+  }
+  
+  const btn = document.getElementById('editGalSubmitBtn');
+  const prog = document.getElementById('editGalProgress');
+  btn.disabled = true;
+  btn.textContent = '保存中...';
+  
+  let newUploadedIds = [];
+  const files = fileInput.files;
+  if (files.length > 0) {
+    prog.style.display = 'block';
+    for(let i=0; i<files.length; i++) {
+      prog.textContent = `上传新照片 ${i+1}/${files.length}...`;
+      try {
+        const base64 = await compressImage(files[i]);
+        const res = await fetch(GAS_API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'uploadEventPhoto', eventName: name, imageBase64: base64 })
+        });
+        const data = await res.json();
+        if(data.success && data.fileId) newUploadedIds.push(data.fileId);
+      } catch(e){}
+    }
+  }
+  
+  prog.textContent = '保存数据...';
+  
+  evt.name = name;
+  evt.date = date;
+  evt.desc = desc;
+  if(!evt.photos) evt.photos = [];
+  evt.photos = evt.photos.concat(newUploadedIds);
+  
+  try {
+    const res2 = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: getAuthPin(), events: window._events })
+    });
+    const data2 = await res2.json();
+    if(data2.success) {
+      toast('修改成功！', 'success');
+      document.getElementById('editGalleryModal').style.display = 'none';
+      renderEvents();
+      fileInput.value = '';
+    } else {
+      toast('保存失败', 'error');
+    }
+  } catch(e) {
+    toast('网络错误', 'error');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '保存修改';
+  prog.style.display = 'none';
+}
+'''
+
+# Replace old editEvent
+old_js_edit = re.search(r'async function editEvent\(idx\) \{.*?\n\}', text, re.DOTALL)
+if old_js_edit:
+    text = text.replace(old_js_edit.group(0), js_edit)
+else:
+    text = text.replace('
+
 function compressImage(file) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -2842,7 +2119,3 @@ if(typeof loadAllData !== 'undefined') {
   };
 }
 // --- End Gallery JS ---
-</script>
-
-</body>
-</html>

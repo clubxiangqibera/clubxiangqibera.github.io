@@ -1,0 +1,29 @@
+async function tryLogin(){
+  const input = document.getElementById('adminPinInput');
+  const p = input.value.trim();
+  const btn = document.getElementById('aBtn');
+  const og = btn.innerHTML;
+  btn.innerHTML = '🔄 验证中...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ pin: p })
+    });
+    const data = await res.json();
+    if (data.valid) {
+      localStorage.setItem('cxb_auth',JSON.stringify({pin:p,ts:Date.now()}));
+      localStorage.setItem('cxb_auth_user',JSON.stringify({role: data.role, perms: data.perms || [], name: data.name || ''}));
+      showApp();
+    } else {
+      input.classList.add('error');
+      input.value='';
+      const err = document.getElementById('loginError');
+      err.textContent = data.error || '❌ 密码错误，请重新输入';
+      err.style.display='block';
+      input.focus();
+      setTimeout(()=>input.classList.remove('error'),500);
+    }
+  } catch

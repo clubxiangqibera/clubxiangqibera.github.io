@@ -1196,6 +1196,34 @@ a { color: inherit; text-decoration: none; }
 }
 .apple-mega-col a:hover { color: var(--gold); transform: translateX(4px); }
 
+
+/* Apple Style Segmented Control */
+.apple-segment {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 4px;
+  width: 100%;
+  max-width: 300px;
+}
+.apple-segment .seg-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.apple-segment .seg-btn.active {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
 </style>
 </head>
 <body>
@@ -2413,7 +2441,9 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "camp.btn": "📝 Isi Borang Google Sekarang",
     "gallery.title": "Galeri Acara Lepas",
     "gallery.sub": "Merakam detik-detik indah bersama CXQB",
-    "gallery.empty": "Tiada album awam setakat ini.",
+        "gallery.empty": "Tiada album awam setakat ini.",
+    "events.title": "Pusat Acara & Aktiviti",
+    "events.sub": "Sumber dan Rekod Acara CXQB",
     "ladder.title": "Top Kedudukan Belia Daerah Bera",
     "ladder.sub": "Sistem ELO Rasmi CXQB · Segerak Langsung",
     "login.badge": "🏛️ CLUB XIANGQI BERA · Log Masuk Pelajar",
@@ -2444,7 +2474,9 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "camp.btn": "📝 Fill Google Form Now",
     "gallery.title": "Past Event Gallery",
     "gallery.sub": "Capturing wonderful moments at CXQB",
-    "gallery.empty": "No public albums available.",
+        "gallery.empty": "No public albums available.",
+    "events.title": "Events & Activities Center",
+    "events.sub": "CXQB Event Resources and Records",
     "ladder.title": "Bera Youth Ladder Rankings",
     "ladder.sub": "CXQB Official ELO System · Live Sync",
     "login.badge": "🏛️ CLUB XIANGQI BERA · Student Login",
@@ -2562,6 +2594,13 @@ function closeMainNav() {
   if(btnIcon) btnIcon.innerText = '☰';
 }
 // --- END MAIN NAV SYSTEM ---
+
+function updateSeg(lang) {
+  document.querySelectorAll('.apple-segment .seg-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('seg_' + lang);
+  if(activeBtn) activeBtn.classList.add('active');
+}
+
 </script>
 
 
@@ -2586,9 +2625,11 @@ function closeMainNav() {
     
     <div class="apple-mega-col">
       <h4 data-i18n="nav.language">系统语言 (Language)</h4>
-      <a onclick="setLang('cn'); closeMainNav()">🇨🇳 中文 (Chinese)</a>
-      <a onclick="setLang('bm'); closeMainNav()">🇲🇾 Bahasa Melayu</a>
-      <a onclick="setLang('en'); closeMainNav()">🇬🇧 English</a>
+      <div class="apple-segment">
+        <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
+        <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
+        <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
+      </div>
     </div>
 
   </div>

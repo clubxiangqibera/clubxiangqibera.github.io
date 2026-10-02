@@ -448,6 +448,34 @@
   animation: popZoom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
+
+/* Apple Style Segmented Control */
+.lang-switcher {
+  display: flex;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 4px;
+  margin: 0 auto 24px auto;
+  width: 200px;
+}
+.lang-switcher span {
+  flex: 1;
+  background: transparent;
+  color: #64748B;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex; justify-content: center; align-items: center;
+}
+.lang-switcher span.active {
+  background: #FFF;
+  color: #0F172A;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 </style>
 </head>
 <body>
