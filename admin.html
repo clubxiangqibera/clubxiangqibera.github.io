@@ -1099,6 +1099,37 @@ async function uploadReceiptFile(studentId, inputEl) {
   inputEl.value = '';
 }
 
+
+async function uploadXqfFile(date, round, redName, blackName, inputEl) {
+  if (!inputEl.files || inputEl.files.length === 0) return;
+  const file = inputEl.files[0];
+  const ogText = inputEl.previousElementSibling.innerHTML;
+  inputEl.previousElementSibling.innerHTML = '上传中...';
+  
+  try {
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const base64 = e.target.result;
+      const res = await fetch(GAS_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'updateMatchXQF', date: date, round: round, redName: redName, blackName: blackName, fileBase64: base64 })
+      });
+      const data = await res.json();
+      if(data.success) {
+        toast('XQF棋谱上传成功', 'success');
+        loadAllData(); // Reload matches
+      } else {
+        toast('上传失败: ' + (data.error||''), 'error');
+      }
+    };
+    reader.readAsDataURL(file);
+  } catch (e) {
+    toast('网络错误', 'error');
+  }
+  inputEl.previousElementSibling.innerHTML = ogText;
+  inputEl.value = '';
+}
+
 async function uploadMatchPhotoFile(date, round, redName, blackName, inputEl) {
   if (!inputEl.files || inputEl.files.length === 0) return;
   const file = inputEl.files[0];
@@ -1163,8 +1194,16 @@ function renderMatchesTable(){
   if (!el) return;
   el.innerHTML=allMatches.slice().reverse().map(m=>{
     const imgBtn=m.recordImg&&m.recordImg.startsWith('http')
-      ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📷 查看</button>`:'-';
-    return`<tr><td>${m.date}</td><td>${m.round}</td><td><strong>${m.red}</strong></td><td>${m.result}</td><td><strong>${m.black}</strong></td><td>${m.verdict}</td><td>${imgBtn}</td></tr>`;
+      ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📸 查看记谱纸</button>`
+      :`<button class="btn-sm" onclick="document.getElementById('matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">📤 传照片</button>
+        <input type="file" id="matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept="image/*" onchange="uploadMatchPhotoFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
+        
+    const xqfBtn=m.xqfFile&&m.xqfFile.startsWith('http')
+      ?`<button class="btn-sm" onclick="window.open('${m.xqfFile}')">💾 下载XQF</button>`
+      :`<button class="btn-sm" onclick="document.getElementById('xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">📤 传XQF</button>
+        <input type="file" id="xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
+
+    return`<tr><td>${m.date}</td><td>${m.round}</td><td><strong>${m.red}</strong></td><td>${m.result}</td><td><strong>${m.black}</strong></td><td>${m.verdict}</td><td>${imgBtn}</td><td>${xqfBtn}</td></tr>`
   }).join('');
 }
 
@@ -1179,6 +1218,12 @@ function renderGallery(){
     const img=hasImg?`<img src="${m.recordImg}" onclick="openLightbox('${m.recordImg}')" style="width:100%;height:150px;object-fit:cover;cursor:pointer;border-top:1px solid var(--border);">`
       :`<div onclick="document.getElementById('matchPhotoUpload_${idx}').click()" style="padding:16px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">上传实体记谱纸照片</div>
       <input type="file" id="matchPhotoUpload_${idx}" style="display:none;" accept="image/*" onchange="uploadMatchPhotoFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
+    
+    const hasXqf=m.xqfFile&&m.xqfFile.startsWith('http');
+    const xqfBtn=hasXqf
+      ?`<div onclick="window.open('${m.xqfFile}')" style="padding:12px;background:#EBF5FB;color:var(--pri3);font-size:12px;font-weight:700;text-align:center;cursor:pointer;border-top:1px solid var(--border);">💾 下载XQF电子棋谱</div>`
+      :`<div onclick="document.getElementById('xqfUpload_${idx}').click()" style="padding:12px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">📤 上传XQF电子棋谱</div>
+      <input type="file" id="xqfUpload_${idx}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
     return `
       <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;">
         <div style="padding:12px 14px;">
@@ -1194,6 +1239,7 @@ function renderGallery(){
           <div style="font-size:12px;color:var(--pri2);font-weight:800;margin-top:2px;">${m.result} · ${m.verdict}</div>
         </div>
         ${img}
+        ${xqfBtn}
       </div>
     `;
   }).join('');
