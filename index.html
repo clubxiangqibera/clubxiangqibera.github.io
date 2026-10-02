@@ -1161,6 +1161,41 @@ a { color: inherit; text-decoration: none; }
   animation: popZoom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
+
+.apple-backdrop {
+  position: fixed; inset: 0; z-index: 9400;
+  background: rgba(4, 12, 23, 0.5);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+}
+.apple-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.apple-mega-menu {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
+  background: rgba(6, 23, 36, 0.95); /* Deep navy translucent */
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 100px 40px 60px; /* Extra top padding to clear navbar */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.apple-mega-menu.open { transform: translateY(0); }
+
+.apple-mega-container {
+  max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;
+}
+.apple-mega-col { display: flex; flex-direction: column; gap: 16px; }
+.apple-mega-col h4 {
+  font-size: 13px; color: rgba(255,255,255,0.4); text-transform: uppercase;
+  letter-spacing: 1.5px; margin-bottom: 8px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;
+}
+.apple-mega-col a {
+  color: #fff; font-size: 18px; font-weight: 700; text-decoration: none;
+  cursor: pointer; transition: all 0.3s ease; font-family: var(--font-serif);
+  display: flex; align-items: center;
+}
+.apple-mega-col a:hover { color: var(--gold); transform: translateX(4px); }
+
 </style>
 </head>
 <body>
@@ -1170,7 +1205,7 @@ a { color: inherit; text-decoration: none; }
      ======================================================== -->
 <div id="securityGate">
   <!-- PUBLIC STICKY NAV -->
-  <header class="public-nav-bar">
+  <header class="public-nav-bar" style="position:relative; z-index:9600;">
     <div class="p-nav-brand">
       <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
       <div>
@@ -1178,8 +1213,8 @@ a { color: inherit; text-decoration: none; }
         <div class="p-nav-sub">CLUB XIANGQI BERA</div>
       </div>
     </div>
-    <button class="nav-menu-btn" onclick="openMainNav()">
-      <span>☰</span> <span data-i18n="nav.menu">菜单</span>
+    <button class="nav-menu-btn" onclick="toggleMainNav()">
+      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
     </button>
   </header>
 
@@ -2492,56 +2527,72 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
 </div>
 
 
-<!-- === MAIN NAV SIDEBAR === -->
-<div id="mainNavBackdrop" class="archive-backdrop" onclick="closeMainNav()"></div>
-<div id="mainNavSidebar" class="archive-view" style="width: 340px;">
-  <div class="archive-view__header">
-    <div class="archive-view__title">🧭 导航 (Navigation)</div>
-    <button class="archive-view__close" onclick="closeMainNav()">×</button>
-  </div>
-  <div class="archive-view__body" style="padding: 24px; display: flex; flex-direction: column; gap: 12px;">
-    
-    <button class="nav-drawer-btn" onclick="togglePublicTab('home'); closeMainNav()" data-i18n="nav.home">🏠 首页</button>
-    <button class="nav-drawer-btn" onclick="togglePublicTab('ladder'); closeMainNav()" data-i18n="nav.ladder">🏆 天梯榜</button>
-    <button class="nav-drawer-btn" onclick="openArchiveView(); closeMainNav()" data-i18n="events.title">📸 赛事与活动中心</button>
-    <button class="nav-drawer-btn" onclick="togglePublicTab('login'); closeMainNav()" data-i18n="nav.login">🔐 学员登录</button>
-    
-    <div style="height: 1px; background: var(--line); margin: 12px 0;"></div>
-    
-    <a href="school.html" class="nav-drawer-btn" style="color: var(--silver);">🏫 校际赛入口 (Schools)</a>
-    <a href="admin.html" class="nav-drawer-btn" style="color: var(--gold);">👑 教练管理端 (Admin)</a>
 
-    <div style="height: 1px; background: var(--line); margin: 12px 0;"></div>
-    
-    <div style="font-size: 13px; font-weight:700; color: var(--ink-dim); margin-bottom: 8px;">🌐 语言 / Language</div>
-    <div class="lang lang-switcher">
-      <button onclick="setLang('cn', this)" class="lang-btn" aria-pressed="true">中文</button>
-      <button onclick="setLang('bm', this)" class="lang-btn" aria-pressed="false">BM</button>
-      <button onclick="setLang('en', this)" class="lang-btn" aria-pressed="false">EN</button>
-    </div>
-
-  </div>
 </div>
 
 
 <script>
 // --- MAIN NAV SYSTEM ---
-function openMainNav() {
-  const sidebar = document.getElementById('mainNavSidebar');
-  const backdrop = document.getElementById('mainNavBackdrop');
-  if(sidebar) sidebar.classList.add('open');
-  if(backdrop) backdrop.classList.add('open');
-  document.body.style.overflow = 'hidden';
+function toggleMainNav() {
+  const menu = document.getElementById('appleMegaMenu');
+  const backdrop = document.getElementById('appleMegaBackdrop');
+  const btnText = document.getElementById('navMenuBtnText');
+  const btnIcon = document.getElementById('navMenuBtnIcon');
+
+  if(menu.classList.contains('open')) {
+    closeMainNav();
+  } else {
+    menu.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if(btnText) btnText.innerText = '关闭';
+    if(btnIcon) btnIcon.innerText = '✕';
+  }
 }
 function closeMainNav() {
-  const sidebar = document.getElementById('mainNavSidebar');
-  const backdrop = document.getElementById('mainNavBackdrop');
-  if(sidebar) sidebar.classList.remove('open');
+  const menu = document.getElementById('appleMegaMenu');
+  const backdrop = document.getElementById('appleMegaBackdrop');
+  if(menu) menu.classList.remove('open');
   if(backdrop) backdrop.classList.remove('open');
   document.body.style.overflow = '';
+  
+  const btnText = document.getElementById('navMenuBtnText');
+  const btnIcon = document.getElementById('navMenuBtnIcon');
+  if(btnText) btnText.innerText = '菜单';
+  if(btnIcon) btnIcon.innerText = '☰';
 }
 // --- END MAIN NAV SYSTEM ---
 </script>
+
+
+<!-- === APPLE STYLE MEGA MENU === -->
+<div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
+<div id="appleMegaMenu" class="apple-mega-menu">
+  <div class="apple-mega-container">
+    
+    <div class="apple-mega-col">
+      <h4>探索俱乐部 (Explore)</h4>
+      <a onclick="togglePublicTab('home'); closeMainNav()">首页 (Home)</a>
+      <a onclick="togglePublicTab('ladder'); closeMainNav()">天梯榜 (Leaderboard)</a>
+      <a onclick="openArchiveView(); closeMainNav()">赛事与活动中心 (Events)</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4>专属入口 (Portals)</h4>
+      <a onclick="togglePublicTab('login'); closeMainNav()">学员专属登录 (Student Login)</a>
+      <a href="school.html">校际赛报名系统 (Schools)</a>
+      <a href="admin.html">教练管理端 (Admin)</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4>系统语言 (Language)</h4>
+      <a onclick="setLang('cn'); closeMainNav()">中文 (Chinese)</a>
+      <a onclick="setLang('bm'); closeMainNav()">Bahasa Melayu (BM)</a>
+      <a onclick="setLang('en'); closeMainNav()">English (EN)</a>
+    </div>
+
+  </div>
+</div>
 
 </body>
 
