@@ -44,45 +44,15 @@
       padding: 20px;
       background: radial-gradient(circle at top, #1A5276 0%, #0E2F44 100%);
     }
-    .school-login-card {
-      background: #FFFFFF;
-      border-radius: 28px;
-      padding: 36px 40px 36px;
-      width: 100%;
-      max-width: 530px;
-      box-shadow: 0 24px 70px rgba(10, 31, 48, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-      text-align: center;
-      position: relative;
-      border: 1px solid rgba(255,255,255,0.18);
-    }
+    .school-login-card { background: rgba(6,23,36,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 36px 40px 36px; width: 100%; max-width: 530px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; backdrop-filter: blur(20px); }
     .lang-switch-wrap {
       display: flex;
       justify-content: flex-end;
       margin-bottom: 8px;
     }
-    .lang-switch {
-      display: inline-flex;
-      background: #F0F4F8;
-      border-radius: 20px;
-      padding: 3px;
-      border: 1px solid var(--border);
-    }
-    .lang-btn {
-      padding: 4px 12px;
-      border-radius: 16px;
-      font-size: 11px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text2);
-      transition: all .2s;
-    }
-    .lang-btn.active {
-      background: #1A5276;
-      color: #FFF;
-      box-shadow: 0 2px 6px rgba(26,82,118,0.25);
-    }
+    .lang-switch { display: inline-flex; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 4px; border: none; width: 200px; justify-content: center; }
+    .lang-btn { flex: 1; padding: 8px 0; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; background: transparent; color: rgba(255,255,255,0.5); transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; justify-content: center; align-items: center; }
+    .lang-btn.active { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     .cxb-emblem-wrap {
       display: inline-flex;
       align-items: center;
@@ -105,7 +75,7 @@
       align-items: center;
       gap: 6px;
       background: #F0F4F8;
-      color: var(--pri);
+      color: #fff;
       padding: 6px 16px;
       border-radius: 30px;
       font-size: 12px;
@@ -125,12 +95,12 @@
       text-align: center;
       letter-spacing: 2px;
       text-transform: uppercase;
-      border: 2px solid var(--border);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 14px;
       outline: none;
       transition: all .2s;
-      background: #FAFBFD;
-      color: var(--pri);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
     }
     .pin-input::placeholder {
       font-size: 13px;
@@ -222,7 +192,7 @@
     }
     .formal-table th {
       background: #EBF2F7;
-      color: var(--pri);
+      color: #fff;
       font-weight: 800;
       padding: 12px 14px;
       text-align: center;
@@ -235,7 +205,7 @@
       text-align: center;
     }
     .formal-table tr:last-child td { border-bottom: none; }
-    .formal-table tr:hover td { background: #FAFBFD; }
+    .formal-table tr:hover td { background: rgba(255,255,255,0.05); }
 
     /* FORMAL SIDES */
     .cell-red {
@@ -264,7 +234,7 @@
     }
     .cell-board {
       font-weight: 900;
-      color: var(--text2);
+      color: rgba(255,255,255,0.6);
       width: 8%;
     }
     .cell-act {
@@ -322,7 +292,7 @@
       justify-content: center;
       font-weight: 900;
       font-size: 14px;
-      color: var(--text2);
+      color: rgba(255,255,255,0.6);
       z-index: 2;
       cursor: pointer;
       transition: all .2s;
@@ -478,7 +448,7 @@
 
 <!-- 1. FORMAL SCHOOL LOGIN SCREEN -->
 <div id="schoolLoginScreen">
-  <div class="school-login-card">
+  <div class="school-login-card animate-zoom">
     
     <!-- Language Switcher Pill -->
     <div class="lang-switch-wrap">
@@ -494,11 +464,11 @@
         <img src="cxb_round_emblem.png" alt="Club XiangQi Bera Official Emblem" style="width:116px; height:116px; object-fit:contain; border-radius:50%; box-shadow:0 8px 24px rgba(14,47,68,0.12);">
       </div>
       <div style="text-align:center;">
-        <div style="font-size:18px; font-weight:900; color:var(--pri); letter-spacing:0.5px; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <div style="font-size:18px; font-weight:900; color: #fff; letter-spacing:0.5px; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
           CLUB XIANGQI BERA
           <span style="font-size:10px; background:linear-gradient(135deg,#D4AC0D,#B7950B); color:#FFF; padding:2px 7px; border-radius:6px; font-weight:800;">OFFICIAL</span>
         </div>
-        <div id="tBrandSub" style="font-size:12px; color:var(--text2); font-weight:700; margin-top:3px; letter-spacing:0.4px;">
+        <div id="tBrandSub" style="font-size:12px; color: rgba(255,255,255,0.6); font-weight:700; margin-top:3px; letter-spacing:0.4px;">
           百乐县象棋公会 · 官方技术认证体系
         </div>
       </div>
@@ -508,12 +478,12 @@
     <div style="margin:16px 0 14px;">
       <span class="login-brand-badge" style="background:#EBF3FA; border:1px solid #D0E1F0; padding:6px 16px;">
         <span style="font-size:13px;">🏛️</span>
-        <span id="tBadgeText" style="font-weight:800; color:#1A5276; font-size:12px;">全国中小学及校际赛事专用系统</span>
+        <span id="tBadgeText" style="font-weight:800; color: rgba(255,255,255,0.8); font-size:12px;">全国中小学及校际赛事专用系统</span>
       </span>
-      <h2 id="tMainTitle" style="font-size:24px; font-weight:900; color:var(--pri); margin-top:12px; letter-spacing:0.5px;">
+      <h2 id="tMainTitle" style="font-size:24px; font-weight:900; color: #fff; margin-top:12px; letter-spacing:0.5px;">
         校内象棋比赛管理系统
       </h2>
-      <p id="tSubDesc" style="font-size:13px; color:var(--text2); margin-top:8px; line-height:1.6;">
+      <p id="tSubDesc" style="font-size:13px; color: rgba(255,255,255,0.6); margin-top:8px; line-height:1.6;">
         Club XiangQi Bera 专属配对制 · 自动破同分 · 现场大屏投影
       </p>
     </div>
@@ -524,7 +494,7 @@
         <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
       </div>
 
-      <button id="tSubmitBtn" type="submit" class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); cursor:pointer; pointer-events:auto; touch-action:manipulation; user-select:none; -webkit-tap-highlight-color:transparent;">
+      <button id="tSubmitBtn" type="submit" class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:#040C17; border: 1px solid rgba(255,255,255,0.1); cursor:pointer; pointer-events:auto; touch-action:manipulation; user-select:none; -webkit-tap-highlight-color:transparent;">
         🛡️ 验证授权并进入比赛台
       </button>
     </form>
@@ -543,7 +513,7 @@
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         Cloudflare® SSL 安全加密鉴权
       </span>
-      <span id="tFootCert" style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
+      <span id="tFootCert" style="font-weight:800; color: rgba(255,255,255,0.8); display:flex; align-items:center; gap:4px;">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
         百乐县象棋公会认证
       </span>
@@ -600,8 +570,8 @@
 
     <!-- WIZARD: STEP 1 - CREATE / SETUP TOURNAMENT -->
     <div class="card no-print" id="setupCard">
-      <h3 id="tSetupTitle" style="font-size:18px; font-weight:900; margin-bottom:6px; color:var(--pri);">⚙️ 比赛基本设置</h3>
-      <p id="tSetupDesc" style="font-size:13px; color:var(--text2); margin-bottom:18px;">
+      <h3 id="tSetupTitle" style="font-size:18px; font-weight:900; margin-bottom:6px; color: #fff;">⚙️ 比赛基本设置</h3>
+      <p id="tSetupDesc" style="font-size:13px; color: rgba(255,255,255,0.6); margin-bottom:18px;">
         仅需粘贴参赛学生名单，系统将全自动完成 Club XiangQi Bera Pairing System 配对与胜负记分。
       </p>
 
@@ -647,7 +617,7 @@
       <!-- TIMELINE & ROUND SELECTOR -->
       <div class="card no-print" style="padding:18px 24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <h3 id="curTourneyHeading" style="font-size:18px; font-weight:900; color:var(--pri);">比赛进行中</h3>
+          <h3 id="curTourneyHeading" style="font-size:18px; font-weight:900; color: #fff;">比赛进行中</h3>
           <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="resetSchoolTourney()">重新创建新比赛</button>
         </div>
         <div class="timeline" id="schTimeline"></div>
@@ -657,8 +627,8 @@
       <div class="card" style="padding:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;" class="no-print">
           <div>
-            <h4 style="font-size:17px; font-weight:900; color:var(--pri);" id="roundTitleDisplay">⚔️ 第 1 轮正规对阵表</h4>
-            <div id="tRoundSideHint" style="font-size:12px; color:var(--text2); margin-top:2px;">
+            <h4 style="font-size:17px; font-weight:900; color: #fff;" id="roundTitleDisplay">⚔️ 第 1 轮正规对阵表</h4>
+            <div id="tRoundSideHint" style="font-size:12px; color: rgba(255,255,255,0.6); margin-top:2px;">
               左侧执红（先手）· 右侧执黑（后手）· 点选胜负
             </div>
           </div>
@@ -693,8 +663,8 @@
       <div class="card" style="padding:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
           <div>
-            <h4 id="tStandingsTitle" style="font-size:17px; font-weight:900; color:var(--pri);">📊 实时总积分排行榜 (Standings & Buchholz)</h4>
-            <div id="tStandingsSub" style="font-size:12px; color:var(--text2); margin-top:2px;">
+            <h4 id="tStandingsTitle" style="font-size:17px; font-weight:900; color: #fff;">📊 实时总积分排行榜 (Standings & Buchholz)</h4>
+            <div id="tStandingsSub" style="font-size:12px; color: rgba(255,255,255,0.6); margin-top:2px;">
               按个人总分排序 · 积分相同时自动依布赫兹对手分 (Buchholz) 破同分
             </div>
           </div>
@@ -753,7 +723,7 @@
     <div class="lock-desc" id="lockDesc">
       总控管理后台已停用或删除了该比赛授权码。当前比赛对阵系统已强制锁定，无法继续进行录分与对局。如需重新开赛，请联系百乐象棋俱乐部管理员。
     </div>
-    <button type="button" class="btn btn-pri" style="width:100%; justify-content:center; padding:13px; font-size:15px; border-radius:12px; background:linear-gradient(135deg, #0E2F44 0%, #1A5276 100%); cursor:pointer;" onclick="schoolLogout()">
+    <button type="button" class="btn btn-pri" style="width:100%; justify-content:center; padding:13px; font-size:15px; border-radius:12px; font-weight:800; color:#fff; background:#040C17; border: 1px solid rgba(255,255,255,0.1); cursor:pointer;" onclick="schoolLogout()">
       返回登录验证页
     </button>
   </div>
@@ -1598,9 +1568,9 @@ function renderActiveTourney() {
         <td style="font-weight:900;">${medal}</td>
         <td style="text-align:left;padding-left:14px;font-weight:900;">${st.name}</td>
         ${rScores}
-        <td style="font-weight:900;color:var(--pri);font-size:15px;">${st.totalPts.toFixed(1)}</td>
-        <td style="font-weight:800;color:var(--text2);">${st.buchholz.toFixed(1)}</td>
-        <td style="color:var(--text2);">${st.seed}</td>
+        <td style="font-weight:900;color: #fff;font-size:15px;">${st.totalPts.toFixed(1)}</td>
+        <td style="font-weight:800;color: rgba(255,255,255,0.6);">${st.buchholz.toFixed(1)}</td>
+        <td style="color: rgba(255,255,255,0.6);">${st.seed}</td>
       </tr>`;
   }).join('');
 }
