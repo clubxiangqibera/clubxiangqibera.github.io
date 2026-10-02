@@ -1160,64 +1160,19 @@ a { color: inherit; text-decoration: none; }
         <div id="publicTickerTrack" class="ticker__track"></div>
       </section>
 
-      <!-- 4. EVENTS GALLERY -->
-      <div class="section-head" style="margin-top:40px;">
-        <div class="section-title">📸 历届活动相册</div>
-        <div class="section-sub">记录在百乐县中国象棋公会的精彩瞬间</div>
-      </div>
-      <div id="publicGalleryArea" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top:16px; margin-bottom:40px;">
-        <div style="color:var(--text2); font-size:13px; padding:10px;">正在加载相册...</div>
-      </div>
-
-      <!-- PHOTO MODAL -->
-      <div id="photoModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.9); z-index:9999; flex-direction:column; align-items:center; justify-content:center; padding:20px;">
-        <button onclick="document.getElementById('photoModal').style.display='none'" style="position:absolute; top:20px; right:20px; background:none; border:none; color:#fff; font-size:32px; cursor:pointer; z-index:10000;">&times;</button>
-        <div id="photoModalContent" style="width:100%; max-width:800px; height:80vh; overflow-y:auto; display:flex; flex-direction:column; gap:16px; align-items:center;">
+      <!-- 4. SUPER EVENT SYSTEM -->
+      <section class="section" id="events" style="margin-top: 40px;">
+        <div class="section__head">
+          <h2 class="section__title" data-i18n="events.title">赛事与活动中心</h2>
+          <p class="section__sub" data-i18n="events.sub">记录百乐县中国象棋公会的精彩瞬间与赛事资源</p>
         </div>
-      </div>
-
-      <!-- 4. LEADERBOARD / PODIUM -->
-      <div class="section-head" id="podiumHeader">
-        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
-        <div class="section-sub">CXQB ELO 官方排位体系 · 实时同步</div>
-      </div>
-      <div id="publicPodiumArea" class="podium"></div>
-
-      
-      <div id="publicRankList" class="rank-list" style="width:100%;"></div>
-
-      <!-- VIP INVITATION BANNER -->
-      <div class="vip-invite-card">
-        <div class="vip-invite-text">
-          👋 <strong>在册学员或家长？</strong><br>
-          <span style="font-size:13px;opacity:0.85;font-weight:600;">登录专属 VIP 空间，查阅个人出勤日程、对局记谱纸及详细考勤。</span>
+        <div id="homeEventsGrid" class="events-grid"></div>
+        <div style="text-align: center; margin-top: 36px;">
+          <button class="btn btn--ghost" onclick="openArchiveView()">
+            📚 查看所有历届活动 / View All Events
+          </button>
         </div>
-        <button class="vip-invite-btn" onclick="togglePublicTab('login')">进入学员专区 🔐</button>
-      </div>
-    </div>
-
-    <!-- VIEW 2: LOGIN CARD (STUDENT & PARENT VIP) -->
-    <div id="publicLoginSection" style="display:none; justify-content:center; align-items:center; min-height:65vh;">
-      <div class="gate-card" style="margin:20px auto;">
-        <div class="gate-badge" data-i18n="login.badge">🏛️ CLUB XIANGQI BERA · 学员专属登录</div>
-        <h1 class="gate-title" data-i18n="login.title">百乐象棋俱乐部</h1>
-        <p class="gate-sub" data-i18n="login.sub">请使用俱乐部发放的学员账号密码登录</p>
-
-        <div class="input-group">
-          <label class="input-label" data-i18n="login.name_label">👤 学员姓名 (Name)</label>
-          <input type="text" id="nameInput" class="gate-input input" placeholder="如: 黄梓轩 或 admin" data-i18n="login.name_ph" autofocus>
-        </div>
-
-        <div class="input-group">
-          <label class="input-label" data-i18n="login.pwd_label">🔑 专属密码 (Password)</label>
-          <input type="password" id="pwdInput" class="gate-input input" placeholder="请输入密码" data-i18n="login.pwd_ph">
-        </div>
-
-        <button class="login-btn btn btn--primary" onclick="handleLogin()" data-i18n="login.btn">🔐 登录进入系统</button>
-        <div id="loginMsg" style="color:var(--red);font-size:13px;font-weight:800;margin-top:10px;display:none;"></div>
-
-      </div>
-    </div>
+      </section>
   </div>
   </div>
 
