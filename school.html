@@ -489,8 +489,9 @@ body::before {
 
     <!-- Input Form -->
     <form id="schoolLoginForm" onsubmit="event.preventDefault(); verifySchoolLogin(); return false;">
-      <div class="login-input-wrap">
-        <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入比赛授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+      <div class="login-input-wrap" style="text-align:left; margin-bottom: 32px;">
+        <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); margin-bottom:8px;">🔑 比赛授权码 (Access Code)</label>
+        <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="text-align:left;">
       </div>
 
       <button id="tSubmitBtn" type="submit" class="btn btn-pri" style="width:100%; justify-content:center; padding:15px; font-size:15px; border-radius:14px; font-weight:900; letter-spacing:0.5px; box-shadow:0 8px 22px rgba(14,47,68,0.28); background:#040C17; border: 1px solid rgba(255,255,255,0.1); cursor:pointer; pointer-events:auto; touch-action:manipulation; user-select:none; -webkit-tap-highlight-color:transparent;">

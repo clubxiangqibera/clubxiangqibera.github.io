@@ -22,7 +22,7 @@
     .login-card .sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:24px;}
     .login-input-wrap { width: 100%; margin-bottom: 20px; }
     
-    .pin-input {
+    .pin-input { text-align: left; 
       width: 100%; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
       font-size: 16px; font-weight: 800; text-align: center; outline: none; color: #fff;
       background: rgba(255,255,255,0.05); transition: border-color .3s, background .3s;
@@ -305,16 +305,19 @@ body::before {
       </div>
     </div>
 
-    <img src="cxb_round_emblem.png" alt="Logo" style="width:72px; height:72px; border-radius:50%; margin-bottom:16px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-    <h1 id="aTitle">Club XiangQi Bera</h1>
-    <p class="sub" id="aSub">管理控制台 · Admin Dashboard</p>
+    
+    <div style="display:inline-block; background:#F1C40F; color:#0A1929; padding:6px 12px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">👑 CLUB XIANGQI BERA · 教练管理端</div>
+    <h1 id="aTitle" style="font-family: 'Noto Serif SC', serif; font-size: 26px; color: #fff; margin-bottom: 8px; font-weight:900;">百乐象棋俱乐部</h1>
+    <p class="sub" id="aSub" style="font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 32px;">请使用俱乐部发放的教练密码登入后台</p>
+
     
     <form onsubmit="event.preventDefault(); tryLogin(); return false;">
-      <div class="login-input-wrap">
-        <input type="password" id="adminPinInput" class="pin-input" placeholder="输入管理密码 (Enter Password)" maxlength="16" autofocus autocomplete="current-password">
+      <div class="login-input-wrap" style="text-align:left; margin-bottom: 32px;">
+        <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); margin-bottom:8px;">🔑 管理密码 (Admin Password)</label>
+        <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入密码" maxlength="16" autofocus autocomplete="current-password" style="text-align:left;">
       </div>
       
-      <button type="submit" class="login-btn" id="aBtn">🔐 进入管理控制台</button>
+      <button type="submit" class="login-btn" id="aBtn" style="background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; border:none; box-shadow:0 4px 15px rgba(217,4,41,0.3);">🚨 登录进入系统</button>
     </form>
     
     <div class="login-error" id="loginError">❌ 密码错误，请重新输入 (Invalid Password)</div>
