@@ -973,6 +973,7 @@ let globalMatches = [];
 let currentUser = null;
 
 function switchView(viewId, el = null) {
+  localStorage.setItem('cxb_student_view', viewId);
   // Hide all views
   document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
   // Show target view
@@ -1132,8 +1133,9 @@ function renderStudentExclusiveView(stu) {
   const sb = document.getElementById('appSidebar');
   if(sb) sb.style.display = 'flex';
 
-  // Force reset to dashboard when logging in
-  switchView('viewDashboard');
+  // Restore last view or default to dashboard
+  const savedView = localStorage.getItem('cxb_student_view') || 'viewDashboard';
+  switchView(savedView);
 
   const lad = globalPlayers.find(p => p.id === stu.id || p.name === stu.cnName) || { elo: stu.elo, rank: '-' };
 

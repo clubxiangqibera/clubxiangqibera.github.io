@@ -799,9 +799,12 @@ function showApp(){
     });
 
     loadAllData();
+    const savedTab = localStorage.getItem('cxb_admin_tab') || 'dashboard';
+    switchTab(savedTab);
   }
 
 function switchTab(t){
+  localStorage.setItem('cxb_admin_tab', t);
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+t));
   
