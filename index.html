@@ -2478,6 +2478,26 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
   </div>
 </div>
 
+
+<script>
+// --- MAIN NAV SYSTEM ---
+function openMainNav() {
+  const sidebar = document.getElementById('mainNavSidebar');
+  const backdrop = document.getElementById('mainNavBackdrop');
+  if(sidebar) sidebar.classList.add('open');
+  if(backdrop) backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMainNav() {
+  const sidebar = document.getElementById('mainNavSidebar');
+  const backdrop = document.getElementById('mainNavBackdrop');
+  if(sidebar) sidebar.classList.remove('open');
+  if(backdrop) backdrop.classList.remove('open');
+  document.body.style.overflow = '';
+}
+// --- END MAIN NAV SYSTEM ---
+</script>
+
 </body>
 
 
