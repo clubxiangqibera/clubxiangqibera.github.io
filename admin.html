@@ -289,57 +289,167 @@ body::before {
   -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
 }
 
+
+    /* FORCE DEEP NAVY + XIANGQI GRID BACKGROUND LIKE STUDENT LOGIN */
+    body {
+      background: #040C17 !important;
+      color: #fff !important;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(241,196,15,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(241,196,15,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+    }
+
+    /* TOP TAB BAR (NAVBAR) */
+    .public-nav-bar {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 24px; background: rgba(6, 23, 36, 0.92); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 9600;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+    }
+    .p-nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .p-nav-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(241,196,15,0.4); }
+    .p-nav-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
+    
+    .nav-menu-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #fff;
+      padding: 6px 14px; border-radius: 18px; font-size: 13px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+    }
+    .nav-menu-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(241,196,15,0.5); }
+
+    /* APPLE MEGA MENU */
+    .apple-mega-menu {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
+      background: rgba(6, 23, 36, 0.96); border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 85px 30px 45px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    }
+    .apple-mega-menu.open { transform: translateY(0); }
+    .apple-mega-backdrop {
+      position: fixed; inset: 0; z-index: 9400; background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+    }
+    .apple-mega-backdrop.open { opacity: 1; pointer-events: auto; }
+    
+    .apple-mega-container {
+      max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 36px;
+    }
+    .apple-mega-col { display: flex; flex-direction: column; gap: 14px; }
+    .apple-mega-col h4 {
+      font-size: 13px; color: rgba(255,255,255,0.4); text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;
+    }
+    .apple-mega-col a {
+      color: #fff; font-size: 17px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s ease;
+      display: flex; align-items: center;
+    }
+    .apple-mega-col a:hover { color: #F1C40F; transform: translateX(4px); }
+
+    .apple-segment {
+      display: flex; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 4px; width: 100%; max-width: 280px;
+    }
+    .apple-segment .seg-btn {
+      flex: 1; background: transparent; border: none; color: rgba(255, 255, 255, 0.5);
+      padding: 8px 0; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 8px; transition: all 0.3s;
+    }
+    .apple-segment .seg-btn.active {
+      background: rgba(255, 255, 255, 0.95); color: #111; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="loginScreen">
-  <div class="login-card animate-zoom">
-    
-    <div class="lang-switch-wrap" style="justify-content:center; margin-bottom:20px;">
-      <div class="lang-switch">
-        <button type="button" class="lang-btn active" id="aLangZh" onclick="setAdminLang('zh')">中文</button>
-        <button type="button" class="lang-btn" id="aLangBm" onclick="setAdminLang('bm')">Melayu</button>
-        <button type="button" class="lang-btn" id="aLangEn" onclick="setAdminLang('en')">English</button>
-      </div>
-    </div>
 
-    
-    <div style="display:inline-block; background:#F1C40F; color:#0A1929; padding:6px 12px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">👑 CLUB XIANGQI BERA · 教练管理端</div>
-    <h1 id="aTitle" style="font-family: 'Noto Serif SC', serif; font-size: 26px; color: #fff; margin-bottom: 8px; font-weight:900;">百乐象棋俱乐部</h1>
-    <p class="sub" id="aSub" style="font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 32px;">请使用俱乐部发放的教练密码登入后台</p>
-
-    
-    <form onsubmit="event.preventDefault(); tryLogin(); return false;">
-      <div class="login-input-wrap" style="text-align:left; margin-bottom: 32px;">
-        <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); margin-bottom:8px;">🔑 管理密码 (Admin Password)</label>
-        <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入密码" maxlength="16" autofocus autocomplete="current-password" style="text-align:left;">
+<div id="loginScreen" style="min-height:100vh; display:flex; flex-direction:column; background:transparent; position:relative; z-index:1;">
+  
+  <!-- PUBLIC STICKY TOP TAB BAR -->
+  <header class="public-nav-bar">
+    <a href="index.html" class="p-nav-brand">
+      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <div>
+        <div id="navBrandTitle" class="p-nav-title">百乐象棋俱乐部</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
       </div>
+    </a>
+    <button class="nav-menu-btn" onclick="toggleMainNav()">
+      <span id="navMenuBtnIcon">☰</span> <span id="navMenuBtnText">菜单</span>
+    </button>
+  </header>
+
+  <!-- APPLE MEGA MENU & BACKDROP -->
+  <div id="appleMegaBackdrop" class="apple-mega-backdrop" onclick="closeMainNav()"></div>
+  <div id="appleMegaMenu" class="apple-mega-menu">
+    <div class="apple-mega-container">
       
-      <button type="submit" class="login-btn" id="aBtn" style="background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; border:none; box-shadow:0 4px 15px rgba(217,4,41,0.3);">🚨 登录进入系统</button>
-    </form>
-    
-    <div class="login-error" id="loginError">❌ 密码错误，请重新输入 (Invalid Password)</div>
-    
-    <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" class="return-link" id="aReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:rgba(255,255,255,0.05); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">← 返回主页 (Return to Menu)</a>
-    </div>
+      <div class="apple-mega-col">
+        <h4 id="menuExpTitle">探索俱乐部</h4>
+        <a href="index.html" id="menuHomeLink">🏠 首页</a>
+        <a href="index.html#ladder" id="menuLadderLink">🏆 天梯榜</a>
+        <a href="index.html#events" id="menuEventsLink">📸 赛事与活动中心</a>
+      </div>
 
-    <!-- Security & Trust Footer -->
-    <div style="margin-top:26px; padding-top:16px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#6B7B8D;">
-      <span style="display:flex; align-items:center; gap:4px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        Cloudflare® SSL
-      </span>
-      <span style="font-weight:800; color:#1A5276; display:flex; align-items:center; gap:4px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        百乐县象棋公会认证
-      </span>
-    </div>
+      <div class="apple-mega-col">
+        <h4 id="menuPortalsTitle">专属入口</h4>
+        <a href="index.html#login" id="menuStudentLink">🔐 学员专属登录</a>
+        <a href="school.html" id="menuSchoolLink" style="">🏫 校际赛报名系统</a>
+        <a href="admin.html" id="menuAdminLink" style="color:#F1C40F;">👑 教练管理端</a>
+      </div>
 
+      <div class="apple-mega-col">
+        <h4 id="menuLangTitle">系统语言</h4>
+        <div class="apple-segment">
+          <button type="button" class="seg-btn" id="mSegZh" onclick="changeGlobalLang('zh')">中文</button>
+          <button type="button" class="seg-btn" id="mSegBm" onclick="changeGlobalLang('bm')">Melayu</button>
+          <button type="button" class="seg-btn" id="mSegEn" onclick="changeGlobalLang('en')">English</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- CENTER LOGIN CARD (EXACTLY MATCHING STUDENT LOGIN) -->
+  <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
+    <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:rgba(6, 23, 36, 0.95); padding:40px; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); text-align:center;">
+      
+      <div id="aBadge" style="display:inline-block; background:#F1C40F; color:#0A1929; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">👑 CLUB XIANGQI BERA · 教练管理端</div>
+      <h1 id="aTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">百乐象棋俱乐部</h1>
+      <p class="sub" id="aSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">请使用俱乐部发放的教练密码登入控制台</p>
+
+      <form onsubmit="event.preventDefault(); tryLogin(); return false;">
+        <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
+          <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 管理密码 (Admin Password)</label>
+          <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
+        </div>
+        
+        <button type="submit" class="login-btn" id="aBtn" style="width:100%; padding:16px; background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">🚨 登录进入系统</button>
+      </form>
+      
+      <div class="login-error" id="loginError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">❌ 密码错误，请重新输入 (Invalid Password)</div>
+    </div>
   </div>
 </div>
+
 
 <!-- MAIN APP -->
 <div id="mainApp">

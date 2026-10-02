@@ -2618,6 +2618,20 @@ function closeMainNav() {
 }
 // --- END MAIN NAV SYSTEM ---
 
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hash === '#login' || new URLSearchParams(window.location.search).get('tab') === 'login') {
+    togglePublicTab('login');
+  }
+});
+window.addEventListener('hashchange', () => {
+  if (window.location.hash === '#login') {
+    togglePublicTab('login');
+  } else if (window.location.hash === '' || window.location.hash === '#home') {
+    togglePublicTab('home');
+  }
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
   let saved = localStorage.getItem('cxb_lang_pref');
   if(saved) {
