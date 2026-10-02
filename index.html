@@ -2516,6 +2516,8 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
 };
 
   function setLang(lang, btnContext) {
+    let prefLang = lang === 'cn' ? 'zh' : lang;
+    localStorage.setItem('cxb_lang_pref', prefLang);
     if(btnContext) {
       document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', 'false'));
       btnContext.setAttribute('aria-pressed', 'true');
@@ -2615,6 +2617,16 @@ function closeMainNav() {
   if(btnIcon) btnIcon.innerText = '☰';
 }
 // --- END MAIN NAV SYSTEM ---
+
+document.addEventListener('DOMContentLoaded', () => {
+  let saved = localStorage.getItem('cxb_lang_pref');
+  if(saved) {
+    let internalLang = saved === 'zh' ? 'cn' : saved;
+    setLang(internalLang);
+    if(typeof updateSeg === 'function') updateSeg(internalLang);
+  }
+});
+
 
 function updateSeg(lang) {
   document.querySelectorAll('.apple-segment .seg-btn').forEach(btn => btn.classList.remove('active'));

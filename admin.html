@@ -30,14 +30,9 @@
     .pin-input.error { border-color: var(--red); animation: shake .4s; }
     
     .lang-switch-wrap { display: flex; justify-content: flex-end; margin-bottom: 12px; }
-    .lang-switch {
-      display: inline-flex; background: #F0F4F8; padding: 3px; border-radius: 20px; border: 1px solid var(--border);
-    }
-    .lang-btn {
-      padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 800; color: #6B7B8D;
-      background: transparent; border: none; cursor: pointer; transition: all 0.2s;
-    }
-    .lang-btn.active { background: var(--pri); color: #FFF; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .lang-switch { display: inline-flex; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 4px; border: none; width: 260px; justify-content: center; margin: 0 auto; }
+    .lang-btn { flex: 1; padding: 8px 0; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; background: transparent; color: rgba(255,255,255,0.5); transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; justify-content: center; align-items: center; }
+    .lang-btn.active { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
     .login-btn{width:100%;padding:14px;background:#040C17;color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.3s; margin-top: 10px;} .login-btn:hover{background:#F1C40F;color:#000;border-color:#F1C40F;}
@@ -302,6 +297,7 @@ body::before {
     <div class="lang-switch-wrap" style="justify-content:center; margin-bottom:20px;">
       <div class="lang-switch">
         <button type="button" class="lang-btn active" id="aLangZh" onclick="setAdminLang('zh')">中文</button>
+        <button type="button" class="lang-btn" id="aLangBm" onclick="setAdminLang('bm')">Melayu</button>
         <button type="button" class="lang-btn" id="aLangEn" onclick="setAdminLang('en')">English</button>
       </div>
     </div>
@@ -803,6 +799,11 @@ async function tryLogin(){
 }
 
 function setAdminLang(lang) {
+      localStorage.setItem('cxb_lang_pref', lang);
+      document.querySelectorAll('.lang-switch .lang-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('aLang' + lang.charAt(0).toUpperCase() + lang.slice(1));
+      if(activeBtn) activeBtn.classList.add('active');
+
   document.getElementById('aLangZh').classList.toggle('active', lang === 'zh');
   document.getElementById('aLangEn').classList.toggle('active', lang === 'en');
   if (lang === 'zh') {

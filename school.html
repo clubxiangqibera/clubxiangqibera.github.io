@@ -50,7 +50,7 @@
       justify-content: flex-end;
       margin-bottom: 8px;
     }
-    .lang-switch { display: inline-flex; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 4px; border: none; width: 200px; justify-content: center; }
+    .lang-switch { display: inline-flex; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 4px; border: none; width: 260px; justify-content: center; }
     .lang-btn { flex: 1; padding: 8px 0; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; background: transparent; color: rgba(255,255,255,0.5); transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; justify-content: center; align-items: center; }
     .lang-btn.active { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     .cxb-emblem-wrap {
@@ -426,7 +426,7 @@
   border-radius: 10px;
   padding: 4px;
   margin: 0 auto 24px auto;
-  width: 200px;
+  width: 260px;
 }
 .lang-switcher span {
   flex: 1;
@@ -469,6 +469,7 @@ body::before {
     <div class="lang-switch-wrap">
       <div class="lang-switch">
         <button type="button" class="lang-btn active" id="btnLangZh" onclick="setLoginLang('zh')">中文</button>
+        <button type="button" class="lang-btn" id="btnLangBm" onclick="setLoginLang('bm')">Melayu</button>
         <button type="button" class="lang-btn" id="btnLangEn" onclick="setLoginLang('en')">English</button>
       </div>
     </div>
@@ -849,6 +850,11 @@ const I18N = {
 };
 
 function setLoginLang(lang) {
+      localStorage.setItem('cxb_lang_pref', lang);
+      document.querySelectorAll('.lang-switch .lang-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btnLang' + lang.charAt(0).toUpperCase() + lang.slice(1));
+      if(activeBtn) activeBtn.classList.add('active');
+
   currentLang = lang;
   localStorage.setItem('cxb_school_lang', lang);
   
@@ -1678,6 +1684,12 @@ try {
 } catch(e) {
   console.warn('URL param parse error:', e);
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  let saved = localStorage.getItem('cxb_lang_pref');
+  if(saved) setLoginLang(saved);
+});
+
 </script>
 </body>
 </html>
