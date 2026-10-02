@@ -1152,6 +1152,15 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink); background: rgba(255,255,255,0.05);
 }
 
+
+@keyframes popZoom {
+  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-zoom {
+  animation: popZoom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
 </style>
 </head>
 <body>
@@ -1243,7 +1252,7 @@ a { color: inherit; text-decoration: none; }
   
   <!-- LOGIN SECTION -->
   <div id="publicLoginSection" style="display:none; justify-content:center; align-items:center; min-height:75vh;">
-    <div class="gate-card" style="margin:20px auto; width: 100%; max-width: 440px; background: var(--navy-900); padding: 40px; border-radius: var(--radius); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--line);">
+    <div class="gate-card animate-zoom" style="margin:20px auto; width: 100%; max-width: 440px; background: var(--navy-900); padding: 40px; border-radius: var(--radius); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--line);">
       <div class="gate-badge" data-i18n="login.badge" style="display:inline-block; background:var(--gold); color:var(--navy-950); padding:6px 12px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">🏛️ CLUB XIANGQI BERA · 学员专属登录</div>
       <h1 class="gate-title" data-i18n="login.title" style="font-family: var(--font-serif); font-size: 26px; color: var(--ink); margin-bottom: 8px;">百乐象棋俱乐部</h1>
       <p class="gate-sub" data-i18n="login.sub" style="font-size: 14px; color: var(--ink-dim); margin-bottom: 32px;">请使用俱乐部发放的学员账号密码登录</p>
@@ -2508,9 +2517,9 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     
     <div style="font-size: 13px; font-weight:700; color: var(--ink-dim); margin-bottom: 8px;">🌐 语言 / Language</div>
     <div class="lang lang-switcher">
-      <button onclick="setLang('cn', this); closeMainNav()" class="lang-btn" aria-pressed="true">中文</button>
-      <button onclick="setLang('bm', this); closeMainNav()" class="lang-btn" aria-pressed="false">BM</button>
-      <button onclick="setLang('en', this); closeMainNav()" class="lang-btn" aria-pressed="false">EN</button>
+      <button onclick="setLang('cn', this)" class="lang-btn" aria-pressed="true">中文</button>
+      <button onclick="setLang('bm', this)" class="lang-btn" aria-pressed="false">BM</button>
+      <button onclick="setLang('en', this)" class="lang-btn" aria-pressed="false">EN</button>
     </div>
 
   </div>
