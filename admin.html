@@ -16,17 +16,20 @@
     body{font-family:'Plus Jakarta Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--text);background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;}
 
     /* === LOGIN === */
-    #loginScreen{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;background: #040C17;}
+    #loginScreen{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;background: transparent;}
     .login-card{background:rgba(6,23,36,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px 32px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5); backdrop-filter: blur(20px);}
     .login-card h1{font-size:20px;font-weight:900;color:#fff;margin-bottom:6px;}
     .login-card .sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:24px;}
     .login-input-wrap { width: 100%; margin-bottom: 20px; }
+    
     .pin-input {
-      width: 100%; padding: 15px 16px; border: 2px solid var(--border); border-radius: 12px;
-      font-size: 16px; font-weight: 800; text-align: center; outline: none; color: var(--pri);
-      background: #F9FBFC; transition: border-color .2s, background .2s;
+      width: 100%; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      font-size: 16px; font-weight: 800; text-align: center; outline: none; color: #fff;
+      background: rgba(255,255,255,0.05); transition: border-color .3s, background .3s;
     }
-    .pin-input:focus { border-color: var(--pri3); background: #FFF; }
+    .pin-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 600; font-size: 13px; letter-spacing: 0px; }
+    .pin-input:focus { border-color: rgba(241, 196, 15, 0.5); background: rgba(255,255,255,0.1); box-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
+
     .pin-input.error { border-color: var(--red); animation: shake .4s; }
     
     .lang-switch-wrap { display: flex; justify-content: flex-end; margin-bottom: 12px; }
@@ -317,7 +320,7 @@ body::before {
     <div class="login-error" id="loginError">❌ 密码错误，请重新输入 (Invalid Password)</div>
     
     <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" id="aReturn" style="font-size:13px; font-weight:800; color:rgba(255,255,255,0.8); text-decoration:none;">← 返回主页 (Return to Menu)</a>
+      <a href="index.html" class="return-link" id="aReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:rgba(255,255,255,0.05); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">← 返回主页 (Return to Menu)</a>
     </div>
 
     <!-- Security & Trust Footer -->
@@ -340,7 +343,7 @@ body::before {
   <div class="topbar">
     <div class="topbar-title">♟️ CXQB 教练与俱乐部管理后台</div>
     <div class="topbar-right">
-      <a href="index.html" style="color:#FFF;font-size:12px;text-decoration:none;opacity:.8;">← 公开天梯榜</a>
+      <a href="index.html" class="return-link" id="aReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:rgba(255,255,255,0.05); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">← 公开天梯榜</a>
       <button class="btn-logout" onclick="logout()">退出</button>
     </div>
   </div>

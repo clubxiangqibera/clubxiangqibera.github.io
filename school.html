@@ -42,7 +42,7 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      background: radial-gradient(circle at top, #1A5276 0%, #0E2F44 100%);
+      background: transparent;
     }
     .school-login-card { background: rgba(6,23,36,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 36px 40px 36px; width: 100%; max-width: 530px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; backdrop-filter: blur(20px); }
     .lang-switch-wrap {
@@ -87,32 +87,15 @@
       position: relative;
       margin: 22px 0 16px;
     }
+    
     .pin-input {
-      width: 100%;
-      padding: 14px 16px;
-      font-size: 17px;
-      font-weight: 800;
-      text-align: center;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      outline: none;
-      transition: all .2s;
-      background: rgba(255,255,255,0.05);
-      color: #fff;
+      width: 100%; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      font-size: 16px; font-weight: 800; text-align: center; outline: none; color: #fff;
+      background: rgba(255,255,255,0.05); transition: border-color .3s, background .3s;
     }
-    .pin-input::placeholder {
-      font-size: 13px;
-      letter-spacing: 0px;
-      font-weight: 600;
-      color: #94A3B8;
-    }
-    .pin-input:focus {
-      border-color: var(--pri3);
-      background: #FFF;
-      box-shadow: 0 0 0 4px rgba(41,128,185,0.12);
-    }
+    .pin-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 600; font-size: 13px; letter-spacing: 0px; }
+    .pin-input:focus { border-color: rgba(241, 196, 15, 0.5); background: rgba(255,255,255,0.1); box-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
+
     .badge-pill {
       display: inline-block;
       padding: 4px 12px;
@@ -520,7 +503,7 @@ body::before {
     </div>
 
     <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" style="font-size:13px; font-weight:800; color:rgba(255,255,255,0.8); text-decoration:none;">← 返回主页 (Return to Menu)</a>
+      <a href="index.html" class="return-link" id="sReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:rgba(255,255,255,0.05); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">← 返回主页 (Return to Menu)</a>
     </div>
 
     <!-- Security & Trust Footer -->
