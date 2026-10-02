@@ -990,8 +990,8 @@ a { color: inherit; text-decoration: none; }
         <div class="ph-subtitle">CLUB XIANGQI BERA</div>
         <div class="ph-tagline">彭亨百乐 · 全县唯一中国象棋教育学院</div>
         <div class="ph-stats-grid">
-          <div class="ph-stat-pill">👨‍🎓 <span id="statPlayers">25+</span> 在册学员</div>
-          <div class="ph-stat-pill">⚔️ <span id="statMatches">150+</span> 实战对局</div>
+          <div class="ph-stat-pill">👑 全县唯一象棋教育学院</div>
+          <div class="ph-stat-pill">⚔️ CXQB ELO 官方排位</div>
           <div class="ph-stat-pill">🏅 5 级段位考评体系</div>
         </div>
       </div>
@@ -1957,10 +1957,10 @@ async function initPublicApp() {
   await Promise.all([loadLadder(), loadStudents(), loadMatches()]);
   
   // Update public hero stats dynamically
-  const statPlayers = document.getElementById('statPlayers');
-  const statMatches = document.getElementById('statMatches');
-  if (statPlayers) statPlayers.textContent = globalStudents.length + '+';
-  if (statMatches) statMatches.textContent = globalMatches.length + '+';
+  // removed
+  // removed
+  // removed
+  // removed
   
   // Render public UI
   renderPublicLadder(globalPlayers);
