@@ -15,11 +15,11 @@
       --gold-glow: rgba(243,156,18,0.35);
       --silver: #95A5A6;
       --bronze: #D35400;
-      --bg: #F0F4F8;
+      --bg: #E3F0FA;
       --card: #FFFFFF;
       --text: #1C2833;
       --text2: #6B7B8D;
-      --border: #E8ECF0;
+      --border: #D0E1F0;
       --green: #27AE60;
       --red: #E74C3C;
       --radius: 20px;
@@ -27,11 +27,11 @@
     }
     @media(prefers-color-scheme:dark){
       :root{
-        --bg:#0B0F14;
-        --card:#141A23;
+        --bg:#030B14;
+        --card:#0C1A29;
         --text:#E6EDF3;
         --text2:#9CA8B7;
-        --border:#263242;
+        --border:#162C45;
         --shadow:0 6px 24px rgba(0,0,0,0.4);
       }
     }
@@ -51,22 +51,8 @@
     #securityGate {
       display: flex; flex-direction: column; align-items: center;
       width: 100%; min-height: 100vh; padding: 0;
-      background: linear-gradient(145deg, #061724 0%, #0E2F44 45%, #1A5276 100%);
-      color: #fff;
-      --bg: transparent; 
-      --card: rgba(255, 255, 255, 0.08); 
-      --text: #FFFFFF;
-      --text2: #A0B3C2;
-      --border: rgba(255, 255, 255, 0.12);
-      --shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
-    #securityGate .pod,
-    #securityGate .gate-card,
-    #securityGate .vip-invite-card,
-    #securityGate .rank-item {
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
+    
     .public-nav-bar {
       width: 100%; display: flex; justify-content: space-between; align-items: center;
       padding: 12px 20px; background: rgba(6, 23, 36, 0.92); backdrop-filter: blur(16px);
