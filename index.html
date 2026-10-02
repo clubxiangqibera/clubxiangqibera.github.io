@@ -24,25 +24,39 @@
       --red: #E74C3C;
       --radius: 20px;
       --shadow: 0 6px 24px rgba(0,0,0,0.07);
+      
+      --hero-bg: linear-gradient(145deg, #071A27 0%, #0E2F44 55%, #1A5276 100%);
+      --hero-border: none;
+      --glass-blur: none;
     }
     @media(prefers-color-scheme:dark){
       :root{
-        --bg:#071C35;
-        --card:#113155;
-        --text:#E6EDF3;
-        --text2:#9CA8B7;
-        --border:#225080;
-        --shadow:0 6px 24px rgba(0,0,0,0.4);
+        --bg: linear-gradient(145deg, #04101A 0%, #0A2238 50%, #103A5E 100%);
+        --card: rgba(255, 255, 255, 0.05);
+        --text: #F0F4F8;
+        --text2: #9CA8B7;
+        --border: rgba(255, 255, 255, 0.1);
+        --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        
+        --hero-bg: rgba(0, 0, 0, 0.35);
+        --hero-border: 1px solid rgba(255,255,255,0.08);
+        --glass-blur: blur(16px);
       }
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     body{
       font-family:'Plus Jakarta Sans','Noto Sans SC',system-ui,sans-serif;
-      background:var(--bg);color:var(--text);
+      background:var(--bg);color:var(--text);background-attachment:fixed;
       min-height:100vh;display:flex;flex-direction:column;align-items:center;
       -webkit-font-smoothing:antialiased;
     }
 
+    
+    .gate-card, .pod, .rank-item, .vip-invite-card {
+       backdrop-filter: var(--glass-blur);
+       -webkit-backdrop-filter: var(--glass-blur);
+    }
+    
     /* ========================================================
        1. SECURITY LOGIN GATE
        ======================================================== */
@@ -130,7 +144,7 @@
     .input-label{display:block;font-size:13px;font-weight:800;margin-bottom:6px;color:var(--text);}
     .gate-input{
       width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:14px;
-      font-size:15px;outline:none;background:var(--bg);color:var(--text);font-family:inherit;
+      font-size:15px;outline:none;background:var(--bg);color:var(--text);background-attachment:fixed;font-family:inherit;
       transition:border-color .2s;
     }
     .gate-input:focus{border-color:var(--primary-mid);}
@@ -154,6 +168,12 @@
     .test-pill.admin-pill{background:#FEF9E7;color:#B7950B;border-color:#F1C40F;}
     .test-pill.admin-pill:hover{background:#F1C40F;color:#7D6608;}
 
+    
+    .gate-card, .pod, .rank-item, .vip-invite-card {
+       backdrop-filter: var(--glass-blur);
+       -webkit-backdrop-filter: var(--glass-blur);
+    }
+    
     /* ========================================================
        2. AUTHENTICATED APP CONTAINER (SIDEBAR LAYOUT)
        ======================================================== */
@@ -222,6 +242,12 @@
       .btn-logout { display: none; }
     }
 
+    
+    .gate-card, .pod, .rank-item, .vip-invite-card {
+       backdrop-filter: var(--glass-blur);
+       -webkit-backdrop-filter: var(--glass-blur);
+    }
+    
     /* ========================================================
        NEW UI COMPONENTS (ICONS & LISTS)
        ======================================================== */
@@ -315,12 +341,21 @@
     }
     @media(prefers-color-scheme:dark){.quick-card-title{color:var(--primary-light);}}
 
+    
+    .gate-card, .pod, .rank-item, .vip-invite-card {
+       backdrop-filter: var(--glass-blur);
+       -webkit-backdrop-filter: var(--glass-blur);
+    }
+    
     /* ========================================================
        NEW HERO & CAMP BANNER CSS
        ======================================================== */
     .public-hero {
       width: 100%;
-      background: linear-gradient(145deg, #0C3052 0%, #185A8A 100%);
+      background: var(--hero-bg);
+      border: var(--hero-border);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
       color: #fff;
       border-radius: 24px;
       padding: 40px 24px;
