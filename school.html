@@ -461,7 +461,7 @@
 .lang-switcher span {
   flex: 1;
   background: transparent;
-  color: #64748B;
+  color: rgba(255,255,255,0.5);
   padding: 8px 0;
   font-size: 13px;
   font-weight: 700;
@@ -470,11 +470,7 @@
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex; justify-content: center; align-items: center;
 }
-.lang-switcher span.active {
-  background: #FFF;
-  color: #0F172A;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+.lang-switcher span.active { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 
 </style>
 </head>
@@ -538,7 +534,7 @@
     </div>
 
     <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" style="font-size:13px; font-weight:800; color:var(--pri3); text-decoration:none;">← 返回主页 (Return to Menu)</a>
+      <a href="index.html" style="font-size:13px; font-weight:800; color:rgba(255,255,255,0.8); text-decoration:none;">← 返回主页 (Return to Menu)</a>
     </div>
 
     <!-- Security & Trust Footer -->
@@ -638,7 +634,7 @@
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-        <div style="font-size:13px; font-weight:800; color:var(--pri3);" id="nameCountPreview">当前识别: 0 人</div>
+        <div style="font-size:13px; font-weight:800; color:rgba(255,255,255,0.8);" id="nameCountPreview">当前识别: 0 人</div>
         <button id="tBtnStartTourney" class="btn btn-green" style="padding:12px 28px; font-size:15px;" onclick="startSchoolTournament()">
           ⚡ 一键生成第 1 轮对阵 / Generate Round 1
         </button>

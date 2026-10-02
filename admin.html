@@ -17,9 +17,9 @@
 
     /* === LOGIN === */
     #loginScreen{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;background:linear-gradient(145deg,#071A27,#1A5276);}
-    .login-card{background:#FFF;border-radius:24px;padding:40px 32px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-    .login-card h1{font-size:20px;font-weight:900;color:var(--pri);margin-bottom:6px;}
-    .login-card .sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
+    .login-card{background:rgba(6,23,36,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px 32px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5); backdrop-filter: blur(20px);}
+    .login-card h1{font-size:20px;font-weight:900;color:#fff;margin-bottom:6px;}
+    .login-card .sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:24px;}
     .login-input-wrap { width: 100%; margin-bottom: 20px; }
     .pin-input {
       width: 100%; padding: 15px 16px; border: 2px solid var(--border); border-radius: 12px;
@@ -40,7 +40,7 @@
     .lang-btn.active { background: var(--pri); color: #FFF; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
     
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
-    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(14,47,68,0.3);transition:transform .15s;}
+    .login-btn{width:100%;padding:14px;background:#040C17;color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.3s; margin-top: 10px;} .login-btn:hover{background:#F1C40F;color:#000;border-color:#F1C40F;}
     .login-btn:hover{transform:scale(1.02);}
     .login-error{color:var(--red);font-size:12px;font-weight:700;margin-top:14px;display:none;background:#FDEDEC;padding:10px;border-radius:10px;border:1px solid rgba(192,57,43,0.2);}
 
@@ -106,7 +106,7 @@
     .form-group{margin-bottom:12px;}
     .form-label{display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--text);}
     .form-input,.form-select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;outline:none;background:#FFF;font-family:inherit;}
-    .form-input:focus,.form-select:focus{border-color:var(--pri3);}
+    .form-input:focus,.form-select:focus{border-color:rgba(255,255,255,0.8);}
 
     .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(14,47,68,0.2);transition:transform .15s;}
     .submit-btn:hover{transform:scale(1.02);}
@@ -265,7 +265,7 @@
 .lang-switcher span {
   flex: 1;
   background: transparent;
-  color: #64748B;
+  color: rgba(255,255,255,0.5);
   padding: 8px 0;
   font-size: 13px;
   font-weight: 700;
@@ -274,11 +274,7 @@
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex; justify-content: center; align-items: center;
 }
-.lang-switcher span.active {
-  background: #FFF;
-  color: #0F172A;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+.lang-switcher span.active { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 
 </style>
 </head>
@@ -310,7 +306,7 @@
     <div class="login-error" id="loginError">❌ 密码错误，请重新输入 (Invalid Password)</div>
     
     <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" id="aReturn" style="font-size:13px; font-weight:800; color:var(--pri3); text-decoration:none;">← 返回主页 (Return to Menu)</a>
+      <a href="index.html" id="aReturn" style="font-size:13px; font-weight:800; color:rgba(255,255,255,0.8); text-decoration:none;">← 返回主页 (Return to Menu)</a>
     </div>
 
     <!-- Security & Trust Footer -->
@@ -641,7 +637,7 @@
         <div id="generatedLicBox" style="display:none; margin-top:16px; padding:16px; background:rgba(39,174,96,0.08); border:1.5px dashed var(--green); border-radius:12px;">
           <div style="font-size:12px; color:var(--text2); font-weight:700;">🎉 授权码已成功写入 Cloudflare KV 数据库：</div>
           <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">CXQB-XXXX</div>
-          <div style="font-size:12px; color:var(--text);">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:var(--pri3);font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
+          <div style="font-size:12px; color:var(--text);">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:rgba(255,255,255,0.8);font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
           <button class="btn-sm green" style="margin-top:10px;" onclick="copyGeneratedLicense()">📋 复制发给老师 WhatsApp</button>
         </div>
       </div>
@@ -1265,7 +1261,7 @@ function renderGallery(){
     
     const hasXqf=m.xqfFile&&m.xqfFile.startsWith('http');
     const xqfBtn=hasXqf
-      ?`<div onclick="window.open('${m.xqfFile}')" style="padding:12px;background:#EBF5FB;color:var(--pri3);font-size:12px;font-weight:700;text-align:center;cursor:pointer;border-top:1px solid var(--border);">💾 下载XQF电子棋谱</div>`
+      ?`<div onclick="window.open('${m.xqfFile}')" style="padding:12px;background:#EBF5FB;color:rgba(255,255,255,0.8);font-size:12px;font-weight:700;text-align:center;cursor:pointer;border-top:1px solid var(--border);">💾 下载XQF电子棋谱</div>`
       :`<div onclick="document.getElementById('xqfUpload_${idx}').click()" style="padding:12px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">📤 上传XQF电子棋谱</div>
       <input type="file" id="xqfUpload_${idx}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
     return `
@@ -1900,7 +1896,7 @@ function renderTournamentManage() {
     if (p.result === 'bye') {
       return `
         <div class="board-row" style="background:var(--bg);border-radius:12px;padding:12px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-weight:800;color:var(--pri3);">💤 轮空 (BYE)</div>
+          <div style="font-weight:800;color:rgba(255,255,255,0.8);">💤 轮空 (BYE)</div>
           <div style="font-weight:900;color:var(--text);">${p.redName}</div>
           <div style="font-size:12px;font-weight:800;color:var(--green);background:rgba(39,174,96,0.12);padding:4px 10px;border-radius:8px;">+1.0 分</div>
         </div>`;
