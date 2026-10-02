@@ -51,6 +51,21 @@
     #securityGate {
       display: flex; flex-direction: column; align-items: center;
       width: 100%; min-height: 100vh; padding: 0;
+      background: linear-gradient(145deg, #061724 0%, #0E2F44 45%, #1A5276 100%);
+      color: #fff;
+      --bg: transparent; 
+      --card: rgba(255, 255, 255, 0.08); 
+      --text: #FFFFFF;
+      --text2: #A0B3C2;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    #securityGate .pod,
+    #securityGate .gate-card,
+    #securityGate .vip-invite-card,
+    #securityGate .rank-item {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .public-nav-bar {
       width: 100%; display: flex; justify-content: space-between; align-items: center;
