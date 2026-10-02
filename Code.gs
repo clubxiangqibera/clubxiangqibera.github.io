@@ -15,7 +15,10 @@
  * 7. 将该 URL 填入 admin.html 的 const GAS_API_URL = '...' 中！
  *
  * 更新日志:
- * v2.1 - 新增 updateAccount 功能 (修改学员姓名/密码)
+ * v2.2 - 新增 updateMatchXQF 功能 (上传 XQF 电子棋谱)
+*      - 新增 changePassword 功能 (学员修改密码)
+*      - 预留未来 ELO 回滚修正逻辑 (改进计划)
+* v2.1 - 新增 updateAccount 功能 (修改学员姓名/密码)
  *       - 修正天梯/学员档案循环起始行为第2行 (r=1)
  *       - 移除服务端 PIN 验证 (改由前端负责)
  *       - ELO 使用前端传入的 K-factor delta
