@@ -27,23 +27,10 @@
       --shadow: 0 4px 18px rgba(0,0,0,0.06);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Noto Sans SC', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
+    body { margin: 0 !important; padding: 0 !important; font-family: "Plus Jakarta Sans", "Noto Sans SC", sans-serif; background: #040C17 !important; color: #fff; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
     /* LOGIN SCREEN */
-    #schoolLoginScreen {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      background: transparent;
-    }
+    #schoolLoginScreen { min-height: 100vh; display: flex; flex-direction: column; padding: 0 !important; margin: 0 !important; background: transparent; width: 100% !important; }
     .school-login-card { background: rgba(6,23,36,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 36px 40px 36px; width: 100%; max-width: 530px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; backdrop-filter: blur(20px); }
     .lang-switch-wrap {
       display: flex;
@@ -327,7 +314,7 @@
     /* PRINT LAYOUT */
     @media print {
       body { background: #FFF !important; color: #000 !important; }
-      .nav-header, .no-print, .btn, .timeline, #schoolLoginScreen { display: none !important; }
+      .nav-header, .no-print, .btn, .timeline, #schoolLoginScreen { min-height: 100vh; display: flex; flex-direction: column; padding: 0 !important; margin: 0 !important; background: transparent; width: 100% !important; }
       .main-wrap { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
       .card { border: none !important; box-shadow: none !important; padding: 0 !important; }
       .formal-table { border: 1px solid #000 !important; font-size: 12pt !important; }
@@ -465,7 +452,7 @@ body::before {
     }
 
     /* TOP TAB BAR (NAVBAR) */
-    .public-nav-bar {
+    .public-nav-bar { margin: 0 !important; top: 0 !important; left: 0 !important; width: 100% !important; 
       width: 100%; display: flex; justify-content: space-between; align-items: center;
       padding: 12px 24px; background: rgba(6, 23, 36, 0.92); backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
