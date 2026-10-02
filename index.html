@@ -134,7 +134,7 @@
       font-size:15px;outline:none;background:var(--bg);color:var(--text);font-family:inherit;
       transition:border-color .2s;
     }
-    .gate-input:focus{border-color:var(--primary-mid);background:#fff;}
+    .gate-input:focus{border-color:var(--primary-mid);}
 
     .login-btn{
       width:100%;padding:15px;background:linear-gradient(135deg,var(--primary),var(--primary-mid));
@@ -1010,7 +1010,7 @@ async function handleLogin() {
     const idMatch = (found.id || '').match(/(\d+)$/);
     const idNum = idMatch ? idMatch[1] : '001';
     const defaultPwd = lvNum + idNum;
-    const validPwd = found.password && found.password !== defaultPwd ? found.password : (found.password || defaultPwd);
+    const validPwd = found.password || defaultPwd;
     if (pwd === validPwd) {
       currentUser = { role: 'student', data: found };
       localStorage.setItem('cxb_auth_user', JSON.stringify(currentUser));
@@ -1436,7 +1436,7 @@ async function loadStudents() {
         feeMode: (r[7]||'').trim(), payStatus: (r[8]||'').trim(),
         comboExpiry: (r[9]||'').trim(), whatsapp: (r[10]||'').trim(),
         elo: parseInt(r[11])||200, tier: (r[12]||'').trim(),
-        password: (r[13]||'1234').trim()
+        password: (r[13]||'').trim()
       });
     }
   } catch(e) { console.error(e); }
@@ -1582,7 +1582,7 @@ async function changePassword() {
   const idMatch = (stu.id || '').match(/(\d+)$/);
   const idNum = idMatch ? idMatch[1] : '001';
   const defaultPwd = lvNum + idNum;
-  const currentPwd = stu.password && stu.password !== defaultPwd ? stu.password : (stu.password || defaultPwd);
+  const currentPwd = stu.password || defaultPwd;
 
   if (oldPwd !== currentPwd) {
     msg.style.display = 'block';
