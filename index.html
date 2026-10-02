@@ -999,6 +999,98 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
 }
 
+
+/* --- Super Event System --- */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.event-card {
+  background: var(--navy-900);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column;
+}
+.event-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+}
+.event-card__cover {
+  width: 100%; height: 180px;
+  background-color: var(--navy-800);
+  background-size: cover; background-position: center;
+  border-bottom: 1px solid var(--line);
+}
+.event-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.event-card__date { font-size: 0.85rem; color: var(--gold-soft); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.05em; }
+.event-card__title { font-size: 1.25rem; color: var(--ink); font-weight: 700; margin-bottom: 12px; line-height: 1.4; font-family: var(--font-serif); }
+.event-card__desc { font-size: 0.9rem; color: var(--ink-dim); line-height: 1.6; margin-bottom: 0; margin-top: auto; }
+
+/* Detail Modal */
+.evt-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(7, 16, 30, 0.95); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.evt-modal__content {
+  background: var(--navy-900);
+  width: 100%; max-width: 760px; max-height: 90vh;
+  border: 1px solid var(--gold); border-radius: var(--radius);
+  overflow-y: auto; position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+.evt-modal__close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(0,0,0,0.6); color: #fff; border: 1px solid var(--line);
+  border-radius: 50%; width: 36px; height: 36px;
+  cursor: pointer; font-size: 18px; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+}
+.evt-modal__close:hover { background: var(--red); border-color: var(--red); }
+.evt-modal__cover { width: 100%; height: 280px; background-size: cover; background-position: center; border-bottom: 1px solid var(--gold); }
+.evt-modal__body { padding: 40px; }
+.evt-modal__title { font-size: 1.8rem; color: var(--gold); font-family: var(--font-serif); margin-bottom: 12px; line-height: 1.3; }
+.evt-modal__date { font-size: 0.95rem; color: var(--ink-dim); margin-bottom: 24px; font-weight: 600; letter-spacing: 0.05em; }
+.evt-modal__desc { font-size: 1rem; color: var(--ink); line-height: 1.8; margin-bottom: 36px; }
+
+.evt-section-title { font-size: 1.15rem; color: var(--gold-soft); margin-bottom: 16px; border-bottom: 1px dashed var(--line); padding-bottom: 10px; font-weight: 700; }
+.evt-links { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+.evt-link-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; font-size: 0.9rem; font-weight: 600;
+  background: var(--navy-800); border: 1px solid var(--line); border-radius: 8px;
+  color: var(--ink); cursor: pointer; text-decoration: none; transition: 0.2s;
+}
+.evt-link-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(201,162,75,0.1); }
+.evt-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin-bottom: 36px; }
+.evt-gallery img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); cursor: pointer; transition: 0.2s; }
+.evt-gallery img:hover { border-color: var(--gold); transform: scale(1.03); }
+
+/* Full Archive View (Another Page Feel) */
+.archive-view {
+  position: fixed; inset: 0; z-index: 8000;
+  background: var(--navy-950);
+  overflow-y: auto; display: none;
+}
+.archive-view__header {
+  position: sticky; top: 0; background: rgba(7, 16, 30, 0.95); backdrop-filter: blur(10px);
+  padding: 20px clamp(20px, 5vw, 40px); border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between; z-index: 10;
+}
+.archive-view__title { font-size: 1.4rem; color: var(--gold); font-family: var(--font-serif); font-weight: 700; }
+.archive-view__close {
+  background: transparent; color: var(--ink); border: 1px solid var(--line);
+  padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: 0.2s;
+}
+.archive-view__close:hover { background: var(--navy-800); border-color: var(--gold); color: var(--gold); }
+.archive-view__body { padding: 40px clamp(20px, 5vw, 40px); max-width: 1200px; margin: 0 auto; }
+
 </style>
 </head>
 <body>
@@ -2179,53 +2271,7 @@ async function changePassword() {
   }
 }
 
-// --- Public Gallery JS ---
-async function loadPublicEvents() {
-  try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/events');
-    const data = await res.json();
-    const events = data.events || data || [];
-    const container = document.getElementById('publicGalleryArea');
-    if(!events || events.length === 0) {
-      container.innerHTML = '<div class="empty" data-i18n="gallery.empty">暂无公开相册。</div>';
-      return;
-    }
-    let html = '';
-    events.forEach((evt, idx) => {
-      const coverId = evt.photos && evt.photos.length > 0 ? evt.photos[0] : '';
-      const coverUrl = coverId ? 'https://drive.google.com/thumbnail?sz=w800&id=' + coverId : '';
-      html += `<div style="background:var(--card); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); cursor:pointer; transition:transform 0.2s;" onclick="openEventPhotos(${idx})" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="height:180px; background:#ddd url('${coverUrl}') center/cover;"></div>
-        <div style="padding:16px;">
-          <div style="font-weight:900; font-size:16px; color:var(--text); margin-bottom:6px;">${evt.name}</div>
-          <div style="font-size:12px; color:var(--text2); margin-bottom:8px;">📅 ${evt.date} · 📸 ${evt.photos ? evt.photos.length : 0} 张照片</div>
-          <div style="font-size:13px; color:var(--text2); line-height:1.4;">${evt.desc || ''}</div>
-        </div>
-      </div>`;
-    });
-    container.innerHTML = html;
-    window._publicEvents = events;
-  } catch(e) {
-    document.getElementById('publicGalleryArea').innerHTML = '<div style="color:var(--text2); font-size:13px;">相册加载失败。</div>';
-  }
-}
 
-function openEventPhotos(idx) {
-  const evt = window._publicEvents[idx];
-  if(!evt || !evt.photos) return;
-  const container = document.getElementById('photoModalContent');
-  container.innerHTML = `<div style="color:#fff; font-size:20px; font-weight:900; margin-bottom:10px;">${evt.name}</div>`;
-  evt.photos.forEach(id => {
-    container.innerHTML += `<img src="https://drive.google.com/thumbnail?sz=w800&id=${id}" style="width:100%; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.5); margin-bottom:16px;" loading="lazy">`;
-  });
-  document.getElementById('photoModal').style.display = 'flex';
-}
-
-// Hook into init
-document.addEventListener('DOMContentLoaded', () => {
-  loadPublicEvents();
-});
-// --- End Public Gallery JS ---
 function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.classList.toggle('show'); const ov = document.getElementById('sidebarOverlay'); if(sb.classList.contains('show')){ ov.classList.add('show'); }else{ ov.classList.remove('show'); } }
 </script>
 
@@ -2250,6 +2296,9 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "gallery.title": "历届活动相册",
     "gallery.sub": "记录在百乐县中国象棋公会的精彩瞬间",
     "gallery.empty": "暂无公开相册。",
+    "events.title": "赛事与活动中心",
+    "events.sub": "记录百乐县中国象棋公会的精彩瞬间与赛事资源",
+    "events.view_all": "📚 查看所有历届活动 / View All Events",
     "ladder.title": "百乐全县青少年天梯排位",
     "ladder.sub": "CXQB ELO 官方排位体系 · 实时同步",
     "login.badge": "🏛️ CLUB XIANGQI BERA · 学员专属登录",
@@ -2347,6 +2396,51 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     });
   }
 </script>
+
+<!-- === ARCHIVE VIEW (The "Another Page") === -->
+<div id="eventsArchiveView" class="archive-view">
+  <div class="archive-view__header">
+    <div class="archive-view__title">📚 历届活动总览 (Events Archive)</div>
+    <button class="archive-view__close" onclick="closeArchiveView()">⬅ 返回首页 (Back)</button>
+  </div>
+  <div class="archive-view__body">
+    <div id="archiveEventsGrid" class="events-grid"></div>
+  </div>
+</div>
+
+<!-- === EVENT DETAIL MODAL === -->
+<div id="eventDetailModal" class="evt-modal" onclick="if(event.target===this) closeEventDetail()">
+  <div class="evt-modal__content">
+    <button class="evt-modal__close" onclick="closeEventDetail()">×</button>
+    <div id="evtModalCover" class="evt-modal__cover"></div>
+    <div class="evt-modal__body">
+      <div id="evtModalDate" class="evt-modal__date"></div>
+      <h2 id="evtModalTitle" class="evt-modal__title"></h2>
+      <div id="evtModalDesc" class="evt-modal__desc"></div>
+      
+      <div id="evtSectionFiles" style="display:none;">
+        <div class="evt-section-title">📄 文件与简章 (Files & Documents)</div>
+        <div id="evtModalFiles" class="evt-links"></div>
+      </div>
+      
+      <div id="evtSectionResults" style="display:none;">
+        <div class="evt-section-title">🏆 比赛成绩 (Results & Standings)</div>
+        <div id="evtModalResults" style="margin-bottom: 36px; overflow-x:auto;"></div>
+      </div>
+      
+      <div id="evtSectionPhotos" style="display:none;">
+        <div class="evt-section-title">📸 活动图集 (Gallery)</div>
+        <div id="evtModalPhotos" class="evt-gallery"></div>
+      </div>
+
+      <div id="evtSectionLinks" style="display:none;">
+        <div class="evt-section-title">🔗 外部链接 (External Links)</div>
+        <div id="evtModalLinks" class="evt-links" style="margin-bottom: 0;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 
