@@ -25,9 +25,9 @@
       --radius: 20px;
       --shadow: 0 6px 24px rgba(0,0,0,0.07);
       
-      --hero-bg: linear-gradient(145deg, #071A27 0%, #0E2F44 55%, #1A5276 100%);
-      --hero-border: none;
-      --glass-blur: none;
+      
+      
+      
     }
     @media(prefers-color-scheme:dark){
       :root{
@@ -38,9 +38,9 @@
         --border: rgba(255, 255, 255, 0.12);
         --shadow: 0 8px 30px rgba(0,0,0,0.4);
         
-        --hero-bg: linear-gradient(145deg, #061724 0%, #0E2F44 55%, #1A5276 100%);
-        --hero-border: 1px solid rgba(255,255,255,0.05);
-        --glass-blur: blur(16px);
+        
+        
+        
       }
     }
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -350,85 +350,29 @@
     /* ========================================================
        NEW HERO & CAMP BANNER CSS
        ======================================================== */
-    .public-hero {
-      width: 100%;
-      background: var(--navy-900);
-      border: 1px solid var(--gold-soft);
-      color: #fff;
-      border-radius: 16px;
-      padding: 40px 24px;
-      text-align: center;
-      margin-bottom: 24px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-      margin-top: 10px;
-    }
+    
     .public-hero::before {
       content: '♟️'; position: absolute; font-size: 180px; opacity: 0.04;
       top: -20px; right: -20px; transform: rotate(15deg); pointer-events: none;
     }
-    .ph-logo { width: 72px; height: 72px; margin-bottom: 16px; border-radius: 50%; box-shadow: 0 4px 16px rgba(0,0,0,0.4); object-fit: cover; background: #fff; padding: 4px; }
-    .ph-title { font-size: 34px; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; line-height: 1.2; }
-    .ph-subtitle { font-size: 14px; font-weight: 800; color: #F1C40F; letter-spacing: 2.5px; margin-bottom: 16px; }
-    .ph-tagline { font-size: 15px; font-weight: 600; opacity: 0.9; margin-bottom: 26px; }
-    .ph-stats-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-    .ph-stat-pill {
-      background: rgba(201, 162, 75, 0.1); /* gold-soft at 10% */
-      border: 1px solid var(--gold-soft);
-      color: var(--gold-soft);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
+    
+    
+    
+    
+    
+    
 
-    .camp-banner {
-      width: 100%;
-      background: var(--navy-900);
-      border-radius: 16px;
-      padding: 32px;
-      display: flex;
-      gap: 32px;
-      align-items: center;
-      margin-bottom: 32px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      color: var(--ink-dim);
-      border: 1px solid var(--gold-soft);
-    }
-    @media(max-width: 768px) { .camp-banner { flex-direction: column; text-align: center; } }
-    .camp-poster {
-      width: 140px; height: auto;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-    }
+    
+    @media(max-width: 768px) {  }
+    
     .camp-poster:hover { transform: scale(1.05); }
     .camp-info { flex: 1; display:flex; flex-direction:column; justify-content:center; text-align:left; }
     @media(max-width: 768px) { .camp-info { text-align: center; align-items:center; } }
-    .camp-badge { display:inline-block; font-size:11px; font-weight:900; background:#E74C3C; color:#fff; padding:4px 10px; border-radius:8px; margin-bottom:12px; align-self:flex-start; }
-    @media(max-width: 768px) { .camp-badge { align-self:center; } }
-    .camp-title { 
-      font-size: 22px; 
-      font-weight: 900; 
-      margin-bottom: 12px; 
-      line-height: 1.3; 
-      color: var(--gold); 
-      font-family: var(--font-serif); 
-    }
-    .camp-details { 
-      font-size: 15px; 
-      font-weight: 700; 
-      opacity: 0.95; 
-      margin-bottom: 16px; 
-      line-height: 1.6; 
-      color: var(--text); 
-    }
-    .btn-wa { background: #4285F4; color: #fff; padding: 12px 24px; border-radius: 14px; font-size: 15px; font-weight: 900; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 16px rgba(66,133,244,0.3); transition: transform 0.2s; border:none; max-width: max-content; }
+    
+    @media(max-width: 768px) {  }
+    
+    
+    
     .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(66,133,244,0.4); color:#fff; }
 
     /* PODIUM (BIG & BOLD & CENTERED) */
@@ -968,6 +912,15 @@ a { color: inherit; text-decoration: none; }
   .footer__grid { grid-template-columns: 1fr !important; text-align: center !important; }
   .footer__grid > div { text-align: center !important; }
 }
+
+.rank-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.rank-list-item { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--navy-900); border: 1px solid var(--line); border-radius: var(--radius); }
+.rank-list-item__no { font: 700 1.1rem var(--font-serif); color: var(--gold-soft); width: 24px; text-align: center; }
+.rank-list-item__info { flex: 1; }
+.rank-list-item__name { font: 700 1.1rem var(--font-serif); color: var(--ink); }
+.rank-list-item__school { font-size: 0.8rem; color: var(--ink-dim); margin-left: 8px; }
+.rank-list-item__rating { font: 700 1.25rem var(--font-serif); color: var(--gold); }
+
 </style>
 </head>
 <body>
@@ -1005,42 +958,39 @@ a { color: inherit; text-decoration: none; }
     <div id="publicLadderSection">
       
       <!-- 1. HERO SECTION -->
-      <div class="public-hero">
-        <img src="cxb_round_emblem.png" alt="Logo" class="ph-logo">
-        <div class="ph-title">百乐象棋俱乐部</div>
-        <div class="ph-subtitle">CLUB XIANGQI BERA</div>
-        <div class="ph-tagline">彭亨百乐 · 全县唯一中国象棋教育学院</div>
-        <div class="ph-stats-grid">
-          <div class="ph-stat-pill">👑 全县唯一象棋教育学院</div>
-          <div class="ph-stat-pill">⚔️ CXQB ELO 官方排位</div>
-          <div class="ph-stat-pill">🏅 5 级段位考评体系</div>
+      <header class="hero">
+        <img src="cxb_round_emblem.png" alt="CXB Logo" class="hero__logo">
+        <h1 class="hero__title" data-i18n="hero.title">百乐象棋俱乐部</h1>
+        <div class="hero__en">CLUB XIANGQI BERA</div>
+        <p class="hero__tagline" data-i18n="hero.tagline">彭亨百乐 · 全县唯一中国象棋教育学院</p>
+        <div class="hero__badges">
+          <span class="badge" data-i18n="hero.badge1">👑 全县唯一象棋教育学院</span>
+          <span class="badge" data-i18n="hero.badge2">⚔️ CXQB ELO 官方排位</span>
+          <span class="badge" data-i18n="hero.badge3">🏅 5 级段位考评体系</span>
         </div>
-      </div>
+      </header>
 
       <!-- 2. CAMP PROMO BANNER -->
-      <div class="camp-banner">
-        <img src="poster_qiyuan_final.jpg" alt="棋缘教育营海报" class="camp-poster" onclick="openLightbox('poster_qiyuan_final.jpg')">
-        <div class="camp-info">
-          <div class="camp-badge">✅ 报名开放中</div>
-          <div class="camp-title">2026 第一届「棋缘」<br>中国象棋启蒙教育营</div>
-          <div class="camp-details">
-            📅 日期：11月22日 (星期日)<br>
-            📍 地点：Dewan SJK(C) Triang 1<br>
-            🎯 亮点：零基础教学 · 全套教材 · 结业证书
-          </div>
-          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn-wa" style="background:#b3262d;box-shadow: 0 6px 16px rgba(179,38,45,0.4); border:none; padding:12px 24px;">
-            📝 立即填写 Google Form 报名表
-          </a>
+      <section class="announce section">
+        <img src="poster_qiyuan_final.jpg" alt="棋缘教育营海报" class="announce__poster" onclick="openLightbox('poster_qiyuan_final.jpg')" style="cursor:pointer;">
+        <div>
+          <span class="tag" data-i18n="camp.status">✅ 报名开放中</span>
+          <h2 class="announce__title" data-i18n="camp.title">2026 第一届「棋缘」中国象棋启蒙教育营</h2>
+          <ul class="meta">
+            <li><span data-i18n="camp.date">📅 日期：11月22日 (星期日)</span></li>
+            <li><span data-i18n="camp.location">📍 地点：Dewan SJK(C) Triang 1</span></li>
+            <li><span data-i18n="camp.highlight">🎯 亮点：零基础教学 · 全套教材 · 结业证书</span></li>
+          </ul>
+          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn btn--primary" data-i18n="camp.btn">📝 立即填写 Google Form 报名表</a>
         </div>
-      </div>
+      </section>
 
       <!-- 3. LIVE MATCH TICKER -->
-      <div class="ticker-wrap" style="margin-bottom:34px;width:100%;">
-        <div id="publicTickerTrack" class="ticker-track"></div>
-      </div>
+      <section class="ticker section">
+        <div id="publicTickerTrack" class="ticker__track"></div>
+      </section>
 
-      
-      <!-- 5. EVENTS GALLERY -->
+      <!-- 4. EVENTS GALLERY -->
       <div class="section-head" style="margin-top:40px;">
         <div class="section-title">📸 历届活动相册</div>
         <div class="section-sub">记录在百乐县中国象棋公会的精彩瞬间</div>
@@ -1079,26 +1029,26 @@ a { color: inherit; text-decoration: none; }
     <!-- VIEW 2: LOGIN CARD (STUDENT & PARENT VIP) -->
     <div id="publicLoginSection" style="display:none; justify-content:center; align-items:center; min-height:65vh;">
       <div class="gate-card" style="margin:20px auto;">
-        <div class="gate-logo"><img src="cxb_round_emblem.png" alt="CXB" style="width:64px; height:64px; border-radius:50%; box-shadow:0 4px 16px rgba(0,0,0,0.2);"></div>
-        <div class="gate-badge">CLUB XIANGQI BERA · 学员专属登录</div>
-        <h1 class="gate-title">百乐象棋俱乐部</h1>
-        <p class="gate-sub">请使用俱乐部发放的学员账号（姓名）与密码登录</p>
+        <div class="gate-badge" data-i18n="login.badge">🏛️ CLUB XIANGQI BERA · 学员专属登录</div>
+        <h1 class="gate-title" data-i18n="login.title">百乐象棋俱乐部</h1>
+        <p class="gate-sub" data-i18n="login.sub">请使用俱乐部发放的学员账号密码登录</p>
 
         <div class="input-group">
-          <label class="input-label">👤 登录账号 (姓名 / 管理员)</label>
-          <input type="text" id="accInput" class="gate-input" placeholder="如: 黄梓轩 或 admin" autofocus>
+          <label class="input-label" data-i18n="login.name_label">👤 学员姓名 (Name)</label>
+          <input type="text" id="nameInput" class="gate-input input" placeholder="如: 黄梓轩 或 admin" data-i18n="login.name_ph" autofocus>
         </div>
 
         <div class="input-group">
-          <label class="input-label">🔑 专属密码 (Password)</label>
-          <input type="password" id="pwdInput" class="gate-input" placeholder="请输入密码">
+          <label class="input-label" data-i18n="login.pwd_label">🔑 专属密码 (Password)</label>
+          <input type="password" id="pwdInput" class="gate-input input" placeholder="请输入密码" data-i18n="login.pwd_ph">
         </div>
 
-        <button class="login-btn" onclick="handleLogin()">🔐 登录进入系统</button>
+        <button class="login-btn btn btn--primary" onclick="handleLogin()" data-i18n="login.btn">🔐 登录进入系统</button>
         <div id="loginMsg" style="color:var(--red);font-size:13px;font-weight:800;margin-top:10px;display:none;"></div>
 
       </div>
     </div>
+  </div>
   </div>
 
   <footer class="footer">
@@ -1752,54 +1702,60 @@ function togglePublicTab(tab) {
 }
 
 function renderPublicLadder(players) {
-  const p = [...players].sort((a,b)=>b.elo - a.elo);
-  const area = document.getElementById('publicPodiumArea');
-  if (area && p.length) {
-    const medals = ['🥇','🥈','🥉'];
-    let html = '';
-    [1, 0, 2].forEach(idx => {
-      const pl = p[idx];
-      if (!pl) return;
-      const cls = idx === 0 ? 'pod-1' : idx === 1 ? 'pod-2' : 'pod-3';
-      const crown = idx === 0 ? '<div class="crown">👑 榜首第一人</div>' : '';
-      html += `
-        <div class="pod ${cls}">
-          ${crown}
-          <div class="pod-medal">${medals[idx]}</div>
-          <div class="pod-name">${pl.name}</div>
-          <div class="pod-school">${pl.school}</div>
-          <div class="tier-chip ${getTierClass(pl.elo)}">${getTierName(pl.elo)}</div>
-          <div class="pod-elo">${pl.elo}</div>
-          <div class="pod-stats">${pl.w}胜 ${pl.d}和 ${pl.l}负</div>
-        </div>`;
-    });
-    area.innerHTML = html;
+  const container = document.getElementById('publicPodiumArea');
+  if(!players || players.length === 0) {
+    container.innerHTML = '<div class="empty">暂无排位数据。</div>';
+    return;
   }
+  
+  // Sort descending
+  const sorted = [...players].sort((a,b) => (b.elo || 0) - (a.elo || 0));
+  
+  // Top 3
+  let html = '<div class="podium">';
+  for (let i = 0; i < 3 && i < sorted.length; i++) {
+    const p = sorted[i];
+    const rank = i + 1;
+    // We order them visually: 2nd, 1st, 3rd
+    const visualOrder = rank === 1 ? 2 : (rank === 2 ? 1 : 3);
+    const cssClass = `rank-card rank-card--${rank}`;
+    
+    html += `
+      <div class="${cssClass}" style="order: ${visualOrder}">
+        <div class="rank-card__no">${rank}</div>
+        <div class="rank-card__name">${p.name}</div>
+        <div class="rank-card__school">${p.school || 'CXQB'}</div>
+        <span class="rank-card__title">${p.title || '无段位'}</span>
+        <span class="rank-card__rating">${p.elo || 1000}</span>
+      </div>
+    `;
+  }
+  html += '</div>';
 
-  const list = document.getElementById('publicRankList');
-  if (list && p.length > 3) {
-    list.innerHTML = p.slice(3).map((pl, i) => {
-      const realIndex = i + 3;
-      const wr = pl.total > 0 ? ((pl.w / pl.total) * 100).toFixed(0) : 0;
-      return `
-        <div class="rank-card">
-          <div class="rank-left">
-            <div class="rank-num">${i + 1}</div>
-            <div class="rank-info">
-              <div class="rank-name">
-                ${pl.name}
-                <span class="tier-chip ${getTierClass(pl.elo)}">${getTierName(pl.elo)}</span>
-              </div>
-              <div class="rank-school">${pl.school} · ${pl.total} 场实战 (${pl.w}胜 ${pl.d}和 ${pl.l}负)</div>
-            </div>
+  // 4th and below
+  if (sorted.length > 3) {
+    html += '<div class="rank-list">';
+    for (let i = 3; i < sorted.length; i++) {
+      const p = sorted[i];
+      const wins = p.stats ? p.stats.w : 0;
+      const total = p.stats ? (p.stats.w + p.stats.d + p.stats.l) : 0;
+      const winRate = total > 0 ? Math.round((wins / total) * 100) + '%' : '0%';
+      
+      html += `
+        <div class="rank-list-item">
+          <div class="rank-list-item__no">${i + 1}</div>
+          <div class="rank-list-item__info">
+            <span class="rank-list-item__name">${p.name}</span>
+            <span class="rank-list-item__school">${p.school || 'CXQB'} · ${total}场 · 胜率 ${winRate}</span>
           </div>
-          <div class="rank-right">
-            <div class="rank-elo">${pl.elo}</div>
-            <div class="rank-wr">胜率 ${wr}%</div>
-          </div>
-        </div>`;
-    }).join('');
+          <div class="rank-list-item__rating">${p.elo || 1000}</div>
+        </div>
+      `;
+    }
+    html += '</div>';
   }
+  
+  container.innerHTML = html;
 }
 
 // RENDERING LADDER
@@ -2200,53 +2156,115 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
 <script>
   // === CN/BM/EN Translation System ===
   const i18n = {
-    cn: {
-      "nav.home": "首页", "nav.ladder": "天梯榜", "nav.login": "登录",
-      "hero.title": "百乐象棋俱乐部", "hero.tagline": "彭亨百乐 · 全县唯一中国象棋教育学院",
-      "hero.badge1": "全县唯一象棋教育学院", "hero.badge2": "CXQB ELO 官方排位", "hero.badge3": "5 级段位考评体系",
-      "camp.status": "报名开放中", "camp.title": "2026 第一届「棋缘」中国象棋启蒙教育营",
-      "camp.date": "日期：11月22日 (星期日)", "camp.location": "地点：Dewan SJK(C) Triang 1", "camp.highlight": "亮点：零基础教学 · 全套教材 · 结业证书", "camp.btn": "立即填写 Google Form 报名表",
-      "gallery.title": "历届活动相册", "gallery.sub": "记录在百乐县中国象棋公会的精彩瞬间", "gallery.empty": "暂无公开相册。",
-      "ladder.title": "百乐全县青少年天梯三甲", "ladder.sub": "CXQB ELO 官方排位体系 · 实时同步",
-      "footer.about_title": "百乐象棋俱乐部", "footer.about_desc": "Club XiangQi Bera (CXQB)<br>彭亨百乐全县专业中国象棋培训、赛事与等级分考级体系认证机构。",
-      "footer.partners_title": "认证机构 & 官方合作伙伴", "footer.contact_title": "联系方式"
-    },
-    bm: {
-      "nav.home": "Utama", "nav.ladder": "Kedudukan", "nav.login": "Log Masuk",
-      "hero.title": "Kelab XiangQi Bera", "hero.tagline": "Satu-satunya Akademi Catur Cina di Daerah Bera",
-      "hero.badge1": "Akademi Catur Tunggal Bera", "hero.badge2": "Sistem ELO Rasmi CXQB", "hero.badge3": "Sistem Penilaian 5 Tahap",
-      "camp.status": "Pendaftaran Dibuka", "camp.title": "Kem Asas Catur Cina «Qi Yuan» 2026",
-      "camp.date": "Tarikh: 22 Nov (Ahad)", "camp.location": "Lokasi: Dewan SJK(C) Triang 1", "camp.highlight": "Fokus: Asas Sifar · Bahan Penuh · Sijil", "camp.btn": "Isi Borang Google Sekarang",
-      "gallery.title": "Galeri Acara Lepas", "gallery.sub": "Merakam detik indah di Kelab Xiangqi Bera", "gallery.empty": "Tiada album awam setakat ini.",
-      "ladder.title": "Top 3 Kedudukan Belia Bera", "ladder.sub": "Sistem ELO Rasmi CXQB · Segerak Langsung",
-      "footer.about_title": "Kelab XiangQi Bera", "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Institusi latihan dan pensijilan rasmi catur Cina di Bera.",
-      "footer.partners_title": "Rakan Rasmi & Pensijilan", "footer.contact_title": "Hubungi Kami"
-    },
-    en: {
-      "nav.home": "Home", "nav.ladder": "Ladder", "nav.login": "Login",
-      "hero.title": "Club XiangQi Bera", "hero.tagline": "The Only Chinese Chess Academy in Bera District",
-      "hero.badge1": "The Only Chess Academy in Bera", "hero.badge2": "CXQB Official ELO System", "hero.badge3": "5-Level Rating System",
-      "camp.status": "Registration Open", "camp.title": "2026 1st «Qi Yuan» Xiangqi Beginner Camp",
-      "camp.date": "Date: Nov 22 (Sun)", "camp.location": "Location: Dewan SJK(C) Triang 1", "camp.highlight": "Highlights: Zero Basics · Full Material · Certificate", "camp.btn": "Fill Google Form Now",
-      "gallery.title": "Past Event Gallery", "gallery.sub": "Capturing wonderful moments at CXQB", "gallery.empty": "No public albums available.",
-      "ladder.title": "Bera Youth Top 3 Ladder", "ladder.sub": "CXQB Official ELO System · Live Sync",
-      "footer.about_title": "Club XiangQi Bera", "footer.about_desc": "Club XiangQi Bera (CXQB)<br>The official training and certification institution in Bera.",
-      "footer.partners_title": "Official Partners", "footer.contact_title": "Contact Us"
-    }
-  };
+  cn: {
+    "nav.home": "首页", "nav.ladder": "天梯榜", "nav.login": "登录",
+    "hero.title": "百乐象棋俱乐部",
+    "hero.tagline": "彭亨百乐 · 全县唯一中国象棋教育学院",
+    "hero.badge1": "👑 全县唯一象棋教育学院",
+    "hero.badge2": "⚔️ CXQB ELO 官方排位",
+    "hero.badge3": "🏅 5 级段位考评体系",
+    "camp.status": "✅ 报名开放中",
+    "camp.title": "2026 第一届「棋缘」中国象棋启蒙教育营",
+    "camp.date": "📅 日期：11月22日 (星期日)",
+    "camp.location": "📍 地点：Dewan SJK(C) Triang 1",
+    "camp.highlight": "🎯 亮点：零基础教学 · 全套教材 · 结业证书",
+    "camp.btn": "📝 立即填写 Google Form 报名表",
+    "gallery.title": "历届活动相册",
+    "gallery.sub": "记录在百乐县中国象棋公会的精彩瞬间",
+    "gallery.empty": "暂无公开相册。",
+    "ladder.title": "百乐全县青少年天梯排位",
+    "ladder.sub": "CXQB ELO 官方排位体系 · 实时同步",
+    "login.badge": "🏛️ CLUB XIANGQI BERA · 学员专属登录",
+    "login.title": "百乐象棋俱乐部",
+    "login.sub": "请使用俱乐部发放的学员账号密码登录",
+    "login.name_label": "👤 学员姓名 (Name)",
+    "login.name_ph": "如: 黄梓轩 或 admin",
+    "login.pwd_label": "🔑 专属密码 (Password)",
+    "login.pwd_ph": "请输入密码",
+    "login.btn": "🔐 登录进入系统",
+    "footer.about_title": "百乐象棋俱乐部",
+    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>彭亨百乐全县专业中国象棋培训、赛事与等级分考级体系认证机构。",
+    "footer.partners_title": "认证机构 & 官方合作伙伴",
+    "footer.contact_title": "联系方式"
+  },
+  bm: {
+    "nav.home": "Utama", "nav.ladder": "Kedudukan", "nav.login": "Log Masuk",
+    "hero.title": "Kelab XiangQi Bera",
+    "hero.tagline": "Satu-satunya Akademi Catur Cina di Daerah Bera, Pahang",
+    "hero.badge1": "👑 Satu-satunya Akademi Catur di Bera",
+    "hero.badge2": "⚔️ Sistem ELO Rasmi CXQB",
+    "hero.badge3": "🏅 Penilaian 5 Tahap",
+    "camp.status": "✅ Pendaftaran Dibuka",
+    "camp.title": "Kem Asas Catur Cina «Qi Yuan» 2026",
+    "camp.date": "📅 Tarikh: 22 Nov (Ahad)",
+    "camp.location": "📍 Lokasi: Dewan SJK(C) Triang 1",
+    "camp.highlight": "🎯 Asas Sifar · Bahan Penuh · Sijil Penyertaan",
+    "camp.btn": "📝 Isi Borang Google Sekarang",
+    "gallery.title": "Galeri Acara Lepas",
+    "gallery.sub": "Merakam detik-detik indah bersama CXQB",
+    "gallery.empty": "Tiada album awam setakat ini.",
+    "ladder.title": "Top Kedudukan Belia Daerah Bera",
+    "ladder.sub": "Sistem ELO Rasmi CXQB · Segerak Langsung",
+    "login.badge": "🏛️ CLUB XIANGQI BERA · Log Masuk Pelajar",
+    "login.title": "Kelab XiangQi Bera",
+    "login.sub": "Sila gunakan akaun pelajar yang diberikan",
+    "login.name_label": "👤 Nama Pelajar",
+    "login.name_ph": "Contoh: Ahmad",
+    "login.pwd_label": "🔑 Kata Laluan",
+    "login.pwd_ph": "Masukkan kata laluan",
+    "login.btn": "🔐 Log Masuk",
+    "footer.about_title": "Kelab XiangQi Bera",
+    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Institusi latihan dan pensijilan rasmi catur Cina di Bera, Pahang.",
+    "footer.partners_title": "Rakan Rasmi & Pensijilan",
+    "footer.contact_title": "Hubungi Kami"
+  },
+  en: {
+    "nav.home": "Home", "nav.ladder": "Ladder", "nav.login": "Login",
+    "hero.title": "Club XiangQi Bera",
+    "hero.tagline": "The Only Chinese Chess Academy in Bera District, Pahang",
+    "hero.badge1": "👑 The Only Chess Academy in Bera",
+    "hero.badge2": "⚔️ CXQB Official ELO System",
+    "hero.badge3": "🏅 5-Level Rating System",
+    "camp.status": "✅ Registration Open",
+    "camp.title": "2026 «Qi Yuan» Xiangqi Beginner Camp",
+    "camp.date": "📅 Date: Nov 22 (Sunday)",
+    "camp.location": "📍 Venue: Dewan SJK(C) Triang 1",
+    "camp.highlight": "🎯 Zero Basics · Full Material · Certificate",
+    "camp.btn": "📝 Fill Google Form Now",
+    "gallery.title": "Past Event Gallery",
+    "gallery.sub": "Capturing wonderful moments at CXQB",
+    "gallery.empty": "No public albums available.",
+    "ladder.title": "Bera Youth Ladder Rankings",
+    "ladder.sub": "CXQB Official ELO System · Live Sync",
+    "login.badge": "🏛️ CLUB XIANGQI BERA · Student Login",
+    "login.title": "Club XiangQi Bera",
+    "login.sub": "Please use the student credentials provided by the club",
+    "login.name_label": "👤 Student Name",
+    "login.name_ph": "e.g. Ahmad",
+    "login.pwd_label": "🔑 Password",
+    "login.pwd_ph": "Enter password",
+    "login.btn": "🔐 Login",
+    "footer.about_title": "Club XiangQi Bera",
+    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>The official training and certification institution in Bera, Pahang.",
+    "footer.partners_title": "Official Partners",
+    "footer.contact_title": "Contact Us"
+  }
+};
 
   function setLang(lang, btnContext) {
-    // Update active button state
     if(btnContext) {
       document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', 'false'));
       btnContext.setAttribute('aria-pressed', 'true');
     }
     
-    // Apply translations
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if(i18n[lang] && i18n[lang][key]) {
-        el.innerHTML = i18n[lang][key];
+        if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = i18n[lang][key];
+        } else {
+          el.innerHTML = i18n[lang][key];
+        }
       }
     });
   }
