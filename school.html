@@ -811,8 +811,10 @@ function updateSeg(lang) {
   <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
     <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--input-glass-border); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
-      <div id="sBadge" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:5px 16px 5px 7px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px; box-shadow:0 2px 8px rgba(241,196,15,0.25);">
-        <img src="cxb_round_emblem.png" alt="CXB" style="width:22px; height:22px; border-radius:50%; object-fit:cover; display:block; border:1px solid rgba(10,25,41,0.2);">
+      <div style="margin-bottom:16px;">
+        <img src="cxb_round_emblem.png" alt="CXB Logo" style="width:64px; height:64px; border-radius:50%; object-fit:cover; display:block; margin:0 auto; border:2.5px solid rgba(241,196,15,0.6); box-shadow:0 4px 16px rgba(241,196,15,0.15);">
+      </div>
+      <div id="sBadge" style="display:inline-flex; align-items:center; justify-content:center; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 18px; border-radius:30px; font-size:11px; font-weight:800; margin-bottom:20px; box-shadow:0 2px 8px rgba(241,196,15,0.25); white-space:nowrap;">
         <span id="sBadgeText">CLUB XIANGQI BERA · 校际赛报名系统</span>
       </div>
       <h1 id="sTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">校内象棋比赛管理系统</h1>
@@ -1160,24 +1162,24 @@ function setLoginLang(lang) {
       errEmpty: "请输入比赛授权激活码"
     },
     bm: {
-      badge: "CLUB XIANGQI BERA · Sistem Antara Sekolah",
-      title: "Sistem Pertandingan Catur Sekolah",
-      sub: "Sistem Penjadualan CXQB · Pemecah Seri Automatik · Paparan Skrin Besar",
-      lbl: "Kod Akses Pertandingan",
+      badge: "CLUB XIANGQI BERA · Portal Sekolah",
+      title: "Sistem Pertandingan Catur",
+      sub: "Sistem Penjadualan CXQB · Seri Automatik · Paparan Skrin",
+      lbl: "Kod Akses",
       ph: "Masukkan kod akses (cth: CXQB-8888)",
-      btn: "Sahkan Akses & Masuk Sistem",
+      btn: "Sahkan & Masuk",
       err: "Kod akses tidak sah atau tamat tempoh",
-      errEmpty: "Sila masukkan kod akses pertandingan"
+      errEmpty: "Sila masukkan kod akses"
     },
     en: {
       badge: "CLUB XIANGQI BERA · Schools Portal",
       title: "School Tournament System",
-      sub: "CXQB Pairing Engine · Auto Tie-Break · Live Stage Projection",
-      lbl: "Tournament Access Code",
+      sub: "CXQB Pairing Engine · Auto Tie-Break · Live Projection",
+      lbl: "Access Code",
       ph: "Enter access code (e.g. CXQB-8888)",
-      btn: "Verify Access & Enter Arena",
+      btn: "Verify & Enter",
       err: "Invalid or expired access code",
-      errEmpty: "Please enter tournament access code"
+      errEmpty: "Please enter access code"
     }
   };
 
