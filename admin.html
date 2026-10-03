@@ -489,7 +489,7 @@ body::before {
     <div class="apple-mega-col">
       <h4 data-i18n="nav.portals">专属入口</h4>
       <a onclick="togglePublicTab('login'); closeMainNav()" data-i18n="nav.student_login">学员专属登录</a>
-      <a href="school.html" data-i18n="nav.school_portal">校际赛报名系统</a>
+      <a href="school.html" data-i18n="nav.school_portal">校际赛编排与赛事系统</a>
       <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
     </div>
     
@@ -526,7 +526,7 @@ const i18n = {
     "nav.explore": "探索俱乐部",
     "nav.portals": "专属入口",
     "nav.student_login": "学员专属登录",
-    "nav.school_portal": "校际赛报名系统",
+    "nav.school_portal": "校际赛编排与赛事系统",
     "nav.admin_portal": "教练管理端",
     "nav.language": "系统语言",
     "nav.menu": "菜单",
@@ -567,7 +567,7 @@ const i18n = {
     "nav.explore": "Terokai Kelab",
     "nav.portals": "Portal Khas",
     "nav.student_login": "Log Masuk Pelajar",
-    "nav.school_portal": "Sistem Antara Sekolah",
+    "nav.school_portal": "Sistem Pertandingan Antara Sekolah",
     "nav.admin_portal": "Portal Jurulatih",
     "nav.language": "Bahasa Sistem",
     "nav.menu": "Menu",
@@ -607,7 +607,7 @@ const i18n = {
     "nav.explore": "Explore Club",
     "nav.portals": "Portals",
     "nav.student_login": "Student Login",
-    "nav.school_portal": "Schools Portal",
+    "nav.school_portal": "School Pairing & Tournament System",
     "nav.admin_portal": "Admin Portal",
     "nav.language": "System Language",
     "nav.menu": "Menu",
@@ -3393,7 +3393,7 @@ function updateMenuI18n(lang) {
     if(ladderLink) ladderLink.innerText = '🏆 天梯榜';
     if(eventsLink) eventsLink.innerText = '📸 赛事与活动中心';
     if(studentLink) studentLink.innerText = '🔐 学员专属登录';
-    if(schoolLink) schoolLink.innerText = '🏫 校际赛报名系统';
+    if(schoolLink) schoolLink.innerText = '🏫 校际赛编排与赛事系统';
     if(adminLink) adminLink.innerText = '👑 教练管理端';
   } else if(lang === 'bm') {
     if(btnText && !isOpen) btnText.innerText = 'Menu';
@@ -3404,7 +3404,7 @@ function updateMenuI18n(lang) {
     if(ladderLink) ladderLink.innerText = '🏆 Kedudukan';
     if(eventsLink) eventsLink.innerText = '📸 Pusat Acara & Aktiviti';
     if(studentLink) studentLink.innerText = '🔐 Log Masuk Pelajar';
-    if(schoolLink) schoolLink.innerText = '🏫 Sistem Antara Sekolah';
+    if(schoolLink) schoolLink.innerText = '🏫 Sistem Pertandingan Antara Sekolah';
     if(adminLink) adminLink.innerText = '👑 Portal Jurulatih';
   } else {
     if(btnText && !isOpen) btnText.innerText = 'Menu';
@@ -3415,7 +3415,7 @@ function updateMenuI18n(lang) {
     if(ladderLink) ladderLink.innerText = '🏆 Ladder';
     if(eventsLink) eventsLink.innerText = '📸 Events & Activities';
     if(studentLink) studentLink.innerText = '🔐 Student Login';
-    if(schoolLink) schoolLink.innerText = '🏫 Schools Portal';
+    if(schoolLink) schoolLink.innerText = '🏫 School Pairing & Tournament System';
     if(adminLink) adminLink.innerText = '👑 Admin Portal';
   }
 }
