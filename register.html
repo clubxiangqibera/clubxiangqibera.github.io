@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>在线报名中心 · Club XiangQi Bera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cxb-theme.css">
+  <style>
+    :root {
+      --bg-page:            #040C17;
+      --top-color:          rgba(6, 23, 36, 0.92);
+      --top-blur:           16px;
+      --mega-bg:            rgba(6, 23, 36, 0.78);
+      --mega-blur:          24px;
+      --backdrop-blur:      20px;
+      --card-glass:         rgba(6, 23, 36, 0.75);
+      --badge-gold-bg:      #F1C40F;
+      --badge-gold-text:    #0A1929;
+      --gold-hover:         #F1C40F;
+      --btn-primary-bg:     linear-gradient(135deg, #E63946 0%, #D90429 100%);
+      --btn-primary-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+      --font-serif:         'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+      --font-sans:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+      --navy-950: #07101e;
+      --navy-900: #0b1a2f;
+      --navy-800: #112440;
+      --gold: #F39C12;
+      --gold-soft: #e3c97f;
+      --ink: #f3efe4;
+      --ink-dim: #a9b3c3;
+      --line: rgba(201, 162, 75, 0.28);
+      --line-soft: rgba(243, 239, 228, 0.08);
+      --radius: 20px;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, sans-serif;
+      background: var(--bg-page); color: var(--ink);
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(var(--line-soft) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      opacity: 0.6;
+    }
+
+    /* PUBLIC STICKY NAV BAR */
+    .public-nav-bar {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: var(--top-color) !important;
+      backdrop-filter: blur(var(--top-blur)) !important; -webkit-backdrop-filter: blur(var(--top-blur)) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+    }
+    .p-nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .p-nav-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(241,196,15,0.4); }
+    .p-nav-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
+
+    .nav-menu-btn {
+      padding: 7px 16px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12);
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
+
+    .public-content-wrap {
+      width: 100%; max-width: 980px; padding: 28px 20px 60px;
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 16px; padding: clamp(32px, 5vw, 48px) 24px; text-align: center;
+      background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
+      border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .hero__logo { width: 68px; height: 68px; border-radius: 50%; border: 2px solid var(--gold); margin: 0 auto 16px; display: block; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    .hero__title { font-family: var(--font-serif); font-size: clamp(24px, 4.5vw, 36px); font-weight: 800; color: var(--ink); margin-bottom: 6px; letter-spacing: 1px; }
+    .hero__en { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .hero__tagline { font-size: clamp(13px, 2vw, 15px); color: var(--ink-dim); max-width: 680px; margin: 0 auto 20px; line-height: 1.6; }
+    .hero__badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 999px;
+      font-size: 11.5px; font-weight: 600; background: rgba(241,196,15,0.08);
+      color: var(--gold); border: 1px solid rgba(241,196,15,0.25);
+    }
+
+    /* SEGMENTED TAB SELECTOR (TIER 1 - 2 ACTIVE TABS) */
+    .reg-nav-tabs {
+      display: flex; gap: 10px; margin: 28px 0 20px; background: rgba(6, 23, 36, 0.8);
+      padding: 6px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .reg-tab-btn {
+      flex: 1; padding: 14px 18px; border-radius: 12px; font-size: 14px; font-weight: 700;
+      color: rgba(255,255,255,0.7); background: transparent; border: 1px solid transparent;
+      cursor: pointer; transition: all 0.25s ease; text-align: center; display: flex;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .reg-tab-btn.active {
+      background: linear-gradient(135deg, rgba(241,196,15,0.18), rgba(241,196,15,0.06));
+      color: #fff; border-color: rgba(241,196,15,0.5);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+    }
+    .reg-tab-btn:hover:not(.active) {
+      color: #fff; background: rgba(255,255,255,0.04);
+    }
+
+    /* ROADMAP CALLOUT (TIER 2 NOTICE) */
+    .roadmap-callout {
+      background: rgba(11, 26, 47, 0.6); border: 1px dashed rgba(241,196,15,0.35);
+      border-radius: 14px; padding: 14px 20px; margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      font-size: 12.5px; color: var(--ink-dim); line-height: 1.5;
+    }
+    .roadmap-callout strong { color: var(--gold); }
+
+    /* FORM CARD */
+    .reg-form-card {
+      background: var(--card-glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: clamp(24px, 4vw, 36px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.04);
+      display: none; animation: fadeIn 0.3s ease;
+    }
+    .reg-form-card.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-section-title {
+      font-family: var(--font-serif); font-size: 18px; font-weight: 800; color: #fff;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+    }
+    .form-section-title::before {
+      content: ""; display: inline-block; width: 4px; height: 18px;
+      background: var(--gold); border-radius: 2px;
+    }
+    .form-section-sub {
+      font-size: 13px; color: var(--ink-dim); margin-bottom: 24px; line-height: 1.5;
+    }
+
+    /* TIERS PREVIEW CARDS (RADIO TILES) */
+    .tier-options-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px; margin-bottom: 24px;
+    }
+    .tier-tile {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 18px; cursor: pointer; transition: all 0.2s;
+      position: relative;
+    }
+    .tier-tile:hover {
+      background: rgba(255,255,255,0.06); border-color: rgba(241,196,15,0.4);
+    }
+    .tier-tile.selected {
+      background: rgba(241,196,15,0.08); border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(241,196,15,0.2);
+    }
+    .tier-tile input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .tier-tile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .tier-tile-tag { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(241,196,15,0.2); color: var(--gold); }
+    .tier-tile-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .tier-tile-desc { font-size: 12px; color: var(--ink-dim); line-height: 1.4; margin-bottom: 10px; }
+    .tier-tile-price { font-size: 16px; font-weight: 900; color: var(--gold); }
+    .tier-tile-price small { font-size: 11px; font-weight: 500; color: var(--ink-dim); }
+
+    /* FORM GRID & INPUTS */
+    .form-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .form-group.span-2 {
+      grid-column: 1 / -1;
+    }
+    .form-label {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); display: flex;
+      align-items: center; gap: 4px;
+    }
+    .form-label .req { color: #E63946; font-weight: 900; }
+    .form-control {
+      width: 100%; padding: 12px 14px; background: var(--input-glass-bg);
+      border: 1px solid var(--input-glass-border); border-radius: 10px;
+      color: #fff; font-size: 14px; font-family: inherit; outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--input-focus-glow); background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 12px rgba(241,196,15,0.25);
+    }
+    select.form-control {
+      cursor: pointer; appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A24B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 16px;
+      padding-right: 38px;
+    }
+    select.form-control option {
+      background: #0b1a2f; color: #fff;
+    }
+    textarea.form-control {
+      min-height: 80px; resize: vertical; line-height: 1.5;
+    }
+
+    /* FEE BREAKDOWN STRIP */
+    .fee-strip {
+      background: rgba(241,196,15,0.06); border: 1px solid rgba(241,196,15,0.2);
+      border-radius: 12px; padding: 14px 18px; margin: 20px 0 28px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .fee-strip-item { display: flex; flex-direction: column; gap: 2px; }
+    .fee-strip-label { font-size: 11.5px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+    .fee-strip-val { font-size: 15px; font-weight: 800; color: #fff; }
+    .fee-strip-total { font-size: 20px; font-weight: 900; color: var(--gold); }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%; padding: 16px 24px; border-radius: 12px;
+      background: var(--btn-primary-bg); border: none; color: #fff;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      box-shadow: var(--btn-primary-shadow); transition: all 0.2s;
+      letter-spacing: 0.5px; text-align: center;
+    }
+    .btn-submit:hover {
+      background: var(--btn-primary-hover); transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(230, 57, 70, 0.5);
+    }
+
+    /* CONFIRMATION / RECEIPT MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .receipt-modal {
+      width: 100%; max-width: 600px; background: #071322;
+      border: 1px solid rgba(241,196,15,0.35); border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(241,196,15,0.1);
+      padding: clamp(24px, 4vw, 36px); max-height: 90vh; overflow-y: auto;
+      animation: modalZoom 0.25s ease;
+    }
+    @keyframes modalZoom {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .receipt-header {
+      text-align: center; border-bottom: 1px dashed rgba(255,255,255,0.15);
+      padding-bottom: 18px; margin-bottom: 20px;
+    }
+    .receipt-badge {
+      display: inline-block; padding: 4px 14px; border-radius: 20px;
+      background: var(--badge-gold-bg); color: var(--badge-gold-text);
+      font-size: 11px; font-weight: 800; margin-bottom: 10px;
+    }
+    .receipt-id {
+      font-family: monospace; font-size: 15px; font-weight: 700;
+      color: var(--gold); letter-spacing: 1px;
+    }
+    .receipt-title {
+      font-family: var(--font-serif); font-size: 20px; font-weight: 800;
+      color: #fff; margin-top: 4px;
+    }
+    .receipt-table {
+      width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13.5px;
+    }
+    .receipt-table td {
+      padding: 9px 6px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .receipt-table td:first-child {
+      color: var(--ink-dim); width: 38%; font-weight: 600;
+    }
+    .receipt-table td:last-child {
+      color: #fff; font-weight: 700; text-align: right;
+    }
+    .receipt-actions {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .btn-wa-confirm {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 20px; border-radius: 12px; background: #25D366;
+      color: #07101e; font-size: 15px; font-weight: 800; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3); transition: all 0.2s;
+    }
+    .btn-wa-confirm:hover {
+      background: #20BA5A; transform: translateY(-1px);
+    }
+    .btn-modal-close {
+      padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.08);
+      color: #fff; font-size: 14px; font-weight: 700; border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer; text-align: center;
+    }
+
+    /* FOOTER */
+    .footer {
+      width: 100%; border-top: 1px solid var(--line-soft);
+      background: var(--navy-950); padding: 48px 20px 32px; margin-top: auto;
+    }
+    .footer__inner {
+      max-width: 1040px; margin: 0 auto; display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 36px;
+    }
+    .footer__col h4 {
+      font-size: 13px; font-weight: 700; color: var(--gold);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .footer__col p, .footer__col a {
+      font-size: 13px; color: var(--ink-dim); line-height: 1.8; text-decoration: none;
+    }
+    .footer__bottom {
+      max-width: 1040px; margin: 36px auto 0; padding-top: 20px;
+      border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--ink-dim);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .reg-nav-tabs { flex-direction: column; gap: 6px; }
+      .fee-strip { flex-direction: column; align-items: flex-start; }
+      .receipt-table td { font-size: 12.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY TOP NAVBAR -->
+  <header class="public-nav-bar">
+    <a href="index.html" class="p-nav-brand">
+      <img src="cxb_round_emblem.png" alt="CXB Logo" class="p-nav-logo">
+      <div>
+        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+      </div>
+    </a>
+
+    <button class="nav-menu-btn" onclick="toggleMainNav()">
+      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+    </button>
+  </header>
+
+  <div class="public-content-wrap">
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+      <img src="cxb_round_emblem.png" alt="CXB Logo" class="hero__logo">
+      <h1 class="hero__title" data-i18n="reg.hero_title">在线报名中心</h1>
+      <div class="hero__en">CXQB ONLINE REGISTRATION PORTAL · BERA DISTRICT</div>
+      <p class="hero__tagline" data-i18n="reg.hero_sub">
+        百乐象棋学院常规新生招募 · 官方实战研习营与公开赛统一报名专窗
+      </p>
+      <div class="hero__badges">
+        <span class="badge" data-i18n="reg.badge1">百乐县中国象棋公会认证</span>
+        <span class="badge" data-i18n="reg.badge2">规范化报名直达</span>
+        <span class="badge" data-i18n="reg.badge3">即时生成报名确认凭条</span>
+      </div>
+    </header>
+
+    <!-- ROADMAP CALLOUT: TIER 1 VS TIER 2 -->
+    <div class="roadmap-callout">
+      <div>
+        <strong data-i18n="reg.callout_title">第一阶段开放范围说明：</strong>
+        <span data-i18n="reg.callout_desc">当前系统开放「常规学院新生报名」与「研习营/公开赛个人报名」。校际锦标赛学校代表队团体报名（第二阶段）目前由百乐县象棋公会直接联系各华小老师统筹申报。</span>
+      </div>
+    </div>
+
+    <!-- TABS SELECTOR (TIER 1 SCOPE: 2 CORE TABS) -->
+    <div class="reg-nav-tabs">
+      <button class="reg-tab-btn active" id="tabBtnAcademy" onclick="switchRegTab('academy')">
+        <span data-i18n="reg.tab_academy">常规棋艺学院入班报名 (Academy Intake)</span>
+      </button>
+      <button class="reg-tab-btn" id="tabBtnCamp" onclick="switchRegTab('camp')">
+        <span data-i18n="reg.tab_camp">研习营与公开赛报名 (Camp & Open Entry)</span>
+      </button>
+    </div>
+
+    <!-- ==========================================
+         TAB 1: ACADEMY INTAKE FORM (常规棋艺学院)
+         ========================================== -->
+    <div class="reg-form-card active" id="cardAcademy">
+      <div class="form-section-title" data-i18n="reg.acad_sec1_title">第一步：选择报读阶梯与缴费模式</div>
+      <div class="form-section-sub" data-i18n="reg.acad_sec1_sub">根据学员当前水平选择适合的梯队课程。新生首次报名包含全套研习手册与官方天梯建档。</div>
+
+      <!-- TIER TILES -->
+      <div class="tier-options-grid">
+        <label class="tier-tile selected" onclick="selectAcademyTier(this, 'c1', 170, 60)">
+          <input type="radio" name="academy_tier" value="初级基础研习班 (Tahap 1~2)" checked>
+          <div class="tier-tile-header">
+            <span class="tier-tile-tag">TAHAP 1-2</span>
+            <span style="font-size:12px; color:var(--gold); font-weight:700;">零基础打底</span>
+          </div>
+          <div class="tier-tile-title" data-i18n="reg.t1_name">初级基础研习班</div>
+          <div class="tier-tile-desc" data-i18n="reg.t1_desc">棋规与行棋礼仪、基础战术杀法、死活吃子练习。</div>
+          <div class="tier-tile-price">RM 170 <small>/ 季付套餐 (省RM10)</small></div>
+        </label>
+
+        <label class="tier-tile" onclick="selectAcademyTier(this, 'c2', 240, 85)">
+          <input type="radio" name="academy_tier" value="中级战术进阶班 (Tahap 3~4)">
+          <div class="tier-tile-header">
+            <span class="tier-tile-tag">TAHAP 3-4</span>
+            <span style="font-size:12px; color:var(--gold); font-weight:700;">实战破局</span>
+          </div>
+          <div class="tier-tile-title" data-i18n="reg.t2_name">中级战术进阶班</div>
+          <div class="tier-tile-desc" data-i18n="reg.t2_desc">核心中局战术推演、十大基础残局定式、全真限时对弈。</div>
+          <div class="tier-tile-price">RM 240 <small>/ 季付套餐 (省RM15)</small></div>
+        </label>
+
+        <label class="tier-tile" onclick="selectAcademyTier(this, 'c3', 310, 110)">
+          <input type="radio" name="academy_tier" value="高级精英研修班 (Tahap 5~6)">
+          <div class="tier-tile-header">
+            <span class="tier-tile-tag">TAHAP 5-6</span>
+            <span style="font-size:12px; color:var(--gold); font-weight:700;">飞刀与算度</span>
+          </div>
+          <div class="tier-tile-title" data-i18n="reg.t3_name">高级精英研修班</div>
+          <div class="tier-tile-desc" data-i18n="reg.t3_desc">现代主流开局飞刀库、深层算度推演、带钟慢棋实战复盘。</div>
+          <div class="tier-tile-price">RM 310 <small>/ 季付套餐 (省RM20)</small></div>
+        </label>
+      </div>
+
+      <!-- PAYMENT TERM SELECTION -->
+      <div class="form-grid">
+        <div class="form-group span-2">
+          <label class="form-label"><span data-i18n="reg.lbl_payterm">缴费模式</span> <span class="req">*</span></label>
+          <select class="form-control" id="acadPayTerm" onchange="calcAcademyTotal()">
+            <option value="quarter" selected data-i18n="reg.opt_pay_quarter">按季度优惠套餐 (推荐 · 享季付折扣)</option>
+            <option value="monthly" data-i18n="reg.opt_pay_monthly">按月度缴费 (月缴模式)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="margin-top:20px;" data-i18n="reg.acad_sec2_title">第二步：学员与就读学校信息</div>
+      <div class="form-section-sub" data-i18n="reg.acad_sec2_sub">请准确填写学员姓名与学校，系统将用于建立天梯等级分档案与官方考评凭证。</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_cn_name">学员中文姓名</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="acadCnName" placeholder="如: 莫宇哲" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_en_name">英文姓名 (按 IC / MyKid)</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="acadEnName" placeholder="如: Mok Yu Zhe" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_birth">出生年份 / 年龄</span> <span class="req">*</span></label>
+          <select class="form-control" id="acadBirth">
+            <option value="2018 (7岁 / 一年级)">2018 (7岁 · 一年级)</option>
+            <option value="2017 (8岁 / 二年级)">2017 (8岁 · 二年级)</option>
+            <option value="2016 (9岁 / 三年级)">2016 (9岁 · 三年级)</option>
+            <option value="2015 (10岁 / 四年级)" selected>2015 (10岁 · 四年级)</option>
+            <option value="2014 (11岁 / 五年级)">2014 (11岁 · 五年级)</option>
+            <option value="2013 (12岁 / 六年级)">2013 (12岁 · 六年级)</option>
+            <option value="2012 (13岁 / 初一)">2012 (13岁 · 初中)</option>
+            <option value="其他年龄段">其他年龄段 / Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_gender">学员性别</span> <span class="req">*</span></label>
+          <select class="form-control" id="acadGender">
+            <option value="男 (Lelaki)" selected data-i18n="reg.opt_male">男 (Male)</option>
+            <option value="女 (Perempuan)" data-i18n="reg.opt_female">女 (Female)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_school">就读学校</span> <span class="req">*</span></label>
+          <select class="form-control" id="acadSchool">
+            <option value="直凉华小一校 (SJKC Triang 1)" selected>直凉华小一校 (SJKC Triang 1)</option>
+            <option value="立德华小 (SJKC Liat Koon)">立德华小 (SJKC Liat Koon)</option>
+            <option value="吉拉央华小 (SJKC Kerayong)">吉拉央华小 (SJKC Kerayong)</option>
+            <option value="明光华小 (SJKC Mengkuang)">明光华小 (SJKC Mengkuang)</option>
+            <option value="文德里华小 (SJKC Menteri)">文德里华小 (SJKC Menteri)</option>
+            <option value="直凉华小二校 (SJKC Triang 2)">直凉华小二校 (SJKC Triang 2)</option>
+            <option value="金马扬华小 (SJKC Kemayan)">金马扬华小 (SJKC Kemayan)</option>
+            <option value="中学 / 其他源流学校">中学 / 其他学校 (Secondary / Other)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_level">棋艺现状</span> <span class="req">*</span></label>
+          <select class="form-control" id="acadLevel">
+            <option value="零基础 (从规则学起)" selected data-i18n="reg.opt_lvl_zero">零基础 (从规则学起)</option>
+            <option value="初学者 (懂得走子规则与吃子)" data-i18n="reg.opt_lvl_beg">初学者 (懂得走子规则与吃子)</option>
+            <option value="有下棋实战经验 (常下棋/懂基本杀法)" data-i18n="reg.opt_lvl_mid">有下棋实战经验 (懂基本杀法)</option>
+            <option value="有参赛经历 (曾代表班级或校队参赛)" data-i18n="reg.opt_lvl_exp">有参赛经历 (曾代表学校参赛)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="margin-top:20px;" data-i18n="reg.acad_sec3_title">第三步：家长联络与上课意向</div>
+      <div class="form-section-sub" data-i18n="reg.acad_sec3_sub">俱乐部将通过 WhatsApp 发送课表指引、线上课链接与现场考核安排。</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_parent_name">家长 / 监护人姓名</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="acadParentName" placeholder="如: 陈女士 或 Mr. Tan" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_parent_phone">家长 WhatsApp 电话</span> <span class="req">*</span></label>
+          <input type="tel" class="form-control" id="acadParentPhone" placeholder="如: 012-3456789" required>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label"><span data-i18n="reg.lbl_mode">意向上课模式</span> <span class="req">*</span></label>
+          <select class="form-control" id="acadMode">
+            <option value="OMO 双轨标准班 (周中网课理论 + 周末基地实战)" selected data-i18n="reg.opt_mode_omo">OMO 双轨标准班 (周中网课理论 + 周末基地带钟实战)</option>
+            <option value="仅周末线下实战营" data-i18n="reg.opt_mode_offline">仅周末线下实战营</option>
+            <option value="仅周中线上理论直播" data-i18n="reg.opt_mode_online">仅周中线上理论直播</option>
+          </select>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label"><span data-i18n="reg.lbl_remarks">备注或特殊要求</span></label>
+          <textarea class="form-control" id="acadRemarks" placeholder="如有任何问题、希望避开的时间段或学员特殊情况，可在此注明..."></textarea>
+        </div>
+      </div>
+
+      <!-- FEE STRIP -->
+      <div class="fee-strip">
+        <div class="fee-strip-item">
+          <span class="fee-strip-label" data-i18n="reg.fee_tuition">学费试算</span>
+          <span class="fee-strip-val" id="dispAcadTuition">RM 170</span>
+        </div>
+        <div class="fee-strip-item">
+          <span class="fee-strip-label" data-i18n="reg.fee_kit">新生材料与建档费</span>
+          <span class="fee-strip-val" data-i18n="reg.fee_kit_val">RM 30 (一次性教材+天梯)</span>
+        </div>
+        <div class="fee-strip-item">
+          <span class="fee-strip-label" data-i18n="reg.fee_total">首期应缴合计</span>
+          <span class="fee-strip-total" id="dispAcadTotal">RM 200</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="submitAcademyForm()" data-i18n="reg.btn_submit_acad">
+        生成报名确认凭条并核对资料 →
+      </button>
+    </div>
+
+    <!-- ==========================================
+         TAB 2: CAMP & OPEN ENTRY FORM (研习营与公开赛)
+         ========================================== -->
+    <div class="reg-form-card" id="cardCamp">
+      <div class="form-section-title" data-i18n="reg.camp_sec1_title">第一步：选择参与活动项目</div>
+      <div class="form-section-sub" data-i18n="reg.camp_sec1_sub">选择百乐县中国象棋公会与俱乐部主办的官方实战营或锦标赛。</div>
+
+      <div class="form-grid">
+        <div class="form-group span-2">
+          <label class="form-label"><span data-i18n="reg.lbl_event_select">报名活动名称</span> <span class="req">*</span></label>
+          <select class="form-control" id="campEventSelect" onchange="onCampEventChange()">
+            <option value="2026 第一届「棋缘」中国象棋启蒙教育营 (11月22日)" selected>2026 第一届「棋缘」中国象棋启蒙教育营 (11月22日 · 直凉一校)</option>
+            <option value="2026 第一届「弈峰」学校假期棋艺进阶特训营 (意向预报名)">2026 第一届「弈峰」学校假期棋艺进阶特训营 (意向预报名)</option>
+            <option value="2026 第一届百乐县中国象棋公开锦标赛 (全县棋王争霸)">2026 第一届百乐县中国象棋公开锦标赛 (全县棋手意向预报名)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="margin-top:20px;" data-i18n="reg.camp_sec2_title">第二步：参赛者个人资料</div>
+      <div class="form-section-sub" data-i18n="reg.camp_sec2_sub">个人信息用于编排对阵名单、印制证书与登记天梯积分。</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_cn_name">参赛者中文姓名</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="campCnName" placeholder="如: 黄礼阳" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_en_name">英文全名 (按 IC / MyKid)</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="campEnName" placeholder="如: Ng Li Yang" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_ic">身分证号码 (IC / MyKid)</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="campIc" placeholder="如: 150822-06-XXXX" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_gender">性别</span> <span class="req">*</span></label>
+          <select class="form-control" id="campGender">
+            <option value="男 (Lelaki)" selected data-i18n="reg.opt_male">男 (Male)</option>
+            <option value="女 (Perempuan)" data-i18n="reg.opt_female">女 (Female)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_school">就读学校 / 所在单位</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="campSchool" placeholder="如: 直凉华小一校 或 成人公开组" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_category">参赛组别</span> <span class="req">*</span></label>
+          <select class="form-control" id="campCategory">
+            <option value="小学低年组 (一至三年级)" data-i18n="reg.opt_cat_p13">小学低年组 (一至三年级)</option>
+            <option value="小学高年组 (四至六年级)" selected data-i18n="reg.opt_cat_p46">小学高年组 (四至六年级)</option>
+            <option value="中学组 (初一至中五)" data-i18n="reg.opt_cat_sec">中学组 (初中 / 高中)</option>
+            <option value="公开组 (无年龄限制)" data-i18n="reg.opt_cat_open">公开组 (成人 / 校友)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="margin-top:20px;" data-i18n="reg.camp_sec3_title">第三步：联络人与营地需求</div>
+      <div class="form-section-sub" data-i18n="reg.camp_sec3_sub">紧急联络电话与膳食特别安排。</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_phone">联络 WhatsApp 电话</span> <span class="req">*</span></label>
+          <input type="tel" class="form-control" id="campPhone" placeholder="如: 012-9876543" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-i18n="reg.lbl_camp_emergency">紧急联络人姓名与电话</span> <span class="req">*</span></label>
+          <input type="text" class="form-control" id="campEmergency" placeholder="如: 父亲 黄先生 019-1234567" required>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label"><span data-i18n="reg.lbl_diet">营员膳食需求</span> <span class="req">*</span></label>
+          <select class="form-control" id="campDiet">
+            <option value="普通餐 (荤食)" selected data-i18n="reg.opt_diet_std">普通餐 (荤食 Standard)</option>
+            <option value="素食 (Vegetarian)" data-i18n="reg.opt_diet_veg">素食 (Vegetarian)</option>
+            <option value="清真友好 / 仅鸡肉鱼类" data-i18n="reg.opt_diet_halal">清真友好 / 鱼鸡类 (Halal Friendly)</option>
+          </select>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label"><span data-i18n="reg.lbl_remarks">特别备注</span></label>
+          <textarea class="form-control" id="campRemarks" placeholder="如有任何医疗过敏、特殊接送要求，请在此注明..."></textarea>
+        </div>
+      </div>
+
+      <!-- CAMP FEE STRIP -->
+      <div class="fee-strip">
+        <div class="fee-strip-item">
+          <span class="fee-strip-label" data-i18n="reg.fee_event_fee">营费 / 报名费</span>
+          <span class="fee-strip-val" id="dispCampFee">RM 50</span>
+        </div>
+        <div class="fee-strip-item">
+          <span class="fee-strip-label" data-i18n="reg.fee_event_include">包含内容</span>
+          <span class="fee-strip-val" id="dispCampInclude">官方习题册 + 午餐 + 结业证书</span>
+        </div>
+        <div class="fee-strip-item">
+          <span class="fee-strip-label" data-i18n="reg.fee_total">应缴合计</span>
+          <span class="fee-strip-total" id="dispCampTotal">RM 50</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="submitCampForm()" data-i18n="reg.btn_submit_camp">
+        生成报名确认凭条并核对资料 →
+      </button>
+    </div>
+
+  </div> <!-- Close public-content-wrap -->
+
+  <!-- ==========================================
+       CONFIRMATION & WHATSAPP RECEIPT MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="receiptModal" onclick="handleModalOverlayClick(event)">
+    <div class="receipt-modal">
+      <div class="receipt-header">
+        <span class="receipt-badge" data-i18n="reg.receipt_badge">官方报名确认凭条 · 待核实</span>
+        <div class="receipt-id" id="rcptId">CXQB-REG-20261004-0000</div>
+        <h3 class="receipt-title" id="rcptTitle">常规棋艺学院入班报名</h3>
+      </div>
+
+      <table class="receipt-table" id="receiptTable">
+        <!-- Injected via JavaScript -->
+      </table>
+
+      <div class="receipt-actions">
+        <a href="#" id="rcptWaBtn" target="_blank" class="btn-wa-confirm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <span data-i18n="reg.btn_wa_send">通过 WhatsApp 发送凭条至公会确认</span>
+        </a>
+        <button type="button" class="btn-modal-close" onclick="closeReceiptModal()" data-i18n="reg.btn_close">
+          关闭并返回
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLE STYLE MEGA MENU -->
+  <div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
+  <div id="appleMegaMenu" class="apple-mega-menu">
+    <div class="apple-mega-container">
+      
+      <div class="apple-mega-col">
+        <h4 data-i18n="nav.explore">探索俱乐部</h4>
+        <a href="index.html" data-i18n="nav.home">首页</a>
+        <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
+        <a href="register.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.register">在线报名中心</a>
+        <a href="ladder.html" data-i18n="nav.ladder">官方天梯榜</a>
+        <a href="events.html" data-i18n="events.title">赛事与活动中心</a>
+      </div>
+      
+      <div class="apple-mega-col">
+        <h4 data-i18n="nav.portals">专属入口</h4>
+        <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
+        <a href="school.html" data-i18n="nav.school_portal">校际赛编排与赛事系统</a>
+        <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+      </div>
+      
+      <div class="apple-mega-col">
+        <h4 data-i18n="nav.language">系统语言</h4>
+        <div class="apple-segment">
+          <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
+          <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
+          <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <h4 data-i18n="footer.about_title">百乐象棋俱乐部</h4>
+        <p data-i18n="footer.about_desc">
+          彭亨百乐县唯一专业中国象棋教育学院<br>
+          负责统筹全县赛事与等级分考级认证体系。
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h4>
+        <p>
+          <strong data-i18n="footer.assoc_name">百乐县中国象棋公会</strong><br>
+          PERSATUAN CATUR CINA DAERAH BERA<br>
+          技术支持：Club XiangQi Bera 数字化系统
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4 data-i18n="footer.contact_title">联络与咨询</h4>
+        <p>
+          总教练 / 课程顾问专线：<br>
+          WhatsApp: +60 11-1082 5226<br>
+          电邮: clubxiangqibera@gmail.com
+        </p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Club XiangQi Bera (CXQB). All Rights Reserved.</span>
+      <span data-i18n="footer.cert">百乐县中国象棋公会官方认证系统</span>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Selected Academy Tier State
+    let currentAcadTier = {
+      name: '初级基础研习班 (Tahap 1~2)',
+      qPrice: 170,
+      mPrice: 60
+    };
+
+    function selectAcademyTier(el, tierKey, qPrice, mPrice) {
+      document.querySelectorAll('.tier-tile').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      const radio = el.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        currentAcadTier.name = radio.value;
+      }
+      currentAcadTier.qPrice = qPrice;
+      currentAcadTier.mPrice = mPrice;
+      calcAcademyTotal();
+    }
+
+    function calcAcademyTotal() {
+      const mode = document.getElementById('acadPayTerm').value;
+      const tuition = (mode === 'quarter') ? currentAcadTier.qPrice : currentAcadTier.mPrice;
+      const kit = 30; // One-off kit fee
+      const total = tuition + kit;
+
+      document.getElementById('dispAcadTuition').textContent = 'RM ' + tuition;
+      document.getElementById('dispAcadTotal').textContent = 'RM ' + total;
+    }
+
+    function onCampEventChange() {
+      const val = document.getElementById('campEventSelect').value;
+      const feeEl = document.getElementById('dispCampFee');
+      const incEl = document.getElementById('dispCampInclude');
+      const totEl = document.getElementById('dispCampTotal');
+
+      if (val.includes('棋缘')) {
+        feeEl.textContent = 'RM 50';
+        incEl.textContent = '官方习题册 + 午餐 + 结业证书';
+        totEl.textContent = 'RM 50';
+      } else if (val.includes('弈峰')) {
+        feeEl.textContent = '预报名 (待定)';
+        incEl.textContent = '假期封闭集训 + 残局定式 + 战术复盘';
+        totEl.textContent = '待公布';
+      } else {
+        feeEl.textContent = '预报名 (待定)';
+        incEl.textContent = '公开赛资格 + 官方对局 ELO 认证';
+        totEl.textContent = '待公布';
+      }
+    }
+
+    function switchRegTab(tab) {
+      const btnAcad = document.getElementById('tabBtnAcademy');
+      const btnCamp = document.getElementById('tabBtnCamp');
+      const cardAcad = document.getElementById('cardAcademy');
+      const cardCamp = document.getElementById('cardCamp');
+
+      if (tab === 'academy') {
+        btnAcad.classList.add('active');
+        btnCamp.classList.remove('active');
+        cardAcad.classList.add('active');
+        cardCamp.classList.remove('active');
+      } else {
+        btnCamp.classList.add('active');
+        btnAcad.classList.remove('active');
+        cardCamp.classList.add('active');
+        cardAcad.classList.remove('active');
+      }
+    }
+
+    // FORM SUBMISSIONS
+    function generateRegId(prefix) {
+      const now = new Date();
+      const dateStr = now.getFullYear().toString() + 
+                      String(now.getMonth()+1).padStart(2,'0') + 
+                      String(now.getDate()).padStart(2,'0');
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      return `CXQB-REG-${dateStr}-${rand}`;
+    }
+
+    function submitAcademyForm() {
+      const cnName = document.getElementById('acadCnName').value.trim();
+      const enName = document.getElementById('acadEnName').value.trim();
+      const parentName = document.getElementById('acadParentName').value.trim();
+      const parentPhone = document.getElementById('acadParentPhone').value.trim();
+
+      if (!cnName || !enName || !parentName || !parentPhone) {
+        alert('请完整填写必填项（学员中文姓名、英文姓名、家长姓名及 WhatsApp 电话）！');
+        return;
+      }
+
+      const regId = generateRegId('ACAD');
+      const payTerm = document.getElementById('acadPayTerm').value === 'quarter' ? '按季度优惠套餐 (3个月)' : '按月度缴费';
+      const birth = document.getElementById('acadBirth').value;
+      const gender = document.getElementById('acadGender').value;
+      const school = document.getElementById('acadSchool').value;
+      const level = document.getElementById('acadLevel').value;
+      const mode = document.getElementById('acadMode').value;
+      const remarks = document.getElementById('acadRemarks').value.trim() || '无';
+      const total = document.getElementById('dispAcadTotal').textContent;
+
+      const record = {
+        id: regId,
+        type: '常规棋艺学院入班报名',
+        tier: currentAcadTier.name,
+        payTerm: payTerm,
+        cnName: cnName,
+        enName: enName,
+        birth: birth,
+        gender: gender,
+        school: school,
+        level: level,
+        mode: mode,
+        parentName: parentName,
+        parentPhone: parentPhone,
+        total: total,
+        remarks: remarks,
+        timestamp: new Date().toISOString()
+      };
+
+      saveRegistration(record);
+      showReceiptModal(record);
+    }
+
+    function submitCampForm() {
+      const eventName = document.getElementById('campEventSelect').value;
+      const cnName = document.getElementById('campCnName').value.trim();
+      const enName = document.getElementById('campEnName').value.trim();
+      const ic = document.getElementById('campIc').value.trim();
+      const school = document.getElementById('campSchool').value.trim();
+      const phone = document.getElementById('campPhone').value.trim();
+      const emergency = document.getElementById('campEmergency').value.trim();
+
+      if (!cnName || !enName || !ic || !school || !phone || !emergency) {
+        alert('请完整填写必填项（参赛者中文姓名、英文全名、身分证号、学校、联络电话及紧急联络人）！');
+        return;
+      }
+
+      const regId = generateRegId('CAMP');
+      const gender = document.getElementById('campGender').value;
+      const category = document.getElementById('campCategory').value;
+      const diet = document.getElementById('campDiet').value;
+      const remarks = document.getElementById('campRemarks').value.trim() || '无';
+      const total = document.getElementById('dispCampTotal').textContent;
+
+      const record = {
+        id: regId,
+        type: '研习营与公开赛个人报名',
+        eventName: eventName,
+        cnName: cnName,
+        enName: enName,
+        ic: ic,
+        gender: gender,
+        school: school,
+        category: category,
+        phone: phone,
+        emergency: emergency,
+        diet: diet,
+        total: total,
+        remarks: remarks,
+        timestamp: new Date().toISOString()
+      };
+
+      saveRegistration(record);
+      showReceiptModal(record);
+    }
+
+    function saveRegistration(rec) {
+      try {
+        let list = JSON.parse(localStorage.getItem('cxb_registrations') || '[]');
+        list.unshift(rec);
+        localStorage.setItem('cxb_registrations', JSON.stringify(list));
+      } catch(e) {}
+    }
+
+    function showReceiptModal(rec) {
+      document.getElementById('rcptId').textContent = rec.id;
+      document.getElementById('rcptTitle').textContent = rec.type;
+
+      let html = '';
+      if (rec.type === '常规棋艺学院入班报名') {
+        html = `
+          <tr><td>报名项目</td><td>常规棋艺学院 (入班报名)</td></tr>
+          <tr><td>报读梯队</td><td>${rec.tier}</td></tr>
+          <tr><td>缴费周期</td><td>${rec.payTerm}</td></tr>
+          <tr><td>学员姓名</td><td>${rec.cnName} (${rec.enName})</td></tr>
+          <tr><td>年龄/性别</td><td>${rec.birth} · ${rec.gender}</td></tr>
+          <tr><td>就读学校</td><td>${rec.school}</td></tr>
+          <tr><td>棋艺基础</td><td>${rec.level}</td></tr>
+          <tr><td>上课模式</td><td>${rec.mode}</td></tr>
+          <tr><td>家长姓名</td><td>${rec.parentName}</td></tr>
+          <tr><td>WhatsApp</td><td>${rec.parentPhone}</td></tr>
+          <tr><td>费用预估</td><td style="color:var(--gold);">${rec.total}</td></tr>
+          <tr><td>备注要求</td><td>${rec.remarks}</td></tr>
+        `;
+      } else {
+        html = `
+          <tr><td>报名活动</td><td>${rec.eventName}</td></tr>
+          <tr><td>参赛者</td><td>${rec.cnName} (${rec.enName})</td></tr>
+          <tr><td>身分证/IC</td><td>${rec.ic}</td></tr>
+          <tr><td>性别/组别</td><td>${rec.gender} · ${rec.category}</td></tr>
+          <tr><td>学校/单位</td><td>${rec.school}</td></tr>
+          <tr><td>联络电话</td><td>${rec.phone}</td></tr>
+          <tr><td>紧急联络</td><td>${rec.emergency}</td></tr>
+          <tr><td>膳食要求</td><td>${rec.diet}</td></tr>
+          <tr><td>报名费用</td><td style="color:var(--gold);">${rec.total}</td></tr>
+          <tr><td>备注信息</td><td>${rec.remarks}</td></tr>
+        `;
+      }
+
+      document.getElementById('receiptTable').innerHTML = html;
+
+      // WhatsApp text formatting
+      let msg = '';
+      if (rec.type === '常规棋艺学院入班报名') {
+        msg = `【百乐象棋俱乐部 · 学员入班报名凭条】\n` +
+              `凭条编号：${rec.id}\n` +
+              `报读班级：${rec.tier}\n` +
+              `缴费模式：${rec.payTerm}\n` +
+              `学员姓名：${rec.cnName} (${rec.enName})\n` +
+              `就读学校：${rec.school} (${rec.birth})\n` +
+              `棋艺现状：${rec.level}\n` +
+              `上课模式：${rec.mode}\n` +
+              `家长姓名：${rec.parentName}\n` +
+              `家长电话：${rec.parentPhone}\n` +
+              `费用预估：${rec.total}\n` +
+              `备注需求：${rec.remarks}\n` +
+              `-------------------------\n` +
+              `资料已于官网提交，请教练协助核对与办理入学！`;
+      } else {
+        msg = `【百乐象棋俱乐部 · 活动赛事报名凭条】\n` +
+              `凭条编号：${rec.id}\n` +
+              `报名活动：${rec.eventName}\n` +
+              `参赛姓名：${rec.cnName} (${rec.enName})\n` +
+              `身分证IC：${rec.ic}\n` +
+              `组别学校：${rec.category} · ${rec.school}\n` +
+              `联络电话：${rec.phone}\n` +
+              `紧急联络：${rec.emergency}\n` +
+              `膳食需求：${rec.diet}\n` +
+              `报名费用：${rec.total}\n` +
+              `备注信息：${rec.remarks}\n` +
+              `-------------------------\n` +
+              `资料已于官网提交，请公会负责人核实参赛名额！`;
+      }
+
+      const waUrl = `https://wa.me/601110825226?text=${encodeURIComponent(msg)}`;
+      document.getElementById('rcptWaBtn').href = waUrl;
+
+      document.getElementById('receiptModal').classList.add('open');
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModal').classList.remove('open');
+    }
+
+    function handleModalOverlayClick(e) {
+      if (e.target.id === 'receiptModal') {
+        closeReceiptModal();
+      }
+    }
+
+    // MEGA MENU CONTROLS
+    function toggleMainNav() {
+      const menu = document.getElementById('appleMegaMenu');
+      const backdrop = document.getElementById('appleMegaBackdrop');
+      if (menu.classList.contains('open')) {
+        closeMainNav();
+      } else {
+        openMainNav();
+      }
+    }
+
+    function openMainNav() {
+      document.getElementById('appleMegaMenu').classList.add('open');
+      document.getElementById('appleMegaBackdrop').classList.add('open');
+      document.getElementById('navMenuBtnIcon').textContent = '✕';
+      updateNavMenuBtnText(true);
+    }
+
+    function closeMainNav() {
+      document.getElementById('appleMegaMenu').classList.remove('open');
+      document.getElementById('appleMegaBackdrop').classList.remove('open');
+      document.getElementById('navMenuBtnIcon').textContent = '☰';
+      updateNavMenuBtnText(false);
+    }
+
+    function updateNavMenuBtnText(isOpen) {
+      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      const textEl = document.getElementById('navMenuBtnText');
+      if (!textEl) return;
+      if (isOpen) {
+        textEl.textContent = (lang === 'bm') ? 'Tutup' : (lang === 'en' ? 'Close' : '关闭');
+      } else {
+        textEl.textContent = (lang === 'bm') ? 'Menu' : (lang === 'en' ? 'Menu' : '菜单');
+      }
+    }
+
+    function updateSeg(lang) {
+      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('seg_' + lang);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    // TRILINGUAL I18N DICTIONARY
+    const i18n = {
+      cn: {
+        "hero.title": "百乐象棋俱乐部",
+        "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.ladder": "官方天梯榜",
+        "events.title": "赛事与活动中心", "nav.register": "在线报名中心",
+        "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
+        "nav.school_portal": "校际赛编排与赛事系统", "nav.admin_portal": "教练管理端",
+        "nav.language": "系统语言", "nav.menu": "菜单",
+        "reg.hero_title": "在线报名中心",
+        "reg.hero_sub": "百乐象棋学院常规新生招募 · 官方实战研习营与公开赛统一报名专窗",
+        "reg.badge1": "百乐县中国象棋公会认证",
+        "reg.badge2": "规范化报名直达",
+        "reg.badge3": "即时生成报名确认凭条",
+        "reg.callout_title": "第一阶段开放范围说明：",
+        "reg.callout_desc": "当前系统开放「常规学院新生报名」与「研习营/公开赛个人报名」。校际锦标赛学校代表队团体报名（第二阶段）目前由百乐县象棋公会直接联系各华小老师统筹申报。",
+        "reg.tab_academy": "常规棋艺学院入班报名 (Academy Intake)",
+        "reg.tab_camp": "研习营与公开赛报名 (Camp & Open Entry)",
+        "reg.acad_sec1_title": "第一步：选择报读阶梯与缴费模式",
+        "reg.acad_sec1_sub": "根据学员当前水平选择适合的梯队课程。新生首次报名包含全套研习手册与官方天梯建档。",
+        "reg.t1_name": "初级基础研习班",
+        "reg.t1_desc": "棋规与行棋礼仪、基础战术杀法、死活吃子练习。",
+        "reg.t2_name": "中级战术进阶班",
+        "reg.t2_desc": "核心中局战术推演、十大基础残局定式、全真限时对弈。",
+        "reg.t3_name": "高级精英研修班",
+        "reg.t3_desc": "现代主流开局飞刀库、深层算度推演、带钟慢棋实战复盘。",
+        "reg.lbl_payterm": "缴费模式",
+        "reg.opt_pay_quarter": "按季度优惠套餐 (推荐 · 享季付折扣)",
+        "reg.opt_pay_monthly": "按月度缴费 (月缴模式)",
+        "reg.acad_sec2_title": "第二步：学员与就读学校信息",
+        "reg.acad_sec2_sub": "请准确填写学员姓名与学校，系统将用于建立天梯等级分档案与官方考评凭证。",
+        "reg.lbl_cn_name": "学员中文姓名",
+        "reg.lbl_en_name": "英文姓名 (按 IC / MyKid)",
+        "reg.lbl_birth": "出生年份 / 年龄",
+        "reg.lbl_gender": "学员性别",
+        "reg.opt_male": "男 (Male)", "reg.opt_female": "女 (Female)",
+        "reg.lbl_school": "就读学校",
+        "reg.lbl_level": "棋艺现状",
+        "reg.opt_lvl_zero": "零基础 (从规则学起)",
+        "reg.opt_lvl_beg": "初学者 (懂得走子规则与吃子)",
+        "reg.opt_lvl_mid": "有下棋实战经验 (懂基本杀法)",
+        "reg.opt_lvl_exp": "有参赛经历 (曾代表学校参赛)",
+        "reg.acad_sec3_title": "第三步：家长联络与上课意向",
+        "reg.acad_sec3_sub": "俱乐部将通过 WhatsApp 发送课表指引、线上课链接与现场考核安排。",
+        "reg.lbl_parent_name": "家长 / 监护人姓名",
+        "reg.lbl_parent_phone": "家长 WhatsApp 电话",
+        "reg.lbl_mode": "意向上课模式",
+        "reg.opt_mode_omo": "OMO 双轨标准班 (周中网课理论 + 周末基地带钟实战)",
+        "reg.opt_mode_offline": "仅周末线下实战营",
+        "reg.opt_mode_online": "仅周中线上理论直播",
+        "reg.lbl_remarks": "备注或特殊要求",
+        "reg.fee_tuition": "学费试算",
+        "reg.fee_kit": "新生材料与建档费",
+        "reg.fee_kit_val": "RM 30 (一次性教材+天梯)",
+        "reg.fee_total": "首期应缴合计",
+        "reg.btn_submit_acad": "生成报名确认凭条并核对资料 →",
+        "reg.camp_sec1_title": "第一步：选择参与活动项目",
+        "reg.camp_sec1_sub": "选择百乐县中国象棋公会与俱乐部主办的官方实战营或锦标赛。",
+        "reg.lbl_event_select": "报名活动名称",
+        "reg.camp_sec2_title": "第二步：参赛者个人资料",
+        "reg.camp_sec2_sub": "个人信息用于编排对阵名单、印制证书与登记天梯积分。",
+        "reg.lbl_camp_cn_name": "参赛者中文姓名",
+        "reg.lbl_camp_en_name": "英文全名 (按 IC / MyKid)",
+        "reg.lbl_camp_ic": "身分证号码 (IC / MyKid)",
+        "reg.lbl_camp_school": "就读学校 / 所在单位",
+        "reg.lbl_camp_category": "参赛组别",
+        "reg.opt_cat_p13": "小学低年组 (一至三年级)",
+        "reg.opt_cat_p46": "小学高年组 (四至六年级)",
+        "reg.opt_cat_sec": "中学组 (初中 / 高中)",
+        "reg.opt_cat_open": "公开组 (成人 / 校友)",
+        "reg.camp_sec3_title": "第三步：联络人与营地需求",
+        "reg.camp_sec3_sub": "紧急联络电话与膳食特别安排。",
+        "reg.lbl_camp_phone": "联络 WhatsApp 电话",
+        "reg.lbl_camp_emergency": "紧急联络人姓名与电话",
+        "reg.lbl_diet": "营员膳食需求",
+        "reg.opt_diet_std": "普通餐 (荤食 Standard)",
+        "reg.opt_diet_veg": "素食 (Vegetarian)",
+        "reg.opt_diet_halal": "清真友好 / 鱼鸡类 (Halal Friendly)",
+        "reg.fee_event_fee": "营费 / 报名费",
+        "reg.fee_event_include": "包含内容",
+        "reg.btn_submit_camp": "生成报名确认凭条并核对资料 →",
+        "reg.receipt_badge": "官方报名确认凭条 · 待核实",
+        "reg.btn_wa_send": "通过 WhatsApp 发送凭条至公会确认",
+        "reg.btn_close": "关闭并返回",
+        "footer.about_title": "百乐象棋俱乐部",
+        "footer.about_desc": "彭亨百乐县唯一专业中国象棋教育学院<br>负责统筹全县赛事与等级分考级认证体系。",
+        "footer.partners_title": "认证机构 & 官方合作伙伴",
+        "footer.assoc_name": "百乐县中国象棋公会",
+        "footer.contact_title": "联络与咨询",
+        "footer.cert": "百乐县中国象棋公会官方认证系统"
+      },
+      bm: {
+        "hero.title": "Kelab XiangQi Bera",
+        "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.ladder": "Kedudukan ELO",
+        "events.title": "Pusat Acara & Aktiviti", "nav.register": "Portal Pendaftaran",
+        "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
+        "nav.school_portal": "Sistem Pertandingan Antara Sekolah", "nav.admin_portal": "Portal Jurulatih",
+        "nav.language": "Bahasa Sistem", "nav.menu": "Menu",
+        "reg.hero_title": "Portal Pendaftaran Dalam Talian",
+        "reg.hero_sub": "Pengambilan Pelajar Baharu Akademi CXQB & Pendaftaran Rasmi Kem Catur / Kejohanan Terbuka",
+        "reg.badge1": "Diiktiraf Persatuan Catur Daerah Bera",
+        "reg.badge2": "Pendaftaran Pantas & Rasmi",
+        "reg.badge3": "Slip Pengesahan Automatik",
+        "reg.callout_title": "Skop Fasa 1:",
+        "reg.callout_desc": "Sistem fasa pertama ini dibuka untuk Kemasukan Akademi & Penyertaan Kem/Terbuka individu. Pendaftaran pasukan sekolah (Fasa 2) dikendalikan terus oleh Persatuan dengan pihak guru sekolah.",
+        "reg.tab_academy": "Pendaftaran Akademi CXQB (Intake)",
+        "reg.tab_camp": "Kem & Kejohanan Terbuka (Camp & Open)",
+        "reg.acad_sec1_title": "Langkah 1: Pilih Peringkat Kelas & Yuran",
+        "reg.acad_sec1_sub": "Pilih kursus yang bersesuaian dengan tahap kemahiran catur anak anda.",
+        "reg.t1_name": "Kelas Asas (Tahap 1-2)",
+        "reg.t1_desc": "Peraturan catur, asas taktikal & latihan matikan raja.",
+        "reg.t2_name": "Kelas Pertengahan (Tahap 3-4)",
+        "reg.t2_desc": "Taktik pertengahan, 10 formula akhir asas & perlawanan bersyarat masa.",
+        "reg.t3_name": "Kelas Lanjutan Elit (Tahap 5-6)",
+        "reg.t3_desc": "Teori pembukaan moden, analisis mendalam & praktikal jam catur.",
+        "reg.lbl_payterm": "Mod Pembayaran",
+        "reg.opt_pay_quarter": "Pakej 3 Bulan (Disyorkan · Diskaun Kombo)",
+        "reg.opt_pay_monthly": "Bayaran Bulanan",
+        "reg.acad_sec2_title": "Langkah 2: Maklumat Pelajar & Sekolah",
+        "reg.acad_sec2_sub": "Maklumat tepat diperlukan untuk rekod rasmi sistem ELO & pensijilan gred.",
+        "reg.lbl_cn_name": "Nama Bahasa Cina",
+        "reg.lbl_en_name": "Nama Penuh (Mengikut MyKid/IC)",
+        "reg.lbl_birth": "Tahun Kelahiran / Umur",
+        "reg.lbl_gender": "Jantina",
+        "reg.opt_male": "Lelaki", "reg.opt_female": "Perempuan",
+        "reg.lbl_school": "Sekolah Semasa",
+        "reg.lbl_level": "Tahap Pengalaman Catur",
+        "reg.opt_lvl_zero": "Asas Sifar (Belajar dari awal)",
+        "reg.opt_lvl_beg": "Pemula (Tahu asas pergerakan buah)",
+        "reg.opt_lvl_mid": "Ada Pengalaman Praktikal (Tahu taktikal asas)",
+        "reg.opt_lvl_exp": "Pernah Bertanding (Wakil sekolah)",
+        "reg.acad_sec3_title": "Langkah 3: Maklumat Ibu Bapa & Mod Latihan",
+        "reg.acad_sec3_sub": "Pihak kelab akan menghantar jadual & pautan kelas melalui WhatsApp.",
+        "reg.lbl_parent_name": "Nama Ibu Bapa / Penjaga",
+        "reg.lbl_parent_phone": "No. WhatsApp Ibu Bapa",
+        "reg.lbl_mode": "Mod Pilihan Latihan",
+        "reg.opt_mode_omo": "Mod Hibrid OMO (Teori Online + Praktikal Jam Bersemuka)",
+        "reg.opt_mode_offline": "Hanya Praktikal Bersemuka Hujung Minggu",
+        "reg.opt_mode_online": "Hanya Kelas Teori Online",
+        "reg.lbl_remarks": "Catatan Tambahan",
+        "reg.fee_tuition": "Anggaran Yuran",
+        "reg.fee_kit": "Bahan & Pendaftaran Baharu",
+        "reg.fee_kit_val": "RM 30 (Buku Latihan + Profil ELO)",
+        "reg.fee_total": "Jumlah Perlu Dibayar",
+        "reg.btn_submit_acad": "Jana Slip Pendaftaran & Semak Maklumat →",
+        "reg.camp_sec1_title": "Langkah 1: Pilih Acara / Kem",
+        "reg.camp_sec1_sub": "Pilih kem atau kejohanan anjuran rasmi CXQB & Persatuan Catur Daerah Bera.",
+        "reg.lbl_event_select": "Nama Program",
+        "reg.camp_sec2_title": "Langkah 2: Maklumat Peserta",
+        "reg.camp_sec2_sub": "Maklumat untuk penjadualan pusingan, sijil dan pangkalan data ELO.",
+        "reg.lbl_camp_cn_name": "Nama Bahasa Cina",
+        "reg.lbl_camp_en_name": "Nama Penuh (Mengikut IC/MyKid)",
+        "reg.lbl_camp_ic": "No. Kad Pengenalan (IC)",
+        "reg.lbl_camp_school": "Sekolah / Organisasi",
+        "reg.lbl_camp_category": "Kategori Pertandingan",
+        "reg.opt_cat_p13": "Sekolah Rendah Rendah (Tahun 1-3)",
+        "reg.opt_cat_p46": "Sekolah Rendah Atas (Tahun 4-6)",
+        "reg.opt_cat_sec": "Sekolah Menengah (Tingkatan 1-5)",
+        "reg.opt_cat_open": "Kategori Terbuka (Dewasa/Alumni)",
+        "reg.camp_sec3_title": "Langkah 3: Perhubungan & Keperluan Kem",
+        "reg.camp_sec3_sub": "Maklumat kecemasan dan makanan peserta.",
+        "reg.lbl_camp_phone": "No. WhatsApp Peserta/Ibu Bapa",
+        "reg.lbl_camp_emergency": "Nama & No. Hubungan Kecemasan",
+        "reg.lbl_diet": "Keperluan Makanan",
+        "reg.opt_diet_std": "Biasa (Standard)",
+        "reg.opt_diet_veg": "Vegetarian",
+        "reg.opt_diet_halal": "Mesra Halal / Ikan & Ayam",
+        "reg.fee_event_fee": "Yuran Pendaftaran",
+        "reg.fee_event_include": "Pakej Termasuk",
+        "reg.btn_submit_camp": "Jana Slip Pendaftaran & Semak Maklumat →",
+        "reg.receipt_badge": "Slip Pengesahan Rasmi · Belum Disahkan",
+        "reg.btn_wa_send": "Hantar Slip Melalui WhatsApp Untuk Pengesahan",
+        "reg.btn_close": "Tutup & Kembali",
+        "footer.about_title": "Kelab XiangQi Bera",
+        "footer.about_desc": "Satu-satunya akademi catur Cina profesional di Bera, Pahang.<br>Mengendalikan kejohanan dan pensijilan gred ELO rasmi.",
+        "footer.partners_title": "Rakan Rasmi & Pensijilan",
+        "footer.assoc_name": "Persatuan Catur Cina Daerah Bera",
+        "footer.contact_title": "Hubungi Kami",
+        "footer.cert": "Sistem Pensijilan Rasmi Persatuan Catur Daerah Bera"
+      },
+      en: {
+        "hero.title": "Club XiangQi Bera",
+        "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.ladder": "Official ELO Standings",
+        "events.title": "Events & Activities Center", "nav.register": "Online Registration",
+        "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
+        "nav.school_portal": "School Pairing & Tournament System", "nav.admin_portal": "Admin Portal",
+        "nav.language": "System Language", "nav.menu": "Menu",
+        "reg.hero_title": "Online Registration Portal",
+        "reg.hero_sub": "Official CXQB Academy Intake & Tournament / Training Camp Registration",
+        "reg.badge1": "Certified by Bera Xiangqi Association",
+        "reg.badge2": "Direct Official Registration",
+        "reg.badge3": "Instant Confirmation Receipt",
+        "reg.callout_title": "Tier 1 Scope Notice:",
+        "reg.callout_desc": "Currently open for Academy Student Intake & Camp/Open Tournament entries. School Team Group Entries (Tier 2) are handled directly by the Association with school teachers.",
+        "reg.tab_academy": "Academy Student Intake",
+        "reg.tab_camp": "Training Camp & Open Tournament Entry",
+        "reg.acad_sec1_title": "Step 1: Select Class Tier & Payment Term",
+        "reg.acad_sec1_sub": "Select appropriate tier based on student skill level. First-time registration includes training materials & ELO profile setup.",
+        "reg.t1_name": "Foundation Class (Tahap 1-2)",
+        "reg.t1_desc": "Official rules, etiquette, basic mating tactics & drills.",
+        "reg.t2_name": "Intermediate Class (Tahap 3-4)",
+        "reg.t2_desc": "Middle-game tactics, top 10 endgame formulas & timed matches.",
+        "reg.t3_name": "Advanced Elite Class (Tahap 5-6)",
+        "reg.t3_desc": "Modern opening systems, deep calculations & match analysis.",
+        "reg.lbl_payterm": "Payment Term",
+        "reg.opt_pay_quarter": "Quarterly Package (Recommended · Best Value)",
+        "reg.opt_pay_monthly": "Monthly Payment",
+        "reg.acad_sec2_title": "Step 2: Student & School Information",
+        "reg.acad_sec2_sub": "Accurate information required for official ELO ratings and certificate issuance.",
+        "reg.lbl_cn_name": "Chinese Name",
+        "reg.lbl_en_name": "Full English Name (as per IC/MyKid)",
+        "reg.lbl_birth": "Year of Birth / Age",
+        "reg.lbl_gender": "Gender",
+        "reg.opt_male": "Male", "reg.opt_female": "Female",
+        "reg.lbl_school": "Current School",
+        "reg.lbl_level": "Current Xiangqi Background",
+        "reg.opt_lvl_zero": "Zero Basics (Start from rules)",
+        "reg.opt_lvl_beg": "Beginner (Knows piece movement rules)",
+        "reg.opt_lvl_mid": "Practical Experience (Knows basic checkmates)",
+        "reg.opt_lvl_exp": "Tournament Experience (Represented school)",
+        "reg.acad_sec3_title": "Step 3: Parent Contact & Preferred Mode",
+        "reg.acad_sec3_sub": "The club will send schedule details and class links via WhatsApp.",
+        "reg.lbl_parent_name": "Parent / Guardian Name",
+        "reg.lbl_parent_phone": "Parent WhatsApp Number",
+        "reg.lbl_mode": "Preferred Learning Mode",
+        "reg.opt_mode_omo": "OMO Hybrid Mode (Midweek Theory + Weekend OTB Drills)",
+        "reg.opt_mode_offline": "Weekend OTB Drills Only",
+        "reg.opt_mode_online": "Midweek Online Theory Only",
+        "reg.lbl_remarks": "Remarks / Special Requests",
+        "reg.fee_tuition": "Estimated Tuition",
+        "reg.fee_kit": "New Student Kit & ELO Setup",
+        "reg.fee_kit_val": "RM 30 (One-off material + ELO setup)",
+        "reg.fee_total": "Total Initial Due",
+        "reg.btn_submit_acad": "Generate Confirmation Slip & Review Data →",
+        "reg.camp_sec1_title": "Step 1: Select Event or Camp",
+        "reg.camp_sec1_sub": "Choose from official camps or championships organized by CXQB and the Association.",
+        "reg.lbl_event_select": "Event Name",
+        "reg.camp_sec2_title": "Step 2: Participant Details",
+        "reg.camp_sec2_sub": "Information used for round pairings, certificate printing and ELO rating.",
+        "reg.lbl_camp_cn_name": "Chinese Name",
+        "reg.lbl_camp_en_name": "English Name (as per IC/MyKid)",
+        "reg.lbl_camp_ic": "IC / MyKid Number",
+        "reg.lbl_camp_school": "School / Organization",
+        "reg.lbl_camp_category": "Competition Category",
+        "reg.opt_cat_p13": "Primary Junior (Standard 1-3)",
+        "reg.opt_cat_p46": "Primary Senior (Standard 4-6)",
+        "reg.opt_cat_sec": "Secondary (Form 1-5)",
+        "reg.opt_cat_open": "Open Category (Adults / Alumni)",
+        "reg.camp_sec3_title": "Step 3: Contact & Event Logistics",
+        "reg.camp_sec3_sub": "Emergency contact numbers and dietary preferences.",
+        "reg.lbl_camp_phone": "WhatsApp Contact Number",
+        "reg.lbl_camp_emergency": "Emergency Contact Name & Phone",
+        "reg.lbl_diet": "Dietary Preference",
+        "reg.opt_diet_std": "Standard Non-Vegetarian",
+        "reg.opt_diet_veg": "Vegetarian",
+        "reg.opt_diet_halal": "Halal Friendly / Fish & Chicken",
+        "reg.fee_event_fee": "Registration Fee",
+        "reg.fee_event_include": "Package Includes",
+        "reg.btn_submit_camp": "Generate Confirmation Slip & Review Data →",
+        "reg.receipt_badge": "Official Confirmation Slip · Pending Verification",
+        "reg.btn_wa_send": "Send Slip via WhatsApp to Confirm",
+        "reg.btn_close": "Close & Return",
+        "footer.about_title": "Club XiangQi Bera",
+        "footer.about_desc": "The only professional Chinese Chess academy in Bera, Pahang.<br>Organizer of district championships and official ELO grading.",
+        "footer.partners_title": "Official Partners & Certification",
+        "footer.assoc_name": "Bera District Xiangqi Association",
+        "footer.contact_title": "Contact & Enquiries",
+        "footer.cert": "Official Bera Xiangqi Association Certification System"
+      }
+    };
+
+    function setLang(lang) {
+      localStorage.setItem('cxb_lang_pref', lang);
+      applyTranslations(lang);
+    }
+
+    function applyTranslations(lang) {
+      const dict = i18n[lang] || i18n.cn;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+      updateSeg(lang);
+      updateNavMenuBtnText(false);
+    }
+
+    // INITIALIZATION & URL PARAMS
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      applyTranslations(savedLang);
+
+      // Check URL parameters: e.g. ?type=academy, ?type=camp, ?event=qiyuan
+      const urlParams = new URLSearchParams(window.location.search);
+      const reqType = urlParams.get('type');
+      const reqEvent = urlParams.get('event');
+
+      if (reqType === 'camp' || reqEvent) {
+        switchRegTab('camp');
+        if (reqEvent === 'qiyuan') {
+          document.getElementById('campEventSelect').value = '2026 第一届「棋缘」中国象棋启蒙教育营 (11月22日)';
+          onCampEventChange();
+        } else if (reqEvent === 'yifeng') {
+          document.getElementById('campEventSelect').value = '2026 第一届「弈峰」学校假期棋艺进阶特训营 (意向预报名)';
+          onCampEventChange();
+        } else if (reqEvent === 'open') {
+          document.getElementById('campEventSelect').value = '2026 第一届百乐县中国象棋公开锦标赛 (全县棋王争霸)';
+          onCampEventChange();
+        }
+      } else {
+        switchRegTab('academy');
+      }
+
+      calcAcademyTotal();
+    });
+  </script>
+</body>
+</html>
