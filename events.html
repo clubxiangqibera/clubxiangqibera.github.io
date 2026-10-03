@@ -137,9 +137,22 @@
       font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     }
-    .event-card__status--open { background: rgba(39, 174, 96, 0.85); color: #fff; }
-    .event-card__status--official { background: rgba(243, 156, 18, 0.85); color: #040C17; }
-    .event-card__status--archive { background: rgba(52, 73, 94, 0.85); color: #fff; }
+    .event-card__status--open { background: rgba(39, 174, 96, 0.9); color: #fff; }
+    .event-card__status--upcoming { background: rgba(30, 136, 229, 0.9); color: #fff; }
+    .event-card__status--official { background: rgba(243, 156, 18, 0.95); color: #040C17; }
+    .event-card__status--exclusive { background: linear-gradient(135deg, #F1C40F, #D4AC0D); color: #040C17; font-weight:900; box-shadow: 0 2px 8px rgba(241,196,15,0.4); }
+    .event-card__status--archive { background: rgba(52, 73, 94, 0.9); color: #fff; }
+
+    .event-card__series-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 800; color: var(--gold-soft);
+      background: rgba(201, 162, 75, 0.12); border: 1px solid rgba(201, 162, 75, 0.25);
+      padding: 3px 10px; border-radius: 6px; margin-bottom: 10px; letter-spacing: 0.5px;
+      width: fit-content;
+    }
+    .event-card__series-tag--exclusive {
+      color: #F1C40F; background: rgba(241, 196, 15, 0.15); border-color: rgba(241, 196, 15, 0.4);
+    }
 
     .event-card__body {
       padding: 24px; flex: 1; display: flex; flex-direction: column;
@@ -289,24 +302,26 @@
       </div>
     </header>
 
-    <!-- FILTER TABS -->
+    <!-- FILTER TABS (SERIES & CATEGORIES) -->
     <div class="filter-tabs">
-      <button class="filter-tab active" onclick="filterEvents('all', this)" data-i18n="tab.all">全部活动与赛事</button>
-      <button class="filter-tab" onclick="filterEvents('upcoming', this)" data-i18n="tab.upcoming">🔥 正在报名中</button>
-      <button class="filter-tab" onclick="filterEvents('tournament', this)" data-i18n="tab.tournaments">🏆 官方锦标赛</button>
-      <button class="filter-tab" onclick="filterEvents('gallery', this)" data-i18n="tab.gallery">📸 赛事实录与相册</button>
+      <button class="filter-tab active" onclick="filterEvents('all', this)" data-i18n="tab.all">全部活动与系列</button>
+      <button class="filter-tab" onclick="filterEvents('camp', this)" data-i18n="tab.camp">🎪「棋缘」营地系列</button>
+      <button class="filter-tab" onclick="filterEvents('tournament', this)" data-i18n="tab.tournaments">🏆 锦标与公开赛系列</button>
+      <button class="filter-tab" onclick="filterEvents('academy', this)" data-i18n="tab.academy">🏅 学院考核 (学员专属)</button>
+      <button class="filter-tab" onclick="filterEvents('gallery', this)" data-i18n="tab.gallery">📸 历届实录与相册</button>
     </div>
 
     <!-- EVENTS GRID -->
     <div class="events-grid" id="eventsGrid">
 
-      <!-- EVENT 1: QI YUAN CAMP (UPCOMING / REGISTRATION OPEN) -->
-      <div class="event-card" data-category="upcoming">
+      <!-- EVENT 1: QI YUAN CAMP 1ST EDITION (CAMP SERIES / REGISTRATION OPEN) -->
+      <div class="event-card" data-category="camp">
         <div class="event-card__cover-wrap" onclick="openLightbox('poster_qiyuan_final.jpg')">
           <img src="poster_qiyuan_final.jpg" alt="棋缘启蒙营海报" class="event-card__cover">
           <span class="event-card__status event-card__status--open" data-i18n="evt1.status">✅ 报名开放中</span>
         </div>
         <div class="event-card__body">
+          <div class="event-card__series-tag" data-i18n="evt1.series">🎪「棋缘」营地系列 · 第 1 届</div>
           <div class="event-card__date">
             <span>📅</span> <span data-i18n="evt1.date">2026年11月22日 (星期日) · 8:30 AM - 4:30 PM</span>
           </div>
@@ -316,8 +331,8 @@
           </p>
           <ul class="event-card__meta">
             <li><span>📍</span> <span><strong data-i18n="evt1.loc_label">地点：</strong> Dewan SJK(C) Triang 1 (直凉一校大礼堂)</span></li>
-            <li><span>👥</span> <span><strong data-i18n="evt1.target_label">对象：</strong> 百乐县各华小一至六年级学生</span></li>
-            <li><span>🎁</span> <span><strong data-i18n="evt1.perks_label">福利：</strong> 官方习题集 1 册 + 实战考评 + 结业证书</span></li>
+            <li><span>👥</span> <span><strong data-i18n="evt1.target_label">开放对象：</strong> 百乐县各华小一至六年级学生 (零基础/启蒙)</span></li>
+            <li><span>🎁</span> <span><strong data-i18n="evt1.perks_label">营员福利：</strong> 官方习题集 1 册 + 实战考评 + 结业证书</span></li>
           </ul>
           <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="event-card__btn event-card__btn--primary" data-i18n="evt1.btn">
             📝 立即填写 Google Form 报名表
@@ -325,13 +340,40 @@
         </div>
       </div>
 
-      <!-- EVENT 2: BERA INTER-SCHOOL CHAMPIONSHIP -->
+      <!-- EVENT 2: QI YUAN HOLIDAY INTENSIVE CAMP (CAMP SERIES / UPCOMING) -->
+      <div class="event-card" data-category="camp">
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="font-size:56px; filter:drop-shadow(0 4px 16px rgba(46,204,113,0.3));">🎪</div>
+          <span class="event-card__status event-card__status--upcoming" data-i18n="evt2_camp.status">⏳ 筹划筹备中</span>
+        </div>
+        <div class="event-card__body">
+          <div class="event-card__series-tag" data-i18n="evt2_camp.series">🎪「棋缘」营地系列 · 假期特训</div>
+          <div class="event-card__date">
+            <span>⚡</span> <span data-i18n="evt2_camp.date">2026 学校假期 (School Holidays) · 集中封闭强化</span>
+          </div>
+          <h3 class="event-card__title" data-i18n="evt2_camp.title">2026「棋缘」学校假期棋艺强化特训营</h3>
+          <p class="event-card__desc" data-i18n="evt2_camp.desc">
+            「棋缘」进阶品牌！利用学校长假开展多日高强度封闭训练，残局定式拆解、中局战术杀法深化与真实赛例复盘。
+          </p>
+          <ul class="event-card__meta">
+            <li><span>📍</span> <span><strong data-i18n="evt2_camp.loc_label">集训基地：</strong> 百乐象棋公会活动中心 / 合作培训基地</span></li>
+            <li><span>👥</span> <span><strong data-i18n="evt2_camp.target_label">开放对象：</strong> 百乐县各校具备基础之华小与初中进阶棋手</span></li>
+            <li><span>🎯</span> <span><strong data-i18n="evt2_camp.focus_label">集训重点：</strong> 高压实战对局拆解 + 胜负手敏锐度特训</span></li>
+          </ul>
+          <button class="event-card__btn event-card__btn--secondary" style="opacity:0.85; cursor:default;" data-i18n="evt2_camp.btn">
+            ⏳ 规程筹划中 · 关注公会通知
+          </button>
+        </div>
+      </div>
+
+      <!-- EVENT 3: BERA INTER-SCHOOL CHAMPIONSHIP (TOURNAMENT SERIES / OFFICIAL ANNUAL) -->
       <div class="event-card" data-category="tournament">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #112440 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <img src="cxb_round_emblem.png" alt="校际锦标赛" style="width:100px; height:100px; opacity:0.9; filter:drop-shadow(0 4px 16px rgba(241,196,15,0.3));">
           <span class="event-card__status event-card__status--official" data-i18n="evt2.status">🏆 官方年度大赛</span>
         </div>
         <div class="event-card__body">
+          <div class="event-card__series-tag" data-i18n="evt2.series">🏆 官方大赛系列 · 年度选拔</div>
           <div class="event-card__date">
             <span>⚔️</span> <span data-i18n="evt2.date">年度全县校际巡回赛</span>
           </div>
@@ -340,9 +382,9 @@
             百乐县最高规格官方校际棋艺大赛！统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。
           </p>
           <ul class="event-card__meta">
-            <li><span>🏫</span> <span><strong data-i18n="evt2.group_label">组别：</strong> 小学组 (U12) & 中学组 (U18)</span></li>
-            <li><span>🏅</span> <span><strong data-i18n="evt2.cert_label">认证：</strong> 百乐县中国象棋公会权威认证</span></li>
-            <li><span>📊</span> <span><strong data-i18n="evt2.elo_label">积分：</strong> 成绩直接计入官网 0~2000 ELO 天梯排位</span></li>
+            <li><span>🏫</span> <span><strong data-i18n="evt2.group_label">参赛对象：</strong> 百乐县各源流中小学正规代表队 (U12 / U18)</span></li>
+            <li><span>🏅</span> <span><strong data-i18n="evt2.cert_label">认证级别：</strong> 百乐县中国象棋公会官方权威认证</span></li>
+            <li><span>📊</span> <span><strong data-i18n="evt2.elo_label">天梯积分：</strong> 成绩直接计入官网 0~2000 ELO 天梯排位</span></li>
           </ul>
           <a href="school.html" class="event-card__btn event-card__btn--secondary" data-i18n="evt2.btn">
             🏫 前往校际赛专页报名系统 →
@@ -350,38 +392,68 @@
         </div>
       </div>
 
-      <!-- EVENT 3: ACADEMY INTAKE & SPECIAL DRILLS -->
+      <!-- EVENT 4: BERA OPEN CHAMPIONSHIP (TOURNAMENT SERIES / OPEN FOR ALL IN BERA) -->
       <div class="event-card" data-category="tournament">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b2838 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
-          <div style="font-size:56px;">🏛️</div>
-          <span class="event-card__status event-card__status--official" data-i18n="evt3.status">👑 常规常年集训</span>
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #2e1d10 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="font-size:56px; filter:drop-shadow(0 4px 16px rgba(243,156,18,0.4));">👑</div>
+          <span class="event-card__status event-card__status--upcoming" data-i18n="evt_open.status">⏳ 规程拟定中</span>
         </div>
         <div class="event-card__body">
+          <div class="event-card__series-tag" data-i18n="evt_open.series">🏆 官方大赛系列 · 全县公开赛</div>
           <div class="event-card__date">
-            <span>📚</span> <span data-i18n="evt3.date">每周末系统化阶梯教学</span>
+            <span>⚔️</span> <span data-i18n="evt_open.date">2026 下半年度 · 全县争霸</span>
           </div>
-          <h3 class="event-card__title" data-i18n="evt3.title">百乐象棋学院 · 官方七级考评研习班</h3>
-          <p class="event-card__desc" data-i18n="evt3.desc">
-            雪隆正规军体系回流百乐！从零基础启蒙、中级战术到代表队高阶封闭特训，阶梯收费 RM 60起，配套公会官方 1~7 级考级文凭。
+          <h3 class="event-card__title" data-i18n="evt_open.title">2026 第一届百乐县中国象棋公开锦标赛</h3>
+          <p class="event-card__desc" data-i18n="evt_open.desc">
+            百乐县全面对外开放的顶尖象棋争霸赛！打破年龄与学校门槛，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王！
           </p>
           <ul class="event-card__meta">
-            <li><span>👨‍🏫</span> <span><strong data-i18n="evt3.coach_label">教练：</strong> 双彭亨现役州代表联袂挂帅执教</span></li>
-            <li><span>🛡️</span> <span><strong data-i18n="evt3.model_label">体系：</strong> OMO 线上对弈 + 线下大课无缝融合</span></li>
-            <li><span>📜</span> <span><strong data-i18n="evt3.diploma_label">文凭：</strong> 颁发公会官方等级分考评证书</span></li>
+            <li><span>⚔️</span> <span><strong data-i18n="evt_open.target_label">参赛对象：</strong> 面向百乐县全体象棋爱好者 (公开组无年龄限制)</span></li>
+            <li><span>💰</span> <span><strong data-i18n="evt_open.reward_label">赛事荣誉：</strong> 全县棋王丰厚奖金 + 霸气奖杯 + 官方最高荣誉文凭</span></li>
+            <li><span>📊</span> <span><strong data-i18n="evt_open.elo_label">天梯排位：</strong> 全员对局纳入百乐官方天梯排位数据库</span></li>
           </ul>
-          <a href="academy.html" class="event-card__btn event-card__btn--secondary" data-i18n="evt3.btn">
-            🏛️ 查看学院班级详情与报名 →
+          <button class="event-card__btn event-card__btn--secondary" style="opacity:0.85; cursor:default;" data-i18n="evt_open.btn">
+            ⚔️ 详细章程即将发布 · 敬请期待
+          </button>
+        </div>
+      </div>
+
+      <!-- EVENT 5: ACADEMY 7-TAHAP GRADING ASSESSMENT (EXCLUSIVE FOR ACADEMY STUDENTS ONLY) -->
+      <div class="event-card" data-category="academy" style="border-color: rgba(241,196,15,0.35);">
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #2d2613 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="font-size:56px; filter:drop-shadow(0 4px 16px rgba(241,196,15,0.4));">🎖️</div>
+          <span class="event-card__status event-card__status--exclusive" data-i18n="evt_grade.status">🔒 学院学员专属</span>
+        </div>
+        <div class="event-card__body">
+          <div class="event-card__series-tag event-card__series-tag--exclusive" data-i18n="evt_grade.series">🏅 官方考级系列 · 学院专属</div>
+          <div class="event-card__date">
+            <span>📜</span> <span data-i18n="evt_grade.date">每季度 / 半年定期官方考核评定</span>
+          </div>
+          <h3 class="event-card__title" data-i18n="evt_grade.title">百乐象棋学院 · 官方七阶段段级考核检定会</h3>
+          <p class="event-card__desc" data-i18n="evt_grade.desc">
+            百乐县象棋公会官方认证的等级考核检定！配合 Nicholas 教练教学大纲，严谨评估学员对弈水平，核发 1~7 级官方段级文凭。
+          </p>
+          <ul class="event-card__meta">
+            <li style="background: rgba(241,196,15,0.08); padding: 5px 8px; border-radius: 6px; border: 1px dashed rgba(241,196,15,0.3);">
+              <span>🔒</span> <span><strong data-i18n="evt_grade.limit_label" style="color:#F1C40F;">报考资格：</strong> <span data-i18n="evt_grade.limit_val" style="color:#fff; font-weight:700;">【仅限百乐象棋学院正式学员】不对外公开</span></span>
+            </li>
+            <li><span>👨‍🏫</span> <span><strong data-i18n="evt_grade.coach_label">主考考官：</strong> 现役彭亨州代表教练团严格监考与棋力核定</span></li>
+            <li><span>📜</span> <span><strong data-i18n="evt_grade.cert_label">段级文凭：</strong> 考评通过核发百乐县象棋公会官方 1~7 级文凭</span></li>
+          </ul>
+          <a href="academy.html" class="event-card__btn event-card__btn--secondary" style="border-color:rgba(241,196,15,0.4); color:var(--gold);" data-i18n="evt_grade.btn">
+            🏛️ 查看学院阶梯班级与报考资格 →
           </a>
         </div>
       </div>
 
-      <!-- EVENT 4: PAST MATCH ARCHIVE & GALLERY -->
+      <!-- EVENT 6: PAST MATCH ARCHIVE & GALLERY -->
       <div class="event-card" data-category="gallery">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #162436 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <div style="font-size:56px;">📸</div>
           <span class="event-card__status event-card__status--archive" data-i18n="evt4.status">📚 历届赛事实录</span>
         </div>
         <div class="event-card__body">
+          <div class="event-card__series-tag" data-i18n="evt4.series">📸 历史典藏 · 赛事实录</div>
           <div class="event-card__date">
             <span>📷</span> <span data-i18n="evt4.date">官方历史光荣榜</span>
           </div>
@@ -545,31 +617,52 @@
       "chip.championship": "🏆 百乐县官方校际锦标赛主办方",
       "chip.camp": "🎪 「棋缘」系列启蒙与集训研习营",
       "chip.gallery": "📸 历届全县精彩赛事实况与图集",
-      "tab.all": "全部活动与赛事",
-      "tab.upcoming": "🔥 正在报名中",
-      "tab.tournaments": "🏆 官方锦标赛",
-      "tab.gallery": "📸 赛事实录与相册",
+      "tab.all": "全部活动与系列",
+      "tab.camp": "🎪「棋缘」营地系列",
+      "tab.tournaments": "🏆 锦标与公开赛系列",
+      "tab.academy": "🏅 学院考核 (学员专属)",
+      "tab.gallery": "📸 历届实录与相册",
       "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
       "nav.school_portal": "校际赛报名系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单",
       "evt1.status": "✅ 报名开放中",
+      "evt1.series": "🎪「棋缘」营地系列 · 第 1 届",
       "evt1.date": "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
       "evt1.title": "2026 第一届「棋缘」中国象棋启蒙教育营",
       "evt1.desc": "由百乐象棋俱乐部携手百乐县中国象棋公会倾力打造！专为百乐县华小学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
-      "evt1.loc_label": "地点：", "evt1.target_label": "对象：", "evt1.perks_label": "福利：",
+      "evt1.loc_label": "地点：", "evt1.target_label": "开放对象：", "evt1.perks_label": "营员福利：",
       "evt1.btn": "📝 立即填写 Google Form 报名表",
+      "evt2_camp.status": "⏳ 筹划筹备中",
+      "evt2_camp.series": "🎪「棋缘」营地系列 · 假期特训",
+      "evt2_camp.date": "2026 学校假期 (School Holidays) · 集中封闭强化",
+      "evt2_camp.title": "2026「棋缘」学校假期棋艺强化特训营",
+      "evt2_camp.desc": "「棋缘」进阶品牌！利用学校长假开展多日高强度封闭训练，残局定式拆解、中局战术杀法深化与真实赛例复盘。",
+      "evt2_camp.loc_label": "集训基地：", "evt2_camp.target_label": "开放对象：", "evt2_camp.focus_label": "集训重点：",
+      "evt2_camp.btn": "⏳ 规程筹划中 · 关注公会通知",
       "evt2.status": "🏆 官方年度大赛",
+      "evt2.series": "🏆 官方大赛系列 · 年度选拔",
       "evt2.date": "年度全县校际巡回赛",
       "evt2.title": "百乐县中小学校际中国象棋锦标赛",
       "evt2.desc": "百乐县最高规格官方校际棋艺大赛！统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。",
-      "evt2.group_label": "组别：", "evt2.cert_label": "认证：", "evt2.elo_label": "积分：",
+      "evt2.group_label": "参赛对象：", "evt2.cert_label": "认证级别：", "evt2.elo_label": "天梯积分：",
       "evt2.btn": "🏫 前往校际赛专页报名系统 →",
-      "evt3.status": "👑 常规常年集训",
-      "evt3.date": "每周末系统化阶梯教学",
-      "evt3.title": "百乐象棋学院 · 官方七级考评研习班",
-      "evt3.desc": "雪隆正规军体系回流百乐！从零基础启蒙、中级战术到代表队高阶封闭特训，阶梯收费 RM 60起，配套公会官方 1~7 级考级文凭。",
-      "evt3.coach_label": "教练：", "evt3.model_label": "体系：", "evt3.diploma_label": "文凭：",
-      "evt3.btn": "🏛️ 查看学院班级详情与报名 →",
+      "evt_open.status": "⏳ 规程拟定中",
+      "evt_open.series": "🏆 官方大赛系列 · 全县公开赛",
+      "evt_open.date": "2026 下半年度 · 全县争霸",
+      "evt_open.title": "2026 第一届百乐县中国象棋公开锦标赛",
+      "evt_open.desc": "百乐县全面对外开放的顶尖象棋争霸赛！打破年龄与学校门槛，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王！",
+      "evt_open.target_label": "参赛对象：", "evt_open.reward_label": "赛事荣誉：", "evt_open.elo_label": "天梯排位：",
+      "evt_open.btn": "⚔️ 详细章程即将发布 · 敬请期待",
+      "evt_grade.status": "🔒 学院学员专属",
+      "evt_grade.series": "🏅 官方考级系列 · 学院专属",
+      "evt_grade.date": "每季度 / 半年定期官方考核评定",
+      "evt_grade.title": "百乐象棋学院 · 官方七阶段段级考核检定会",
+      "evt_grade.desc": "百乐县象棋公会官方认证的等级考核检定！配合 Nicholas 教练教学大纲，严谨评估学员对弈水平，核发 1~7 级官方段级文凭。",
+      "evt_grade.limit_label": "报考资格：",
+      "evt_grade.limit_val": "【仅限百乐象棋学院正式学员】不对外公开",
+      "evt_grade.coach_label": "主考考官：", "evt_grade.cert_label": "段级文凭：",
+      "evt_grade.btn": "🏛️ 查看学院阶梯班级与报考资格 →",
       "evt4.status": "📚 历届赛事实录",
+      "evt4.series": "📸 历史典藏 · 赛事实录",
       "evt4.date": "官方历史光荣榜",
       "evt4.title": "全县棋战经典对局与图集实录",
       "evt4.desc": "记录百乐县历届校际锦标赛、集训营与交流赛的珍贵合影、棋谱精选与优胜学员颁奖高光时刻。",
@@ -590,31 +683,52 @@
       "chip.championship": "🏆 Penganjur Kejohanan Antara Sekolah Daerah",
       "chip.camp": "🎪 Siri Kem Asas & Latihan Intensif",
       "chip.gallery": "📸 Galeri & Rekod Kejohanan Lepas",
-      "tab.all": "Semua Acara & Pertandingan",
-      "tab.upcoming": "🔥 Pendaftaran Dibuka",
-      "tab.tournaments": "🏆 Kejohanan Rasmi",
+      "tab.all": "Semua Acara & Siri",
+      "tab.camp": "🎪 Siri Kem «Qi Yuan»",
+      "tab.tournaments": "🏆 Kejohanan & Terbuka",
+      "tab.academy": "🏅 Penarafan Akademi (Khas)",
       "tab.gallery": "📸 Rekod & Galeri",
       "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
       "nav.school_portal": "Sistem Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu",
       "evt1.status": "✅ Pendaftaran Dibuka",
+      "evt1.series": "🎪 Siri Kem «Qi Yuan» · Ke-1",
       "evt1.date": "22 Nov 2026 (Ahad) · 8:30 AM - 4:30 PM",
       "evt1.title": "Kem Asas Catur Cina «Qi Yuan» Ke-1 2026",
       "evt1.desc": "Dianjurkan bersama oleh CXQB dan Persatuan Catur Daerah Bera! Dikhaskan untuk murid sekolah rendah di Bera dari asas sifar.",
       "evt1.loc_label": "Lokasi:", "evt1.target_label": "Sasaran:", "evt1.perks_label": "Kelebihan:",
       "evt1.btn": "📝 Isi Borang Pendaftaran Google",
+      "evt2_camp.status": "⏳ Dalam Perancangan",
+      "evt2_camp.series": "🎪 Siri Kem «Qi Yuan» · Cuti Sekolah",
+      "evt2_camp.date": "Cuti Persekolahan 2026 · Latihan Intensif",
+      "evt2_camp.title": "Kem Intensif Catur «Qi Yuan» Cuti Sekolah 2026",
+      "evt2_camp.desc": "Kem intensif berkembar untuk murid sekolah rendah & menengah yang mempunyai asas. Melibatkan taktikal pertengahan dan akhir.",
+      "evt2_camp.loc_label": "Pusat Latihan:", "evt2_camp.target_label": "Sasaran:", "evt2_camp.focus_label": "Fokus:",
+      "evt2_camp.btn": "⏳ Pendaftaran Akan Dibuka Tidak Lama Lagi",
       "evt2.status": "🏆 Kejohanan Rasmi Tahunan",
+      "evt2.series": "🏆 Siri Kejohanan Rasmi · Pemilihan",
       "evt2.date": "Kejohanan Antara Sekolah Tahunan",
       "evt2.title": "Kejohanan Catur Cina Antara Sekolah Rendah & Menengah Bera",
       "evt2.desc": "Kejohanan catur rasmi berprestij tinggi daerah Bera untuk memilih wakil ke peringkat negeri (MSSP).",
-      "evt2.group_label": "Kategori:", "evt2.cert_label": "Pensijilan:", "evt2.elo_label": "Penarafan:",
+      "evt2.group_label": "Sasaran:", "evt2.cert_label": "Pensijilan:", "evt2.elo_label": "Penarafan:",
       "evt2.btn": "🏫 Ke Portal Pendaftaran Sekolah →",
-      "evt3.status": "👑 Latihan Mingguan",
-      "evt3.date": "Silibus Bertingkat Setiap Minggu",
-      "evt3.title": "Akademi CXQB · Kelas Penarafan 7 Tahap",
-      "evt3.desc": "Bimbingan dua wakil Pahang dengan yuran berpatutan dari RM 60 serta penganugerahan sijil gred persatuan.",
-      "evt3.coach_label": "Jurulatih:", "evt3.model_label": "Model:", "evt3.diploma_label": "Sijil:",
-      "evt3.btn": "🏛️ Lihat Peringkat Kelas & Yuran →",
+      "evt_open.status": "⏳ Penyediaan Syarat",
+      "evt_open.series": "🏆 Siri Kejohanan Rasmi · Terbuka Daerah",
+      "evt_open.date": "Separuh Akhir 2026 · Pertarungan Daerah",
+      "evt_open.title": "Kejohanan Terbuka Catur Cina Daerah Bera Ke-1 2026",
+      "evt_open.desc": "Kejohanan terbuka rasmi untuk semua peminat catur di Bera tanpa had umur bagi merebut gelaran Juara Daerah Bera.",
+      "evt_open.target_label": "Sasaran:", "evt_open.reward_label": "Hadiah:", "evt_open.elo_label": "Penarafan:",
+      "evt_open.btn": "⚔️ Syarat Pertandingan Akan Diumumkan",
+      "evt_grade.status": "🔒 Khas Pelajar Akademi",
+      "evt_grade.series": "🏅 Siri Pensijilan Rasmi · Khas Akademi",
+      "evt_grade.date": "Penilaian Berkala Setiap Suku / Separuh Tahun",
+      "evt_grade.title": "Akademi CXQB · Sesi Penilaian & Pensijilan 7 Tahap",
+      "evt_grade.desc": "Ujian penarafan gred rasmi persatuan berpandukan silibus Jurulatih Nicholas. Penganugerahan sijil gred 1 hingga 7.",
+      "evt_grade.limit_label": "Kelayakan:",
+      "evt_grade.limit_val": "【Khas Pelajar Rasmi Akademi CXQB Sahaja】",
+      "evt_grade.coach_label": "Penguji:", "evt_grade.cert_label": "Sijil Gred:",
+      "evt_grade.btn": "🏛️ Maklumat Kursus & Sertai Akademi →",
       "evt4.status": "📚 Rekod Kejohanan",
+      "evt4.series": "📸 Arkib Sejarah · Rekod Kejohanan",
       "evt4.date": "Dewan Kemasyhuran Rasmi",
       "evt4.title": "Rekod Pertandingan & Galeri Foto",
       "evt4.desc": "Merakam detik indah, gambar kejohanan dan penyampaian hadiah kepada para pemenang di daerah Bera.",
@@ -635,31 +749,52 @@
       "chip.championship": "🏆 Official District Championship Organizer",
       "chip.camp": "🎪 «Qi Yuan» Training & Foundation Camps",
       "chip.gallery": "📸 Match Records & Photo Gallery",
-      "tab.all": "All Events & Tournaments",
-      "tab.upcoming": "🔥 Registration Open",
-      "tab.tournaments": "🏆 Championships",
-      "tab.gallery": "📸 Gallery & Archive",
+      "tab.all": "All Events & Series",
+      "tab.camp": "🎪 «Qi Yuan» Camp Series",
+      "tab.tournaments": "🏆 Championships & Opens",
+      "tab.academy": "🏅 Academy Grading (Exclusive)",
+      "tab.gallery": "📸 Records & Gallery",
       "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
       "nav.school_portal": "Schools Portal", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu",
       "evt1.status": "✅ Registration Open",
+      "evt1.series": "🎪 «Qi Yuan» Camp Series · 1st Edition",
       "evt1.date": "Nov 22, 2026 (Sun) · 8:30 AM - 4:30 PM",
       "evt1.title": "2026 1st «Qi Yuan» Xiangqi Beginner Camp",
       "evt1.desc": "Organized jointly by CXQB and Bera District Xiangqi Association! Designed for primary students in Bera from zero basics.",
       "evt1.loc_label": "Venue:", "evt1.target_label": "Target:", "evt1.perks_label": "Perks:",
       "evt1.btn": "📝 Fill Google Registration Form",
+      "evt2_camp.status": "⏳ In Preparation",
+      "evt2_camp.series": "🎪 «Qi Yuan» Camp Series · Holiday Camp",
+      "evt2_camp.date": "2026 School Holidays · Intensive Camp",
+      "evt2_camp.title": "2026 «Qi Yuan» School Holiday Intensive Camp",
+      "evt2_camp.desc": "Advanced training camp for primary and secondary players with basics, covering endgame formulas and middle game tactics.",
+      "evt2_camp.loc_label": "Base:", "evt2_camp.target_label": "Eligible:", "evt2_camp.focus_label": "Focus:",
+      "evt2_camp.btn": "⏳ Registration Opening Soon",
       "evt2.status": "🏆 Annual Official Championship",
+      "evt2.series": "🏆 Official Tournament Series · Selection",
       "evt2.date": "Annual District Tournament",
       "evt2.title": "Bera District Inter-School Xiangqi Championship",
       "evt2.desc": "Premier official championship in Bera to select district squad champions for MSSP state and national finals.",
-      "evt2.group_label": "Categories:", "evt2.cert_label": "Certification:", "evt2.elo_label": "Rating:",
+      "evt2.group_label": "Eligible:", "evt2.cert_label": "Certification:", "evt2.elo_label": "Rating:",
       "evt2.btn": "🏫 Go to School Portal →",
-      "evt3.status": "👑 Weekly Regular Training",
-      "evt3.date": "Structured Weekend Classes",
-      "evt3.title": "CXQB Academy · 7-Tier Assessment Classes",
-      "evt3.desc": "Professional curriculum coached by two Pahang state players. Affordable fees from RM 60 with official association diplomas.",
-      "evt3.coach_label": "Instructors:", "evt3.model_label": "Model:", "evt3.diploma_label": "Diploma:",
-      "evt3.btn": "🏛️ View Academy Classes & Intake →",
+      "evt_open.status": "⏳ Rules Drafting",
+      "evt_open.series": "🏆 Official Tournament Series · Bera Open",
+      "evt_open.date": "Late 2026 · District Showdown",
+      "evt_open.title": "2026 1st Bera Xiangqi Open Championship",
+      "evt_open.desc": "Official open tournament for all chess enthusiasts in Bera without age limits, competing for the District Champion title.",
+      "evt_open.target_label": "Eligible:", "evt_open.reward_label": "Honors:", "evt_open.elo_label": "Rating:",
+      "evt_open.btn": "⚔️ Regulations Coming Soon",
+      "evt_grade.status": "🔒 Academy Students Only",
+      "evt_grade.series": "🏅 Official Certification Series · Academy Exclusive",
+      "evt_grade.date": "Quarterly / Semi-Annual Assessment",
+      "evt_grade.title": "CXQB Academy · Official 7-Grade Assessment",
+      "evt_grade.desc": "Official grade assessment under Coach Nicholas's curriculum, awarding official Bera Association Tahap 1~7 certificates.",
+      "evt_grade.limit_label": "Eligibility:",
+      "evt_grade.limit_val": "【Exclusively for Registered Academy Students Only】",
+      "evt_grade.coach_label": "Examiners:", "evt_grade.cert_label": "Certificate:",
+      "evt_grade.btn": "🏛️ Learn About Academy & Enroll →",
       "evt4.status": "📚 Tournament Archive",
+      "evt4.series": "📸 Historical Archive · Match Records",
       "evt4.date": "Official Hall of Fame",
       "evt4.title": "Match Records & Photo Gallery",
       "evt4.desc": "Capturing wonderful moments, tournament photos and prize-giving ceremonies across Bera district.",
