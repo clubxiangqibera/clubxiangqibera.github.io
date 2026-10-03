@@ -811,18 +811,18 @@ function updateSeg(lang) {
   <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
     <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--input-glass-border); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
-      <div id="sBadge" style="display:inline-block; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">🏫 CLUB XIANGQI BERA · 校际赛报名系统</div>
+      <div id="sBadge" style="display:inline-block; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">CLUB XIANGQI BERA · 校际赛报名系统</div>
       <h1 id="sTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">校内象棋比赛管理系统</h1>
       <p class="sub" id="sSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影</p>
 
       <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
-        <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 比赛授权码</label>
+        <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">比赛授权码</label>
         <input type="text" id="schoolPinInput" class="pin-input" placeholder="请输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
       </div>
       
-      <button type="button" class="login-btn" id="sBtn" onclick="doSchoolLogin()" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">🚨 验证授权并进入比赛台</button>
+      <button type="button" class="login-btn" id="sBtn" onclick="doSchoolLogin()" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">验证授权并进入比赛台</button>
       
-      <div class="login-error" id="sError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">❌ 授权码无效 (Invalid Code)</div>
+      <div class="login-error" id="sError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">授权码无效</div>
     </div>
   </div>
 </div>
@@ -1048,8 +1048,8 @@ const I18N = {
     mainTitle: '校内象棋比赛管理系统',
     subDesc: '百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影',
     pinPlaceholder: '输入比赛授权码 (如 CXQB-8888)',
-    submitBtn: '🛡️ 验证授权并进入比赛台',
-    errInvalid: '❌ 授权码无效或已到期，请联系俱乐部获取',
+    submitBtn: '验证授权并进入比赛台',
+    errInvalid: '授权码无效或已到期，请联系俱乐部获取',
     errEmpty: '❌ 请输入比赛授权激活码！',
     errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
     btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
@@ -1095,7 +1095,7 @@ const I18N = {
     mainTitle: 'School Tournament System',
     subDesc: 'Club XiangQi Bera Pairing System · Auto Buchholz · Live Projector',
     pinPlaceholder: 'Enter License Key (e.g. CXQB-8888)',
-    submitBtn: '🛡️ Verify License & Enter Arena',
+    submitBtn: 'Verify License & Enter Arena',
     errInvalid: '❌ License Key is invalid or expired. Please contact CXQB.',
     errEmpty: '❌ Please enter your tournament license key!',
     errNet: '⚠️ Unable to connect to security gateway. Check network!',
@@ -1147,34 +1147,34 @@ function setLoginLang(lang) {
 
   const tCard = {
     zh: {
-      badge: "🏫 CLUB XIANGQI BERA · 校际赛报名系统",
+      badge: "CLUB XIANGQI BERA · 校际赛报名系统",
       title: "校内象棋比赛管理系统",
       sub: "百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影",
-      lbl: "🔑 比赛授权码",
+      lbl: "比赛授权码",
       ph: "请输入授权码 (如 CXQB-8888)",
-      btn: "🛡️ 验证授权并进入比赛台",
-      err: "❌ 授权码无效或已到期，请联系俱乐部获取",
-      errEmpty: "❌ 请输入比赛授权激活码！"
+      btn: "验证授权并进入比赛台",
+      err: "授权码无效或已到期，请联系俱乐部获取",
+      errEmpty: "请输入比赛授权激活码"
     },
     bm: {
-      badge: "🏫 CLUB XIANGQI BERA · Sistem Antara Sekolah",
+      badge: "CLUB XIANGQI BERA · Sistem Antara Sekolah",
       title: "Sistem Pertandingan Catur Sekolah",
       sub: "Sistem Penjadualan CXQB · Pemecah Seri Automatik · Paparan Skrin Besar",
-      lbl: "🔑 Kod Akses Pertandingan",
+      lbl: "Kod Akses Pertandingan",
       ph: "Masukkan kod akses (cth: CXQB-8888)",
-      btn: "🛡️ Sahkan Akses & Masuk Sistem",
-      err: "❌ Kod akses tidak sah atau tamat tempoh, sila hubungi kelab",
-      errEmpty: "❌ Sila masukkan kod akses pertandingan!"
+      btn: "Sahkan Akses & Masuk Sistem",
+      err: "Kod akses tidak sah atau tamat tempoh",
+      errEmpty: "Sila masukkan kod akses pertandingan"
     },
     en: {
-      badge: "🏫 CLUB XIANGQI BERA · Schools Portal",
+      badge: "CLUB XIANGQI BERA · Schools Portal",
       title: "School Tournament System",
       sub: "CXQB Pairing Engine · Auto Tie-Break · Live Stage Projection",
-      lbl: "🔑 Tournament Access Code",
+      lbl: "Tournament Access Code",
       ph: "Enter access code (e.g. CXQB-8888)",
-      btn: "🛡️ Verify Access & Enter Arena",
-      err: "❌ Invalid or expired access code. Please contact club.",
-      errEmpty: "❌ Please enter tournament access code!"
+      btn: "Verify Access & Enter Arena",
+      err: "Invalid or expired access code",
+      errEmpty: "Please enter tournament access code"
     }
   };
 

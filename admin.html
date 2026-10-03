@@ -674,20 +674,20 @@ function updateSeg(lang) {
   <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
     <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--input-glass-border); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
-      <div id="aBadge" style="display:inline-block; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">👑 CLUB XIANGQI BERA · 教练管理端</div>
+      <div id="aBadge" style="display:inline-block; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">CLUB XIANGQI BERA · 教练管理端</div>
       <h1 id="aTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">百乐象棋俱乐部</h1>
       <p class="sub" id="aSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">请使用俱乐部发放的教练密码登入控制台</p>
 
       <form onsubmit="event.preventDefault(); tryLogin(); return false;">
         <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
-          <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 管理密码</label>
+          <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">管理密码</label>
           <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
         </div>
         
-        <button type="submit" class="login-btn" id="aBtn" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">🚨 登录进入系统</button>
+        <button type="submit" class="login-btn" id="aBtn" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">进入管理控制台</button>
       </form>
       
-      <div class="login-error" id="loginError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">❌ 密码错误，请重新输入 (Invalid Password)</div>
+      <div class="login-error" id="loginError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">密码错误，请重新输入</div>
     </div>
   </div>
 </div>
@@ -1141,7 +1141,7 @@ async function tryLogin(){
       input.classList.add('error');
       input.value='';
       const err = document.getElementById('loginError');
-      err.textContent = data.error || '❌ 密码错误，请重新输入';
+      err.textContent = data.error || '密码错误，请重新输入';
       err.style.display='block';
       input.focus();
       setTimeout(()=>input.classList.remove('error'),500);
@@ -1162,13 +1162,13 @@ function setAdminLang(lang) {
 
   const t = {
     zh: {
-      badge: "👑 CLUB XIANGQI BERA · 教练管理端",
+      badge: "CLUB XIANGQI BERA · 教练管理端",
       title: "百乐象棋俱乐部",
       sub: "请使用俱乐部发放的教练密码登入控制台",
-      lbl: "🔑 管理密码",
+      lbl: "管理密码",
       ph: "请输入管理密码",
-      btn: "🔐 进入管理控制台",
-      err: "❌ 密码错误，请重新输入",
+      btn: "进入管理控制台",
+      err: "密码错误，请重新输入",
       ret: "← 返回主页",
       appTitle: "♟️ CXQB 教练与俱乐部管理后台",
       logout: "退出登录",
@@ -1185,13 +1185,13 @@ function setAdminLang(lang) {
       }
     },
     bm: {
-      badge: "👑 CLUB XIANGQI BERA · Portal Jurulatih",
+      badge: "CLUB XIANGQI BERA · Portal Jurulatih",
       title: "Kelab XiangQi Bera",
       sub: "Sila gunakan kata laluan jurulatih untuk log masuk",
-      lbl: "🔑 Kata Laluan Pentadbir",
+      lbl: "Kata Laluan Pentadbir",
       ph: "Masukkan kata laluan pentadbir",
-      btn: "🔐 Log Masuk ke Papan Kawalan",
-      err: "❌ Kata laluan salah, sila cuba lagi",
+      btn: "Log Masuk ke Papan Kawalan",
+      err: "Kata laluan salah, sila cuba lagi",
       ret: "← Kembali ke Utama",
       appTitle: "♟️ CXQB Papan Kawalan Jurulatih & Kelab",
       logout: "Log Keluar",
@@ -1208,13 +1208,13 @@ function setAdminLang(lang) {
       }
     },
     en: {
-      badge: "👑 CLUB XIANGQI BERA · Coach Admin Portal",
+      badge: "CLUB XIANGQI BERA · Coach Admin Portal",
       title: "Club XiangQi Bera",
       sub: "Please use coach credentials to access dashboard",
-      lbl: "🔑 Admin Password",
+      lbl: "Admin Password",
       ph: "Enter admin password",
-      btn: "🔐 Login to Dashboard",
-      err: "❌ Invalid password, please try again",
+      btn: "Login to Dashboard",
+      err: "Invalid password, please try again",
       ret: "← Return to Home",
       appTitle: "♟️ CXQB Coach & Club Admin Portal",
       logout: "Logout",
