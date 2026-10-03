@@ -1433,11 +1433,11 @@ a { color: inherit; text-decoration: none; }
   </div>
 
   <footer class="footer">
-    <div class="footer__grid" style="grid-template-columns: 1fr 1fr 1fr; align-items: start; gap: 20px;">
+    <div class="footer__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); align-items: start; gap: 40px;">
       <!-- Col 1: About -->
       <div>
         <h3 data-i18n="footer.about_title">百乐象棋俱乐部</h3>
-        <p><span data-i18n="footer.about_desc">彭亨百乐县唯一专业中国象棋教育学院，负责统筹全县赛事与等级分考级认证。</span></p>
+        <p style="font-size:13.5px; line-height:1.6; opacity:0.85; max-width: 280px;"><span data-i18n="footer.about_desc">彭亨百乐县唯一专业中国象棋教育学院，负责统筹全县赛事与等级分考级认证。</span></p>
       </div>
       
       <!-- Col 2: Partners -->
@@ -1445,7 +1445,7 @@ a { color: inherit; text-decoration: none; }
         <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
         <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
           <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-          <span style="font-family: var(--font-serif); font-size:0.95rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.2;">Persatuan Catur Cina Daerah Bera</span>
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; max-width:200px;">百乐县象棋公会</span>
         </div>
       </div>
 
@@ -2528,7 +2528,8 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "footer.about_title": "百乐象棋俱乐部",
     "footer.about_desc": "彭亨百乐县唯一专业中国象棋教育学院，负责统筹全县赛事与等级分考级认证。",
     "footer.partners_title": "认证机构 & 官方合作伙伴",
-    "footer.contact_title": "联系方式"
+    "footer.contact_title": "联系方式",
+    "footer.assoc_name": "百乐县象棋公会"
   },
   bm: {
     "nav.home": "Utama", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
@@ -2566,9 +2567,10 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "login.pwd_ph": "Masukkan kata laluan",
     "login.btn": "Log Masuk",
     "footer.about_title": "Kelab XiangQi Bera",
-    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Institusi latihan dan pensijilan rasmi catur Cina di Bera, Pahang.",
+    "footer.about_desc": "Club XiangQi Bera (CXQB) ialah institusi latihan dan pensijilan rasmi catur Cina di Bera, Pahang.",
     "footer.partners_title": "Rakan Rasmi & Pensijilan",
-    "footer.contact_title": "Hubungi Kami"
+    "footer.contact_title": "Hubungi Kami",
+    "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
   },
   en: {
     "nav.home": "Home", "nav.ladder": "ELO Standings", "nav.login": "Login",
@@ -2606,9 +2608,10 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "login.pwd_ph": "Enter password",
     "login.btn": "Login",
     "footer.about_title": "Club XiangQi Bera",
-    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>The official training and certification institution in Bera, Pahang.",
+    "footer.about_desc": "Club XiangQi Bera (CXQB) is the official training and certification institution in Bera, Pahang.",
     "footer.partners_title": "Official Partners",
-    "footer.contact_title": "Contact Us"
+    "footer.contact_title": "Contact Us",
+    "footer.assoc_name": "BERA XIANGQI ASSOCIATION"
   }
 };
 
