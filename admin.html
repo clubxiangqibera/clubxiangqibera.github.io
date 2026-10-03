@@ -8,6 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root{
+  /* UNIFIED TOPBAR & FROSTED GLASS TOKENS (One variable to rule all!) */
+  --top-color: rgba(6, 23, 36, 0.92);      /* Top Navigation Bar Background */
+  --top-blur: 16px;                         /* Topbar Frosted Blur */
+  --top-border: rgba(255, 255, 255, 0.08);  /* Topbar Bottom Hairline */
+  --mega-bg: rgba(6, 23, 36, 0.78);       /* Dropdown Mega Menu Background */
+  --mega-blur: 24px;                        /* Dropdown Frosted Blur */
+  --backdrop-blur: 20px;                    /* Fullscreen Screen Blur */
+  --card-glass: rgba(6, 23, 36, 0.72);     /* Central Login Gate Card Glass */
+
       --pri:#0E2F44;--pri2:#1A5276;--pri3:#2980B9;--gold:#F39C12;--bg:#F0F4F8;
       --card:#FFF;--text:#1C2833;--text2:#6B7B8D;--border:#E8ECF0;
       --green:#27AE60;--red:#E74C3C;--yellow:#F39C12;--radius:16px;--shadow:0 4px 18px rgba(0,0,0,0.06);
@@ -316,7 +325,7 @@ body::before {
     /* TOP TAB BAR (NAVBAR) */
     .public-nav-bar {
         width: 100% !important; display: flex !important; justify-content: space-between !important; align-items: center !important;
-        padding: 12px 20px !important; background: rgba(6, 23, 36, 0.92) !important; backdrop-filter: blur(16px) !important;
+        padding: 12px 20px !important; background: var(--top-color) !important; backdrop-filter: blur(var(--top-blur)) !important; -webkit-backdrop-filter: blur(var(--top-blur)) !important; backdrop-filter: blur(16px) !important;
         -webkit-backdrop-filter: blur(16px) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important; position: sticky !important; top: 0 !important; z-index: 9600 !important;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4) !important;
@@ -336,7 +345,7 @@ body::before {
     /* APPLE MEGA MENU */
     .apple-mega-menu {
       position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
-      background: rgba(6, 23, 36, 0.78); backdrop-filter: blur(24px) !important; -webkit-backdrop-filter: blur(24px) !important; border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: var(--mega-bg) !important; backdrop-filter: blur(var(--mega-blur)) !important; -webkit-backdrop-filter: blur(var(--mega-blur)) !important; backdrop-filter: blur(24px) !important; -webkit-backdrop-filter: blur(24px) !important; border-bottom: 1px solid rgba(255,255,255,0.08);
       transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
       padding: 85px 30px 45px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
@@ -345,7 +354,7 @@ body::before {
     .apple-backdrop, .apple-mega-backdrop {
         position: fixed; inset: 0; z-index: 9400;
         background: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(20px) !important;
+        backdrop-filter: blur(var(--backdrop-blur)) !important;
         -webkit-backdrop-filter: blur(20px) !important;
         opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
       }
@@ -393,6 +402,7 @@ body::before {
     }
 
 </style>
+  <link rel="stylesheet" href="cxb-theme.css">
 </head>
 <body>
 
@@ -613,7 +623,7 @@ function updateSeg(lang) {
 
   <!-- CENTER LOGIN CARD (EXACTLY MATCHING STUDENT LOGIN) -->
   <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
-    <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:rgba(6, 23, 36, 0.72); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,0.12); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
+    <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,0.12); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
       <div id="aBadge" style="display:inline-block; background:#F1C40F; color:#0A1929; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">👑 CLUB XIANGQI BERA · 教练管理端</div>
       <h1 id="aTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">百乐象棋俱乐部</h1>

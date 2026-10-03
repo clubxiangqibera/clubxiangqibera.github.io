@@ -7,6 +7,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@400;500&display=swap");
 
 :root {
+  /* UNIFIED TOPBAR & FROSTED GLASS TOKENS (One variable to rule all!) */
+  --top-color: rgba(6, 23, 36, 0.92);      /* Top Navigation Bar Background */
+  --top-blur: 16px;                         /* Topbar Frosted Blur */
+  --top-border: rgba(255, 255, 255, 0.08);  /* Topbar Bottom Hairline */
+  --mega-bg: rgba(6, 23, 36, 0.78);       /* Dropdown Mega Menu Background */
+  --mega-blur: 24px;                        /* Dropdown Frosted Blur */
+  --backdrop-blur: 20px;                    /* Fullscreen Screen Blur */
+  --card-glass: rgba(6, 23, 36, 0.72);     /* Central Login Gate Card Glass */
+
   /* Colour */
   --navy-950: #07101e;   /* page */
   --navy-900: #0b1a2f;   /* cards */
@@ -345,3 +354,59 @@ a { color: inherit; text-decoration: none; }
 
 /* Fix footer width */
 .footer { width: 100%; margin-top: auto; }
+
+
+/* ========================================================
+   UNIFIED PUBLIC NAVIGATION & APPLE MEGA MENU SYSTEM
+   ======================================================== */
+.public-nav-bar {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 12px 20px !important;
+  background: var(--top-color) !important;
+  backdrop-filter: blur(var(--top-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--top-blur)) !important;
+  border-bottom: 1px solid var(--top-border) !important;
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 9600 !important;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.apple-mega-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 9500 !important;
+  background: var(--mega-bg) !important;
+  backdrop-filter: blur(var(--mega-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--mega-blur)) !important;
+  border-bottom: 1px solid var(--top-border) !important;
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 85px 30px 45px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+}
+.apple-mega-menu.open {
+  transform: translateY(0) !important;
+}
+
+.apple-backdrop, .apple-mega-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9400 !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(var(--backdrop-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--backdrop-blur)) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease !important;
+}
+.apple-backdrop.open, .apple-mega-backdrop.open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
