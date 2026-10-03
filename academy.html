@@ -275,7 +275,7 @@
       box-shadow: var(--shadow); margin-bottom: 48px; overflow-x: auto;
     }
     .cxb-table {
-      width: 100%; min-width: 840px; border-collapse: collapse; text-align: left;
+      width: 100%; min-width: 880px; border-collapse: collapse; text-align: left;
     }
     .cxb-table th {
       padding: 12px 14px; font-size: 0.8rem; font-weight: 600;
@@ -292,14 +292,14 @@
 
     .cxb-table th:first-child,
     .cxb-table td:first-child {
-      width: 90px;
-      min-width: 85px;
+      width: 95px;
+      min-width: 90px;
       white-space: nowrap;
     }
     .cxb-table th:nth-child(2),
     .cxb-table td:nth-child(2) {
       white-space: nowrap;
-      min-width: 195px;
+      min-width: 215px;
     }
     .cxb-table th:nth-child(3),
     .cxb-table td:nth-child(3) {
@@ -706,68 +706,68 @@
           <thead>
             <tr>
               <th data-i18n="th.tier">阶梯等级</th>
-              <th data-i18n="th.cn">官方中文认证</th>
-              <th data-i18n="th.bm">马来文规范 (KPM Tahap)</th>
+              <th data-i18n="th.cn">公会官方考级 (Grade)</th>
+              <th data-i18n="th.bm">教育部规范 (KPM Tahap)</th>
               <th data-i18n="th.elo">对应 ELO 积分区间</th>
               <th data-i18n="th.desc">竞技水准与实战考核标准</th>
             </tr>
           </thead>
           <tbody>
             <tr class="highlight-tr">
-              <td><span class="t-badge t-badge--top">★ Lv 7</span></td>
-              <td><strong>七级考评 (百乐县正选代表)</strong></td>
-              <td>Tahap 7 (Wakil Daerah)</td>
+              <td><span class="t-badge t-badge--top" data-i18n="t.l7_badge">★ Lv 7</span></td>
+              <td><strong data-i18n="t.l7_name">七级考评 (百乐县正选代表)</strong></td>
+              <td data-i18n="t.l7_kpm">Tahap 7 (Wakil Daerah)</td>
               <td class="elo-code">1800 - 2000</td>
-              <td>代表百乐县最高竞技水平。具备征战全彭赛 (MSSP) 与全国赛实力，深谙主流开局体系与深厚残局功力。</td>
+              <td data-i18n="t.l7_desc">代表百乐县最高竞技水平。具备征战全彭赛 (MSSP) 与全国赛实力，深谙主流开局体系与深厚残局功力。</td>
             </tr>
             <tr>
-              <td><span class="t-badge t-badge--top">Lv 6</span></td>
-              <td><strong>六级考评 (县代表种子队)</strong></td>
-              <td>Tahap 6 (Skuad Bera)</td>
+              <td><span class="t-badge t-badge--top" data-i18n="t.l6_badge">Lv 6</span></td>
+              <td><strong data-i18n="t.l6_name">六级考评 (县代表种子队)</strong></td>
+              <td data-i18n="t.l6_kpm">Tahap 6 (Skuad Bera)</td>
               <td class="elo-code">1500 - 1799</td>
-              <td>全县顶尖精英竞技序列。开局体系成型，具备深厚中局战术算度与残局掌控力。</td>
+              <td data-i18n="t.l6_desc">全县顶尖精英竞技序列。开局体系成型，具备深厚中局战术算度与残局掌控力。</td>
             </tr>
             <tr>
-              <td><span class="t-badge t-badge--mid">Lv 5</span></td>
-              <td><strong>五级考评 (华小校队领军)</strong></td>
-              <td>Tahap 5 (Wakil Sekolah)</td>
+              <td><span class="t-badge t-badge--mid" data-i18n="t.l5_badge">Lv 5</span></td>
+              <td><strong data-i18n="t.l5_name">五级考评 (华小校队领军)</strong></td>
+              <td data-i18n="t.l5_kpm">Tahap 5 (Wakil Sekolah)</td>
               <td class="elo-code">1300 - 1499</td>
-              <td>具备冲击全县八强之实战实力。各校校队领军台次，精熟常用战术组合与弃子攻杀技巧。</td>
+              <td data-i18n="t.l5_desc">具备冲击全县八强之实战实力。各校校队领军台次，精熟常用战术组合与弃子攻杀技巧。</td>
             </tr>
             <tr>
-              <td><span class="t-badge t-badge--mid">Lv 4</span></td>
-              <td><strong>四级考评 (实战校队主力)</strong></td>
-              <td>Tahap 4 (Lanjutan)</td>
+              <td><span class="t-badge t-badge--mid" data-i18n="t.l4_badge">Lv 4</span></td>
+              <td><strong data-i18n="t.l4_name">四级考评 (实战校队主力)</strong></td>
+              <td data-i18n="t.l4_kpm">Tahap 4 (Lanjutan)</td>
               <td class="elo-code">1000 - 1299</td>
-              <td>达各校校队主力核心标准。熟练主流开局套路，掌握马兵与炮兵等实用残局。</td>
+              <td data-i18n="t.l4_desc">达各校校队主力核心标准。熟练主流开局套路，掌握马兵与炮兵等实用残局。</td>
             </tr>
             <tr>
-              <td><span class="t-badge t-badge--base">Lv 3</span></td>
-              <td><strong>三级考评 (战术进阶)</strong></td>
-              <td>Tahap 3 (Pertengahan)</td>
+              <td><span class="t-badge t-badge--base" data-i18n="t.l3_badge">Lv 3</span></td>
+              <td><strong data-i18n="t.l3_name">三级考评 (战术进阶)</strong></td>
+              <td data-i18n="t.l3_kpm">Tahap 3 (Pertengahan)</td>
               <td class="elo-code">700 - 999</td>
-              <td>熟练掌握十大基础杀法组合，掌握正规中炮开局攻防原则。</td>
+              <td data-i18n="t.l3_desc">熟练掌握十大基础杀法组合，掌握正规中炮开局攻防原则。</td>
             </tr>
             <tr>
-              <td><span class="t-badge t-badge--base">Lv 2</span></td>
-              <td><strong>二级考评 (基础攻防)</strong></td>
-              <td>Tahap 2 (Permulaan)</td>
+              <td><span class="t-badge t-badge--base" data-i18n="t.l2_badge">Lv 2</span></td>
+              <td><strong data-i18n="t.l2_name">二级考评 (基础攻防)</strong></td>
+              <td data-i18n="t.l2_kpm">Tahap 2 (Permulaan)</td>
               <td class="elo-code">300 - 699</td>
-              <td>掌握基本一步杀两步杀，懂子力价值，极少出现低级送子漏着。</td>
+              <td data-i18n="t.l2_desc">掌握基本一步杀两步杀，懂子力价值，极少出现低级送子漏着。</td>
             </tr>
             <tr>
-              <td><span class="t-badge t-badge--base">Lv 1</span></td>
-              <td><strong>一级考评 (启蒙规范)</strong></td>
-              <td>Tahap 1 (Asas)</td>
+              <td><span class="t-badge t-badge--base" data-i18n="t.l1_badge">Lv 1</span></td>
+              <td><strong data-i18n="t.l1_name">一级考评 (启蒙规范)</strong></td>
+              <td data-i18n="t.l1_kpm">Tahap 1 (Asas)</td>
               <td class="elo-code">100 - 299</td>
-              <td>掌握正规行棋吃子与胜负判定，遵守棋道礼仪，不犯违规杀将。</td>
+              <td data-i18n="t.l1_desc">掌握正规行棋吃子与胜负判定，遵守棋道礼仪，不犯违规杀将。</td>
             </tr>
             <tr style="opacity: 0.65;">
-              <td><span class="t-badge t-badge--base">未定级</span></td>
-              <td><strong>未定级 (观察期)</strong></td>
-              <td>Belum Digredkan (Unrated)</td>
+              <td><span class="t-badge t-badge--base" data-i18n="t.l0_badge">未定级</span></td>
+              <td><strong data-i18n="t.l0_name">未定级 (观察期)</strong></td>
+              <td data-i18n="t.l0_kpm">Belum Digredkan (Unrated)</td>
               <td class="elo-code" style="color:var(--ink-dim);">0 - 99</td>
-              <td>新进学员入会初测观察期，掌握基础规则中。</td>
+              <td data-i18n="t.l0_desc">新进学员入会初测观察期，掌握基础规则中。</td>
             </tr>
           </tbody>
         </table>
@@ -1028,7 +1028,15 @@
       "kit.badge": "首期免收 RM 30 (Tahap 1~2)",
       "sec.grading_title": "公会官方七级考评认证体系",
       "sec.grading_sub": "全面接轨双轨评级制：公会认证考级规范（Grade 制）与教育部官方考评规范（KPM Tahap 制），由百乐县中国象棋公会权威认证颁发官方考级文凭",
-      "th.tier": "阶梯等级", "th.cn": "官方中文认证", "th.bm": "马来文规范 (KPM Tahap)", "th.elo": "对应 ELO 积分区间", "th.desc": "竞技水准与实战考核标准",
+      "th.tier": "阶梯等级", "th.cn": "公会官方考级 (Grade)", "th.bm": "教育部规范 (KPM Tahap)", "th.elo": "对应 ELO 积分区间", "th.desc": "竞技水准与实战考核标准",
+      "t.l7_badge": "★ Lv 7", "t.l7_name": "七级考评 (百乐县正选代表)", "t.l7_kpm": "Tahap 7 (Wakil Daerah)", "t.l7_desc": "代表百乐县最高竞技水平。具备征战全彭赛 (MSSP) 与全国赛实力，深谙主流开局体系与深厚残局功力。",
+      "t.l6_badge": "Lv 6", "t.l6_name": "六级考评 (县代表种子队)", "t.l6_kpm": "Tahap 6 (Skuad Bera)", "t.l6_desc": "全县顶尖精英竞技序列。开局体系成型，具备深厚中局战术算度与残局掌控力。",
+      "t.l5_badge": "Lv 5", "t.l5_name": "五级考评 (华小校队领军)", "t.l5_kpm": "Tahap 5 (Wakil Sekolah)", "t.l5_desc": "具备冲击全县八强之实战实力。各校校队领军台次，精熟常用战术组合与弃子攻杀技巧。",
+      "t.l4_badge": "Lv 4", "t.l4_name": "四级考评 (实战校队主力)", "t.l4_kpm": "Tahap 4 (Lanjutan)", "t.l4_desc": "达各校校队主力核心标准。熟练主流开局套路，掌握马兵与炮兵等实用残局。",
+      "t.l3_badge": "Lv 3", "t.l3_name": "三级考评 (战术进阶)", "t.l3_kpm": "Tahap 3 (Pertengahan)", "t.l3_desc": "熟练掌握十大基础杀法组合，掌握正规中炮开局攻防原则。",
+      "t.l2_badge": "Lv 2", "t.l2_name": "二级考评 (基础攻防)", "t.l2_kpm": "Tahap 2 (Permulaan)", "t.l2_desc": "掌握基本一步杀两步杀，懂子力价值，极少出现低级送子漏着。",
+      "t.l1_badge": "Lv 1", "t.l1_name": "一级考评 (启蒙规范)", "t.l1_kpm": "Tahap 1 (Asas)", "t.l1_desc": "掌握正规行棋吃子与胜负判定，遵守棋道礼仪，不犯违规杀将。",
+      "t.l0_badge": "未定级", "t.l0_name": "未定级 (观察期)", "t.l0_kpm": "Belum Digredkan (Unrated)", "t.l0_desc": "新进学员入会初测观察期，掌握基础规则中。",
       "r1.title": "动态 K 值调分引擎", "r1.desc": "新手期 (≤999分) K=30 快速定级脱离新手池；校队期 K=20 稳步反映战力；高手期 K=10 极稳控分，防止单场发挥波动。",
       "r2.title": "段位底线保护机制 (Floor)", "r2.desc": "学员一旦通过考核晋升等级（如升至 1500 分 Tahap 6），积分绝不下穿该段位底线！保护学童信心，确立官方文凭公信力。",
       "r3.title": "三维综合考评达标", "r3.desc": "升阶必须满足：天梯积分硬达标 + 教练组技术把关 (复盘/棋品) + 官方比赛实战检验，确立官方认证权威性与技术含金量。",
@@ -1079,7 +1087,15 @@
       "kit.badge": "Percuma RM 30 (Tahap 1~2)",
       "sec.grading_title": "Sistem Penilaian 7 Tahap Rasmi CXQB",
       "sec.grading_sub": "Sistem dwi-pensijilan rasmi: Silibus Penggredan Persatuan (Grade) & Piawaian Rasmi KPM (Tahap), diiktiraf sepenuhnya oleh Persatuan Catur Cina Daerah Bera",
-      "th.tier": "Tahap", "th.cn": "Pensijilan Cina", "th.bm": "Piawaian KPM (Tahap)", "th.elo": "Julat ELO", "th.desc": "Piawaian Prestasi & Ujian",
+      "th.tier": "Tahap", "th.cn": "Pensijilan Gred Persatuan", "th.bm": "Piawaian KPM (Tahap)", "th.elo": "Julat ELO Rasmi", "th.desc": "Piawaian Prestasi & Ujian",
+      "t.l7_badge": "★ Tahap 7", "t.l7_name": "Gred 7 (Wakil Daerah Bera)", "t.l7_kpm": "Tahap 7 (Wakil Daerah)", "t.l7_desc": "Mewakili tahap tertinggi daerah Bera. Berkelayakan ke MSSP & Kejohanan Kebangsaan; menguasai sistem pembukaan moden & kemahiran fasa akhir.",
+      "t.l6_badge": "Tahap 6", "t.l6_name": "Gred 6 (Skuad Elit Bera)", "t.l6_kpm": "Tahap 6 (Skuad Bera)", "t.l6_desc": "Barisan elit daerah Bera. Memiliki repertoir pembukaan mantap, daya pengiraan taktikal pertengahan dan penguasaan fasa akhir yang tinggi.",
+      "t.l5_badge": "Tahap 5", "t.l5_name": "Gred 5 (Wakil Sekolah)", "t.l5_kpm": "Tahap 5 (Wakil Sekolah)", "t.l5_desc": "Berdaya saing dalam Top 8 daerah. Pemain utama pasukan sekolah; mahir kombinasi taktikal dan teknik serangan pengorbanan buah.",
+      "t.l4_badge": "Tahap 4", "t.l4_name": "Gred 4 (Pemain Utama Sekolah)", "t.l4_kpm": "Tahap 4 (Lanjutan)", "t.l4_desc": "Standard pemain utama sekolah rendah. Menguasai corak pembukaan utama dan fasa akhir asas (Kuda-Pion, Meriam-Pion).",
+      "t.l3_badge": "Tahap 3", "t.l3_name": "Gred 3 (Pertengahan Taktikal)", "t.l3_kpm": "Tahap 3 (Pertengahan)", "t.l3_desc": "Menguasai 10 corak mat asas; memahami prinsip pembukaan Meriam Tengah secara rasmi.",
+      "t.l2_badge": "Tahap 2", "t.l2_name": "Gred 2 (Asas Pertahanan)", "t.l2_kpm": "Tahap 2 (Permulaan)", "t.l2_desc": "Menguasai taktik mat 1 & 2 langkah; memahami nilai buah catur; mengelakkan kesilapan mudah melepaskan buah.",
+      "t.l1_badge": "Tahap 1", "t.l1_name": "Gred 1 (Asas Permainan)", "t.l1_kpm": "Tahap 1 (Asas)", "t.l1_desc": "Menguasai pergerakan buah, peraturan makan dan syarat menang/kalah; mematuhi etika catur tanpa melakukan kesilapan batal.",
+      "t.l0_badge": "Belum Gred", "t.l0_name": "Belum Digredkan (Percubaan)", "t.l0_kpm": "Belum Digredkan (Unrated)", "t.l0_desc": "Fasa pemerhatian dan penilaian awal kemasukan pelajar baharu.",
       "r1.title": "Enjin K-Faktor Dinamik", "r1.desc": "K=30 untuk asas bagi penetapan pantas; K=20 untuk pertengahan; K=10 untuk elit agar rekod stabil.",
       "r2.title": "Perlindungan Had Bawah (Rating Floor)", "r2.desc": "Setelah lulus tahap (contohnya 1500 mata Tahap 6), mata ELO tidak akan jatuh ke bawah had tersebut!",
       "r3.title": "Penilaian Tiga Dimensi", "r3.desc": "Kenaikan tahap memerlukan: Mata ELO capai sasaran + Semakan adab/taktik jurulatih + Prestasi kejohanan rasmi bagi memastikan kualiti pensijilan rasmi.",
@@ -1130,7 +1146,15 @@
       "kit.badge": "Waived RM 30 Fee (Tahap 1-2)",
       "sec.grading_title": "Official 7-Grade Xiangqi Assessment System",
       "sec.grading_sub": "Dual-track assessment system: Official Association Grading Syllabus (Grade) & MOE Standard (Tahap), fully certified by Bera Xiangqi Association",
-      "th.tier": "Tier", "th.cn": "Chinese Certification", "th.bm": "MOE Standard (Tahap)", "th.elo": "ELO Range", "th.desc": "Skill Standards & Criteria",
+      "th.tier": "Tier", "th.cn": "Official Certification (Grade)", "th.bm": "MOE Standard (Tahap)", "th.elo": "ELO Range", "th.desc": "Skill Standards & Criteria",
+      "t.l7_badge": "★ Grade 7", "t.l7_name": "Grade 7 (District Representative)", "t.l7_kpm": "Tahap 7 (Wakil Daerah)", "t.l7_desc": "Represents Bera's highest competitive tier. MSSP state & national contender; master of modern openings with deep endgame mastery.",
+      "t.l6_badge": "Grade 6", "t.l6_name": "Grade 6 (District Seed Squad)", "t.l6_kpm": "Tahap 6 (Skuad Bera)", "t.l6_desc": "Bera top elite competitive cohort. Established opening repertoire with profound tactical calculation and endgame control.",
+      "t.l5_badge": "Grade 5", "t.l5_name": "Grade 5 (School Team Captain)", "t.l5_kpm": "Tahap 5 (Wakil Sekolah)", "t.l5_desc": "Proven strength to contest Top 8 in Bera. Board 1 captain; proficient in tactical combinations and sacrifice attack techniques.",
+      "t.l4_badge": "Grade 4", "t.l4_name": "Grade 4 (School Team Core)", "t.l4_kpm": "Tahap 4 (Lanjutan)", "t.l4_desc": "Meets primary school main team standard. Fluent in mainline opening systems and practical endgames (Horse-Pawn, Cannon-Pawn).",
+      "t.l3_badge": "Grade 3", "t.l3_name": "Grade 3 (Tactical Intermediate)", "t.l3_kpm": "Tahap 3 (Pertengahan)", "t.l3_desc": "Proficient in 10 fundamental checkmate patterns; masters orthodox Central Cannon opening principles.",
+      "t.l2_badge": "Grade 2", "t.l2_name": "Grade 2 (Basic Defense & Combat)", "t.l2_kpm": "Tahap 2 (Permulaan)", "t.l2_desc": "Solves 1-step and 2-step checkmate tactics; understands piece valuation; rarely commits unforced blunders or piece drops.",
+      "t.l1_badge": "Grade 1", "t.l1_name": "Grade 1 (Novice Fundamentals)", "t.l1_kpm": "Tahap 1 (Asas)", "t.l1_desc": "Understands official piece moves, capture rules, and victory conditions; strictly observes etiquette and tournament rules.",
+      "t.l0_badge": "Unrated", "t.l0_name": "Unrated (Provisional Observation)", "t.l0_kpm": "Belum Digredkan (Unrated)", "t.l0_desc": "Introductory observation period for new recruits; acquiring basic game rules.",
       "r1.title": "Dynamic K-Factor Engine", "r1.desc": "Beginner K=30 for rapid placement; Intermediate K=20; Elite K=10 to preserve stable ratings.",
       "r2.title": "Rating Floor Protection", "r2.desc": "Once officially promoted (e.g. 1500 ELO Tahap 6), a player's rating cannot drop below their tier floor!",
       "r3.title": "Tri-Factor Promotion Formula", "r3.desc": "Promotion requires: Official ELO benchmark + Coach evaluation + Tournament performance verification to guarantee authentic certification standards.",
