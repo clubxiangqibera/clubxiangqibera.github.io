@@ -38,7 +38,7 @@
     .lang-btn.active { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
-    .login-btn{width:100%;padding:14px;background:#040C17;color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.3s; margin-top: 10px;} .login-btn:hover{background:#F1C40F;color:#000;border-color:#fff;}
+    .login-btn{width:100%;padding:14px;background:#040C17;color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.3s; margin-top: 10px;} .login-btn:hover{background:#F1C40F;color:#000;border-color:#F1C40F;}
     .login-btn:hover{transform:scale(1.02);}
     .login-error{color:var(--red);font-size:12px;font-weight:700;margin-top:14px;display:none;background:#FDEDEC;padding:10px;border-radius:10px;border:1px solid rgba(192,57,43,0.2);}
 
@@ -98,7 +98,7 @@
     .res-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;}
     .res-btn{padding:14px 8px;border:2px solid var(--border);border-radius:12px;text-align:center;font-size:14px;font-weight:900;cursor:pointer;background:var(--bg);transition:all .2s;}
     .res-btn.sel-red{border-color:#E74C3C;background:#FDEDEC;color:#C0392B;}
-    .res-btn.sel-draw{border-color:#fff;background:#FEF9E7;color:#B7950B;}
+    .res-btn.sel-draw{border-color:#F1C40F;background:#FEF9E7;color:#B7950B;}
     .res-btn.sel-black{border-color:#2C3E50;background:#EAECEE;color:#1C2833;}
 
     .form-group{margin-bottom:12px;}
@@ -180,7 +180,7 @@
     }
     .pod:hover{transform:translateY(-4px);}
     .pod-1{
-      order:2;padding:32px 16px 24px;border-color:#fff;
+      order:2;padding:32px 16px 24px;border-color:#F1C40F;
       background:linear-gradient(180deg,#FFFDF0 0%,var(--card) 100%);
       box-shadow:0 12px 35px rgba(241,196,15,0.4);
     }
@@ -403,16 +403,16 @@ body::before {
       
       <div class="apple-mega-col">
         <h4 id="menuExpTitle">探索俱乐部</h4>
-        <a href="index.html" id="menuHomeLink">首页</a>
-        <a href="index.html#ladder" id="menuLadderLink">天梯榜</a>
-        <a href="index.html#events" id="menuEventsLink">赛事与活动中心</a>
+        <a href="index.html" id="menuHomeLink">🏠 首页</a>
+        <a href="index.html#ladder" id="menuLadderLink">🏆 天梯榜</a>
+        <a href="index.html#events" id="menuEventsLink">📸 赛事与活动中心</a>
       </div>
 
       <div class="apple-mega-col">
         <h4 id="menuPortalsTitle">专属入口</h4>
-        <a href="index.html#login" id="menuStudentLink">学员专属登录</a>
-        <a href="school.html" id="menuSchoolLink" style="">校际赛报名系统</a>
-        <a href="admin.html" id="menuAdminLink" style="color:#fff;">教练管理端</a>
+        <a href="index.html#login" id="menuStudentLink">🔐 学员专属登录</a>
+        <a href="school.html" id="menuSchoolLink" style="">🏫 校际赛报名系统</a>
+        <a href="admin.html" id="menuAdminLink" style="color:#F1C40F;">👑 教练管理端</a>
       </div>
 
       <div class="apple-mega-col">
@@ -3041,34 +3041,34 @@ function updateMenuI18n(lang) {
     if(expTitle) expTitle.innerText = '探索俱乐部';
     if(portalsTitle) portalsTitle.innerText = '专属入口';
     if(langTitle) langTitle.innerText = '系统语言';
-    if(homeLink) homeLink.innerText = '首页';
-    if(ladderLink) ladderLink.innerText = '天梯榜';
-    if(eventsLink) eventsLink.innerText = '赛事与活动中心';
-    if(studentLink) studentLink.innerText = '学员专属登录';
-    if(schoolLink) schoolLink.innerText = '校际赛报名系统';
-    if(adminLink) adminLink.innerText = '教练管理端';
+    if(homeLink) homeLink.innerText = '🏠 首页';
+    if(ladderLink) ladderLink.innerText = '🏆 天梯榜';
+    if(eventsLink) eventsLink.innerText = '📸 赛事与活动中心';
+    if(studentLink) studentLink.innerText = '🔐 学员专属登录';
+    if(schoolLink) schoolLink.innerText = '🏫 校际赛报名系统';
+    if(adminLink) adminLink.innerText = '👑 教练管理端';
   } else if(lang === 'bm') {
     if(btnText && !isOpen) btnText.innerText = 'Menu';
     if(expTitle) expTitle.innerText = 'Terokai Kelab';
     if(portalsTitle) portalsTitle.innerText = 'Portal Khas';
     if(langTitle) langTitle.innerText = 'Bahasa Sistem';
-    if(homeLink) homeLink.innerText = 'Utama';
-    if(ladderLink) ladderLink.innerText = 'Kedudukan';
-    if(eventsLink) eventsLink.innerText = 'Pusat Acara & Aktiviti';
-    if(studentLink) studentLink.innerText = 'Log Masuk Pelajar';
-    if(schoolLink) schoolLink.innerText = 'Sistem Antara Sekolah';
-    if(adminLink) adminLink.innerText = 'Portal Jurulatih';
+    if(homeLink) homeLink.innerText = '🏠 Utama';
+    if(ladderLink) ladderLink.innerText = '🏆 Kedudukan';
+    if(eventsLink) eventsLink.innerText = '📸 Pusat Acara & Aktiviti';
+    if(studentLink) studentLink.innerText = '🔐 Log Masuk Pelajar';
+    if(schoolLink) schoolLink.innerText = '🏫 Sistem Antara Sekolah';
+    if(adminLink) adminLink.innerText = '👑 Portal Jurulatih';
   } else {
     if(btnText && !isOpen) btnText.innerText = 'Menu';
     if(expTitle) expTitle.innerText = 'Explore Club';
     if(portalsTitle) portalsTitle.innerText = 'Portals';
     if(langTitle) langTitle.innerText = 'System Language';
-    if(homeLink) homeLink.innerText = 'Home';
-    if(ladderLink) ladderLink.innerText = 'Ladder';
-    if(eventsLink) eventsLink.innerText = 'Events & Activities';
-    if(studentLink) studentLink.innerText = 'Student Login';
-    if(schoolLink) schoolLink.innerText = 'Schools Portal';
-    if(adminLink) adminLink.innerText = 'Admin Portal';
+    if(homeLink) homeLink.innerText = '🏠 Home';
+    if(ladderLink) ladderLink.innerText = '🏆 Ladder';
+    if(eventsLink) eventsLink.innerText = '📸 Events & Activities';
+    if(studentLink) studentLink.innerText = '🔐 Student Login';
+    if(schoolLink) schoolLink.innerText = '🏫 Schools Portal';
+    if(adminLink) adminLink.innerText = '👑 Admin Portal';
   }
 }
 
