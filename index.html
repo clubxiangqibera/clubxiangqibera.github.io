@@ -336,10 +336,12 @@
 
     /* 1. panel--featured（棋缘营）：整行，海报缩略图宽 220px，顶部有 3px 金色渐变线，“报名开放中”徽章带呼吸动画小圆点 */
     .panel--featured {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      width: 100%;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 32px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
       overflow: hidden;
     }
 
@@ -354,9 +356,11 @@
     }
 
     .panel--featured .panel-poster {
-      width: 220px;
-      max-width: 220px;
-      flex-shrink: 0;
+      width: 220px !important;
+      min-width: 220px !important;
+      max-width: 220px !important;
+      flex: 0 0 220px !important;
+      height: auto !important;
       border-radius: 12px;
       border: 1px solid rgba(232, 184, 74, 0.3);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -370,8 +374,8 @@
     }
 
     .panel--featured .panel-body {
-      flex: 1;
-      min-width: 0;
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
     }
 
     .panel-tag {
@@ -1786,12 +1790,12 @@ a { color: inherit; text-decoration: none; }
 
       <!-- 2. CAMP PROMO BANNER (FEATURED PANEL) -->
       <section class="section" style="margin-top: 24px;">
-        <div class="panel panel--featured announce">
-          <img src="poster_qiyuan_final.jpg" alt="棋缘教育营海报" class="panel-poster announce__poster" onclick="openLightbox('poster_qiyuan_final.jpg')" style="cursor:pointer;">
+        <div class="panel panel--featured">
+          <img src="poster_qiyuan_final.jpg" alt="棋缘教育营海报" class="panel-poster" onclick="openLightbox('poster_qiyuan_final.jpg')" style="cursor:pointer;">
           <div class="panel-body">
-            <span class="panel-tag tag" data-i18n="camp.status">✅ 报名开放中</span>
-            <h2 class="panel-title announce__title" data-i18n="camp.title">2026 第一届「棋缘」中国象棋启蒙教育营</h2>
-            <ul class="panel-meta meta">
+            <span class="panel-tag" data-i18n="camp.status">✅ 报名开放中</span>
+            <h2 class="panel-title" data-i18n="camp.title">2026 第一届「棋缘」中国象棋启蒙教育营</h2>
+            <ul class="panel-meta">
               <li><span data-i18n="camp.date">📅 日期：11月22日 (星期日)</span></li>
               <li><span data-i18n="camp.location">📍 地点：Dewan SJK(C) Triang 1</span></li>
               <li><span data-i18n="camp.highlight">🎯 亮点：零基础教学 · 全套教材 · 结业证书</span></li>
