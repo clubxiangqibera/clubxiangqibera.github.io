@@ -1,0 +1,332 @@
+<div id="publicLoginSection" style="display:none; justify-content:center; align-items:center; min-height:75vh;">
+    <div class="gate-card animate-zoom" style="margin:20px auto; width: 100%; max-width: 440px; background: var(--navy-900); padding: 40px; border-radius: var(--radius); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--line);">
+      <div class="gate-badge" data-i18n="login.badge" style="display:inline-block; background:var(--gold); color:var(--navy-950); padding:6px 12px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">🏛️ CLUB XIANGQI BERA · 学员专属登录</div>
+      <h1 class="gate-title" data-i18n="login.title" style="font-family: var(--font-serif); font-size: 26px; color: var(--ink); margin-bottom: 8px;">百乐象棋俱乐部</h1>
+      <p class="gate-sub" data-i18n="login.sub" style="font-size: 14px; color: var(--ink-dim); margin-bottom: 32px;">请使用俱乐部发放的学员账号密码登录</p>
+
+      <div class="input-group" style="margin-bottom: 20px;">
+        <label class="input-label" data-i18n="login.name_label" style="display:block; font-size:13px; font-weight:700; color:var(--ink-dim); margin-bottom:8px;">👤 学员姓名 (Name)</label>
+        <input type="text" id="nameInput" class="gate-input input" placeholder="如: 黄梓轩 或 admin" data-i18n="login.name_ph" style="width:100%; padding:14px; background:var(--navy-800); border:1px solid var(--line); border-radius:8px; color:var(--ink); font-size:15px; outline:none;" autofocus>
+      </div>
+
+      <div class="input-group" style="margin-bottom: 32px;">
+        <label class="input-label" data-i18n="login.pwd_label" style="display:block; font-size:13px; font-weight:700; color:var(--ink-dim); margin-bottom:8px;">🔑 专属密码 (Password)</label>
+        <input type="password" id="pwdInput" class="gate-input input" placeholder="请输入密码" data-i18n="login.pwd_ph" style="width:100%; padding:14px; background:var(--navy-800); border:1px solid var(--line); border-radius:8px; color:var(--ink); font-size:15px; outline:none;">
+      </div>
+
+      <button class="login-btn btn btn--primary" onclick="handleLogin()" data-i18n="login.btn" style="width:100%; padding:16px; background:var(--red); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:8px; cursor:pointer;">🔐 登录进入系统</button>
+      <div id="loginMsg" style="color:var(--red);font-size:13px;font-weight:800;margin-top:16px;display:none; text-align:center;"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__grid" style="grid-template-columns: 1fr 1fr 1fr; align-items: start; gap: 20px;">
+      <!-- Col 1: About -->
+      <div>
+        <h3 data-i18n="footer.about_title">百乐象棋俱乐部</h3>
+        <p><span data-i18n="footer.about_desc">彭亨百乐县唯一专业中国象棋教育学院，负责统筹全县赛事与等级分考级认证。</span></p>
+      </div>
+      
+      <!-- Col 2: Partners -->
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span style="font-family: var(--font-serif); font-size:0.95rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.2;">Persatuan Catur Cina Daerah Bera</span>
+        </div>
+      </div>
+
+      <!-- Col 3: Contact -->
+      <div style="text-align: right;">
+        <h3 data-i18n="footer.contact_title">联系方式</h3>
+        <p>Email: clubxiangqibera@gmail.com</p>
+      </div>
+    </div>
+    
+    <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
+      © 2026 Club XiangQi Bera. All rights reserved.
+    </div>
+  </footer>
+</div> <!-- Close securityGate -->
+
+
+
+<!-- ========================================================
+     2. AUTHENTICATED APP VIEW (ROLE BASED)
+     ======================================================== -->
+<div id="authenticatedApp">
+  <!-- SIDEBAR -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sb-logo"><img src="cxb_round_emblem.png" alt="CXB" style="width:28px; height:28px; border-radius:50%;"> CXQB 学生端</div>
+    <div class="sb-user">
+       <span style="font-size:12px;opacity:0.6;">Welcome back,</span>
+       <div id="sbUserName" style="font-size:16px;font-weight:900;margin-top:2px;color:var(--primary-dark);">-</div>
+    </div>
+    <nav class="sb-nav">
+      <div style="font-size:11px;font-weight:800;color:var(--text2);margin:4px 0 4px 8px;text-transform:uppercase;letter-spacing:0.5px;">🎯 学员专区</div>
+      <a onclick="switchView('viewDashboard', this)" class="sb-link active">🏠 个人战绩</a>
+      <a onclick="switchView('viewSchedule', this)" class="sb-link">📅 训练日程</a>
+      <a onclick="switchView('viewLadder', this)" class="sb-link">🏆 全县天梯</a>
+      <a onclick="switchView('viewMatchLog', this)" class="sb-link">📜 实战棋谱</a>
+      <a onclick="switchView('viewGallery', this)" class="sb-link">📸 活动相册</a>
+      <a onclick="switchView('viewSettings', this)" class="sb-link">⚙️ 个人设置</a>
+
+      <div style="font-size:11px;font-weight:800;color:var(--text2);margin:18px 0 4px 8px;text-transform:uppercase;letter-spacing:0.5px;">👨‍👩‍👧 家长专区</div>
+      <a onclick="switchView('viewSchedule', this); scrollToTuition();" class="sb-link" style="opacity:0.85;">💳 学费与收据凭证</a>
+    </nav>
+    <button class="sb-logout" onclick="logout()">🚪 退出登录</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="app-main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-user">
+          <span class="user-tag" id="topbarRole">-</span>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="logout()">退出登录</button>
+    </div>
+
+    <div class="container" id="appMainContainer">
+
+    <!-- VIEW: DASHBOARD -->
+    <div id="viewDashboard" class="app-view active">
+      <!-- STUDENT / PARENT VIP HERO (BIG, BOLD & CENTERED) -->
+      <div id="studentHeroSection" class="student-hero">
+        <div class="hero-avatar">👨‍🎓</div>
+        <div class="hero-name" id="hName">-</div>
+        <div class="hero-meta" id="hSchool">-</div>
+        <div class="hero-badge-wrap">
+          <span class="hero-badge" id="hRankBadge">🏅 全县天梯排位中</span>
+        </div>
+        <div class="hero-elo-center">
+          <span class="hero-elo-big" id="hElo">-</span>
+          <span class="hero-tier" id="hTier">-</span>
+        </div>
+        <div class="hero-prog-container">
+          <div class="hero-prog-bar">
+            <div class="hero-prog-fill" id="hProgFill" style="width:10%;"></div>
+          </div>
+          <div class="hero-prog-labels">
+            <span id="hBaseElo">起步 200分</span>
+            <span id="hNextElo">目标 400分</span>
+          </div>
+        </div>
+        <!-- STATS GRID -->
+        <div class="hero-stats-grid" style="display:flex; justify-content:space-evenly; margin-top:24px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.06);">
+          <div class="stat-box" style="text-align:center;">
+            <div style="font-size:12px; color:var(--text2); font-weight:700;">总对局</div>
+            <div style="font-size:22px; font-weight:900; color:#fff; margin-top:4px;" id="hStatTotal">-</div>
+          </div>
+          <div class="stat-box" style="text-align:center;">
+            <div style="font-size:12px; color:var(--text2); font-weight:700;">胜率</div>
+            <div style="font-size:22px; font-weight:900; color:#fff; margin-top:4px;" id="hStatWinRate">-</div>
+          </div>
+          <div class="stat-box" style="text-align:center;">
+            <div style="font-size:12px; color:var(--text2); font-weight:700;">实战战绩</div>
+            <div style="font-size:22px; font-weight:900; color:#fff; margin-top:4px;" id="hStatRecord">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACCESS ICON MENU -->
+      <div id="studentQuickGrid" style="width:100%;">
+        <div class="icon-menu-card">
+          <div class="icon-menu-title">🌟 快捷导航 Menu</div>
+          <div class="icon-grid">
+            <div class="icon-item animate-in" onclick="switchView('viewSchedule')">
+              <div class="icon-circle">📅</div>
+              <span class="icon-label">课程日程</span>
+            </div>
+            <div class="icon-item animate-in" onclick="switchView('viewSchedule'); scrollToTuition();">
+              <div class="icon-circle">💳</div>
+              <span class="icon-label">学费缴交</span>
+            </div>
+            <div class="icon-item animate-in" onclick="switchView('viewLadder')">
+              <div class="icon-circle">🏆</div>
+              <span class="icon-label">全县排位</span>
+            </div>
+            <div class="icon-item animate-in" onclick="switchView('viewMatchLog')">
+              <div class="icon-circle">📜</div>
+              <span class="icon-label">实战记录</span>
+            </div>
+            <div class="icon-item animate-in" onclick="switchView('viewGallery')">
+              <div class="icon-circle">📸</div>
+              <span class="icon-label">活动相册</span>
+            </div>
+            <div class="icon-item animate-in" onclick="switchView('viewSettings')">
+              <div class="icon-circle">⚙️</div>
+              <span class="icon-label">个人设置</span>
+            </div>
+            <div class="icon-item animate-in" onclick="window.open('https://forms.gle/KUQu7MkUYLnvYeSd6','_blank')">
+              <div class="icon-circle">📋</div>
+              <span class="icon-label">活动报名</span>
+            </div>
+            <div class="icon-item animate-in" onclick="window.open('https://wa.me/60123456789','_blank')">
+              <div class="icon-circle">💬</div>
+              <span class="icon-label">WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- RECENT TICKER -->
+      
+      <!-- RECENT MY MATCHES -->
+      <div id="recentMyMatches" class="class-list-card" style="width:100%; margin-bottom:24px;">
+        <div class="class-list-header">
+          <span>⚔️ 最近实战对局</span>
+          <span style="font-size:12px; cursor:pointer; color:var(--primary-light);" onclick="switchView('viewMatchLog')">查看全部 →</span>
+        </div>
+        <div id="recentMatchesBody" style="padding:0;">
+        </div>
+      </div>
+
+      
+    </div> <!-- END VIEW DASHBOARD -->
+
+    <!-- VIEW: SCHEDULE -->
+    <div id="viewSchedule" class="app-view">
+      <!-- LIST STYLE SCHEDULE -->
+      <div id="classScheduleBlock" class="class-list-card">
+        <div class="class-list-header">
+          <span>📍 培训班级与日程 (Upcoming Classes)</span>
+          <span style="font-size:12px;background:rgba(26,188,156,0.15);color:#1ABC9C;padding:4px 10px;border-radius:12px;">实时同步</span>
+        </div>
+        
+        <div class="class-item">
+          <div class="class-date">
+            <div class="class-date-day">每周</div>
+            <div class="class-date-num" id="qClassDay">六</div>
+          </div>
+          <div class="class-details">
+            <div class="class-title" id="qClassTitle">Lv 1 启蒙基础班</div>
+            <div class="class-meta">👨‍🏫 教练: Nicholas (1400+) · 📍 直凉一校/公会中心</div>
+            <a href="https://chat.whatsapp.com/your-group-link" target="_blank" class="class-wa-btn">💬 WhatsApp Group</a>
+          </div>
+          <div class="class-time" id="qClassTimeOnly">
+            9:00am<br>↓<br>10:30am
+          </div>
+        </div>
+
+        <div class="class-item" style="background:var(--bg);">
+          <div class="class-date">
+            <div class="class-date-day">学习</div>
+            <div class="class-date-num" style="font-size:16px;">进度</div>
+          </div>
+          <div class="class-details">
+            <div class="class-title" style="color:var(--primary-mid);">📖 本月核心：布局原理与基本杀法</div>
+            <div class="class-meta" style="line-height:1.5;">"下棋先顾大局，起步不贪一子。稳扎稳打，继续保持认真的态度！"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TUITION CARD (Parent Sub-zone) -->
+      <div id="tuitionBlock" class="class-list-card" style="margin-top:24px;border:1.5px solid rgba(241,196,15,0.3);">
+        <div class="class-list-header" style="background:var(--bg); border-bottom:1px solid var(--border);">
+          <span>👨‍👩‍👧 家长学费专区</span>
+          <span id="qPayBadge" style="font-size:12px;">-</span>
+        </div>
+        <div class="class-item">
+          <div class="class-date" style="border-right:none;width:auto;padding-right:0;">
+            <div style="font-size:32px;">💳</div>
+          </div>
+          <div class="class-details" style="padding-left:10px;">
+            <div class="class-title" id="qFeeMode">Combo 季度</div>
+            <div class="class-meta" style="margin-bottom:4px;">收款账户：PUBLIC BANK · <strong>3246504527</strong></div>
+            <div class="class-meta" style="color:var(--primary-mid);cursor:pointer;text-decoration:underline;" onclick="copyBank()">[点击复制银行账号]</div>
+          </div>
+          <div style="text-align:right;">
+             <input type="file" id="slipInput" accept="image/*" style="display:none;" onchange="uploadSlip()">
+             <button id="btnUploadSlip" onclick="document.getElementById('slipInput').click()" style="padding:9px 18px;border-radius:10px;border:none;background:var(--green);color:#fff;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 10px rgba(46,204,113,0.3);">
+               📤 上传转账收据
+             </button>
+             <div id="slipPaidNotice" style="display:none;font-size:12px;color:var(--green);font-weight:800;background:rgba(39,174,96,0.12);padding:8px 16px;border-radius:10px;border:1px solid rgba(39,174,96,0.3);">
+               ✅ 本期学费已结清 (无需上传收据)
+             </div>
+             <div id="slipUploadMsg" style="font-size:11px;color:var(--green);margin-top:6px;font-weight:700;display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- END VIEW SCHEDULE -->
+
+
+
+    <!-- VIEW: LADDER -->
+    <div id="viewLadder" class="app-view">
+      <div class="section-head">
+        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
+        <div class="section-sub">CXQB ELO 官方排位体系 · 实时同步</div>
+      </div>
+      <div id="podiumArea" class="podium"></div>
+
+      <div class="section-head" style="margin-top:34px;">
+        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
+        <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
+      </div>
+      <div id="rankList" class="rank-list" style="width:100%;"></div>
+    </div> <!-- END VIEW LADDER -->
+
+    <!-- VIEW: MATCH LOGS -->
+    <div id="viewMatchLog" class="app-view">
+      <div class="section-head" style="margin-top:20px;">
+        <div class="section-title">📜 实战对局记录与记谱纸档案</div>
+        <div class="section-sub">点击右侧按钮放大查看真实比赛记谱纸扫描件</div>
+      </div>
+      <div id="matchLogList" class="rank-list" style="margin-bottom:50px;width:100%;"></div>
+    </div> <!-- END VIEW MATCH LOGS -->
+
+    <!-- VIEW: GALLERY -->
+    <div id="viewGallery" class="app-view">
+      <div class="section-head" style="margin-top:20px;">
+        <div class="section-title">📸 历届活动相册</div>
+        <div class="section-sub">记录在百乐县中国象棋公会的精彩瞬间</div>
+      </div>
+      <div id="studentGalleryArea" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top:16px; margin-bottom:50px; width:100%;">
+        <div style="color:var(--text2); font-size:13px; padding:10px;">正在加载相册...</div>
+      </div>
+    </div> <!-- END VIEW GALLERY -->
+
+    <!-- VIEW: SETTINGS -->
+    <div id="viewSettings" class="app-view">
+      <div class="section-head" style="margin-top:20px;">
+        <div class="section-title">⚙️ 个人设置</div>
+        <div class="section-sub">管理你的账号密码</div>
+      </div>
+      <div class="class-list-card" style="width:100%; max-width:500px; margin-bottom:50px;">
+        <div class="class-list-header">
+          <span>🔑 修改登录密码</span>
+        </div>
+        <div style="padding:24px;">
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px; color:var(--text);">当前密码</label>
+            <input type="password" id="settingOldPwd" class="gate-input" placeholder="请输入当前密码">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px; color:var(--text);">新密码</label>
+            <input type="password" id="settingNewPwd" class="gate-input" placeholder="请输入新密码 (至少4位)">
+          </div>
+          <div style="margin-bottom:20px;">
+            <label style="display:block; font-size:13px; font-weight:800; margin-bottom:6px; color:var(--text);">确认新密码</label>
+            <input type="password" id="settingConfirmPwd" class="gate-input" placeholder="再次输入新密码">
+          </div>
+          <button onclick="changePassword()" style="width:100%; padding:14px; background:linear-gradient(135deg,var(--primary),var(--primary-mid)); color:#fff; border:none; border-radius:14px; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 6px 20px rgba(14,47,68,0.3);">
+            🔐 确认修改密码
+          </button>
+          <div id="changePwdMsg" style="margin-top:12px; font-size:13px; font-weight:800; display:none; padding:10px; border-radius:10px;"></div>
+        </div>
+      </div>
+    </div> <!-- END VIEW SETTINGS -->
+
+
+  </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="this.classList.remove('show')">
+  <img id="lightboxImg" src="">
+</div>
+
+<script

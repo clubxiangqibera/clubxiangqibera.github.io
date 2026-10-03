@@ -1,0 +1,42 @@
+<header class="public-nav-bar" style="position:relative; z-index:9600;">
+    <div class="p-nav-brand">
+      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <div>
+        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+      </div>
+    </div>
+    <button class="nav-menu-btn" onclick="toggleMainNav()">
+      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+    </button>
+  </header>
+
+<!-- === APPLE STYLE MEGA MENU === -->
+<div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
+<div id="appleMegaMenu" class="apple-mega-menu">
+  <div class="apple-mega-container">
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索俱乐部</h4>
+      <a onclick="togglePublicTab('home'); closeMainNav()" data-i18n="nav.home">🏠 首页</a>
+      <a onclick="togglePublicTab('ladder'); closeMainNav()" data-i18n="nav.ladder">🏆 天梯榜</a>
+      <a onclick="openArchiveView(); closeMainNav()" data-i18n="events.title">📸 赛事与活动中心</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.portals">专属入口</h4>
+      <a onclick="togglePublicTab('login'); closeMainNav()" data-i18n="nav.student_login">🔐 学员专属登录</a>
+      <a href="school.html" data-i18n="nav.school_portal">🏫 校际赛报名系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">👑 教练管理端</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.language">系统语言</h4>
+      <div class="apple-segment">
+        <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
+        <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
+        <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
+      </div>
+    </div>
+
+  </div>
