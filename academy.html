@@ -5,767 +5,636 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>百乐象棋学院 · 常规棋艺集训班与官方七级考评体系 — CXQB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cxb-theme.css">
   <style>
     :root {
-      --bg-page: #040C17;
-      --navy-950: #061324;
-      --navy-900: #0a1c33;
-      --navy-850: #0e2544;
-      --navy-800: #143159;
-      --gold: #F1C40F;
-      --gold-soft: #f5d76e;
-      --gold-dark: #b7950b;
-      --gold-glow: rgba(241, 196, 15, 0.25);
-      --red-cta: linear-gradient(135deg, #E63946 0%, #D90429 100%);
-      --red-hover: linear-gradient(135deg, #F04856 0%, #E81035 100%);
-      --card-glass: rgba(10, 28, 51, 0.72);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --card-border-gold: rgba(241, 196, 15, 0.35);
-      --ink: #F8FAFC;
-      --ink-dim: #94A3B8;
-      --ink-muted: #64748B;
-      --font-serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
-      --font-sans: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+      /* UNIFIED DESIGN TOKENS (100% IDENTICAL TO INDEX.HTML) */
+      --bg-page:            #040C17;
+      --grid-line:          rgba(241, 196, 15, 0.045);
+      --grid-size:          72px 72px;
+
+      --top-color:          rgba(6, 23, 36, 0.92);
+      --top-blur:           16px;
+      --top-border:         rgba(255, 255, 255, 0.08);
+      --mega-bg:            rgba(6, 23, 36, 0.78);
+      --mega-blur:          24px;
+      --backdrop-blur:      20px;
+      --backdrop-bg:        rgba(0, 0, 0, 0.45);
+
+      --card-glass:         rgba(6, 23, 36, 0.72);
+      --card-glass-border:  rgba(255, 255, 255, 0.12);
+      --card-glass-shadow:  0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(241, 196, 15, 0.06);
+      --card-radius:        20px;
+
+      --input-glass-bg:     rgba(255, 255, 255, 0.05);
+      --input-glass-border: rgba(255, 255, 255, 0.12);
+      --input-glass-blur:   8px;
+      --input-focus-glow:   rgba(241, 196, 15, 0.5);
+
+      --badge-gold-bg:      #F1C40F;
+      --badge-gold-text:    #0A1929;
+      --gold-hover:         #F1C40F;
+      
+      --btn-primary-bg:     linear-gradient(135deg, #E63946 0%, #D90429 100%);
+      --btn-primary-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+      --btn-primary-hover:  linear-gradient(135deg, #F04856 0%, #E81035 100%);
+
+      --seg-bg:             rgba(255, 255, 255, 0.08);
+      --seg-active-bg:      rgba(255, 255, 255, 0.95);
+      --seg-active-color:   #111111;
+      --seg-text-color:     rgba(255, 255, 255, 0.6);
+
+      --font-serif:         'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+      --font-sans:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+
+      --primary: #0E2F44;
+      --primary-mid: #1A5276;
+      --primary-light: #2980B9;
+      --gold: #F39C12;
+      --gold-glow: rgba(243,156,18,0.35);
+      --silver: #95A5A6;
+      --bronze: #D35400;
+      --bg: #071726;
+      --card: rgba(255, 255, 255, 0.08);
+      --text: #F0F4F8;
+      --text2: #9CA8B7;
+      --border: rgba(255, 255, 255, 0.12);
+      --green: #27AE60;
+      --red: #E74C3C;
+      --radius: 20px;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4);
+
+      --navy-950: #07101e;
+      --navy-900: #0b1a2f;
+      --navy-800: #112440;
+      --gold-soft: #e3c97f;
+      --ink: #f3efe4;
+      --ink-dim: #a9b3c3;
+      --line: rgba(201, 162, 75, 0.28);
+      --line-soft: rgba(243, 239, 228, 0.08);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-page);
-      color: var(--ink);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      position: relative;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Plus Jakarta Sans','Noto Sans SC',system-ui,sans-serif;
+      background:var(--bg-page);color:var(--ink);background-attachment:fixed;
+      min-height:100vh;display:flex;flex-direction:column;align-items:center;
+      -webkit-font-smoothing:antialiased;
     }
 
-    /* 棋盘暗金背景发丝线 */
+    /* 棋盘背景发丝网格 (与首页完全一致) */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(241, 196, 15, 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(241, 196, 15, 0.035) 1px, transparent 1px);
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--line-soft) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
       background-size: 72px 72px;
-      pointer-events: none;
-      z-index: 0;
+      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      opacity: 0.6;
     }
 
-    /* 顶部光晕 */
-    .ambient-glow {
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 900px; max-width: 100%;
-      height: 480px;
-      background: radial-gradient(circle at 50% 20%, rgba(26, 82, 118, 0.35) 0%, rgba(241, 196, 15, 0.08) 40%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+    #securityGate {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; min-height: 100vh; padding: 0;
     }
 
-    /* 全站统一顶级宽屏导航栏 (PC 大气展开，Mobile 胶囊抽屉) */
-    .cx-nav {
-      position: sticky; top: 0; z-index: 1000;
-      width: 100%;
-      background: rgba(4, 12, 23, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    /* PUBLIC STICKY NAV BAR (100% 与首页一致) */
+    .public-nav-bar {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: var(--top-color) !important; backdrop-filter: blur(var(--top-blur)) !important; -webkit-backdrop-filter: blur(var(--top-blur)) !important; backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
     }
-    .cx-nav-inner {
-      max-width: 1280px; margin: 0 auto;
-      padding: 12px 24px;
-      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    .p-nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .p-nav-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(241,196,15,0.4); }
+    .p-nav-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* PC 宽屏导航链接 (与首页样式完美融合) */
+    .p-nav-desktop-links { display: flex; align-items: center; gap: 6px; }
+    .p-nav-btn {
+      padding: 7px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      background: transparent; color: rgba(255,255,255,0.65); border: none;
+      transition: all 0.2s; position: relative; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
     }
-    .cx-brand {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none; color: inherit;
-    }
-    .cx-brand-logo {
-      width: 40px; height: 40px; border-radius: 50%;
-      object-fit: cover; border: 2px solid rgba(241, 196, 15, 0.5);
-      box-shadow: 0 0 12px rgba(241, 196, 15, 0.2);
-    }
-    .cx-brand-text h1 {
-      font-size: 16px; font-weight: 800; letter-spacing: -0.2px; color: #fff;
-    }
-    .cx-brand-text p {
-      font-size: 10px; font-weight: 700; color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 1.5px; text-transform: uppercase;
+    .p-nav-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .p-nav-btn.active { color: #F1C40F; background: rgba(241, 196, 15, 0.1); }
+    .p-nav-btn.active::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 3px; background: #F1C40F; border-radius: 3px;
     }
 
-    /* PC 端横向展开导航 */
-    .cx-nav-links {
-      display: flex; align-items: center; gap: 8px;
+    .nav-menu-btn {
+      padding: 7px 16px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12);
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
     }
-    .cx-nav-link {
-      padding: 8px 14px; border-radius: 10px;
-      font-size: 13.5px; font-weight: 600;
-      color: rgba(255, 255, 255, 0.72);
-      text-decoration: none; transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .cx-nav-link:hover {
-      color: #fff; background: rgba(255, 255, 255, 0.08);
-    }
-    .cx-nav-link.active {
-      color: var(--gold); background: rgba(241, 196, 15, 0.12);
-      font-weight: 700;
+    .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
+
+    @media(max-width: 768px) {
+      .p-nav-desktop-links { display: none !important; }
     }
 
-    .cx-nav-right {
-      display: flex; align-items: center; gap: 12px;
-    }
-    /* 语言切换胶囊 */
-    .lang-pill {
-      display: flex; background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px; padding: 3px; gap: 2px;
-    }
-    .lang-btn {
-      background: transparent; border: none;
-      color: rgba(255, 255, 255, 0.6);
-      padding: 5px 10px; border-radius: 7px;
-      font-size: 12px; font-weight: 700; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .lang-btn.active {
-      background: #fff; color: #040C17;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    /* 主内容容器 (自适应宽屏) */
+    .public-content-wrap {
+      width: 100%; max-width: 1140px; padding: 28px 20px 60px;
     }
 
-    .btn-login-gate {
-      padding: 7px 16px; border-radius: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff; font-size: 12.5px; font-weight: 700;
-      text-decoration: none; transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 6px;
-      white-space: nowrap;
+    /* HERO 模块 (与首页一致的卡片风格) */
+    .hero {
+      margin-top: 20px;
+      padding: clamp(32px, 5vw, 56px) 24px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
-    .btn-login-gate:hover {
-      border-color: var(--gold); background: rgba(241, 196, 15, 0.1); color: var(--gold);
-    }
-
-    .mobile-menu-btn {
-      display: none; background: transparent; border: none;
-      color: #fff; font-size: 22px; cursor: pointer; padding: 4px;
-    }
-
-    /* 主容器 */
-    .container {
-      max-width: 1280px; margin: 0 auto;
-      padding: 0 24px; position: relative; z-index: 1;
-    }
-
-    /* HERO 标语 */
-    .academy-hero {
-      padding: 64px 0 40px; text-align: center;
-    }
-    .hero-badge-wrap {
+    .hero__logo { width: clamp(84px, 11vw, 110px); height: auto; aspect-ratio: 1; margin-bottom: 20px; border-radius: 50%; border: 1.5px solid var(--gold); }
+    .hero__title { font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: 0.1em; color: var(--ink); }
+    .hero__en { margin-top: 8px; font-size: 0.8rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; }
+    .hero__tagline { margin: 18px auto 0; max-width: 36em; font-family: var(--font-serif); font-weight: 500; color: var(--ink-dim); font-size: 1.05rem; }
+    .hero__badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+    .badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(241, 196, 15, 0.12);
-      border: 1px solid rgba(241, 196, 15, 0.35);
-      padding: 6px 16px; border-radius: 30px;
-      margin-bottom: 20px;
-    }
-    .hero-badge-text {
-      color: var(--gold); font-size: 12.5px; font-weight: 800; letter-spacing: 0.5px;
-    }
-    .academy-hero h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(28px, 4.5vw, 48px);
-      font-weight: 900; line-height: 1.25;
-      color: #FFFFFF; margin-bottom: 16px;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-    }
-    .academy-hero h2 span {
-      background: linear-gradient(135deg, #FFFFFF 20%, var(--gold) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero-sub {
-      font-size: clamp(15px, 2vw, 18px); color: var(--ink-dim);
-      max-width: 820px; margin: 0 auto 28px; line-height: 1.6;
-    }
-    .hero-highlights {
-      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 32px;
-    }
-    .highlight-chip {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 8px 16px; border-radius: 12px;
-      font-size: 13px; font-weight: 600; color: #E2E8F0;
+      padding: 7px 16px; font-size: 0.82rem; color: var(--ink);
+      border: 1px solid var(--line); border-radius: var(--radius-pill);
+      background: rgba(201, 162, 75, 0.06);
     }
 
-    /* SECTION 标题 */
-    .section-header {
-      text-align: center; margin: 60px 0 36px;
+    /* 章节标题规范 (使用 cxb-theme.css 标志性金色下划线) */
+    .section__head { text-align: center; margin: 48px 0 28px; }
+    .section__title { font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: 0.06em; color: var(--ink); }
+    .section__title::after {
+      content: ""; display: block; width: 56px; height: 1px; margin: 14px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
-    .section-badge {
-      display: inline-block; color: var(--gold);
-      font-size: 11px; font-weight: 800; letter-spacing: 2px;
-      text-transform: uppercase; margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: var(--font-serif);
-      font-size: clamp(24px, 3.2vw, 36px);
-      font-weight: 800; color: #fff; margin-bottom: 12px;
-    }
-    .section-subtitle {
-      font-size: 14px; color: var(--ink-dim); max-width: 650px; margin: 0 auto;
-    }
+    .section__sub { margin-top: 10px; color: var(--ink-dim); font-size: 0.9rem; }
 
     /* ========================================================
-       1. PRICING & CLASS CARDS (3+1 班级网格)
+       1. 班级卡片矩阵 (3+1 卡片，完全符合首页配色与圆角)
        ======================================================== */
     .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 36px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px;
     }
     .price-card {
-      background: var(--card-glass);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 28px 22px;
+      background: var(--navy-900);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px 20px;
       display: flex; flex-direction: column;
       position: relative;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow);
     }
     .price-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(241, 196, 15, 0.4);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(241, 196, 15, 0.1);
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 20px rgba(241,196,15,0.08);
     }
     .price-card.featured {
-      border-color: rgba(241, 196, 15, 0.5);
-      background: linear-gradient(180deg, rgba(20, 49, 89, 0.85) 0%, rgba(6, 19, 36, 0.95) 100%);
+      border: 1.5px solid var(--gold);
+      background: linear-gradient(180deg, rgba(17, 36, 64, 0.9) 0%, rgba(11, 26, 47, 0.95) 100%);
     }
-    .price-card.featured::before {
-      content: "★ 荣誉正选 · 全额赞助";
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-      background: linear-gradient(135deg, #F1C40F 0%, #D4AC0D 100%);
-      color: #040C17; font-size: 10.5px; font-weight: 900;
-      padding: 4px 14px; border-radius: 20px;
-      white-space: nowrap; box-shadow: 0 4px 12px rgba(241, 196, 15, 0.35);
+    .featured-tag {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--badge-gold-bg); color: var(--badge-gold-text);
+      font-size: 10px; font-weight: 900; padding: 4px 12px; border-radius: var(--radius-pill);
+      white-space: nowrap; box-shadow: 0 2px 8px rgba(241,196,15,0.3);
     }
 
-    .card-tier-tag {
-      display: inline-block;
-      font-size: 11px; font-weight: 800; letter-spacing: 1px;
-      padding: 4px 10px; border-radius: 8px;
-      background: rgba(255, 255, 255, 0.08); color: var(--gold);
-      margin-bottom: 12px; width: fit-content;
+    .card-tier-pill {
+      display: inline-block; font-size: 11px; font-weight: 800;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      background: rgba(201, 162, 75, 0.1); color: var(--gold-soft);
+      border: 1px solid var(--line); margin-bottom: 12px; width: fit-content;
     }
     .card-title {
-      font-family: var(--font-serif);
-      font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;
+      font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 4px;
     }
-    .card-en-title {
-      font-size: 11px; font-weight: 700; color: var(--ink-muted);
-      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;
+    .card-sub-en {
+      font-size: 0.72rem; color: var(--ink-dim); letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 16px;
     }
-    .card-price-box {
-      margin-bottom: 20px; padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    .card-price-wrap {
+      padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--line-soft);
     }
-    .card-price {
-      font-size: 34px; font-weight: 900; color: #fff; line-height: 1;
+    .card-price-main {
+      font-size: 2rem; font-weight: 900; color: var(--ink); line-height: 1;
     }
-    .card-price small {
-      font-size: 13px; font-weight: 600; color: var(--ink-dim);
+    .card-price-main small {
+      font-size: 0.82rem; font-weight: 500; color: var(--ink-dim);
     }
     .card-quarter-combo {
-      font-size: 12px; font-weight: 700; color: var(--gold);
+      font-size: 0.75rem; font-weight: 700; color: var(--gold-soft);
       margin-top: 6px; display: block;
     }
-    .card-features {
-      list-style: none; margin-bottom: 24px; flex-grow: 1;
-      display: flex; flex-direction: column; gap: 11px;
+    .card-features-list {
+      list-style: none; margin-bottom: 22px; flex-grow: 1;
+      display: flex; flex-direction: column; gap: 10px;
     }
-    .card-features li {
-      font-size: 13px; color: #E2E8F0; line-height: 1.45;
+    .card-features-list li {
+      font-size: 0.85rem; color: var(--ink-dim); line-height: 1.5;
       display: flex; align-items: flex-start; gap: 8px;
     }
-    .card-features li span.icon {
-      color: var(--gold); font-size: 14px; flex-shrink: 0; margin-top: 1px;
-    }
-    .card-btn {
-      width: 100%; padding: 12px 0; border-radius: 12px;
-      font-size: 13.5px; font-weight: 800; text-align: center;
-      text-decoration: none; cursor: pointer;
-      transition: all 0.2s; display: block;
-    }
-    .btn-regular {
-      background: rgba(255, 255, 255, 0.08); color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .btn-regular:hover {
-      background: rgba(241, 196, 15, 0.15); border-color: var(--gold); color: var(--gold);
-    }
-    .btn-featured {
-      background: var(--red-cta); color: #fff; border: none;
-      box-shadow: 0 4px 16px rgba(230, 57, 70, 0.4);
-    }
-    .btn-featured:hover {
-      background: var(--red-hover); box-shadow: 0 6px 22px rgba(230, 57, 70, 0.6);
-    }
+    .card-features-list li b { color: var(--ink); }
+    .card-features-list li .ico { color: var(--gold); flex-shrink: 0; }
 
-    /* 新生材料费横幅 */
-    .reg-kit-banner {
-      background: linear-gradient(135deg, rgba(26, 82, 118, 0.35) 0%, rgba(6, 23, 36, 0.7) 100%);
-      border: 1px solid rgba(241, 196, 15, 0.25);
-      border-radius: 18px; padding: 20px 28px;
+    /* 按钮规范 (100% 与首页一致) */
+    .btn-card {
+      width: 100%; padding: 10px 0; border-radius: var(--radius);
+      font-size: 0.85rem; font-weight: 700; text-align: center;
+      text-decoration: none; cursor: pointer; transition: all 0.2s; display: block;
+    }
+    .btn-card--ghost {
+      background: transparent; color: var(--ink); border: 1px solid var(--line);
+    }
+    .btn-card--ghost:hover {
+      border-color: var(--gold); color: var(--gold); background: rgba(201, 162, 75, 0.08);
+    }
+    .btn-card--red {
+      background: var(--btn-primary-bg); color: #fff; border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--btn-primary-shadow);
+    }
+    .btn-card--red:hover { background: var(--btn-primary-hover); }
+
+    /* 注册材料费横幅 (与首页 announce 模块同系) */
+    .announce-kit {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 20px; flex-wrap: wrap; margin-bottom: 60px;
+      gap: 20px; flex-wrap: wrap; padding: 20px 24px;
+      background: var(--navy-900); border: 1px solid var(--gold);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      margin-bottom: 48px;
     }
-    .reg-kit-info h4 {
-      font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px;
+    .announce-kit-text h4 {
+      font-size: 1rem; color: var(--ink); margin-bottom: 4px;
       display: flex; align-items: center; gap: 8px;
     }
-    .reg-kit-info p {
-      font-size: 13px; color: var(--ink-dim);
-    }
-    .reg-kit-badge {
-      background: var(--gold); color: #040C17;
-      font-size: 14px; font-weight: 900; padding: 8px 18px;
-      border-radius: 12px; white-space: nowrap;
+    .announce-kit-text p { font-size: 0.85rem; color: var(--ink-dim); line-height: 1.5; }
+    .announce-kit-badge {
+      background: var(--badge-gold-bg); color: var(--badge-gold-text);
+      font-size: 0.85rem; font-weight: 800; padding: 8px 18px;
+      border-radius: var(--radius); white-space: nowrap;
     }
 
     /* ========================================================
-       2. OFFICIAL 7-GRADE / TAHAP 1~7 SYSTEM VISUALIZATION
+       2. 七级考评表格与规则 (与首页表格规范一致)
        ======================================================== */
-    .grading-box {
-      background: var(--card-glass);
-      border: 1px solid var(--card-border);
-      border-radius: 24px; padding: 36px;
-      margin-bottom: 60px;
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    .table-container {
+      background: var(--navy-900); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 24px;
+      box-shadow: var(--shadow); margin-bottom: 48px; overflow-x: auto;
     }
-    .grading-table {
-      width: 100%; border-collapse: collapse; margin-top: 20px;
+    .cxb-table {
+      width: 100%; border-collapse: collapse; text-align: left;
     }
-    .grading-table th {
-      text-align: left; padding: 14px 16px;
-      font-size: 12px; font-weight: 700; color: var(--ink-muted);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      text-transform: uppercase; letter-spacing: 0.5px;
+    .cxb-table th {
+      padding: 12px 14px; font-size: 0.8rem; font-weight: 600;
+      color: var(--gold-soft); border-bottom: 1px solid var(--line);
+      letter-spacing: 0.05em; text-transform: uppercase;
     }
-    .grading-table td {
-      padding: 16px; font-size: 13.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      color: #E2E8F0;
+    .cxb-table td {
+      padding: 14px; font-size: 0.88rem; color: var(--ink-dim);
+      border-bottom: 1px solid var(--line-soft);
     }
-    .grading-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
+    .cxb-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    .cxb-table tr.highlight-tr td { background: rgba(201, 162, 75, 0.05); }
+
+    .t-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      font-size: 0.75rem; font-weight: 800; border: 1px solid transparent;
     }
-    .tahap-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 800;
-    }
-    .tahap-top {
-      background: rgba(241, 196, 15, 0.2); color: var(--gold);
-      border: 1px solid rgba(241, 196, 15, 0.4);
-    }
-    .tahap-mid {
-      background: rgba(41, 128, 185, 0.2); color: #5dade2;
-      border: 1px solid rgba(41, 128, 185, 0.35);
-    }
-    .tahap-base {
-      background: rgba(255, 255, 255, 0.08); color: #CBD5E1;
-    }
-    .elo-range {
-      font-family: monospace; font-size: 14px; font-weight: 700; color: var(--gold);
+    .t-badge--top { background: rgba(201, 162, 75, 0.15); color: var(--gold); border-color: var(--gold); }
+    .t-badge--mid { background: rgba(41, 128, 185, 0.15); color: #5dade2; border-color: rgba(41, 128, 185, 0.35); }
+    .t-badge--base { background: rgba(255, 255, 255, 0.05); color: var(--ink-dim); border-color: var(--line-soft); }
+
+    .elo-code {
+      font-family: monospace; font-size: 0.92rem; font-weight: 700; color: var(--gold);
     }
 
+    /* 规则 3 列卡片 */
     .rules-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px;
     }
-    .rule-card {
-      background: rgba(6, 19, 36, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px; padding: 20px;
+    .rule-item {
+      background: var(--navy-950); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 18px;
     }
-    .rule-card h5 {
-      font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 8px;
-      display: flex; align-items: center; gap: 8px;
+    .rule-item h5 {
+      font-size: 0.92rem; color: var(--ink); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
     }
-    .rule-card p {
-      font-size: 12.5px; color: var(--ink-dim); line-height: 1.5;
-    }
+    .rule-item p { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.5; }
 
     /* ========================================================
-       3. COACH BENCH & OMO METHODOLOGY
+       3. 师资团队与 OMO 模式 (与首页风格完全相融)
        ======================================================== */
     .coaches-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 60px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 48px;
     }
     .coach-card {
-      background: var(--card-glass);
-      border: 1px solid var(--card-border);
-      border-radius: 24px; padding: 32px;
-      display: flex; gap: 24px; align-items: center;
-      transition: all 0.3s;
+      background: var(--navy-900); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 26px;
+      display: flex; gap: 20px; align-items: center;
+      box-shadow: var(--shadow);
     }
-    .coach-card:hover {
-      border-color: rgba(241, 196, 15, 0.3);
-      transform: translateY(-4px);
-    }
-    .coach-avatar {
-      width: 100px; height: 100px; border-radius: 50%;
-      background: linear-gradient(135deg, #1A5276 0%, #0E2F44 100%);
-      border: 3px solid var(--gold);
+    .coach-avatar-badge {
+      width: 84px; height: 84px; border-radius: 50%;
+      background: #faf8f2; border: 2px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-size: 38px; color: var(--gold); flex-shrink: 0;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      font-size: 34px; font-family: var(--font-serif); font-weight: 900;
+      color: #922b21; flex-shrink: 0; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     }
     .coach-info h4 {
-      font-family: var(--font-serif);
-      font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 4px;
+      font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;
     }
     .coach-role {
-      font-size: 12px; font-weight: 800; color: var(--gold);
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+      font-size: 0.72rem; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
     }
-    .coach-badges {
-      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+    .coach-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .coach-chip {
+      font-size: 0.72rem; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05); color: var(--ink-dim); border: 1px solid var(--line-soft);
     }
-    .coach-badge {
-      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08); color: #E2E8F0;
-    }
-    .coach-desc {
-      font-size: 12.5px; color: var(--ink-dim); line-height: 1.5;
-    }
+    .coach-desc { font-size: 0.84rem; color: var(--ink-dim); line-height: 1.5; }
 
-    /* OMO 模式图解 */
-    .omo-box {
-      background: linear-gradient(135deg, rgba(14, 37, 68, 0.7) 0%, rgba(4, 12, 23, 0.9) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px; padding: 36px; margin-bottom: 60px;
+    /* OMO 模式 4 步流程 */
+    .omo-wrap {
+      background: var(--navy-900); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 32px 24px;
+      box-shadow: var(--shadow); margin-bottom: 48px;
     }
-    .omo-steps {
+    .omo-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px;
     }
-    .omo-step {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px; padding: 20px; text-align: center;
+    .omo-col {
+      background: var(--navy-950); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 18px; text-align: center;
     }
-    .omo-step-num {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(241, 196, 15, 0.15); color: var(--gold);
-      font-size: 14px; font-weight: 900; display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 12px; border: 1px solid rgba(241, 196, 15, 0.3);
+    .omo-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(201, 162, 75, 0.15); color: var(--gold);
+      font-size: 0.85rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 10px; border: 1px solid var(--line);
     }
-    .omo-step h6 {
-      font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 6px;
+    .omo-col h6 { font-size: 0.9rem; color: var(--ink); margin-bottom: 6px; }
+    .omo-col p { font-size: 0.8rem; color: var(--ink-dim); line-height: 1.5; }
+
+    /* 底部行动 CTA (与首页 invite card 风格一致) */
+    .final-card {
+      background: linear-gradient(135deg, rgba(20, 49, 89, 0.75) 0%, rgba(6, 23, 36, 0.9) 100%);
+      border: 1.5px solid var(--gold);
+      border-radius: var(--radius); padding: 36px 24px; text-align: center;
+      box-shadow: var(--shadow); margin-bottom: 48px;
     }
-    .omo-step p {
-      font-size: 12px; color: var(--ink-dim); line-height: 1.45;
+    .final-card h3 { font-size: 1.6rem; color: var(--ink); margin-bottom: 10px; }
+    .final-card p { font-size: 0.95rem; color: var(--ink-dim); max-width: 600px; margin: 0 auto 24px; }
+    .cta-btn-group { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn--wa {
+      background: #25D366; color: #fff; border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+    }
+    .btn--wa:hover { background: #20BA5A; }
+
+    /* FOOTER (100% 首页一致) */
+    .footer { width: 100%; margin-top: auto; border-top: 1px solid var(--line-soft); padding: 40px 0 30px; }
+    .footer__grid {
+      max-width: 1040px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1.4fr 1.2fr 1fr; gap: 36px;
+    }
+    .footer h3 { font-size: 1rem; color: var(--ink); margin-bottom: 12px; }
+    .footer a:hover { color: var(--gold-soft); }
+    .footer__legal {
+      margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;
+      color: var(--ink-dim); font-size: 0.8rem;
     }
 
-    /* CTA 最终行动横幅 */
-    .final-cta {
-      background: radial-gradient(circle at 50% 0%, rgba(230, 57, 70, 0.25) 0%, rgba(6, 23, 36, 0.8) 70%);
-      border: 1.5px solid rgba(241, 196, 15, 0.4);
-      border-radius: 28px; padding: 48px 32px; text-align: center;
-      margin-bottom: 80px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    }
-    .final-cta h3 {
-      font-family: var(--font-serif);
-      font-size: clamp(24px, 3.5vw, 36px);
-      font-weight: 900; color: #fff; margin-bottom: 12px;
-    }
-    .final-cta p {
-      font-size: 15px; color: var(--ink-dim); max-width: 650px; margin: 0 auto 28px;
-    }
-    .cta-btns {
-      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
-    }
-    .cta-btn-primary {
-      padding: 14px 32px; border-radius: 14px;
-      background: var(--red-cta); color: #fff;
-      font-size: 15px; font-weight: 800; text-decoration: none;
-      box-shadow: 0 8px 24px rgba(230, 57, 70, 0.45);
-      transition: all 0.2s;
-    }
-    .cta-btn-primary:hover {
-      background: var(--red-hover); transform: scale(1.03);
-    }
-    .cta-btn-whatsapp {
-      padding: 14px 28px; border-radius: 14px;
-      background: #25D366; color: #fff;
-      font-size: 15px; font-weight: 800; text-decoration: none;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
-    }
-    .cta-btn-whatsapp:hover {
-      background: #20BA5A; transform: scale(1.03);
-    }
-
-    /* FOOTER */
-    .academy-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 40px 0; background: rgba(4, 12, 23, 0.95);
-    }
-    .footer-inner {
-      max-width: 1280px; margin: 0 auto; padding: 0 24px;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;
-    }
-    .footer-brand {
-      display: flex; align-items: center; gap: 14px;
-    }
-    .footer-brand img {
-      height: 48px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
-    }
-    .footer-brand-text h5 { font-size: 14px; font-weight: 800; color: #fff; }
-    .footer-brand-text p { font-size: 11px; color: var(--ink-muted); }
-    .footer-links a {
-      color: var(--ink-dim); font-size: 13px; text-decoration: none; margin-left: 20px;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--gold); }
-
-    /* ========================================================
-       RESPONSIVE ADAPTATIONS (宽屏 PC vs 移动手机)
-       ======================================================== */
-    @media (max-width: 1100px) {
+    /* 响应式调整 */
+    @media (max-width: 1040px) {
       .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-      .omo-steps { grid-template-columns: repeat(2, 1fr); }
+      .omo-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer__grid { grid-template-columns: 1fr; text-align: center; }
+      .footer__grid > div { text-align: center !important; }
     }
-
-    @media (max-width: 768px) {
-      .cx-nav-links, .cx-nav-right { display: none; }
-      .mobile-menu-btn { display: block; }
+    @media (max-width: 680px) {
       .pricing-grid { grid-template-columns: 1fr; }
       .rules-grid { grid-template-columns: 1fr; }
       .coaches-grid { grid-template-columns: 1fr; }
       .coach-card { flex-direction: column; text-align: center; }
-      .coach-badges { justify-content: center; }
-      .omo-steps { grid-template-columns: 1fr; }
-      .grading-box { padding: 20px 14px; }
-      .grading-table th, .grading-table td { padding: 10px 8px; font-size: 12px; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links a { margin: 0 10px; }
+      .coach-chips { justify-content: center; }
+      .omo-grid { grid-template-columns: 1fr; }
+      .table-container { padding: 14px 10px; }
+      .cxb-table th, .cxb-table td { padding: 8px 6px; font-size: 0.78rem; }
     }
 
-    /* 移动端菜单抽屉 */
-    .mobile-drawer {
-      display: none; position: fixed; inset: 0; z-index: 2000;
-      background: rgba(4, 12, 23, 0.96); backdrop-filter: blur(24px);
-      padding: 30px 24px; flex-direction: column; gap: 20px;
+    /* APPLE STYLE MEGA MENU & BACKDROP (100% 首页移植) */
+    .apple-backdrop {
+      position: fixed; inset: 0; z-index: 9400;
+      background: rgba(4, 12, 23, 0.5);
+      backdrop-filter: blur(var(--backdrop-blur)); -webkit-backdrop-filter: blur(24px);
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
     }
-    .mobile-drawer.open { display: flex; }
-    .mobile-drawer-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    .apple-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .apple-mega-menu {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
+      background: var(--mega-bg) !important; backdrop-filter: blur(var(--mega-blur)) !important; -webkit-backdrop-filter: blur(var(--mega-blur)) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-100%);
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 100px 40px 60px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
-    .mobile-nav-a {
-      font-size: 18px; font-weight: 700; color: #fff; text-decoration: none; padding: 12px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    .apple-mega-menu.open { transform: translateY(0); }
+
+    .apple-mega-container {
+      max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;
+    }
+    .apple-mega-col { display: flex; flex-direction: column; gap: 16px; }
+    .apple-mega-col h4 {
+      font-family: var(--font-serif) !important; font-size: 15px !important; font-weight: 600 !important;
+      color: rgba(255, 255, 255, 0.85) !important; letter-spacing: 2px !important; margin-bottom: 10px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; padding-bottom: 8px !important;
+    }
+    .apple-mega-col a {
+      font-family: var(--font-sans) !important; font-size: 15px !important; font-weight: 400 !important;
+      color: rgba(255, 255, 255, 0.75) !important; text-decoration: none !important; cursor: pointer !important;
+      transition: all 0.2s ease !important; display: flex !important; align-items: center !important;
+    }
+    .apple-mega-col a:hover {
+      color: var(--gold-hover) !important; transform: translateX(4px) !important;
+    }
+
+    .apple-segment {
+      display: flex; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 4px; width: 100%; max-width: 300px;
+    }
+    .apple-segment .seg-btn {
+      flex: 1; background: transparent; border: none; color: rgba(255, 255, 255, 0.5);
+      padding: 10px 0; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .apple-segment .seg-btn.active {
+      background: rgba(255, 255, 255, 0.95); color: #111; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
 
-  <div class="ambient-glow"></div>
+<div id="securityGate">
 
-  <!-- 1. 全站统一宽屏导航栏 (PC 大气横展 / Mobile 极简自适应) -->
-  <nav class="cx-nav">
-    <div class="cx-nav-inner">
-      <a href="index.html" class="cx-brand">
-        <img src="cxb_round_emblem.png" alt="CXB Logo" class="cx-brand-logo">
-        <div class="cx-brand-text">
-          <h1 data-i18n="nav.title">百乐象棋俱乐部</h1>
-          <p>CLUB XIANGQI BERA · ACADEMY</p>
-        </div>
-      </a>
-
-      <!-- PC 端横向导航链接 -->
-      <div class="cx-nav-links">
-        <a href="index.html" class="cx-nav-link" data-i18n="nav.home">首页</a>
-        <a href="#classes" class="cx-nav-link active" data-i18n="nav.academy">常规学院</a>
-        <a href="#grading" class="cx-nav-link" data-i18n="nav.grading">七级考评</a>
-        <a href="#coaches" class="cx-nav-link" data-i18n="nav.coaches">师资团队</a>
-        <a href="index.html#ladder" class="cx-nav-link" data-i18n="nav.ladder">官方天梯榜</a>
-        <a href="index.html#events" class="cx-nav-link" data-i18n="nav.events">赛事与活动</a>
+  <!-- 1. 顶栏导航 (100% 与首页一致) -->
+  <header class="public-nav-bar" style="position:relative; z-index:9600;">
+    <a href="index.html" class="p-nav-brand">
+      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <div>
+        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
       </div>
+    </a>
 
-      <!-- 右侧辅助工具 -->
-      <div class="cx-nav-right">
-        <div class="lang-pill">
-          <button id="btn_cn" class="lang-btn active" onclick="setAcademyLang('cn')">中文</button>
-          <button id="btn_bm" class="lang-btn" onclick="setAcademyLang('bm')">Melayu</button>
-          <button id="btn_en" class="lang-btn" onclick="setAcademyLang('en')">English</button>
-        </div>
-        <a href="index.html#login" class="btn-login-gate" data-i18n="nav.login">
-          <span>👤</span> <span data-i18n="nav.login_btn">学员登录</span>
-        </a>
-      </div>
-
-      <!-- 移动端汉堡按钮 -->
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <!-- PC 宽屏导航链接 -->
+    <div class="p-nav-desktop-links">
+      <a href="index.html" class="p-nav-btn" data-i18n="nav.home">首页</a>
+      <a href="academy.html" class="p-nav-btn active" data-i18n="nav.academy">🏛️ 常规学院</a>
+      <a href="index.html#ladder" class="p-nav-btn" data-i18n="nav.ladder">天梯榜</a>
+      <a href="index.html#events" class="p-nav-btn" data-i18n="events.title">赛事活动</a>
     </div>
-  </nav>
 
-  <!-- 移动端抽屉菜单 -->
-  <div id="mobileDrawer" class="mobile-drawer">
-    <div class="mobile-drawer-header">
-      <div style="font-weight:900; font-size:18px; color:var(--gold);">CXQB ACADEMY</div>
-      <button onclick="toggleMobileMenu()" style="background:none; border:none; color:#fff; font-size:24px;">✕</button>
-    </div>
-    <a href="index.html" class="mobile-nav-a" data-i18n="nav.home">首页</a>
-    <a href="#classes" class="mobile-nav-a" onclick="toggleMobileMenu()" data-i18n="nav.academy">常规班级与学费</a>
-    <a href="#grading" class="mobile-nav-a" onclick="toggleMobileMenu()" data-i18n="nav.grading">官方七级考评</a>
-    <a href="#coaches" class="mobile-nav-a" onclick="toggleMobileMenu()" data-i18n="nav.coaches">师资团队与模式</a>
-    <a href="index.html#ladder" class="mobile-nav-a" data-i18n="nav.ladder">官方天梯排位榜</a>
-    <a href="index.html#events" class="mobile-nav-a" data-i18n="nav.events">赛事中心</a>
-    <div style="margin-top:20px; display:flex; gap:10px;">
-      <button class="lang-btn" onclick="setAcademyLang('cn')">中文</button>
-      <button class="lang-btn" onclick="setAcademyLang('bm')">Melayu</button>
-      <button class="lang-btn" onclick="setAcademyLang('en')">English</button>
-    </div>
-  </div>
+    <!-- 菜单切换按钮 (与首页一致触发 Apple Mega Menu) -->
+    <button class="nav-menu-btn" onclick="toggleMainNav()">
+      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+    </button>
+  </header>
 
-  <div class="container">
+  <div class="public-content-wrap">
 
-    <!-- 2. HERO 标语区域 -->
-    <header class="academy-hero">
-      <div class="hero-badge-wrap">
-        <span style="font-size:14px;">🏅</span>
-        <span class="hero-badge-text" data-i18n="hero.badge">百乐县中国象棋公会 官方技术认证与青训基地</span>
-      </div>
-      <h2 data-i18n="hero.title">
-        百乐象棋学院 · <span>常规棋艺集训班</span>
-      </h2>
-      <p class="hero-sub" data-i18n="hero.sub">
-        雪隆正规军体系归来 · 双彭亨州代表联袂执教。打破传统野路子，为百乐县学童打造直通校队、县正选代表与 PAJSK 官方学分的现代象棋培训基地。
+    <!-- 2. HERO 模块 (与首页一致的卡片风格) -->
+    <header class="hero">
+      <img src="cxb_round_emblem.png" alt="CXB Logo" class="hero__logo">
+      <h1 class="hero__title" data-i18n="academy.hero_title">百乐象棋学院</h1>
+      <div class="hero__en">REGULAR XIANGQI ACADEMY · CXQB</div>
+      <p class="hero__tagline" data-i18n="academy.hero_sub">
+        雪隆正规军体系归来 · 双彭亨州代表联袂执教<br>全县唯一官方七级考评与 PAJSK 学分认证青训基地
       </p>
-
-      <div class="hero-highlights">
-        <div class="highlight-chip"><span>⚔️</span> <span data-i18n="chip.standard">雪隆专业棋院标准训练大纲</span></div>
-        <div class="highlight-chip"><span>📈</span> <span data-i18n="chip.ladder">全县唯一 0~2000 ELO 天梯排位</span></div>
-        <div class="highlight-chip"><span>📜</span> <span data-i18n="chip.pajsk">公会钢印官方考级文凭 (PAJSK 认证)</span></div>
+      <div class="hero__badges">
+        <span class="badge" data-i18n="chip.standard">👑 雪隆专业棋院标准训练大纲</span>
+        <span class="badge" data-i18n="chip.ladder">⚔️ 全县唯一 0~2000 ELO 天梯排位</span>
+        <span class="badge" data-i18n="chip.pajsk">🏅 公会官方七级考评认证 (PAJSK)</span>
       </div>
     </header>
 
-    <!-- 3. 班级架构与学费价目表 (3+1 卡片矩阵) -->
-    <section id="classes">
-      <div class="section-header">
-        <div class="section-badge" data-i18n="sec.classes_badge">CURRICULUM & TUITION</div>
-        <h3 class="section-title" data-i18n="sec.classes_title">常规阶梯班级与收费标准</h3>
-        <p class="section-subtitle" data-i18n="sec.classes_sub">
-          紧密结合直凉与百乐县消费习惯，从启蒙打底到县代表特训，阶梯分明、物超所值。
-        </p>
+    <!-- 3. 班级架构与学费价目表 -->
+    <section class="section" id="classes">
+      <div class="section__head">
+        <h2 class="section__title" data-i18n="sec.classes_title">常规阶梯班级与收费标准</h2>
+        <p class="section__sub" data-i18n="sec.classes_sub">紧密结合直凉与百乐县消费习惯，从启蒙打底到县代表特训，阶梯分明、物超所值</p>
       </div>
 
       <div class="pricing-grid">
 
         <!-- 班级 1：初级基础研习班 -->
         <div class="price-card">
-          <div class="card-tier-tag">TAHAP 1 ~ 2</div>
-          <h4 class="card-title" data-i18n="c1.title">初级基础研习班</h4>
-          <div class="card-en-title">Kelas Asas · Foundation Class</div>
-          <div class="card-price-box">
-            <div class="card-price">RM 60 <small>/ 月 (Bulan)</small></div>
+          <div class="card-tier-pill">TAHAP 1 ~ 2</div>
+          <h3 class="card-title" data-i18n="c1.title">初级基础研习班</h3>
+          <div class="card-sub-en">Kelas Asas · Foundation</div>
+          <div class="card-price-wrap">
+            <div class="card-price-main">RM 60 <small>/ 月</small></div>
             <span class="card-quarter-combo" data-i18n="c1.combo">季付优惠: RM 170 / 3个月</span>
           </div>
-          <ul class="card-features">
-            <li><span class="icon">✓</span> <strong data-i18n="c1.target">对象：</strong> 7-10岁初学者 / 零基础入门</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c1.time">课时：</strong> 每周 1 堂 (线下 1.5小时)，每月 4 堂</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c1.content">内容：</strong> 棋规礼仪、吃子保护意识、经典一步杀与百题战术打底</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c1.coach">师资：</strong> 本地驻场老师配合正规成熟教材手把手带练</li>
+          <ul class="card-features-list">
+            <li><span class="ico">✓</span> <span><b data-i18n="c.target">对象：</b> 7-10岁初学 / 零基础入门</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.time">课时：</b> 每周 1 堂 (线下 1.5h)，每月 4 堂</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.content">内容：</b> 棋规礼仪、吃子防守、百题一步杀</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.coach">师资：</b> 本地驻场老师配合正规成熟教材带练</span></li>
           </ul>
-          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="card-btn btn-regular" data-i18n="btn.enroll">立即报名入班</a>
+          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn-card btn-card--ghost" data-i18n="btn.enroll">立即报名入班</a>
         </div>
 
         <!-- 班级 2：中级战术进阶班 -->
         <div class="price-card">
-          <div class="card-tier-tag">TAHAP 3 ~ 4</div>
-          <h4 class="card-title" data-i18n="c2.title">中级战术进阶班</h4>
-          <div class="card-en-title">Kelas Pertengahan · Intermediate</div>
-          <div class="card-price-box">
-            <div class="card-price">RM 85 <small>/ 月 (Bulan)</small></div>
+          <div class="card-tier-pill">TAHAP 3 ~ 4</div>
+          <h3 class="card-title" data-i18n="c2.title">中级战术进阶班</h3>
+          <div class="card-sub-en">Kelas Pertengahan · Intermediate</div>
+          <div class="card-price-wrap">
+            <div class="card-price-main">RM 85 <small>/ 月</small></div>
             <span class="card-quarter-combo" data-i18n="c2.combo">季付优惠: RM 240 / 3个月</span>
           </div>
-          <ul class="card-features">
-            <li><span class="icon">✓</span> <strong data-i18n="c2.target">对象：</strong> 各校华小校队主力 / 具实战经验者</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c2.time">课时：</strong> 每周 2 堂双轨 (周中线上 1.5h + 周末线下 2h)</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c2.content">内容：</strong> 十大经典组合杀法、中炮开局体系、马兵与炮兵实用残局</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c2.coach">师资：</strong> Nicholas 现役州代表线上精讲 + 本地基地带钟实战</li>
+          <ul class="card-features-list">
+            <li><span class="ico">✓</span> <span><b data-i18n="c.target">对象：</b> 华小校队主力 / 具实战经验者</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.time">课时：</b> 每周 2 堂双轨 (周中线上1.5h+周末线下2h)</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.content">内容：</b> 十大杀法组合、中炮开局、马兵残局</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.coach">师资：</b> Nicholas 现役州代表精讲 + 基地带钟实战</span></li>
           </ul>
-          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="card-btn btn-regular" data-i18n="btn.enroll">申请进阶审核</a>
+          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn-card btn-card--ghost" data-i18n="btn.enroll">申请进阶审核</a>
         </div>
 
         <!-- 班级 3：高级精英研修班 -->
         <div class="price-card">
-          <div class="card-tier-tag">TAHAP 5 ~ 6</div>
-          <h4 class="card-title" data-i18n="c3.title">高级精英研修班</h4>
-          <div class="card-en-title">Kelas Lanjutan Elit · Advanced Elite</div>
-          <div class="card-price-box">
-            <div class="card-price">RM 110 <small>/ 月 (Bulan)</small></div>
+          <div class="card-tier-pill">TAHAP 5 ~ 6</div>
+          <h3 class="card-title" data-i18n="c3.title">高级精英研修班</h3>
+          <div class="card-sub-en">Kelas Lanjutan Elit · Advanced</div>
+          <div class="card-price-wrap">
+            <div class="card-price-main">RM 110 <small>/ 月</small></div>
             <span class="card-quarter-combo" data-i18n="c3.combo">季付优惠: RM 310 / 3个月</span>
           </div>
-          <ul class="card-features">
-            <li><span class="icon">✓</span> <strong data-i18n="c3.target">对象：</strong> 全县八强争冠新星 / 6-10人精品小班</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c3.time">课时：</strong> 每周 2 堂双轨高强度特训 (线上 1.5h + 线下 2h)</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c3.content">内容：</strong> 现代布局飞刀库、深层算度组合、带钟慢棋逐盘精细复盘</li>
-            <li><span class="icon">✓</span> <strong data-i18n="c3.coach">师资：</strong> 创办人总教练与 Nicholas 联手研发高阶专训模块</li>
+          <ul class="card-features-list">
+            <li><span class="ico">✓</span> <span><b data-i18n="c.target">对象：</b> 全县八强争冠新星 (限 6-10人精品小班)</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.time">课时：</b> 每周 2 堂双轨高强度特训 (线上+线下)</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.content">内容：</b> 现代飞刀库、深层算度、带钟慢棋复盘</span></li>
+            <li><span class="ico">✓</span> <span><b data-i18n="c.coach">师资：</b> 创办人总教练与 Nicholas 自研专训模块</span></li>
           </ul>
-          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="card-btn btn-regular" data-i18n="btn.enroll">申请精英资格</a>
+          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn-card btn-card--ghost" data-i18n="btn.enroll">申请精英资格</a>
         </div>
 
         <!-- 荣誉班级：百乐县正选代表队 -->
         <div class="price-card featured">
-          <div class="card-tier-tag" style="background:rgba(241,196,15,0.25); color:#F1C40F;">TAHAP 7 👑</div>
-          <h4 class="card-title" data-i18n="c4.title">百乐县正选代表队</h4>
-          <div class="card-en-title">Skuad Utama Daerah Bera</div>
-          <div class="card-price-box">
-            <div class="card-price" style="color:var(--gold);">RM 0 <small style="color:var(--gold-soft);">/ 个人免缴</small></div>
-            <span class="card-quarter-combo" style="color:#A7F3D0;">★ 公会专项发展基金赞助 (RM150/人)</span>
+          <div class="featured-tag">★ 荣誉正选 · 公会全额赞助</div>
+          <div class="card-tier-pill" style="color:var(--gold); border-color:var(--gold);">TAHAP 7 👑</div>
+          <h3 class="card-title" data-i18n="c4.title">百乐县正选代表队</h3>
+          <div class="card-sub-en">Skuad Utama Daerah Bera</div>
+          <div class="card-price-wrap">
+            <div class="card-price-main" style="color:var(--gold);">RM 0 <small style="color:var(--gold-soft);">/ 个人免缴</small></div>
+            <span class="card-quarter-combo" style="color:var(--green);">★ 公会专项发展基金赞助 (RM150/人)</span>
           </div>
-          <ul class="card-features">
-            <li><span class="icon">👑</span> <strong data-i18n="c4.target">选拔机制：</strong> 年度全县赛各组前四名直通 + 教练组特邀</li>
-            <li><span class="icon">👑</span> <strong data-i18n="c4.time">特训模式：</strong> 赛前封闭式高强度集训 + 针对性战术布置</li>
-            <li><span class="icon">👑</span> <strong data-i18n="c4.content">目标：</strong> 代表百乐县出征全彭赛 (MSSP) 与全国赛冲击冠军</li>
-            <li><span class="icon">👑</span> <strong data-i18n="c4.coach">挂帅：</strong> 创办人总教练亲率主力战将出征</li>
+          <ul class="card-features-list">
+            <li><span class="ico">👑</span> <span><b data-i18n="c4.target">选拔：</b> 年度全县赛各组前四名直通 + 教练特邀</span></li>
+            <li><span class="ico">👑</span> <span><b data-i18n="c4.time">模式：</b> 赛前封闭式高强度集训 + 针对性战术布置</span></li>
+            <li><span class="ico">👑</span> <span><b data-i18n="c4.content">目标：</b> 代表百乐县出征全彭赛 (MSSP) 与全国赛</span></li>
+            <li><span class="ico">👑</span> <span><b data-i18n="c4.coach">挂帅：</b> 创办人总教练亲率主力战将出征</span></li>
           </ul>
-          <a href="index.html#ladder" class="card-btn btn-featured" data-i18n="c4.btn">查看全县正选榜</a>
+          <a href="index.html#ladder" class="btn-card btn-card--red" data-i18n="c4.btn">查看全县正选榜</a>
         </div>
 
       </div>
 
-      <!-- 新生材料与档案费说明 -->
-      <div class="reg-kit-banner">
-        <div class="reg-kit-info">
+      <!-- 材料与建档费说明横幅 -->
+      <div class="announce-kit">
+        <div class="announce-kit-text">
           <h4><span>📦</span> <span data-i18n="kit.title">新生一次性材料与天梯建档费</span></h4>
-          <p data-i18n="kit.desc">包含：《CXQB 正规象棋研习册/习题集》打印版 1 册 + 官网天梯 ELO 终身学员档案建立 + 获得公会官方考评资格证书。</p>
+          <p data-i18n="kit.desc">包含：《CXQB 正规象棋研习册/习题集》精装打印版 1 册 + 官网天梯 ELO 终身学员档案建立 + 获得公会官方考评资格证书。</p>
         </div>
-        <div class="reg-kit-badge">RM 30 / 一次性 (One-Off)</div>
+        <div class="announce-kit-badge">RM 30 / 一次性 (One-Off)</div>
       </div>
     </section>
 
-    <!-- 4. 官方七级考评体系 (TAHAP 1~7) 详细可视化表格 -->
-    <section id="grading">
-      <div class="section-header">
-        <div class="section-badge" data-i18n="sec.grading_badge">STANDARDIZED ASSESSMENT</div>
-        <h3 class="section-title" data-i18n="sec.grading_title">公会官方七级考评认证体系</h3>
-        <p class="section-subtitle" data-i18n="sec.grading_sub">
-          严禁自封虚浮头衔！全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），成绩直接对接 PAJSK 课外活动学分。
-        </p>
+    <!-- 4. 官方七级考评体系 (TAHAP 1~7) -->
+    <section class="section" id="grading">
+      <div class="section__head">
+        <h2 class="section__title" data-i18n="sec.grading_title">公会官方七级考评认证体系</h2>
+        <p class="section__sub" data-i18n="sec.grading_sub">全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），成绩直接对接 PAJSK 课外活动学分</p>
       </div>
 
-      <div class="grading-box">
-        <table class="grading-table">
+      <div class="table-container">
+        <table class="cxb-table">
           <thead>
             <tr>
               <th data-i18n="th.tier">阶梯等级</th>
@@ -776,76 +645,76 @@
             </tr>
           </thead>
           <tbody>
-            <tr style="background: rgba(241,196,15,0.06);">
-              <td><span class="tahap-badge tahap-top">👑 Lv 7</span></td>
+            <tr class="highlight-tr">
+              <td><span class="t-badge t-badge--top">👑 Lv 7</span></td>
               <td><strong>七级考评 (百乐县正选代表)</strong></td>
               <td>Tahap 7 (Wakil Daerah)</td>
-              <td class="elo-range">1800 - 2000</td>
+              <td class="elo-code">1800 - 2000</td>
               <td><strong>百乐县最高水平战力！</strong> 征战全彭赛 (MSSP) 与全国赛，精通布局飞刀与深厚残局。</td>
             </tr>
             <tr>
-              <td><span class="tahap-badge tahap-top">Lv 6</span></td>
+              <td><span class="t-badge t-badge--top">Lv 6</span></td>
               <td><strong>六级考评 (县代表种子队)</strong></td>
               <td>Tahap 6 (Skuad Bera)</td>
-              <td class="elo-range">1500 - 1799</td>
+              <td class="elo-code">1500 - 1799</td>
               <td><strong>全县冠亚军争夺圈！</strong> 布局库成型，具备强大的中局战术算度与残局功力。</td>
             </tr>
             <tr>
-              <td><span class="tahap-badge tahap-mid">Lv 5</span></td>
+              <td><span class="t-badge t-badge--mid">Lv 5</span></td>
               <td><strong>五级考评 (华小校队领军)</strong></td>
               <td>Tahap 5 (Wakil Sekolah)</td>
-              <td class="elo-range">1300 - 1499</td>
+              <td class="elo-code">1300 - 1499</td>
               <td><strong>全县八强潜力新星！</strong> 校队台次领军选手，精通战术组合与弃子攻杀。</td>
             </tr>
             <tr>
-              <td><span class="tahap-badge tahap-mid">Lv 4</span></td>
+              <td><span class="t-badge t-badge--mid">Lv 4</span></td>
               <td><strong>四级考评 (实战校队主力)</strong></td>
               <td>Tahap 4 (Pertengahan)</td>
-              <td class="elo-range">1000 - 1299</td>
+              <td class="elo-code">1000 - 1299</td>
               <td><strong>各校校队主力门槛！</strong> 熟练主流开局套路，掌握马兵与炮兵实用残局。</td>
             </tr>
             <tr>
-              <td><span class="tahap-badge tahap-base">Lv 3</span></td>
+              <td><span class="t-badge t-badge--base">Lv 3</span></td>
               <td><strong>三级考评 (战术进阶)</strong></td>
               <td>Tahap 3 (Lanjutan)</td>
-              <td class="elo-range">700 - 999</td>
+              <td class="elo-code">700 - 999</td>
               <td>熟练掌握十大基础杀法组合，掌握正规中炮开局攻防原则。</td>
             </tr>
             <tr>
-              <td><span class="tahap-badge tahap-base">Lv 2</span></td>
+              <td><span class="t-badge t-badge--base">Lv 2</span></td>
               <td><strong>二级考评 (基础攻防)</strong></td>
               <td>Tahap 2 (Permulaan)</td>
-              <td class="elo-range">300 - 699</td>
+              <td class="elo-code">300 - 699</td>
               <td>掌握基本一步杀两步杀，懂子力价值，极少出现低级送子漏着。</td>
             </tr>
             <tr>
-              <td><span class="tahap-badge tahap-base">Lv 1</span></td>
+              <td><span class="t-badge t-badge--base">Lv 1</span></td>
               <td><strong>一级考评 (启蒙规范)</strong></td>
               <td>Tahap 1 (Asas)</td>
-              <td class="elo-range">100 - 299</td>
+              <td class="elo-code">100 - 299</td>
               <td>掌握正规行棋吃子与胜负判定，遵守棋道礼仪，不犯违规杀将。</td>
             </tr>
             <tr style="opacity: 0.65;">
-              <td><span class="tahap-badge" style="background:rgba(255,255,255,0.05); color:#94A3B8;">未定级</span></td>
+              <td><span class="t-badge t-badge--base">未定级</span></td>
               <td><strong>未定级 (观察期)</strong></td>
               <td>Belum Digredkan (Unrated)</td>
-              <td class="elo-range" style="color:#94A3B8;">0 - 99</td>
+              <td class="elo-code" style="color:var(--ink-dim);">0 - 99</td>
               <td>新进学员入会初测观察期，掌握基础规则中。</td>
             </tr>
           </tbody>
         </table>
 
-        <!-- 三大天梯算法保障 -->
+        <!-- 三大保障机制 -->
         <div class="rules-grid">
-          <div class="rule-card">
+          <div class="rule-item">
             <h5><span>⚡</span> <span data-i18n="r1.title">动态 K 值调分引擎</span></h5>
             <p data-i18n="r1.desc">新手期 (≤999分) K=30 快速定级脱离新手池；校队期 K=20 稳步反映战力；高手期 K=10 极稳控分，防止单场发挥波动。</p>
           </div>
-          <div class="rule-card">
+          <div class="rule-item">
             <h5><span>🛡️</span> <span data-i18n="r2.title">段位底线保护机制 (Floor)</span></h5>
             <p data-i18n="r2.desc">学员一旦通过考核晋升等级（如升至 1500 分 Tahap 6），积分绝不下穿该段位底线！保护学童信心，确立官方文凭公信力。</p>
           </div>
-          <div class="rule-card">
+          <div class="rule-item">
             <h5><span>📐</span> <span data-i18n="r3.title">三维综合考评达标</span></h5>
             <p data-i18n="r3.desc">升阶必须满足：<strong>天梯积分硬达标 + 教练组技术把关 (复盘/棋品) + 官方比赛实战检验</strong>，彻底杜绝水分与虚标！</p>
           </div>
@@ -854,26 +723,23 @@
     </section>
 
     <!-- 5. 师资团队与 OMO 双轨教学模式 -->
-    <section id="coaches">
-      <div class="section-header">
-        <div class="section-badge" data-i18n="sec.coach_badge">LEADERSHIP & COACHING BENCH</div>
-        <h3 class="section-title" data-i18n="sec.coach_title">豪华师资团队与教学模式</h3>
-        <p class="section-subtitle" data-i18n="sec.coach_sub">
-          双彭亨现役州代表联手执教，结合 OMO 双轨智训体系，打造全县最专业的青训高地。
-        </p>
+    <section class="section" id="coaches">
+      <div class="section__head">
+        <h2 class="section__title" data-i18n="sec.coach_title">豪华师资团队与教学模式</h2>
+        <p class="section__sub" data-i18n="sec.coach_sub">双彭亨现役州代表联手执教，结合 OMO 双轨智训体系，打造全县最专业的青训高地</p>
       </div>
 
       <div class="coaches-grid">
         <!-- 教练 1：创办人兼总教练 -->
         <div class="coach-card">
-          <div class="coach-avatar">帥</div>
+          <div class="coach-avatar-badge">帥</div>
           <div class="coach-info">
             <h4 data-i18n="coach1.name">总教练 (创办人)</h4>
             <div class="coach-role" data-i18n="coach1.role">FOUNDER & CHIEF SYSTEM ARCHITECT</div>
-            <div class="coach-badges">
-              <span class="coach-badge" style="background:rgba(241,196,15,0.15); color:var(--gold);">雪隆公开组 Top 20</span>
-              <span class="coach-badge" style="background:rgba(241,196,15,0.15); color:var(--gold);">全彭公开组 Top 8</span>
-              <span class="coach-badge">彭亨州代表 4 年</span>
+            <div class="coach-chips">
+              <span class="coach-chip" style="color:var(--gold); border-color:var(--gold);">雪隆公开组 Top 20</span>
+              <span class="coach-chip" style="color:var(--gold); border-color:var(--gold);">全彭公开组 Top 8</span>
+              <span class="coach-chip">彭亨州代表 4 年</span>
             </div>
             <p class="coach-desc" data-i18n="coach1.desc">
               曾前往雪隆顶尖专业棋院受训，深谙现代象棋开局飞刀与算度训练。掌管全县 ELO 天梯系统架构、大型赛事策划及代表队赛前封闭巅峰特训。
@@ -883,15 +749,15 @@
 
         <!-- 教练 2：Nicholas 教练 -->
         <div class="coach-card">
-          <div class="coach-avatar" style="border-color:#3498DB; color:#3498DB;">仕</div>
+          <div class="coach-avatar-badge" style="color:#2980B9;">仕</div>
           <div class="coach-info">
             <h4 data-i18n="coach2.name">Nicholas 教练</h4>
             <div class="coach-role" data-i18n="coach2.role">HEAD OF TEACHING & SENIOR COACH</div>
-            <div class="coach-badges">
-              <span class="coach-badge" style="background:rgba(52,152,219,0.15); color:#5dade2;">全彭 Top 16</span>
-              <span class="coach-badge">彭亨州代表 8 年+</span>
-              <span class="coach-badge">曾任专业象棋教师</span>
-              <span class="coach-badge">现任专业跆拳道教练</span>
+            <div class="coach-chips">
+              <span class="coach-chip" style="color:#5dade2; border-color:#2980B9;">全彭 Top 16</span>
+              <span class="coach-chip">彭亨州代表 8 年+</span>
+              <span class="coach-chip">曾任专业象棋教师</span>
+              <span class="coach-chip">现任专业跆拳道教练</span>
             </div>
             <p class="coach-desc" data-i18n="coach2.desc">
               8 年以上彭亨州代表资深老将。具备极其严格的少儿体育纪律把控力与段位教学经验，全权主讲 Tahap 1 至 7 全阶梯日常教务，周中线上理论与月度亲临大课。
@@ -901,32 +767,32 @@
       </div>
 
       <!-- OMO 双轨智训模式 -->
-      <div class="omo-box">
-        <h4 style="font-family:var(--font-serif); font-size:22px; color:#fff; text-align:center; margin-bottom:8px;" data-i18n="omo.title">
+      <div class="omo-wrap">
+        <h3 style="font-family:var(--font-serif); font-size:1.3rem; color:var(--ink); text-align:center; margin-bottom:6px;" data-i18n="omo.title">
           创新 OMO 双轨智训体系 (Online-Merge-Offline)
-        </h4>
-        <p style="font-size:13.5px; color:var(--ink-dim); text-align:center; max-width:700px; margin:0 auto;" data-i18n="omo.sub">
+        </h3>
+        <p style="font-size:0.88rem; color:var(--ink-dim); text-align:center; max-width:680px; margin:0 auto;" data-i18n="omo.sub">
           解决家长平日奔波接送痛点，周中网课学理论，周末基地带钟实战，每月大师亲临，打造最高效的学练闭环！
         </p>
 
-        <div class="omo-steps">
-          <div class="omo-step">
-            <div class="omo-step-num">1</div>
+        <div class="omo-grid">
+          <div class="omo-col">
+            <div class="omo-num">1</div>
             <h6 data-i18n="omo.s1_t">周中云端大师堂</h6>
             <p data-i18n="omo.s1_d">周中晚上 1.5 小时。Nicholas 与总教练高清投屏，深度讲解开局飞刀、战术拆局与经典名局。</p>
           </div>
-          <div class="omo-step">
-            <div class="omo-step-num">2</div>
+          <div class="omo-col">
+            <div class="omo-num">2</div>
             <h6 data-i18n="omo.s2_t">周末基地实战营</h6>
             <p data-i18n="omo.s2_d">周末线下 2.0 小时。本地驻场老师主持全真赛场，戴钟计时对弈，严格摸子走子，实时结算 ELO。</p>
           </div>
-          <div class="omo-step">
-            <div class="omo-step-num">3</div>
+          <div class="omo-col">
+            <div class="omo-num">3</div>
             <h6 data-i18n="omo.s3_t">月度大师亲临周</h6>
             <p data-i18n="omo.s3_d">Nicholas 教练每月亲自下乡百乐，面对面大课拆解、打实战车轮战，亲自把关段位晋级考核。</p>
           </div>
-          <div class="omo-step">
-            <div class="omo-step-num">4</div>
+          <div class="omo-col">
+            <div class="omo-num">4</div>
             <h6 data-i18n="omo.s4_t">赛前巅峰封闭营</h6>
             <p data-i18n="omo.s4_d">学校假期或大赛前夕，总教练亲自返乡挂帅，率领县代表队与精英学员闭门强化，出征夺冠！</p>
           </div>
@@ -934,216 +800,311 @@
       </div>
     </section>
 
-    <!-- 6. 最终报名号召与联系 CTA -->
-    <section class="final-cta">
-      <h3 data-i18n="cta.title">现在加入，迈出成为全县正选的第一步！</h3>
-      <p data-i18n="cta.sub">
-        首期常规班席位有限（高级精英班限 10 人）。立即填写意向报名表或通过 WhatsApp 与我们联系，锁定专属学额。
-      </p>
-      <div class="cta-btns">
-        <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="cta-btn-primary" data-i18n="cta.btn_form">
-          📝 立即填写在线报名表 (Google Form)
-        </a>
-        <a href="https://wa.me/601110825226?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E7%99%BE%E4%B9%90%E8%B1%A1%E6%A3%8B%E4%BF%B1%E4%B9%90%E9%83%A8%E5%B8%B8%E8%A7%84%E9%9B%86%E8%AE%AD%E7%8F%AD" target="_blank" class="cta-btn-whatsapp">
-          <span>💬</span> <span data-i18n="cta.btn_wa">WhatsApp 课程顾问咨询</span>
-        </a>
+    <!-- 6. 行动号召 CTA 卡片 -->
+    <section class="section">
+      <div class="final-card">
+        <h3 data-i18n="cta.title">现在加入，迈出成为全县正选的第一步！</h3>
+        <p data-i18n="cta.sub">首期常规班席位有限（高级精英班限 10 人）。立即填写意向报名表或通过 WhatsApp 与我们联系，锁定专属学额。</p>
+        <div class="cta-btn-group">
+          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn btn--primary" data-i18n="cta.btn_form">
+            📝 立即填写在线报名表 (Google Form)
+          </a>
+          <a href="https://wa.me/601110825226?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E7%99%BE%E4%B9%90%E8%B1%A1%E6%A3%8B%E4%BF%B1%E4%B9%90%E9%83%A8%E5%B8%B8%E8%A7%84%E9%9B%86%E8%AE%AD%E7%8F%AD" target="_blank" class="btn btn--wa">
+            💬 <span data-i18n="cta.btn_wa">WhatsApp 课程顾问咨询</span>
+          </a>
+        </div>
       </div>
     </section>
 
-  </div>
+  </div> <!-- Close public-content-wrap -->
 
-  <!-- 7. 页脚 -->
-  <footer class="academy-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="persatuan_emblem.png" alt="Persatuan Emblem">
-        <div class="footer-brand-text">
-          <h5 data-i18n="footer.cert">百乐县中国象棋公会 官方认证青训学院</h5>
-          <p>PERSATUAN CATUR CINA DAERAH BERA & CLUB XIANGQI BERA</p>
+  <!-- 7. 页脚 (100% 首页一致) -->
+  <footer class="footer">
+    <div class="footer__grid" style="align-items: start; gap: 36px;">
+      <!-- Col 1: About -->
+      <div>
+        <h3 data-i18n="footer.about_title">关于我们</h3>
+        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证</span></p>
+      </div>
+      
+      <!-- Col 2: Partners -->
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">百乐县象棋公会</span>
         </div>
       </div>
-      <div class="footer-links">
-        <a href="index.html" data-i18n="nav.home">官网首页</a>
-        <a href="index.html#ladder" data-i18n="nav.ladder">全县天梯榜</a>
-        <a href="school.html" data-i18n="nav.school_portal">校际赛入口</a>
-        <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+
+      <!-- Col 3: Contact -->
+      <div style="text-align: right;">
+        <h3 data-i18n="footer.contact_title">联系我们</h3>
+        <p>Email: clubxiangqibera@gmail.com</p>
       </div>
     </div>
-    <div style="text-align:center; margin-top:24px; font-size:12px; color:var(--ink-muted);">
-      © 2026 Club XiangQi Bera. All rights reserved. 官方规范：Option B 标准架构.
+    
+    <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
+      © 2026 Club XiangQi Bera. All rights reserved.
     </div>
   </footer>
 
-  <script>
-    // 移动端菜单抽屉
-    function toggleMobileMenu() {
-      const drawer = document.getElementById('mobileDrawer');
-      drawer.classList.toggle('open');
-    }
+</div> <!-- Close securityGate -->
 
-    // 三语词典体系 (CN / BM / EN)
-    const academyI18n = {
-      cn: {
-        "nav.title": "百乐象棋俱乐部",
-        "nav.home": "首页", "nav.academy": "常规学院", "nav.grading": "七级考评", "nav.coaches": "师资团队", "nav.ladder": "官方天梯榜", "nav.events": "赛事中心", "nav.login": "学员登录", "nav.login_btn": "学员登录",
-        "nav.school_portal": "校际赛入口", "nav.admin_portal": "教练管理端",
-        "hero.badge": "百乐县中国象棋公会 官方技术认证与青训基地",
-        "hero.title": "百乐象棋学院 · <span>常规棋艺集训班</span>",
-        "hero.sub": "雪隆正规军体系归来 · 双彭亨州代表联袂执教。打破传统野路子，为百乐县学童打造直通校队、县正选代表与 PAJSK 官方学分的现代象棋培训基地。",
-        "chip.standard": "雪隆专业棋院标准训练大纲",
-        "chip.ladder": "全县唯一 0~2000 ELO 天梯排位",
-        "chip.pajsk": "公会钢印官方考级文凭 (PAJSK 认证)",
-        "sec.classes_badge": "CURRICULUM & TUITION",
-        "sec.classes_title": "常规阶梯班级与收费标准",
-        "sec.classes_sub": "紧密结合直凉与百乐县消费习惯，从启蒙打底到县代表特训，阶梯分明、物超所值。",
-        "c1.title": "初级基础研习班", "c1.combo": "季付优惠: RM 170 / 3个月", "c1.target": "对象：", "c1.time": "课时：", "c1.content": "内容：", "c1.coach": "师资：",
-        "c2.title": "中级战术进阶班", "c2.combo": "季付优惠: RM 240 / 3个月", "c2.target": "对象：", "c2.time": "课时：", "c2.content": "内容：", "c2.coach": "师资：",
-        "c3.title": "高级精英研修班", "c3.combo": "季付优惠: RM 310 / 3个月", "c3.target": "对象：", "c3.time": "课时：", "c3.content": "内容：", "c3.coach": "师资：",
-        "c4.title": "百乐县正选代表队", "c4.target": "选拔机制：", "c4.time": "特训模式：", "c4.content": "目标：", "c4.coach": "挂帅：", "c4.btn": "查看全县正选榜",
-        "btn.enroll": "立即报名入班",
-        "kit.title": "新生一次性材料与天梯建档费",
-        "kit.desc": "包含：《CXQB 正规象棋研习册/习题集》打印版 1 册 + 官网天梯 ELO 终身学员档案建立 + 获得公会官方考评资格证书。",
-        "sec.grading_badge": "STANDARDIZED ASSESSMENT",
-        "sec.grading_title": "公会官方七级考评认证体系",
-        "sec.grading_sub": "严禁自封虚浮头衔！全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），成绩直接对接 PAJSK 课外活动学分。",
-        "th.tier": "阶梯等级", "th.cn": "官方中文认证", "th.bm": "马来文规范 (KPM Tahap)", "th.elo": "对应 ELO 积分区间", "th.desc": "竞技水准与实战考核标准",
-        "r1.title": "动态 K 值调分引擎", "r1.desc": "新手期 (≤999分) K=30 快速定级脱离新手池；校队期 K=20 稳步反映战力；高手期 K=10 极稳控分，防止单场发挥波动。",
-        "r2.title": "段位底线保护机制 (Floor)", "r2.desc": "学员一旦通过考核晋升等级（如升至 1500 分 Tahap 6），积分绝不下穿该段位底线！保护学童信心，确立官方文凭公信力。",
-        "r3.title": "三维综合考评达标", "r3.desc": "升阶必须满足：天梯积分硬达标 + 教练组技术把关 (复盘/棋品) + 官方比赛实战检验，彻底杜绝水分与虚标！",
-        "sec.coach_badge": "LEADERSHIP & COACHING BENCH",
-        "sec.coach_title": "豪华师资团队与教学模式",
-        "sec.coach_sub": "双彭亨现役州代表联手执教，结合 OMO 双轨智训体系，打造全县最专业的青训高地。",
-        "coach1.name": "总教练 (创办人)", "coach1.role": "FOUNDER & CHIEF SYSTEM ARCHITECT",
-        "coach1.desc": "曾前往雪隆顶尖专业棋院受训，深谙现代象棋开局飞刀与算度训练。掌管全县 ELO 天梯系统架构、大型赛事策划及代表队赛前封闭巅峰特训。",
-        "coach2.name": "Nicholas 教练", "coach2.role": "HEAD OF TEACHING & SENIOR COACH",
-        "coach2.desc": "8 年以上彭亨州代表资深老将。具备极其严格的少儿体育纪律把控力与段位教学经验，全权主讲 Tahap 1 至 7 全阶梯日常教务，周中线上理论与月度亲临大课。",
-        "omo.title": "创新 OMO 双轨智训体系 (Online-Merge-Offline)",
-        "omo.sub": "解决家长平日奔波接送痛点，周中网课学理论，周末基地带钟实战，每月大师亲临，打造最高效的学练闭环！",
-        "omo.s1_t": "周中云端大师堂", "omo.s1_d": "周中晚上 1.5 小时。Nicholas 与总教练高清投屏，深度讲解开局飞刀、战术拆局与经典名局。",
-        "omo.s2_t": "周末基地实战营", "omo.s2_d": "周末线下 2.0 小时。本地驻场老师主持全真赛场，戴钟计时对弈，严格摸子走子，实时结算 ELO。",
-        "omo.s3_t": "月度大师亲临周", "omo.s3_d": "Nicholas 教练每月亲自下乡百乐，面对面大课拆解、打实战车轮战，亲自把关段位晋级考核。",
-        "omo.s4_t": "赛前巅峰封闭营", "omo.s4_d": "学校假期或大赛前夕，总教练亲自返乡挂帅，率领县代表队与精英学员闭门强化，出征夺冠！",
-        "cta.title": "现在加入，迈出成为全县正选的第一步！",
-        "cta.sub": "首期常规班席位有限（高级精英班限 10 人）。立即填写意向报名表或通过 WhatsApp 与我们联系，锁定专属学额。",
-        "cta.btn_form": "📝 立即填写在线报名表 (Google Form)",
-        "cta.btn_wa": "WhatsApp 课程顾问咨询",
-        "footer.cert": "百乐县中国象棋公会 官方认证青训学院"
-      },
-      bm: {
-        "nav.title": "Kelab XiangQi Bera",
-        "nav.home": "Utama", "nav.academy": "Akademi", "nav.grading": "7 Tahap", "nav.coaches": "Jurulatih", "nav.ladder": "Carta ELO", "nav.events": "Acara", "nav.login": "Log Masuk", "nav.login_btn": "Log Masuk Pelajar",
-        "nav.school_portal": "Antara Sekolah", "nav.admin_portal": "Portal Jurulatih",
-        "hero.badge": "Pusat Latihan & Pengiktirafan Rasmi Persatuan Catur Cina Daerah Bera",
-        "hero.title": "Akademi CXQB · <span>Sesi Latihan Berkala</span>",
-        "hero.sub": "Sistem Latihan Moden Selangor/KL · Bimbingan Dua Wakil Pahang. Membina laluan murid ke skuad sekolah, wakil daerah Bera dan markah PAJSK rasmi KPM.",
-        "chip.standard": "Silibus Standard Akademi Profesional",
-        "chip.ladder": "Satu-satunya Sistem ELO 0~2000 di Bera",
-        "chip.pajsk": "Sijil Rasmi Persatuan Beriktiraf PAJSK",
-        "sec.classes_badge": "KURIKULUM & YURAN",
-        "sec.classes_title": "Peringkat Kelas & Senarai Yuran",
-        "sec.classes_sub": "Yuran berpatutan mengikut kesesuaian tempatan Triang & Bera, dari asas sifar sehingga skuad daerah.",
-        "c1.title": "Kelas Asas (Tahap 1-2)", "c1.combo": "Pakej 3 Bulan: RM 170", "c1.target": "Sasaran:", "c1.time": "Masa:", "c1.content": "Kandungan:", "c1.coach": "Tenaga:",
-        "c2.title": "Kelas Pertengahan (Tahap 3-4)", "c2.combo": "Pakej 3 Bulan: RM 240", "c2.target": "Sasaran:", "c2.time": "Masa:", "c2.content": "Kandungan:", "c2.coach": "Tenaga:",
-        "c3.title": "Kelas Lanjutan Elit (Tahap 5-6)", "c3.combo": "Pakej 3 Bulan: RM 310", "c3.target": "Sasaran:", "c3.time": "Masa:", "c3.content": "Kandungan:", "c3.coach": "Tenaga:",
-        "c4.title": "Skuad Utama Daerah Bera (Tahap 7)", "c4.target": "Kelayakan:", "c4.time": "Mod Latihan:", "c4.content": "Sasaran:", "c4.coach": "Penyelia:", "c4.btn": "Lihat Kedudukan Daerah",
-        "btn.enroll": "Daftar Sekarang",
-        "kit.title": "Yuran Pendaftaran & Bahan Kursus Sekali Sahaja",
-        "kit.desc": "Termasuk Buku Latihan Rasmi CXQB + Pembukaan Akaun ELO Seumur Hidup + Kelayakan Penilaian Sijil Rasmi.",
-        "sec.grading_badge": "PENILAIAN TAHAP RASMI",
-        "sec.grading_title": "Sistem Penilaian 7 Tahap Rasmi CXQB",
-        "sec.grading_sub": "Diiktiraf sepenuhnya oleh Persatuan Catur Cina Daerah Bera dan menyumbang markah kokurikulum PAJSK rasmi.",
-        "th.tier": "Tahap", "th.cn": "Pensijilan Cina", "th.bm": "Piawaian KPM (Tahap)", "th.elo": "Julat ELO", "th.desc": "Piawaian Prestasi & Ujian",
-        "r1.title": "Enjin K-Faktor Dinamik", "r1.desc": "K=30 untuk asas bagi penetapan pantas; K=20 untuk pertengahan; K=10 untuk elit agar rekod stabil.",
-        "r2.title": "Perlindungan Had Bawah (Rating Floor)", "r2.desc": "Setelah lulus tahap (contohnya 1500 mata Tahap 6), mata ELO tidak akan jatuh ke bawah had tersebut!",
-        "r3.title": "Penilaian Tiga Dimensi", "r3.desc": "Kenaikan tahap memerlukan: Mata ELO capai sasaran + Semakan adab/taktik jurulatih + Prestasi kejohanan rasmi.",
-        "sec.coach_badge": "BARISAN JURULATIH",
-        "sec.coach_title": "Barisan Jurulatih & Sistem OMO",
-        "sec.coach_sub": "Gabungan dua wakil negeri Pahang dengan model latihan hibrid Online + Bersemuka yang paling berkesan.",
-        "coach1.name": "Ketua Jurulatih (Pengasas)", "coach1.role": "PENGASAS & ARKITEK SISTEM ELO",
-        "coach1.desc": "Top 20 Selangor/KL & Top 8 Pahang Kategori Terbuka. Berpengalaman 4 tahun wakil Pahang. Mengendalikan arkitek sistem ELO dan kem insentif skuad daerah.",
-        "coach2.name": "Jurulatih Nicholas", "coach2.role": "PENGARAH AKADEMIK & JURULATIH UTAMA",
-        "coach2.desc": "Top 16 Pahang & 8+ tahun wakil negeri. Berpengalaman sebagai guru catur rasmi dan jurulatih Taekwondo. Mengetuai silibus harian Tahap 1-7.",
-        "omo.title": "Sistem Latihan Pintar OMO (Online-Merge-Offline)",
-        "omo.sub": "Menghapuskan beban menghantar anak setiap hari, teori secara online di rumah dan praktikal catur sebenar di dewan latihan setiap hujung minggu!",
-        "omo.s1_t": "Kelas Teori Online", "omo.s1_d": "1.5 jam waktu malam. Jurulatih membentangkan strategi pembukaan, taktik dan analisis catur secara langsung.",
-        "omo.s2_t": "Praktikal Bersemuka", "omo.s2_d": "2.0 jam hujung minggu di pusat latihan. Bertanding dengan jam catur, mencatat skor dan kemas kini ELO.",
-        "omo.s3_t": "Bengkel Bulanan Jurulatih", "omo.s3_d": "Jurulatih Nicholas turun ke Bera setiap bulan untuk sesi semakan mendalam dan penilaian tahap.",
-        "omo.s4_t": "Kem Elit Pra-Kejohanan", "omo.s4_d": "Ketua jurulatih memimpin kem tertutup khas bagi skuad daerah menjelang MSSP dan kejohanan kebangsaan.",
-        "cta.title": "Sertai Sekarang & Jadi Wakil Daerah Bera!",
-        "cta.sub": "Tempat terhad bagi setiap kumpulan (Kelas Elit terhad 10 orang). Daftar sekarang atau hubungi kami melalui WhatsApp.",
-        "cta.btn_form": "📝 Isi Borang Pendaftaran Online",
-        "cta.btn_wa": "WhatsApp Pertanyaan Kursus",
-        "footer.cert": "Akademi Latihan Rasmi Persatuan Catur Cina Daerah Bera"
-      },
-      en: {
-        "nav.title": "Club XiangQi Bera",
-        "nav.home": "Home", "nav.academy": "Academy", "nav.grading": "7-Grade", "nav.coaches": "Coaches", "nav.ladder": "ELO Ladder", "nav.events": "Events", "nav.login": "Login", "nav.login_btn": "Student Login",
-        "nav.school_portal": "School Portal", "nav.admin_portal": "Admin Portal",
-        "hero.badge": "Official Training Base & Certified by Bera Xiangqi Association",
-        "hero.title": "CXQB Academy · <span>Regular Training Classes</span>",
-        "hero.sub": "Modern KL/Selangor Academy Curriculum · Led by Two Pahang State Representatives. Direct pathway to school teams, Bera district squad, and MOE PAJSK co-curricular credits.",
-        "chip.standard": "Pro Academy Training Syllabus",
-        "chip.ladder": "Exclusive 0~2000 ELO Rating System",
-        "chip.pajsk": "Official Certified Diplomas (PAJSK Recognised)",
-        "sec.classes_badge": "CURRICULUM & TUITION",
-        "sec.classes_title": "Class Tiers & Tuition Fees",
-        "sec.classes_sub": "Affordable pricing tailored to local families in Triang & Bera, from beginner fundamentals to district champions.",
-        "c1.title": "Foundation Class (Tahap 1-2)", "c1.combo": "Quarterly Combo: RM 170 / 3 Months", "c1.target": "Target:", "c1.time": "Schedule:", "c1.content": "Curriculum:", "c1.coach": "Instructors:",
-        "c2.title": "Intermediate Class (Tahap 3-4)", "c2.combo": "Quarterly Combo: RM 240 / 3 Months", "c2.target": "Target:", "c2.time": "Schedule:", "c2.content": "Curriculum:", "c2.coach": "Instructors:",
-        "c3.title": "Advanced Elite Class (Tahap 5-6)", "c3.combo": "Quarterly Combo: RM 310 / 3 Months", "c3.target": "Target:", "c3.time": "Schedule:", "c3.content": "Curriculum:", "c3.coach": "Instructors:",
-        "c4.title": "Bera District Primary Squad (Tahap 7)", "c4.target": "Selection:", "c4.time": "Format:", "c4.content": "Objective:", "c4.coach": "Head Coach:", "c4.btn": "View District Ladder",
-        "btn.enroll": "Enroll Now",
-        "kit.title": "One-Time Registration & Starter Kit",
-        "kit.desc": "Includes Official CXQB Student Workbook + Lifetime ELO System Account + Association Certificate Assessment Qualification.",
-        "sec.grading_badge": "STANDARDIZED ASSESSMENT",
-        "sec.grading_title": "Official 7-Grade Xiangqi Assessment System",
-        "sec.grading_sub": "Official 7-Grade (Tahap 1~7) standard recognized by the District Association and accredited for PAJSK credits.",
-        "th.tier": "Tier", "th.cn": "Chinese Certification", "th.bm": "MOE Standard (Tahap)", "th.elo": "ELO Range", "th.desc": "Skill Standards & Criteria",
-        "r1.title": "Dynamic K-Factor Engine", "r1.desc": "Beginner K=30 for rapid placement; Intermediate K=20; Elite K=10 to preserve stable ratings.",
-        "r2.title": "Rating Floor Protection", "r2.desc": "Once officially promoted (e.g. 1500 ELO Tahap 6), a player's rating cannot drop below their tier floor!",
-        "r3.title": "Tri-Factor Promotion Formula", "r3.desc": "Promotion requires: Official ELO benchmark + Coach evaluation + Tournament performance verification.",
-        "sec.coach_badge": "COACHING TEAM",
-        "sec.coach_title": "Elite Coaching Bench & OMO Methodology",
-        "sec.coach_sub": "Two active Pahang State Representatives combining Online theory with Offline over-the-board match play.",
-        "coach1.name": "Chief Coach (Founder)", "coach1.role": "FOUNDER & CHIEF SYSTEM ARCHITECT",
-        "coach1.desc": "Open Category Selangor/KL Top 20 & Pahang Top 8. 4-year Pahang State Rep. Manages ELO engine, events, and elite squad masterclasses.",
-        "coach2.name": "Coach Nicholas", "coach2.role": "HEAD OF TEACHING & SENIOR COACH",
-        "coach2.desc": "Pahang Top 16 & 8+ years State Rep. Former pro chess teacher & active Taekwondo instructor. Leads daily teaching across Tahap 1-7.",
-        "omo.title": "Innovative OMO Training Model (Online-Merge-Offline)",
-        "omo.sub": "No weekday driving stress for parents: weekday theory online from home, and hands-on clock sparring at the physical academy on weekends!",
-        "omo.s1_t": "Weekday Cloud Theory", "omo.s1_d": "1.5 hours online in the evening. Direct live streaming on tactical traps and opening novelties.",
-        "omo.s2_t": "Weekend Sparring Camp", "omo.s2_d": "2.0 hours over-the-board with DGT clocks, scoresheets, and real-time ELO rating updates.",
-        "omo.s3_t": "Monthly Master Weekend", "omo.s3_d": "Coach Nicholas visits Bera monthly for in-person master debriefs and official grading exams.",
-        "omo.s4_t": "Pre-Tournament Sprint", "omo.s4_d": "Founder leads intensive closed-door bootcamp prior to state and national championships.",
-        "cta.title": "Enroll Today & Begin the Journey to District Champion!",
-        "cta.sub": "Limited slots per cohort (Elite Class limited to 10 students). Fill in the registration form or WhatsApp us directly.",
-        "cta.btn_form": "📝 Online Registration Form (Google Form)",
-        "cta.btn_wa": "WhatsApp Consultation",
-        "footer.cert": "Official Training Academy of Persatuan Catur Cina Daerah Bera"
+
+<!-- === APPLE STYLE MEGA MENU (100% 首页一致) === -->
+<div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
+<div id="appleMegaMenu" class="apple-mega-menu">
+  <div class="apple-mega-container">
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索俱乐部</h4>
+      <a href="index.html" data-i18n="nav.home">首页</a>
+      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">🏛️ 常规棋艺学院 (招生)</a>
+      <a href="index.html#ladder" data-i18n="nav.ladder">天梯榜</a>
+      <a href="index.html#events" data-i18n="events.title">赛事与活动中心</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.portals">专属入口</h4>
+      <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
+      <a href="school.html" data-i18n="nav.school_portal">校际赛报名系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.language">系统语言</h4>
+      <div class="apple-segment">
+        <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
+        <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
+        <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Apple Mega Menu 控制 (100% 首页移植)
+  function toggleMainNav() {
+    const menu = document.getElementById('appleMegaMenu');
+    const backdrop = document.getElementById('appleMegaBackdrop');
+    const isOpen = menu.classList.contains('open');
+    if (isOpen) {
+      closeMainNav();
+    } else {
+      openMainNav();
+    }
+  }
+
+  function openMainNav() {
+    document.getElementById('appleMegaMenu').classList.add('open');
+    document.getElementById('appleMegaBackdrop').classList.add('open');
+    document.getElementById('navMenuBtnIcon').textContent = '✕';
+    updateNavMenuBtnText(true);
+  }
+
+  function closeMainNav() {
+    document.getElementById('appleMegaMenu').classList.remove('open');
+    document.getElementById('appleMegaBackdrop').classList.remove('open');
+    document.getElementById('navMenuBtnIcon').textContent = '☰';
+    updateNavMenuBtnText(false);
+  }
+
+  function updateNavMenuBtnText(isOpen) {
+    const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+    const textEl = document.getElementById('navMenuBtnText');
+    if (!textEl) return;
+    if (isOpen) {
+      textEl.textContent = (lang === 'bm') ? 'Tutup' : (lang === 'en' ? 'Close' : '关闭');
+    } else {
+      textEl.textContent = (lang === 'bm') ? 'Menu' : (lang === 'en' ? 'Menu' : '菜单');
+    }
+  }
+
+  function updateSeg(lang) {
+    document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById('seg_' + (lang === 'zh' ? 'cn' : lang));
+    if (btn) btn.classList.add('active');
+  }
+
+  // === CN/BM/EN Translation System (与首页完全打通) ===
+  const i18n = {
+    cn: {
+      "hero.title": "百乐象棋俱乐部",
+      "nav.home": "首页", "nav.academy": "🏛️ 常规学院", "nav.ladder": "天梯榜",
+      "events.title": "赛事与活动中心",
+      "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
+      "nav.school_portal": "校际赛报名系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单",
+      "academy.hero_title": "百乐象棋学院",
+      "academy.hero_sub": "雪隆正规军体系归来 · 双彭亨州代表联袂执教<br>全县唯一官方七级考评与 PAJSK 学分认证青训基地",
+      "chip.standard": "👑 雪隆专业棋院标准训练大纲",
+      "chip.ladder": "⚔️ 全县唯一 0~2000 ELO 天梯排位",
+      "chip.pajsk": "🏅 公会官方七级考评认证 (PAJSK)",
+      "sec.classes_title": "常规阶梯班级与收费标准",
+      "sec.classes_sub": "紧密结合直凉与百乐县消费习惯，从启蒙打底到县代表特训，阶梯分明、物超所值",
+      "c1.title": "初级基础研习班", "c1.combo": "季付优惠: RM 170 / 3个月",
+      "c2.title": "中级战术进阶班", "c2.combo": "季付优惠: RM 240 / 3个月",
+      "c3.title": "高级精英研修班", "c3.combo": "季付优惠: RM 310 / 3个月",
+      "c4.title": "百乐县正选代表队", "c4.btn": "查看全县正选榜",
+      "c.target": "对象：", "c.time": "课时：", "c.content": "内容：", "c.coach": "师资：",
+      "c4.target": "选拔：", "c4.time": "模式：", "c4.content": "目标：", "c4.coach": "挂帅：",
+      "btn.enroll": "立即报名入班",
+      "kit.title": "新生一次性材料与天梯建档费",
+      "kit.desc": "包含：《CXQB 正规象棋研习册/习题集》精装打印版 1 册 + 官网天梯 ELO 终身学员档案建立 + 获得公会官方考评资格证书。",
+      "sec.grading_title": "公会官方七级考评认证体系",
+      "sec.grading_sub": "全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），成绩直接对接 PAJSK 课外活动学分",
+      "th.tier": "阶梯等级", "th.cn": "官方中文认证", "th.bm": "马来文规范 (KPM Tahap)", "th.elo": "对应 ELO 积分区间", "th.desc": "竞技水准与实战考核标准",
+      "r1.title": "动态 K 值调分引擎", "r1.desc": "新手期 (≤999分) K=30 快速定级脱离新手池；校队期 K=20 稳步反映战力；高手期 K=10 极稳控分，防止单场发挥波动。",
+      "r2.title": "段位底线保护机制 (Floor)", "r2.desc": "学员一旦通过考核晋升等级（如升至 1500 分 Tahap 6），积分绝不下穿该段位底线！保护学童信心，确立官方文凭公信力。",
+      "r3.title": "三维综合考评达标", "r3.desc": "升阶必须满足：天梯积分硬达标 + 教练组技术把关 (复盘/棋品) + 官方比赛实战检验，彻底杜绝水分与虚标！",
+      "sec.coach_title": "豪华师资团队与教学模式",
+      "sec.coach_sub": "双彭亨现役州代表联手执教，结合 OMO 双轨智训体系，打造全县最专业的青训高地",
+      "coach1.name": "总教练 (创办人)", "coach1.role": "FOUNDER & CHIEF SYSTEM ARCHITECT",
+      "coach1.desc": "曾前往雪隆顶尖专业棋院受训，深谙现代象棋开局飞刀与算度训练。掌管全县 ELO 天梯系统架构、大型赛事策划及代表队赛前封闭巅峰特训。",
+      "coach2.name": "Nicholas 教练", "coach2.role": "HEAD OF TEACHING & SENIOR COACH",
+      "coach2.desc": "8 年以上彭亨州代表资深老将。具备极其严格的少儿体育纪律把控力与段位教学经验，全权主讲 Tahap 1 至 7 全阶梯日常教务，周中线上理论与月度亲临大课。",
+      "omo.title": "创新 OMO 双轨智训体系 (Online-Merge-Offline)",
+      "omo.sub": "解决家长平日奔波接送痛点，周中网课学理论，周末基地带钟实战，每月大师亲临，打造最高效的学练闭环！",
+      "omo.s1_t": "周中云端大师堂", "omo.s1_d": "周中晚上 1.5 小时。Nicholas 与总教练高清投屏，深度讲解开局飞刀、战术拆局与经典名局。",
+      "omo.s2_t": "周末基地实战营", "omo.s2_d": "周末线下 2.0 小时。本地驻场老师主持全真赛场，戴钟计时对弈，严格摸子走子，实时结算 ELO。",
+      "omo.s3_t": "月度大师亲临周", "omo.s3_d": "Nicholas 教练每月亲自下乡百乐，面对面大课拆解、打实战车轮战，亲自把关段位晋级考核。",
+      "omo.s4_t": "赛前巅峰封闭营", "omo.s4_d": "学校假期或大赛前夕，总教练亲自返乡挂帅，率领县代表队与精英学员闭门强化，出征夺冠！",
+      "cta.title": "现在加入，迈出成为全县正选的第一步！",
+      "cta.sub": "首期常规班席位有限（高级精英班限 10 人）。立即填写意向报名表或通过 WhatsApp 与我们联系，锁定专属学额。",
+      "cta.btn_form": "📝 立即填写在线报名表 (Google Form)",
+      "cta.btn_wa": "WhatsApp 课程顾问咨询",
+      "footer.about_title": "关于我们",
+      "footer.about_desc": "百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证",
+      "footer.partners_title": "认证机构 & 官方合作伙伴",
+      "footer.contact_title": "联系我们",
+      "footer.assoc_name": "百乐县象棋公会"
+    },
+    bm: {
+      "hero.title": "Kelab XiangQi Bera",
+      "nav.home": "Utama", "nav.academy": "🏛️ Akademi Catur", "nav.ladder": "Kedudukan ELO",
+      "events.title": "Pusat Acara & Aktiviti",
+      "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
+      "nav.school_portal": "Sistem Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu",
+      "academy.hero_title": "Akademi CXQB",
+      "academy.hero_sub": "Sistem Latihan Moden Selangor/KL · Bimbingan Dua Wakil Pahang<br>Satu-satunya Akademi Catur Cina Profesional di Daerah Bera, Pahang",
+      "chip.standard": "👑 Silibus Standard Akademi Profesional",
+      "chip.ladder": "⚔️ Sistem ELO 0~2000 Rasmi Daerah Bera",
+      "chip.pajsk": "🏅 Sijil Rasmi Persatuan Beriktiraf PAJSK",
+      "sec.classes_title": "Peringkat Kelas & Senarai Yuran",
+      "sec.classes_sub": "Yuran berpatutan mengikut kesesuaian tempatan Triang & Bera, dari asas sifar sehingga skuad daerah",
+      "c1.title": "Kelas Asas (Tahap 1-2)", "c1.combo": "Pakej 3 Bulan: RM 170",
+      "c2.title": "Kelas Pertengahan (Tahap 3-4)", "c2.combo": "Pakej 3 Bulan: RM 240",
+      "c3.title": "Kelas Lanjutan Elit (Tahap 5-6)", "c3.combo": "Pakej 3 Bulan: RM 310",
+      "c4.title": "Skuad Utama Daerah Bera", "c4.btn": "Lihat Kedudukan Daerah",
+      "c.target": "Sasaran:", "c.time": "Masa:", "c.content": "Kandungan:", "c.coach": "Tenaga:",
+      "c4.target": "Kelayakan:", "c4.time": "Mod:", "c4.content": "Sasaran:", "c4.coach": "Penyelia:",
+      "btn.enroll": "Daftar Sekarang",
+      "kit.title": "Yuran Pendaftaran & Bahan Kursus Sekali Sahaja",
+      "kit.desc": "Termasuk Buku Latihan Rasmi CXQB + Pembukaan Akaun ELO Seumur Hidup + Kelayakan Penilaian Sijil Rasmi.",
+      "sec.grading_title": "Sistem Penilaian 7 Tahap Rasmi CXQB",
+      "sec.grading_sub": "Diiktiraf sepenuhnya oleh Persatuan Catur Cina Daerah Bera dan menyumbang markah kokurikulum PAJSK rasmi KPM",
+      "th.tier": "Tahap", "th.cn": "Pensijilan Cina", "th.bm": "Piawaian KPM (Tahap)", "th.elo": "Julat ELO", "th.desc": "Piawaian Prestasi & Ujian",
+      "r1.title": "Enjin K-Faktor Dinamik", "r1.desc": "K=30 untuk asas bagi penetapan pantas; K=20 untuk pertengahan; K=10 untuk elit agar rekod stabil.",
+      "r2.title": "Perlindungan Had Bawah (Rating Floor)", "r2.desc": "Setelah lulus tahap (contohnya 1500 mata Tahap 6), mata ELO tidak akan jatuh ke bawah had tersebut!",
+      "r3.title": "Penilaian Tiga Dimensi", "r3.desc": "Kenaikan tahap memerlukan: Mata ELO capai sasaran + Semakan adab/taktik jurulatih + Prestasi kejohanan rasmi.",
+      "sec.coach_title": "Barisan Jurulatih & Sistem OMO",
+      "sec.coach_sub": "Gabungan dua wakil negeri Pahang dengan model latihan hibrid Online + Bersemuka yang paling berkesan",
+      "coach1.name": "Ketua Jurulatih (Pengasas)", "coach1.role": "PENGASAS & ARKITEK SISTEM ELO",
+      "coach1.desc": "Top 20 Selangor/KL & Top 8 Pahang Kategori Terbuka. Berpengalaman 4 tahun wakil Pahang. Mengendalikan arkitek sistem ELO dan kem insentif skuad daerah.",
+      "coach2.name": "Jurulatih Nicholas", "coach2.role": "PENGARAH AKADEMIK & JURULATIH UTAMA",
+      "coach2.desc": "Top 16 Pahang & 8+ tahun wakil negeri. Berpengalaman sebagai guru catur rasmi dan jurulatih Taekwondo. Mengetuai silibus harian Tahap 1-7.",
+      "omo.title": "Sistem Latihan Pintar OMO (Online-Merge-Offline)",
+      "omo.sub": "Menghapuskan beban menghantar anak setiap hari, teori secara online di rumah dan praktikal catur sebenar di dewan latihan setiap hujung minggu!",
+      "omo.s1_t": "Kelas Teori Online", "omo.s1_d": "1.5 jam waktu malam. Jurulatih membentangkan strategi pembukaan, taktik dan analisis catur secara langsung.",
+      "omo.s2_t": "Praktikal Bersemuka", "omo.s2_d": "2.0 jam hujung minggu di pusat latihan. Bertanding dengan jam catur, mencatat skor dan kemas kini ELO.",
+      "omo.s3_t": "Bengkel Bulanan Jurulatih", "omo.s3_d": "Jurulatih Nicholas turun ke Bera setiap bulan untuk sesi semakan mendalam dan penilaian tahap.",
+      "omo.s4_t": "Kem Elit Pra-Kejohanan", "omo.s4_d": "Ketua jurulatih memimpin kem tertutup khas bagi skuad daerah menjelang MSSP dan kejohanan kebangsaan.",
+      "cta.title": "Sertai Sekarang & Jadi Wakil Daerah Bera!",
+      "cta.sub": "Tempat terhad bagi setiap kumpulan (Kelas Elit terhad 10 orang). Daftar sekarang atau hubungi kami melalui WhatsApp.",
+      "cta.btn_form": "📝 Isi Borang Pendaftaran Online",
+      "cta.btn_wa": "WhatsApp Pertanyaan Kursus",
+      "footer.about_title": "Mengenai Kami",
+      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Bera, Pahang.",
+      "footer.partners_title": "Rakan Rasmi & Pensijilan",
+      "footer.contact_title": "Hubungi Kami",
+      "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
+    },
+    en: {
+      "hero.title": "Club XiangQi Bera",
+      "nav.home": "Home", "nav.academy": "🏛️ Academy", "nav.ladder": "ELO Standings",
+      "events.title": "Events & Activities Center",
+      "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
+      "nav.school_portal": "Schools Portal", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu",
+      "academy.hero_title": "CXQB Xiangqi Academy",
+      "academy.hero_sub": "Modern KL/Selangor Academy Curriculum · Led by Two Pahang State Representatives<br>The Only Official 7-Grade Xiangqi Assessment & PAJSK Accreditation Academy in Bera",
+      "chip.standard": "👑 Pro Academy Training Syllabus",
+      "chip.ladder": "⚔️ Exclusive 0~2000 ELO Rating System",
+      "chip.pajsk": "🏅 Official Certified Diplomas (PAJSK)",
+      "sec.classes_title": "Class Tiers & Tuition Fees",
+      "sec.classes_sub": "Affordable pricing tailored to local families in Triang & Bera, from beginner fundamentals to district champions",
+      "c1.title": "Foundation Class (Tahap 1-2)", "c1.combo": "Quarterly Combo: RM 170 / 3 Months",
+      "c2.title": "Intermediate Class (Tahap 3-4)", "c2.combo": "Quarterly Combo: RM 240 / 3 Months",
+      "c3.title": "Advanced Elite Class (Tahap 5-6)", "c3.combo": "Quarterly Combo: RM 310 / 3 Months",
+      "c4.title": "Bera District Primary Squad", "c4.btn": "View District Ladder",
+      "c.target": "Target:", "c.time": "Schedule:", "c.content": "Curriculum:", "c.coach": "Instructors:",
+      "c4.target": "Selection:", "c4.time": "Format:", "c4.content": "Objective:", "c4.coach": "Head Coach:",
+      "btn.enroll": "Enroll Now",
+      "kit.title": "One-Time Registration & Starter Kit",
+      "kit.desc": "Includes Official CXQB Student Workbook + Lifetime ELO System Account + Association Certificate Assessment Qualification.",
+      "sec.grading_title": "Official 7-Grade Xiangqi Assessment System",
+      "sec.grading_sub": "Official 7-Grade (Tahap 1~7) standard recognized by the District Association and accredited for PAJSK credits",
+      "th.tier": "Tier", "th.cn": "Chinese Certification", "th.bm": "MOE Standard (Tahap)", "th.elo": "ELO Range", "th.desc": "Skill Standards & Criteria",
+      "r1.title": "Dynamic K-Factor Engine", "r1.desc": "Beginner K=30 for rapid placement; Intermediate K=20; Elite K=10 to preserve stable ratings.",
+      "r2.title": "Rating Floor Protection", "r2.desc": "Once officially promoted (e.g. 1500 ELO Tahap 6), a player's rating cannot drop below their tier floor!",
+      "r3.title": "Tri-Factor Promotion Formula", "r3.desc": "Promotion requires: Official ELO benchmark + Coach evaluation + Tournament performance verification.",
+      "sec.coach_title": "Elite Coaching Bench & OMO Methodology",
+      "sec.coach_sub": "Two active Pahang State Representatives combining Online theory with Offline over-the-board match play",
+      "coach1.name": "Chief Coach (Founder)", "coach1.role": "FOUNDER & CHIEF SYSTEM ARCHITECT",
+      "coach1.desc": "Open Category Selangor/KL Top 20 & Pahang Top 8. 4-year Pahang State Rep. Manages ELO engine, events, and elite squad masterclasses.",
+      "coach2.name": "Coach Nicholas", "coach2.role": "HEAD OF TEACHING & SENIOR COACH",
+      "coach2.desc": "Pahang Top 16 & 8+ years State Rep. Former pro chess teacher & active Taekwondo instructor. Leads daily teaching across Tahap 1-7.",
+      "omo.title": "Innovative OMO Training Model (Online-Merge-Offline)",
+      "omo.sub": "No weekday driving stress for parents: weekday theory online from home, and hands-on clock sparring at the physical academy on weekends!",
+      "omo.s1_t": "Weekday Cloud Theory", "omo.s1_d": "1.5 hours online in the evening. Direct live streaming on tactical traps and opening novelties.",
+      "omo.s2_t": "Weekend Sparring Camp", "omo.s2_d": "2.0 hours over-the-board with DGT clocks, scoresheets, and real-time ELO rating updates.",
+      "omo.s3_t": "Monthly Master Weekend", "omo.s3_d": "Coach Nicholas visits Bera monthly for in-person master debriefs and official grading exams.",
+      "omo.s4_t": "Pre-Tournament Sprint", "omo.s4_d": "Founder leads intensive closed-door bootcamp prior to state and national championships.",
+      "cta.title": "Enroll Today & Begin the Journey to District Champion!",
+      "cta.sub": "Limited slots per cohort (Elite Class limited to 10 students). Fill in the registration form or WhatsApp us directly.",
+      "cta.btn_form": "📝 Online Registration Form (Google Form)",
+      "cta.btn_wa": "WhatsApp Consultation",
+      "footer.about_title": "About Us",
+      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Official Xiangqi training academy<br>and rating body in Bera, Pahang.",
+      "footer.partners_title": "Official Partners",
+      "footer.contact_title": "Contact Us",
+      "footer.assoc_name": "BERA XIANGQI ASSOCIATION"
+    }
+  };
+
+  function setLang(lang) {
+    let prefLang = lang === 'cn' ? 'zh' : lang;
+    localStorage.setItem('cxb_lang_pref', prefLang);
+    window._currentLang = lang;
+
+    const dict = i18n[lang] || i18n.cn;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) {
+        el.innerHTML = dict[key];
       }
-    };
-
-    function setAcademyLang(lang) {
-      localStorage.setItem('cxb_academy_lang', lang);
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = document.getElementById('btn_' + lang);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      const dict = academyI18n[lang] || academyI18n.cn;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[key]) {
-          el.innerHTML = dict[key];
-        }
-      });
-    }
-
-    // 初始化语言偏好
-    document.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('cxb_academy_lang') || localStorage.getItem('cxb_lang_pref') || 'cn';
-      const initial = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
-      setAcademyLang(initial);
     });
-  </script>
+
+    updateSeg(lang);
+    updateNavMenuBtnText(false);
+  }
+
+  // 页面加载自动同步语言设置
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('cxb_lang_pref') || 'cn';
+    const initial = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
+    setLang(initial);
+  });
+</script>
+
 </body>
 </html>
