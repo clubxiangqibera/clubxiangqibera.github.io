@@ -621,7 +621,7 @@ body::before {
       <a onclick="togglePublicTab('home'); closeMainNav()" data-i18n="nav.home">首页</a>
       <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
       <a href="ladder.html" data-i18n="nav.ladder">天梯榜</a>
-      <a onclick="openArchiveView(); closeMainNav()" data-i18n="events.title">赛事与活动中心</a>
+      <a href="events.html" data-i18n="events.title">赛事与活动中心</a>
     </div>
     
     <div class="apple-mega-col">
@@ -772,7 +772,7 @@ function togglePublicTab(tab) {
   else if (tab === 'login') window.location.href = 'index.html#login';
 }
 function openArchiveView() {
-  window.location.href = 'index.html#events';
+  window.location.href = 'events.html';
 }
 function setLang(lang) {
   let mapping = {'cn': 'zh', 'bm': 'bm', 'en': 'en'};
