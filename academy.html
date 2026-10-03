@@ -367,56 +367,21 @@
       background: #faf8f2; border: 2px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
       font-size: 34px; font-family: var(--font-serif); font-weight: 900;
-      color: #922b21; flex-shrink: 0; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      color: #2980B9; flex-shrink: 0; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
       transition: transform 0.3s ease;
     }
     .coach-card:hover .coach-avatar-badge {
       transform: scale(1.05);
     }
-    .coach-avatar-wrap {
-      position: relative;
-      width: 84px; height: 84px;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .coach-avatar-orbit {
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 1.5px dashed rgba(212, 175, 55, 0.4);
-      animation: orbitRotate 16s linear infinite;
-      pointer-events: none;
-    }
-    .coach-card:hover .coach-avatar-orbit {
-      border-color: rgba(212, 175, 55, 0.9);
-      animation-duration: 6s;
-    }
-    @keyframes orbitRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
     .coach-avatar-img {
       width: 84px; height: 84px; border-radius: 50%;
       object-fit: cover; border: 2px solid var(--gold);
-      background: var(--navy-800); flex-shrink: 0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      padding: 4px;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      animation: pulseGlow 3.5s ease-in-out infinite;
+      background: #faf8f2; flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
     }
     .coach-card:hover .coach-avatar-img {
-      transform: scale(1.06);
-      box-shadow: 0 0 24px rgba(212, 175, 55, 0.55), 0 6px 20px rgba(0, 0, 0, 0.6);
-    }
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow: 0 0 10px rgba(212, 175, 55, 0.25), 0 4px 14px rgba(0,0,0,0.4);
-        border-color: rgba(212, 175, 55, 0.8);
-      }
-      50% {
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), 0 0 30px rgba(41, 128, 185, 0.3), 0 4px 18px rgba(0,0,0,0.5);
-        border-color: #ffd700;
-      }
+      transform: scale(1.05);
     }
     .coach-info h4 {
       font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;
@@ -814,10 +779,7 @@
       <div class="coaches-grid">
         <!-- 席位 1：学院技术委员会 -->
         <div class="coach-card">
-          <div class="coach-avatar-wrap">
-            <div class="coach-avatar-orbit"></div>
-            <img src="cxb_tech_committee_badge.png" class="coach-avatar-img" alt="学院技术委员会">
-          </div>
+          <img src="cxb_round_emblem.png" class="coach-avatar-img" alt="学院技术委员会">
           <div class="coach-info">
             <h4 data-i18n="coach1.name">学院技术委员会</h4>
             <div class="coach-role" data-i18n="coach1.role">TECHNICAL & CURRICULUM COMMITTEE</div>
