@@ -559,22 +559,6 @@
             <div style="font-size: 11px; color: var(--gold-soft); font-weight: 600;" data-i18n="reg.t3_lock_fee">创会特惠季付：RM 420 / 3个月 (锁定半年)</div>
           </div>
         </div>
-
-        <!-- TAHAP 7 (LOCKED - SQUAD SELECTION) -->
-        <div class="tier-tile locked" onclick="handleLockedTierClick('tahap7')">
-          <div class="tier-tile-header">
-            <span class="tier-tile-tag" style="background: rgba(201,162,75,0.25); color: var(--gold);">TAHAP 7</span>
-            <span class="tier-open-badge" style="background: rgba(201,162,75,0.15); color: var(--gold); border-color: rgba(201,162,75,0.35);" data-i18n="reg.badge_squad">年度选拔直通 · 公会赞助</span>
-          </div>
-          <div class="tier-tile-title" data-i18n="reg.t4_name">百乐县正选代表队</div>
-          <div class="tier-tile-desc" data-i18n="reg.t4_desc">全县年度赛前四名直通，封闭集训出征全彭赛 (MSSP) 与全国赛。</div>
-          <div class="tier-tile-price-box">
-            <div class="tier-orig-price" data-i18n="reg.t4_orig_price">标准价值 RM 300 / 月</div>
-            <div class="tier-promo-price" style="color: var(--gold);">RM 0 <small style="color: var(--gold-soft);" data-i18n="reg.t4_per_month">/ 个人免缴</small></div>
-            <div style="font-size: 11.5px; color: var(--gold); font-weight: 700;" data-i18n="reg.t4_lock_status">年度全县前四选拔直通</div>
-            <div style="font-size: 11px; color: #2ecc71; font-weight: 600;" data-i18n="reg.t4_lock_fee">公会专项发展基金全额资助</div>
-          </div>
-        </div>
       </div>
 
       <!-- PAYMENT TERM SELECTION -->
@@ -594,11 +578,11 @@
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_cn_name">学员中文姓名</span> <span class="req">*</span></label>
-          <input type="text" class="form-control" id="acadCnName" placeholder="如: 莫宇哲" required>
+          <input type="text" class="form-control" id="acadCnName" placeholder="如: 陈小明" required data-i18n-ph="reg.ph_cn_name">
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_en_name">英文姓名 (按 IC / MyKid)</span> <span class="req">*</span></label>
-          <input type="text" class="form-control" id="acadEnName" placeholder="如: Mok Yu Zhe" required>
+          <input type="text" class="form-control" id="acadEnName" placeholder="如: Tan Xiao Ming" required data-i18n-ph="reg.ph_en_name">
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_birth">出生年份</span> <span class="req">*</span></label>
@@ -701,11 +685,11 @@
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_camp_cn_name">参赛者中文姓名</span> <span class="req">*</span></label>
-          <input type="text" class="form-control" id="campCnName" placeholder="如: 黄礼阳" required>
+          <input type="text" class="form-control" id="campCnName" placeholder="如: 陈小明" required data-i18n-ph="reg.ph_cn_name">
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_camp_en_name">英文全名 (按 IC / MyKid)</span> <span class="req">*</span></label>
-          <input type="text" class="form-control" id="campEnName" placeholder="如: Ng Li Yang" required>
+          <input type="text" class="form-control" id="campEnName" placeholder="如: Tan Xiao Ming" required data-i18n-ph="reg.ph_en_name">
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_camp_ic">身分证号码 (IC / MyKid)</span> <span class="req">*</span></label>
@@ -743,7 +727,7 @@
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_camp_emergency">紧急联络人姓名与电话</span> <span class="req">*</span></label>
-          <input type="text" class="form-control" id="campEmergency" placeholder="如: 父亲 黄先生 019-1234567" required>
+          <input type="text" class="form-control" id="campEmergency" placeholder="如: 家长 / 监护人 012-3456789" required data-i18n-ph="reg.ph_camp_emergency">
         </div>
         <div class="form-group span-2">
           <label class="form-label"><span data-i18n="reg.lbl_diet">营员膳食需求</span> <span class="req">*</span></label>
