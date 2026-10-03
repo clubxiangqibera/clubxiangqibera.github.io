@@ -116,30 +116,12 @@
     .p-nav-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
     .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
 
-    /* PC 宽屏导航链接 (与首页样式完美融合) */
-    .p-nav-desktop-links { display: flex; align-items: center; gap: 6px; }
-    .p-nav-btn {
-      padding: 7px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
-      background: transparent; color: rgba(255,255,255,0.65); border: none;
-      transition: all 0.2s; position: relative; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
-    }
-    .p-nav-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
-    .p-nav-btn.active { color: #F1C40F; background: rgba(241, 196, 15, 0.1); }
-    .p-nav-btn.active::after {
-      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 20px; height: 3px; background: #F1C40F; border-radius: 3px;
-    }
-
     .nav-menu-btn {
       padding: 7px 16px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
       background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12);
       transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
     }
     .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
-
-    @media(max-width: 768px) {
-      .p-nav-desktop-links { display: none !important; }
-    }
 
     /* 主内容容器 (自适应宽屏) */
     .public-content-wrap {
@@ -307,32 +289,66 @@
     .cxb-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
     .cxb-table tr.highlight-tr td { background: rgba(201, 162, 75, 0.05); }
 
-    .t-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 4px 10px; border-radius: var(--radius-pill);
-      font-size: 0.75rem; font-weight: 800; border: 1px solid transparent;
+    .cxb-table th:first-child,
+    .cxb-table td:first-child {
+      width: 110px;
+      min-width: 100px;
+      white-space: nowrap;
     }
-    .t-badge--top { background: rgba(201, 162, 75, 0.15); color: var(--gold); border-color: var(--gold); }
-    .t-badge--mid { background: rgba(41, 128, 185, 0.15); color: #5dade2; border-color: rgba(41, 128, 185, 0.35); }
-    .t-badge--base { background: rgba(255, 255, 255, 0.05); color: var(--ink-dim); border-color: var(--line-soft); }
+
+    .t-badge {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      padding: 5px 12px !important;
+      border-radius: var(--radius-pill) !important;
+      font-size: 0.8rem !important;
+      font-weight: 800 !important;
+      line-height: 1 !important;
+      border: 1px solid transparent;
+    }
+    .t-badge--top { background: rgba(201, 162, 75, 0.18); color: var(--gold); border-color: var(--gold); }
+    .t-badge--mid { background: rgba(41, 128, 185, 0.18); color: #5dade2; border-color: rgba(41, 128, 185, 0.35); }
+    .t-badge--base { background: rgba(255, 255, 255, 0.08); color: var(--ink-dim); border-color: var(--line-soft); }
 
     .elo-code {
       font-family: monospace; font-size: 0.92rem; font-weight: 700; color: var(--gold);
     }
 
-    /* 规则 3 列卡片 */
+    /* 规则 3 列卡片 (与首页卡片微光与金发丝线完全融合) */
     .rules-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px;
     }
     .rule-item {
-      background: var(--navy-950); border: 1px solid var(--line-soft);
-      border-radius: var(--radius); padding: 18px;
+      background: var(--card-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(241, 196, 15, 0.3);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 15px rgba(241, 196, 15, 0.04);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .rule-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
     }
     .rule-item h5 {
-      font-size: 0.92rem; color: var(--ink); margin-bottom: 6px;
-      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .rule-item p { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.5; }
+    .rule-item p {
+      font-size: 0.84rem;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
 
     /* ========================================================
        3. 师资团队与 OMO 模式 (与首页风格完全相融)
@@ -500,14 +516,6 @@
         <div class="p-nav-sub">CLUB XIANGQI BERA</div>
       </div>
     </a>
-
-    <!-- PC 宽屏导航链接 -->
-    <div class="p-nav-desktop-links">
-      <a href="index.html" class="p-nav-btn" data-i18n="nav.home">首页</a>
-      <a href="academy.html" class="p-nav-btn active" data-i18n="nav.academy">🏛️ 常规学院</a>
-      <a href="index.html#ladder" class="p-nav-btn" data-i18n="nav.ladder">天梯榜</a>
-      <a href="index.html#events" class="p-nav-btn" data-i18n="events.title">赛事活动</a>
-    </div>
 
     <!-- 菜单切换按钮 (与首页一致触发 Apple Mega Menu) -->
     <button class="nav-menu-btn" onclick="toggleMainNav()">
@@ -859,7 +867,7 @@
     <div class="apple-mega-col">
       <h4 data-i18n="nav.explore">探索俱乐部</h4>
       <a href="index.html" data-i18n="nav.home">首页</a>
-      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">🏛️ 常规棋艺学院 (招生)</a>
+      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
       <a href="index.html#ladder" data-i18n="nav.ladder">天梯榜</a>
       <a href="index.html#events" data-i18n="events.title">赛事与活动中心</a>
     </div>
@@ -931,7 +939,7 @@
   const i18n = {
     cn: {
       "hero.title": "百乐象棋俱乐部",
-      "nav.home": "首页", "nav.academy": "🏛️ 常规学院", "nav.ladder": "天梯榜",
+      "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.ladder": "天梯榜",
       "events.title": "赛事与活动中心",
       "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
       "nav.school_portal": "校际赛报名系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单",
@@ -981,7 +989,7 @@
     },
     bm: {
       "hero.title": "Kelab XiangQi Bera",
-      "nav.home": "Utama", "nav.academy": "🏛️ Akademi Catur", "nav.ladder": "Kedudukan ELO",
+      "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.ladder": "Kedudukan ELO",
       "events.title": "Pusat Acara & Aktiviti",
       "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
       "nav.school_portal": "Sistem Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu",
@@ -1031,7 +1039,7 @@
     },
     en: {
       "hero.title": "Club XiangQi Bera",
-      "nav.home": "Home", "nav.academy": "🏛️ Academy", "nav.ladder": "ELO Standings",
+      "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.ladder": "ELO Standings",
       "events.title": "Events & Activities Center",
       "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
       "nav.school_portal": "Schools Portal", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu",
