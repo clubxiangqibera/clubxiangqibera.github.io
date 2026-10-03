@@ -170,6 +170,32 @@
       background: rgba(241,196,15,0.08); border-color: var(--gold);
       box-shadow: 0 0 18px rgba(241,196,15,0.2);
     }
+    .tier-tile.locked {
+      opacity: 0.68; cursor: not-allowed; border-color: rgba(255,255,255,0.08);
+      background: rgba(0, 0, 0, 0.25); transition: all 0.2s;
+    }
+    .tier-tile.locked:hover {
+      opacity: 0.9; border-color: rgba(230, 57, 70, 0.5);
+      background: rgba(230, 57, 70, 0.06);
+    }
+    .tier-tile.locked .tier-tile-tag {
+      background: rgba(255, 255, 255, 0.08); color: var(--ink-dim);
+    }
+    .tier-open-badge {
+      font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;
+      background: rgba(241,196,15,0.18); color: var(--gold); border: 1px solid rgba(241,196,15,0.35);
+    }
+    .tier-test-badge {
+      font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;
+      background: rgba(230, 57, 70, 0.16); color: #E63946; border: 1px solid rgba(230, 57, 70, 0.4);
+    }
+    .tier-locked-price { display: flex; flex-direction: column; gap: 2px; }
+    .tier-notice-box {
+      background: rgba(230, 57, 70, 0.08); border: 1px solid rgba(230, 57, 70, 0.25);
+      border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; font-size: 12.5px;
+      line-height: 1.6; color: var(--ink-dim);
+    }
+    .tier-notice-box strong { color: #fff; display: block; margin-bottom: 4px; font-size: 13px; }
     .tier-tile input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
     .tier-tile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .tier-tile-tag { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(241,196,15,0.2); color: var(--gold); }
@@ -394,40 +420,53 @@
       <div class="form-section-title" data-i18n="reg.acad_sec1_title">第一步：选择报读阶梯与缴费模式</div>
       <div class="form-section-sub" data-i18n="reg.acad_sec1_sub">根据学员当前水平选择适合的梯队课程。新生首次报名包含全套研习手册与官方天梯建档。</div>
 
-      <!-- TIER TILES -->
+      <!-- TIER NOTICE BOX: TAHAP 3-6 REQUIRE ASSESSMENT -->
+      <div class="tier-notice-box">
+        <strong data-i18n="reg.notice_tahap36_title">关于进阶与精英班 (Tahap 3~6) 考核说明：</strong>
+        <span data-i18n="reg.notice_tahap36_desc">为保障教学质量与梯队水准，当前系统仅开放直接报读「初级基础研习班 (Tahap 1~2)」。Tahap 3 至 6 进阶与精英课程须由总教练与教师团队进行现场对弈或残局摸底考核，考核达标后方可录取。若学员已有基础或曾参赛，请先报读初级班并在下方『棋艺现状』注明，教练组将主动联系安排测试！</span>
+      </div>
+
+      <!-- TIER TILES (ONLY TAHAP 1-2 SELECTABLE; TAHAP 3-6 LOCKED) -->
       <div class="tier-options-grid">
+        <!-- TAHAP 1-2 (ONLY SELECTABLE OPTION) -->
         <label class="tier-tile selected" onclick="selectAcademyTier(this, 'c1', 170, 60)">
           <input type="radio" name="academy_tier" value="初级基础研习班 (Tahap 1~2)" checked>
           <div class="tier-tile-header">
             <span class="tier-tile-tag">TAHAP 1-2</span>
-            <span style="font-size:12px; color:var(--gold); font-weight:700;">零基础打底</span>
+            <span class="tier-open-badge" data-i18n="reg.badge_open">开放直报 · 零基础打底</span>
           </div>
           <div class="tier-tile-title" data-i18n="reg.t1_name">初级基础研习班</div>
           <div class="tier-tile-desc" data-i18n="reg.t1_desc">棋规与行棋礼仪、基础战术杀法、死活吃子练习。</div>
-          <div class="tier-tile-price">RM 170 <small>/ 季付套餐 (省RM10)</small></div>
+          <div class="tier-tile-price">RM 170 <small data-i18n="reg.t1_term">/ 季付套餐 (省RM10)</small></div>
         </label>
 
-        <label class="tier-tile" onclick="selectAcademyTier(this, 'c2', 240, 85)">
-          <input type="radio" name="academy_tier" value="中级战术进阶班 (Tahap 3~4)">
+        <!-- TAHAP 3-4 (LOCKED - REQUIRES ASSESSMENT) -->
+        <div class="tier-tile locked" onclick="handleLockedTierClick('tahap34')">
           <div class="tier-tile-header">
             <span class="tier-tile-tag">TAHAP 3-4</span>
-            <span style="font-size:12px; color:var(--gold); font-weight:700;">实战破局</span>
+            <span class="tier-test-badge" data-i18n="reg.badge_need_test">需教练组考核定级</span>
           </div>
           <div class="tier-tile-title" data-i18n="reg.t2_name">中级战术进阶班</div>
           <div class="tier-tile-desc" data-i18n="reg.t2_desc">核心中局战术推演、十大基础残局定式、全真限时对弈。</div>
-          <div class="tier-tile-price">RM 240 <small>/ 季付套餐 (省RM15)</small></div>
-        </label>
+          <div class="tier-tile-price tier-locked-price">
+            <span style="font-size:12px; color:#E63946; font-weight:700;" data-i18n="reg.t2_lock_status">暂不开放直报 · 须测评录取</span>
+            <div style="font-size:11px; color:var(--ink-dim); font-weight:500;" data-i18n="reg.t2_lock_fee">标准学费：RM 240 / 季付</div>
+          </div>
+        </div>
 
-        <label class="tier-tile" onclick="selectAcademyTier(this, 'c3', 310, 110)">
-          <input type="radio" name="academy_tier" value="高级精英研修班 (Tahap 5~6)">
+        <!-- TAHAP 5-6 (LOCKED - REQUIRES ASSESSMENT) -->
+        <div class="tier-tile locked" onclick="handleLockedTierClick('tahap56')">
           <div class="tier-tile-header">
             <span class="tier-tile-tag">TAHAP 5-6</span>
-            <span style="font-size:12px; color:var(--gold); font-weight:700;">飞刀与算度</span>
+            <span class="tier-test-badge" data-i18n="reg.badge_need_test">需教练组考核定级</span>
           </div>
           <div class="tier-tile-title" data-i18n="reg.t3_name">高级精英研修班</div>
           <div class="tier-tile-desc" data-i18n="reg.t3_desc">现代主流开局飞刀库、深层算度推演、带钟慢棋实战复盘。</div>
-          <div class="tier-tile-price">RM 310 <small>/ 季付套餐 (省RM20)</small></div>
-        </label>
+          <div class="tier-tile-price tier-locked-price">
+            <span style="font-size:12px; color:#E63946; font-weight:700;" data-i18n="reg.t3_lock_status">暂不开放直报 · 须测评录取</span>
+            <div style="font-size:11px; color:var(--ink-dim); font-weight:500;" data-i18n="reg.t3_lock_fee">标准学费：RM 310 / 季付</div>
+          </div>
+        </div>
       </div>
 
       <!-- PAYMENT TERM SELECTION -->
@@ -764,6 +803,17 @@
       calcAcademyTotal();
     }
 
+    function handleLockedTierClick(tierKey) {
+      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      let msg = "提示：Tahap 3~6 班级不开放直接报名，须由总教练与教师团队实战测评后定级录取。\n\n请先报读 Tahap 1~2 初级班，并在下方【棋艺现状】注明学员基础，教练组将主动联系安排摸底考核！";
+      if (lang === 'bm') {
+        msg = "Perhatian: Tahap 3~6 tidak dibuka untuk pendaftaran terus. Ujian kelayakan praktikal diperlukan oleh pasukan jurulatih.\n\nSila daftar Tahap 1~2 dahulu dan nyatakan pengalaman di bawah, jurulatih akan menghubungi anda untuk sesi penilaian!";
+      } else if (lang === 'en') {
+        msg = "Notice: Direct enrollment is only open for Tahap 1-2. Tahap 3-6 require a placement test by our teacher team.\n\nPlease select Tahap 1-2 and state the student's background below; our coaches will arrange an assessment test!";
+      }
+      alert(msg);
+    }
+
     function calcAcademyTotal() {
       const mode = document.getElementById('acadPayTerm').value;
       const tuition = (mode === 'quarter') ? currentAcadTier.qPrice : currentAcadTier.mPrice;
@@ -959,6 +1009,10 @@
       // WhatsApp text formatting
       let msg = '';
       if (rec.type === '常规棋艺学院入班报名') {
+        let testNote = '';
+        if (rec.level.includes('经验') || rec.level.includes('参赛')) {
+          testNote = `【进阶考核】：学员具备棋艺基础，申请安排教练组实战考核以测评 Tahap 3~6 进阶资格。\n`;
+        }
         msg = `【百乐象棋俱乐部 · 学员入班报名凭条】\n` +
               `凭条编号：${rec.id}\n` +
               `报读班级：${rec.tier}\n` +
@@ -966,6 +1020,7 @@
               `学员姓名：${rec.cnName} (${rec.enName})\n` +
               `就读学校：${rec.school} (${rec.birth})\n` +
               `棋艺现状：${rec.level}\n` +
+              testNote +
               `上课模式：${rec.mode}\n` +
               `家长姓名：${rec.parentName}\n` +
               `家长电话：${rec.parentPhone}\n` +
@@ -1066,7 +1121,16 @@
         "reg.tab_academy": "常规棋艺学院入班报名 (Academy Intake)",
         "reg.tab_camp": "研习营与公开赛报名 (Camp & Open Entry)",
         "reg.acad_sec1_title": "第一步：选择报读阶梯与缴费模式",
-        "reg.acad_sec1_sub": "根据学员当前水平选择适合的梯队课程。新生首次报名包含全套研习手册与官方天梯建档。",
+        "reg.acad_sec1_sub": "目前系统仅开放直选 Tahap 1~2 初级班。Tahap 3~6 须经总教练与教师团队实战测评后定级录取。",
+        "reg.notice_tahap36_title": "关于进阶与精英班 (Tahap 3~6) 考核说明：",
+        "reg.notice_tahap36_desc": "为保障教学质量与梯队水准，当前系统仅开放直接报读「初级基础研习班 (Tahap 1~2)」。Tahap 3 至 6 进阶与精英课程须由总教练与教师团队进行现场对弈或残局摸底考核，考核达标后方可录取。若学员已有基础或曾参赛，请先报读初级班并在下方『棋艺现状』注明，教练组将主动联系安排测试！",
+        "reg.badge_open": "开放直报 · 零基础打底",
+        "reg.badge_need_test": "需教练组考核定级",
+        "reg.t1_term": "/ 季付套餐 (省RM10)",
+        "reg.t2_lock_status": "暂不开放直报 · 须测评录取",
+        "reg.t2_lock_fee": "标准学费：RM 240 / 季付",
+        "reg.t3_lock_status": "暂不开放直报 · 须测评录取",
+        "reg.t3_lock_fee": "标准学费：RM 310 / 季付",
         "reg.t1_name": "初级基础研习班",
         "reg.t1_desc": "棋规与行棋礼仪、基础战术杀法、死活吃子练习。",
         "reg.t2_name": "中级战术进阶班",
@@ -1155,7 +1219,16 @@
         "reg.tab_academy": "Pendaftaran Akademi CXQB (Intake)",
         "reg.tab_camp": "Kem & Kejohanan Terbuka (Camp & Open)",
         "reg.acad_sec1_title": "Langkah 1: Pilih Peringkat Kelas & Yuran",
-        "reg.acad_sec1_sub": "Pilih kursus yang bersesuaian dengan tahap kemahiran catur anak anda.",
+        "reg.acad_sec1_sub": "Pendaftaran terus dibuka untuk Tahap 1~2 sahaja. Tahap 3~6 memerlukan ujian kelayakan oleh pasukan jurulatih.",
+        "reg.notice_tahap36_title": "Syarat Ujian Kelayakan Tahap 3~6:",
+        "reg.notice_tahap36_desc": "Bagi menjamin kualiti latihan, sistem hanya dibuka untuk pendaftaran terus Tahap 1~2. Tahap 3 hingga 6 memerlukan ujian kelayakan oleh pasukan jurulatih. Jika anak anda ada asas atau pernah bertanding, sila pilih Tahap 1~2 dan nyatakan pengalaman di bawah, jurulatih akan menghubungi untuk sesi ujian kelayakan!",
+        "reg.badge_open": "Kemasukan Terus · Asas Sifar",
+        "reg.badge_need_test": "Perlu Ujian Kelayakan",
+        "reg.t1_term": "/ Pakej 3 Bulan (Jimat RM10)",
+        "reg.t2_lock_status": "Kemasukan Terus Ditutup · Ujian Diperlukan",
+        "reg.t2_lock_fee": "Yuran Standard: RM 240 / 3 Bulan",
+        "reg.t3_lock_status": "Kemasukan Terus Ditutup · Ujian Diperlukan",
+        "reg.t3_lock_fee": "Yuran Standard: RM 310 / 3 Bulan",
         "reg.t1_name": "Kelas Asas (Tahap 1-2)",
         "reg.t1_desc": "Peraturan catur, asas taktikal & latihan matikan raja.",
         "reg.t2_name": "Kelas Pertengahan (Tahap 3-4)",
@@ -1244,7 +1317,16 @@
         "reg.tab_academy": "Academy Student Intake",
         "reg.tab_camp": "Training Camp & Open Tournament Entry",
         "reg.acad_sec1_title": "Step 1: Select Class Tier & Payment Term",
-        "reg.acad_sec1_sub": "Select appropriate tier based on student skill level. First-time registration includes training materials & ELO profile setup.",
+        "reg.acad_sec1_sub": "Direct enrollment is only open for Tahap 1-2. Tahap 3-6 require a placement test by our teacher team.",
+        "reg.notice_tahap36_title": "Tahap 3-6 Placement Test Notice:",
+        "reg.notice_tahap36_desc": "To maintain high training standards, only Foundation Class (Tahap 1-2) is open for direct entry. Tahap 3 to 6 require a placement assessment by our teacher team. If the student has chess experience, please enroll under Tahap 1-2 and specify their background below; our coaches will arrange an assessment test before class commencement!",
+        "reg.badge_open": "Open for Direct Entry · Zero Basics",
+        "reg.badge_need_test": "Assessment Test Required",
+        "reg.t1_term": "/ Quarterly Combo (Save RM10)",
+        "reg.t2_lock_status": "Direct Entry Closed · Test Required",
+        "reg.t2_lock_fee": "Standard Tuition: RM 240 / Quarter",
+        "reg.t3_lock_status": "Direct Entry Closed · Test Required",
+        "reg.t3_lock_fee": "Standard Tuition: RM 310 / Quarter",
         "reg.t1_name": "Foundation Class (Tahap 1-2)",
         "reg.t1_desc": "Official rules, etiquette, basic mating tactics & drills.",
         "reg.t2_name": "Intermediate Class (Tahap 3-4)",
