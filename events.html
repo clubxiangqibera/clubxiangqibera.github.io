@@ -512,13 +512,23 @@
         </div>
       </div>
 
-      <!-- CARD 6: 2026 BERA PRIMARY SCHOOLS CHAMPIONSHIP (AUTHENTIC RECORD & TOP 8 PODIUM) -->
+      <!-- CARD 6: 2026 BERA PRIMARY SCHOOLS CHAMPIONSHIP (PHOTOS FIRST & STREAMLINED) -->
       <div class="event-card" data-category="school">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #182a44 0%, #07101e 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px 16px; text-align:center; min-height:160px;">
-          <img src="persatuan_emblem.png" alt="Persatuan Emblem" style="height:76px; filter:drop-shadow(0 4px 16px rgba(0,0,0,0.5)); opacity:0.95; margin-bottom:10px;">
-          <div style="font-family:var(--font-serif); font-size:18px; font-weight:800; color:var(--gold); letter-spacing:2px;">旗开得胜 · 校园赛</div>
-          <div style="font-size:10.5px; font-weight:700; color:var(--ink-dim); letter-spacing:1px; margin-top:3px;">SJK(C) KERAYONG × PERSATUAN CATUR BERA</div>
+        <div class="event-card__cover-wrap" onclick="openLightbox('event_2026_group.png')">
+          <img src="event_2026_group.png" alt="2026 百乐县小学中国象棋赛得奖师生合影" class="event-card__cover">
           <span class="event-card__status event-card__status--archive" data-i18n="evt_done.status">已圆满落幕</span>
+        </div>
+        <!-- 3 PHOTO THUMBNAILS STRIP -->
+        <div style="display:flex; gap:8px; padding:10px 14px; background:rgba(0,0,0,0.25); border-bottom:1px solid var(--line-soft);">
+          <div style="flex:1; height:64px; overflow:hidden; border-radius:6px; border:1px solid rgba(255,255,255,0.15); cursor:pointer;" onclick="openLightbox('event_2026_hall.jpg')">
+            <img src="event_2026_hall.jpg" alt="比赛对局现场" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div style="flex:1; height:64px; overflow:hidden; border-radius:6px; border:1px solid rgba(255,255,255,0.15); cursor:pointer;" onclick="openLightbox('event_2026_analysis.jpg')">
+            <img src="event_2026_analysis.jpg" alt="赛后复盘指点" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div style="flex:1; height:64px; overflow:hidden; border-radius:6px; border:1px solid rgba(255,255,255,0.15); cursor:pointer;" onclick="openLightbox('event_2026_gift.png')">
+            <img src="event_2026_gift.png" alt="致赠纪念品" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
         </div>
         <div class="event-card__body">
           <div class="event-card__series-tag" data-i18n="evt_done.series">校际锦标赛系列 · 2026 官方实录</div>
@@ -527,55 +537,12 @@
           </div>
           <h3 class="event-card__title" data-i18n="evt_done.title">2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）</h3>
           <p class="event-card__desc" data-i18n="evt_done.desc">
-            百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点；吉拉央华小林洁慧校长致辞寄语。
+            百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可浏览高分辨率实况图集。
           </p>
-          <ul class="event-card__meta">
-            <li>
-              <strong data-i18n="evt_done.org_label">承办阵容：</strong>
-              <span data-i18n="evt_done.org_val">吉拉央华小主办 · 百乐县象棋公会协办 (张福明主席主评)</span>
-            </li>
-            <li>
-              <strong data-i18n="evt_done.scale_label">参赛阵容：</strong>
-              <span data-i18n="evt_done.scale_val">吉拉央、直凉一校、立德、明光、文德里 5 校代表</span>
-            </li>
-          </ul>
-
-          <!-- B: WINNERS PODIUM & MERIT ROLL -->
-          <div class="event-podium">
-            <div class="event-podium__title" data-i18n="evt_done.podium_title">全县前八强荣誉榜 (Podium & Merit Roll)</div>
-            <div class="event-podium__list">
-              <div class="event-podium__item">
-                <span class="event-podium__rank" style="color:var(--gold); font-weight:800;" data-i18n="evt_done.rank1">冠军 (Gold)：</span>
-                <span class="event-podium__name" style="color:#fff;" data-i18n="evt_done.winner1">莫宇哲 (明光华小 SJKC Mengkuang)</span>
-              </div>
-              <div class="event-podium__item">
-                <span class="event-podium__rank" style="color:#d1d5db; font-weight:800;" data-i18n="evt_done.rank2">亚军 (Silver)：</span>
-                <span class="event-podium__name" style="color:#fff;" data-i18n="evt_done.winner2">梁釉盛 (立德华小 SJKC Liat Koon)</span>
-              </div>
-              <div class="event-podium__item">
-                <span class="event-podium__rank" style="color:#cd7f32; font-weight:800;" data-i18n="evt_done.rank3">季军 (Bronze)：</span>
-                <span class="event-podium__name" style="color:#fff;" data-i18n="evt_done.winner3">黄礼阳 (直凉一校 SJKC Triang 1)</span>
-              </div>
-              <div class="event-podium__item" style="opacity:0.9;">
-                <span class="event-podium__rank" data-i18n="evt_done.rank4">第四名 (4th)：</span>
-                <span class="event-podium__name" data-i18n="evt_done.winner4">张宇诚 (直凉一校 SJKC Triang 1)</span>
-              </div>
-              <div class="event-podium__item" style="opacity:0.9;">
-                <span class="event-podium__rank" data-i18n="evt_done.rank5">第五名 (5th)：</span>
-                <span class="event-podium__name" data-i18n="evt_done.winner5">陈嘉谦 (直凉一校 SJKC Triang 1)</span>
-              </div>
-              <div class="event-podium__item" style="border-top:1px dashed rgba(241,196,15,0.2); padding-top:4px; margin-top:2px; font-size:11.5px;">
-                <span class="event-podium__rank" data-i18n="evt_done.rank_merit">安慰奖 (Merit)：</span>
-                <span class="event-podium__name" style="font-size:11.5px; opacity:0.85;" data-i18n="evt_done.winner_merit">颜宇仁 (文德里) · 何品翰 (吉拉央) · 苏奕宸 (吉拉央)</span>
-              </div>
-            </div>
-          </div>
-
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:auto;">
-            <!-- ELO RANKING BUTTON -->
-            <a href="ladder.html" class="event-card__btn event-card__btn--secondary" style="flex:1; width:100%; border-color:rgba(241,196,15,0.4); color:var(--gold); text-align:center; display:block;" data-i18n="evt_done.btn_ladder">
-              查看天梯积分更新 →
-            </a>
+            <button class="event-card__btn event-card__btn--secondary" style="flex:1; width:100%; border-color:rgba(241,196,15,0.4); color:var(--gold); text-align:center;" onclick="openLightbox('event_2026_group.png')" data-i18n="evt_done.btn_gallery">
+              浏览全景实况图集 (4张) →
+            </button>
           </div>
         </div>
       </div>
@@ -798,25 +765,8 @@
       "evt_done.series": "校际锦标赛系列 · 2026 官方实录",
       "evt_done.date": "2026年6月13日 (星期六) · 官方圆满落幕",
       "evt_done.title": "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
-      "evt_done.desc": "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点；吉拉央华小林洁慧校长致辞寄语。",
-      "evt_done.org_label": "承办阵容：",
-      "evt_done.org_val": "吉拉央华小主办 · 百乐县象棋公会协办 (张福明主席主评)",
-      "evt_done.scale_label": "参赛阵容：",
-      "evt_done.scale_val": "吉拉央、直凉一校、立德、明光、文德里 5 校代表",
-      "evt_done.podium_title": "全县前八强荣誉榜 (Podium & Merit Roll)",
-      "evt_done.rank1": "冠军 (Gold)：",
-      "evt_done.winner1": "莫宇哲 (明光华小 SJKC Mengkuang)",
-      "evt_done.rank2": "亚军 (Silver)：",
-      "evt_done.winner2": "梁釉盛 (立德华小 SJKC Liat Koon)",
-      "evt_done.rank3": "季军 (Bronze)：",
-      "evt_done.winner3": "黄礼阳 (直凉一校 SJKC Triang 1)",
-      "evt_done.rank4": "第四名 (4th)：",
-      "evt_done.winner4": "张宇诚 (直凉一校 SJKC Triang 1)",
-      "evt_done.rank5": "第五名 (5th)：",
-      "evt_done.winner5": "陈嘉谦 (直凉一校 SJKC Triang 1)",
-      "evt_done.rank_merit": "安慰奖 (Merit)：",
-      "evt_done.winner_merit": "颜宇仁 (文德里) · 何品翰 (吉拉央) · 苏奕宸 (吉拉央)",
-      "evt_done.btn_ladder": "查看天梯积分更新 →",
+      "evt_done.desc": "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可浏览高分辨率实况图集。",
+      "evt_done.btn_gallery": "浏览全景实况图集 (4张) →",
       "footer.about_title": "关于我们",
       "footer.about_desc": "百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证",
       "footer.partners_title": "认证机构 & 官方合作伙伴",
@@ -904,25 +854,8 @@
       "evt_done.series": "Siri Kejohanan Sekolah · Rekod Rasmi 2026",
       "evt_done.date": "13 Jun 2026 (Sabtu) · Selesai Berlangsung",
       "evt_done.title": "Kejohanan Catur Murid SJK(C) Bera 2026 («Qi Kai De Sheng»)",
-      "evt_done.desc": "Acara pertukaran catur cilik anjuran SJK(C) Kerayong dan Persatuan Catur Cina Daerah Bera. Menghimpunkan 20 pemain cilik daripada 5 buah SJK(C) Bera bersama bimbingan dan analisis perlawanan oleh Pengerusi Encik Teoh Hock Beng dan barisan kepimpinan persatuan.",
-      "evt_done.org_label": "Penganjur:",
-      "evt_done.org_val": "Anjuran SJK(C) Kerayong · Kerjasama Persatuan Catur Bera",
-      "evt_done.scale_label": "Penyertaan:",
-      "evt_done.scale_val": "5 SJK(C): Kerayong, Triang 1, Liat Koon, Mengkuang, Menteri",
-      "evt_done.podium_title": "Senarai Pemenang 8 Teratas (Podium & Kepujian)",
-      "evt_done.rank1": "Juara (Emas):",
-      "evt_done.winner1": "Mok Yu Zhe (SJKC Mengkuang)",
-      "evt_done.rank2": "Naib Juara (Perak):",
-      "evt_done.winner2": "Leong You Sheng (SJKC Liat Koon)",
-      "evt_done.rank3": "Tempat Ketiga (Gangsa):",
-      "evt_done.winner3": "Ng Li Yang (SJKC Triang 1)",
-      "evt_done.rank4": "Tempat Ke-4:",
-      "evt_done.winner4": "Teo Yu Chen (SJKC Triang 1)",
-      "evt_done.rank5": "Tempat Ke-5:",
-      "evt_done.winner5": "Tan Jia Qian (SJKC Triang 1)",
-      "evt_done.rank_merit": "Saguhati:",
-      "evt_done.winner_merit": "Gan Yu Ren (Menteri) · Ho Pin Han (Kerayong) · Su Yi Chen (Kerayong)",
-      "evt_done.btn_ladder": "Lihat Kedudukan ELO →",
+      "evt_done.desc": "Acara pertukaran catur cilik anjuran SJK(C) Kerayong dan Persatuan Catur Cina Daerah Bera. Menghimpunkan 20 pemain cilik daripada 5 buah SJK(C) Bera. Klik foto di atas untuk paparan galeri penuh.",
+      "evt_done.btn_gallery": "Lihat Galeri Foto Kejohanan (4 Foto) →",
       "footer.about_title": "Mengenai Kami",
       "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Bera, Pahang.",
       "footer.partners_title": "Rakan Rasmi & Pensijilan",
@@ -1010,25 +943,8 @@
       "evt_done.series": "Inter-School Championship Series · 2026 Official Record",
       "evt_done.date": "June 13, 2026 (Saturday) · Successfully Concluded",
       "evt_done.title": "2026 Bera Primary Schools Xiangqi Championship (\"Qi Kai De Sheng\")",
-      "evt_done.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by Bera District Xiangqi Association. 20 elite players from 5 Chinese primary schools competed, with live game post-mortems conducted by Association President Mr. Teoh Hock Beng and board members.",
-      "evt_done.org_label": "Organizers:",
-      "evt_done.org_val": "Organized by SJK(C) Kerayong · Co-organized by Bera Xiangqi Association",
-      "evt_done.scale_label": "Scale:",
-      "evt_done.scale_val": "5 SJK(C) Schools: Kerayong, Triang 1, Liat Koon, Mengkuang, Menteri",
-      "evt_done.podium_title": "Top 8 Winners Honor Roll (Podium & Merit Roll)",
-      "evt_done.rank1": "Champion (Gold):",
-      "evt_done.winner1": "Mok Yu Zhe (SJKC Mengkuang)",
-      "evt_done.rank2": "1st Runner-Up (Silver):",
-      "evt_done.winner2": "Leong You Sheng (SJKC Liat Koon)",
-      "evt_done.rank3": "2nd Runner-Up (Bronze):",
-      "evt_done.winner3": "Ng Li Yang (SJKC Triang 1)",
-      "evt_done.rank4": "4th Place:",
-      "evt_done.winner4": "Teo Yu Chen (SJKC Triang 1)",
-      "evt_done.rank5": "5th Place:",
-      "evt_done.winner5": "Tan Jia Qian (SJKC Triang 1)",
-      "evt_done.rank_merit": "Consolation Prize:",
-      "evt_done.winner_merit": "Gan Yu Ren (Menteri) · Ho Pin Han (Kerayong) · Su Yi Chen (Kerayong)",
-      "evt_done.btn_ladder": "View ELO Rankings →",
+      "evt_done.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by Bera District Xiangqi Association, gathering 20 elite players across 5 Chinese primary schools. Click photos above to view high-resolution gallery.",
+      "evt_done.btn_gallery": "View Match Photo Gallery (4 Photos) →",
       "footer.about_title": "About Us",
       "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Official Xiangqi training academy<br>and rating body in Bera, Pahang.",
       "footer.partners_title": "Official Partners",
