@@ -13,6 +13,15 @@
      在此处修改一次，全站三端（首页、教练端、校际端）自动同步！
      ======================================================== */
 
+  /* 0. 核心专属设计变量 (Design Variables) */
+  --navy-900:           #070d1a;
+  --navy-800:           #0d1a30;
+  --gold:               #e8b84a;
+  --red-1:              #e8334a;
+  --red-2:              #c4122f;
+  --text:               #f1f4f9;
+  --text-muted:         #a9b4c6;
+
   /* 1. 页面极简暗夜蓝与棋盘微光背景 */
   --bg-page:            #040C17;                           /* 页面极深海蓝底色 */
   --grid-line:          rgba(241, 196, 15, 0.045);         /* 棋盘背景微金网格线 */
@@ -172,22 +181,421 @@
       .p-nav-btn.active { background: rgba(241,196,15,0.1); }
       .p-nav-divider { width: 100%; height: 1px; margin: 4px 0; }
     }
+    /* ========================================================
+       HOMEPAGE PUBLIC LAYOUT & UNIFIED DESIGN SYSTEM
+       ======================================================== */
     .public-content-wrap {
-      width: 100%; max-width: 920px; padding: 28px 20px 60px;
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+      box-sizing: border-box;
     }
-    .vip-invite-card {
-      background: linear-gradient(135deg, rgba(241,196,15,0.12) 0%, rgba(26,82,118,0.3) 100%);
-      border: 1.5px solid rgba(241,196,15,0.4); border-radius: 20px;
-      padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;
-      margin-top: 36px; gap: 16px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+    /* --------------------------------------------------------
+       UNIFIED 3-BUTTON SYSTEM (仅保留三种，删除所有蓝色和橙色按钮)
+       共同规则：高 46px，圆角 10px，字号 15px，字重 600；
+       hover 上浮 2px，箭头向右移 4px；加 :focus-visible 金色外框
+       -------------------------------------------------------- */
+    .btn-primary,
+    .btn-secondary,
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 46px;
+      min-height: 46px;
+      padding: 0 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      text-decoration: none;
+      cursor: pointer;
+      box-sizing: border-box;
+      white-space: nowrap;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  box-shadow 0.2s ease,
+                  background 0.2s ease,
+                  border-color 0.2s ease,
+                  color 0.2s ease;
     }
-    .vip-invite-text { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.4; }
-    .vip-invite-btn {
-      background: #F1C40F; color: #7D6608; padding: 11px 22px; border-radius: 14px;
-      font-size: 14px; font-weight: 900; border: none; cursor: pointer;
-      box-shadow: 0 4px 14px rgba(241,196,15,0.4); transition: transform 0.15s; white-space: nowrap;
+
+    .btn-primary:focus-visible,
+    .btn-secondary:focus-visible,
+    .btn-link:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
     }
-    .vip-invite-btn:hover { transform: scale(1.04); }
+
+    /* 1. btn-primary: 红色渐变(red-1→red-2)实心，白字，仅用于“报名”类按钮 */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--red-1) 0%, var(--red-2) 100%);
+      color: #ffffff !important;
+      border: none;
+      box-shadow: 0 4px 16px rgba(232, 51, 74, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 51, 74, 0.5);
+      color: #ffffff !important;
+    }
+
+    /* 2. btn-secondary: 透明底，1px 金色边框，金色字，用于“查看详情”类按钮 */
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(232, 184, 74, 0.12);
+      border-color: #ffd269;
+      color: #ffd269 !important;
+    }
+    .btn-secondary .btn-arrow {
+      display: inline-block;
+      margin-left: 6px;
+      transition: transform 0.2s ease;
+    }
+    .btn-secondary:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+
+    /* 3. btn-link: 无边框，金色字加 → 箭头，用于“进入…专页”类 */
+    .btn-link {
+      background: transparent;
+      border: none;
+      color: var(--gold) !important;
+      padding: 0 4px;
+      gap: 6px;
+    }
+    .btn-link .btn-arrow,
+    .btn-link .arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .btn-link:hover {
+      transform: translateY(-2px);
+      color: #ffd269 !important;
+    }
+    .btn-link:hover .btn-arrow,
+    .btn-link:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* --------------------------------------------------------
+       UNIFIED PANEL SYSTEM
+       通用 .panel：背景 navy-800 到 navy-900 渐变，1px 边框 rgba(232,184,74,.25)，
+       圆角 16px，内边距 28px；hover 时边框变亮并 translateY(-2px)，加淡金色阴影
+       -------------------------------------------------------- */
+    .panel {
+      background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 100%);
+      border: 1px solid rgba(232, 184, 74, 0.25);
+      border-radius: 16px;
+      padding: 28px;
+      box-sizing: border-box;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+    }
+
+    .panel:hover {
+      border-color: rgba(232, 184, 74, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(232, 184, 74, 0.08), 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .panel-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .panel-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .panel-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      background: rgba(232, 184, 74, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    /* 1. panel--featured（棋缘营）：整行，海报缩略图宽 220px，顶部有 3px 金色渐变线，“报名开放中”徽章带呼吸动画小圆点 */
+    .panel--featured {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .panel--featured::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .panel--featured .panel-poster {
+      width: 220px;
+      max-width: 220px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      border: 1px solid rgba(232, 184, 74, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease;
+      object-fit: cover;
+      display: block;
+    }
+
+    .panel--featured .panel-poster:hover {
+      transform: scale(1.02);
+    }
+
+    .panel--featured .panel-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .panel-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(46, 204, 113, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .panel-tag::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2ecc71;
+      margin-right: 7px;
+      animation: pulseBreathing 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulseBreathing {
+      0%, 100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4);
+      }
+      50% {
+        transform: scale(1.3);
+        opacity: 1;
+        box-shadow: 0 0 8px 3px rgba(46, 204, 113, 0.75);
+      }
+    }
+
+    .panel-meta {
+      list-style: none;
+      margin: 14px 0 20px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .panel-meta li {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+    }
+
+    /* 2. panel--secondary（学院招生）：整行，高度比 featured 矮，按钮用 btn-secondary */
+    .panel--secondary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 22px 28px;
+      width: 100%;
+    }
+
+    .panel--secondary .panel-info {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    /* 3. panel--compact（赛事中心、天梯榜）：两栏并排(grid 2 列, gap 20px)，每张加图标，按钮用 btn-link */
+    .panels-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .panel--compact {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      min-height: 200px;
+    }
+
+    .panel--compact .panel-header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .panel--compact .panel-icon {
+      font-size: 24px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .panel--compact .panel-action {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* --------------------------------------------------------
+       TICKER WRAPPER WITH "最新战报" BADGE & PAUSE ON HOVER
+       -------------------------------------------------------- */
+    .ticker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 100%);
+      border: 1px solid rgba(232, 184, 74, 0.25);
+      border-radius: 12px;
+      padding: 8px 16px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .ticker-wrapper:hover {
+      border-color: rgba(232, 184, 74, 0.5);
+    }
+
+    .ticker-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(232, 184, 74, 0.15);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ticker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red-1);
+      display: inline-block;
+      animation: pulseDotRed 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseDotRed {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .ticker-wrapper .ticker {
+      flex: 1;
+      overflow: hidden;
+      padding: 6px 0;
+      border: none;
+      mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    }
+
+    /* 鼠标悬停时暂停滚动 */
+    .ticker-wrapper:hover .ticker__track {
+      animation-play-state: paused;
+    }
+
+    /* --------------------------------------------------------
+       MOBILE RESPONSIVENESS (<768px)
+       手机端：面板上下排列，海报缩小到 120px，按钮宽度 100%
+       -------------------------------------------------------- */
+    @media (max-width: 768px) {
+      .public-content-wrap {
+        padding: 20px 14px 50px;
+      }
+
+      .panel--featured {
+        flex-direction: column;
+        text-align: center;
+        padding: 22px 18px;
+        gap: 18px;
+      }
+
+      .panel--featured .panel-poster {
+        width: 120px;
+        max-width: 120px;
+      }
+
+      .panel--featured .panel-meta li {
+        justify-content: center;
+      }
+
+      .panel--secondary {
+        flex-direction: column;
+        text-align: center;
+        padding: 22px 18px;
+      }
+
+      .panel--secondary .panel-chip {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .panels-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .panel--compact {
+        text-align: center;
+      }
+
+      .panel--compact .panel-header-row {
+        justify-content: center;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
 
     .gate-card{
       background:#FFF;border-radius:30px;padding:44px 32px;
@@ -807,26 +1215,21 @@ a { color: inherit; text-decoration: none; }
 }
 .badge svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 1.6; }
 
-/* ---------- Announcement (replaces the peach banner) ---------- */
+/* ---------- Announcement (Featured Panel) ---------- */
 .announce {
-  display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: center;
-  padding: 24px;
-  background: var(--navy-900);
-  border: 1px solid var(--gold);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  display: flex; gap: 28px; align-items: center;
+  padding: 28px;
+  background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 100%);
+  border: 1px solid rgba(232, 184, 74, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 .announce__poster {
-  width: 100%; border-radius: 6px;
-  border: 1px solid var(--line);
+  width: 220px; max-width: 220px; flex-shrink: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(232, 184, 74, 0.3);
 }
-.tag {
-  display: inline-block; padding: 3px 12px;
-  font-size: 0.75rem; letter-spacing: 0.08em;
-  color: var(--gold-soft);
-  border: 1px solid var(--gold); border-radius: var(--radius-pill);
-}
-.announce__title { margin: 12px 0 14px; font-size: clamp(1.25rem, 2.6vw, 1.7rem); }
+.announce__title { margin: 12px 0 14px; font-size: clamp(1.25rem, 2.6vw, 1.7rem); color: var(--text); }
 
 .meta { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 6px; }
 .meta li { display: flex; gap: 10px; align-items: center; color: var(--ink-dim); font-size: 0.92rem; }
@@ -955,8 +1358,8 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Responsive ---------- */
 @media (max-width: 760px) {
   .nav__links a span { display: none; }         /* icons only on small screens */
-  .announce { grid-template-columns: 1fr; text-align: center; }
-  .announce__poster { max-width: 160px; margin-inline: auto; }
+  .announce { flex-direction: column; text-align: center; }
+  .announce__poster { width: 120px; max-width: 120px; margin-inline: auto; }
   .meta li { justify-content: center; }
   .podium { grid-template-columns: 1fr; }
   .rank-card--1 { order: -1; }
@@ -1381,71 +1784,92 @@ a { color: inherit; text-decoration: none; }
         </div>
       </header>
 
-      <!-- 2. CAMP PROMO BANNER -->
-      <section class="announce section">
-        <img src="poster_qiyuan_final.jpg" alt="棋缘教育营海报" class="announce__poster" onclick="openLightbox('poster_qiyuan_final.jpg')" style="cursor:pointer;">
-        <div>
-          <span class="tag" data-i18n="camp.status">✅ 报名开放中</span>
-          <h2 class="announce__title" data-i18n="camp.title">2026 第一届「棋缘」中国象棋启蒙教育营</h2>
-          <ul class="meta">
-            <li><span data-i18n="camp.date">📅 日期：11月22日 (星期日)</span></li>
-            <li><span data-i18n="camp.location">📍 地点：Dewan SJK(C) Triang 1</span></li>
-            <li><span data-i18n="camp.highlight">🎯 亮点：零基础教学 · 全套教材 · 结业证书</span></li>
-          </ul>
-          <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn btn--primary" data-i18n="camp.btn">📝 立即填写 Google Form 报名表</a>
+      <!-- 2. CAMP PROMO BANNER (FEATURED PANEL) -->
+      <section class="section" style="margin-top: 24px;">
+        <div class="panel panel--featured announce">
+          <img src="poster_qiyuan_final.jpg" alt="棋缘教育营海报" class="panel-poster announce__poster" onclick="openLightbox('poster_qiyuan_final.jpg')" style="cursor:pointer;">
+          <div class="panel-body">
+            <span class="panel-tag tag" data-i18n="camp.status">✅ 报名开放中</span>
+            <h2 class="panel-title announce__title" data-i18n="camp.title">2026 第一届「棋缘」中国象棋启蒙教育营</h2>
+            <ul class="panel-meta meta">
+              <li><span data-i18n="camp.date">📅 日期：11月22日 (星期日)</span></li>
+              <li><span data-i18n="camp.location">📍 地点：Dewan SJK(C) Triang 1</span></li>
+              <li><span data-i18n="camp.highlight">🎯 亮点：零基础教学 · 全套教材 · 结业证书</span></li>
+            </ul>
+            <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn-primary" data-i18n="camp.btn">📝 立即填写 Google Form 报名表</a>
+          </div>
         </div>
       </section>
 
-      <!-- 2.5 ACADEMY INTAKE PROMO BANNER -->
+      <!-- 2.5 ACADEMY INTAKE PROMO BANNER (SECONDARY PANEL) -->
       <section class="section" style="margin-top: 24px;">
-        <div class="vip-invite-card" style="background: linear-gradient(135deg, rgba(20, 49, 89, 0.75) 0%, rgba(6, 23, 36, 0.9) 100%); border: 1.5px solid rgba(241,196,15,0.45); border-radius: 20px; padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-          <div style="flex: 1; min-width: 280px;">
-            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--gold); letter-spacing:1px; background:rgba(241,196,15,0.12); padding:4px 10px; border-radius:6px; margin-bottom:8px;">
+        <div class="panel panel--secondary">
+          <div class="panel-info">
+            <div class="panel-chip">
               <span>🏛️</span> <span>常规集训班招生 · ACADEMY INTAKE</span>
             </div>
-            <h3 style="font-family: var(--font-serif); font-size: 20px; color:#fff; font-weight:800; margin-bottom:6px;">百乐象棋学院 · 常规棋艺集训班 (RM 60起)</h3>
-            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;">雪隆正规军体系 · 双彭亨现役州代表联手执教 · 百乐县中国象棋公会 官方认证七级考评基地</p>
+            <h3 class="panel-title">百乐象棋学院 · 常规棋艺集训班 (RM 60起)</h3>
+            <p class="panel-desc">雪隆正规军体系 · 双彭亨现役州代表联手执教 · 百乐县中国象棋公会 官方认证七级考评基地</p>
           </div>
-          <a href="academy.html" class="vip-invite-btn" style="background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; box-shadow:0 4px 14px rgba(230,57,70,0.4); text-decoration:none; padding:12px 22px; font-weight:800;">
-            查看班级价目与报名详情 →
+          <a href="academy.html" class="btn-secondary">
+            查看班级价目与报名详情 <span class="btn-arrow">→</span>
           </a>
         </div>
       </section>
 
-      <!-- 3. LIVE MATCH TICKER -->
-      <section class="ticker section">
-        <div id="publicTickerTrack" class="ticker__track"></div>
-      </section>
-
-      <!-- 4. EVENTS PREVIEW CARD (Dedicated Page: events.html) -->
-      <section class="section" id="events" style="margin-top: 36px;">
-        <div class="vip-invite-card" style="background: linear-gradient(135deg, rgba(16, 38, 68, 0.85) 0%, rgba(6, 23, 36, 0.95) 100%); border: 1.5px solid rgba(241,196,15,0.45); border-radius: 20px; padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-          <div style="flex: 1; min-width: 280px;">
-            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--gold); letter-spacing:1px; background:rgba(241,196,15,0.12); padding:4px 10px; border-radius:6px; margin-bottom:8px;">
-              <span>OFFICIAL EVENTS · 官方赛事与活动</span>
-            </div>
-            <h3 style="font-family: var(--font-serif); font-size: 20px; color:#fff; font-weight:800; margin-bottom:6px;" data-i18n="events.title">赛事与活动中心</h3>
-            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;" data-i18n="events.preview_sub">汇聚百乐县官方锦标赛章程、启蒙棋艺教育营、选拔实录与历届活动相册</p>
+      <!-- 3. LIVE MATCH TICKER (WITH LABEL & PAUSE ON HOVER) -->
+      <section class="section" style="margin-top: 24px;">
+        <div class="ticker-wrapper">
+          <div class="ticker-badge">
+            <span class="ticker-dot"></span>
+            <span data-i18n="ticker.badge">最新战报</span>
           </div>
-          <a href="events.html" class="vip-invite-btn" style="background:linear-gradient(135deg, #1E88E5 0%, #1565C0 100%); color:#fff; box-shadow:0 4px 14px rgba(30,136,229,0.35); text-decoration:none; padding:12px 24px; font-weight:800; border-radius:10px; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:transform 0.2s;">
-            <span data-i18n="events.preview_btn">进入活动中心专页</span> →
-          </a>
+          <div class="ticker">
+            <div id="publicTickerTrack" class="ticker__track"></div>
+          </div>
         </div>
       </section>
 
-      <!-- 5. LADDER PREVIEW CARD (Dedicated Page: ladder.html) -->
-      <section class="section" id="ladder" style="margin-top: 36px;">
-        <div class="vip-invite-card" style="background: linear-gradient(135deg, rgba(32, 24, 12, 0.85) 0%, rgba(6, 23, 36, 0.95) 100%); border: 1.5px solid rgba(241,196,15,0.45); border-radius: 20px; padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-          <div style="flex: 1; min-width: 280px;">
-            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--gold); letter-spacing:1px; background:rgba(241,196,15,0.12); padding:4px 10px; border-radius:6px; margin-bottom:8px;">
-              <span>OFFICIAL LADDER · 全县天梯等级分</span>
+      <!-- 4 & 5. COMPACT PANELS GRID (EVENTS & LADDER) -->
+      <section class="section" style="margin-top: 24px;">
+        <div class="panels-grid">
+          <!-- CARD 1: EVENTS -->
+          <div class="panel panel--compact" id="events">
+            <div>
+              <div class="panel-header-row">
+                <span class="panel-icon">🏆</span>
+                <div class="panel-chip">
+                  <span>OFFICIAL EVENTS · 官方赛事与活动</span>
+                </div>
+              </div>
+              <h3 class="panel-title" data-i18n="events.title">赛事与活动中心</h3>
+              <p class="panel-desc" data-i18n="events.preview_sub">汇聚百乐县官方锦标赛章程、启蒙棋艺教育营、选拔实录与历届活动相册</p>
             </div>
-            <h3 style="font-family: var(--font-serif); font-size: 20px; color:#fff; font-weight:800; margin-bottom:6px;" data-i18n="ladder.title">CXQB 官方天梯排位榜</h3>
-            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;" data-i18n="ladder.preview_sub">百乐县首创 0~2000 动态 ELO 等级分体系 · 实时同步全县棋手排位与七级考评实战战力</p>
+            <div class="panel-action">
+              <a href="events.html" class="btn-link">
+                <span data-i18n="events.preview_btn">进入活动中心专页</span> <span class="btn-arrow">→</span>
+              </a>
+            </div>
           </div>
-          <a href="ladder.html" class="vip-invite-btn" style="background:linear-gradient(135deg, #F39C12 0%, #D68910 100%); color:#040C17; box-shadow:0 4px 14px rgba(243,156,18,0.35); text-decoration:none; padding:12px 24px; font-weight:800; border-radius:10px; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:transform 0.2s;">
-            <span data-i18n="ladder.preview_btn">进入天梯榜专页查看</span> →
-          </a>
+
+          <!-- CARD 2: LADDER -->
+          <div class="panel panel--compact" id="ladder">
+            <div>
+              <div class="panel-header-row">
+                <span class="panel-icon">⚔️</span>
+                <div class="panel-chip">
+                  <span>OFFICIAL LADDER · 全县天梯等级分</span>
+                </div>
+              </div>
+              <h3 class="panel-title" data-i18n="ladder.title">CXQB 官方天梯排位榜</h3>
+              <p class="panel-desc" data-i18n="ladder.preview_sub">百乐县首创 0~2000 动态 ELO 等级分体系 · 实时同步全县棋手排位与七级考评实战战力</p>
+            </div>
+            <div class="panel-action">
+              <a href="ladder.html" class="btn-link">
+                <span data-i18n="ladder.preview_btn">进入天梯榜专页查看</span> <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2545,6 +2969,7 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "camp.location": "📍 地点：Dewan SJK(C) Triang 1",
     "camp.highlight": "🎯 亮点：零基础教学 · 全套教材 · 结业证书",
     "camp.btn": "📝 立即填写 Google Form 报名表",
+    "ticker.badge": "最新战报",
     "gallery.title": "历届活动相册",
     "gallery.sub": "记录在百乐县中国象棋公会的精彩瞬间",
     "gallery.empty": "暂无公开相册。",
@@ -2591,6 +3016,7 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "camp.location": "📍 Lokasi: Dewan SJK(C) Triang 1",
     "camp.highlight": "🎯 Asas Sifar · Bahan Penuh · Sijil Penyertaan",
     "camp.btn": "📝 Isi Borang Google Sekarang",
+    "ticker.badge": "Keputusan Terkini",
     "gallery.title": "Galeri Acara Lepas",
     "gallery.sub": "Merakam detik-detik indah bersama CXQB",
         "gallery.empty": "Tiada album awam setakat ini.",
@@ -2636,6 +3062,7 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "camp.location": "📍 Venue: Dewan SJK(C) Triang 1",
     "camp.highlight": "🎯 Zero Basics · Full Material · Certificate",
     "camp.btn": "📝 Fill Google Form Now",
+    "ticker.badge": "Latest Matches",
     "gallery.title": "Past Event Gallery",
     "gallery.sub": "Capturing wonderful moments at CXQB",
         "gallery.empty": "No public albums available.",
