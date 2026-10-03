@@ -674,7 +674,10 @@ function updateSeg(lang) {
   <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
     <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--input-glass-border); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
-      <div id="aBadge" style="display:inline-block; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">CLUB XIANGQI BERA · 教练管理端</div>
+      <div id="aBadge" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:5px 16px 5px 7px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px; box-shadow:0 2px 8px rgba(241,196,15,0.25);">
+        <img src="cxb_round_emblem.png" alt="CXB" style="width:22px; height:22px; border-radius:50%; object-fit:cover; display:block; border:1px solid rgba(10,25,41,0.2);">
+        <span id="aBadgeText">CLUB XIANGQI BERA · 教练管理端</span>
+      </div>
       <h1 id="aTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">百乐象棋俱乐部</h1>
       <p class="sub" id="aSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">请使用俱乐部发放的教练密码登入控制台</p>
 
@@ -1234,7 +1237,7 @@ function setAdminLang(lang) {
 
   const cur = t[mapped] || t.zh;
 
-  const aBadge = document.getElementById('aBadge'); if(aBadge) aBadge.textContent = cur.badge;
+  const aBadgeText = document.getElementById('aBadgeText'); if (aBadgeText) { aBadgeText.textContent = cur.badge; } else { const aBadge = document.getElementById('aBadge'); if (aBadge) aBadge.textContent = cur.badge; }
   const aTitle = document.getElementById('aTitle'); if(aTitle) aTitle.textContent = cur.title;
   const aSub = document.getElementById('aSub'); if(aSub) aSub.textContent = cur.sub;
   const aLbl = document.getElementById('aLbl'); if(aLbl) aLbl.textContent = cur.lbl;
