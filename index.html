@@ -161,6 +161,10 @@
     .p-nav-btn.accent:hover { background: rgba(39,174,96,0.12); color: #27AE60; }
     .p-nav-btn.gold { color: rgba(241,196,15,0.8); }
     .p-nav-btn.gold:hover { background: rgba(241,196,15,0.1); color: #F1C40F; }
+    .p-nav-desktop-links { display: flex; align-items: center; gap: 8px; }
+    @media(max-width: 768px) {
+      .p-nav-desktop-links { display: none !important; }
+    }
     /* Mobile hamburger */
     .p-nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
     @media(max-width: 680px) {
@@ -1333,6 +1337,13 @@ a { color: inherit; text-decoration: none; }
         <div class="p-nav-sub">CLUB XIANGQI BERA</div>
       </div>
     </div>
+    <!-- PC Widescreen Desktop Navigation Links -->
+    <div class="p-nav-desktop-links" style="display:flex; align-items:center; gap:8px;">
+      <a onclick="togglePublicTab('home')" class="p-nav-btn active" data-i18n="nav.home">首页</a>
+      <a href="academy.html" class="p-nav-btn" style="color:var(--gold); font-weight:800;" data-i18n="nav.academy">🏛️ 常规学院</a>
+      <a onclick="togglePublicTab('ladder')" class="p-nav-btn" data-i18n="nav.ladder">天梯榜</a>
+      <a onclick="openArchiveView()" class="p-nav-btn" data-i18n="events.title">赛事活动</a>
+    </div>
     <button class="nav-menu-btn" onclick="toggleMainNav()">
       <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
     </button>
@@ -1370,6 +1381,22 @@ a { color: inherit; text-decoration: none; }
             <li><span data-i18n="camp.highlight">🎯 亮点：零基础教学 · 全套教材 · 结业证书</span></li>
           </ul>
           <a href="https://forms.gle/KUQu7MkUYLnvYeSd6" target="_blank" class="btn btn--primary" data-i18n="camp.btn">📝 立即填写 Google Form 报名表</a>
+        </div>
+      </section>
+
+      <!-- 2.5 ACADEMY INTAKE PROMO BANNER -->
+      <section class="section" style="margin-top: 24px;">
+        <div class="vip-invite-card" style="background: linear-gradient(135deg, rgba(20, 49, 89, 0.75) 0%, rgba(6, 23, 36, 0.9) 100%); border: 1.5px solid rgba(241,196,15,0.45); border-radius: 20px; padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 280px;">
+            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--gold); letter-spacing:1px; background:rgba(241,196,15,0.12); padding:4px 10px; border-radius:6px; margin-bottom:8px;">
+              <span>🏛️</span> <span>常规集训班招生 · ACADEMY INTAKE</span>
+            </div>
+            <h3 style="font-family: var(--font-serif); font-size: 20px; color:#fff; font-weight:800; margin-bottom:6px;">百乐象棋学院 · 常规棋艺集训班 (RM 60起)</h3>
+            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;">雪隆正规军体系 · 双彭亨现役州代表联手执教 · 官方七级考评与 PAJSK 学分认证</p>
+          </div>
+          <a href="academy.html" class="vip-invite-btn" style="background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; box-shadow:0 4px 14px rgba(230,57,70,0.4); text-decoration:none; padding:12px 22px; font-weight:800;">
+            查看班级价目与报名详情 →
+          </a>
         </div>
       </section>
 
@@ -2490,7 +2517,7 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
   // === CN/BM/EN Translation System ===
   const i18n = {
   cn: {
-    "nav.home": "首页", "nav.ladder": "天梯榜", "nav.login": "登录",
+    "nav.home": "首页", "nav.academy": "🏛️ 常规学院", "nav.ladder": "天梯榜", "nav.login": "登录",
     "hero.title": "百乐象棋俱乐部",
     "hero.tagline": "彭亨百乐 · 全县唯一中国象棋教育学院",
     "hero.badge1": "👑 全县唯一象棋教育学院",
@@ -2532,7 +2559,7 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "footer.assoc_name": "百乐县象棋公会"
   },
   bm: {
-    "nav.home": "Utama", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
+    "nav.home": "Utama", "nav.academy": "🏛️ Akademi Catur", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
     "hero.title": "Kelab XiangQi Bera",
     "hero.tagline": "Satu-satunya Akademi Catur Cina di Daerah Bera, Pahang",
     "hero.badge1": "👑 Satu-satunya Akademi Catur di Bera",
@@ -2573,7 +2600,7 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
   },
   en: {
-    "nav.home": "Home", "nav.ladder": "ELO Standings", "nav.login": "Login",
+    "nav.home": "Home", "nav.academy": "🏛️ Academy", "nav.ladder": "ELO Standings", "nav.login": "Login",
     "hero.title": "Club XiangQi Bera",
     "hero.tagline": "The Only Chinese Chess Academy in Bera District, Pahang",
     "hero.badge1": "👑 The Only Chess Academy in Bera",
@@ -2779,6 +2806,7 @@ function updateSeg(lang) {
     <div class="apple-mega-col">
       <h4 data-i18n="nav.explore">探索俱乐部</h4>
       <a onclick="togglePublicTab('home'); closeMainNav()" data-i18n="nav.home">首页</a>
+      <a href="academy.html" style="color:var(--gold); font-weight:700;" data-i18n="nav.academy">🏛️ 常规棋艺学院 (招生)</a>
       <a onclick="togglePublicTab('ladder'); closeMainNav()" data-i18n="nav.ladder">天梯榜</a>
       <a onclick="openArchiveView(); closeMainNav()" data-i18n="events.title">赛事与活动中心</a>
     </div>
