@@ -493,16 +493,27 @@
       <div class="form-section-title" data-i18n="reg.acad_sec1_title">第一步：选择报读阶梯与缴费模式</div>
       <div class="form-section-sub" data-i18n="reg.acad_sec1_sub">根据学员当前水平选择适合的梯队课程。新生首次报名包含全套研习手册与官方天梯建档。</div>
 
+      <!-- PROMO NOTICE BANNER: 3-MONTH WINDOW & 6-MONTH LOCK-IN -->
+      <div class="tier-promo-banner" style="background: linear-gradient(135deg, rgba(201,162,75,0.12), rgba(46,204,113,0.08)); border: 1px solid rgba(201,162,75,0.35); border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; color: #fff;">
+        <div style="font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 13.5px;">
+          <span style="display:inline-block; width:8px; height:8px; background:var(--gold); border-radius:50%;"></span>
+          <span data-i18n="reg.promo_banner_title">百乐县象棋学院 · 创会首期特惠政策说明</span>
+        </div>
+        <div style="color: rgba(255,255,255,0.85); font-size: 12.5px;" data-i18n="reg.promo_banner_desc">
+          【限时 3 个月开放报名】：凡在创会首期（3个月内）报名的学员，即可锁定前 6 个月（连续两季度）特惠资费保障！第 7 个月起平稳恢复正常标准价格。Tahap 1~2 新生更享免除 RM 30 入学材料与终身天梯建档费！
+        </div>
+      </div>
+
       <!-- TIER NOTICE BOX: TAHAP 3-6 REQUIRE ASSESSMENT -->
       <div class="tier-notice-box">
         <strong data-i18n="reg.notice_tahap36_title">关于进阶与精英班 (Tahap 3~6) 考核说明：</strong>
         <span data-i18n="reg.notice_tahap36_desc">为保障教学质量与梯队水准，当前系统仅开放直接报读「初级基础研习班 (Tahap 1~2)」。Tahap 3 至 6 进阶与精英课程须由总教练与教师团队进行现场对弈或残局摸底考核，考核达标后方可录取。若学员已有基础或曾参赛，请先报读初级班并在下方『棋艺现状』注明，教练组将主动联系安排测试！</span>
       </div>
 
-      <!-- TIER TILES (ONLY TAHAP 1-2 SELECTABLE; TAHAP 3-6 LOCKED) -->
+      <!-- TIER TILES (ONLY TAHAP 1-2 SELECTABLE; TAHAP 3-7 LOCKED) -->
       <div class="tier-options-grid">
         <!-- TAHAP 1-2 (ONLY SELECTABLE OPTION) -->
-        <label class="tier-tile selected" onclick="selectAcademyTier(this, 'c1', 170, 60)">
+        <label class="tier-tile selected" onclick="selectAcademyTier(this, 'c1', 160, 60)">
           <input type="radio" name="academy_tier" value="初级基础研习班 (Tahap 1~2)" checked>
           <div class="tier-tile-header">
             <span class="tier-tile-tag">TAHAP 1-2</span>
@@ -511,9 +522,9 @@
           <div class="tier-tile-title" data-i18n="reg.t1_name">初级基础研习班</div>
           <div class="tier-tile-desc" data-i18n="reg.t1_desc">棋规与行棋礼仪、基础战术杀法、死活吃子练习。</div>
           <div class="tier-tile-price-box">
-            <div class="tier-orig-price" data-i18n="reg.t1_orig_price">原价 RM 85 / 月</div>
+            <div class="tier-orig-price" data-i18n="reg.t1_orig_price">原价 RM 60 / 月</div>
             <div class="tier-promo-price">RM 60 <small data-i18n="reg.per_month">/ 月</small></div>
-            <div class="tier-offer-sub" data-i18n="reg.t1_offer_sub">季付特惠 RM 170 (享3个月 · 折合 RM 56.7/月)</div>
+            <div class="tier-offer-sub" data-i18n="reg.t1_offer_sub">特惠季付 RM 160 (3个月 · 免 RM 30 入学费)</div>
           </div>
         </label>
 
@@ -526,10 +537,10 @@
           <div class="tier-tile-title" data-i18n="reg.t2_name">中级战术进阶班</div>
           <div class="tier-tile-desc" data-i18n="reg.t2_desc">核心中局战术推演、十大基础残局定式、全真限时对弈。</div>
           <div class="tier-tile-price-box">
-            <div class="tier-orig-price" data-i18n="reg.t2_orig_price">原价 RM 150 / 月 (8堂双轨)</div>
-            <div class="tier-promo-price" style="color: #e67e22;">RM 85 <small data-i18n="reg.per_month">/ 月</small></div>
+            <div class="tier-orig-price" data-i18n="reg.t2_orig_price">正常原价：月缴 RM 120 / 季付 RM 329</div>
+            <div class="tier-promo-price" style="color: #e67e22;">RM 99 <small data-i18n="reg.t2_per_month">/ 月 (创会特惠)</small></div>
             <div style="font-size: 11.5px; color: #E63946; font-weight: 700;" data-i18n="reg.t2_lock_status">暂不开放直报 · 须测评录取</div>
-            <div style="font-size: 11px; color: var(--ink-dim); font-weight: 500;" data-i18n="reg.t2_lock_fee">季付优惠：RM 240 / 3个月</div>
+            <div style="font-size: 11px; color: var(--gold-soft); font-weight: 600;" data-i18n="reg.t2_lock_fee">创会特惠季付：RM 280 / 3个月 (锁定半年)</div>
           </div>
         </div>
 
@@ -542,10 +553,26 @@
           <div class="tier-tile-title" data-i18n="reg.t3_name">高级精英研修班</div>
           <div class="tier-tile-desc" data-i18n="reg.t3_desc">现代主流开局飞刀库、深层算度推演、带钟慢棋实战复盘。</div>
           <div class="tier-tile-price-box">
-            <div class="tier-orig-price" data-i18n="reg.t3_orig_price">原价 RM 200 / 月 (大师双轨)</div>
-            <div class="tier-promo-price" style="color: #e67e22;">RM 110 <small data-i18n="reg.per_month">/ 月</small></div>
+            <div class="tier-orig-price" data-i18n="reg.t3_orig_price">正常原价：月缴 RM 180 / 季付 RM 499</div>
+            <div class="tier-promo-price" style="color: #e67e22;">RM 149 <small data-i18n="reg.t3_per_month">/ 月 (创会特惠)</small></div>
             <div style="font-size: 11.5px; color: #E63946; font-weight: 700;" data-i18n="reg.t3_lock_status">暂不开放直报 · 须测评录取</div>
-            <div style="font-size: 11px; color: var(--ink-dim); font-weight: 500;" data-i18n="reg.t3_lock_fee">季付优惠：RM 310 / 3个月</div>
+            <div style="font-size: 11px; color: var(--gold-soft); font-weight: 600;" data-i18n="reg.t3_lock_fee">创会特惠季付：RM 420 / 3个月 (锁定半年)</div>
+          </div>
+        </div>
+
+        <!-- TAHAP 7 (LOCKED - SQUAD SELECTION) -->
+        <div class="tier-tile locked" onclick="handleLockedTierClick('tahap7')">
+          <div class="tier-tile-header">
+            <span class="tier-tile-tag" style="background: rgba(201,162,75,0.25); color: var(--gold);">TAHAP 7</span>
+            <span class="tier-open-badge" style="background: rgba(201,162,75,0.15); color: var(--gold); border-color: rgba(201,162,75,0.35);" data-i18n="reg.badge_squad">年度选拔直通 · 公会赞助</span>
+          </div>
+          <div class="tier-tile-title" data-i18n="reg.t4_name">百乐县正选代表队</div>
+          <div class="tier-tile-desc" data-i18n="reg.t4_desc">全县年度赛前四名直通，封闭集训出征全彭赛 (MSSP) 与全国赛。</div>
+          <div class="tier-tile-price-box">
+            <div class="tier-orig-price" data-i18n="reg.t4_orig_price">标准价值 RM 300 / 月</div>
+            <div class="tier-promo-price" style="color: var(--gold);">RM 0 <small style="color: var(--gold-soft);" data-i18n="reg.t4_per_month">/ 个人免缴</small></div>
+            <div style="font-size: 11.5px; color: var(--gold); font-weight: 700;" data-i18n="reg.t4_lock_status">年度全县前四选拔直通</div>
+            <div style="font-size: 11px; color: #2ecc71; font-weight: 600;" data-i18n="reg.t4_lock_fee">公会专项发展基金全额资助</div>
           </div>
         </div>
       </div>
@@ -633,15 +660,15 @@
       <div class="fee-strip">
         <div class="fee-strip-item">
           <span class="fee-strip-label" data-i18n="reg.fee_tuition">学费试算</span>
-          <span class="fee-strip-val" id="dispAcadTuition">RM 170</span>
+          <span class="fee-strip-val" id="dispAcadTuition">RM 160</span>
         </div>
         <div class="fee-strip-item">
           <span class="fee-strip-label" data-i18n="reg.fee_kit">新生材料与建档费</span>
-          <span class="fee-strip-val" data-i18n="reg.fee_kit_val">RM 30 (一次性教材+天梯)</span>
+          <span class="fee-strip-val" id="dispAcadKit" data-i18n="reg.fee_kit_val">RM 0 (创会首期免收原价 RM 30)</span>
         </div>
         <div class="fee-strip-item">
           <span class="fee-strip-label" data-i18n="reg.fee_total">首期应缴合计</span>
-          <span class="fee-strip-total" id="dispAcadTotal">RM 200</span>
+          <span class="fee-strip-total" id="dispAcadTotal">RM 160</span>
         </div>
       </div>
 
@@ -895,7 +922,7 @@
     // Selected Academy Tier State
     let currentAcadTier = {
       name: '初级基础研习班 (Tahap 1~2)',
-      qPrice: 170,
+      qPrice: 160,
       mPrice: 60
     };
 
@@ -913,7 +940,42 @@
     }
 
     function handleLockedTierClick(tierKey) {
-      document.getElementById('tierNoticeModal').classList.add('open');
+      const modal = document.getElementById('tierNoticeModal');
+      const badgeEl = modal.querySelector('[data-i18n="modal_tier.badge"]');
+      const titleEl = modal.querySelector('[data-i18n="modal_tier.title"]');
+      const descEl = modal.querySelector('[data-i18n="modal_tier.desc"]');
+      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+
+      if (tierKey === 'tahap7') {
+        if (lang === 'bm') {
+          badgeEl.textContent = 'TAHAP 7 · SKUAD DAERAH BERA';
+          titleEl.textContent = 'Syarat Pemilihan Skuad Utama Daerah Bera';
+          descEl.innerHTML = 'Tahap 7 (Skuad Utama Daerah) tidak dibuka untuk pendaftaran awam berbayar.<br><br>Penyertaan adalah <strong>secara terus melalui 4 Teratas Kejohanan Terbuka/MSS Daerah</strong> tahunan. Yuran latihan dan bimbingan ditaja sepenuhnya oleh <strong>Dana Pembangunan Persatuan Catur Cina Daerah Bera</strong>!';
+        } else if (lang === 'en') {
+          badgeEl.textContent = 'TAHAP 7 · DISTRICT SQUAD SELECTION';
+          titleEl.textContent = 'District Squad Selection & Sponsorship Policy';
+          descEl.innerHTML = 'Tahap 7 (District Elite Squad) is not open for direct public paid registration.<br><br>Selection is strictly offered to the <strong>Top 4 qualifiers of the Annual District Championship</strong>. All training fees are fully sponsored by the <strong>Persatuan Catur Cina Daerah Bera Development Fund</strong>!';
+        } else {
+          badgeEl.textContent = 'TAHAP 7 · 年度选拔直通 · 公会全额赞助';
+          titleEl.textContent = '百乐县正选代表队选拔与赞助说明';
+          descEl.innerHTML = 'Tahap 7（百乐县正选代表队梯队）不对外开放公开付费报名。<br><br>入选资格须经<strong>年度全县锦标赛各组前四名直通</strong>或总教练特邀。入选队员之集训费用全部由<strong>百乐县中国象棋公会专项发展基金全额资助</strong>，学员个人免缴学费！';
+        }
+      } else {
+        if (lang === 'bm') {
+          badgeEl.textContent = 'PERLU UJIAN KELAYAKAN · ASSESSMENT REQUIRED';
+          titleEl.textContent = 'Syarat Ujian Kelayakan Tahap 3~6';
+          descEl.innerHTML = 'Bagi menjamin kualiti latihan, kelas Tahap 3 hingga 6 tidak dibuka untuk kemasukan terus tanpa penilaian.<br><br>Pakej promosi pengasas: <strong>Tahap 3-4 RM99/bln (RM280/3bln)</strong> dan <strong>Tahap 5-6 RM149/bln (RM420/3bln)</strong> boleh dikunci selama 6 bulan pertama!<br><br>Sila daftar di bawah <strong>Tahap 1~2 Kelas Asas</strong> dahulu dan nyatakan pengalaman catur anak anda. Jurulatih akan menghubungi anda untuk ujian kelayakan!';
+        } else if (lang === 'en') {
+          badgeEl.textContent = 'ASSESSMENT TEST REQUIRED';
+          titleEl.textContent = 'Tahap 3-6 Placement Test Policy';
+          descEl.innerHTML = 'To ensure premier training standards, Tahap 3 to 6 classes do not accept unverified direct admissions.<br><br>Founding promo prices: <strong>Tahap 3-4 RM99/mo (RM280/qtr)</strong> and <strong>Tahap 5-6 RM149/mo (RM420/qtr)</strong> can be locked for the first 6 months!<br><br>Please register under <strong>Tahap 1-2 Foundation Class</strong> first and describe prior chess experience. Our coaches will contact you for a placement test!';
+        } else {
+          badgeEl.textContent = '需教练组考核定级 · ASSESSMENT REQUIRED';
+          titleEl.textContent = '进阶与精英班考核录取与特惠说明';
+          descEl.innerHTML = '为保障教学质量与梯队水准，Tahap 3 至 6 进阶与精英课程不开放未经测评直接报读。<br><br>创会首期报名学员可锁定首 6 个月特惠：<strong>Tahap 3-4 享特惠 RM99/月 (季付 RM280)</strong>；<strong>Tahap 5-6 享特惠 RM149/月 (季付 RM420)</strong>（第7个月起恢复正常标准价格）。<br><br>若学员已有基础或参赛经历，请先报读 <strong>Tahap 1~2 初级基础班</strong> 并在【棋艺现状】中注明，教练组将主动联系安排实战摸底测试！';
+        }
+      }
+      modal.classList.add('open');
     }
 
     function closeTierNoticeModal() {
@@ -944,10 +1006,18 @@
     function calcAcademyTotal() {
       const mode = document.getElementById('acadPayTerm').value;
       const tuition = (mode === 'quarter') ? currentAcadTier.qPrice : currentAcadTier.mPrice;
-      const kit = 30; // One-off kit fee
+      const kit = 0; // Waived during launch promo (Normal RM 30)
       const total = tuition + kit;
 
       document.getElementById('dispAcadTuition').textContent = 'RM ' + tuition;
+      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      const kitText = (lang === 'bm') 
+        ? 'RM 0 (Percuma Yuran Asal RM30)' 
+        : (lang === 'en' 
+           ? 'RM 0 (Launch Promo · Waived RM30 Fee)' 
+           : 'RM 0 (创会免收原价 RM 30)');
+      const kitEl = document.getElementById('dispAcadKit');
+      if (kitEl) kitEl.textContent = kitText;
       document.getElementById('dispAcadTotal').textContent = 'RM ' + total;
     }
 
@@ -1287,22 +1357,34 @@
         "reg.callout_desc": "当前系统开放「常规学院新生报名」与「研习营/公开赛个人报名」。校际锦标赛学校代表队团体报名（第二阶段）目前由百乐县象棋公会直接联系各华小老师统筹申报。",
         "reg.tab_academy": "常规棋艺学院入班报名 (Academy Intake)",
         "reg.tab_camp": "研习营与公开赛报名 (Camp & Open Entry)",
+        "reg.promo_banner_title": "百乐县象棋学院 · 创会首期特惠政策说明",
+        "reg.promo_banner_desc": "【限时 3 个月开放报名】：凡在创会首期（3个月内）报名的学员，即可锁定前 6 个月（连续两季度）特惠资费保障！第 7 个月起平稳恢复正常标准价格。Tahap 1~2 新生更享免除 RM 30 入学材料与终身天梯建档费！",
         "reg.acad_sec1_title": "第一步：选择报读阶梯与缴费模式",
         "reg.acad_sec1_sub": "目前系统仅开放直选 Tahap 1~2 初级班。Tahap 3~6 须经总教练与教师团队实战测评后定级录取。",
         "reg.notice_tahap36_title": "关于进阶与精英班 (Tahap 3~6) 考核说明：",
         "reg.notice_tahap36_desc": "为保障教学质量与梯队水准，当前系统仅开放直接报读「初级基础研习班 (Tahap 1~2)」。Tahap 3 至 6 进阶与精英课程须由总教练与教师团队进行现场对弈或残局摸底考核，考核达标后方可录取。若学员已有基础或曾参赛，请先报读初级班并在下方『棋艺现状』注明，教练组将主动联系安排测试！",
         "reg.badge_open": "开放直报 · 零基础打底",
         "reg.badge_need_test": "需教练组考核定级",
-        "reg.t1_orig_price": "原价 RM 85 / 月",
-        "reg.t1_offer_sub": "季付特惠 RM 170 (享3个月 · 折合 RM 56.7/月)",
-        "reg.t2_orig_price": "原价 RM 150 / 月 (8堂双轨)",
-        "reg.t3_orig_price": "原价 RM 200 / 月 (大师双轨)",
-        "reg.per_month": "/ 月",
-        "reg.t1_term": "/ 季付套餐 (省RM10)",
+        "reg.t1_orig_price": "原价 RM 60 / 月",
+        "reg.t1_offer_sub": "特惠季付 RM 160 (3个月 · 免 RM 30 入学费)",
+        "reg.t2_orig_price": "正常原价：月缴 RM 120 / 季付 RM 329",
+        "reg.t2_promo_price": "RM 99 / 月 (创会特惠)",
         "reg.t2_lock_status": "暂不开放直报 · 须测评录取",
-        "reg.t2_lock_fee": "标准学费：RM 240 / 季付",
+        "reg.t2_lock_fee": "创会特惠季付：RM 280 / 3个月 (锁定半年)",
+        "reg.t3_orig_price": "正常原价：月缴 RM 180 / 季付 RM 499",
+        "reg.t3_promo_price": "RM 149 / 月 (创会特惠)",
         "reg.t3_lock_status": "暂不开放直报 · 须测评录取",
-        "reg.t3_lock_fee": "标准学费：RM 310 / 季付",
+        "reg.t3_lock_fee": "创会特惠季付：RM 420 / 3个月 (锁定半年)",
+        "reg.per_month": "/ 月",
+        "reg.t2_per_month": "/ 月 (创会特惠)",
+        "reg.t3_per_month": "/ 月 (创会特惠)",
+        "reg.badge_squad": "年度选拔直通 · 公会赞助",
+        "reg.t4_name": "百乐县正选代表队",
+        "reg.t4_desc": "全县年度赛前四名直通，封闭集训出征全彭赛 (MSSP) 与全国赛。",
+        "reg.t4_orig_price": "标准价值 RM 300 / 月",
+        "reg.t4_per_month": "/ 个人免缴",
+        "reg.t4_lock_status": "年度全县前四选拔直通",
+        "reg.t4_lock_fee": "公会专项发展基金全额资助",
         "reg.t1_name": "初级基础研习班",
         "reg.t1_desc": "棋规与行棋礼仪、基础战术杀法、死活吃子练习。",
         "reg.t2_name": "中级战术进阶班",
@@ -1335,7 +1417,7 @@
         "reg.lbl_remarks": "备注或特殊要求",
         "reg.fee_tuition": "学费试算",
         "reg.fee_kit": "新生材料与建档费",
-        "reg.fee_kit_val": "RM 30 (一次性教材+天梯)",
+        "reg.fee_kit_val": "RM 0 (创会首期免收原价 RM 30)",
         "reg.fee_total": "首期应缴合计",
         "reg.btn_submit_acad": "生成报名确认凭条并核对资料 →",
         "reg.camp_sec1_title": "第一步：选择参与活动项目",
@@ -1396,22 +1478,34 @@
         "reg.callout_desc": "Sistem fasa pertama ini dibuka untuk Kemasukan Akademi & Penyertaan Kem/Terbuka individu. Pendaftaran pasukan sekolah (Fasa 2) dikendalikan terus oleh Persatuan dengan pihak guru sekolah.",
         "reg.tab_academy": "Pendaftaran Akademi CXQB (Intake)",
         "reg.tab_camp": "Kem & Kejohanan Terbuka (Camp & Open)",
+        "reg.promo_banner_title": "Polisi Yuran Promosi Pelancaran Akademi CXQB",
+        "reg.promo_banner_desc": "【Pendaftaran Terhad 3 Bulan】：Pelajar yang mendaftar dalam tempoh 3 bulan pelancaran akan mengunci yuran diskaun untuk 6 bulan pertama (2 suku tahun)! Bermula bulan ke-7 yuran kembali ke kadar biasa. Tahap 1~2 dikecualikan yuran pendaftaran RM 30!",
         "reg.acad_sec1_title": "Langkah 1: Pilih Peringkat Kelas & Yuran",
         "reg.acad_sec1_sub": "Pendaftaran terus dibuka untuk Tahap 1~2 sahaja. Tahap 3~6 memerlukan ujian kelayakan oleh pasukan jurulatih.",
         "reg.notice_tahap36_title": "Syarat Ujian Kelayakan Tahap 3~6:",
         "reg.notice_tahap36_desc": "Bagi menjamin kualiti latihan, sistem hanya dibuka untuk pendaftaran terus Tahap 1~2. Tahap 3 hingga 6 memerlukan ujian kelayakan oleh pasukan jurulatih. Jika anak anda ada asas atau pernah bertanding, sila pilih Tahap 1~2 dan nyatakan pengalaman di bawah, jurulatih akan menghubungi untuk sesi ujian kelayakan!",
         "reg.badge_open": "Kemasukan Terus · Asas Sifar",
         "reg.badge_need_test": "Perlu Ujian Kelayakan",
-        "reg.t1_orig_price": "Harga Asal RM 85 / Bulan",
-        "reg.t1_offer_sub": "Pakej 3 Bulan RM 170 (RM 56.7/bulan)",
-        "reg.t2_orig_price": "Harga Asal RM 150 / Bulan (8 Kelas Hibrid)",
-        "reg.t3_orig_price": "Harga Asal RM 200 / Bulan (Kelas Elit Hibrid)",
-        "reg.per_month": "/ Bulan",
-        "reg.t1_term": "/ Pakej 3 Bulan (Jimat RM10)",
+        "reg.t1_orig_price": "Harga Asal RM 60 / Bulan",
+        "reg.t1_offer_sub": "Pakej 3 Bulan RM 160 (Percuma Yuran Pendaftaran RM30)",
+        "reg.t2_orig_price": "Kadar Standard: RM 120 / Bulan | RM 329 / 3 Bulan",
+        "reg.t2_promo_price": "RM 99 / Bulan (Promosi Pelancaran)",
         "reg.t2_lock_status": "Kemasukan Terus Ditutup · Ujian Diperlukan",
-        "reg.t2_lock_fee": "Yuran Standard: RM 240 / 3 Bulan",
+        "reg.t2_lock_fee": "Pakej Diskaun: RM 280 / 3 Bulan (Kunci 6 Bulan)",
+        "reg.t3_orig_price": "Kadar Standard: RM 180 / Bulan | RM 499 / 3 Bulan",
+        "reg.t3_promo_price": "RM 149 / Bulan (Promosi Pelancaran)",
         "reg.t3_lock_status": "Kemasukan Terus Ditutup · Ujian Diperlukan",
-        "reg.t3_lock_fee": "Yuran Standard: RM 310 / 3 Bulan",
+        "reg.t3_lock_fee": "Pakej Diskaun: RM 420 / 3 Bulan (Kunci 6 Bulan)",
+        "reg.per_month": "/ Bulan",
+        "reg.t2_per_month": "/ Bulan (Promosi Pelancaran)",
+        "reg.t3_per_month": "/ Bulan (Promosi Pelancaran)",
+        "reg.badge_squad": "Layak Automatik Top 4 · Tajaan Persatuan",
+        "reg.t4_name": "Skuad Utama Daerah Bera",
+        "reg.t4_desc": "Kelayakan terus 4 Teratas Kejohanan MSS/Terbuka Daerah ke MSSP & Kejohanan Kebangsaan.",
+        "reg.t4_orig_price": "Nilai Standard RM 300 / Bulan",
+        "reg.t4_per_month": "/ Yuran Percuma",
+        "reg.t4_lock_status": "Kelayakan Terus 4 Teratas Daerah",
+        "reg.t4_lock_fee": "Ditaja Sepenuhnya oleh Dana Persatuan",
         "reg.t1_name": "Kelas Asas (Tahap 1-2)",
         "reg.t1_desc": "Peraturan catur, asas taktikal & latihan matikan raja.",
         "reg.t2_name": "Kelas Pertengahan (Tahap 3-4)",
@@ -1444,7 +1538,7 @@
         "reg.lbl_remarks": "Catatan Tambahan",
         "reg.fee_tuition": "Anggaran Yuran",
         "reg.fee_kit": "Bahan & Pendaftaran Baharu",
-        "reg.fee_kit_val": "RM 30 (Buku Latihan + Profil ELO)",
+        "reg.fee_kit_val": "RM 0 (Percuma Yuran Pendaftaran Asal RM30)",
         "reg.fee_total": "Jumlah Perlu Dibayar",
         "reg.btn_submit_acad": "Jana Slip Pendaftaran & Semak Maklumat →",
         "reg.camp_sec1_title": "Langkah 1: Pilih Acara / Kem",
@@ -1505,22 +1599,34 @@
         "reg.callout_desc": "Currently open for Academy Student Intake & Camp/Open Tournament entries. School Team Group Entries (Tier 2) are handled directly by the Association with school teachers.",
         "reg.tab_academy": "Academy Student Intake",
         "reg.tab_camp": "Training Camp & Open Tournament Entry",
+        "reg.promo_banner_title": "CXQB Academy Launch Promotion Policy",
+        "reg.promo_banner_desc": "【Limited 3-Month Intake Window】：Students enrolling within the first 3 months lock in promotional discount pricing for their first 6 months (2 quarters)! From month 7, normal rates apply. Tahap 1-2 students also enjoy a full waiver of the RM 30 starter kit and ELO setup fee!",
         "reg.acad_sec1_title": "Step 1: Select Class Tier & Payment Term",
         "reg.acad_sec1_sub": "Direct enrollment is only open for Tahap 1-2. Tahap 3-6 require a placement test by our teacher team.",
         "reg.notice_tahap36_title": "Tahap 3-6 Placement Test Notice:",
         "reg.notice_tahap36_desc": "To maintain high training standards, only Foundation Class (Tahap 1-2) is open for direct entry. Tahap 3 to 6 require a placement assessment by our teacher team. If the student has chess experience, please enroll under Tahap 1-2 and specify their background below; our coaches will arrange an assessment test before class commencement!",
         "reg.badge_open": "Open for Direct Entry · Zero Basics",
         "reg.badge_need_test": "Assessment Test Required",
-        "reg.t1_orig_price": "Standard RM 85 / mo",
-        "reg.t1_offer_sub": "Quarterly Promo RM 170 (3 mos · RM 56.7/mo)",
-        "reg.t2_orig_price": "Standard RM 150 / mo (8 Classes Hybrid)",
-        "reg.t3_orig_price": "Standard RM 200 / mo (Master Class Hybrid)",
-        "reg.per_month": "/ mo",
-        "reg.t1_term": "/ Quarterly Combo (Save RM10)",
+        "reg.t1_orig_price": "Standard RM 60 / mo",
+        "reg.t1_offer_sub": "Quarterly Promo RM 160 (3 mos · Waived RM30 Setup Fee)",
+        "reg.t2_orig_price": "Standard Rate: RM 120 / mo | RM 329 / Quarter",
+        "reg.t2_promo_price": "RM 99 / mo (Launch Promo)",
         "reg.t2_lock_status": "Direct Entry Closed · Test Required",
-        "reg.t2_lock_fee": "Standard Tuition: RM 240 / Quarter",
+        "reg.t2_lock_fee": "Promo Quarterly: RM 280 / 3 mos (Locked for 6 mos)",
+        "reg.t3_orig_price": "Standard Rate: RM 180 / mo | RM 499 / Quarter",
+        "reg.t3_promo_price": "RM 149 / mo (Launch Promo)",
         "reg.t3_lock_status": "Direct Entry Closed · Test Required",
-        "reg.t3_lock_fee": "Standard Tuition: RM 310 / Quarter",
+        "reg.t3_lock_fee": "Promo Quarterly: RM 420 / 3 mos (Locked for 6 mos)",
+        "reg.per_month": "/ mo",
+        "reg.t2_per_month": "/ mo (Launch Promo)",
+        "reg.t3_per_month": "/ mo (Launch Promo)",
+        "reg.badge_squad": "Top 4 Direct Qualifier · Association Sponsored",
+        "reg.t4_name": "Bera District Squad Elite",
+        "reg.t4_desc": "Direct entry for Top 4 district qualifiers to represent Bera in MSS Pahang & National championships.",
+        "reg.t4_orig_price": "Standard Value RM 300 / mo",
+        "reg.t4_per_month": "/ Fee Waived",
+        "reg.t4_lock_status": "Direct Entry for Top 4 Qualifiers",
+        "reg.t4_lock_fee": "Fully Sponsored by Bera Xiangqi Association",
         "reg.t1_name": "Foundation Class (Tahap 1-2)",
         "reg.t1_desc": "Official rules, etiquette, basic mating tactics & drills.",
         "reg.t2_name": "Intermediate Class (Tahap 3-4)",
@@ -1553,7 +1659,7 @@
         "reg.lbl_remarks": "Remarks / Special Requests",
         "reg.fee_tuition": "Estimated Tuition",
         "reg.fee_kit": "New Student Kit & ELO Setup",
-        "reg.fee_kit_val": "RM 30 (One-off material + ELO setup)",
+        "reg.fee_kit_val": "RM 0 (Launch Promo · Waived RM30 Setup Fee)",
         "reg.fee_total": "Total Initial Due",
         "reg.btn_submit_acad": "Generate Confirmation Slip & Review Data →",
         "reg.camp_sec1_title": "Step 1: Select Event or Camp",
@@ -1621,6 +1727,7 @@
       });
       updateSeg(lang);
       updateNavMenuBtnText(false);
+      calcAcademyTotal();
     }
 
     // INITIALIZATION & URL PARAMS
