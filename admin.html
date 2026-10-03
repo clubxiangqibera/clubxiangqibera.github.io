@@ -469,8 +469,8 @@ const i18n = {
     "nav.language": "系统语言",
     "nav.menu": "菜单",
     "events.view_all": "📚 查看所有历届活动 / View All Events",
-    "ladder.title": "百乐全县青少年天梯排位",
-    "ladder.sub": "CXQB ELO 官方排位体系 · 实时同步",
+    "ladder.title": "CXQB 官方天梯排位榜",
+    "ladder.sub": "百乐县官方等级分体系 · 实时同步",
     "login.badge": "🏛️ CLUB XIANGQI BERA · 学员专属登录",
     "login.title": "百乐象棋俱乐部",
     "login.sub": "请使用俱乐部发放的学员账号密码登录",
@@ -485,7 +485,7 @@ const i18n = {
     "footer.contact_title": "联系方式"
   },
   bm: {
-    "nav.home": "Utama", "nav.ladder": "Kedudukan", "nav.login": "Log Masuk",
+    "nav.home": "Utama", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
     "hero.title": "Kelab XiangQi Bera",
     "hero.tagline": "Satu-satunya Akademi Catur Cina di Daerah Bera, Pahang",
     "hero.badge1": "👑 Satu-satunya Akademi Catur di Bera",
@@ -509,8 +509,8 @@ const i18n = {
     "nav.admin_portal": "Portal Jurulatih",
     "nav.language": "Bahasa Sistem",
     "nav.menu": "Menu",
-    "ladder.title": "Top Kedudukan Belia Daerah Bera",
-    "ladder.sub": "Sistem ELO Rasmi CXQB · Segerak Langsung",
+    "ladder.title": "Carta Kedudukan ELO Rasmi CXQB",
+    "ladder.sub": "Sistem Penarafan Catur Daerah Bera · Segerak Langsung",
     "login.badge": "🏛️ CLUB XIANGQI BERA · Log Masuk Pelajar",
     "login.title": "Kelab XiangQi Bera",
     "login.sub": "Sila gunakan akaun pelajar yang diberikan",
@@ -525,7 +525,7 @@ const i18n = {
     "footer.contact_title": "Hubungi Kami"
   },
   en: {
-    "nav.home": "Home", "nav.ladder": "Ladder", "nav.login": "Login",
+    "nav.home": "Home", "nav.ladder": "ELO Standings", "nav.login": "Login",
     "hero.title": "Club XiangQi Bera",
     "hero.tagline": "The Only Chinese Chess Academy in Bera District, Pahang",
     "hero.badge1": "👑 The Only Chess Academy in Bera",
@@ -549,8 +549,8 @@ const i18n = {
     "nav.admin_portal": "Admin Portal",
     "nav.language": "System Language",
     "nav.menu": "Menu",
-    "ladder.title": "Bera Youth Ladder Rankings",
-    "ladder.sub": "CXQB Official ELO System · Live Sync",
+    "ladder.title": "CXQB Official ELO Standings",
+    "ladder.sub": "Bera District Xiangqi Rating System · Live Sync",
     "login.badge": "🏛️ CLUB XIANGQI BERA · Student Login",
     "login.title": "Club XiangQi Bera",
     "login.sub": "Please use the student credentials provided by the club",
@@ -619,7 +619,7 @@ function updateSeg(lang) {
 
       <form onsubmit="event.preventDefault(); tryLogin(); return false;">
         <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
-          <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 管理密码 (Admin Password)</label>
+          <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 管理密码</label>
           <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
         </div>
         
@@ -1096,7 +1096,7 @@ async function tryLogin(){
 }
 
 function setAdminLang(lang) {
-  let mapped = lang === 'cn' ? 'zh' : (lang === 'my' ? 'bm' : lang);
+  let mapped = (lang === 'cn' || lang === 'zh') ? 'zh' : (lang === 'my' || lang === 'bm' ? 'bm' : 'en');
   try { localStorage.setItem('cxb_lang_pref', mapped); } catch(e){}
 
   const t = {
@@ -1104,8 +1104,8 @@ function setAdminLang(lang) {
       badge: "👑 CLUB XIANGQI BERA · 教练管理端",
       title: "百乐象棋俱乐部",
       sub: "请使用俱乐部发放的教练密码登入控制台",
-      lbl: "🔑 管理密码 (Admin Password)",
-      ph: "请输入密码",
+      lbl: "🔑 管理密码",
+      ph: "请输入管理密码",
       btn: "🔐 进入管理控制台",
       err: "❌ 密码错误，请重新输入",
       ret: "← 返回主页",
@@ -1127,8 +1127,8 @@ function setAdminLang(lang) {
       badge: "👑 CLUB XIANGQI BERA · Portal Jurulatih",
       title: "Kelab XiangQi Bera",
       sub: "Sila gunakan kata laluan jurulatih untuk log masuk",
-      lbl: "🔑 Kata Laluan Pentadbir (Admin Password)",
-      ph: "Masukkan kata laluan",
+      lbl: "🔑 Kata Laluan Pentadbir",
+      ph: "Masukkan kata laluan pentadbir",
       btn: "🔐 Log Masuk ke Papan Kawalan",
       err: "❌ Kata laluan salah, sila cuba lagi",
       ret: "← Kembali ke Utama",
@@ -1163,7 +1163,7 @@ function setAdminLang(lang) {
         payments: "💰 Fee Tracking",
         records: "📄 Scoresheet Archive",
         tournament: "🏆 Tournament",
-        ladder: "🏅 ELO Ladder",
+        ladder: "🏅 ELO Standings",
         accounts: "🔑 Account Management",
         gallery: "📸 Photo Gallery",
         licenses: "🛡️ School Licenses"

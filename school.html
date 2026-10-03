@@ -607,8 +607,8 @@ const i18n = {
     "nav.language": "系统语言",
     "nav.menu": "菜单",
     "events.view_all": "📚 查看所有历届活动 / View All Events",
-    "ladder.title": "百乐全县青少年天梯排位",
-    "ladder.sub": "CXQB ELO 官方排位体系 · 实时同步",
+    "ladder.title": "CXQB 官方天梯排位榜",
+    "ladder.sub": "百乐县官方等级分体系 · 实时同步",
     "login.badge": "🏛️ CLUB XIANGQI BERA · 学员专属登录",
     "login.title": "百乐象棋俱乐部",
     "login.sub": "请使用俱乐部发放的学员账号密码登录",
@@ -623,7 +623,7 @@ const i18n = {
     "footer.contact_title": "联系方式"
   },
   bm: {
-    "nav.home": "Utama", "nav.ladder": "Kedudukan", "nav.login": "Log Masuk",
+    "nav.home": "Utama", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
     "hero.title": "Kelab XiangQi Bera",
     "hero.tagline": "Satu-satunya Akademi Catur Cina di Daerah Bera, Pahang",
     "hero.badge1": "👑 Satu-satunya Akademi Catur di Bera",
@@ -647,8 +647,8 @@ const i18n = {
     "nav.admin_portal": "Portal Jurulatih",
     "nav.language": "Bahasa Sistem",
     "nav.menu": "Menu",
-    "ladder.title": "Top Kedudukan Belia Daerah Bera",
-    "ladder.sub": "Sistem ELO Rasmi CXQB · Segerak Langsung",
+    "ladder.title": "Carta Kedudukan ELO Rasmi CXQB",
+    "ladder.sub": "Sistem Penarafan Catur Daerah Bera · Segerak Langsung",
     "login.badge": "🏛️ CLUB XIANGQI BERA · Log Masuk Pelajar",
     "login.title": "Kelab XiangQi Bera",
     "login.sub": "Sila gunakan akaun pelajar yang diberikan",
@@ -663,7 +663,7 @@ const i18n = {
     "footer.contact_title": "Hubungi Kami"
   },
   en: {
-    "nav.home": "Home", "nav.ladder": "Ladder", "nav.login": "Login",
+    "nav.home": "Home", "nav.ladder": "ELO Standings", "nav.login": "Login",
     "hero.title": "Club XiangQi Bera",
     "hero.tagline": "The Only Chinese Chess Academy in Bera District, Pahang",
     "hero.badge1": "👑 The Only Chess Academy in Bera",
@@ -687,8 +687,8 @@ const i18n = {
     "nav.admin_portal": "Admin Portal",
     "nav.language": "System Language",
     "nav.menu": "Menu",
-    "ladder.title": "Bera Youth Ladder Rankings",
-    "ladder.sub": "CXQB Official ELO System · Live Sync",
+    "ladder.title": "CXQB Official ELO Standings",
+    "ladder.sub": "Bera District Xiangqi Rating System · Live Sync",
     "login.badge": "🏛️ CLUB XIANGQI BERA · Student Login",
     "login.title": "Club XiangQi Bera",
     "login.sub": "Please use the student credentials provided by the club",
@@ -715,17 +715,14 @@ function openArchiveView() {
 function setLang(lang) {
   let mapping = {'cn': 'zh', 'bm': 'bm', 'en': 'en'};
   let mapped = mapping[lang] || 'zh';
-  if (typeof changeGlobalLang === 'function') {
-    changeGlobalLang(mapped);
-  } else if (typeof updateMenuI18n === 'function') {
-    updateMenuI18n(mapped);
-  }
+  setLoginLang(mapped);
   
   // also apply translations to the copied menu items
-  let navLang = lang === 'zh' ? 'cn' : lang; // fallback if needed
+  let navLang = lang === 'zh' ? 'cn' : lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
+    if(el.id === 'navMenuBtnText') return;
     const key = el.getAttribute('data-i18n');
-    if(i18n[navLang] && i18n[navLang][key]) {
+    if(typeof i18n !== 'undefined' && i18n[navLang] && i18n[navLang][key]) {
       if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = i18n[navLang][key];
       } else {
@@ -733,6 +730,8 @@ function setLang(lang) {
       }
     }
   });
+  if(typeof updateSeg === 'function') updateSeg(navLang);
+  if(typeof updateNavMenuBtn === 'function') updateNavMenuBtn();
 }
 function updateSeg(lang) {
   document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
@@ -756,8 +755,8 @@ function updateSeg(lang) {
       <p class="sub" id="sSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影</p>
 
       <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
-        <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 比赛授权码 (Access Code)</label>
-        <input type="text" id="schoolPinInput" class="pin-input" placeholder="输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
+        <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 比赛授权码</label>
+        <input type="text" id="schoolPinInput" class="pin-input" placeholder="请输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
       </div>
       
       <button type="button" class="login-btn" id="sBtn" onclick="doSchoolLogin()" style="width:100%; padding:16px; background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">🚨 验证授权并进入比赛台</button>
@@ -1079,133 +1078,60 @@ const I18N = {
 };
 
 function setLoginLang(lang) {
-      localStorage.setItem('cxb_lang_pref', lang);
-      document.querySelectorAll('.lang-switch .lang-btn').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById('btnLang' + lang.charAt(0).toUpperCase() + lang.slice(1));
-      if(activeBtn) activeBtn.classList.add('active');
+  let mapped = (lang === 'cn' || lang === 'zh') ? 'zh' : (lang === 'my' || lang === 'bm' ? 'bm' : 'en');
+  try { 
+    localStorage.setItem('cxb_lang_pref', mapped);
+    localStorage.setItem('cxb_school_lang', mapped);
+  } catch(e){}
 
-  currentLang = lang;
-  localStorage.setItem('cxb_school_lang', lang);
-  
-  // Login screen switch pills
-  const bZh = document.getElementById('btnLangZh');
-  const bEn = document.getElementById('btnLangEn');
-  if (bZh && bEn) {
-    bZh.classList.toggle('active', lang === 'zh');
-    bEn.classList.toggle('active', lang === 'en');
-  }
+  const tCard = {
+    zh: {
+      badge: "🏫 CLUB XIANGQI BERA · 校际赛报名系统",
+      title: "校内象棋比赛管理系统",
+      sub: "百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影",
+      lbl: "🔑 比赛授权码",
+      ph: "请输入授权码 (如 CXQB-8888)",
+      btn: "🛡️ 验证授权并进入比赛台",
+      err: "❌ 授权码无效或已到期，请联系俱乐部获取",
+      errEmpty: "❌ 请输入比赛授权激活码！"
+    },
+    bm: {
+      badge: "🏫 CLUB XIANGQI BERA · Sistem Antara Sekolah",
+      title: "Sistem Pertandingan Catur Sekolah",
+      sub: "Sistem Penjadualan CXQB · Pemecah Seri Automatik · Paparan Skrin Besar",
+      lbl: "🔑 Kod Akses Pertandingan",
+      ph: "Masukkan kod akses (cth: CXQB-8888)",
+      btn: "🛡️ Sahkan Akses & Masuk Sistem",
+      err: "❌ Kod akses tidak sah atau tamat tempoh, sila hubungi kelab",
+      errEmpty: "❌ Sila masukkan kod akses pertandingan!"
+    },
+    en: {
+      badge: "🏫 CLUB XIANGQI BERA · Schools Portal",
+      title: "School Tournament System",
+      sub: "CXQB Pairing Engine · Auto Tie-Break · Live Stage Projection",
+      lbl: "🔑 Tournament Access Code",
+      ph: "Enter access code (e.g. CXQB-8888)",
+      btn: "🛡️ Verify Access & Enter Arena",
+      err: "❌ Invalid or expired access code. Please contact club.",
+      errEmpty: "❌ Please enter tournament access code!"
+    }
+  };
 
-  // System topbar switch pills
-  const bSysZh = document.getElementById('btnSysLangZh');
-  const bSysEn = document.getElementById('btnSysLangEn');
-  if (bSysZh && bSysEn) {
-    bSysZh.classList.toggle('active', lang === 'zh');
-    bSysEn.classList.toggle('active', lang === 'en');
-    bSysZh.style.background = lang === 'zh' ? '#1A5276' : 'transparent';
-    bSysEn.style.background = lang === 'en' ? '#1A5276' : 'transparent';
-  }
+  const cur = tCard[mapped] || tCard.zh;
+  const sBadge = document.getElementById('sBadge'); if (sBadge) sBadge.textContent = cur.badge;
+  const sTitle = document.getElementById('sTitle'); if (sTitle) sTitle.textContent = cur.title;
+  const sSub = document.getElementById('sSub'); if (sSub) sSub.textContent = cur.sub;
+  const sLbl = document.getElementById('sLbl'); if (sLbl) sLbl.textContent = cur.lbl;
+  const sPin = document.getElementById('schoolPinInput'); if (sPin) sPin.placeholder = cur.ph;
+  const sBtn = document.getElementById('sBtn'); if (sBtn) sBtn.textContent = cur.btn;
 
-  const t = I18N[lang];
-  if (!t) return;
-
-  const brandSub = document.getElementById('tBrandSub');
-  if (brandSub) brandSub.textContent = t.brandSub;
-
-  const badgeText = document.getElementById('tBadgeText');
-  if (badgeText) badgeText.textContent = t.badgeText;
-
-  const mainTitle = document.getElementById('tMainTitle');
-  if (mainTitle) mainTitle.textContent = t.mainTitle;
-
-  const subDesc = document.getElementById('tSubDesc');
-  if (subDesc) subDesc.textContent = t.subDesc;
-
-  const pinInput = document.getElementById('schoolPinInput');
-  if (pinInput) pinInput.placeholder = t.pinPlaceholder;
-
-  const submitBtn = document.getElementById('tSubmitBtn');
-  if (submitBtn) submitBtn.innerHTML = t.submitBtn;
-
-  const footSec = document.getElementById('tFootSec');
-  if (footSec) {
-    footSec.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> ${t.footSec}`;
-  }
-
-  const footCert = document.getElementById('tFootCert');
-  if (footCert) {
-    footCert.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F39C12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${t.footCert}`;
-  }
-
-  // System topbar buttons
-  const btnProj = document.getElementById('btnSysProjector');
-  if (btnProj) btnProj.innerHTML = t.btnProj;
-
-  const btnPrint = document.getElementById('btnSysPrint');
-  if (btnPrint) btnPrint.innerHTML = t.btnPrint;
-
-  const btnLogout = document.getElementById('btnSysLogout');
-  if (btnLogout) btnLogout.textContent = t.btnLogout;
-
-  const appSub = document.getElementById('appSchoolSub');
-  if (appSub) appSub.textContent = t.appSub;
-
-  // Setup Card translations
-  const setupTitle = document.getElementById('tSetupTitle');
-  if (setupTitle) setupTitle.textContent = t.setupTitle;
-
-  const setupDesc = document.getElementById('tSetupDesc');
-  if (setupDesc) setupDesc.textContent = t.setupDesc;
-
-  const lTourneyName = document.getElementById('tLabelTourneyName');
-  if (lTourneyName) lTourneyName.textContent = t.labelTourneyName;
-
-  const inpTourneyName = document.getElementById('schTourneyName');
-  if (inpTourneyName) inpTourneyName.placeholder = t.placeholderTourneyName;
-
-  const lTotalRounds = document.getElementById('tLabelTotalRounds');
-  if (lTotalRounds) lTotalRounds.textContent = t.labelTotalRounds;
-
-  const lPlayers = document.getElementById('tLabelPlayers');
-  if (lPlayers) lPlayers.textContent = t.labelPlayers;
-
-  const btnStart = document.getElementById('tBtnStartTourney');
-  if (btnStart) btnStart.textContent = t.btnStartTourney;
-
-  // Active tourney translations
-  const sideHint = document.getElementById('tRoundSideHint');
-  if (sideHint) sideHint.textContent = t.roundSideHint;
-
-  const liveProj = document.getElementById('tBtnLiveProjector');
-  if (liveProj) liveProj.textContent = t.btnLiveProj;
-
-  const thB = document.getElementById('thBoard'); if (thB) thB.textContent = t.thBoard;
-  const thR = document.getElementById('thRed'); if (thR) thR.textContent = t.thRed;
-  const thBl = document.getElementById('thBlack'); if (thBl) thBl.textContent = t.thBlack;
-  const thRes = document.getElementById('thResult'); if (thRes) thRes.textContent = t.thResult;
-  const thInp = document.getElementById('thScoreInput'); if (thInp) thInp.textContent = t.thScoreInput;
-
-  const sTitle = document.getElementById('tStandingsTitle'); if (sTitle) sTitle.textContent = t.standingsTitle;
-  const sSub = document.getElementById('tStandingsSub'); if (sSub) sSub.textContent = t.standingsSub;
-  const sPrint = document.getElementById('tBtnPrintStandings'); if (sPrint) sPrint.textContent = t.btnPrintStandings;
-
-  // Print Header translations
-  const pBrandTitle = document.getElementById('printBrandTitle');
-  if (pBrandTitle) pBrandTitle.textContent = t.printBrandTitle;
-
-  const pBrandSub = document.getElementById('printBrandSub');
-  if (pBrandSub) pBrandSub.textContent = t.printBrandSub;
-
-  const pSubtitle = document.getElementById('printRoundSubtitle');
-  if (pSubtitle) {
-    const rNum = (viewRoundIdx !== undefined ? viewRoundIdx + 1 : 1);
-    pSubtitle.textContent = lang === 'zh'
-      ? `第 ${rNum} 轮 ` + t.printSubtitlePrefix
-      : `Round ${rNum} · ` + t.printSubtitlePrefix;
-  }
-
-  // If tournament active, re-render texts in current language
-  if (schoolTourney && schoolTourney.players && schoolTourney.players.length) {
-    renderActiveTourney();
+  // Internal tourney strings
+  if (typeof I18N !== 'undefined') {
+    const t = I18N[mapped] || I18N['en'] || I18N['zh'];
+    if (t) {
+      const brandSub = document.getElementById('tBrandSub'); if (brandSub) brandSub.textContent = t.brandSub;
+      const sStandTitle = document.getElementById('tStandingsTitle'); if (sStandTitle && t.standingsTitle) sStandTitle.textContent = t.standingsTitle;
+    }
   }
 }
 
@@ -1915,8 +1841,9 @@ try {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  let saved = localStorage.getItem('cxb_lang_pref');
-  if(saved) setLoginLang(saved);
+  const saved = localStorage.getItem('cxb_lang_pref') || 'zh';
+  let internal = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
+  setLang(internal);
 });
 
 
