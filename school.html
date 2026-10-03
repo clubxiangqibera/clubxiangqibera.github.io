@@ -797,8 +797,9 @@ function setLang(lang) {
   if(typeof updateNavMenuBtn === 'function') updateNavMenuBtn();
 }
 function updateSeg(lang) {
+  const l = (lang === 'zh' ? 'cn' : lang);
   document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
-  let activeBtn = document.getElementById('seg_' + lang);
+  let activeBtn = document.getElementById('seg_' + l);
   if(activeBtn) activeBtn.classList.add('active');
 }
 </script>

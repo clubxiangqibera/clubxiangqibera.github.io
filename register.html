@@ -928,7 +928,7 @@
       const badgeEl = modal.querySelector('[data-i18n="modal_tier.badge"]');
       const titleEl = modal.querySelector('[data-i18n="modal_tier.title"]');
       const descEl = modal.querySelector('[data-i18n="modal_tier.desc"]');
-      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      const lang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
 
       if (tierKey === 'tahap7') {
         if (lang === 'bm') {
@@ -994,7 +994,7 @@
       const total = tuition + kit;
 
       document.getElementById('dispAcadTuition').textContent = 'RM ' + tuition;
-      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      const lang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
       const kitText = (lang === 'bm') 
         ? 'RM 0 (Percuma Yuran Asal RM30)' 
         : (lang === 'en' 
@@ -1076,7 +1076,7 @@
       let school = document.getElementById('acadSchool').value;
 
       if (!cnName || !enName || !birthYear || !parentName || !parentPhone) {
-        const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+        const lang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
         const alertMsg = (lang === 'bm') 
           ? 'Sila lengkapkan semua ruangan wajib (Nama Cina, Nama Penuh, Tahun Kelahiran, Nama Ibu Bapa & No. WhatsApp)!'
           : (lang === 'en' 
@@ -1089,7 +1089,7 @@
       if (school === 'OTHER') {
         const customVal = document.getElementById('acadCustomSchool').value.trim();
         if (!customVal) {
-          const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+          const lang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
           const alertMsg = (lang === 'bm') 
             ? 'Sila nyatakan nama sekolah anda!' 
             : (lang === 'en' ? 'Please enter your school name!' : '请填写您就读的学校全名！');
@@ -1141,7 +1141,7 @@
       const emergency = document.getElementById('campEmergency').value.trim();
 
       if (!cnName || !enName || !ic || !school || !phone || !emergency) {
-        const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+        const lang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
         const alertMsg = (lang === 'bm')
           ? 'Sila lengkapkan semua maklumat peserta (Nama, No. IC, Sekolah, No. Telefon & Hubungan Kecemasan)!'
           : (lang === 'en'
@@ -1302,8 +1302,15 @@
       updateNavMenuBtnText(false);
     }
 
+    function normalizeLang(lang) {
+      if (!lang || lang === 'zh' || lang === 'cn') return 'cn';
+      if (lang === 'bm' || lang === 'ms') return 'bm';
+      if (lang === 'en') return 'en';
+      return 'cn';
+    }
+
     function updateNavMenuBtnText(isOpen) {
-      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      const lang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
       const textEl = document.getElementById('navMenuBtnText');
       if (!textEl) return;
       if (isOpen) {
@@ -1314,12 +1321,13 @@
     }
 
     function updateSeg(lang) {
-      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = document.getElementById('seg_' + lang);
+      const l = normalizeLang(lang);
+      document.querySelectorAll('.apple-segment .seg-btn, .seg-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('seg_' + l);
       if (activeBtn) activeBtn.classList.add('active');
 
       document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
-      const activeNavBtn = document.getElementById('nav_lang_' + lang);
+      const activeNavBtn = document.getElementById('nav_lang_' + l);
       if (activeNavBtn) activeNavBtn.classList.add('active');
     }
 
@@ -1691,12 +1699,14 @@
     };
 
     function setLang(lang) {
-      localStorage.setItem('cxb_lang_pref', lang);
-      applyTranslations(lang);
+      const norm = normalizeLang(lang);
+      localStorage.setItem('cxb_lang_pref', norm);
+      applyTranslations(norm);
     }
 
     function applyTranslations(lang) {
-      const dict = i18n[lang] || i18n.cn;
+      const norm = normalizeLang(lang);
+      const dict = i18n[norm] || i18n.cn;
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) {
@@ -1709,14 +1719,14 @@
           el.setAttribute('placeholder', dict[key]);
         }
       });
-      updateSeg(lang);
+      updateSeg(norm);
       updateNavMenuBtnText(false);
       calcAcademyTotal();
     }
 
     // INITIALIZATION & URL PARAMS
     window.addEventListener('DOMContentLoaded', () => {
-      const savedLang = localStorage.getItem('cxb_lang_pref') || 'cn';
+      const savedLang = normalizeLang(localStorage.getItem('cxb_lang_pref'));
       applyTranslations(savedLang);
 
       // Check URL parameters: e.g. ?type=academy, ?type=camp, ?event=qiyuan
