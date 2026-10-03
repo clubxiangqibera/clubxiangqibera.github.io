@@ -6,7 +6,7 @@
   <title>校际象棋赛事管理系统 · Club XiangQi Bera Pairing System</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;800;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --pri: #0E2F44;
@@ -493,7 +493,7 @@ body::before {
     .apple-mega-col { display: flex; flex-direction: column; gap: 14px; }
     .apple-mega-col h4 {
       font-size: 13px; color: rgba(255,255,255,0.4); text-transform: uppercase;
-      letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;
+      letter-spacing: 1.5px; margin-bottom: 6px; font-family: 'Noto Serif SC', var(--font-serif); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;
     }
     .apple-mega-col a {
       color: #fff; font-size: 17px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s ease;
@@ -1934,6 +1934,15 @@ function closeMainNav() {
 }
 
 function changeGlobalLang(lang) {
+  // Translate nav-adapter elements
+  let navLang = lang === 'zh' ? 'cn' : lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if(typeof i18n !== 'undefined' && i18n[navLang] && i18n[navLang][el.getAttribute('data-i18n')]) {
+      el.innerHTML = i18n[navLang][el.getAttribute('data-i18n')];
+    }
+  });
+  if(typeof updateSeg === 'function') updateSeg(navLang);
+
   setLoginLang(lang);
 }
 

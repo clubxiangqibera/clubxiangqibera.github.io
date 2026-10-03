@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>CXQB Admin — 俱乐部教练与管理控制台</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root{
       --pri:#0E2F44;--pri2:#1A5276;--pri3:#2980B9;--gold:#F39C12;--bg:#F0F4F8;
@@ -355,7 +355,7 @@ body::before {
     .apple-mega-col { display: flex; flex-direction: column; gap: 14px; }
     .apple-mega-col h4 {
       font-size: 13px; color: rgba(255,255,255,0.4); text-transform: uppercase;
-      letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;
+      letter-spacing: 1.5px; margin-bottom: 6px; font-family: 'Noto Serif SC', var(--font-serif); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;
     }
     .apple-mega-col a {
       color: #fff; font-size: 17px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s ease;
@@ -1085,8 +1085,8 @@ function setAdminLang(lang) {
       const activeBtn = document.getElementById('aLang' + lang.charAt(0).toUpperCase() + lang.slice(1));
       if(activeBtn) activeBtn.classList.add('active');
 
-  document.getElementById('aLangZh').classList.toggle('active', lang === 'zh');
-  document.getElementById('aLangEn').classList.toggle('active', lang === 'en');
+  const elZh = document.getElementById('aLangZh'); if(elZh) elZh.classList.toggle('active', lang === 'zh');
+  const elEn = document.getElementById('aLangEn'); if(elEn) elEn.classList.toggle('active', lang === 'en');
   if (lang === 'zh') {
     document.getElementById('aSub').textContent = '管理控制台 · Admin Dashboard';
     document.getElementById('adminPinInput').placeholder = '输入管理密码 (Enter Password)';
@@ -3172,6 +3172,15 @@ function closeMainNav() {
 }
 
 function changeGlobalLang(lang) {
+  // Translate nav-adapter elements
+  let navLang = lang === 'zh' ? 'cn' : lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if(typeof i18n !== 'undefined' && i18n[navLang] && i18n[navLang][el.getAttribute('data-i18n')]) {
+      el.innerHTML = i18n[navLang][el.getAttribute('data-i18n')];
+    }
+  });
+  if(typeof updateSeg === 'function') updateSeg(navLang);
+
   if(typeof setAdminLang === 'function') setAdminLang(lang);
   if(typeof setLoginLang === 'function') setLoginLang(lang);
   updateMenuI18n(lang);
