@@ -275,7 +275,7 @@
       box-shadow: var(--shadow); margin-bottom: 48px; overflow-x: auto;
     }
     .cxb-table {
-      width: 100%; border-collapse: collapse; text-align: left;
+      width: 100%; min-width: 680px; border-collapse: collapse; text-align: left;
     }
     .cxb-table th {
       padding: 12px 14px; font-size: 0.8rem; font-weight: 600;
@@ -531,12 +531,12 @@
       <h1 class="hero__title" data-i18n="academy.hero_title">百乐象棋学院</h1>
       <div class="hero__en">REGULAR XIANGQI ACADEMY · CXQB</div>
       <p class="hero__tagline" data-i18n="academy.hero_sub">
-        雪隆正规军体系归来 · 双彭亨州代表联袂执教<br>全县唯一官方七级考评与 PAJSK 学分认证青训基地
+        雪隆正规军体系归来 · 双彭亨州代表联袂执教<br>百乐县中国象棋公会 官方技术认证与青训基地
       </p>
       <div class="hero__badges">
         <span class="badge" data-i18n="chip.standard">👑 雪隆专业棋院标准训练大纲</span>
         <span class="badge" data-i18n="chip.ladder">⚔️ 全县唯一 0~2000 ELO 天梯排位</span>
-        <span class="badge" data-i18n="chip.pajsk">🏅 公会官方七级考评认证 (PAJSK)</span>
+        <span class="badge" data-i18n="chip.pajsk">🏅 公会官方七级考评认证体系</span>
       </div>
     </header>
 
@@ -619,7 +619,7 @@
             <li><span class="ico">👑</span> <span><b data-i18n="c4.content">目标：</b> 代表百乐县出征全彭赛 (MSSP) 与全国赛</span></li>
             <li><span class="ico">👑</span> <span><b data-i18n="c4.coach">挂帅：</b> 创办人总教练亲率主力战将出征</span></li>
           </ul>
-          <a href="index.html#ladder" class="btn-card btn-card--red" data-i18n="c4.btn">查看全县正选榜</a>
+          <a href="ladder.html" class="btn-card btn-card--red" data-i18n="c4.btn">查看全县正选榜</a>
         </div>
 
       </div>
@@ -638,7 +638,7 @@
     <section class="section" id="grading">
       <div class="section__head">
         <h2 class="section__title" data-i18n="sec.grading_title">公会官方七级考评认证体系</h2>
-        <p class="section__sub" data-i18n="sec.grading_sub">全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），成绩直接对接 PAJSK 课外活动学分</p>
+        <p class="section__sub" data-i18n="sec.grading_sub">全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），由百乐县中国象棋公会权威认证颁发官方考级文凭</p>
       </div>
 
       <div class="table-container">
@@ -868,7 +868,7 @@
       <h4 data-i18n="nav.explore">探索俱乐部</h4>
       <a href="index.html" data-i18n="nav.home">首页</a>
       <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
-      <a href="index.html#ladder" data-i18n="nav.ladder">天梯榜</a>
+      <a href="ladder.html" data-i18n="nav.ladder">天梯榜</a>
       <a href="index.html#events" data-i18n="events.title">赛事与活动中心</a>
     </div>
     
@@ -944,10 +944,10 @@
       "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
       "nav.school_portal": "校际赛报名系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单",
       "academy.hero_title": "百乐象棋学院",
-      "academy.hero_sub": "雪隆正规军体系归来 · 双彭亨州代表联袂执教<br>全县唯一官方七级考评与 PAJSK 学分认证青训基地",
+      "academy.hero_sub": "雪隆正规军体系归来 · 双彭亨州代表联袂执教<br>百乐县中国象棋公会 官方技术认证与青训基地",
       "chip.standard": "👑 雪隆专业棋院标准训练大纲",
       "chip.ladder": "⚔️ 全县唯一 0~2000 ELO 天梯排位",
-      "chip.pajsk": "🏅 公会官方七级考评认证 (PAJSK)",
+      "chip.pajsk": "🏅 公会官方七级考评认证体系",
       "sec.classes_title": "常规阶梯班级与收费标准",
       "sec.classes_sub": "紧密结合直凉与百乐县消费习惯，从启蒙打底到县代表特训，阶梯分明、物超所值",
       "c1.title": "初级基础研习班", "c1.combo": "季付优惠: RM 170 / 3个月",
@@ -960,7 +960,7 @@
       "kit.title": "新生一次性材料与天梯建档费",
       "kit.desc": "包含：《CXQB 正规象棋研习册/习题集》精装打印版 1 册 + 官网天梯 ELO 终身学员档案建立 + 获得公会官方考评资格证书。",
       "sec.grading_title": "公会官方七级考评认证体系",
-      "sec.grading_sub": "全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），成绩直接对接 PAJSK 课外活动学分",
+      "sec.grading_sub": "全面采用中英 A 轨（Grade 考级制）与教育部马来文 C 轨（KPM 官方 Tahap 制），由百乐县中国象棋公会权威认证颁发官方考级文凭",
       "th.tier": "阶梯等级", "th.cn": "官方中文认证", "th.bm": "马来文规范 (KPM Tahap)", "th.elo": "对应 ELO 积分区间", "th.desc": "竞技水准与实战考核标准",
       "r1.title": "动态 K 值调分引擎", "r1.desc": "新手期 (≤999分) K=30 快速定级脱离新手池；校队期 K=20 稳步反映战力；高手期 K=10 极稳控分，防止单场发挥波动。",
       "r2.title": "段位底线保护机制 (Floor)", "r2.desc": "学员一旦通过考核晋升等级（如升至 1500 分 Tahap 6），积分绝不下穿该段位底线！保护学童信心，确立官方文凭公信力。",
@@ -997,7 +997,7 @@
       "academy.hero_sub": "Sistem Latihan Moden Selangor/KL · Bimbingan Dua Wakil Pahang<br>Satu-satunya Akademi Catur Cina Profesional di Daerah Bera, Pahang",
       "chip.standard": "👑 Silibus Standard Akademi Profesional",
       "chip.ladder": "⚔️ Sistem ELO 0~2000 Rasmi Daerah Bera",
-      "chip.pajsk": "🏅 Sijil Rasmi Persatuan Beriktiraf PAJSK",
+      "chip.pajsk": "🏅 Sistem Penilaian 7 Tahap Rasmi Persatuan",
       "sec.classes_title": "Peringkat Kelas & Senarai Yuran",
       "sec.classes_sub": "Yuran berpatutan mengikut kesesuaian tempatan Triang & Bera, dari asas sifar sehingga skuad daerah",
       "c1.title": "Kelas Asas (Tahap 1-2)", "c1.combo": "Pakej 3 Bulan: RM 170",
@@ -1010,7 +1010,7 @@
       "kit.title": "Yuran Pendaftaran & Bahan Kursus Sekali Sahaja",
       "kit.desc": "Termasuk Buku Latihan Rasmi CXQB + Pembukaan Akaun ELO Seumur Hidup + Kelayakan Penilaian Sijil Rasmi.",
       "sec.grading_title": "Sistem Penilaian 7 Tahap Rasmi CXQB",
-      "sec.grading_sub": "Diiktiraf sepenuhnya oleh Persatuan Catur Cina Daerah Bera dan menyumbang markah kokurikulum PAJSK rasmi KPM",
+      "sec.grading_sub": "Diiktiraf sepenuhnya oleh Persatuan Catur Cina Daerah Bera dengan penganugerahan sijil gred rasmi",
       "th.tier": "Tahap", "th.cn": "Pensijilan Cina", "th.bm": "Piawaian KPM (Tahap)", "th.elo": "Julat ELO", "th.desc": "Piawaian Prestasi & Ujian",
       "r1.title": "Enjin K-Faktor Dinamik", "r1.desc": "K=30 untuk asas bagi penetapan pantas; K=20 untuk pertengahan; K=10 untuk elit agar rekod stabil.",
       "r2.title": "Perlindungan Had Bawah (Rating Floor)", "r2.desc": "Setelah lulus tahap (contohnya 1500 mata Tahap 6), mata ELO tidak akan jatuh ke bawah had tersebut!",
@@ -1044,10 +1044,10 @@
       "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
       "nav.school_portal": "Schools Portal", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu",
       "academy.hero_title": "CXQB Xiangqi Academy",
-      "academy.hero_sub": "Modern KL/Selangor Academy Curriculum · Led by Two Pahang State Representatives<br>The Only Official 7-Grade Xiangqi Assessment & PAJSK Accreditation Academy in Bera",
+      "academy.hero_sub": "Modern KL/Selangor Academy Curriculum · Led by Two Pahang State Representatives<br>Official Training Academy Certified by Bera Xiangqi Association",
       "chip.standard": "👑 Pro Academy Training Syllabus",
       "chip.ladder": "⚔️ Exclusive 0~2000 ELO Rating System",
-      "chip.pajsk": "🏅 Official Certified Diplomas (PAJSK)",
+      "chip.pajsk": "🏅 Official 7-Grade Certification System",
       "sec.classes_title": "Class Tiers & Tuition Fees",
       "sec.classes_sub": "Affordable pricing tailored to local families in Triang & Bera, from beginner fundamentals to district champions",
       "c1.title": "Foundation Class (Tahap 1-2)", "c1.combo": "Quarterly Combo: RM 170 / 3 Months",
@@ -1060,7 +1060,7 @@
       "kit.title": "One-Time Registration & Starter Kit",
       "kit.desc": "Includes Official CXQB Student Workbook + Lifetime ELO System Account + Association Certificate Assessment Qualification.",
       "sec.grading_title": "Official 7-Grade Xiangqi Assessment System",
-      "sec.grading_sub": "Official 7-Grade (Tahap 1~7) standard recognized by the District Association and accredited for PAJSK credits",
+      "sec.grading_sub": "Official 7-Grade (Tahap 1~7) standard recognized and certified by Bera Xiangqi Association",
       "th.tier": "Tier", "th.cn": "Chinese Certification", "th.bm": "MOE Standard (Tahap)", "th.elo": "ELO Range", "th.desc": "Skill Standards & Criteria",
       "r1.title": "Dynamic K-Factor Engine", "r1.desc": "Beginner K=30 for rapid placement; Intermediate K=20; Elite K=10 to preserve stable ratings.",
       "r2.title": "Rating Floor Protection", "r2.desc": "Once officially promoted (e.g. 1500 ELO Tahap 6), a player's rating cannot drop below their tier floor!",

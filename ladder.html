@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CXQB 官方天梯排位榜 — 百乐县中国象棋公会与俱乐部</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cxb-theme.css">
+  <style>
+    :root {
+      --bg-page:            #040C17;
+      --top-color:          rgba(6, 23, 36, 0.92);
+      --top-blur:           16px;
+      --mega-bg:            rgba(6, 23, 36, 0.78);
+      --mega-blur:          24px;
+      --backdrop-blur:      20px;
+      --card-glass:         rgba(6, 23, 36, 0.72);
+      --badge-gold-bg:      #F1C40F;
+      --badge-gold-text:    #0A1929;
+      --gold-hover:         #F1C40F;
+      --btn-primary-bg:     linear-gradient(135deg, #E63946 0%, #D90429 100%);
+      --btn-primary-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+      --font-serif:         'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+      --font-sans:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+      --navy-950: #07101e;
+      --navy-900: #0b1a2f;
+      --navy-800: #112440;
+      --gold: #F39C12;
+      --gold-soft: #e3c97f;
+      --ink: #f3efe4;
+      --ink-dim: #a9b3c3;
+      --line: rgba(201, 162, 75, 0.28);
+      --line-soft: rgba(243, 239, 228, 0.08);
+      --radius: 20px;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, sans-serif;
+      background: var(--bg-page); color: var(--ink);
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 棋盘背景暗纹 */
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(var(--line-soft) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      opacity: 0.6;
+    }
+
+    #securityGate {
+      display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh;
+    }
+
+    /* PUBLIC STICKY NAV BAR */
+    .public-nav-bar {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: var(--top-color) !important;
+      backdrop-filter: blur(var(--top-blur)) !important; -webkit-backdrop-filter: blur(var(--top-blur)) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+    }
+    .p-nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .p-nav-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(241,196,15,0.4); }
+    .p-nav-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
+
+    .nav-menu-btn {
+      padding: 7px 16px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12);
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
+
+    .public-content-wrap {
+      width: 100%; max-width: 1080px; padding: 28px 20px 60px;
+    }
+
+    /* HERO 模块 */
+    .hero {
+      margin-top: 16px; padding: clamp(32px, 5vw, 52px) 24px; text-align: center;
+      background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
+      border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .hero__logo { width: clamp(84px, 11vw, 108px); height: auto; aspect-ratio: 1; margin-bottom: 18px; border-radius: 50%; border: 1.5px solid var(--gold); }
+    .hero__title { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: 0.08em; color: var(--ink); }
+    .hero__en { margin-top: 6px; font-size: 0.8rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; }
+    .hero__tagline { margin: 16px auto 0; max-width: 36em; font-family: var(--font-serif); font-weight: 500; color: var(--ink-dim); font-size: 1rem; }
+    .hero__badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px;
+      font-size: 0.82rem; color: var(--ink); border: 1px solid var(--line);
+      border-radius: 999px; background: rgba(201, 162, 75, 0.06);
+    }
+
+    /* 搜索与筛选工具条 */
+    .filter-bar {
+      margin: 32px 0 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      background: var(--card-glass); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px;
+    }
+    .search-input-wrap { flex: 1; min-width: 240px; position: relative; }
+    .search-input {
+      width: 100%; padding: 10px 14px 10px 36px; border-radius: 10px; border: 1px solid var(--line);
+      background: rgba(4, 12, 23, 0.6); color: var(--ink); font-size: 14px; outline: none;
+    }
+    .search-input:focus { border-color: var(--gold); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-dim); font-size: 14px; }
+    .filter-select {
+      padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line);
+      background: rgba(4, 12, 23, 0.8); color: var(--ink); font-size: 13.5px; outline: none; cursor: pointer;
+    }
+
+    /* 3D 前三名领奖台 */
+    .podium {
+      display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 16px; align-items: flex-end; margin: 40px 0 32px;
+    }
+    .rank-card {
+      background: var(--navy-900); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 24px 16px; text-align: center; position: relative; transition: transform 0.2s;
+      box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: center;
+    }
+    .rank-card:hover { transform: translateY(-4px); }
+    .rank-card--1 {
+      border-color: var(--gold); padding: 32px 18px;
+      background: linear-gradient(180deg, rgba(45, 36, 10, 0.8) 0%, var(--navy-900) 60%, rgba(183, 149, 11, 0.3) 100%);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 25px rgba(241, 196, 15, 0.15);
+    }
+    .rank-card--2 {
+      background: linear-gradient(180deg, rgba(28, 32, 36, 0.8) 0%, var(--navy-900) 60%, rgba(127, 140, 141, 0.25) 100%);
+      border-color: rgba(149, 165, 166, 0.5);
+    }
+    .rank-card--3 {
+      background: linear-gradient(180deg, rgba(46, 31, 24, 0.8) 0%, var(--navy-900) 60%, rgba(186, 74, 0, 0.25) 100%);
+      border-color: rgba(211, 84, 0, 0.5);
+    }
+    .rank-card__no { font-size: 32px; margin-bottom: 6px; }
+    .rank-card--1 .rank-card__no { font-size: 44px; }
+    .rank-card__name { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .rank-card--1 .rank-card__name { font-size: 22px; color: var(--gold-soft); }
+    .rank-card__school { font-size: 12px; color: var(--ink-dim); margin-bottom: 12px; }
+    .rank-card__title {
+      font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08); color: var(--gold-soft); margin-bottom: 10px;
+    }
+    .rank-card__rating { font-size: 26px; font-weight: 900; color: #fff; line-height: 1; }
+    .rank-card--1 .rank-card__rating { font-size: 32px; color: var(--gold); }
+
+    /* 第 4 名及以后列表 */
+    .rank-list {
+      display: flex; flex-direction: column; gap: 8px; margin-bottom: 48px;
+    }
+    .rank-list-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--navy-900); border: 1px solid var(--line); border-radius: 14px;
+      padding: 14px 20px; transition: all 0.2s;
+    }
+    .rank-list-item:hover { background: var(--navy-800); border-color: rgba(241, 196, 15, 0.4); }
+    .rank-list-left { display: flex; align-items: center; gap: 16px; }
+    .rank-list-no {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05); color: var(--gold-soft);
+      display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800;
+    }
+    .rank-list-info { display: flex; flex-direction: column; gap: 2px; }
+    .rank-list-name { font-size: 15px; font-weight: 800; color: #fff; }
+    .rank-list-sub { font-size: 12px; color: var(--ink-dim); }
+    .rank-list-right { display: flex; align-items: center; gap: 14px; }
+    .rank-list-tag {
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06); color: var(--gold-soft);
+    }
+    .rank-list-elo {
+      font-family: monospace; font-size: 18px; font-weight: 900; color: var(--gold); min-width: 60px; text-align: right;
+    }
+
+    /* FOOTER */
+    .footer { width: 100%; margin-top: auto; border-top: 1px solid var(--line-soft); padding: 40px 0 30px; }
+    .footer__grid {
+      max-width: 1040px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1.4fr 1.2fr 1fr; gap: 36px;
+    }
+    .footer h3 { font-size: 1rem; color: var(--ink); margin-bottom: 12px; }
+    .footer a:hover { color: var(--gold-soft); }
+    .footer__legal {
+      margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;
+      color: var(--ink-dim); font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .podium { grid-template-columns: 1fr; }
+      .rank-list-item { padding: 12px 14px; }
+      .rank-list-left { gap: 10px; min-width: 0; }
+      .rank-list-info { min-width: 0; }
+      .rank-list-name { font-size: 14px; word-break: break-word; }
+      .rank-list-sub { font-size: 11px; word-break: break-word; }
+      .rank-list-right { gap: 8px; flex-shrink: 0; }
+      .rank-list-elo { font-size: 16px; min-width: auto; }
+      .footer__grid { grid-template-columns: 1fr; text-align: center; }
+      .footer__grid > div { text-align: center !important; }
+    }
+
+    /* APPLE MEGA MENU */
+    .apple-backdrop {
+      position: fixed; inset: 0; z-index: 9400; background: rgba(4, 12, 23, 0.5);
+      backdrop-filter: blur(var(--backdrop-blur)); -webkit-backdrop-filter: blur(24px);
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+    }
+    .apple-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .apple-mega-menu {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
+      background: var(--mega-bg) !important; backdrop-filter: blur(var(--mega-blur)) !important;
+      -webkit-backdrop-filter: blur(var(--mega-blur)) !important; border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 100px 40px 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .apple-mega-menu.open { transform: translateY(0); }
+
+    .apple-mega-container {
+      max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;
+    }
+    .apple-mega-col { display: flex; flex-direction: column; gap: 16px; }
+    .apple-mega-col h4 {
+      font-family: var(--font-serif) !important; font-size: 15px !important; font-weight: 600 !important;
+      color: rgba(255, 255, 255, 0.85) !important; letter-spacing: 2px !important; margin-bottom: 10px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; padding-bottom: 8px !important;
+    }
+    .apple-mega-col a {
+      font-family: var(--font-sans) !important; font-size: 15px !important; font-weight: 400 !important;
+      color: rgba(255, 255, 255, 0.75) !important; text-decoration: none !important; cursor: pointer !important;
+      transition: all 0.2s ease !important; display: flex !important; align-items: center !important;
+    }
+    .apple-mega-col a:hover { color: var(--gold-hover) !important; transform: translateX(4px) !important; }
+
+    .apple-segment {
+      display: flex; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 4px; width: 100%; max-width: 300px;
+    }
+    .apple-segment .seg-btn {
+      flex: 1; background: transparent; border: none; color: rgba(255, 255, 255, 0.5);
+      padding: 10px 0; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .apple-segment .seg-btn.active {
+      background: rgba(255, 255, 255, 0.95); color: #111; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<div id="securityGate">
+
+  <!-- PUBLIC NAV BAR -->
+  <header class="public-nav-bar" style="position:relative; z-index:9600;">
+    <a href="index.html" class="p-nav-brand">
+      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <div>
+        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+      </div>
+    </a>
+
+    <button class="nav-menu-btn" onclick="toggleMainNav()">
+      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+    </button>
+  </header>
+
+  <div class="public-content-wrap">
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+      <img src="cxb_round_emblem.png" alt="CXB Logo" class="hero__logo">
+      <h1 class="hero__title" data-i18n="ladder.title">CXQB 官方天梯排位榜</h1>
+      <div class="hero__en">BERA DISTRICT XIANGQI RATING SYSTEM · REAL-TIME</div>
+      <p class="hero__tagline" data-i18n="ladder.sub">
+        百乐县官方中国象棋 ELO 等级分排位体系 · 实时动态同步
+      </p>
+      <div class="hero__badges">
+        <span class="badge" data-i18n="ladder.b1">⚔️ 0~2000 动态 K 值积分引擎</span>
+        <span class="badge" data-i18n="ladder.b2">🛡️ 段位底线保护机制 (Rating Floor)</span>
+        <span class="badge" data-i18n="ladder.b3">🏅 官方七级考评实战排位</span>
+      </div>
+    </header>
+
+    <!-- SEARCH & FILTER BAR -->
+    <div class="filter-bar">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索学员姓名或所属学校..." oninput="handleFilter()">
+      </div>
+      <select id="tahapSelect" class="filter-select" onchange="handleFilter()">
+        <option value="ALL">全县所有段位 (Semua Tahap)</option>
+        <option value="TAHAP 7">👑 Tahap 7 (1800-2000)</option>
+        <option value="TAHAP 6">Tahap 6 (1500-1799)</option>
+        <option value="TAHAP 5">Tahap 5 (1300-1499)</option>
+        <option value="TAHAP 4">Tahap 4 (1000-1299)</option>
+        <option value="TAHAP 3">Tahap 3 (700-999)</option>
+        <option value="TAHAP 2">Tahap 2 (300-699)</option>
+        <option value="TAHAP 1">Tahap 1 (100-299)</option>
+      </select>
+    </div>
+
+    <!-- PODIUM & LADDER DISPLAY AREA -->
+    <div id="ladderContainer">
+      <div style="text-align:center; padding: 40px; color: var(--ink-dim);">
+        ⏳ 正在从云端实时同步全县天梯数据...
+      </div>
+    </div>
+
+  </div> <!-- Close public-content-wrap -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid" style="align-items: start; gap: 36px;">
+      <div>
+        <h3 data-i18n="footer.about_title">关于我们</h3>
+        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证</span></p>
+      </div>
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">百乐县象棋公会</span>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <h3 data-i18n="footer.contact_title">联系我们</h3>
+        <p>Email: clubxiangqibera@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
+      © 2026 Club XiangQi Bera. All rights reserved.
+    </div>
+  </footer>
+
+</div>
+
+<!-- APPLE STYLE MEGA MENU -->
+<div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
+<div id="appleMegaMenu" class="apple-mega-menu">
+  <div class="apple-mega-container">
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索俱乐部</h4>
+      <a href="index.html" data-i18n="nav.home">首页</a>
+      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
+      <a href="ladder.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.ladder">官方天梯榜</a>
+      <a href="index.html#events" data-i18n="events.title">赛事与活动中心</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.portals">专属入口</h4>
+      <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
+      <a href="school.html" data-i18n="nav.school_portal">校际赛报名系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.language">系统语言</h4>
+      <div class="apple-segment">
+        <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
+        <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
+        <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const LADDER_URL = 'https://cxb-license.clubxiangqibera.workers.dev/api/ladder.csv';
+  let allPlayers = [];
+
+  function toggleMainNav() {
+    const menu = document.getElementById('appleMegaMenu');
+    const backdrop = document.getElementById('appleMegaBackdrop');
+    if (menu.classList.contains('open')) {
+      closeMainNav();
+    } else {
+      openMainNav();
+    }
+  }
+
+  function openMainNav() {
+    document.getElementById('appleMegaMenu').classList.add('open');
+    document.getElementById('appleMegaBackdrop').classList.add('open');
+    document.getElementById('navMenuBtnIcon').textContent = '✕';
+    updateNavMenuBtnText(true);
+  }
+
+  function closeMainNav() {
+    document.getElementById('appleMegaMenu').classList.remove('open');
+    document.getElementById('appleMegaBackdrop').classList.remove('open');
+    document.getElementById('navMenuBtnIcon').textContent = '☰';
+    updateNavMenuBtnText(false);
+  }
+
+  function updateNavMenuBtnText(isOpen) {
+    const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+    const textEl = document.getElementById('navMenuBtnText');
+    if (!textEl) return;
+    if (isOpen) {
+      textEl.textContent = (lang === 'bm') ? 'Tutup' : (lang === 'en' ? 'Close' : '关闭');
+    } else {
+      textEl.textContent = (lang === 'bm') ? 'Menu' : (lang === 'en' ? 'Menu' : '菜单');
+    }
+  }
+
+  function updateSeg(lang) {
+    document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById('seg_' + (lang === 'zh' ? 'cn' : lang));
+    if (btn) btn.classList.add('active');
+  }
+
+  function parseCSV(t) {
+    const r=[];let w=[],q=!1,c='';
+    for(let i=0;i<t.length;i++){
+      const x=t[i],n=t[i+1];
+      if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}
+      else if(x===','&&!q){w.push(c);c=''}
+      else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}
+      else c+=x;
+    }
+    if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}
+    return r;
+  }
+
+  function getTahapFromElo(elo) {
+    if (elo >= 1800) return '👑 Tahap 7';
+    if (elo >= 1500) return 'Tahap 6';
+    if (elo >= 1300) return 'Tahap 5';
+    if (elo >= 1000) return 'Tahap 4';
+    if (elo >= 700) return 'Tahap 3';
+    if (elo >= 300) return 'Tahap 2';
+    if (elo >= 100) return 'Tahap 1';
+    return '未定级';
+  }
+
+  async function fetchLadderData() {
+    try {
+      const res = await fetch(LADDER_URL);
+      const csv = await res.text();
+      const rows = parseCSV(csv);
+      allPlayers = [];
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        const name = (r[2] || '').trim();
+        if (!name) continue;
+        allPlayers.push({
+          id: (r[1] || '').trim(),
+          name: name,
+          school: (r[3] || 'CXQB').trim(),
+          tier: (r[4] || '').trim(),
+          w: parseInt(r[5]) || 0,
+          d: parseInt(r[6]) || 0,
+          l: parseInt(r[7]) || 0,
+          total: parseInt(r[8]) || 0,
+          elo: parseInt(r[9]) || 1000
+        });
+      }
+      allPlayers.sort((a,b) => b.elo - a.elo);
+      renderLadder(allPlayers);
+    } catch(e) {
+      console.error(e);
+      document.getElementById('ladderContainer').innerHTML = `
+        <div style="text-align:center; padding: 40px; color: var(--gold);">
+          ⚠️ 暂时未能获取天梯实时数据，请稍后刷新重试。
+        </div>
+      `;
+    }
+  }
+
+  function handleFilter() {
+    const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+    const t = document.getElementById('tahapSelect').value;
+
+    const filtered = allPlayers.filter(p => {
+      const matchesQ = !q || p.name.toLowerCase().includes(q) || (p.school && p.school.toLowerCase().includes(q));
+      let matchesT = !0;
+      if (t !== 'ALL') {
+        const pTahap = getTahapFromElo(p.elo);
+        matchesT = pTahap.includes(t);
+      }
+      return matchesQ && matchesT;
+    });
+
+    renderLadder(filtered);
+  }
+
+  function renderLadder(players) {
+    const container = document.getElementById('ladderContainer');
+    if (!players || players.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--ink-dim);">🔍 没有找到匹配的棋手数据。</div>';
+      return;
+    }
+
+    let html = '';
+
+    // If more than 2 players, show Podium
+    if (players.length >= 3) {
+      const p1 = players[0];
+      const p2 = players[1];
+      const p3 = players[2];
+
+      html += `
+        <div class="podium">
+          <!-- 2nd Place -->
+          <div class="rank-card rank-card--2" style="order:1;">
+            <div class="rank-card__no">🥈</div>
+            <div class="rank-card__name">${p2.name}</div>
+            <div class="rank-card__school">${p2.school || 'CXQB'}</div>
+            <span class="rank-card__title">${getTahapFromElo(p2.elo)}</span>
+            <div class="rank-card__rating">${p2.elo}</div>
+          </div>
+
+          <!-- 1st Place -->
+          <div class="rank-card rank-card--1" style="order:2;">
+            <div class="rank-card__no">🥇</div>
+            <div class="rank-card__name">${p1.name}</div>
+            <div class="rank-card__school">${p1.school || 'CXQB'}</div>
+            <span class="rank-card__title">${getTahapFromElo(p1.elo)}</span>
+            <div class="rank-card__rating">${p1.elo}</div>
+          </div>
+
+          <!-- 3rd Place -->
+          <div class="rank-card rank-card--3" style="order:3;">
+            <div class="rank-card__no">🥉</div>
+            <div class="rank-card__name">${p3.name}</div>
+            <div class="rank-card__school">${p3.school || 'CXQB'}</div>
+            <span class="rank-card__title">${getTahapFromElo(p3.elo)}</span>
+            <div class="rank-card__rating">${p3.elo}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // List view for 4th and below
+    const startIndex = players.length >= 3 ? 3 : 0;
+    if (players.length > startIndex) {
+      html += '<div class="rank-list">';
+      for (let i = startIndex; i < players.length; i++) {
+        const p = players[i];
+        const total = p.total || (p.w + p.d + p.l);
+        const winRate = total > 0 ? Math.round((p.w / total) * 100) + '%' : '0%';
+        const rankNumber = allPlayers.indexOf(p) + 1;
+
+        html += `
+          <div class="rank-list-item">
+            <div class="rank-list-left">
+              <div class="rank-list-no">${rankNumber}</div>
+              <div class="rank-list-info">
+                <span class="rank-list-name">${p.name}</span>
+                <span class="rank-list-sub">${p.school || 'CXQB'} · ${p.w}胜 ${p.d}和 ${p.l}负 · 胜率 ${winRate}</span>
+              </div>
+            </div>
+            <div class="rank-list-right">
+              <span class="rank-list-tag">${getTahapFromElo(p.elo)}</span>
+              <span class="rank-list-elo">${p.elo}</span>
+            </div>
+          </div>
+        `;
+      }
+      html += '</div>';
+    }
+
+    container.innerHTML = html;
+  }
+
+  const i18n = {
+    cn: {
+      "hero.title": "百乐象棋俱乐部",
+      "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.ladder": "官方天梯榜",
+      "events.title": "赛事与活动中心",
+      "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
+      "nav.school_portal": "校际赛报名系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单",
+      "ladder.title": "CXQB 官方天梯排位榜",
+      "ladder.sub": "百乐县官方中国象棋 ELO 等级分排位体系 · 实时动态同步",
+      "ladder.b1": "⚔️ 0~2000 动态 K 值积分引擎",
+      "ladder.b2": "🛡️ 段位底线保护机制 (Rating Floor)",
+      "ladder.b3": "🏅 官方七级考评实战排位",
+      "footer.about_title": "关于我们",
+      "footer.about_desc": "百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证",
+      "footer.partners_title": "认证机构 & 官方合作伙伴",
+      "footer.contact_title": "联系我们",
+      "footer.assoc_name": "百乐县象棋公会"
+    },
+    bm: {
+      "hero.title": "Kelab XiangQi Bera",
+      "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.ladder": "Carta Kedudukan ELO",
+      "events.title": "Pusat Acara & Aktiviti",
+      "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
+      "nav.school_portal": "Sistem Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu",
+      "ladder.title": "Carta Kedudukan ELO Rasmi CXQB",
+      "ladder.sub": "Sistem Penarafan Catur Cina Rasmi Daerah Bera · Segerak Langsung",
+      "ladder.b1": "⚔️ Enjin K-Faktor Dinamik 0~2000",
+      "ladder.b2": "🛡️ Perlindungan Had Bawah (Rating Floor)",
+      "ladder.b3": "🏅 Penarafan 7 Tahap Rasmi",
+      "footer.about_title": "Mengenai Kami",
+      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Bera, Pahang.",
+      "footer.partners_title": "Rakan Rasmi & Pensijilan",
+      "footer.contact_title": "Hubungi Kami",
+      "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
+    },
+    en: {
+      "hero.title": "Club XiangQi Bera",
+      "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.ladder": "Official ELO Standings",
+      "events.title": "Events & Activities Center",
+      "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
+      "nav.school_portal": "Schools Portal", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu",
+      "ladder.title": "CXQB Official ELO Standings",
+      "ladder.sub": "Bera District Xiangqi Rating System · Live Synchronised",
+      "ladder.b1": "⚔️ 0~2000 Dynamic K-Factor Engine",
+      "ladder.b2": "🛡️ Rating Floor Protection Mechanism",
+      "ladder.b3": "🏅 Official 7-Grade Live Rankings",
+      "footer.about_title": "About Us",
+      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Official Xiangqi training academy<br>and rating body in Bera, Pahang.",
+      "footer.partners_title": "Official Partners",
+      "footer.contact_title": "Contact Us",
+      "footer.assoc_name": "BERA XIANGQI ASSOCIATION"
+    }
+  };
+
+  function setLang(lang) {
+    let prefLang = lang === 'cn' ? 'zh' : lang;
+    localStorage.setItem('cxb_lang_pref', prefLang);
+    window._currentLang = lang;
+
+    const dict = i18n[lang] || i18n.cn;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) {
+        el.innerHTML = dict[key];
+      }
+    });
+
+    updateSeg(lang);
+    updateNavMenuBtnText(false);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('cxb_lang_pref') || 'cn';
+    const initial = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
+    setLang(initial);
+    fetchLadderData();
+  });
+</script>
+
+</body>
+</html>

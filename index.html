@@ -1381,7 +1381,7 @@ a { color: inherit; text-decoration: none; }
               <span>🏛️</span> <span>常规集训班招生 · ACADEMY INTAKE</span>
             </div>
             <h3 style="font-family: var(--font-serif); font-size: 20px; color:#fff; font-weight:800; margin-bottom:6px;">百乐象棋学院 · 常规棋艺集训班 (RM 60起)</h3>
-            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;">雪隆正规军体系 · 双彭亨现役州代表联手执教 · 官方七级考评与 PAJSK 学分认证</p>
+            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;">雪隆正规军体系 · 双彭亨现役州代表联手执教 · 百乐县中国象棋公会 官方认证七级考评基地</p>
           </div>
           <a href="academy.html" class="vip-invite-btn" style="background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; box-shadow:0 4px 14px rgba(230,57,70,0.4); text-decoration:none; padding:12px 22px; font-weight:800;">
             查看班级价目与报名详情 →
@@ -1408,13 +1408,20 @@ a { color: inherit; text-decoration: none; }
         </div>
       </section>
 
-      <!-- 5. LADDER (REAL-TIME) -->
-      <section class="section" id="ladder">
-        <div class="section__head">
-          <h2 class="section__title" id="podiumHeader" data-i18n="ladder.title">CXQB 官方天梯排位榜</h2>
-          <p class="section__sub" data-i18n="ladder.sub">百乐县官方等级分体系 · 实时同步</p>
+      <!-- 5. LADDER PREVIEW CARD (Dedicated Page: ladder.html) -->
+      <section class="section" id="ladder" style="margin-top: 36px;">
+        <div class="vip-invite-card" style="background: linear-gradient(135deg, rgba(32, 24, 12, 0.85) 0%, rgba(6, 23, 36, 0.95) 100%); border: 1.5px solid rgba(241,196,15,0.45); border-radius: 20px; padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          <div style="flex: 1; min-width: 280px;">
+            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--gold); letter-spacing:1px; background:rgba(241,196,15,0.12); padding:4px 10px; border-radius:6px; margin-bottom:8px;">
+              <span>🏆</span> <span>全县天梯等级分 · ELO LADDER</span>
+            </div>
+            <h3 style="font-family: var(--font-serif); font-size: 20px; color:#fff; font-weight:800; margin-bottom:6px;" data-i18n="ladder.title">CXQB 官方天梯排位榜</h3>
+            <p style="font-size: 13px; color: var(--ink-dim); line-height:1.5;" data-i18n="ladder.preview_sub">百乐县首创 0~2000 动态 ELO 等级分体系 · 实时同步全县棋手排位与七级考评实战战力</p>
+          </div>
+          <a href="ladder.html" class="vip-invite-btn" style="background:linear-gradient(135deg, #F39C12 0%, #D68910 100%); color:#040C17; box-shadow:0 4px 14px rgba(243,156,18,0.35); text-decoration:none; padding:12px 24px; font-weight:800; border-radius:10px; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:transform 0.2s;">
+            <span data-i18n="ladder.preview_btn">进入天梯榜专页查看</span> →
+          </a>
         </div>
-        <div id="publicPodiumArea"></div>
       </section>
 
   </div>
@@ -2081,14 +2088,8 @@ function togglePublicTab(tab) {
     window.scrollTo({top: 0, behavior: 'smooth'});
     renderPublicLadder(globalPlayers);
   } else if (tab === 'ladder') {
-    if (ladderSec) ladderSec.style.display = 'block';
-    if (loginSec) loginSec.style.display = 'none';
-    if (btnLadder) btnLadder.classList.add('active');
-    const podiumHead = document.getElementById('podiumHeader');
-    if (podiumHead) {
-      podiumHead.scrollIntoView({behavior: 'smooth'});
-    }
-    renderPublicLadder(globalPlayers);
+    window.location.href = 'ladder.html';
+    return;
   } else if (tab === 'login') {
     if (ladderSec) ladderSec.style.display = 'none';
     if (loginSec) loginSec.style.display = 'flex';
@@ -2098,6 +2099,7 @@ function togglePublicTab(tab) {
 
 function renderPublicLadder(players) {
   const container = document.getElementById('publicPodiumArea');
+  if (!container) return;
   if(!players || players.length === 0) {
     container.innerHTML = '<div class="empty">暂无排位数据。</div>';
     return;
@@ -2533,6 +2535,8 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "events.view_all": "📚 查看所有历届活动 / View All Events",
     "ladder.title": "CXQB 官方天梯排位榜",
     "ladder.sub": "百乐县官方等级分体系 · 实时同步",
+    "ladder.preview_sub": "百乐县首创 0~2000 动态 ELO 等级分体系 · 实时同步全县棋手排位与七级考评实战战力",
+    "ladder.preview_btn": "进入天梯榜专页查看",
     "login.badge": "CLUB XIANGQI BERA · 学员专属登录",
     "login.title": "百乐象棋俱乐部",
     "login.sub": "请使用俱乐部发放的学员账号密码登录",
@@ -2574,6 +2578,8 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "nav.menu": "Menu",
     "ladder.title": "Carta Kedudukan ELO Rasmi CXQB",
     "ladder.sub": "Sistem Penarafan Catur Daerah Bera · Segerak Langsung",
+    "ladder.preview_sub": "Sistem Penarafan ELO 0~2000 Rasmi Daerah Bera · Kedudukan Masa Nyata & 7 Tahap",
+    "ladder.preview_btn": "Lihat Carta Kedudukan Penuh",
     "login.badge": "CLUB XIANGQI BERA · Log Masuk Pelajar",
     "login.title": "Kelab XiangQi Bera",
     "login.sub": "Sila gunakan akaun pelajar yang diberikan",
@@ -2615,6 +2621,8 @@ function toggleSidebar(){ const sb = document.getElementById('appSidebar'); sb.c
     "nav.menu": "Menu",
     "ladder.title": "CXQB Official ELO Standings",
     "ladder.sub": "Bera District Xiangqi Rating System · Live Sync",
+    "ladder.preview_sub": "Bera District Official 0~2000 ELO Rating System · Real-Time Standings & 7 Tiers",
+    "ladder.preview_btn": "View Full Leaderboard",
     "login.badge": "CLUB XIANGQI BERA · Student Login",
     "login.title": "Club XiangQi Bera",
     "login.sub": "Please use your student credentials to log in",
@@ -2796,7 +2804,7 @@ function updateSeg(lang) {
       <h4 data-i18n="nav.explore">探索俱乐部</h4>
       <a onclick="togglePublicTab('home'); closeMainNav()" data-i18n="nav.home">首页</a>
       <a href="academy.html" style="color:var(--gold); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
-      <a onclick="togglePublicTab('ladder'); closeMainNav()" data-i18n="nav.ladder">天梯榜</a>
+      <a href="ladder.html" data-i18n="nav.ladder">天梯榜</a>
       <a onclick="openArchiveView(); closeMainNav()" data-i18n="events.title">赛事与活动中心</a>
     </div>
     
