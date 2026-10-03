@@ -3233,11 +3233,32 @@ if(typeof loadAllData !== 'undefined') {
 // ==========================================
 // Apple Mega Menu & Top Nav Controller
 // ==========================================
+function getActiveNavLang() {
+  const saved = localStorage.getItem('cxb_lang_pref') || 'zh';
+  return (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
+}
+
+function updateNavMenuBtn() {
+  const menu = document.getElementById('appleMegaMenu');
+  const btnText = document.getElementById('navMenuBtnText');
+  const btnIcon = document.getElementById('navMenuBtnIcon');
+  if(!btnText) return;
+  const lang = getActiveNavLang();
+  const isOpen = menu && menu.classList.contains('open');
+
+  const textMap = {
+    cn: { open: '菜单', close: '关闭' },
+    bm: { open: 'Menu', close: 'Tutup' },
+    en: { open: 'Menu', close: 'Close' }
+  };
+  const cur = textMap[lang] || textMap.en;
+  btnText.innerText = isOpen ? cur.close : cur.open;
+  if(btnIcon) btnIcon.innerText = isOpen ? '✕' : '☰';
+}
+
 function toggleMainNav() {
   const menu = document.getElementById('appleMegaMenu');
   const backdrop = document.getElementById('appleMegaBackdrop');
-  const btnText = document.getElementById('navMenuBtnText');
-  const btnIcon = document.getElementById('navMenuBtnIcon');
   if(!menu) return;
 
   if(menu.classList.contains('open')) {
@@ -3245,8 +3266,7 @@ function toggleMainNav() {
   } else {
     menu.classList.add('open');
     if(backdrop) backdrop.classList.add('open');
-    if(btnText) btnText.innerText = (window._currentLang === 'en' ? 'Close' : (window._currentLang === 'bm' ? 'Tutup' : '关闭'));
-    if(btnIcon) btnIcon.innerText = '✕';
+    updateNavMenuBtn();
   }
 }
 
@@ -3255,21 +3275,8 @@ function closeMainNav() {
   const backdrop = document.getElementById('appleMegaBackdrop');
   if(menu) menu.classList.remove('open');
   if(backdrop) backdrop.classList.remove('open');
-  
-  const btnText = document.getElementById('navMenuBtnText');
-  const btnIcon = document.getElementById('navMenuBtnIcon');
-  if(btnText) btnText.innerText = (window._currentLang === 'en' ? 'Menu' : (window._currentLang === 'bm' ? 'Menu' : '菜单'));
-  if(btnIcon) btnIcon.innerText = '☰';
-}
-
-function changeGlobalLang(lang) {
-  // Translate nav-adapter elements
-  let navLang = lang === 'zh' ? 'cn' : lang;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    if(typeof i18n !== 'undefined' && i18n[navLang] && i18n[navLang][el.getAttribute('data-i18n')]) {
-      el.innerHTML = i18n[navLang][el.getAttribute('data-i18n')];
-    }
-  });
+  updateNavMenuBtn();
+});
   if(typeof updateSeg === 'function') updateSeg(navLang);
 
   if(typeof setAdminLang === 'function') setAdminLang(lang);
