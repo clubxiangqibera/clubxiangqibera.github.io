@@ -382,28 +382,109 @@
     .event-modal__meta-v {
       font-size: 13.5px; color: var(--ink-dim); line-height: 1.7;
     }
+    .event-modal__quote-card {
+      background: linear-gradient(135deg, rgba(241,196,15,0.08) 0%, rgba(255,255,255,0.02) 100%);
+      border-left: 3px solid var(--gold);
+      border-top: 1px solid rgba(241,196,15,0.22);
+      border-right: 1px solid rgba(241,196,15,0.22);
+      border-bottom: 1px solid rgba(241,196,15,0.22);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+    }
+    .event-modal__quote-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+    }
+    .event-modal__quote-badge {
+      font-size: 11px; font-weight: 800; color: var(--gold); letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    .event-modal__quote-author {
+      font-size: 12px; font-weight: 700; color: #fff; opacity: 0.9;
+    }
+    .event-modal__quote-text {
+      font-size: 13.5px; line-height: 1.75; color: rgba(255,255,255,0.92); font-style: italic;
+      margin: 0;
+    }
     .event-modal__sec-title {
       font-size: 13.5px; font-weight: 800; color: var(--gold); letter-spacing: 1px;
       margin-bottom: 14px; text-transform: uppercase;
     }
-    .event-podium__list {
+
+    /* PODIUM CARDS (OPTION B) */
+    .event-podium__cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px;
+    }
+    @media (max-width: 680px) {
+      .event-podium__cards { grid-template-columns: 1fr; }
+    }
+    .event-podium__card {
+      border-radius: 12px; padding: 18px 14px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .event-podium__card:hover {
+      transform: translateY(-2px);
+    }
+    .event-podium__card--gold {
+      background: linear-gradient(180deg, rgba(241,196,15,0.18) 0%, rgba(241,196,15,0.04) 100%);
+      border: 1.5px solid rgba(241,196,15,0.55);
+      box-shadow: 0 4px 18px rgba(241,196,15,0.15);
+    }
+    .event-podium__card--silver {
+      background: linear-gradient(180deg, rgba(209,213,219,0.14) 0%, rgba(209,213,219,0.03) 100%);
+      border: 1.5px solid rgba(209,213,219,0.4);
+      box-shadow: 0 4px 14px rgba(209,213,219,0.1);
+    }
+    .event-podium__card--bronze {
+      background: linear-gradient(180deg, rgba(205,127,50,0.16) 0%, rgba(205,127,50,0.04) 100%);
+      border: 1.5px solid rgba(205,127,50,0.45);
+      box-shadow: 0 4px 14px rgba(205,127,50,0.1);
+    }
+    .event-podium__card-badge {
+      font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 3px 12px;
+      border-radius: 20px; margin-bottom: 10px; text-transform: uppercase;
+    }
+    .event-podium__card--gold .event-podium__card-badge {
+      background: rgba(241,196,15,0.25); color: var(--gold); border: 1px solid rgba(241,196,15,0.45);
+    }
+    .event-podium__card--silver .event-podium__card-badge {
+      background: rgba(209,213,219,0.2); color: #e5e7eb; border: 1px solid rgba(209,213,219,0.35);
+    }
+    .event-podium__card--bronze .event-podium__card-badge {
+      background: rgba(205,127,50,0.22); color: #f59e0b; border: 1px solid rgba(205,127,50,0.4);
+    }
+    .event-podium__card-name {
+      font-family: var(--font-serif); font-size: 1.3rem; font-weight: 800; color: #fff;
+      margin-bottom: 6px; letter-spacing: 0.5px;
+    }
+    .event-podium__card-school {
+      font-size: 12.5px; color: var(--ink-dim); font-weight: 500;
+    }
+
+    /* 4TH, 5TH & MERIT COMPACT LIST */
+    .event-podium__sub-list {
       display: flex; flex-direction: column; gap: 8px;
     }
-    .event-podium__item {
+    .event-podium__sub-item {
       display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
-      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
-      padding: 9px 14px; border-radius: 8px;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 14px; border-radius: 8px; font-size: 13px;
     }
-    .event-podium__rank {
-      font-weight: 800; font-size: 13.5px; min-width: 130px;
+    .event-podium__sub-item--merit {
+      border-top: 1px dashed rgba(241,196,15,0.3); background: rgba(241,196,15,0.03);
     }
-    .event-podium__name {
-      font-weight: 600; font-size: 13.5px; text-align: right;
+    .event-podium__sub-rank {
+      font-weight: 800; color: var(--gold-soft); font-size: 13px; min-width: 110px;
+    }
+    .event-podium__sub-name {
+      font-weight: 600; color: #fff; font-size: 13.5px; text-align: right;
     }
     @media (max-width: 600px) {
       .event-modal__content { padding: 24px 18px; }
       .event-modal__title { font-size: 1.3rem; }
-      .event-podium__name { text-align: left; }
+      .event-podium__sub-name { text-align: left; }
     }
   </style>
 </head>
@@ -719,7 +800,18 @@
     <!-- SUMMARY SECTION -->
     <div class="event-modal__section">
       <p class="event-modal__desc" data-i18n="modal.desc">
-        百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点；吉拉央华小林洁慧校长在致辞中勉励小棋手培养逻辑分析、专注沉着与前瞻思维。
+        百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点。
+      </p>
+    </div>
+
+    <!-- PRINCIPAL QUOTE & EDUCATIONAL SIGNIFICANCE -->
+    <div class="event-modal__quote-card">
+      <div class="event-modal__quote-header">
+        <span class="event-modal__quote-badge" data-i18n="modal.quote_badge">赛事教育意义 · 校方寄语</span>
+        <span class="event-modal__quote-author" data-i18n="modal.quote_author">林洁慧校长（吉拉央华小）</span>
+      </div>
+      <p class="event-modal__quote-text" data-i18n="modal.quote_text">
+        “举办中国象棋赛不仅能很好地培养小学生的逻辑思维能力、专注力和耐力，还要求孩子们学会在对局中进行细致的分析、判断与前瞻性规划，这对于提升他们日常解决问题的应变能力有着极大的帮助。”
       </p>
     </div>
 
@@ -744,39 +836,48 @@
       </div>
     </div>
 
-    <!-- TOP 8 HONOR ROLL -->
+    <!-- TOP 8 HONOR ROLL (OPTION B: TOP 3 PODIUM CARDS + MERIT LIST) -->
     <div class="event-modal__section">
       <div class="event-modal__sec-title" data-i18n="modal.podium_title">比赛前八强荣誉榜 (Podium & Merit Roll)</div>
-      <div class="event-podium__list">
-        <div class="event-podium__item">
-          <span class="event-podium__rank" style="color:var(--gold); font-weight:800;" data-i18n="modal.rank1">冠军 (Gold)：</span>
-          <span class="event-podium__name" style="color:#fff;" data-i18n="modal.winner1">莫宇哲 (明光华小 SJKC Mengkuang)</span>
+      
+      <!-- TOP 3 PODIUM CARDS -->
+      <div class="event-podium__cards">
+        <div class="event-podium__card event-podium__card--gold">
+          <div class="event-podium__card-badge" data-i18n="modal.rank1_badge">冠军 · GOLD</div>
+          <div class="event-podium__card-name" data-i18n="modal.winner1_name">莫宇哲</div>
+          <div class="event-podium__card-school" data-i18n="modal.winner1_school">明光华小 (SJKC Mengkuang)</div>
         </div>
-        <div class="event-podium__item">
-          <span class="event-podium__rank" style="color:#d1d5db; font-weight:800;" data-i18n="modal.rank2">亚军 (Silver)：</span>
-          <span class="event-podium__name" style="color:#fff;" data-i18n="modal.winner2">梁釉盛 (立德华小 SJKC Liat Koon)</span>
+        <div class="event-podium__card event-podium__card--silver">
+          <div class="event-podium__card-badge" data-i18n="modal.rank2_badge">亚军 · SILVER</div>
+          <div class="event-podium__card-name" data-i18n="modal.winner2_name">梁釉盛</div>
+          <div class="event-podium__card-school" data-i18n="modal.winner2_school">立德华小 (SJKC Liat Koon)</div>
         </div>
-        <div class="event-podium__item">
-          <span class="event-podium__rank" style="color:#cd7f32; font-weight:800;" data-i18n="modal.rank3">季军 (Bronze)：</span>
-          <span class="event-podium__name" style="color:#fff;" data-i18n="modal.winner3">黄礼阳 (直凉一校 SJKC Triang 1)</span>
+        <div class="event-podium__card event-podium__card--bronze">
+          <div class="event-podium__card-badge" data-i18n="modal.rank3_badge">季军 · BRONZE</div>
+          <div class="event-podium__card-name" data-i18n="modal.winner3_name">黄礼阳</div>
+          <div class="event-podium__card-school" data-i18n="modal.winner3_school">直凉一校 (SJKC Triang 1)</div>
         </div>
-        <div class="event-podium__item">
-          <span class="event-podium__rank" data-i18n="modal.rank4">第四名 (4th)：</span>
-          <span class="event-podium__name" data-i18n="modal.winner4">张宇诚 (直凉一校 SJKC Triang 1)</span>
+      </div>
+
+      <!-- 4TH, 5TH & MERIT COMPACT LIST -->
+      <div class="event-podium__sub-list">
+        <div class="event-podium__sub-item">
+          <span class="event-podium__sub-rank" data-i18n="modal.rank4">第四名 (4th)：</span>
+          <span class="event-podium__sub-name" data-i18n="modal.winner4">张宇诚 (直凉一校 SJKC Triang 1)</span>
         </div>
-        <div class="event-podium__item">
-          <span class="event-podium__rank" data-i18n="modal.rank5">第五名 (5th)：</span>
-          <span class="event-podium__name" data-i18n="modal.winner5">陈嘉谦 (直凉一校 SJKC Triang 1)</span>
+        <div class="event-podium__sub-item">
+          <span class="event-podium__sub-rank" data-i18n="modal.rank5">第五名 (5th)：</span>
+          <span class="event-podium__sub-name" data-i18n="modal.winner5">陈嘉谦 (直凉一校 SJKC Triang 1)</span>
         </div>
-        <div class="event-podium__item" style="border-top:1px dashed rgba(241,196,15,0.25); padding-top:6px; margin-top:4px;">
-          <span class="event-podium__rank" data-i18n="modal.rank_merit">安慰奖 (Merit)：</span>
-          <span class="event-podium__name" data-i18n="modal.winner_merit">颜宇仁 (文德里) · 何品翰 (吉拉央) · 苏奕宸 (吉拉央)</span>
+        <div class="event-podium__sub-item event-podium__sub-item--merit">
+          <span class="event-podium__sub-rank" data-i18n="modal.rank_merit">安慰奖 (Merit)：</span>
+          <span class="event-podium__sub-name" data-i18n="modal.winner_merit">颜宇仁 (文德里) · 何品翰 (吉拉央) · 苏奕宸 (吉拉央)</span>
         </div>
       </div>
     </div>
 
     <!-- FOOTER BUTTON -->
-    <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
+    <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
       <a href="ladder.html" class="event-card__btn event-card__btn--secondary" style="flex:1; border-color:rgba(241,196,15,0.4); color:var(--gold); text-align:center; text-decoration:none;" data-i18n="modal.btn_ladder">
         查看选手天梯等级分 (ladder.html) →
       </a>
@@ -952,7 +1053,12 @@
   }
 
   function filterEvents(category, btnEl) {
+    localStorage.setItem('cxb_events_filter', category);
+
     document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    if (!btnEl) {
+      btnEl = document.querySelector(`.filter-tab[onclick*="'${category}'"]`);
+    }
     if (btnEl) btnEl.classList.add('active');
 
     const cards = document.querySelectorAll('.event-card');
@@ -1054,18 +1160,24 @@
       "modal.badge": "官方赛事存档 · CXQB OFFICIAL ARCHIVE",
       "modal.title": "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
       "modal.date": "2026年6月13日 (星期六) · 吉拉央华小活动中心",
-      "modal.desc": "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点；吉拉央华小林洁慧校长在致辞中勉励小棋手培养逻辑分析、专注沉着与前瞻思维。",
+      "modal.desc": "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点。",
+      "modal.quote_badge": "赛事教育意义 · 校方寄语",
+      "modal.quote_author": "林洁慧校长（吉拉央华小）",
+      "modal.quote_text": "“举办中国象棋赛不仅能很好地培养小学生的逻辑思维能力、专注力和耐力，还要求孩子们学会在对局中进行细致的分析、判断与前瞻性规划，这对于提升他们日常解决问题的应变能力有着极大的帮助。”",
       "modal.org_title": "组织架构与执裁阵容",
       "modal.org_detail": "主办：吉拉央华小 SJK(C) Kerayong<br>协办：百乐县象棋公会 (张福明主席主评、姚和福副主席复盘)<br>评审：张泰理事、蔡妮寰财政、苏翠珊老师<br>嘉宾：蔡伟雅女士 · 致辞：林洁慧校长",
       "modal.scale_title": "参赛规模与源流学校",
       "modal.scale_detail": "全县 5 所华文小学 · 共 20 位代表小棋手<br>吉拉央华小 · 直凉华小（一校）<br>直凉立德华小 · 明光华小 · 文德里华小",
       "modal.podium_title": "比赛前八强荣誉榜 (Podium & Merit Roll)",
-      "modal.rank1": "冠军 (Gold)：",
-      "modal.winner1": "莫宇哲 (明光华小 SJKC Mengkuang)",
-      "modal.rank2": "亚军 (Silver)：",
-      "modal.winner2": "梁釉盛 (立德华小 SJKC Liat Koon)",
-      "modal.rank3": "季军 (Bronze)：",
-      "modal.winner3": "黄礼阳 (直凉一校 SJKC Triang 1)",
+      "modal.rank1_badge": "冠军 · GOLD",
+      "modal.winner1_name": "莫宇哲",
+      "modal.winner1_school": "明光华小 (SJKC Mengkuang)",
+      "modal.rank2_badge": "亚军 · SILVER",
+      "modal.winner2_name": "梁釉盛",
+      "modal.winner2_school": "立德华小 (SJKC Liat Koon)",
+      "modal.rank3_badge": "季军 · BRONZE",
+      "modal.winner3_name": "黄礼阳",
+      "modal.winner3_school": "直凉一校 (SJKC Triang 1)",
       "modal.rank4": "第四名 (4th)：",
       "modal.winner4": "张宇诚 (直凉一校 SJKC Triang 1)",
       "modal.rank5": "第五名 (5th)：",
@@ -1167,18 +1279,24 @@
       "modal.badge": "ARKIB RASMI KEJOHANAN · CXQB OFFICIAL ARCHIVE",
       "modal.title": "Kejohanan Catur Murid SJK(C) Bera 2026 («Qi Kai De Sheng»)",
       "modal.date": "13 Jun 2026 (Sabtu) · Pusat Aktiviti SJK(C) Kerayong",
-      "modal.desc": "Acara pertukaran bakat catur cilik anjuran SJK(C) Kerayong dan Persatuan Catur Cina Daerah Bera. Seramai 20 orang murid cilik dari 5 buah SJK(C) Bera berentap. Pengerusi Persatuan En. Teoh Hock Meng dan Naib Pengerusi En. Yew Hoo Hock bersama panel pengadil hadir membimbing; Guru Besar Lim Kiat Hui menekankan kepentingan analisis logik, fokus dan perancangan strategik.",
+      "modal.desc": "Acara pertukaran bakat catur cilik anjuran SJK(C) Kerayong dan Persatuan Catur Cina Daerah Bera. Seramai 20 orang murid cilik dari 5 buah SJK(C) Bera berentap. Pengerusi Persatuan En. Teoh Hock Meng dan Naib Pengerusi En. Yew Hoo Hock bersama panel pengadil hadir membimbing.",
+      "modal.quote_badge": "Signifikan Pendidikan · Amanat Pihak Sekolah",
+      "modal.quote_author": "Guru Besar Lim Kiat Hui (SJKC Kerayong)",
+      "modal.quote_text": "“Penganjuran kejohanan catur Cina bukan sahaja memupuk pemikiran logik, tumpuan dan daya ketahanan murid, malah menuntut mereka membuat analisis teliti, pertimbangan wajar dan perancangan strategik semasa perlawanan, yang amat membantu kebolehan adaptasi mereka dalam kehidupan seharian.”",
       "modal.org_title": "Struktur Organisasi & Panel Pengadil",
       "modal.org_detail": "Penganjur: SJK(C) Kerayong<br>Rakan Penganjur: Persatuan Catur Cina Daerah Bera (En. Teoh Hock Meng & En. Yew Hoo Hock)<br>Pengadil: En. Chong Thai, Pn. Chua Nee Huan, Cikgu Soh Chwee San<br>Tetamu Khas: Pn. Chua Wei Ya · Ucapan: Guru Besar Lim Kiat Hui",
       "modal.scale_title": "Skala Penyertaan & Sekolah Terlibat",
       "modal.scale_detail": "5 buah SJK(C) Bera · 20 peserta cilik<br>SJK(C) Kerayong · SJK(C) Triang 1<br>SJK(C) Triang 2 (Liat Koon) · SJK(C) Mengkuang · SJK(C) Menteri",
       "modal.podium_title": "Senarai Pemenang 8 Terbaik (Podium & Penghargaan)",
-      "modal.rank1": "Juara (Emas):",
-      "modal.winner1": "Mok Yu Zhe (SJKC Mengkuang)",
-      "modal.rank2": "Naib Juara (Perak):",
-      "modal.winner2": "Leong You Sheng (SJKC Liat Koon)",
-      "modal.rank3": "Tempat Ke-3 (Gangsa):",
-      "modal.winner3": "Ng Li Yang (SJKC Triang 1)",
+      "modal.rank1_badge": "JUARA · EMAS",
+      "modal.winner1_name": "Mok Yu Zhe",
+      "modal.winner1_school": "SJKC Mengkuang",
+      "modal.rank2_badge": "NAIB JUARA · PERAK",
+      "modal.winner2_name": "Leong You Sheng",
+      "modal.winner2_school": "SJKC Liat Koon",
+      "modal.rank3_badge": "TEMPAT KE-3 · GANGSA",
+      "modal.winner3_name": "Ng Li Yang",
+      "modal.winner3_school": "SJKC Triang 1",
       "modal.rank4": "Tempat Ke-4:",
       "modal.winner4": "Teoh Yu Cheng (SJKC Triang 1)",
       "modal.rank5": "Tempat Ke-5:",
@@ -1280,18 +1398,24 @@
       "modal.badge": "OFFICIAL TOURNAMENT ARCHIVE · CXQB ARCHIVE",
       "modal.title": "2026 Bera Primary Schools Xiangqi Championship (\"Qi Kai De Sheng\")",
       "modal.date": "June 13, 2026 (Saturday) · SJK(C) Kerayong Activity Centre",
-      "modal.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by Bera District Xiangqi Association, gathering 20 elite players across 5 Chinese primary schools. Association Chairman Mr. Teoh Hock Meng and Vice Chairman Mr. Yew Hoo Hock led the adjudicators with post-game analysis; Principal Lim Kiat Hui encouraged students in developing logical reasoning, focus, and forward-thinking acumen.",
+      "modal.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by Bera District Xiangqi Association, gathering 20 elite players across 5 Chinese primary schools. Association Chairman Mr. Teoh Hock Meng and Vice Chairman Mr. Yew Hoo Hock led the adjudicators with post-game analysis.",
+      "modal.quote_badge": "Educational Significance · Principal's Message",
+      "modal.quote_author": "Principal Lim Kiat Hui (SJKC Kerayong)",
+      "modal.quote_text": "\"Organizing Xiangqi tournaments not only fosters primary students' logical thinking, focus, and endurance, but also requires them to conduct meticulous analysis, astute judgment, and forward-looking strategic planning during matches—greatly enhancing their real-world problem-solving and adaptive capabilities.\"",
       "modal.org_title": "Organization & Panel of Adjudicators",
       "modal.org_detail": "Organizer: SJK(C) Kerayong<br>Co-organizer: Bera Xiangqi Association (Chairman Teoh Hock Meng, Vice Chairman Yew Hoo Hock)<br>Adjudicators: Chong Thai, Chua Nee Huan, Teacher Soh Chwee San<br>Guest of Honor: Ms. Chua Wei Ya · Address: Principal Lim Kiat Hui",
       "modal.scale_title": "Participation Scale & Schools",
       "modal.scale_detail": "5 Primary Schools in Bera · 20 Elite Junior Players<br>SJK(C) Kerayong · SJK(C) Triang 1<br>SJK(C) Liat Koon · SJK(C) Mengkuang · SJK(C) Menteri",
       "modal.podium_title": "Top 8 Honor Roll (Podium & Merit Roll)",
-      "modal.rank1": "Champion (Gold):",
-      "modal.winner1": "Mok Yu Zhe (SJKC Mengkuang)",
-      "modal.rank2": "1st Runner-up (Silver):",
-      "modal.winner2": "Leong You Sheng (SJKC Liat Koon)",
-      "modal.rank3": "2nd Runner-up (Bronze):",
-      "modal.winner3": "Ng Li Yang (SJKC Triang 1)",
+      "modal.rank1_badge": "CHAMPION · GOLD",
+      "modal.winner1_name": "Mok Yu Zhe",
+      "modal.winner1_school": "SJKC Mengkuang",
+      "modal.rank2_badge": "1ST RUNNER-UP · SILVER",
+      "modal.winner2_name": "Leong You Sheng",
+      "modal.winner2_school": "SJKC Liat Koon",
+      "modal.rank3_badge": "2ND RUNNER-UP · BRONZE",
+      "modal.winner3_name": "Ng Li Yang",
+      "modal.winner3_school": "SJKC Triang 1",
       "modal.rank4": "4th Place:",
       "modal.winner4": "Teoh Yu Cheng (SJKC Triang 1)",
       "modal.rank5": "5th Place:",
@@ -1329,6 +1453,10 @@
     const saved = localStorage.getItem('cxb_lang_pref') || 'cn';
     const initial = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
     setLang(initial);
+
+    // Restore saved events filter category on page load / refresh
+    const savedFilter = localStorage.getItem('cxb_events_filter') || 'all';
+    filterEvents(savedFilter);
   });
 </script>
 
