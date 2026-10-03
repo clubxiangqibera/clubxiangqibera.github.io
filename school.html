@@ -9,6 +9,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;800;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
+  /* ========================================================
+     CXQB MASTER DESIGN TOKENS (全站统一视觉色彩与毛玻璃规范)
+     在此处修改一次，全站三端（首页、教练端、校际端）自动同步！
+     ======================================================== */
+
+  /* 1. 页面极简暗夜蓝与棋盘微光背景 */
+  --bg-page:            #040C17;                           /* 页面极深海蓝底色 */
+  --grid-line:          rgba(241, 196, 15, 0.045);         /* 棋盘背景微金网格线 */
+  --grid-size:          72px 72px;                         /* 棋盘网格统一尺寸 */
+
+  /* 2. 顶栏导航与下拉大菜单 (Navigation & Mega Menu) */
+  --top-color:          rgba(6, 23, 36, 0.92);             /* 顶栏深海蓝毛玻璃背景 */
+  --top-blur:           16px;                              /* 顶栏毛玻璃模糊度 */
+  --top-border:         rgba(255, 255, 255, 0.08);         /* 顶栏与菜单微光边框 */
+  --mega-bg:            rgba(6, 23, 36, 0.78);            /* 下拉大菜单半透底色 */
+  --mega-blur:          24px;                              /* 大菜单毛玻璃模糊度 */
+  --backdrop-blur:      20px;                              /* 全屏背景遮罩模糊度 */
+  --backdrop-bg:        rgba(0, 0, 0, 0.45);               /* 全屏背景遮罩半透黑 */
+
+  /* 3. 毛玻璃卡片与表单 (Cards & Inputs) */
+  --card-glass:         rgba(6, 23, 36, 0.72);             /* 磨砂玻璃卡片背景 */
+  --card-glass-border:  rgba(255, 255, 255, 0.12);         /* 晶莹高光边框 */
+  --card-glass-shadow:  0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(241, 196, 15, 0.06);
+  --card-radius:        24px;                              /* 统一大圆角 */
+
+  --input-glass-bg:     rgba(255, 255, 255, 0.05);         /* 半透输入框背景 */
+  --input-glass-border: rgba(255, 255, 255, 0.12);         /* 输入框高光边框 */
+  --input-glass-blur:   8px;                               /* 输入框微磨砂 */
+  --input-focus-glow:   rgba(241, 196, 15, 0.5);           /* 输入框激活高亮边框 */
+
+  /* 4. 品牌核心点缀色 (Gold & Red CTA) */
+  --badge-gold-bg:      #F1C40F;                           /* 尊荣纯金徽章背景 */
+  --badge-gold-text:    #0A1929;                           /* 金徽章深色文字 */
+  --gold-hover:         #F1C40F;                           /* 鼠标悬停高光金 */
+  
+  --btn-primary-bg:     linear-gradient(135deg, #E63946 0%, #D90429 100%); /* 统一主操作渐变红 */
+  --btn-primary-shadow: 0 8px 25px rgba(230, 57, 70, 0.4); /* 红色按钮微光投影 */
+  --btn-primary-hover:  linear-gradient(135deg, #F04856 0%, #E81035 100%); /* 悬停渐变微亮 */
+
+  /* 5. 分段控制器语言切换 (Segmented Controls) */
+  --seg-bg:             rgba(255, 255, 255, 0.08);         /* 分段器胶囊底槽 */
+  --seg-active-bg:      rgba(255, 255, 255, 0.95);         /* 激活语言纯白按钮 */
+  --seg-active-color:   #111111;                           /* 激活文字深黑 */
+  --seg-text-color:     rgba(255, 255, 255, 0.6);          /* 未激活文字半透白 */
+
+  /* 6. 统一字体规范 (Typography) */
+  --font-serif:         'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --font-sans:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+
   /* UNIFIED TOPBAR & FROSTED GLASS TOKENS (One variable to rule all!) */
   --top-color: rgba(6, 23, 36, 0.92);      /* Top Navigation Bar Background */
   --top-blur: 16px;                         /* Topbar Frosted Blur */
@@ -87,7 +136,7 @@
     .pin-input {
       width: 100%; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
       font-size: 16px; font-weight: 800; text-align: center; outline: none; color: #fff;
-      background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); transition: border-color .3s, background .3s;
+      background: var(--input-glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--input-glass-border); transition: border-color .3s, background .3s;
     }
     .pin-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 600; font-size: 13px; letter-spacing: 0px; }
     .pin-input:focus { border-color: rgba(241, 196, 15, 0.5); background: rgba(255,255,255,0.1); box-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
@@ -184,7 +233,7 @@
       text-align: center;
     }
     .formal-table tr:last-child td { border-bottom: none; }
-    .formal-table tr:hover td { background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); }
+    .formal-table tr:hover td { background: var(--input-glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--input-glass-border); }
 
     /* FORMAL SIDES */
     .cell-red {
@@ -423,16 +472,16 @@
 
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size);
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
 }
 
@@ -447,16 +496,16 @@ body::before {
       position: relative;
     }
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(241,196,15,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(241,196,15,0.04) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size);
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
       -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
     }
 
@@ -524,19 +573,19 @@ body::before {
   align-items: center !important;
 }
 .apple-mega-col a:hover {
-  color: #F1C40F !important;
+  color: var(--gold-hover) !important;
   transform: translateX(4px) !important;
 }
 
     .apple-segment {
-      display: flex; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 4px; width: 100%; max-width: 280px;
+      display: flex; background: var(--seg-bg); border-radius: 10px; padding: 4px; width: 100%; max-width: 280px;
     }
     .apple-segment .seg-btn {
       flex: 1; background: transparent; border: none; color: rgba(255, 255, 255, 0.5);
       padding: 8px 0; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 8px; transition: all 0.3s;
     }
     .apple-segment .seg-btn.active {
-      background: rgba(255, 255, 255, 0.95); color: #111; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      background: var(--seg-active-bg); color: var(--seg-active-color); box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
 </style>
@@ -760,18 +809,18 @@ function updateSeg(lang) {
 
   <!-- CENTER LOGIN CARD (EXACTLY MATCHING STUDENT LOGIN) -->
   <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:30px 20px;">
-    <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,0.12); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
+    <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--input-glass-border); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
-      <div id="sBadge" style="display:inline-block; background:#F1C40F; color:#0A1929; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">🏫 CLUB XIANGQI BERA · 校际赛报名系统</div>
+      <div id="sBadge" style="display:inline-block; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">🏫 CLUB XIANGQI BERA · 校际赛报名系统</div>
       <h1 id="sTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">校内象棋比赛管理系统</h1>
       <p class="sub" id="sSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影</p>
 
       <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
         <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">🔑 比赛授权码</label>
-        <input type="text" id="schoolPinInput" class="pin-input" placeholder="请输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
+        <input type="text" id="schoolPinInput" class="pin-input" placeholder="请输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
       </div>
       
-      <button type="button" class="login-btn" id="sBtn" onclick="doSchoolLogin()" style="width:100%; padding:16px; background:linear-gradient(135deg, #E63946 0%, #D90429 100%); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">🚨 验证授权并进入比赛台</button>
+      <button type="button" class="login-btn" id="sBtn" onclick="doSchoolLogin()" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">🚨 验证授权并进入比赛台</button>
       
       <div class="login-error" id="sError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">❌ 授权码无效 (Invalid Code)</div>
     </div>

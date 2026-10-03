@@ -7,14 +7,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@400;500&display=swap");
 
 :root {
-  /* UNIFIED TOPBAR & FROSTED GLASS TOKENS (One variable to rule all!) */
-  --top-color: rgba(6, 23, 36, 0.92);      /* Top Navigation Bar Background */
-  --top-blur: 16px;                         /* Topbar Frosted Blur */
-  --top-border: rgba(255, 255, 255, 0.08);  /* Topbar Bottom Hairline */
-  --mega-bg: rgba(6, 23, 36, 0.78);       /* Dropdown Mega Menu Background */
-  --mega-blur: 24px;                        /* Dropdown Frosted Blur */
-  --backdrop-blur: 20px;                    /* Fullscreen Screen Blur */
-  --card-glass: rgba(6, 23, 36, 0.72);     /* Central Login Gate Card Glass */
+  /* ========================================================
+     CXQB MASTER DESIGN TOKENS (全站统一视觉色彩与毛玻璃规范)
+     在此处修改一次，全站三端（首页、教练端、校际端）自动同步！
+     ======================================================== */
+
+  /* 1. 页面极简暗夜蓝与棋盘微光背景 */
+  --bg-page:            #040C17;                           /* 页面极深海蓝底色 */
+  --grid-line:          rgba(241, 196, 15, 0.045);         /* 棋盘背景微金网格线 */
+  --grid-size:          72px 72px;                         /* 棋盘网格统一尺寸 */
+
+  /* 2. 顶栏导航与下拉大菜单 (Navigation & Mega Menu) */
+  --top-color:          rgba(6, 23, 36, 0.92);             /* 顶栏深海蓝毛玻璃背景 */
+  --top-blur:           16px;                              /* 顶栏毛玻璃模糊度 */
+  --top-border:         rgba(255, 255, 255, 0.08);         /* 顶栏与菜单微光边框 */
+  --mega-bg:            rgba(6, 23, 36, 0.78);            /* 下拉大菜单半透底色 */
+  --mega-blur:          24px;                              /* 大菜单毛玻璃模糊度 */
+  --backdrop-blur:      20px;                              /* 全屏背景遮罩模糊度 */
+  --backdrop-bg:        rgba(0, 0, 0, 0.45);               /* 全屏背景遮罩半透黑 */
+
+  /* 3. 毛玻璃卡片与表单 (Cards & Inputs) */
+  --card-glass:         rgba(6, 23, 36, 0.72);             /* 磨砂玻璃卡片背景 */
+  --card-glass-border:  rgba(255, 255, 255, 0.12);         /* 晶莹高光边框 */
+  --card-glass-shadow:  0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(241, 196, 15, 0.06);
+  --card-radius:        24px;                              /* 统一大圆角 */
+
+  --input-glass-bg:     rgba(255, 255, 255, 0.05);         /* 半透输入框背景 */
+  --input-glass-border: rgba(255, 255, 255, 0.12);         /* 输入框高光边框 */
+  --input-glass-blur:   8px;                               /* 输入框微磨砂 */
+  --input-focus-glow:   rgba(241, 196, 15, 0.5);           /* 输入框激活高亮边框 */
+
+  /* 4. 品牌核心点缀色 (Gold & Red CTA) */
+  --badge-gold-bg:      #F1C40F;                           /* 尊荣纯金徽章背景 */
+  --badge-gold-text:    #0A1929;                           /* 金徽章深色文字 */
+  --gold-hover:         #F1C40F;                           /* 鼠标悬停高光金 */
+  
+  --btn-primary-bg:     linear-gradient(135deg, #E63946 0%, #D90429 100%); /* 统一主操作渐变红 */
+  --btn-primary-shadow: 0 8px 25px rgba(230, 57, 70, 0.4); /* 红色按钮微光投影 */
+  --btn-primary-hover:  linear-gradient(135deg, #F04856 0%, #E81035 100%); /* 悬停渐变微亮 */
+
+  /* 5. 分段控制器语言切换 (Segmented Controls) */
+  --seg-bg:             rgba(255, 255, 255, 0.08);         /* 分段器胶囊底槽 */
+  --seg-active-bg:      rgba(255, 255, 255, 0.95);         /* 激活语言纯白按钮 */
+  --seg-active-color:   #111111;                           /* 激活文字深黑 */
+  --seg-text-color:     rgba(255, 255, 255, 0.6);          /* 未激活文字半透白 */
+
+  /* 6. 统一字体规范 (Typography) */
+  --font-serif:         'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --font-sans:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
 
   /* Colour */
   --navy-950: #07101e;   /* page */
