@@ -55,12 +55,57 @@
       opacity: 0.6;
     }
 
+        /* APPLE MEGA MENU & BACKDROP */
+    .apple-backdrop {
+      position: fixed; inset: 0; z-index: 9400; background: rgba(4, 12, 23, 0.5);
+      backdrop-filter: blur(var(--backdrop-blur)); -webkit-backdrop-filter: blur(24px);
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+    }
+    .apple-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .apple-mega-menu {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
+      background: var(--mega-bg) !important; backdrop-filter: blur(var(--mega-blur)) !important;
+      -webkit-backdrop-filter: blur(var(--mega-blur)) !important; border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 100px 40px 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .apple-mega-menu.open { transform: translateY(0); }
+
+    .apple-mega-container {
+      max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;
+    }
+    .apple-mega-col { display: flex; flex-direction: column; gap: 16px; }
+    .apple-mega-col h4 {
+      font-family: var(--font-serif) !important; font-size: 15px !important; font-weight: 600 !important;
+      color: rgba(255, 255, 255, 0.85) !important; letter-spacing: 2px !important; margin-bottom: 10px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; padding-bottom: 8px !important;
+    }
+    .apple-mega-col a {
+      font-family: var(--font-sans) !important; font-size: 15px !important; font-weight: 400 !important;
+      color: rgba(255, 255, 255, 0.75) !important; text-decoration: none !important; cursor: pointer !important;
+      transition: all 0.2s ease !important; display: flex !important; align-items: center !important;
+    }
+    .apple-mega-col a:hover { color: var(--gold-hover) !important; transform: translateX(4px) !important; }
+
+    .apple-segment {
+      display: flex; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 4px; width: 100%; max-width: 300px;
+    }
+    .apple-segment .seg-btn {
+      flex: 1; background: transparent; border: none; color: rgba(255, 255, 255, 0.5);
+      padding: 10px 0; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .apple-segment .seg-btn.active {
+      background: rgba(255, 255, 255, 0.95); color: #111; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
     /* PUBLIC STICKY NAV BAR */
     .public-nav-bar {
       width: 100%; display: flex; justify-content: space-between; align-items: center;
       padding: 12px 20px; background: var(--top-color) !important;
       backdrop-filter: blur(var(--top-blur)) !important; -webkit-backdrop-filter: blur(var(--top-blur)) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 9600;
       box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
     }
     .p-nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -770,7 +815,7 @@
         <h4 data-i18n="footer.contact_title">联络与咨询</h4>
         <p>
           总教练 / 课程顾问专线：<br>
-          WhatsApp: 017-728 0501 (+60 17-728 0501)<br>
+          WhatsApp: 017-546 3438 (+60 17-546 3438)<br>
           电邮: clubxiangqibera@gmail.com
         </p>
       </div>
@@ -1044,7 +1089,7 @@
               `资料已于官网提交，请公会负责人核实参赛名额！`;
       }
 
-      const waUrl = `https://wa.me/60177280501?text=${encodeURIComponent(msg)}`;
+      const waUrl = `https://wa.me/60175463438?text=${encodeURIComponent(msg)}`;
       document.getElementById('rcptWaBtn').href = waUrl;
 
       document.getElementById('receiptModal').classList.add('open');
