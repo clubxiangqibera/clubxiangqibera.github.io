@@ -120,6 +120,22 @@
     }
     .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
 
+    .nav-lang-bar {
+      display: inline-flex; background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+      padding: 2px; gap: 2px;
+    }
+    .nav-lang-chip {
+      background: transparent; border: none; color: rgba(255, 255, 255, 0.6);
+      font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 14px;
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .nav-lang-chip:hover { color: #fff; }
+    .nav-lang-chip.active {
+      background: rgba(255, 255, 255, 0.95); color: #061724;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
     .public-content-wrap {
       width: 100%; max-width: 980px; padding: 28px 20px 60px;
     }
@@ -248,6 +264,11 @@
     .tier-tile-desc { font-size: 12px; color: var(--ink-dim); line-height: 1.4; margin-bottom: 10px; }
     .tier-tile-price { font-size: 16px; font-weight: 900; color: var(--gold); }
     .tier-tile-price small { font-size: 11px; font-weight: 500; color: var(--ink-dim); }
+    .tier-tile-price-box { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
+    .tier-orig-price { text-decoration: line-through; opacity: 0.6; font-size: 12px; font-weight: 600; color: var(--ink-dim); }
+    .tier-promo-price { font-size: 22px; font-weight: 900; color: #2ecc71; line-height: 1.15; letter-spacing: -0.3px; }
+    .tier-promo-price small { font-size: 12px; font-weight: 600; color: var(--ink-dim); }
+    .tier-offer-sub { font-size: 11.5px; font-weight: 700; color: var(--gold-soft); line-height: 1.35; }
 
     /* FORM GRID & INPUTS */
     .form-grid {
@@ -418,9 +439,16 @@
       </div>
     </a>
 
-    <button class="nav-menu-btn" onclick="toggleMainNav()">
-      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
-    </button>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="nav-lang-bar">
+        <button id="nav_lang_cn" class="nav-lang-chip active" onclick="setLang('cn'); updateSeg('cn');">中</button>
+        <button id="nav_lang_bm" class="nav-lang-chip" onclick="setLang('bm'); updateSeg('bm');">BM</button>
+        <button id="nav_lang_en" class="nav-lang-chip" onclick="setLang('en'); updateSeg('en');">EN</button>
+      </div>
+      <button class="nav-menu-btn" onclick="toggleMainNav()">
+        <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+      </button>
+    </div>
   </header>
 
   <div class="public-content-wrap">
@@ -482,7 +510,11 @@
           </div>
           <div class="tier-tile-title" data-i18n="reg.t1_name">初级基础研习班</div>
           <div class="tier-tile-desc" data-i18n="reg.t1_desc">棋规与行棋礼仪、基础战术杀法、死活吃子练习。</div>
-          <div class="tier-tile-price">RM 170 <small data-i18n="reg.t1_term">/ 季付套餐 (省RM10)</small></div>
+          <div class="tier-tile-price-box">
+            <div class="tier-orig-price" data-i18n="reg.t1_orig_price">原价 RM 85 / 月</div>
+            <div class="tier-promo-price">RM 60 <small data-i18n="reg.per_month">/ 月</small></div>
+            <div class="tier-offer-sub" data-i18n="reg.t1_offer_sub">季付特惠 RM 170 (享3个月 · 折合 RM 56.7/月)</div>
+          </div>
         </label>
 
         <!-- TAHAP 3-4 (LOCKED - REQUIRES ASSESSMENT) -->
@@ -493,9 +525,11 @@
           </div>
           <div class="tier-tile-title" data-i18n="reg.t2_name">中级战术进阶班</div>
           <div class="tier-tile-desc" data-i18n="reg.t2_desc">核心中局战术推演、十大基础残局定式、全真限时对弈。</div>
-          <div class="tier-tile-price tier-locked-price">
-            <span style="font-size:12px; color:#E63946; font-weight:700;" data-i18n="reg.t2_lock_status">暂不开放直报 · 须测评录取</span>
-            <div style="font-size:11px; color:var(--ink-dim); font-weight:500;" data-i18n="reg.t2_lock_fee">标准学费：RM 240 / 季付</div>
+          <div class="tier-tile-price-box">
+            <div class="tier-orig-price" data-i18n="reg.t2_orig_price">原价 RM 150 / 月 (8堂双轨)</div>
+            <div class="tier-promo-price" style="color: #e67e22;">RM 85 <small data-i18n="reg.per_month">/ 月</small></div>
+            <div style="font-size: 11.5px; color: #E63946; font-weight: 700;" data-i18n="reg.t2_lock_status">暂不开放直报 · 须测评录取</div>
+            <div style="font-size: 11px; color: var(--ink-dim); font-weight: 500;" data-i18n="reg.t2_lock_fee">季付优惠：RM 240 / 3个月</div>
           </div>
         </div>
 
@@ -507,9 +541,11 @@
           </div>
           <div class="tier-tile-title" data-i18n="reg.t3_name">高级精英研修班</div>
           <div class="tier-tile-desc" data-i18n="reg.t3_desc">现代主流开局飞刀库、深层算度推演、带钟慢棋实战复盘。</div>
-          <div class="tier-tile-price tier-locked-price">
-            <span style="font-size:12px; color:#E63946; font-weight:700;" data-i18n="reg.t3_lock_status">暂不开放直报 · 须测评录取</span>
-            <div style="font-size:11px; color:var(--ink-dim); font-weight:500;" data-i18n="reg.t3_lock_fee">标准学费：RM 310 / 季付</div>
+          <div class="tier-tile-price-box">
+            <div class="tier-orig-price" data-i18n="reg.t3_orig_price">原价 RM 200 / 月 (大师双轨)</div>
+            <div class="tier-promo-price" style="color: #e67e22;">RM 110 <small data-i18n="reg.per_month">/ 月</small></div>
+            <div style="font-size: 11.5px; color: #E63946; font-weight: 700;" data-i18n="reg.t3_lock_status">暂不开放直报 · 须测评录取</div>
+            <div style="font-size: 11px; color: var(--ink-dim); font-weight: 500;" data-i18n="reg.t3_lock_fee">季付优惠：RM 310 / 3个月</div>
           </div>
         </div>
       </div>
@@ -538,17 +574,8 @@
           <input type="text" class="form-control" id="acadEnName" placeholder="如: Mok Yu Zhe" required>
         </div>
         <div class="form-group">
-          <label class="form-label"><span data-i18n="reg.lbl_birth">出生年份 / 年龄</span> <span class="req">*</span></label>
-          <select class="form-control" id="acadBirth">
-            <option value="2018 (7岁 / 一年级)">2018 (7岁 · 一年级)</option>
-            <option value="2017 (8岁 / 二年级)">2017 (8岁 · 二年级)</option>
-            <option value="2016 (9岁 / 三年级)">2016 (9岁 · 三年级)</option>
-            <option value="2015 (10岁 / 四年级)" selected>2015 (10岁 · 四年级)</option>
-            <option value="2014 (11岁 / 五年级)">2014 (11岁 · 五年级)</option>
-            <option value="2013 (12岁 / 六年级)">2013 (12岁 · 六年级)</option>
-            <option value="2012 (13岁 / 初一)">2012 (13岁 · 初中)</option>
-            <option value="其他年龄段">其他年龄段 / Other</option>
-          </select>
+          <label class="form-label"><span data-i18n="reg.lbl_birth">出生年份</span> <span class="req">*</span></label>
+          <input type="number" class="form-control" id="acadBirth" placeholder="请输入出生年份 (如: 2015)" min="1950" max="2026" required data-i18n-ph="reg.ph_birth">
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_gender">学员性别</span> <span class="req">*</span></label>
@@ -559,7 +586,7 @@
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_school">就读学校</span> <span class="req">*</span></label>
-          <select class="form-control" id="acadSchool">
+          <select class="form-control" id="acadSchool" onchange="onSchoolSelectChange()">
             <option value="直凉华小一校 (SJKC Triang 1)" selected>直凉华小一校 (SJKC Triang 1)</option>
             <option value="立德华小 (SJKC Liat Koon)">立德华小 (SJKC Liat Koon)</option>
             <option value="吉拉央华小 (SJKC Kerayong)">吉拉央华小 (SJKC Kerayong)</option>
@@ -567,8 +594,11 @@
             <option value="文德里华小 (SJKC Menteri)">文德里华小 (SJKC Menteri)</option>
             <option value="直凉华小二校 (SJKC Triang 2)">直凉华小二校 (SJKC Triang 2)</option>
             <option value="金马扬华小 (SJKC Kemayan)">金马扬华小 (SJKC Kemayan)</option>
-            <option value="中学 / 其他源流学校">中学 / 其他学校 (Secondary / Other)</option>
+            <option value="OTHER" data-i18n="reg.opt_school_other">其他学校 (自行填写) / Other School</option>
           </select>
+          <div id="acadCustomSchoolWrap" style="display:none; margin-top:8px;">
+            <input type="text" class="form-control" id="acadCustomSchool" placeholder="请输入学校全名 (如: SMK Triang / 吉隆坡坤成一校)" data-i18n-ph="reg.ph_custom_school">
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_level">棋艺现状</span> <span class="req">*</span></label>
@@ -581,8 +611,8 @@
         </div>
       </div>
 
-      <div class="form-section-title" style="margin-top:20px;" data-i18n="reg.acad_sec3_title">第三步：家长联络与上课意向</div>
-      <div class="form-section-sub" data-i18n="reg.acad_sec3_sub">俱乐部将通过 WhatsApp 发送课表指引、线上课链接与现场考核安排。</div>
+      <div class="form-section-title" style="margin-top:20px;" data-i18n="reg.acad_sec3_title">第三步：家长联络信息</div>
+      <div class="form-section-sub" data-i18n="reg.acad_sec3_sub">俱乐部将通过 WhatsApp 发送课表指引、开班通知与现场考核安排。</div>
 
       <div class="form-grid">
         <div class="form-group">
@@ -592,14 +622,6 @@
         <div class="form-group">
           <label class="form-label"><span data-i18n="reg.lbl_parent_phone">家长 WhatsApp 电话</span> <span class="req">*</span></label>
           <input type="tel" class="form-control" id="acadParentPhone" placeholder="如: 012-3456789" required>
-        </div>
-        <div class="form-group span-2">
-          <label class="form-label"><span data-i18n="reg.lbl_mode">意向上课模式</span> <span class="req">*</span></label>
-          <select class="form-control" id="acadMode">
-            <option value="OMO 双轨标准班 (周中网课理论 + 周末基地实战)" selected data-i18n="reg.opt_mode_omo">OMO 双轨标准班 (周中网课理论 + 周末基地带钟实战)</option>
-            <option value="仅周末线下实战营" data-i18n="reg.opt_mode_offline">仅周末线下实战营</option>
-            <option value="仅周中线上理论直播" data-i18n="reg.opt_mode_online">仅周中线上理论直播</option>
-          </select>
         </div>
         <div class="form-group span-2">
           <label class="form-label"><span data-i18n="reg.lbl_remarks">备注或特殊要求</span></label>
@@ -844,17 +866,20 @@
       </div>
       <div class="footer__col">
         <h4 data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h4>
-        <p>
-          <strong data-i18n="footer.assoc_name">百乐县中国象棋公会</strong><br>
-          PERSATUAN CATUR CINA DAERAH BERA<br>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 60px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <div>
+            <strong data-i18n="footer.assoc_name" style="font-size:14px; color:var(--gold-soft);">百乐县中国象棋公会</strong><br>
+            <span style="font-size:11px; opacity:0.75; letter-spacing:0.5px;">PERSATUAN CATUR CINA DAERAH BERA</span>
+          </div>
+        </div>
+        <p style="font-size:12px; opacity:0.65; margin:0;">
           技术支持：Club XiangQi Bera 数字化系统
         </p>
       </div>
       <div class="footer__col">
         <h4 data-i18n="footer.contact_title">联络与咨询</h4>
         <p>
-          总教练 / 课程顾问专线：<br>
-          WhatsApp: 017-546 3438 (+60 17-546 3438)<br>
           电邮: clubxiangqibera@gmail.com
         </p>
       </div>
@@ -926,6 +951,18 @@
       document.getElementById('dispAcadTotal').textContent = 'RM ' + total;
     }
 
+    function onSchoolSelectChange() {
+      const sel = document.getElementById('acadSchool');
+      const wrap = document.getElementById('acadCustomSchoolWrap');
+      const customInput = document.getElementById('acadCustomSchool');
+      if (sel.value === 'OTHER') {
+        wrap.style.display = 'block';
+        customInput.focus();
+      } else {
+        wrap.style.display = 'none';
+      }
+    }
+
     function onCampEventChange() {
       const val = document.getElementById('campEventSelect').value;
       const feeEl = document.getElementById('dispCampFee');
@@ -979,27 +1016,42 @@
     function submitAcademyForm() {
       const cnName = document.getElementById('acadCnName').value.trim();
       const enName = document.getElementById('acadEnName').value.trim();
+      const birthYear = document.getElementById('acadBirth').value.trim();
       const parentName = document.getElementById('acadParentName').value.trim();
       const parentPhone = document.getElementById('acadParentPhone').value.trim();
+      let school = document.getElementById('acadSchool').value;
 
-      if (!cnName || !enName || !parentName || !parentPhone) {
+      if (!cnName || !enName || !birthYear || !parentName || !parentPhone) {
         const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
         const alertMsg = (lang === 'bm') 
-          ? 'Sila lengkapkan semua ruangan wajib (Nama Cina, Nama Penuh, Nama Ibu Bapa & No. WhatsApp)!'
+          ? 'Sila lengkapkan semua ruangan wajib (Nama Cina, Nama Penuh, Tahun Kelahiran, Nama Ibu Bapa & No. WhatsApp)!'
           : (lang === 'en' 
-             ? 'Please fill in all required fields (Chinese Name, English Name, Parent Name & WhatsApp)!'
-             : '请完整填写必填项（学员中文姓名、英文姓名、家长姓名及 WhatsApp 电话）！');
+             ? 'Please fill in all required fields (Chinese Name, English Name, Birth Year, Parent Name & WhatsApp)!'
+             : '请完整填写必填项（学员中文姓名、英文姓名、出生年份、家长姓名及 WhatsApp 电话）！');
         showFormAlert(alertMsg);
         return;
       }
 
+      if (school === 'OTHER') {
+        const customVal = document.getElementById('acadCustomSchool').value.trim();
+        if (!customVal) {
+          const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+          const alertMsg = (lang === 'bm') 
+            ? 'Sila nyatakan nama sekolah anda!' 
+            : (lang === 'en' ? 'Please enter your school name!' : '请填写您就读的学校全名！');
+          showFormAlert(alertMsg);
+          return;
+        }
+        school = customVal;
+      }
+
       const regId = generateRegId('ACAD');
       const payTerm = document.getElementById('acadPayTerm').value === 'quarter' ? '按季度优惠套餐 (3个月)' : '按月度缴费';
-      const birth = document.getElementById('acadBirth').value;
+      const y = parseInt(birthYear, 10);
+      const ageStr = (!isNaN(y) && y >= 1950 && y <= 2026) ? ` (${2026 - y}岁)` : '';
+      const birthDisplay = `${birthYear} 年${ageStr}`;
       const gender = document.getElementById('acadGender').value;
-      const school = document.getElementById('acadSchool').value;
       const level = document.getElementById('acadLevel').value;
-      const mode = document.getElementById('acadMode').value;
       const remarks = document.getElementById('acadRemarks').value.trim() || '无';
       const total = document.getElementById('dispAcadTotal').textContent;
 
@@ -1010,11 +1062,10 @@
         payTerm: payTerm,
         cnName: cnName,
         enName: enName,
-        birth: birth,
+        birth: birthDisplay,
         gender: gender,
         school: school,
         level: level,
-        mode: mode,
         parentName: parentName,
         parentPhone: parentPhone,
         total: total,
@@ -1097,7 +1148,6 @@
           <tr><td>年龄/性别</td><td>${rec.birth} · ${rec.gender}</td></tr>
           <tr><td>就读学校</td><td>${rec.school}</td></tr>
           <tr><td>棋艺基础</td><td>${rec.level}</td></tr>
-          <tr><td>上课模式</td><td>${rec.mode}</td></tr>
           <tr><td>家长姓名</td><td>${rec.parentName}</td></tr>
           <tr><td>WhatsApp</td><td>${rec.parentPhone}</td></tr>
           <tr><td>费用预估</td><td style="color:var(--gold);">${rec.total}</td></tr>
@@ -1135,7 +1185,6 @@
               `就读学校：${rec.school} (${rec.birth})\n` +
               `棋艺现状：${rec.level}\n` +
               testNote +
-              `上课模式：${rec.mode}\n` +
               `家长姓名：${rec.parentName}\n` +
               `家长电话：${rec.parentPhone}\n` +
               `费用预估：${rec.total}\n` +
@@ -1214,6 +1263,10 @@
       document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
       const activeBtn = document.getElementById('seg_' + lang);
       if (activeBtn) activeBtn.classList.add('active');
+
+      document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
+      const activeNavBtn = document.getElementById('nav_lang_' + lang);
+      if (activeNavBtn) activeNavBtn.classList.add('active');
     }
 
     // TRILINGUAL I18N DICTIONARY
@@ -1240,6 +1293,11 @@
         "reg.notice_tahap36_desc": "为保障教学质量与梯队水准，当前系统仅开放直接报读「初级基础研习班 (Tahap 1~2)」。Tahap 3 至 6 进阶与精英课程须由总教练与教师团队进行现场对弈或残局摸底考核，考核达标后方可录取。若学员已有基础或曾参赛，请先报读初级班并在下方『棋艺现状』注明，教练组将主动联系安排测试！",
         "reg.badge_open": "开放直报 · 零基础打底",
         "reg.badge_need_test": "需教练组考核定级",
+        "reg.t1_orig_price": "原价 RM 85 / 月",
+        "reg.t1_offer_sub": "季付特惠 RM 170 (享3个月 · 折合 RM 56.7/月)",
+        "reg.t2_orig_price": "原价 RM 150 / 月 (8堂双轨)",
+        "reg.t3_orig_price": "原价 RM 200 / 月 (大师双轨)",
+        "reg.per_month": "/ 月",
         "reg.t1_term": "/ 季付套餐 (省RM10)",
         "reg.t2_lock_status": "暂不开放直报 · 须测评录取",
         "reg.t2_lock_fee": "标准学费：RM 240 / 季付",
@@ -1258,23 +1316,22 @@
         "reg.acad_sec2_sub": "请准确填写学员姓名与学校，系统将用于建立天梯等级分档案与官方考评凭证。",
         "reg.lbl_cn_name": "学员中文姓名",
         "reg.lbl_en_name": "英文姓名 (按 IC / MyKid)",
-        "reg.lbl_birth": "出生年份 / 年龄",
+        "reg.lbl_birth": "出生年份",
+        "reg.ph_birth": "请输入出生年份 (如: 2015)",
         "reg.lbl_gender": "学员性别",
         "reg.opt_male": "男 (Male)", "reg.opt_female": "女 (Female)",
         "reg.lbl_school": "就读学校",
+        "reg.opt_school_other": "其他学校 (自行填写) / Other School",
+        "reg.ph_custom_school": "请输入学校全名 (如: SMK Triang / 吉隆坡坤成一校)",
         "reg.lbl_level": "棋艺现状",
         "reg.opt_lvl_zero": "零基础 (从规则学起)",
         "reg.opt_lvl_beg": "初学者 (懂得走子规则与吃子)",
         "reg.opt_lvl_mid": "有下棋实战经验 (懂基本杀法)",
         "reg.opt_lvl_exp": "有参赛经历 (曾代表学校参赛)",
-        "reg.acad_sec3_title": "第三步：家长联络与上课意向",
-        "reg.acad_sec3_sub": "俱乐部将通过 WhatsApp 发送课表指引、线上课链接与现场考核安排。",
+        "reg.acad_sec3_title": "第三步：家长联络信息",
+        "reg.acad_sec3_sub": "俱乐部将通过 WhatsApp 发送课表指引、开班通知与现场考核安排。",
         "reg.lbl_parent_name": "家长 / 监护人姓名",
         "reg.lbl_parent_phone": "家长 WhatsApp 电话",
-        "reg.lbl_mode": "意向上课模式",
-        "reg.opt_mode_omo": "OMO 双轨标准班 (周中网课理论 + 周末基地带钟实战)",
-        "reg.opt_mode_offline": "仅周末线下实战营",
-        "reg.opt_mode_online": "仅周中线上理论直播",
         "reg.lbl_remarks": "备注或特殊要求",
         "reg.fee_tuition": "学费试算",
         "reg.fee_kit": "新生材料与建档费",
@@ -1345,6 +1402,11 @@
         "reg.notice_tahap36_desc": "Bagi menjamin kualiti latihan, sistem hanya dibuka untuk pendaftaran terus Tahap 1~2. Tahap 3 hingga 6 memerlukan ujian kelayakan oleh pasukan jurulatih. Jika anak anda ada asas atau pernah bertanding, sila pilih Tahap 1~2 dan nyatakan pengalaman di bawah, jurulatih akan menghubungi untuk sesi ujian kelayakan!",
         "reg.badge_open": "Kemasukan Terus · Asas Sifar",
         "reg.badge_need_test": "Perlu Ujian Kelayakan",
+        "reg.t1_orig_price": "Harga Asal RM 85 / Bulan",
+        "reg.t1_offer_sub": "Pakej 3 Bulan RM 170 (RM 56.7/bulan)",
+        "reg.t2_orig_price": "Harga Asal RM 150 / Bulan (8 Kelas Hibrid)",
+        "reg.t3_orig_price": "Harga Asal RM 200 / Bulan (Kelas Elit Hibrid)",
+        "reg.per_month": "/ Bulan",
         "reg.t1_term": "/ Pakej 3 Bulan (Jimat RM10)",
         "reg.t2_lock_status": "Kemasukan Terus Ditutup · Ujian Diperlukan",
         "reg.t2_lock_fee": "Yuran Standard: RM 240 / 3 Bulan",
@@ -1363,23 +1425,22 @@
         "reg.acad_sec2_sub": "Maklumat tepat diperlukan untuk rekod rasmi sistem ELO & pensijilan gred.",
         "reg.lbl_cn_name": "Nama Bahasa Cina",
         "reg.lbl_en_name": "Nama Penuh (Mengikut MyKid/IC)",
-        "reg.lbl_birth": "Tahun Kelahiran / Umur",
+        "reg.lbl_birth": "Tahun Kelahiran",
+        "reg.ph_birth": "Masukkan tahun kelahiran (cth: 2015)",
         "reg.lbl_gender": "Jantina",
         "reg.opt_male": "Lelaki", "reg.opt_female": "Perempuan",
         "reg.lbl_school": "Sekolah Semasa",
+        "reg.opt_school_other": "Sekolah Lain (Isi Sendiri) / Other School",
+        "reg.ph_custom_school": "Masukkan nama sekolah (cth: SMK Triang)",
         "reg.lbl_level": "Tahap Pengalaman Catur",
         "reg.opt_lvl_zero": "Asas Sifar (Belajar dari awal)",
         "reg.opt_lvl_beg": "Pemula (Tahu asas pergerakan buah)",
         "reg.opt_lvl_mid": "Ada Pengalaman Praktikal (Tahu taktikal asas)",
         "reg.opt_lvl_exp": "Pernah Bertanding (Wakil sekolah)",
-        "reg.acad_sec3_title": "Langkah 3: Maklumat Ibu Bapa & Mod Latihan",
-        "reg.acad_sec3_sub": "Pihak kelab akan menghantar jadual & pautan kelas melalui WhatsApp.",
+        "reg.acad_sec3_title": "Langkah 3: Maklumat Ibu Bapa & Penjaga",
+        "reg.acad_sec3_sub": "Pihak kelab akan menghantar jadual & maklumat kelas melalui WhatsApp.",
         "reg.lbl_parent_name": "Nama Ibu Bapa / Penjaga",
         "reg.lbl_parent_phone": "No. WhatsApp Ibu Bapa",
-        "reg.lbl_mode": "Mod Pilihan Latihan",
-        "reg.opt_mode_omo": "Mod Hibrid OMO (Teori Online + Praktikal Jam Bersemuka)",
-        "reg.opt_mode_offline": "Hanya Praktikal Bersemuka Hujung Minggu",
-        "reg.opt_mode_online": "Hanya Kelas Teori Online",
         "reg.lbl_remarks": "Catatan Tambahan",
         "reg.fee_tuition": "Anggaran Yuran",
         "reg.fee_kit": "Bahan & Pendaftaran Baharu",
@@ -1450,6 +1511,11 @@
         "reg.notice_tahap36_desc": "To maintain high training standards, only Foundation Class (Tahap 1-2) is open for direct entry. Tahap 3 to 6 require a placement assessment by our teacher team. If the student has chess experience, please enroll under Tahap 1-2 and specify their background below; our coaches will arrange an assessment test before class commencement!",
         "reg.badge_open": "Open for Direct Entry · Zero Basics",
         "reg.badge_need_test": "Assessment Test Required",
+        "reg.t1_orig_price": "Standard RM 85 / mo",
+        "reg.t1_offer_sub": "Quarterly Promo RM 170 (3 mos · RM 56.7/mo)",
+        "reg.t2_orig_price": "Standard RM 150 / mo (8 Classes Hybrid)",
+        "reg.t3_orig_price": "Standard RM 200 / mo (Master Class Hybrid)",
+        "reg.per_month": "/ mo",
         "reg.t1_term": "/ Quarterly Combo (Save RM10)",
         "reg.t2_lock_status": "Direct Entry Closed · Test Required",
         "reg.t2_lock_fee": "Standard Tuition: RM 240 / Quarter",
@@ -1468,23 +1534,22 @@
         "reg.acad_sec2_sub": "Accurate information required for official ELO ratings and certificate issuance.",
         "reg.lbl_cn_name": "Chinese Name",
         "reg.lbl_en_name": "Full English Name (as per IC/MyKid)",
-        "reg.lbl_birth": "Year of Birth / Age",
+        "reg.lbl_birth": "Year of Birth",
+        "reg.ph_birth": "Enter birth year (e.g. 2015)",
         "reg.lbl_gender": "Gender",
         "reg.opt_male": "Male", "reg.opt_female": "Female",
         "reg.lbl_school": "Current School",
+        "reg.opt_school_other": "Other School (Type in) / Other School",
+        "reg.ph_custom_school": "Enter full school name (e.g. SMK Triang)",
         "reg.lbl_level": "Current Xiangqi Background",
         "reg.opt_lvl_zero": "Zero Basics (Start from rules)",
         "reg.opt_lvl_beg": "Beginner (Knows piece movement rules)",
         "reg.opt_lvl_mid": "Practical Experience (Knows basic checkmates)",
         "reg.opt_lvl_exp": "Tournament Experience (Represented school)",
-        "reg.acad_sec3_title": "Step 3: Parent Contact & Preferred Mode",
-        "reg.acad_sec3_sub": "The club will send schedule details and class links via WhatsApp.",
+        "reg.acad_sec3_title": "Step 3: Parent & Contact Details",
+        "reg.acad_sec3_sub": "The club will send schedule and class commencement info via WhatsApp.",
         "reg.lbl_parent_name": "Parent / Guardian Name",
         "reg.lbl_parent_phone": "Parent WhatsApp Number",
-        "reg.lbl_mode": "Preferred Learning Mode",
-        "reg.opt_mode_omo": "OMO Hybrid Mode (Midweek Theory + Weekend OTB Drills)",
-        "reg.opt_mode_offline": "Weekend OTB Drills Only",
-        "reg.opt_mode_online": "Midweek Online Theory Only",
         "reg.lbl_remarks": "Remarks / Special Requests",
         "reg.fee_tuition": "Estimated Tuition",
         "reg.fee_kit": "New Student Kit & ELO Setup",
@@ -1546,6 +1611,12 @@
         const key = el.getAttribute('data-i18n');
         if (dict[key]) {
           el.innerHTML = dict[key];
+        }
+      });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (dict[key]) {
+          el.setAttribute('placeholder', dict[key]);
         }
       });
       updateSeg(lang);

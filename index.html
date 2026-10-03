@@ -1214,6 +1214,22 @@ a { color: inherit; text-decoration: none; }
   background: rgba(241, 196, 15, 0.1);
 }
 
+.nav-lang-bar {
+  display: inline-flex; background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+  padding: 2px; gap: 2px;
+}
+.nav-lang-chip {
+  background: transparent; border: none; color: rgba(255, 255, 255, 0.6);
+  font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 14px;
+  cursor: pointer; transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav-lang-chip:hover { color: #fff; }
+.nav-lang-chip.active {
+  background: rgba(255, 255, 255, 0.95); color: #061724;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
 .lang-switcher {
   display: flex; background: rgba(0,0,0,0.4); border-radius: 10px; padding: 4px; border: 1px solid var(--line);
 }
@@ -1332,10 +1348,16 @@ a { color: inherit; text-decoration: none; }
         <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
         <div class="p-nav-sub">CLUB XIANGQI BERA</div>
       </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="nav-lang-bar">
+        <button id="nav_lang_cn" class="nav-lang-chip active" onclick="setLang('cn'); updateSeg('cn');">中</button>
+        <button id="nav_lang_bm" class="nav-lang-chip" onclick="setLang('bm'); updateSeg('bm');">BM</button>
+        <button id="nav_lang_en" class="nav-lang-chip" onclick="setLang('en'); updateSeg('en');">EN</button>
+      </div>
+      <button class="nav-menu-btn" onclick="toggleMainNav()">
+        <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+      </button>
     </div>
-    <button class="nav-menu-btn" onclick="toggleMainNav()">
-      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
-    </button>
   </header>
 
     
@@ -2795,9 +2817,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function updateSeg(lang) {
+  const l = (lang === 'zh' ? 'cn' : lang);
   document.querySelectorAll('.apple-segment .seg-btn').forEach(btn => btn.classList.remove('active'));
-  const activeBtn = document.getElementById('seg_' + lang);
+  const activeBtn = document.getElementById('seg_' + l);
   if(activeBtn) activeBtn.classList.add('active');
+
+  document.querySelectorAll('.nav-lang-chip').forEach(btn => btn.classList.remove('active'));
+  const activeNavBtn = document.getElementById('nav_lang_' + l);
+  if(activeNavBtn) activeNavBtn.classList.add('active');
 }
 
 </script>
