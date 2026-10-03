@@ -760,6 +760,45 @@
     </div>
   </div>
 
+  <!-- TIER LOCKED NOTICE MODAL (APPLE DARK GLASS) -->
+  <div class="modal-overlay" id="tierNoticeModal" onclick="handleTierModalOverlayClick(event)">
+    <div class="receipt-modal" style="max-width: 520px; text-align: center; border-color: rgba(230, 57, 70, 0.45); box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(230,57,70,0.15);">
+      <div style="margin-bottom: 14px;">
+        <span class="tier-test-badge" style="font-size: 11.5px; padding: 5px 16px; border-radius: 20px;" data-i18n="modal_tier.badge">
+          需教练组考核定级 · ASSESSMENT REQUIRED
+        </span>
+      </div>
+      <h3 style="font-family: var(--font-serif); font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 14px;" data-i18n="modal_tier.title">
+        进阶与精英班考核录取说明
+      </h3>
+      <div style="font-size: 13.5px; color: var(--ink-dim); line-height: 1.7; margin-bottom: 24px; text-align: left; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px 18px;" data-i18n="modal_tier.desc">
+        为保障教学质量与梯队水准，Tahap 3 至 6 进阶与精英课程不开放未经测评直接报读。<br><br>
+        若学员已有下棋基础或曾参赛，请先报读 <strong>Tahap 1~2 初级基础研习班</strong>，并在第二步的<strong>【棋艺现状】</strong>中勾选实战经验。总教练与教师团队将在收到报名单后主动联系安排现场或线上实战摸底测试！
+      </div>
+      <button type="button" class="btn-submit" style="padding: 14px 20px; font-size: 15px;" onclick="closeTierNoticeModal()" data-i18n="modal_tier.btn">
+        我知道了，继续填写报名 →
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM VALIDATION ALERT MODAL (APPLE DARK GLASS) -->
+  <div class="modal-overlay" id="formAlertModal" onclick="handleAlertModalOverlayClick(event)">
+    <div class="receipt-modal" style="max-width: 460px; text-align: center; border-color: rgba(241,196,15,0.35);">
+      <div style="margin-bottom: 14px;">
+        <span class="receipt-badge" style="background:#E63946; color:#fff;" data-i18n="modal_alert.badge">资料尚未填妥</span>
+      </div>
+      <h3 style="font-family: var(--font-serif); font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 12px;" data-i18n="modal_alert.title">
+        请完整填写必填信息
+      </h3>
+      <p style="font-size: 13.5px; color: var(--ink-dim); line-height: 1.6; margin-bottom: 24px; text-align: center;" id="formAlertMsg">
+        请完整填写学员中文姓名、英文姓名、家长姓名及 WhatsApp 电话！
+      </p>
+      <button type="button" class="btn-submit" style="padding: 12px 24px; font-size: 14px;" onclick="closeFormAlertModal()" data-i18n="modal_alert.btn">
+        返回补充信息
+      </button>
+    </div>
+  </div>
+
   <!-- APPLE STYLE MEGA MENU -->
   <div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
   <div id="appleMegaMenu" class="apple-mega-menu">
@@ -849,14 +888,32 @@
     }
 
     function handleLockedTierClick(tierKey) {
-      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
-      let msg = "提示：Tahap 3~6 班级不开放直接报名，须由总教练与教师团队实战测评后定级录取。\n\n请先报读 Tahap 1~2 初级班，并在下方【棋艺现状】注明学员基础，教练组将主动联系安排摸底考核！";
-      if (lang === 'bm') {
-        msg = "Perhatian: Tahap 3~6 tidak dibuka untuk pendaftaran terus. Ujian kelayakan praktikal diperlukan oleh pasukan jurulatih.\n\nSila daftar Tahap 1~2 dahulu dan nyatakan pengalaman di bawah, jurulatih akan menghubungi anda untuk sesi penilaian!";
-      } else if (lang === 'en') {
-        msg = "Notice: Direct enrollment is only open for Tahap 1-2. Tahap 3-6 require a placement test by our teacher team.\n\nPlease select Tahap 1-2 and state the student's background below; our coaches will arrange an assessment test!";
+      document.getElementById('tierNoticeModal').classList.add('open');
+    }
+
+    function closeTierNoticeModal() {
+      document.getElementById('tierNoticeModal').classList.remove('open');
+    }
+
+    function handleTierModalOverlayClick(e) {
+      if (e.target.id === 'tierNoticeModal') {
+        closeTierNoticeModal();
       }
-      alert(msg);
+    }
+
+    function showFormAlert(msg) {
+      document.getElementById('formAlertMsg').textContent = msg;
+      document.getElementById('formAlertModal').classList.add('open');
+    }
+
+    function closeFormAlertModal() {
+      document.getElementById('formAlertModal').classList.remove('open');
+    }
+
+    function handleAlertModalOverlayClick(e) {
+      if (e.target.id === 'formAlertModal') {
+        closeFormAlertModal();
+      }
     }
 
     function calcAcademyTotal() {
@@ -926,7 +983,13 @@
       const parentPhone = document.getElementById('acadParentPhone').value.trim();
 
       if (!cnName || !enName || !parentName || !parentPhone) {
-        alert('请完整填写必填项（学员中文姓名、英文姓名、家长姓名及 WhatsApp 电话）！');
+        const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+        const alertMsg = (lang === 'bm') 
+          ? 'Sila lengkapkan semua ruangan wajib (Nama Cina, Nama Penuh, Nama Ibu Bapa & No. WhatsApp)!'
+          : (lang === 'en' 
+             ? 'Please fill in all required fields (Chinese Name, English Name, Parent Name & WhatsApp)!'
+             : '请完整填写必填项（学员中文姓名、英文姓名、家长姓名及 WhatsApp 电话）！');
+        showFormAlert(alertMsg);
         return;
       }
 
@@ -973,7 +1036,13 @@
       const emergency = document.getElementById('campEmergency').value.trim();
 
       if (!cnName || !enName || !ic || !school || !phone || !emergency) {
-        alert('请完整填写必填项（参赛者中文姓名、英文全名、身分证号、学校、联络电话及紧急联络人）！');
+        const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
+        const alertMsg = (lang === 'bm')
+          ? 'Sila lengkapkan semua maklumat peserta (Nama, No. IC, Sekolah, No. Telefon & Hubungan Kecemasan)!'
+          : (lang === 'en'
+             ? 'Please fill in all participant details (Name, IC, School, Phone & Emergency Contact)!'
+             : '请完整填写必填项（参赛者中文姓名、英文全名、身分证号、学校、联络电话及紧急联络人）！');
+        showFormAlert(alertMsg);
         return;
       }
 
@@ -1240,6 +1309,13 @@
         "reg.receipt_badge": "官方报名确认凭条 · 待核实",
         "reg.btn_wa_send": "通过 WhatsApp 发送凭条至公会确认",
         "reg.btn_close": "关闭并返回",
+        "modal_tier.badge": "需教练组考核定级 · ASSESSMENT REQUIRED",
+        "modal_tier.title": "进阶与精英班考核录取说明",
+        "modal_tier.desc": "为保障教学质量与梯队水准，Tahap 3 至 6 进阶与精英课程不开放未经测评直接报读。<br><br>若学员已有下棋基础或曾参赛，请先报读 <strong>Tahap 1~2 初级基础研习班</strong>，并在第二步的<strong>【棋艺现状】</strong>中勾选实战经验。总教练与教师团队将在收到报名单后主动联系安排现场或线上实战摸底测试！",
+        "modal_tier.btn": "我知道了，继续填写报名 →",
+        "modal_alert.badge": "资料尚未填妥",
+        "modal_alert.title": "请完整填写必填信息",
+        "modal_alert.btn": "返回补充信息",
         "footer.about_title": "百乐象棋俱乐部",
         "footer.about_desc": "彭亨百乐县唯一专业中国象棋教育学院<br>负责统筹全县赛事与等级分考级认证体系。",
         "footer.partners_title": "认证机构 & 官方合作伙伴",
@@ -1338,6 +1414,13 @@
         "reg.receipt_badge": "Slip Pengesahan Rasmi · Belum Disahkan",
         "reg.btn_wa_send": "Hantar Slip Melalui WhatsApp Untuk Pengesahan",
         "reg.btn_close": "Tutup & Kembali",
+        "modal_tier.badge": "PERLU UJIAN KELAYAKAN · ASSESSMENT REQUIRED",
+        "modal_tier.title": "Syarat Ujian Kelayakan Tahap 3~6",
+        "modal_tier.desc": "Bagi menjamin kualiti latihan, kelas Tahap 3 hingga 6 tidak dibuka untuk kemasukan terus tanpa penilaian.<br><br>Jika anak anda ada asas catur atau pernah bertanding, sila pilih <strong>Tahap 1~2 Kelas Asas</strong> dahulu dan nyatakan pengalaman pada bahagian <strong>【Tahap Pengalaman Catur】</strong>. Pasukan jurulatih akan menghubungi anda untuk sesi ujian kelayakan!",
+        "modal_tier.btn": "Faham, Teruskan Pendaftaran →",
+        "modal_alert.badge": "Maklumat Belum Lengkap",
+        "modal_alert.title": "Sila Isi Ruangan Wajib",
+        "modal_alert.btn": "Kembali Lengkapkan Maklumat",
         "footer.about_title": "Kelab XiangQi Bera",
         "footer.about_desc": "Satu-satunya akademi catur Cina profesional di Bera, Pahang.<br>Mengendalikan kejohanan dan pensijilan gred ELO rasmi.",
         "footer.partners_title": "Rakan Rasmi & Pensijilan",
@@ -1436,6 +1519,13 @@
         "reg.receipt_badge": "Official Confirmation Slip · Pending Verification",
         "reg.btn_wa_send": "Send Slip via WhatsApp to Confirm",
         "reg.btn_close": "Close & Return",
+        "modal_tier.badge": "ASSESSMENT TEST REQUIRED",
+        "modal_tier.title": "Tahap 3-6 Placement Test Policy",
+        "modal_tier.desc": "To ensure premier training standards, Tahap 3 to 6 classes do not accept unverified direct admissions.<br><br>If the student already has chess fundamentals, please enroll under <strong>Tahap 1-2 Foundation Class</strong> and specify their experience in Step 2 <strong>【Current Xiangqi Background】</strong>. Our coaching team will reach out to arrange an assessment test!",
+        "modal_tier.btn": "Understood, Continue Registration →",
+        "modal_alert.badge": "Incomplete Information",
+        "modal_alert.title": "Please Complete Required Fields",
+        "modal_alert.btn": "Return to Complete",
         "footer.about_title": "Club XiangQi Bera",
         "footer.about_desc": "The only professional Chinese Chess academy in Bera, Pahang.<br>Organizer of district championships and official ELO grading.",
         "footer.partners_title": "Official Partners & Certification",
