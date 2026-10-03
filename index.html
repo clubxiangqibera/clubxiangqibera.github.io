@@ -1172,7 +1172,7 @@ a { color: inherit; text-decoration: none; }
 
 .apple-mega-menu {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
-  background: rgba(6, 23, 36, 0.95); /* Deep navy translucent */
+  background: rgba(6, 23, 36, 0.78); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
   transform: translateY(-100%);
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1330,7 +1330,7 @@ a { color: inherit; text-decoration: none; }
   
   <!-- LOGIN SECTION -->
   <div id="publicLoginSection" style="display:none; justify-content:center; align-items:center; min-height:75vh;">
-    <div class="gate-card animate-zoom" style="margin:20px auto; width: 100%; max-width: 440px; background: var(--navy-900); padding: 40px; border-radius: var(--radius); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--line);">
+    <div class="gate-card animate-zoom" style="margin:20px auto; width: 100%; max-width: 440px; background: rgba(6, 23, 36, 0.72); padding: 40px; border-radius: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
       <div class="gate-badge" data-i18n="login.badge" style="display:inline-block; background:var(--gold); color:var(--navy-950); padding:6px 12px; border-radius:30px; font-size:12px; font-weight:800; margin-bottom:20px;">🏛️ CLUB XIANGQI BERA · 学员专属登录</div>
       <h1 class="gate-title" data-i18n="login.title" style="font-family: var(--font-serif); font-size: 26px; color: var(--ink); margin-bottom: 8px;">百乐象棋俱乐部</h1>
       <p class="gate-sub" data-i18n="login.sub" style="font-size: 14px; color: var(--ink-dim); margin-bottom: 32px;">请使用俱乐部发放的学员账号密码登录</p>
