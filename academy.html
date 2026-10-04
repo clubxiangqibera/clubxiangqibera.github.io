@@ -189,11 +189,17 @@
       border: 1.5px solid var(--gold);
       background: linear-gradient(180deg, rgba(17, 36, 64, 0.9) 0%, rgba(11, 26, 47, 0.95) 100%);
     }
-    .featured-tag {
+    .price-card.popular {
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45), 0 0 20px rgba(241,196,15,0.12);
+      position: relative;
+    }
+    .featured-tag, .popular-tag {
       position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
       background: var(--badge-gold-bg); color: var(--badge-gold-text);
       font-size: 10px; font-weight: 900; padding: 4px 12px; border-radius: var(--radius-pill);
       white-space: nowrap; box-shadow: 0 2px 8px rgba(241,196,15,0.3);
+      z-index: 2;
     }
 
     .card-tier-pill {
@@ -251,6 +257,14 @@
       box-shadow: var(--btn-primary-shadow);
     }
     .btn-card--red:hover { background: var(--btn-primary-hover); }
+    .btn-card--gold-outline {
+      background: transparent; color: var(--gold); border: 1px solid var(--gold);
+      box-shadow: 0 0 10px rgba(241, 196, 15, 0.15);
+    }
+    .btn-card--gold-outline:hover {
+      background: rgba(241, 196, 15, 0.12); border-color: #ffd700; color: #fff;
+      box-shadow: 0 0 16px rgba(241, 196, 15, 0.35);
+    }
 
     /* 注册材料费横幅 (与首页 announce 模块同系) */
     .announce-kit {
@@ -265,6 +279,10 @@
       display: flex; align-items: center; gap: 8px;
     }
     .announce-kit-text p { font-size: 0.85rem; color: var(--ink-dim); line-height: 1.5; }
+    .announce-kit-policy-note {
+      font-size: 0.78rem; color: #8fa0b5; margin-top: 8px; line-height: 1.5;
+      border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 6px;
+    }
     .announce-kit-badge {
       background: var(--badge-gold-bg); color: var(--badge-gold-text);
       font-size: 0.85rem; font-weight: 800; padding: 8px 18px;
@@ -617,9 +635,9 @@
           <h3 class="card-title" data-i18n="c1.title">零基础启蒙研习班</h3>
           <div class="card-sub-en">Kelas Permulaan · Beginner</div>
           <div class="card-price-wrap">
-            <div style="font-size: 11.5px; opacity: 0.65; color: var(--ink-dim); margin-bottom: 3px;" data-i18n="c1.orig">正常原价: 月缴 RM 49 / 季付 RM 129</div>
-            <div class="card-price-main">RM 39 <small>/ 月</small></div>
-            <span class="card-quarter-combo" data-i18n="c1.combo">特惠季付: RM 99 / 3个月 (均 RM33/月 · 免 RM 30 入学费)</span>
+            <div style="font-size: 11.5px; text-decoration: line-through; opacity: 0.65; color: var(--ink-dim); margin-bottom: 3px;" data-i18n="c1.orig">正常原价: 月缴 RM 49 / 季付 RM 129</div>
+            <div class="card-price-main" style="color: #e67e22;">RM 39 <small>/ 月 (创会特惠)</small></div>
+            <span class="card-quarter-combo" data-i18n="c1.combo">特惠季付: RM 99 / 3个月 (均 RM33/月 · 免 RM 30 入学费 · 锁定前半年)</span>
           </div>
           <ul class="card-features-list">
             <li><span class="ico">✓</span> <span><b data-i18n="c.target">对象：</b> 5-12岁零基础入门 / 初次接触象棋幼童</span></li>
@@ -628,7 +646,7 @@
             <li><span class="ico">✓</span> <span><b data-i18n="c.coach">师资：</b> 本地驻场资深教练耐心手把手启蒙带练</span></li>
             <li><span class="ico">✓</span> <span><b data-i18n="c.outcome">成效：</b> 独立规范摆棋走满全盘，培养专注力与棋德</span></li>
           </ul>
-          <a href="register.html?type=academy&tier=tahap1" class="btn-card btn-card--ghost" data-i18n="btn.enroll">立即报名入班</a>
+          <a href="register.html?type=academy&tier=tahap1" class="btn-card btn-card--red" data-i18n="btn.enroll">立即报名入班</a>
         </div>
 
         <!-- 班级 2：Tahap 2 初级基础实战班 -->
@@ -638,8 +656,8 @@
           <div class="card-sub-en">Kelas Asas · Foundation</div>
           <div class="card-price-wrap">
             <div style="font-size: 11.5px; text-decoration: line-through; opacity: 0.65; color: var(--ink-dim); margin-bottom: 3px;" data-i18n="c2.orig">正常原价: 月缴 RM 99 / 季付 RM 269</div>
-            <div class="card-price-main" style="color: #2ecc71;">RM 69 <small>/ 月 (创会特惠)</small></div>
-            <span class="card-quarter-combo" data-i18n="c2.combo">特惠季付: RM 189 / 3个月 (均 RM63/月 · 免 RM 30 入学费)</span>
+            <div class="card-price-main" style="color: #e67e22;">RM 69 <small>/ 月 (创会特惠)</small></div>
+            <span class="card-quarter-combo" data-i18n="c2.combo">特惠季付: RM 189 / 3个月 (均 RM63/月 · 免 RM 30 入学费 · 锁定前半年)</span>
           </div>
           <ul class="card-features-list">
             <li><span class="ico">✓</span> <span><b data-i18n="c.target">对象：</b> 已懂规则 / 会走子希望系统赢棋的小学学员</span></li>
@@ -648,11 +666,12 @@
             <li><span class="ico">✓</span> <span><b data-i18n="c.arena">实战：</b> 全真计时对弈，激活公会官方 ELO 天梯排位</span></li>
             <li><span class="ico">✓</span> <span><b data-i18n="c.outcome">成效：</b> 戒除盲目乱走，掌握战术赢棋技巧，衔接校队</span></li>
           </ul>
-          <a href="register.html?type=academy&tier=tahap2" class="btn-card btn-card--ghost" data-i18n="btn.enroll">立即报名入班</a>
+          <a href="register.html?type=academy&tier=tahap2" class="btn-card btn-card--red" data-i18n="btn.enroll">立即报名入班</a>
         </div>
 
         <!-- 班级 3：Tahap 3 ~ 4 中级战术进阶班 -->
-        <div class="price-card">
+        <div class="price-card popular">
+          <div class="popular-tag" data-i18n="c3.popular_tag">★ 最受欢迎</div>
           <div class="card-tier-pill">TAHAP 3 ~ 4</div>
           <h3 class="card-title" data-i18n="c3.title">中级战术进阶班</h3>
           <div class="card-sub-en">Kelas Pertengahan · Intermediate</div>
@@ -668,7 +687,7 @@
             <li><span class="ico">✓</span> <span><b data-i18n="c.arena">训练：</b> 电子棋钟计时对弈，赛后逐局复盘拆解关键手</span></li>
             <li><span class="ico">✓</span> <span><b data-i18n="c.outcome">目标：</b> 熟练战术组合，具备冲击全县赛前 16 强至 8 强实力</span></li>
           </ul>
-          <a href="register.html?type=academy" class="btn-card btn-card--ghost" data-i18n="btn.enroll">申请进阶审核</a>
+          <a href="register.html?type=academy" class="btn-card btn-card--red" data-i18n="btn.enroll">立即报名入班</a>
         </div>
 
         <!-- 班级 4：Tahap 5 ~ 6 高级精英研修班 -->
@@ -688,7 +707,7 @@
             <li><span class="ico">✓</span> <span><b data-i18n="c.coach">师资：</b> 公会资深教研组 + Nicholas 现役州代表专项模块</span></li>
             <li><span class="ico">✓</span> <span><b data-i18n="c.outcome">目标：</b> 专属开局武器库与精细残局，争夺全县冠亚季军</span></li>
           </ul>
-          <a href="register.html?type=academy" class="btn-card btn-card--ghost" data-i18n="btn.enroll">申请精英资格</a>
+          <a href="register.html?type=academy" class="btn-card btn-card--red" data-i18n="btn.enroll">立即报名入班</a>
         </div>
 
         <!-- 荣誉班级：Tahap 7 百乐县正选代表队 -->
@@ -698,7 +717,7 @@
           <h3 class="card-title" data-i18n="c5.title">百乐县正选代表队</h3>
           <div class="card-sub-en">Skuad Utama Daerah Bera</div>
           <div class="card-price-wrap">
-            <div style="font-size: 11.5px; opacity: 0.65; color: var(--gold-soft); margin-bottom: 3px;" data-i18n="c5.orig">标准价值: RM 399 / 月 (季付 RM 999)</div>
+            <div style="font-size: 11.5px; opacity: 0.65; color: var(--gold-soft); margin-bottom: 3px;" data-i18n="c5.orig">标准价值: RM 399 / 月</div>
             <div class="card-price-main" style="color:var(--gold);">RM 0 <small style="color:var(--gold-soft);">/ 个人免缴</small></div>
             <span class="card-quarter-combo" style="color:var(--green);" data-i18n="c5.combo">★ 公会专项发展基金全额资助 (RM 399/月)</span>
           </div>
@@ -709,7 +728,7 @@
             <li><span class="ico">★</span> <span><b data-i18n="c5.coach">指导：</b> 公会资深教练组带队封闭实操演练与心理辅导</span></li>
             <li><span class="ico">★</span> <span><b data-i18n="c5.outcome">目标：</b> 代表百乐县出征全彭赛 (MSSP) 与全国赛冲击前三甲</span></li>
           </ul>
-          <a href="ladder.html" class="btn-card btn-card--red" data-i18n="c5.btn">查看全县正选榜</a>
+          <a href="ladder.html" class="btn-card btn-card--gold-outline" data-i18n="c5.btn">查看全县正选榜</a>
         </div>
 
       </div>
@@ -718,7 +737,8 @@
       <div class="announce-kit">
         <div class="announce-kit-text">
           <h4><span style="color:var(--gold);">★</span> <span data-i18n="kit.title">创会首期报名特惠与材料建档费政策</span></h4>
-          <p data-i18n="kit.desc">【限时 3 个月开放报名】：凡在创会首期（3个月内）报名的学员，即可锁定前 6 个月特惠价格（Tahap 1 享 RM39/月或季付 RM99；Tahap 2 享 RM69/月或季付 RM189；Tahap 3-4 享 RM99/月或季付 RM269；Tahap 5-6 享 RM149/月或季付 RM399）。Tahap 1 启蒙班与 Tahap 2 初级实战班更尊享全免原价 RM 30 入学材料与终身天梯建档费！</p>
+          <p data-i18n="kit.desc">【限时 3 个月开放报名 · 截止日期：2026年12月31日】：凡在创会首期（3个月内）报名的学员，即可锁定前 6 个月特惠价格（Tahap 1 享 RM39/月或季付 RM99；Tahap 2 享 RM69/月或季付 RM189；Tahap 3-4 享 RM99/月或季付 RM269；Tahap 5-6 享 RM149/月或季付 RM399）。Tahap 1 启蒙班与 Tahap 2 初级实战班更尊享全免原价 RM 30 入学材料与终身天梯建档费！</p>
+          <div class="announce-kit-policy-note" data-i18n="kit.policy_note">季付须一次缴付；第一堂课前可全额退款；Tahap 1-2 满足最低人数方可开班。</div>
         </div>
         <div class="announce-kit-badge" data-i18n="kit.badge">首期免收 RM 30 (Tahap 1 & 2)</div>
       </div>
@@ -1046,16 +1066,18 @@
       "chip.pajsk": "公会官方七级考评认证体系",
       "sec.classes_title": "常规阶梯班级与收费标准",
       "sec.classes_sub": "立足百乐县青少年棋艺普及，贯通启蒙素养至正选代表队的阶梯培育体系，普惠优质、规范筑基",
-      "c1.title": "零基础启蒙研习班", "c1.orig": "正常原价: 月缴 RM 49 / 季付 RM 129", "c1.combo": "特惠季付: RM 99 / 3个月 (均 RM33/月 · 免 RM 30 入学费)",
-      "c2.title": "初级基础实战班", "c2.orig": "正常原价: 月缴 RM 99 / 季付 RM 269", "c2.combo": "特惠季付: RM 189 / 3个月 (均 RM63/月 · 免 RM 30 入学费)",
+      "c1.title": "零基础启蒙研习班", "c1.orig": "正常原价: 月缴 RM 49 / 季付 RM 129", "c1.combo": "特惠季付: RM 99 / 3个月 (均 RM33/月 · 免 RM 30 入学费 · 锁定前半年)",
+      "c2.title": "初级基础实战班", "c2.orig": "正常原价: 月缴 RM 99 / 季付 RM 269", "c2.combo": "特惠季付: RM 189 / 3个月 (均 RM63/月 · 免 RM 30 入学费 · 锁定前半年)",
+      "c3.popular_tag": "★ 最受欢迎",
       "c3.title": "中级战术进阶班", "c3.orig": "正常原价: 月缴 RM 129 / 季付 RM 349", "c3.combo": "特惠季付: RM 269 / 3个月 (均 RM90/月 · 锁定前半年)",
       "c4.title": "高级精英研修班", "c4.orig": "正常原价: 月缴 RM 199 / 季付 RM 539", "c4.combo": "特惠季付: RM 399 / 3个月 (均 RM133/月 · 锁定前半年)",
-      "c5.title": "百乐县正选代表队", "c5.featured_tag": "★ 荣誉正选 · 公会全额赞助", "c5.orig": "标准价值: RM 399 / 月 (季付 RM 999)", "c5.combo": "★ 公会专项发展基金全额资助 (RM 399/月)", "c5.btn": "查看全县正选榜",
+      "c5.title": "百乐县正选代表队", "c5.featured_tag": "★ 荣誉正选 · 公会全额赞助", "c5.orig": "标准价值: RM 399 / 月", "c5.combo": "★ 公会专项发展基金全额资助 (RM 399/月)", "c5.btn": "查看全县正选榜",
       "c.target": "对象：", "c.time": "课时：", "c.content": "内容：", "c.coach": "师资：", "c.outcome": "成效：", "c.arena": "实战：",
       "c4.target": "选拔：", "c4.time": "模式：", "c4.content": "目标：", "c4.coach": "指导：",
       "btn.enroll": "立即报名入班",
       "kit.title": "创会首期报名特惠与材料建档费政策",
-      "kit.desc": "【限时 3 个月开放报名】：凡在创会首期（3个月内）报名的学员，即可锁定前 6 个月特惠价格（Tahap 1 享 RM39/月或季付 RM99；Tahap 2 享 RM69/月或季付 RM189；Tahap 3-4 享 RM99/月或季付 RM269；Tahap 5-6 享 RM149/月或季付 RM399）。Tahap 1 启蒙班与 Tahap 2 初级实战班更尊享全免原价 RM 30 入学材料与终身天梯建档费！",
+      "kit.desc": "【限时 3 个月开放报名 · 截止日期：2026年12月31日】：凡在创会首期（3个月内）报名的学员，即可锁定前 6 个月特惠价格（Tahap 1 享 RM39/月或季付 RM99；Tahap 2 享 RM69/月或季付 RM189；Tahap 3-4 享 RM99/月或季付 RM269；Tahap 5-6 享 RM149/月或季付 RM399）。Tahap 1 启蒙班与 Tahap 2 初级实战班更尊享全免原价 RM 30 入学材料与终身天梯建档费！",
+      "kit.policy_note": "季付须一次缴付；第一堂课前可全额退款；Tahap 1-2 满足最低人数方可开班。",
       "kit.badge": "首期免收 RM 30 (Tahap 1 & 2)",
       "sec.grading_title": "公会官方七级考评认证体系",
       "sec.grading_sub": "全面接轨双轨评级制：公会认证考级规范（Grade 制）与教育部官方考评规范（KPM Tahap 制），由百乐县中国象棋公会权威认证颁发官方考级文凭",
@@ -1106,16 +1128,18 @@
       "chip.pajsk": "Sistem Penilaian 7 Tahap Rasmi Persatuan",
       "sec.classes_title": "Peringkat Kelas & Senarai Yuran",
       "sec.classes_sub": "Beriltizam memartabatkan catur Cina belia di Daerah Bera, menghubungkan literasi asas sehingga skuad utama daerah secara berpiawai, berkualiti dan mampu milik",
-      "c1.title": "Kelas Permulaan (Tahap 1)", "c1.orig": "Kadar Standard: RM 49 / Bulan | RM 129 / 3 Bulan", "c1.combo": "Pakej 3 Bulan: RM 99 (Purata RM33/bln · Percuma Pendaftaran RM30)",
-      "c2.title": "Kelas Asas (Tahap 2)", "c2.orig": "Kadar Standard: RM 99 / Bulan | RM 269 / 3 Bulan", "c2.combo": "Pakej Diskaun: RM 189 / 3 Bulan (Purata RM63/bln · Percuma Yuran RM30)",
+      "c1.title": "Kelas Permulaan (Tahap 1)", "c1.orig": "Kadar Standard: RM 49 / Bulan | RM 129 / 3 Bulan", "c1.combo": "Pakej 3 Bulan: RM 99 (Purata RM33/bln · Percuma Pendaftaran RM30 · Kunci 6 Bulan)",
+      "c2.title": "Kelas Asas (Tahap 2)", "c2.orig": "Kadar Standard: RM 99 / Bulan | RM 269 / 3 Bulan", "c2.combo": "Pakej Diskaun: RM 189 / 3 Bulan (Purata RM63/bln · Percuma Yuran RM30 · Kunci 6 Bulan)",
+      "c3.popular_tag": "★ Paling Popular",
       "c3.title": "Kelas Pertengahan (Tahap 3-4)", "c3.orig": "Kadar Standard: RM 129 / Bulan | RM 349 / 3 Bulan", "c3.combo": "Pakej Diskaun: RM 269 / 3 Bulan (Purata RM90/bln · Kunci 6 Bulan)",
       "c4.title": "Kelas Lanjutan Elit (Tahap 5-6)", "c4.orig": "Kadar Standard: RM 199 / Bulan | RM 539 / 3 Bulan", "c4.combo": "Pakej Diskaun: RM 399 / 3 Bulan (Purata RM133/bln · Kunci 6 Bulan)",
-      "c5.title": "Skuad Utama Daerah Bera", "c5.featured_tag": "★ Skuad Utama · Ditaja Sepenuhnya oleh Persatuan", "c5.orig": "Nilai Standard: RM 399 / Bulan (RM 999 / 3 Bulan)", "c5.combo": "★ Ditaja Sepenuhnya oleh Dana Persatuan (RM 399/Bulan)", "c5.btn": "Lihat Kedudukan Daerah",
+      "c5.title": "Skuad Utama Daerah Bera", "c5.featured_tag": "★ Skuad Utama · Ditaja Sepenuhnya oleh Persatuan", "c5.orig": "Nilai Standard: RM 399 / Bulan", "c5.combo": "★ Ditaja Sepenuhnya oleh Dana Persatuan (RM 399/Bulan)", "c5.btn": "Lihat Kedudukan Daerah",
       "c.target": "Sasaran:", "c.time": "Masa:", "c.content": "Kandungan:", "c.coach": "Tenaga:", "c.outcome": "Kejayaan:", "c.arena": "Praktikal:",
       "c4.target": "Kelayakan:", "c4.time": "Mod:", "c4.content": "Sasaran:", "c4.coach": "Bimbingan:",
       "btn.enroll": "Daftar Sekarang",
       "kit.title": "Promosi Yuran Pelancaran & Polisi Pendaftaran",
-      "kit.desc": "[Pendaftaran Terhad 3 Bulan]: Pelajar yang mendaftar dalam tempoh 3 bulan pelancaran akan mengunci yuran diskaun untuk 6 bulan pertama (Tahap 1 RM39/bln atau RM99/3bln; Tahap 2 RM69/bln atau RM189/3bln; Tahap 3-4 RM99/bln atau RM269/3bln; Tahap 5-6 RM149/bln atau RM399/3bln). Pelajar Tahap 1 & Tahap 2 percuma yuran pendaftaran RM30 & pembukaan akaun ELO!",
+      "kit.desc": "[Pendaftaran Terhad 3 Bulan · Tarikh Tutup: 31 Disember 2026]: Pelajar yang mendaftar dalam tempoh 3 bulan pelancaran akan mengunci yuran diskaun untuk 6 bulan pertama (Tahap 1 RM39/bln atau RM99/3bln; Tahap 2 RM69/bln atau RM189/3bln; Tahap 3-4 RM99/bln atau RM269/3bln; Tahap 5-6 RM149/bln atau RM399/3bln). Pelajar Tahap 1 & Tahap 2 percuma yuran pendaftaran RM30 & pembukaan akaun ELO!",
+      "kit.policy_note": "Bayaran pakej 3 bulan perlu dijelaskan sekali gus; bayaran balik penuh sebelum kelas pertama; kelas Tahap 1-2 tertakluk kepada kuota minimum pelajar.",
       "kit.badge": "Percuma RM 30 (Tahap 1 & 2)",
       "sec.grading_title": "Sistem Penilaian 7 Tahap Rasmi CXQB",
       "sec.grading_sub": "Sistem dwi-pensijilan rasmi: Silibus Penggredan Persatuan (Grade) & Piawaian Rasmi KPM (Tahap), diiktiraf sepenuhnya oleh Persatuan Catur Cina Daerah Bera",
@@ -1166,16 +1190,18 @@
       "chip.pajsk": "Official 7-Grade Certification System",
       "sec.classes_title": "Class Tiers & Tuition Fees",
       "sec.classes_sub": "Dedicated to youth Xiangqi promotion in Bera District, connecting foundation literacy to elite district squad representation with premier, accessible and standardized training",
-      "c1.title": "Beginner Class (Tahap 1)", "c1.orig": "Standard Rate: RM 49 / mo | RM 129 / Quarter", "c1.combo": "Quarterly Promo: RM 99 / 3 Months (Avg RM33/mo · Waived RM30 Setup Fee)",
-      "c2.title": "Foundation Class (Tahap 2)", "c2.orig": "Standard Rate: RM 99 / mo | RM 269 / Quarter", "c2.combo": "Promo Quarterly: RM 189 / 3 Months (Avg RM63/mo · Waived RM30 Fee)",
+      "c1.title": "Beginner Class (Tahap 1)", "c1.orig": "Standard Rate: RM 49 / mo | RM 129 / Quarter", "c1.combo": "Quarterly Promo: RM 99 / 3 Months (Avg RM33/mo · Waived RM30 Setup Fee · Locked for 6 mos)",
+      "c2.title": "Foundation Class (Tahap 2)", "c2.orig": "Standard Rate: RM 99 / mo | RM 269 / Quarter", "c2.combo": "Promo Quarterly: RM 189 / 3 Months (Avg RM63/mo · Waived RM30 Fee · Locked for 6 mos)",
+      "c3.popular_tag": "★ Most Popular",
       "c3.title": "Intermediate Class (Tahap 3-4)", "c3.orig": "Standard Rate: RM 129 / mo | RM 349 / Quarter", "c3.combo": "Promo Quarterly: RM 269 / 3 Months (Avg RM90/mo · Locked for 6 mos)",
       "c4.title": "Advanced Elite Class (Tahap 5-6)", "c4.orig": "Standard Rate: RM 199 / mo | RM 539 / Quarter", "c4.combo": "Promo Quarterly: RM 399 / 3 Months (Avg RM133/mo · Locked for 6 mos)",
-      "c5.title": "Bera District Primary Squad", "c5.featured_tag": "★ District Elite · Association Sponsored", "c5.orig": "Standard Value: RM 399 / mo (RM 999 / Quarter)", "c5.combo": "★ Fully Sponsored by Association Fund (RM 399/mo)", "c5.btn": "View District Ladder",
+      "c5.title": "Bera District Primary Squad", "c5.featured_tag": "★ District Elite · Association Sponsored", "c5.orig": "Standard Value: RM 399 / mo", "c5.combo": "★ Fully Sponsored by Association Fund (RM 399/mo)", "c5.btn": "View District Ladder",
       "c.target": "Target:", "c.time": "Schedule:", "c.content": "Curriculum:", "c.coach": "Instructors:", "c.outcome": "Outcome:", "c.arena": "Arena:",
       "c4.target": "Selection:", "c4.time": "Format:", "c4.content": "Objective:", "c4.coach": "Guidance:",
       "btn.enroll": "Enroll Now",
       "kit.title": "Launch Promotion Policy & Student Kit",
-      "kit.desc": "【Limited 3-Month Intake Window】：Students enrolling within the first 3 months lock in promotional discount pricing for their first 6 months (2 quarters)! Tahap 1 RM 39/mo (RM 99/quarter); Tahap 2 RM 69/mo (RM 189/quarter); Tahap 3-4 RM 99/mo (RM 269/quarter); Tahap 5-6 RM 149/mo (RM 399/quarter). Tahap 1 & Tahap 2 students enjoy a 100% waiver of the RM 30 starter kit & ELO registration fee!",
+      "kit.desc": "【Limited 3-Month Intake Window · Deadline: 31 December 2026】：Students enrolling within the first 3 months lock in promotional discount pricing for their first 6 months (2 quarters)! Tahap 1 RM 39/mo (RM 99/quarter); Tahap 2 RM 69/mo (RM 189/quarter); Tahap 3-4 RM 99/mo (RM 269/quarter); Tahap 5-6 RM 149/mo (RM 399/quarter). Tahap 1 & Tahap 2 students enjoy a 100% waiver of the RM 30 starter kit & ELO registration fee!",
+      "kit.policy_note": "Quarterly tuition must be paid in full upfront; 100% refund available prior to the first lesson; Tahap 1-2 cohorts require minimum enrollment to commence.",
       "kit.badge": "Waived RM 30 Fee (Tahap 1 & 2)",
       "sec.grading_title": "Official 7-Grade Xiangqi Assessment System",
       "sec.grading_sub": "Dual-track assessment system: Official Association Grading Syllabus (Grade) & MOE Standard (Tahap), fully certified by Bera Xiangqi Association",
