@@ -529,6 +529,22 @@ body::before {
     }
     .nav-menu-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(241,196,15,0.5); }
 
+    .nav-lang-bar {
+      display: inline-flex; background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+      padding: 2px; gap: 2px;
+    }
+    .nav-lang-chip {
+      background: transparent; border: none; color: rgba(255, 255, 255, 0.6);
+      font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 14px;
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .nav-lang-chip:hover { color: #fff; }
+    .nav-lang-chip.active {
+      background: rgba(255, 255, 255, 0.95); color: #061724;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
     /* APPLE MEGA MENU */
     .apple-mega-menu {
       position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
@@ -599,16 +615,23 @@ body::before {
   
   <!-- PUBLIC STICKY TOP TAB BAR -->
   <header class="public-nav-bar" style="position:relative; z-index:9600;">
-    <div class="p-nav-brand">
+    <a href="index.html" class="p-nav-brand">
       <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
       <div>
         <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
-        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA · 校际联赛端</div>
       </div>
+    </a>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="nav-lang-bar">
+        <button id="login_nav_lang_cn" class="nav-lang-chip active" onclick="setLoginLang('zh'); updateSchoolSeg('zh');">中</button>
+        <button id="login_nav_lang_bm" class="nav-lang-chip" onclick="setLoginLang('bm'); updateSchoolSeg('bm');">BM</button>
+        <button id="login_nav_lang_en" class="nav-lang-chip" onclick="setLoginLang('en'); updateSchoolSeg('en');">EN</button>
+      </div>
+      <button class="nav-menu-btn" onclick="toggleMainNav()">
+        <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+      </button>
     </div>
-    <button class="nav-menu-btn" onclick="toggleMainNav()">
-      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
-    </button>
   </header>
 
 <!-- === APPLE STYLE MEGA MENU === -->
@@ -1202,6 +1225,22 @@ function setLoginLang(lang) {
       const sStandTitle = document.getElementById('tStandingsTitle'); if (sStandTitle && t.standingsTitle) sStandTitle.textContent = t.standingsTitle;
     }
   }
+
+  updateSchoolSeg(mapped);
+}
+
+function updateSchoolSeg(lang) {
+  const l = (lang === 'zh' || lang === 'cn') ? 'cn' : (lang === 'bm' || lang === 'my' ? 'bm' : 'en');
+  
+  // Update segment control if present
+  document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
+  const segBtn = document.getElementById('seg_' + l);
+  if (segBtn) segBtn.classList.add('active');
+
+  // Update nav-lang-chip elements
+  document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
+  const chips = document.querySelectorAll('#nav_lang_' + l + ', #login_nav_lang_' + l);
+  chips.forEach(c => c.classList.add('active'));
 }
 
 
