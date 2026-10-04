@@ -160,9 +160,16 @@
     .res-btn.sel-black{border-color:#2C3E50;background:#EAECEE;color:#1C2833;}
 
     .form-group{margin-bottom:12px;}
-    .form-label{display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--text);}
-    .form-input,.form-select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;outline:none;background:#FFF;font-family:inherit;}
-    .form-input:focus,.form-select:focus{border-color:rgba(255,255,255,0.8);}
+    .form-label{display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--text2);}
+    .form-input,.form-select,.form-textarea{
+      width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,0.18);border-radius:10px;
+      font-size:13px;outline:none;background:#071526;color:#FFFFFF;font-family:inherit;
+      color-scheme:dark !important;transition:border-color .2s,background .2s,box-shadow .2s;
+    }
+    .form-input:focus,.form-select:focus,.form-textarea:focus{
+      border-color:rgba(241,196,15,0.75);background:#0b1e36;box-shadow:0 0 10px rgba(241,196,15,0.22);color:#FFFFFF;
+    }
+    .form-input::placeholder,.form-textarea::placeholder{color:rgba(255,255,255,0.42);}
 
     .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(14,47,68,0.2);transition:transform .15s;}
     .submit-btn:hover{transform:scale(1.02);}
@@ -493,16 +500,54 @@ body::before {
 
     .modal-lg { max-width: 680px !important; }
 
-    /* Dropdown Options Color Fix for Dark Theme & OS Popups */
-    select, .form-select {
+    /* =========================================================
+       FORM CONTROLS & MODALS: CXQB DARK NAVY THEME HARMONIZATION
+       Eliminates invisible white-on-white text in select dropdowns
+       and replaces glaring pure white input boxes with elegant navy
+       ========================================================= */
+    .form-input, .form-select, .form-textarea,
+    .modal-overlay input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    .modal-overlay select,
+    .modal-overlay textarea {
+      background: #071526 !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255, 255, 255, 0.18) !important;
+      border-radius: 10px !important;
       color-scheme: dark !important;
+      box-sizing: border-box;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
     }
-    select option, .form-select option {
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus,
+    .modal-overlay input:focus,
+    .modal-overlay select:focus,
+    .modal-overlay textarea:focus {
+      border-color: rgba(241, 196, 15, 0.75) !important;
+      background: #0b1e36 !important;
+      box-shadow: 0 0 10px rgba(241, 196, 15, 0.22) !important;
+      color: #FFFFFF !important;
+      outline: none !important;
+    }
+
+    .form-input::placeholder, .form-textarea::placeholder,
+    .modal-overlay input::placeholder, .modal-overlay textarea::placeholder {
+      color: rgba(255, 255, 255, 0.42) !important;
+    }
+
+    select, .form-select, select.form-input, .modal-overlay select {
+      color-scheme: dark !important;
+      background-color: #071526 !important;
+      color: #FFFFFF !important;
+      cursor: pointer;
+    }
+
+    select option, .form-select option, select.form-input option, .status-dropdown-select option, .modal-overlay select option {
       background-color: #071526 !important;
       color: #FFFFFF !important;
       font-weight: 700 !important;
       padding: 8px 12px !important;
     }
+
     .status-dropdown-select {
       background: #081627 !important;
       border: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -519,12 +564,6 @@ body::before {
     .status-dropdown-select:hover {
       border-color: var(--pri3) !important;
       background: #0d2138 !important;
-    }
-    .status-dropdown-select option {
-      background-color: #071526 !important;
-      color: #FFFFFF !important;
-      font-weight: 700 !important;
-      padding: 8px 12px !important;
     }
 
 </style>
@@ -781,9 +820,9 @@ function updateSeg(lang) {
 <!-- MAIN APP -->
 <div id="mainApp">
   <div class="topbar">
-    <div class="topbar-title">♟️ CXQB 教练与俱乐部管理后台</div>
+    <div class="topbar-title">CXQB 教练与俱乐部管理后台</div>
     <div class="topbar-right">
-      <a href="index.html" class="return-link" id="aReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:var(--input-glass-bg); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">← 公开天梯榜</a>
+      <a href="index.html" class="return-link" id="aReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:var(--input-glass-bg); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">公开天梯榜</a>
       <button class="btn-logout" onclick="logout()">退出</button>
     </div>
   </div>
@@ -805,14 +844,14 @@ function updateSeg(lang) {
     <!-- TAB 1: DASHBOARD -->
     <div class="tab-panel active" id="panel-dashboard">
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" id="sTotalStudents">5</div><div class="stat-label">总学员数 (Students)</div></div>
-        <div class="stat-card green"><div class="stat-icon">💰</div><div class="stat-val" id="sRevenue">RM 420</div><div class="stat-label">本月预估收入 (Revenue)</div></div>
-        <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-val" id="sPending">2</div><div class="stat-label">待收学费预警 (Pending)</div></div>
-        <div class="stat-card gold"><div class="stat-icon">♟️</div><div class="stat-val" id="sMatches">-</div><div class="stat-label">累计对局总数 (Matches)</div></div>
+        <div class="stat-card"><div class="stat-val" id="sTotalStudents">5</div><div class="stat-label">总学员数 (Students)</div></div>
+        <div class="stat-card green"><div class="stat-val" id="sRevenue">RM 420</div><div class="stat-label">本月预估收入 (Revenue)</div></div>
+        <div class="stat-card red"><div class="stat-val" id="sPending">2</div><div class="stat-label">待收学费预警 (Pending)</div></div>
+        <div class="stat-card gold"><div class="stat-val" id="sMatches">-</div><div class="stat-label">累计对局总数 (Matches)</div></div>
       </div>
 
       <div class="form-card">
-        <h3>📋 现役学员名册总览</h3>
+        <h3>现役学员名册总览</h3>
         <div class="tbl-wrap">
           <table>
             <thead><tr><th>学号</th><th>中文名</th><th>所在学校</th><th>班级级别</th><th>ELO</th><th>学费状态</th></tr></thead>
@@ -827,7 +866,7 @@ function updateSeg(lang) {
     <!-- TAB 3: STUDENTS (ULTRA FAST ADD) -->
     <div class="tab-panel" id="panel-students">
       <div class="form-card">
-        <h3>⚡ 1秒快速录入新学员</h3>
+        <h3>快速录入新学员</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <div><label class="form-label">中文姓名 *</label><input type="text" id="qName" class="form-input" placeholder="如: 张小明"></div>
           <div><label class="form-label">英文姓名</label><input type="text" id="qEn" class="form-input" placeholder="如: Chong Xiao Ming"></div>
@@ -872,11 +911,11 @@ function updateSeg(lang) {
         </div>
 
         <button class="submit-btn green" style="margin-top:14px;" onclick="submitFastStudent()">
-          ➕ 立即建档入库 (自动分配新学号)
+          立即建档入库 (自动分配新学号)
         </button>
       </div>
 
-      <h3 style="font-size:15px;font-weight:900;margin:20px 0 10px;">👥 全体在册学员档案</h3>
+      <h3 style="font-size:15px;font-weight:900;margin:20px 0 10px;">全体在册学员档案</h3>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>学号</th><th>中文名</th><th>英文名</th><th>性别</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费</th><th style='text-align:center;'>操作</th></tr></thead>
@@ -893,10 +932,10 @@ function updateSeg(lang) {
           <div style="font-size:20px;font-weight:900;letter-spacing:1px;margin-top:2px;">3246504527</div>
           <div style="font-size:12px;opacity:.85;margin-top:2px;">PUBLIC BANK · Persatuan Catur Cina Daerah Bera</div>
         </div>
-        <button class="btn-sm" style="background:rgba(255,255,255,0.2);color:#fff;border:none;" onclick="copyAcc()">📋 复制</button>
+        <button class="btn-sm" style="background:rgba(255,255,255,0.2);color:#fff;border:none;" onclick="copyAcc()">复制账号</button>
       </div>
 
-      <h3 style="font-size:16px;font-weight:900;margin-bottom:12px;">💰 学费缴纳与凭证审核清单</h3>
+      <h3 style="font-size:16px;font-weight:900;margin-bottom:12px;">学费缴纳与凭证审核清单</h3>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>学号</th><th>姓名</th><th>就读班级</th><th>缴费模式</th><th>到期月</th><th>状态</th><th>一键审核</th></tr></thead>
@@ -909,11 +948,11 @@ function updateSeg(lang) {
     <div class="tab-panel" id="panel-records">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
         <div>
-          <h3 style="font-size:18px;font-weight:900;">📄 实战对局纸原件归档库</h3>
+          <h3 style="font-size:18px;font-weight:900;">实战对局纸原件归档库</h3>
           <div style="font-size:12px;color:var(--text2);margin-top:2px;">记录每一场真实对局 · 支持单条删除或批量清理测试数据</div>
         </div>
         <button class="btn-sm" style="color:var(--red);border-color:var(--red);font-weight:800;padding:8px 14px;" onclick="clearAllTestMatches()">
-          🗑️ 一键清空所有历史对局数据
+          一键清空所有历史对局数据
         </button>
       </div>
       <div id="recordsGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;"></div>
@@ -924,8 +963,8 @@ function updateSeg(lang) {
 
       <!-- SUB-NAVIGATION BAR FOR TOURNAMENT / SP98 -->
       <div style="display:flex; gap:10px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px; flex-wrap:wrap;">
-        <button class="btn-sm active" id="btnTourneyEngine" style="padding:8px 18px; font-weight:800; font-size:13px;" onclick="switchTourneySubTab('engine')">⚡ 瑞士制赛事编排系统 (SP98)</button>
-        <button class="btn-sm" id="btnTourneyBatch" style="padding:8px 18px; font-weight:800; font-size:13px; background:var(--bg); color:var(--text);" onclick="switchTourneySubTab('batch')">📋 SP98 软件战报快速导入</button>
+        <button class="btn-sm active" id="btnTourneyEngine" style="padding:8px 18px; font-weight:800; font-size:13px;" onclick="switchTourneySubTab('engine')">瑞士制赛事编排系统 (SP98)</button>
+        <button class="btn-sm" id="btnTourneyBatch" style="padding:8px 18px; font-weight:800; font-size:13px; background:var(--bg); color:var(--text);" onclick="switchTourneySubTab('batch')">SP98 软件战报快速导入</button>
       </div>
 
       <!-- SECTION 1: IN-BROWSER SWISS ENGINE -->
@@ -933,7 +972,7 @@ function updateSeg(lang) {
         <div id="tournamentListView">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
             <div>
-              <h3 style="font-size:18px; font-weight:900;">🏆 瑞士制比赛管理 (Swiss-System SP98)</h3>
+              <h3 style="font-size:18px; font-weight:900;">瑞士制比赛管理 (Swiss-System SP98)</h3>
               <div style="font-size:12px; color:var(--text2); margin-top:2px;">智能编排 · 破同分 Buchholz · K-Factor 积分结算</div>
             </div>
             <button class="btn-sm green" style="padding:9px 18px; font-size:13px; font-weight:800;" onclick="showCreateModal()">+ 创建新比赛</button>
@@ -953,18 +992,18 @@ function updateSeg(lang) {
 
             <div id="pairingsSection">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-weight:800; color:var(--pri2);" id="pairingsHeading">⚔️ 第 1 轮对阵</h4>
+                <h4 style="font-weight:800; color:var(--pri2);" id="pairingsHeading">第 1 轮对阵</h4>
                 <span id="roundProgressText" style="font-size:12px; font-weight:800; color:var(--text2);"></span>
               </div>
               <div id="pairingsList"></div>
 
               <div style="display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;">
-                <button id="confirmRoundBtn" class="submit-btn" style="flex:1;" onclick="confirmRound()">✅ 确认本轮赛果并生成下轮配对</button>
-                <button id="endTournamentBtn" class="submit-btn green" style="flex:1; display:none;" onclick="endTournament()">🏁 结束比赛 & 同步云端 ELO</button>
+                <button id="confirmRoundBtn" class="submit-btn" style="flex:1;" onclick="confirmRound()">确认本轮赛果并生成下轮配对</button>
+                <button id="endTournamentBtn" class="submit-btn green" style="flex:1; display:none;" onclick="endTournament()">结束比赛 & 同步云端 ELO</button>
               </div>
             </div>
 
-            <h4 style="margin:28px 0 12px; font-weight:900; color:var(--pri2);">📊 实时总积分榜 (Standings & Buchholz)</h4>
+            <h4 style="margin:28px 0 12px; font-weight:900; color:var(--pri2);">实时总积分榜 (Standings & Buchholz)</h4>
             <div class="tbl-wrap">
               <table class="standings-table">
                 <thead id="standingsHead"></thead>
@@ -978,7 +1017,7 @@ function updateSeg(lang) {
       <!-- SECTION 2: SP98 TEXT BATCH IMPORTER -->
       <div id="tourneyBatchSection" style="display:none;">
         <div class="form-card">
-          <h3 style="font-size:18px; font-weight:900; margin-bottom:6px;">📋 Swiss Perfect 98 (SP98) 战报文本一键导入</h3>
+          <h3 style="font-size:18px; font-weight:900; margin-bottom:6px;">Swiss Perfect 98 (SP98) 战报文本一键导入</h3>
           <p style="font-size:13px; color:var(--text2); margin-bottom:18px;">
             如果您在电脑上使用官方 <strong>Swiss Perfect 98</strong> 软件编排比赛，可直接在此粘贴导出的对阵文本，系统将自动识别棋手与赛果，并完成 ELO 云端同步。
           </p>
@@ -989,13 +1028,13 @@ function updateSeg(lang) {
           </div>
 
           <div class="form-group">
-            <label class="form-label">📋 直接粘贴 SP98 对阵战报文本 (支持任意多行格式)</label>
+            <label class="form-label">直接粘贴 SP98 对阵战报文本 (支持任意多行格式)</label>
             <textarea id="sp98Text" class="form-textarea" style="height:160px; font-family:monospace; font-size:13px;" placeholder="支持多种格式，例如：&#10;林家豪 1 - 0 陈美仪&#10;苏进康 0.5 - 0.5 郭雨涵&#10;1  黄梓轩 [1]  1 - 0  陈美仪 [0]&#10;2  林家豪 [1]  0 - 1  苏进康 [1]"></textarea>
           </div>
 
           <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
-            <button class="submit-btn" style="flex:1; background:var(--pri2);" onclick="parseSP98Batch()">🔍 智能识别与预览</button>
-            <button class="submit-btn green" id="btnSubmitSP98Batch" style="flex:1; display:none;" onclick="submitSP98Batch()">⚡ 确认并一键批量入库 ELO</button>
+            <button class="submit-btn" style="flex:1; background:var(--pri2);" onclick="parseSP98Batch()">智能识别与预览</button>
+            <button class="submit-btn green" id="btnSubmitSP98Batch" style="flex:1; display:none;" onclick="submitSP98Batch()">确认并一键批量入库 ELO</button>
           </div>
 
           <div id="parsedPreview" style="margin-top:20px; display:none; border-radius:12px; padding:16px; border:1px solid var(--border); background:var(--bg);"></div>
@@ -1007,12 +1046,12 @@ function updateSeg(lang) {
     <!-- TAB 7: LADDER -->
     <div class="tab-panel" id="panel-ladder">
       <div class="section-head">
-        <div class="section-title">🏆 百乐全县青少年天梯三甲</div>
+        <div class="section-title">百乐全县青少年天梯三甲</div>
         <div class="section-sub">CXQB ELO 官方排位体系 · 实时同步</div>
       </div>
       <div id="podiumArea" class="podium"></div>
       <div class="section-head" style="margin-top:34px;">
-        <div class="section-title">📋 现役学员总榜 (全县排位)</div>
+        <div class="section-title">现役学员总榜 (全县排位)</div>
         <div class="section-sub">全县所有在册学员实战 ELO 积分榜单</div>
       </div>
       <div id="rankList" class="rank-list" style="width:100%; padding-bottom:40px;"></div>
@@ -1022,7 +1061,7 @@ function updateSeg(lang) {
     <div class="tab-panel" id="panel-accounts">
       <!-- Coach Management -->
       <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(41,128,185,0.4);">
-        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">👥 教练管理 (Coach Management)</div>
+        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">教练管理 (Coach Management)</div>
         <div style="margin-bottom:16px; display:flex; gap:10px;">
           <input type="text" id="newCoachName" class="form-input" placeholder="教练姓名" style="width:150px;">
           <input type="text" id="newCoachPin" class="form-input" placeholder="教练PIN" style="width:100px;">
@@ -1036,7 +1075,7 @@ function updateSeg(lang) {
       <!-- Student Account List -->
       <div class="form-card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <div style="font-size:16px;font-weight:900;">🔑 学员账号管理 (修改姓名 / 密码)</div>
+          <div style="font-size:16px;font-weight:900;">学员账号管理 (修改姓名 / 密码)</div>
           <span class="badge badge-blue" style="font-size:12px;" id="accStudentCount">共 0 名学员</span>
         </div>
         <div id="accountListTable"></div>
@@ -1048,12 +1087,12 @@ function updateSeg(lang) {
       <div class="form-card" style="margin-bottom:20px; border:1.5px solid rgba(41,128,185,0.4);">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
           <div>
-            <h3 style="font-size:18px; font-weight:900; color:var(--pri);">🛡️ Cloudflare Workers + KV 商业租约授权网关</h3>
+            <h3 style="font-size:18px; font-weight:900; color:var(--pri);">Cloudflare Workers + KV 商业租约授权网关</h3>
             <div style="font-size:12px; color:var(--text2); margin-top:2px;">
               向出租学校一键发放独立激活码 · 支持自动到期销毁 · 银行级防刷防盗用
             </div>
           </div>
-          <span class="badge badge-green" style="font-size:12px; padding:6px 12px;">🟢 边缘节点已连通 (cxb-license)</span>
+          <span class="badge badge-green" style="font-size:12px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#27AE60;"></span>边缘节点已连通 (cxb-license)</span>
         </div>
 
         <div style="display:grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap:14px; margin-top:16px;">
@@ -1083,13 +1122,13 @@ function updateSeg(lang) {
           <div>
             <label class="form-label">操作</label>
             <button class="submit-btn green" style="margin-top:0; height:42px; font-size:13px;" onclick="createSchoolLicense()">
-              ⚡ 生成授权激活码
+              生成授权激活码
             </button>
           </div>
         </div>
 
         <div id="generatedLicBox" style="display:none; margin-top:16px; padding:16px; background:rgba(39,174,96,0.08); border:1.5px dashed var(--green); border-radius:12px;">
-          <div style="font-size:12px; color:var(--text2); font-weight:700;">🎉 授权码已成功写入 Cloudflare KV 数据库：</div>
+          <div style="font-size:12px; color:var(--text2); font-weight:700;">授权码已成功写入 Cloudflare KV 数据库：</div>
           <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">CXQB-XXXX</div>
           <div style="font-size:12px; color:var(--text);">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:rgba(255,255,255,0.8);font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
           <button class="btn-sm green" style="margin-top:10px;" onclick="copyGeneratedLicense()">复制授权码 (WhatsApp)</button>
@@ -1253,9 +1292,9 @@ function updateSeg(lang) {
           </div>
         </div>
 
-        <div style="display:flex; justify-content:flex-end; gap:10px;">
-          <button class="btn" style="background:var(--border); color:var(--text); border:none; padding:8px 16px; border-radius:10px;" onclick="closeEventEditModal()">取消</button>
-          <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 20px; border-radius:10px; font-weight:800;" onclick="saveEventModal()">保存赛事数据</button>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08);">
+          <button type="button" class="btn" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.85); border:1px solid rgba(255,255,255,0.15); padding:9px 18px; border-radius:10px; font-weight:700; cursor:pointer;" onclick="closeEventEditModal()">取消</button>
+          <button type="button" class="btn" style="background:linear-gradient(135deg, #1A5276 0%, #2980B9 100%); color:#fff; border:none; padding:9px 22px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 14px rgba(41,128,185,0.35);" onclick="saveEventModal()">保存赛事数据</button>
         </div>
       </div>
     </div>
@@ -1648,11 +1687,11 @@ async function loadStudents(){
 }
 
 function getTierName(elo) {
-  if (elo >= 1300) return '<span class="tier-chip tier-1">👑 一级棋手</span>';
-  if (elo >= 1000) return '<span class="tier-chip tier-2">💎 二级棋手</span>';
-  if (elo >= 700) return '<span class="tier-chip tier-3">🥇 三级棋手</span>';
-  if (elo >= 400) return '<span class="tier-chip tier-4">🥈 四级棋手</span>';
-  return '<span class="tier-chip tier-5">🥉 五级棋手</span>';
+  if (elo >= 1300) return '<span class="tier-chip tier-1">一级棋手</span>';
+  if (elo >= 1000) return '<span class="tier-chip tier-2">二级棋手</span>';
+  if (elo >= 700) return '<span class="tier-chip tier-3">三级棋手</span>';
+  if (elo >= 400) return '<span class="tier-chip tier-4">四级棋手</span>';
+  return '<span class="tier-chip tier-5">五级棋手</span>';
 }
 
 function getPlayerStats(id, name) {
@@ -1749,7 +1788,7 @@ function renderAccountList() {
                 <button onclick="deleteStudentAccount('${s.id}','${s.cnName}')"
                   style="background:none;border:1px solid var(--red);color:var(--red);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:800;cursor:pointer;"
                   onmouseover="this.style.background='var(--red)';this.style.color='#fff';" onmouseout="this.style.background='none';this.style.color='var(--red)';">
-                  🗑️ 删除
+                  删除
                 </button>
               </td>
             </tr>`;
@@ -1827,8 +1866,8 @@ function renderLadder(players) {
   let ph = '';
   top3.forEach((pl, i) => {
     let cls = i===0 ? 'pod-1' : (i===1 ? 'pod-2' : 'pod-3');
-    let med = i===0 ? '🥇' : (i===1 ? '🥈' : '🥉');
-    let extra = i===0 ? '<div class="crown">⭐ 首席榜首</div>' : '';
+    let med = i===0 ? 'NO.1' : (i===1 ? 'NO.2' : 'NO.3');
+    let extra = i===0 ? '<div class="crown">首席榜首</div>' : '';
     const st = getPlayerStats(pl.id, pl.cnName);
     ph += `<div class="pod ${cls}">${extra}<div class="pod-medal">${med}</div><div class="pod-name">${pl.cnName}</div><div class="pod-school">${pl.school}</div>${getTierName(pl.elo)}<div class="pod-elo">${pl.elo}</div><div class="pod-stats">${st.w}胜 ${st.d}和 ${st.l}负</div></div>`;
   });
@@ -1984,7 +2023,7 @@ function renderStudentTables(){
       <td>${s.elo}</td>
       <td>${payBadge(statusText)}</td>
       <td style="text-align:center;">
-        <button class="btn-sm" style="color:var(--red);border-color:var(--red);padding:4px 8px;font-size:11px;" onclick="deleteStudentAccount('${s.id}','${s.cnName}')">🗑️ 移除</button>
+        <button class="btn-sm" style="color:var(--red);border-color:var(--red);padding:4px 8px;font-size:11px;" onclick="deleteStudentAccount('${s.id}','${s.cnName}')">移除</button>
       </td>
     </tr>`;
   }).join('');
@@ -2008,13 +2047,13 @@ function renderMatchesTable(){
   if (!el) return;
   el.innerHTML=allMatches.slice().reverse().map(m=>{
     const imgBtn=m.recordImg&&m.recordImg.startsWith('http')
-      ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">📸 查看记谱纸</button>`
-      :`<button class="btn-sm" onclick="document.getElementById('matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">📤 传照片</button>
+      ?`<button class="btn-sm" onclick="openLightbox('${m.recordImg}')">查看记谱纸</button>`
+      :`<button class="btn-sm" onclick="document.getElementById('matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">上传照片</button>
         <input type="file" id="matchPhotoUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept="image/*" onchange="uploadMatchPhotoFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
         
     const xqfBtn=m.xqfFile&&m.xqfFile.startsWith('http')
-      ?`<button class="btn-sm" onclick="window.open('${m.xqfFile}')">💾 下载XQF</button>`
-      :`<button class="btn-sm" onclick="document.getElementById('xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">📤 传XQF</button>
+      ?`<button class="btn-sm" onclick="window.open('${m.xqfFile}')">下载XQF</button>`
+      :`<button class="btn-sm" onclick="document.getElementById('xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}').click()">上传XQF</button>
         <input type="file" id="xqfUpload_${m.date}_${m.round}_${m.red}_${m.black}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
 
     return`<tr><td>${m.date}</td><td>${m.round}</td><td><strong>${m.red}</strong></td><td>${m.result}</td><td><strong>${m.black}</strong></td><td>${m.verdict}</td><td>${imgBtn}</td><td>${xqfBtn}</td></tr>`
@@ -2035,8 +2074,8 @@ function renderGallery(){
     
     const hasXqf=m.xqfFile&&m.xqfFile.startsWith('http');
     const xqfBtn=hasXqf
-      ?`<div onclick="window.open('${m.xqfFile}')" style="padding:12px;background:#EBF5FB;color:rgba(255,255,255,0.8);font-size:12px;font-weight:700;text-align:center;cursor:pointer;border-top:1px solid var(--border);">💾 下载XQF电子棋谱</div>`
-      :`<div onclick="document.getElementById('xqfUpload_${idx}').click()" style="padding:12px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">📤 上传XQF电子棋谱</div>
+      ?`<div onclick="window.open('${m.xqfFile}')" style="padding:12px;background:#EBF5FB;color:rgba(255,255,255,0.8);font-size:12px;font-weight:700;text-align:center;cursor:pointer;border-top:1px solid var(--border);">下载XQF电子棋谱</div>`
+      :`<div onclick="document.getElementById('xqfUpload_${idx}').click()" style="padding:12px;text-align:center;font-size:11px;color:var(--text2);background:var(--bg);border-top:1px dashed var(--border);cursor:pointer;">上传XQF电子棋谱</div>
       <input type="file" id="xqfUpload_${idx}" style="display:none;" accept=".xqf" onchange="uploadXqfFile('${m.date}','${m.round}','${m.red}','${m.black}', this)">`;
     return `
       <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;">
@@ -2046,10 +2085,10 @@ function renderGallery(){
             <button onclick="deleteSingleMatch('${m.date}','${m.round}','${m.red}','${m.black}')"
               style="background:none;border:none;color:var(--red);cursor:pointer;font-size:13px;padding:2px 6px;border-radius:6px;"
               title="删除此盘对局" onmouseover="this.style.background='rgba(231,76,60,0.1)'" onmouseout="this.style.background='none'">
-              🗑️
+              删除
             </button>
           </div>
-          <div style="font-weight:900;font-size:14px;margin-top:4px;">🔴 ${m.red} vs ⚫ ${m.black}</div>
+          <div style="font-weight:900;font-size:14px;margin-top:4px;">[红] ${m.red} vs [黑] ${m.black}</div>
           <div style="font-size:12px;color:var(--pri2);font-weight:800;margin-top:2px;">${m.result} · ${m.verdict}</div>
         </div>
         ${img}
@@ -2095,7 +2134,7 @@ async function submitFastStudent(){
     const res=await fetch(GAS_API_URL,{method:'POST',body:JSON.stringify(payload)});
     const d=await res.json();
     if(d.success){
-      toast(`🎉 ${cn} (${d.newId}) 已成功入库并建档！`,'success');
+      toast(`${cn} (${d.newId}) 已成功入库并建档！`,'success');
       document.getElementById('qName').value='';
       await loadAllData();
     }else{
@@ -2263,7 +2302,7 @@ function createTournament() {
   tournaments.push(t);
   saveTournaments();
   hideCreateModal();
-  toast(`🏆 比赛 "${name}" 已成功创建！`, 'success');
+  toast(`比赛 "${name}" 已成功创建！`, 'success');
 
   currentTournament = t;
   startNextRound();
@@ -2506,9 +2545,9 @@ function confirmRound() {
 
   if (t.currentRound < t.totalRounds) {
     startNextRound();
-    toast(`✅ 第 ${t.currentRound - 1} 轮已锁定，已自动生成第 ${t.currentRound} 轮配对！`, 'success');
+    toast(`第 ${t.currentRound - 1} 轮已锁定，已自动生成第 ${t.currentRound} 轮配对！`, 'success');
   } else {
-    toast('🏁 全部轮次已赛完！请点击下方「结束比赛 & 同步云端 ELO」进行积分结算。', 'success');
+    toast('全部轮次已赛完！请点击下方「结束比赛 & 同步云端 ELO」进行积分结算。', 'success');
   }
 
   renderTournamentManage();
@@ -2548,17 +2587,17 @@ function showTournamentList() {
 
   el.innerHTML = tournaments.slice().reverse().map(t => {
     const statusBadge = t.status === 'completed'
-      ? '<span class="badge badge-green">✅ 已结束</span>'
-      : `<span class="badge badge-blue">🟢 比赛进行中 (第 ${t.currentRound}/${t.totalRounds} 轮)</span>`;
+      ? '<span class="badge badge-green">已完赛</span>'
+      : `<span class="badge badge-blue">比赛进行中 (第 ${t.currentRound}/${t.totalRounds} 轮)</span>`;
     return `
       <div class="tournament-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
         <div>
-          <h4 style="font-size:16px;font-weight:900;color:var(--pri);margin-bottom:4px;">🏆 ${t.name}</h4>
-          <div style="font-size:12px;color:var(--text2);">📅 ${t.createdAt} · 赛程 ${t.totalRounds} 轮 · ${t.players.length} 名棋手 ${statusBadge}</div>
+          <h4 style="font-size:16px;font-weight:900;color:var(--pri);margin-bottom:4px;">${t.name}</h4>
+          <div style="font-size:12px;color:var(--text2);">${t.createdAt} · 赛程 ${t.totalRounds} 轮 · ${t.players.length} 名棋手 ${statusBadge}</div>
         </div>
         <div style="display:flex;gap:8px;">
           <button class="btn-sm" style="font-weight:800;" onclick="openTournament('${t.id}')">${t.status === 'completed' ? '查看战绩榜' : '继续对战管理'} →</button>
-          <button class="btn-sm" style="color:var(--red);border-color:var(--red);" onclick="deleteTournament('${t.id}')">🗑️ 删除</button>
+          <button class="btn-sm" style="color:var(--red);border-color:var(--red);" onclick="deleteTournament('${t.id}')">删除</button>
         </div>
       </div>`;
   }).join('');
@@ -2619,14 +2658,14 @@ function renderTournamentManage() {
   const t = currentTournament;
   if (!t) return;
 
-  document.getElementById('manageTitle').textContent = `🏆 ${t.name}`;
+  document.getElementById('manageTitle').textContent = t.name;
 
   // Status badge
   const statusEl = document.getElementById('tourneyStatusBadge');
   if (statusEl) {
     statusEl.innerHTML = t.status === 'completed'
-      ? '<span class="badge badge-green" style="font-size:13px;padding:6px 14px;">✅ 比赛已完赛并结算 ELO</span>'
-      : `<span class="badge badge-blue" style="font-size:13px;padding:6px 14px;">🟢 正在进行第 ${t.currentRound} / ${t.totalRounds} 轮</span>`;
+      ? '<span class="badge badge-green" style="font-size:13px;padding:6px 14px;">比赛已完赛并结算 ELO</span>'
+      : `<span class="badge badge-blue" style="font-size:13px;padding:6px 14px;">正在进行第 ${t.currentRound} / ${t.totalRounds} 轮</span>`;
   }
 
   // Round Timeline
@@ -2670,7 +2709,7 @@ function renderTournamentManage() {
     if (p.result === 'bye') {
       return `
         <div class="board-row" style="background:var(--bg);border-radius:12px;padding:12px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-weight:800;color:rgba(255,255,255,0.8);">💤 轮空 (BYE)</div>
+          <div style="font-weight:800;color:rgba(255,255,255,0.8);">轮空 (BYE)</div>
           <div style="font-weight:900;color:var(--text);">${p.redName}</div>
           <div style="font-size:12px;font-weight:800;color:var(--green);background:rgba(39,174,96,0.12);padding:4px 10px;border-radius:8px;">+1.0 分</div>
         </div>`;
@@ -2693,26 +2732,26 @@ function renderTournamentManage() {
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:15px;font-weight:900;">
           <div style="color:var(--red);flex:1;text-align:left;">
-            🔴 ${p.redName} <span style="font-size:12px;color:var(--text2);font-weight:600;">(${redSc.toFixed(1)}分 · ${redPlayer ? redPlayer.elo : ''})</span>
+            [红] ${p.redName} <span style="font-size:12px;color:var(--text2);font-weight:600;">(${redSc.toFixed(1)}分 · ${redPlayer ? redPlayer.elo : ''})</span>
           </div>
           <div style="font-size:12px;color:var(--text2);padding:0 10px;">VS</div>
           <div style="color:var(--pri);flex:1;text-align:right;">
-            <span style="font-size:12px;color:var(--text2);font-weight:600;">(${blackPlayer ? blackPlayer.elo : ''} · ${blackSc.toFixed(1)}分)</span> ${p.blackName} ⚫
+            <span style="font-size:12px;color:var(--text2);font-weight:600;">(${blackPlayer ? blackPlayer.elo : ''} · ${blackSc.toFixed(1)}分)</span> ${p.blackName} [黑]
           </div>
         </div>
         <div class="result-btn-group" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
           <div style="grid-column:1/-1;text-align:center;font-size:12px;margin-bottom:4px;">
              <label style="cursor:pointer;color:var(--pri2);text-decoration:underline;">
-                📎 附加对局记谱纸/照片
+                附加对局记谱纸/照片
                 <input type="file" style="display:none;" accept="image/*" onchange="uploadTourneyImg(${currentViewingRound}, ${bIdx}, this)">
              </label>
              <span id="t_img_status_${currentViewingRound}_${bIdx}" style="margin-left:8px;color:#27AE60;font-weight:bold;">
-               ${p.recordImage ? '✅ 已附图' : ''}
+               ${p.recordImage ? '已附图' : ''}
              </span>
           </div>
-          <button class="result-btn ${rSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'red')">🔴 红胜</button>
-          <button class="result-btn ${dSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'draw')">🤝 和棋</button>
-          <button class="result-btn ${bSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'black')">⚫ 黑胜</button>
+          <button class="result-btn ${rSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'red')">红胜</button>
+          <button class="result-btn ${dSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'draw')">和棋</button>
+          <button class="result-btn ${bSel}" style="${viewRound.confirmed ? 'pointer-events:none;opacity:0.85;' : ''}" onclick="setMatchResult(${currentViewingRound},${bIdx},'black')">黑胜</button>
         </div>
       </div>`;
   }).join('');
@@ -2727,14 +2766,14 @@ function renderTournamentManage() {
   } else if (isCurrentActiveRound && !viewRound.confirmed) {
     if (confirmBtn) {
       confirmBtn.style.display = 'block';
-      confirmBtn.textContent = `✅ 确认第 ${t.currentRound} 轮赛果并生成下轮对阵`;
+      confirmBtn.textContent = `确认第 ${t.currentRound} 轮赛果并生成下轮对阵`;
     }
     if (endBtn) endBtn.style.display = 'none';
   } else if (isCurrentActiveRound && viewRound.confirmed && isLastRound) {
     if (confirmBtn) confirmBtn.style.display = 'none';
     if (endBtn) {
       endBtn.style.display = 'block';
-      endBtn.textContent = '🏁 结束比赛 & 同步云端 ELO (K-Factor 结算)';
+      endBtn.textContent = '结束比赛 & 同步云端 ELO (K-Factor 结算)';
     }
   } else {
     if (confirmBtn) confirmBtn.style.display = 'none';
@@ -2821,16 +2860,16 @@ async function endTournament() {
       const blackK = calcKFactor(curBlackElo, (eloChanges[blackP.id]?.games || 0) + 10);
 
       let redActual = 0.5, blackActual = 0.5;
-      let resText = '🤝 和棋 (0.5 - 0.5)';
+      let resText = '和棋 (0.5 - 0.5)';
       let verdict = '双方战和';
 
       if (match.result === 'red') {
         redActual = 1; blackActual = 0;
-        resText = '🔴 红胜 (1 - 0)';
+        resText = '红胜 (1 - 0)';
         verdict = match.redName + ' 胜';
       } else if (match.result === 'black') {
         redActual = 0; blackActual = 1;
-        resText = '⚫ 黑胜 (0 - 1)';
+        resText = '黑胜 (0 - 1)';
         verdict = match.blackName + ' 胜';
       }
 
@@ -2869,20 +2908,17 @@ async function endTournament() {
   }
 
   // Summary
-  let summary = `🏆 比赛「${t.name}」ELO 积分结算清单 (K=24/16/8体系):
-
-`;
+  let summary = `比赛「${t.name}」ELO 积分结算清单 (K=24/16/8体系):\n\n`;
   Object.values(eloChanges).forEach(c => {
     const sign = c.delta >= 0 ? '+' : '';
-    summary += `👤 ${c.name}: ${c.oldElo} → ${c.oldElo + c.delta} (${sign}${c.delta} 分)
-`;
+    summary += `${c.name}: ${c.oldElo} → ${c.oldElo + c.delta} (${sign}${c.delta} 分)\n`;
   });
   alert(summary);
 
   t.status = 'completed';
   saveTournaments();
   await loadAllData();
-  toast('🎉 比赛圆满结束！对局记录与 ELO 积分已全自动同步完成。', 'success');
+  toast('比赛圆满结束！对局记录与 ELO 积分已全自动同步完成。', 'success');
   renderTournamentManage();
 }
 
@@ -2920,13 +2956,13 @@ function parseSP98Batch() {
       const blackStudent = allStudents.find(s => s.cnName.trim() === blackRaw || blackRaw.includes(s.cnName.trim()));
 
       let resType = 'draw';
-      let resText = '🤝 和棋 (0.5 - 0.5)';
+      let resText = '和棋 (0.5 - 0.5)';
       if (match[0].replace(/\s+/g, '') === '1-0' || match[0].includes('1:0')) {
         resType = 'red';
-        resText = '🔴 红胜 (1 - 0)';
+        resText = '红胜 (1 - 0)';
       } else if (match[0].replace(/\s+/g, '') === '0-1' || match[0].includes('0:1')) {
         resType = 'black';
-        resText = '⚫ 黑胜 (0 - 1)';
+        resText = '黑胜 (0 - 1)';
       }
 
       parsedSP98Matches.push({
@@ -3038,7 +3074,7 @@ async function submitSP98Batch() {
   parsedSP98Matches = [];
 
   await loadAllData();
-  toast(`🎉 成功批量录入 ${successCount} 盘对局，天梯榜与学员 ELO 已实时更新！`, 'success');
+  toast(`成功批量录入 ${successCount} 盘对局，天梯榜与学员 ELO 已实时更新！`, 'success');
 }
 
 // Auto-render tournament list when switching to tab
@@ -3054,7 +3090,7 @@ switchTab = function(t) {
 // ── DELETION & CLEANUP FUNCTIONS ──────────────────────────────
 async function deleteSingleMatch(date, round, redName, blackName) {
   if (!confirm(`确定删除对局记录：${date} ${round} (${redName} vs ${blackName}) 吗？`)) return;
-  toast('⏳ 正在从云端删除对局记录...', 'info');
+  toast('正在从云端删除对局记录...', 'info');
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
@@ -3062,7 +3098,7 @@ async function deleteSingleMatch(date, round, redName, blackName) {
     });
     const d = await res.json();
     if (d.success || d.status === 'ok') {
-      toast('✅ 对局记录已成功删除！', 'success');
+      toast('对局记录已成功删除！', 'success');
       await loadMatches();
       renderGallery();
     } else {
@@ -3074,12 +3110,12 @@ async function deleteSingleMatch(date, round, redName, blackName) {
 }
 
 async function clearAllTestMatches() {
-  const code = prompt('⚠️ 警告：此操作将清空「实战对局记录表」中的全部对局历史数据！\n\n如确认清空，请输入总控密码:');
+  const code = prompt('警告：此操作将清空「实战对局记录表」中的全部对局历史数据！\n\n如确认清空，请输入总控密码:');
   if (code !== getAuthPin()) {
     if (code !== null) toast('密码错误，操作取消。', 'warning');
     return;
   }
-  toast('⏳ 正在清空云端所有历史对局...', 'info');
+  toast('正在清空云端所有历史对局...', 'info');
   try {
     const res = await fetch(GAS_API_URL, {
       method: 'POST',
@@ -3087,7 +3123,7 @@ async function clearAllTestMatches() {
     });
     const d = await res.json();
     if (d.success || d.status === 'ok') {
-      toast('🎉 所有实战对局记录已清空！', 'success');
+      toast('所有实战对局记录已清空！', 'success');
       await loadMatches();
       renderGallery();
     } else {
@@ -3205,10 +3241,10 @@ async function loadSchoolLicenses() {
                 <td style="padding:10px 12px; font-weight:800;">${item.school}</td>
                 <td style="padding:10px 12px; text-align:center;">
                   ${item.status === 'ended' 
-                    ? '<span class="badge" style="background:#EAECEE;color:#7F8C8D;font-size:11px;">⛔ 已终止停用</span>'
+                    ? '<span class="badge" style="background:#EAECEE;color:#7F8C8D;font-size:11px;">已终止停用</span>'
                     : (new Date(item.expiresAt).getTime() < Date.now() 
-                        ? '<span class="badge" style="background:#FDEDEC;color:#C0392B;font-size:11px;">⏰ 租约已超期</span>' 
-                        : '<span class="badge badge-green" style="font-size:11px;">🟢 租期有效</span>')}
+                        ? '<span class="badge" style="background:#FDEDEC;color:#C0392B;font-size:11px;">租约已超期</span>' 
+                        : '<span class="badge badge-green" style="font-size:11px;">租期有效</span>')}
                 </td>
                 <td style="padding:10px 12px; font-size:12px; color:var(--text2);">
                   ${item.expiresAt ? new Date(item.expiresAt).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
@@ -3216,22 +3252,22 @@ async function loadSchoolLicenses() {
                 <td style="padding:10px 12px; text-align:center;">
                   <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:center; align-items:center;">
                     <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 1)" title="顺延比赛时间 1 天">
-                      ⏳ +1天
+                      +1天
                     </button>
                     <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 3)" title="顺延比赛时间 3 天">
-                      ⏳ +3天
+                      +3天
                     </button>
                     ${item.status === 'ended' ? `
                       <button class="btn-sm" style="color:var(--pri2); border-color:var(--pri2); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')" title="重新激活该授权">
-                        ▶️ 重新启用
+                        重新启用
                       </button>
                     ` : `
                       <button class="btn-sm" style="color:var(--red); border-color:var(--red); padding:4px 8px; font-size:11px;" onclick="endSchoolLicense('${item.key}')" title="终止开赛权限（保留记录）">
-                        ⛔ 终止开赛
+                        终止开赛
                       </button>
                     `}
                     <button class="btn-sm" style="color:#7F8C8D; border-color:#BDC3C7; padding:4px 8px; font-size:11px;" onclick="revokeSchoolLicense('${item.key}')" title="彻底删除此授权码记录">
-                      🗑️ 彻底移除
+                      彻底移除
                     </button>
                   </div>
                 </td>
@@ -3249,7 +3285,7 @@ async function loadSchoolLicenses() {
 
 
 async function extendSchoolLicense(key, days) {
-  toast(`⏳ 正在为授权码 ${key} 延长 ${days} 天租期...`, 'info');
+  toast(`正在为授权码 ${key} 延长 ${days} 天租期...`, 'info');
   try {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/extend`, {
       method: 'POST',
@@ -3258,7 +3294,7 @@ async function extendSchoolLicense(key, days) {
     });
     const d = await res.json();
     if (d.success) {
-      toast(`🎉 ${d.message}`, 'success');
+      toast(d.message, 'success');
       loadSchoolLicenses();
     } else {
       toast('续期失败: ' + (d.error || ''), 'error');
