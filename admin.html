@@ -281,12 +281,15 @@
     .pod-1 .pod-elo{font-size:36px;color:#F59E0B;text-shadow:0 0 14px rgba(245,158,11,0.4);}
     .pod-stats{font-size:12.5px;color:var(--text2);margin-top:5px;font-weight:600;}
 
-    .tier-chip{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;border:1px solid transparent;}
-    .tier-5{background:rgba(56,189,248,0.15);color:#38BDF8;border-color:rgba(56,189,248,0.35);}
-    .tier-4{background:rgba(52,211,153,0.15);color:#34D399;border-color:rgba(52,211,153,0.35);}
-    .tier-3{background:rgba(251,191,36,0.15);color:#FBBF24;border-color:rgba(251,191,36,0.35);}
-    .tier-2{background:rgba(192,132,252,0.15);color:#C084FC;border-color:rgba(192,132,252,0.35);}
-    .tier-1{background:rgba(248,113,113,0.18);color:#F87171;border-color:rgba(248,113,113,0.4);}
+    .tier-chip{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;border:1px solid transparent;white-space:nowrap;}
+    .tier-7{background:rgba(245,158,11,0.22);color:#FBBF24;border-color:rgba(245,158,11,0.55);box-shadow:0 0 10px rgba(245,158,11,0.25);}
+    .tier-6{background:rgba(239,68,68,0.2);color:#F87171;border-color:rgba(239,68,68,0.45);}
+    .tier-5{background:rgba(168,85,247,0.18);color:#C084FC;border-color:rgba(168,85,247,0.4);}
+    .tier-4{background:rgba(59,130,246,0.18);color:#60A5FA;border-color:rgba(59,130,246,0.4);}
+    .tier-3{background:rgba(16,185,129,0.18);color:#34D399;border-color:rgba(16,185,129,0.4);}
+    .tier-2{background:rgba(6,182,212,0.18);color:#22D3EE;border-color:rgba(6,182,212,0.4);}
+    .tier-1{background:rgba(148,163,184,0.18);color:#CBD5E1;border-color:rgba(148,163,184,0.35);}
+    .tier-0{background:rgba(255,255,255,0.08);color:var(--text2);border-color:rgba(255,255,255,0.15);}
 
     /* CENTERED SECTION HEADERS */
     .section-head{
@@ -1859,11 +1862,14 @@ async function loadStudents(){
 }
 
 function getTierName(elo) {
-  if (elo >= 1300) return '<span class="tier-chip tier-1">一级棋手</span>';
-  if (elo >= 1000) return '<span class="tier-chip tier-2">二级棋手</span>';
-  if (elo >= 700) return '<span class="tier-chip tier-3">三级棋手</span>';
-  if (elo >= 400) return '<span class="tier-chip tier-4">四级棋手</span>';
-  return '<span class="tier-chip tier-5">五级棋手</span>';
+  if (elo >= 1800) return '<span class="tier-chip tier-7" title="公会官方七级考评 · Wakil Daerah">👑 Lv 7 · 县代表</span>';
+  if (elo >= 1500) return '<span class="tier-chip tier-6" title="公会官方六级考评 · Skuad Bera">⭐ Lv 6 · 县种子</span>';
+  if (elo >= 1300) return '<span class="tier-chip tier-5" title="公会官方五级考评 · Wakil Sekolah">🏆 Lv 5 · 校队领军</span>';
+  if (elo >= 1000) return '<span class="tier-chip tier-4" title="公会官方四级考评 · Lanjutan">🔷 Lv 4 · 校队主力</span>';
+  if (elo >= 700)  return '<span class="tier-chip tier-3" title="公会官方三级考评 · Pertengahan">⚔️ Lv 3 · 进阶</span>';
+  if (elo >= 300)  return '<span class="tier-chip tier-2" title="公会官方二级考评 · Permulaan">🛡️ Lv 2 · 基础</span>';
+  if (elo >= 100)  return '<span class="tier-chip tier-1" title="公会官方一级考评 · Asas">🌱 Lv 1 · 启蒙</span>';
+  return '<span class="tier-chip tier-0">未定级</span>';
 }
 
 function getPlayerStats(id, name) {

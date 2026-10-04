@@ -905,12 +905,15 @@
     .pod-1 .pod-elo{font-size:32px;}
     .pod-stats{font-size:12px;color:#FFF;margin-top:4px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,0.3);}
 
-    .tier-chip{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;}
-    .tier-5{background:#EBF5FB;color:#2980B9;}
-    .tier-4{background:#E8F8F5;color:#1ABC9C;}
-    .tier-3{background:#FEF9E7;color:#B7950B;}
-    .tier-2{background:#FDEDEC;color:#E74C3C;}
-    .tier-1{background:linear-gradient(135deg,#F9E79F,#F5CBA7);color:#7D6608;}
+    .tier-chip{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;border:1px solid transparent;white-space:nowrap;}
+    .tier-7{background:rgba(245,158,11,0.22);color:#FBBF24;border-color:rgba(245,158,11,0.55);box-shadow:0 0 10px rgba(245,158,11,0.25);}
+    .tier-6{background:rgba(239,68,68,0.2);color:#F87171;border-color:rgba(239,68,68,0.45);}
+    .tier-5{background:rgba(168,85,247,0.18);color:#C084FC;border-color:rgba(168,85,247,0.4);}
+    .tier-4{background:rgba(59,130,246,0.18);color:#60A5FA;border-color:rgba(59,130,246,0.4);}
+    .tier-3{background:rgba(16,185,129,0.18);color:#34D399;border-color:rgba(16,185,129,0.4);}
+    .tier-2{background:rgba(6,182,212,0.18);color:#22D3EE;border-color:rgba(6,182,212,0.4);}
+    .tier-1{background:rgba(148,163,184,0.18);color:#CBD5E1;border-color:rgba(148,163,184,0.35);}
+    .tier-0{background:rgba(255,255,255,0.08);color:var(--text2);border-color:rgba(255,255,255,0.15);}
 
     /* CENTERED SECTION HEADERS */
     .section-head{
@@ -2257,21 +2260,43 @@ function switchView(viewId, el = null) {
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
 
 function getTierName(elo) {
-  if (elo >= 1300) return '👑 一级棋手';
-  if (elo >= 1000) return '💎 二级棋手';
-  if (elo >= 700) return '🥇 三级棋手';
-  if (elo >= 400) return '🥈 四级棋手';
-  return '🥉 五级棋手';
+  if (elo >= 1800) return '👑 Lv 7 · 县代表';
+  if (elo >= 1500) return '⭐ Lv 6 · 县种子';
+  if (elo >= 1300) return '🏆 Lv 5 · 校队领军';
+  if (elo >= 1000) return '🔷 Lv 4 · 校队主力';
+  if (elo >= 700)  return '⚔️ Lv 3 · 进阶';
+  if (elo >= 300)  return '🛡️ Lv 2 · 基础';
+  if (elo >= 100)  return '🌱 Lv 1 · 启蒙';
+  return '🔹 未定级';
 }
 function getTierClass(elo) {
-  if (elo >= 1300) return 'tier-1';
-  if (elo >= 1000) return 'tier-2';
-  if (elo >= 700) return 'tier-3';
-  if (elo >= 400) return 'tier-4';
-  return 'tier-5';
+  if (elo >= 1800) return 'tier-7';
+  if (elo >= 1500) return 'tier-6';
+  if (elo >= 1300) return 'tier-5';
+  if (elo >= 1000) return 'tier-4';
+  if (elo >= 700)  return 'tier-3';
+  if (elo >= 300)  return 'tier-2';
+  if (elo >= 100)  return 'tier-1';
+  return 'tier-0';
 }
-function getCurrentTierBase(elo){if(elo>=1300)return 1300;if(elo>=1000)return 1000;if(elo>=700)return 700;if(elo>=400)return 400;return 200;}
-function getNextTierElo(elo){if(elo>=1300)return 1600;if(elo>=1000)return 1300;if(elo>=700)return 1000;if(elo>=400)return 700;return 400;}
+function getCurrentTierBase(elo){
+  if(elo>=1800)return 1800;
+  if(elo>=1500)return 1500;
+  if(elo>=1300)return 1300;
+  if(elo>=1000)return 1000;
+  if(elo>=700)return 700;
+  if(elo>=300)return 300;
+  return 100;
+}
+function getNextTierElo(elo){
+  if(elo>=1800)return 2000;
+  if(elo>=1500)return 1800;
+  if(elo>=1300)return 1500;
+  if(elo>=1000)return 1300;
+  if(elo>=700)return 1000;
+  if(elo>=300)return 700;
+  return 300;
+}
 
 // AUTH GATE
 function quickFill(acc, pwd) {
