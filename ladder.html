@@ -511,13 +511,13 @@
   }
 
   function getTahapFromElo(elo) {
-    if (elo >= 1800) return '👑 Tahap 7';
-    if (elo >= 1500) return 'Tahap 6';
-    if (elo >= 1300) return 'Tahap 5';
-    if (elo >= 1000) return 'Tahap 4';
-    if (elo >= 700) return 'Tahap 3';
-    if (elo >= 300) return 'Tahap 2';
-    if (elo >= 100) return 'Tahap 1';
+    if (elo >= 1800) return 'Tahap 7 · 县代表';
+    if (elo >= 1500) return 'Tahap 6 · 县种子';
+    if (elo >= 1300) return 'Tahap 5 · 校队领军';
+    if (elo >= 1000) return 'Tahap 4 · 校队主力';
+    if (elo >= 700) return 'Tahap 3 · 进阶';
+    if (elo >= 300) return 'Tahap 2 · 基础';
+    if (elo >= 100) return 'Tahap 1 · 启蒙';
     return '未定级';
   }
 

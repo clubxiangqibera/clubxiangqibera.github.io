@@ -905,7 +905,8 @@
     .pod-1 .pod-elo{font-size:32px;}
     .pod-stats{font-size:12px;color:#FFF;margin-top:4px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,0.3);}
 
-    .tier-chip{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;border:1px solid transparent;white-space:nowrap;}
+    .tier-chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:6px;margin-bottom:6px;border:1px solid transparent;white-space:nowrap;letter-spacing:0.2px;}
+    .tier-chip::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;flex-shrink:0;}
     .tier-7{background:rgba(245,158,11,0.22);color:#FBBF24;border-color:rgba(245,158,11,0.55);box-shadow:0 0 10px rgba(245,158,11,0.25);}
     .tier-6{background:rgba(239,68,68,0.2);color:#F87171;border-color:rgba(239,68,68,0.45);}
     .tier-5{background:rgba(168,85,247,0.18);color:#C084FC;border-color:rgba(168,85,247,0.4);}
@@ -914,6 +915,7 @@
     .tier-2{background:rgba(6,182,212,0.18);color:#22D3EE;border-color:rgba(6,182,212,0.4);}
     .tier-1{background:rgba(148,163,184,0.18);color:#CBD5E1;border-color:rgba(148,163,184,0.35);}
     .tier-0{background:rgba(255,255,255,0.08);color:var(--text2);border-color:rgba(255,255,255,0.15);}
+    .tier-0::before{display:none;}
 
     /* CENTERED SECTION HEADERS */
     .section-head{
@@ -2260,14 +2262,14 @@ function switchView(viewId, el = null) {
 function parseCSV(t){const r=[];let w=[],q=!1,c='';for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'){q&&n==='"'?(c+='"',i++):q=!q}else if(x===','&&!q){w.push(c);c=''}else if((x==='\r'||x==='\n')&&!q){x==='\r'&&n==='\n'&&i++;w.push(c);w.some(z=>z.trim())&&r.push(w);w=[];c=''}else c+=x}if(c||w.length){w.push(c);w.some(z=>z.trim())&&r.push(w)}return r;}
 
 function getTierName(elo) {
-  if (elo >= 1800) return '👑 Lv 7 · 县代表';
-  if (elo >= 1500) return '⭐ Lv 6 · 县种子';
-  if (elo >= 1300) return '🏆 Lv 5 · 校队领军';
-  if (elo >= 1000) return '🔷 Lv 4 · 校队主力';
-  if (elo >= 700)  return '⚔️ Lv 3 · 进阶';
-  if (elo >= 300)  return '🛡️ Lv 2 · 基础';
-  if (elo >= 100)  return '🌱 Lv 1 · 启蒙';
-  return '🔹 未定级';
+  if (elo >= 1800) return 'Lv 7 · 县代表';
+  if (elo >= 1500) return 'Lv 6 · 县种子';
+  if (elo >= 1300) return 'Lv 5 · 校队领军';
+  if (elo >= 1000) return 'Lv 4 · 校队主力';
+  if (elo >= 700)  return 'Lv 3 · 进阶';
+  if (elo >= 300)  return 'Lv 2 · 基础';
+  if (elo >= 100)  return 'Lv 1 · 启蒙';
+  return '未定级';
 }
 function getTierClass(elo) {
   if (elo >= 1800) return 'tier-7';
@@ -2637,13 +2639,13 @@ function renderPublicLadder(players) {
 function renderPodium(players) {
   const area = document.getElementById('podiumArea');
   if (!area || !players.length) return;
-  const medals = ['🥇','🥈','🥉'];
+  const medals = ['NO.1', 'NO.2', 'NO.3'];
   let html = '';
   [1, 0, 2].forEach((idx) => {
     const p = players[idx];
     if (!p) return;
     const cls = idx === 0 ? 'pod-1' : idx === 1 ? 'pod-2' : 'pod-3';
-    const crown = idx === 0 ? '<div class="crown">👑 月度擂主</div>' : '';
+    const crown = idx === 0 ? '<div class="crown">首席榜首</div>' : '';
     html += `
       <div class="pod ${cls}">
         ${crown}
@@ -2671,7 +2673,7 @@ function renderRankList(players) {
           <div class="rank-num">${i + 1}</div>
           <div class="rank-info">
             <div class="rank-name">
-              ${p.name} ${isMe ? '<span style="font-size:11px;background:#F1C40F;color:#7D6608;padding:2px 8px;border-radius:6px;font-weight:900;">⭐ 我 (Me)</span>' : ''}
+              ${p.name} ${isMe ? '<span style="font-size:11px;background:#F1C40F;color:#7D6608;padding:2px 8px;border-radius:6px;font-weight:900;">我 (Me)</span>' : ''}
               <span class="tier-chip ${getTierClass(p.elo)}">${getTierName(p.elo)}</span>
             </div>
             <div class="rank-school">${p.school} · ${p.total} 场实战 (${p.w}胜 ${p.d}和 ${p.l}负)</div>

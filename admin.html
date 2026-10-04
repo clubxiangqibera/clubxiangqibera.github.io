@@ -281,7 +281,8 @@
     .pod-1 .pod-elo{font-size:36px;color:#F59E0B;text-shadow:0 0 14px rgba(245,158,11,0.4);}
     .pod-stats{font-size:12.5px;color:var(--text2);margin-top:5px;font-weight:600;}
 
-    .tier-chip{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;border:1px solid transparent;white-space:nowrap;}
+    .tier-chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:6px;margin-bottom:6px;border:1px solid transparent;white-space:nowrap;letter-spacing:0.2px;}
+    .tier-chip::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;flex-shrink:0;}
     .tier-7{background:rgba(245,158,11,0.22);color:#FBBF24;border-color:rgba(245,158,11,0.55);box-shadow:0 0 10px rgba(245,158,11,0.25);}
     .tier-6{background:rgba(239,68,68,0.2);color:#F87171;border-color:rgba(239,68,68,0.45);}
     .tier-5{background:rgba(168,85,247,0.18);color:#C084FC;border-color:rgba(168,85,247,0.4);}
@@ -290,6 +291,7 @@
     .tier-2{background:rgba(6,182,212,0.18);color:#22D3EE;border-color:rgba(6,182,212,0.4);}
     .tier-1{background:rgba(148,163,184,0.18);color:#CBD5E1;border-color:rgba(148,163,184,0.35);}
     .tier-0{background:rgba(255,255,255,0.08);color:var(--text2);border-color:rgba(255,255,255,0.15);}
+    .tier-0::before{display:none;}
 
     /* CENTERED SECTION HEADERS */
     .section-head{
@@ -874,7 +876,7 @@ function updateSeg(lang) {
           <table style="min-width:760px;">
             <thead><tr><th>学号</th><th>中文名</th><th>所在学校</th><th>班级级别</th><th>ELO</th><th>学费状态</th></tr></thead>
             <tbody id="dashStudentTable">
-              <tr><td colspan="6" style="text-align:center; padding:28px; color:var(--text2); font-size:13.5px;">⏳ 正在同步学员档案名册...</td></tr>
+              <tr><td colspan="6" style="text-align:center; padding:28px; color:var(--text2); font-size:13.5px;">正在同步学员档案名册...</td></tr>
             </tbody>
           </table>
         </div>
@@ -912,10 +914,10 @@ function updateSeg(lang) {
           </div>
           <div style="display:flex; gap:8px;">
             <button class="btn-action" onclick="loadRegistrations()" style="padding:7px 14px; font-size:12.5px; background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:8px; color:var(--text); cursor:pointer;">
-              🔄 刷新同步
+              刷新同步
             </button>
             <button class="btn-action" onclick="exportRegistrationsCSV()" style="padding:7px 14px; font-size:12.5px; background:rgba(241,196,15,0.15); border:1px solid rgba(241,196,15,0.3); border-radius:8px; color:var(--gold); font-weight:700; cursor:pointer;">
-              📥 导出 CSV
+              导出 CSV
             </button>
           </div>
         </div>
@@ -924,10 +926,10 @@ function updateSeg(lang) {
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border);">
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button class="btn-filter-pill active" onclick="filterRegistrations('all', this)">全部报名</button>
-            <button class="btn-filter-pill" onclick="filterRegistrations('pending', this)">⏳ 待核实</button>
-            <button class="btn-filter-pill" onclick="filterRegistrations('acad', this)">🏫 常规学院</button>
-            <button class="btn-filter-pill" onclick="filterRegistrations('camp', this)">🏆 营会/公开赛</button>
-            <button class="btn-filter-pill" onclick="filterRegistrations('enrolled', this)">✅ 已入库/已录入</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('pending', this)">待核实</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('acad', this)">常规学院</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('camp', this)">营会/赛事</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('enrolled', this)">已入库</button>
           </div>
           <div style="width:260px; max-width:100%;">
             <input type="text" id="regSearchInput" class="form-input" placeholder="搜索姓名 / 电话 / 凭单号..." style="width:100%; font-size:12.5px; padding:6px 12px;" oninput="renderRegistrationList()">
@@ -1548,15 +1550,15 @@ function updateSeg(lang) {
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border-top:1px solid var(--border); padding-top:16px;">
-          <button id="regModalDelBtn" class="btn" style="background:rgba(230,57,70,0.15); color:#e63946; border:1px solid rgba(230,57,70,0.3); padding:8px 14px; border-radius:8px; font-size:12.5px; cursor:pointer;">
-            🗑️ 删除此凭单
+          <button id="regModalDelBtn" class="btn" style="background:rgba(230,57,70,0.15); color:#e63946; border:1px solid rgba(230,57,70,0.3); padding:8px 14px; border-radius:8px; font-size:12.5px; font-weight:700; cursor:pointer;">
+            删除此凭单
           </button>
           <div style="display:flex; gap:8px;">
             <a id="regModalWaBtn" href="#" target="_blank" class="btn" style="background:#25D366; color:#fff; text-decoration:none; padding:8px 16px; border-radius:8px; font-weight:800; font-size:12.5px; display:inline-flex; align-items:center; gap:6px;">
-              💬 WhatsApp 联系家长
+              WhatsApp 联络家长
             </a>
             <button id="regModalEnrollBtn" class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 18px; border-radius:8px; font-weight:800; font-size:12.5px; cursor:pointer;">
-              📥 一键录入学员库
+              一键录入档案库
             </button>
           </div>
         </div>
@@ -1856,19 +1858,19 @@ async function loadStudents(){
     console.error('loadStudents error:', e);
     const dashTable = document.getElementById('dashStudentTable');
     if (dashTable && (!allStudents || allStudents.length === 0)) {
-      dashTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:24px; color:#e63946;">⚠️ 未能连接到学员数据库，请检查网络或重新刷新。</td></tr>';
+      dashTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:24px; color:#e63946;">未能连接到学员数据库，请检查网络连接后重试。</td></tr>';
     }
   }
 }
 
 function getTierName(elo) {
-  if (elo >= 1800) return '<span class="tier-chip tier-7" title="公会官方七级考评 · Wakil Daerah">👑 Lv 7 · 县代表</span>';
-  if (elo >= 1500) return '<span class="tier-chip tier-6" title="公会官方六级考评 · Skuad Bera">⭐ Lv 6 · 县种子</span>';
-  if (elo >= 1300) return '<span class="tier-chip tier-5" title="公会官方五级考评 · Wakil Sekolah">🏆 Lv 5 · 校队领军</span>';
-  if (elo >= 1000) return '<span class="tier-chip tier-4" title="公会官方四级考评 · Lanjutan">🔷 Lv 4 · 校队主力</span>';
-  if (elo >= 700)  return '<span class="tier-chip tier-3" title="公会官方三级考评 · Pertengahan">⚔️ Lv 3 · 进阶</span>';
-  if (elo >= 300)  return '<span class="tier-chip tier-2" title="公会官方二级考评 · Permulaan">🛡️ Lv 2 · 基础</span>';
-  if (elo >= 100)  return '<span class="tier-chip tier-1" title="公会官方一级考评 · Asas">🌱 Lv 1 · 启蒙</span>';
+  if (elo >= 1800) return '<span class="tier-chip tier-7" title="公会官方七级考评 · Wakil Daerah">Lv 7 · 县代表</span>';
+  if (elo >= 1500) return '<span class="tier-chip tier-6" title="公会官方六级考评 · Skuad Bera">Lv 6 · 县种子</span>';
+  if (elo >= 1300) return '<span class="tier-chip tier-5" title="公会官方五级考评 · Wakil Sekolah">Lv 5 · 校队领军</span>';
+  if (elo >= 1000) return '<span class="tier-chip tier-4" title="公会官方四级考评 · Lanjutan">Lv 4 · 校队主力</span>';
+  if (elo >= 700)  return '<span class="tier-chip tier-3" title="公会官方三级考评 · Pertengahan">Lv 3 · 进阶</span>';
+  if (elo >= 300)  return '<span class="tier-chip tier-2" title="公会官方二级考评 · Permulaan">Lv 2 · 基础</span>';
+  if (elo >= 100)  return '<span class="tier-chip tier-1" title="公会官方一级考评 · Asas">Lv 1 · 启蒙</span>';
   return '<span class="tier-chip tier-0">未定级</span>';
 }
 
@@ -2081,8 +2083,8 @@ async function loadMatches(){
 }
 
 function payBadge(s){
-  if(s.includes('已缴费')||s.includes('Verified'))return'<span class="badge badge-green">✅ 已缴费</span>';
-  return'<span class="badge badge-yellow">⏳ 待缴费</span>';
+  if(s.includes('已缴费')||s.includes('Verified'))return'<span class="badge badge-green">已缴费</span>';
+  return'<span class="badge badge-yellow">待缴费</span>';
 }
 
 function renderDashboard(){
@@ -4830,11 +4832,11 @@ function renderRegistrationList() {
     const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
 
     // Status pill
-    let statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(230,57,70,0.18); color:#e63946; white-space:nowrap;">⏳ 待核实</span>';
+    let statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(230,57,70,0.18); color:#e63946; white-space:nowrap;">待核实</span>';
     if (r.status === 'verified') {
-      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(52,152,219,0.18); color:#3498db; white-space:nowrap;">📞 已联系</span>';
+      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(52,152,219,0.18); color:#3498db; white-space:nowrap;">已联系</span>';
     } else if (r.status === 'enrolled') {
-      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(39,174,96,0.18); color:#2ecc71; white-space:nowrap;">✅ 已入库</span>';
+      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(39,174,96,0.18); color:#2ecc71; white-space:nowrap;">已入库</span>';
     }
 
     // Time format
@@ -4847,8 +4849,8 @@ function renderRegistrationList() {
     }
 
     const typeBadge = isAcad 
-      ? '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(241,196,15,0.15); color:var(--gold); white-space:nowrap;">🏫 常规学院</span>'
-      : '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(46,204,113,0.15); color:#2ecc71; white-space:nowrap;">🏆 营会/赛事</span>';
+      ? '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(241,196,15,0.15); color:var(--gold); white-space:nowrap;">常规学院</span>'
+      : '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(46,204,113,0.15); color:#2ecc71; white-space:nowrap;">营会/赛事</span>';
 
     const itemTitle = isAcad ? (r.tier || '-') : (r.eventName || '-');
     const parentInfo = isAcad ? `${r.parentName || '家长'} · ${r.parentPhone || '-'}` : (r.emergency ? `${r.phone || '-'} (紧急:${r.emergency})` : (r.phone || '-'));
@@ -4865,10 +4867,10 @@ function renderRegistrationList() {
         <td style="font-weight:800; font-size:14px; color:var(--gold); white-space:nowrap;">${r.total || '-'}</td>
         <td style="white-space:nowrap;">${statusBadge}</td>
         <td style="text-align:right; white-space:nowrap;">
-          <a href="${waLink}" target="_blank" title="WhatsApp 联系" style="display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:7px; background:#25D366; color:#fff; text-decoration:none; margin-right:4px; font-size:14px;">💬</a>
-          <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:5px 10px; border-radius:7px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:12px; cursor:pointer; margin-right:4px; font-weight:600;">👁️ 凭单</button>
-          ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入学员库" style="padding:5px 10px; border-radius:7px; background:var(--pri3); border:none; color:#fff; font-size:12px; font-weight:700; cursor:pointer; margin-right:4px;">📥 录入</button>` : ''}
-          <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:5px 8px; border-radius:7px; background:rgba(230,57,70,0.12); border:1px solid rgba(230,57,70,0.25); color:#e63946; font-size:12px; cursor:pointer;">🗑️</button>
+          <a href="${waLink}" target="_blank" title="WhatsApp 官方跟进" style="display:inline-flex; align-items:center; justify-content:center; padding:5px 10px; border-radius:7px; background:rgba(37,211,102,0.14); border:1px solid rgba(37,211,102,0.32); color:#25D366; text-decoration:none; margin-right:4px; font-size:12px; font-weight:800; letter-spacing:0.3px;">WhatsApp</a>
+          <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:5px 10px; border-radius:7px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:12px; cursor:pointer; margin-right:4px; font-weight:700;">凭单详情</button>
+          ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入在册学员库" style="padding:5px 10px; border-radius:7px; background:var(--pri3); border:none; color:#fff; font-size:12px; font-weight:700; cursor:pointer; margin-right:4px;">录入学员</button>` : ''}
+          <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:5px 8px; border-radius:7px; background:rgba(230,57,70,0.12); border:1px solid rgba(230,57,70,0.25); color:#e63946; font-size:12px; cursor:pointer; font-weight:700;">删除</button>
         </td>
       </tr>
     `;
@@ -4885,9 +4887,9 @@ function openRegDetailModal(id) {
   document.getElementById('regModalId').textContent = r.id;
   document.getElementById('regModalTitle').textContent = isAcad ? '常规棋艺学院入班报名凭单' : '研习营与公开赛个人报名凭单';
 
-  let statusBadge = '⏳ 待核实处理';
-  if (r.status === 'verified') statusBadge = '📞 已跟进联系';
-  if (r.status === 'enrolled') statusBadge = '✅ 已成功录入入库';
+  let statusBadge = '待核实处理';
+  if (r.status === 'verified') statusBadge = '已跟进联系';
+  if (r.status === 'enrolled') statusBadge = '已成功录入入库';
   document.getElementById('regModalBadge').textContent = statusBadge;
 
   let html = '<div class="tbl-wrap"><table><tbody>';
