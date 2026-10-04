@@ -101,17 +101,89 @@
       border-radius: 999px; background: rgba(201, 162, 75, 0.06);
     }
 
-    /* 筛选标签栏 */
+    /* 筛选标签栏 (双层规格 + 系列) */
+    .filter-section {
+      margin: 32px 0 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(10, 25, 47, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 20px;
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 1px;
+      min-width: 68px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    .filter-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .filter-label--series {
+      color: var(--ink-dim);
+    }
+    .filter-label--series::before {
+      background: rgba(255, 255, 255, 0.35);
+    }
     .filter-tabs {
-      display: flex; gap: 10px; margin: 32px 0 24px; flex-wrap: wrap;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0;
+      overflow-x: auto;
+      padding-bottom: 2px;
     }
     .filter-tab {
-      padding: 9px 18px; border-radius: 12px; font-size: 13.5px; font-weight: 700; cursor: pointer;
-      background: var(--navy-900); border: 1px solid var(--line); color: var(--ink-dim);
+      padding: 7px 15px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--navy-900);
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
       transition: all 0.2s;
+      white-space: nowrap;
     }
-    .filter-tab:hover { background: var(--navy-800); color: #fff; border-color: rgba(241,196,15,0.4); }
-    .filter-tab.active { background: var(--btn-primary-bg); color: #fff; border-color: transparent; box-shadow: 0 4px 14px rgba(230,57,70,0.35); }
+    .filter-tab:hover {
+      background: var(--navy-800);
+      color: #fff;
+      border-color: rgba(241,196,15,0.4);
+    }
+    /* Row 1: 主办规格选中的黑绿金边胶囊 */
+    .filter-tabs--host .filter-tab.active {
+      background: linear-gradient(135deg, #1b382b, #0e2418);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      box-shadow: 0 3px 12px rgba(241,196,15,0.22);
+    }
+    /* Row 2: 核心系列选中的经典红胶囊 */
+    .filter-tabs--series .filter-tab.active {
+      background: var(--btn-primary-bg);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(230,57,70,0.35);
+    }
 
     /* 事件卡片网格 */
     .events-grid {
@@ -524,21 +596,46 @@
       </div>
     </header>
 
-    <!-- FILTER TABS (5 FORMAL CORE SERIES - ZERO EMOJIS) -->
-    <div class="filter-tabs">
-      <button class="filter-tab active" onclick="filterEvents('all', this)" data-i18n="tab.all">全部活动与系列</button>
-      <button class="filter-tab" onclick="filterEvents('qiyuan', this)" data-i18n="tab.qiyuan">「棋缘」启蒙系列</button>
-      <button class="filter-tab" onclick="filterEvents('yifeng', this)" data-i18n="tab.yifeng">「弈峰」特训系列</button>
-      <button class="filter-tab" onclick="filterEvents('school', this)" data-i18n="tab.school">校际锦标赛系列</button>
-      <button class="filter-tab" onclick="filterEvents('open', this)" data-i18n="tab.open">全县公开赛系列</button>
-      <button class="filter-tab" onclick="filterEvents('festive', this)" data-i18n="tab.festive">传统节庆杯系列</button>
+    <!-- DUAL FILTER SECTION (ROW 1: HOST / TIER, ROW 2: CORE SERIES) -->
+    <div class="filter-section">
+      <!-- ROW 1: HOST / TIER -->
+      <div class="filter-row">
+        <span class="filter-label" data-i18n="host.label">主办规格</span>
+        <div class="filter-tabs filter-tabs--host">
+          <button class="filter-tab active" onclick="setHostFilter('all', this)" data-i18n="host_tab.all">全部主体</button>
+          <button class="filter-tab" onclick="setHostFilter('official', this)" data-i18n="host_tab.official">官方赛事</button>
+          <button class="filter-tab" onclick="setHostFilter('club', this)" data-i18n="host_tab.club">俱乐部活动</button>
+          <button class="filter-tab" onclick="setHostFilter('training', this)" data-i18n="host_tab.training">公会特训</button>
+          <button class="filter-tab" onclick="setHostFilter('school', this)" data-i18n="host_tab.school">校园合办</button>
+          <button class="filter-tab" onclick="setHostFilter('festive', this)" data-i18n="host_tab.festive">公会节庆</button>
+        </div>
+      </div>
+
+      <!-- ROW 2: CORE SERIES -->
+      <div class="filter-row">
+        <span class="filter-label filter-label--series" data-i18n="series.label">核心系列</span>
+        <div class="filter-tabs filter-tabs--series">
+          <button class="filter-tab active" onclick="setSeriesFilter('all', this)" data-i18n="tab.all">全部系列</button>
+          <button class="filter-tab" onclick="setSeriesFilter('qiyuan', this)" data-i18n="tab.qiyuan">「棋缘」启蒙系列</button>
+          <button class="filter-tab" onclick="setSeriesFilter('yifeng', this)" data-i18n="tab.yifeng">「弈峰」特训系列</button>
+          <button class="filter-tab" onclick="setSeriesFilter('school', this)" data-i18n="tab.school">校际锦标赛系列</button>
+          <button class="filter-tab" onclick="setSeriesFilter('open', this)" data-i18n="tab.open">全县公开赛系列</button>
+          <button class="filter-tab" onclick="setSeriesFilter('festive', this)" data-i18n="tab.festive">传统节庆杯系列</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMPTY NOTICE IF FILTER MATCHES 0 -->
+    <div id="eventsEmptyNotice" style="display:none; text-align:center; padding:45px 20px; background:var(--navy-900); border:1px solid var(--line); border-radius:16px; margin:20px 0;">
+      <p style="font-size:14px; font-weight:700; color:var(--ink-dim); margin-bottom:12px;" data-i18n="empty.notice">此筛选组合下暂无活动。</p>
+      <button onclick="resetAllFilters()" style="padding:7px 16px; border-radius:8px; background:var(--btn-primary-bg); color:#fff; border:none; font-size:12.5px; font-weight:700; cursor:pointer;" data-i18n="empty.reset">重置为全部活动</button>
     </div>
 
     <!-- EVENTS GRID -->
     <div class="events-grid" id="eventsGrid">
 
       <!-- CARD 1: QI YUAN BEGINNER CAMP -->
-      <div class="event-card" data-category="qiyuan">
+      <div class="event-card" data-category="qiyuan" data-host="club">
         <div class="event-card__cover-wrap" onclick="openLightbox('poster_qiyuan_final.jpg')">
           <img src="poster_qiyuan_final.jpg" alt="Qi Yuan Poster" class="event-card__cover">
           <span class="event-card__status event-card__status--open" data-i18n="evt1.status">报名开放中</span>
@@ -571,7 +668,7 @@
       </div>
 
       <!-- CARD 2: YI FENG INTERMEDIATE HOLIDAY CAMP -->
-      <div class="event-card" data-category="yifeng">
+      <div class="event-card" data-category="yifeng" data-host="training club">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <div style="font-family:var(--font-serif); font-size:26px; font-weight:800; color:var(--gold); letter-spacing:4px; text-transform:uppercase;">YI FENG</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt2_camp.status">筹划筹备中</span>
@@ -606,7 +703,7 @@
       </div>
 
       <!-- CARD 3: BERA INTER-SCHOOL CHAMPIONSHIP -->
-      <div class="event-card" data-category="school">
+      <div class="event-card" data-category="school" data-host="official school">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #112440 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <img src="cxb_round_emblem.png" alt="Inter-School Emblem" style="width:100px; height:100px; opacity:0.9; filter:drop-shadow(0 4px 16px rgba(241,196,15,0.3));">
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt2.status">筹划筹备中</span>
@@ -641,7 +738,7 @@
       </div>
 
       <!-- CARD 4: BERA OPEN CHAMPIONSHIP -->
-      <div class="event-card" data-category="open">
+      <div class="event-card" data-category="open" data-host="official">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #2e1d10 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <div style="font-family:var(--font-serif); font-size:26px; font-weight:800; color:var(--gold); letter-spacing:4px; text-transform:uppercase;">BERA OPEN</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt_open.status">章程拟定中</span>
@@ -676,7 +773,7 @@
       </div>
 
       <!-- CARD 5: FESTIVE & HERITAGE CUP -->
-      <div class="event-card" data-category="festive">
+      <div class="event-card" data-category="festive" data-host="festive">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #2e1212 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <div style="font-family:var(--font-serif); font-size:24px; font-weight:800; color:var(--gold); letter-spacing:3px; text-transform:uppercase;">FESTIVE CUP</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt_festive.status">筹划筹备中</span>
@@ -711,7 +808,7 @@
       </div>
 
       <!-- CARD 6: 2026 BERA PRIMARY SCHOOLS CHAMPIONSHIP (PHOTOS FIRST & STREAMLINED) -->
-      <div class="event-card" data-category="school">
+      <div class="event-card" data-category="school" data-host="school">
         <div class="event-card__cover-wrap" onclick="openGallery(0)" style="cursor:zoom-in;" title="点击放大实况照片">
           <img src="event_2026_group.png?v=20261004" alt="2026 百乐县小学中国象棋赛得奖师生合影" class="event-card__cover">
           <span class="event-card__status event-card__status--archive" data-i18n="evt_done.status">已圆满落幕</span>
@@ -1051,24 +1148,104 @@
     document.body.style.overflow = '';
   }
 
-  function filterEvents(category, btnEl) {
-    localStorage.setItem('cxb_events_filter', category);
+  let currentHostFilter = 'all';
+  let currentSeriesFilter = 'all';
 
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    if (!btnEl) {
-      btnEl = document.querySelector(`.filter-tab[onclick*="'${category}'"]`);
-    }
-    if (btnEl) btnEl.classList.add('active');
-
+  function applyDualFilter() {
     const cards = document.querySelectorAll('.event-card');
+    let visibleCount = 0;
+
     cards.forEach(card => {
-      const cardCat = card.getAttribute('data-category');
-      if (category === 'all' || cardCat === category) {
+      const cardCat = card.getAttribute('data-category') || '';
+      const cardHost = card.getAttribute('data-host') || '';
+
+      const matchHost = (currentHostFilter === 'all') || cardHost.split(' ').includes(currentHostFilter);
+      const matchSeries = (currentSeriesFilter === 'all') || (cardCat === currentSeriesFilter);
+
+      if (matchHost && matchSeries) {
         card.style.display = 'flex';
+        visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    const emptyNotice = document.getElementById('eventsEmptyNotice');
+    if (emptyNotice) {
+      emptyNotice.style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+  }
+
+  function setHostFilter(host, btnEl) {
+    currentHostFilter = host;
+    localStorage.setItem('cxb_events_host_filter', host);
+
+    document.querySelectorAll('.filter-tabs--host .filter-tab').forEach(b => b.classList.remove('active'));
+    if (!btnEl) {
+      btnEl = document.querySelector(`.filter-tabs--host .filter-tab[onclick*="'${host}'"]`);
+    }
+    if (btnEl) btnEl.classList.add('active');
+
+    // If compound results in 0 matches, reset series filter to 'all'
+    if (host !== 'all' && currentSeriesFilter !== 'all') {
+      const hasMatch = Array.from(document.querySelectorAll('.event-card')).some(card => {
+        const cCat = card.getAttribute('data-category') || '';
+        const cHost = card.getAttribute('data-host') || '';
+        return cHost.split(' ').includes(host) && cCat === currentSeriesFilter;
+      });
+      if (!hasMatch) {
+        currentSeriesFilter = 'all';
+        document.querySelectorAll('.filter-tabs--series .filter-tab').forEach(b => b.classList.remove('active'));
+        const allSeriesBtn = document.querySelector('.filter-tabs--series .filter-tab[onclick*="\'all\'"]');
+        if (allSeriesBtn) allSeriesBtn.classList.add('active');
+      }
+    }
+
+    applyDualFilter();
+  }
+
+  function setSeriesFilter(series, btnEl) {
+    currentSeriesFilter = series;
+    localStorage.setItem('cxb_events_filter', series);
+
+    document.querySelectorAll('.filter-tabs--series .filter-tab').forEach(b => b.classList.remove('active'));
+    if (!btnEl) {
+      btnEl = document.querySelector(`.filter-tabs--series .filter-tab[onclick*="'${series}'"]`);
+    }
+    if (btnEl) btnEl.classList.add('active');
+
+    // If compound results in 0 matches, reset host filter to 'all'
+    if (series !== 'all' && currentHostFilter !== 'all') {
+      const hasMatch = Array.from(document.querySelectorAll('.event-card')).some(card => {
+        const cCat = card.getAttribute('data-category') || '';
+        const cHost = card.getAttribute('data-host') || '';
+        return cCat === series && cHost.split(' ').includes(currentHostFilter);
+      });
+      if (!hasMatch) {
+        currentHostFilter = 'all';
+        document.querySelectorAll('.filter-tabs--host .filter-tab').forEach(b => b.classList.remove('active'));
+        const allHostBtn = document.querySelector('.filter-tabs--host .filter-tab[onclick*="\'all\'"]');
+        if (allHostBtn) allHostBtn.classList.add('active');
+      }
+    }
+
+    applyDualFilter();
+  }
+
+  function filterEvents(category, btnEl) {
+    setSeriesFilter(category, btnEl);
+  }
+
+  function resetAllFilters() {
+    currentHostFilter = 'all';
+    currentSeriesFilter = 'all';
+    document.querySelectorAll('.filter-tabs--host .filter-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-tabs--series .filter-tab').forEach(b => b.classList.remove('active'));
+    const allHostBtn = document.querySelector('.filter-tabs--host .filter-tab[onclick*="\'all\'"]');
+    if (allHostBtn) allHostBtn.classList.add('active');
+    const allSeriesBtn = document.querySelector('.filter-tabs--series .filter-tab[onclick*="\'all\'"]');
+    if (allSeriesBtn) allSeriesBtn.classList.add('active');
+    applyDualFilter();
   }
 
   // Dynamic sync with Admin Operations & Cloud
@@ -1109,7 +1286,17 @@
       "chip.championship": "百乐县官方校际锦标赛主办方",
       "chip.camp": "「棋缘」与「弈峰」青训品牌",
       "chip.gallery": "官方赛事与全县天梯等级分认证",
-      "tab.all": "全部活动与系列",
+      "host.label": "主办规格",
+      "series.label": "核心系列",
+      "host_tab.all": "全部主体",
+      "host_tab.official": "官方赛事",
+      "host_tab.club": "俱乐部活动",
+      "host_tab.training": "公会特训",
+      "host_tab.school": "校园合办",
+      "host_tab.festive": "公会节庆",
+      "empty.notice": "此筛选组合下暂无活动。",
+      "empty.reset": "重置为全部活动",
+      "tab.all": "全部系列",
       "tab.qiyuan": "「棋缘」启蒙系列",
       "tab.yifeng": "「弈峰」特训系列",
       "tab.school": "校际锦标赛系列",
@@ -1228,7 +1415,17 @@
       "chip.championship": "Penganjur Rasmi Kejohanan Antara Sekolah Bera",
       "chip.camp": "Program Pembangunan «Qi Yuan» & «Yi Feng»",
       "chip.gallery": "Pensijilan Gred Rasmi & Kedudukan ELO",
-      "tab.all": "Semua Acara & Siri",
+      "host.label": "Peringkat Penganjur",
+      "series.label": "Siri Utama",
+      "host_tab.all": "Semua Penganjur",
+      "host_tab.official": "Kejohanan Rasmi",
+      "host_tab.club": "Aktiviti Kelab",
+      "host_tab.training": "Latihan Khas",
+      "host_tab.school": "Kerjasama Sekolah",
+      "host_tab.festive": "Perayaan Komuniti",
+      "empty.notice": "Tiada acara ditemui untuk gabungan penapis ini.",
+      "empty.reset": "Tetapkan Semula Semua Acara",
+      "tab.all": "Semua Siri",
       "tab.qiyuan": "Siri Asas «Qi Yuan»",
       "tab.yifeng": "Siri Latihan Intensif «Yi Feng»",
       "tab.school": "Siri Kejohanan Antara Sekolah",
@@ -1347,7 +1544,17 @@
       "chip.championship": "Official Bera Inter-School Championship Organizer",
       "chip.camp": "«Qi Yuan» & «Yi Feng» Youth Training Brands",
       "chip.gallery": "Official Grade Certification & ELO Standings",
-      "tab.all": "All Events & Series",
+      "host.label": "Host & Tier",
+      "series.label": "Core Series",
+      "host_tab.all": "All Hosts",
+      "host_tab.official": "Official Championships",
+      "host_tab.club": "Club Events",
+      "host_tab.training": "Special Training",
+      "host_tab.school": "School Co-organized",
+      "host_tab.festive": "Festive Gala",
+      "empty.notice": "No events found under this filter combination.",
+      "empty.reset": "Reset to All Events",
+      "tab.all": "All Series",
       "tab.qiyuan": "«Qi Yuan» Beginner Series",
       "tab.yifeng": "«Yi Feng» Intensive Series",
       "tab.school": "Inter-School Championship Series",

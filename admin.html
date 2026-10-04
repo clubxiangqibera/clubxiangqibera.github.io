@@ -1178,6 +1178,9 @@ function updateSeg(lang) {
         <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06);">
           <button class="btn-filter-pill active" onclick="filterAdminEvents('all', this)">全部赛事</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('open_status', this)">报名开放中</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('host_official', this)">官方赛事</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('host_club', this)">俱乐部活动</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('host_school', this)">校园合办</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('qiyuan', this)">「棋缘」启蒙</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('yifeng', this)">「弈峰」特训</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('school', this)">校际锦标赛</button>
@@ -3726,6 +3729,9 @@ function renderAdminEvents() {
     if (f === 'all') return true;
     if (f === 'open_status') return evt.status === 'open';
     if (f === 'archive_status') return evt.status === 'archive';
+    if (f === 'host_official') return (evt.seriesTag && evt.seriesTag.includes('官方'));
+    if (f === 'host_club') return (evt.seriesTag && evt.seriesTag.includes('俱乐部'));
+    if (f === 'host_school') return (evt.seriesTag && evt.seriesTag.includes('校园'));
     return evt.category === f;
   });
 
