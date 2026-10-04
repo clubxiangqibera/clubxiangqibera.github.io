@@ -603,8 +603,8 @@
         <span class="filter-label" data-i18n="host.label">举办主体</span>
         <div class="filter-tabs filter-tabs--host">
           <button class="filter-tab active" onclick="setHostFilter('all', this)" data-i18n="host_tab.all">全部主体</button>
-          <button class="filter-tab" onclick="setHostFilter('club', this)" data-i18n="host_tab.club">俱乐部</button>
           <button class="filter-tab" onclick="setHostFilter('persatuan', this)" data-i18n="host_tab.persatuan">公会</button>
+          <button class="filter-tab" onclick="setHostFilter('club', this)" data-i18n="host_tab.club">俱乐部</button>
           <button class="filter-tab" onclick="setHostFilter('school', this)" data-i18n="host_tab.school">校园</button>
         </div>
       </div>
@@ -633,13 +633,13 @@
     <div class="events-grid" id="eventsGrid">
 
       <!-- CARD 1: QI YUAN BEGINNER CAMP -->
-      <div class="event-card" data-category="qiyuan" data-host="club">
+      <div class="event-card" data-category="qiyuan" data-host="persatuan club">
         <div class="event-card__cover-wrap" onclick="openLightbox('poster_qiyuan_final.jpg')">
           <img src="poster_qiyuan_final.jpg" alt="Qi Yuan Poster" class="event-card__cover">
           <span class="event-card__status event-card__status--open" data-i18n="evt1.status">报名开放中</span>
         </div>
         <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt1.series">俱乐部 · 「棋缘」启蒙系列 · 第一届</div>
+          <div class="event-card__series-tag" data-i18n="evt1.series">公会 · 「棋缘」启蒙系列 · 第一届</div>
           <div class="event-card__date">
             <span data-i18n="evt1.date">2026年11月22日 (星期日) · 8:30 AM - 4:30 PM</span>
           </div>
@@ -666,13 +666,13 @@
       </div>
 
       <!-- CARD 2: YI FENG INTERMEDIATE HOLIDAY CAMP -->
-      <div class="event-card" data-category="yifeng" data-host="club">
+      <div class="event-card" data-category="yifeng" data-host="persatuan club">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
           <div style="font-family:var(--font-serif); font-size:26px; font-weight:800; color:var(--gold); letter-spacing:4px; text-transform:uppercase;">YI FENG</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt2_camp.status">筹划筹备中</span>
         </div>
         <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt2_camp.series">俱乐部 · 「弈峰」特训系列 · 假期集训</div>
+          <div class="event-card__series-tag" data-i18n="evt2_camp.series">公会 · 「弈峰」特训系列 · 假期集训</div>
           <div class="event-card__date">
             <span data-i18n="evt2_camp.date">2026 学校假期 (School Holidays) · 封闭强化</span>
           </div>
@@ -1301,7 +1301,7 @@
       "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
       "nav.school_portal": "校际赛编排与赛事系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "在线报名中心",
       "evt1.status": "报名开放中",
-      "evt1.series": "俱乐部 · 「棋缘」启蒙系列 · 第一届",
+      "evt1.series": "公会 · 「棋缘」启蒙系列 · 第一届",
       "evt1.date": "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
       "evt1.title": "2026 第一届「棋缘」中国象棋启蒙教育营",
       "evt1.desc": "由百乐象棋俱乐部携手百乐县中国象棋公会倾力打造。专为百乐县华小学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
@@ -1313,7 +1313,7 @@
       "evt1.perks_val": "官方习题集 1 册 + 实战考评 + 结业证书",
       "evt1.btn": "进入在线报名中心 (启蒙营) →",
       "evt2_camp.status": "筹划筹备中",
-      "evt2_camp.series": "俱乐部 · 「弈峰」特训系列 · 假期集训",
+      "evt2_camp.series": "公会 · 「弈峰」特训系列 · 假期集训",
       "evt2_camp.date": "2026 学校假期 (School Holidays) · 封闭强化",
       "evt2_camp.title": "2026 第一届「弈峰」学校假期棋艺进阶特训营",
       "evt2_camp.desc": "面向百乐县具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
@@ -1428,7 +1428,7 @@
       "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
       "nav.school_portal": "Sistem Pertandingan Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu", "nav.register": "Portal Pendaftaran",
       "evt1.status": "Pendaftaran Dibuka",
-      "evt1.series": "Kelab · Siri Asas «Qi Yuan» · Edisi Ke-1",
+      "evt1.series": "Persatuan · Siri Asas «Qi Yuan» · Edisi Ke-1",
       "evt1.date": "22 November 2026 (Ahad) · 8:30 AM - 4:30 PM",
       "evt1.title": "Kem Asas Catur Cina «Qi Yuan» Ke-1 2026",
       "evt1.desc": "Dianjurkan bersama oleh CXQB dan Persatuan Catur Daerah Bera. Dikhaskan untuk murid sekolah rendah di Bera dari asas sifar, mempelajari peraturan rasmi dan asas taktikal.",
@@ -1440,7 +1440,7 @@
       "evt1.perks_val": "Buku Latihan Rasmi + Penilaian Praktikal + Sijil Tamat",
       "evt1.btn": "Ke Portal Pendaftaran (Kem Qi Yuan) →",
       "evt2_camp.status": "Dalam Perancangan",
-      "evt2_camp.series": "Kelab · Siri Latihan «Yi Feng» · Cuti Persekolahan",
+      "evt2_camp.series": "Persatuan · Siri Latihan «Yi Feng» · Cuti Persekolahan",
       "evt2_camp.date": "Cuti Persekolahan 2026 · Latihan Intensif Berkembar",
       "evt2_camp.title": "Kem Intensif Catur «Yi Feng» Cuti Sekolah Ke-1 2026",
       "evt2_camp.desc": "Latihan intensif untuk pemain yang mempunyai asas. Melibatkan latihan perlawanan intensif, formula pembukaan & akhir, serta analisis perlawanan sebenar.",
@@ -1555,7 +1555,7 @@
       "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
       "nav.school_portal": "School Pairing & Tournament System", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu", "nav.register": "Online Registration",
       "evt1.status": "Registration Open",
-      "evt1.series": "Club · «Qi Yuan» Beginner Series · 1st Edition",
+      "evt1.series": "Persatuan · «Qi Yuan» Beginner Series · 1st Edition",
       "evt1.date": "November 22, 2026 (Sunday) · 8:30 AM - 4:30 PM",
       "evt1.title": "2026 1st «Qi Yuan» Xiangqi Beginner Camp",
       "evt1.desc": "Organized jointly by CXQB and Bera District Xiangqi Association. Specially designed for primary school students in Bera from zero basics, mastering official rules and tactical fundamentals.",
@@ -1567,7 +1567,7 @@
       "evt1.perks_val": "Official Exercise Book + Practical Assessment + Certificate",
       "evt1.btn": "Go to Online Registration (Qi Yuan Camp) →",
       "evt2_camp.status": "In Preparation",
-      "evt2_camp.series": "Club · «Yi Feng» Intensive Series · Holiday Camp",
+      "evt2_camp.series": "Persatuan · «Yi Feng» Intensive Series · Holiday Camp",
       "evt2_camp.date": "2026 School Holidays · Intensive Training Camp",
       "evt2_camp.title": "2026 1st «Yi Feng» School Holiday Intensive Camp",
       "evt2_camp.desc": "Advanced intensive camp for players with solid fundamentals, focusing on endgame formulas, middle-game tactics, and match analysis.",

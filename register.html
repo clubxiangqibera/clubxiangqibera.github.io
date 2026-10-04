@@ -1181,11 +1181,26 @@
     }
 
     function saveRegistration(rec) {
+      if (!rec.status) rec.status = 'pending';
       try {
         let list = JSON.parse(localStorage.getItem('cxb_registrations') || '[]');
+        list = list.filter(r => r.id !== rec.id);
         list.unshift(rec);
         localStorage.setItem('cxb_registrations', JSON.stringify(list));
       } catch(e) {}
+      saveRegistrationToCloud(rec);
+    }
+
+    async function saveRegistrationToCloud(rec) {
+      try {
+        await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'addRegistration', registration: rec })
+        });
+      } catch(e) {
+        console.warn('Cloud registration sync notice:', e);
+      }
     }
 
     function showReceiptModal(rec) {

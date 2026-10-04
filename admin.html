@@ -829,6 +829,9 @@ function updateSeg(lang) {
 
   <div class="nav-tabs">
     <div class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">运营看板</div>
+    <div class="nav-tab" data-tab="registrations" onclick="switchTab('registrations')" style="position:relative;">
+      在线报名 <span id="regBadgeCount" style="display:none; background:#e63946; color:#fff; font-size:10px; font-weight:800; padding:1px 6px; border-radius:10px; margin-left:4px;">0</span>
+    </div>
     <div class="nav-tab" data-tab="students" onclick="switchTab('students')">学员建档</div>
     <div class="nav-tab" data-tab="payments" onclick="switchTab('payments')">学费追踪</div>
     <div class="nav-tab" data-tab="records" onclick="switchTab('records')">对局档案</div>
@@ -861,7 +864,83 @@ function updateSeg(lang) {
       </div>
     </div>
 
+    <!-- TAB: ONLINE REGISTRATIONS INBOX -->
+    <div class="tab-panel" id="panel-registrations">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val" id="regStatTotal">0</div>
+          <div class="stat-label">总报名申请数 (Total)</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-val" id="regStatPending">0</div>
+          <div class="stat-label">待核实 / 待联系 (Pending)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="regStatAcad">0</div>
+          <div class="stat-label">常规学院入班 (Academy)</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-val" id="regStatCamp">0</div>
+          <div class="stat-label">营会 / 赛事报名 (Camp)</div>
+        </div>
+      </div>
 
+      <div class="form-card" style="margin-top:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+          <div>
+            <h3 style="margin:0 0 4px 0; font-size:18px; font-weight:900; color:var(--text);">在线报名审核中心 (Registration Inbox)</h3>
+            <p style="margin:0; font-size:12.5px; color:var(--text2);">
+              汇集官网提交的所有学院报读及研习营/公开赛报名凭单。支持一键 WhatsApp 联系及一键录入学员库。
+            </p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-action" onclick="loadRegistrations()" style="padding:7px 14px; font-size:12.5px; background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:8px; color:var(--text); cursor:pointer;">
+              🔄 刷新同步
+            </button>
+            <button class="btn-action" onclick="exportRegistrationsCSV()" style="padding:7px 14px; font-size:12.5px; background:rgba(241,196,15,0.15); border:1px solid rgba(241,196,15,0.3); border-radius:8px; color:var(--gold); font-weight:700; cursor:pointer;">
+              📥 导出 CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter and Search Row -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border);">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn-filter-pill active" onclick="filterRegistrations('all', this)">全部报名</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('pending', this)">⏳ 待核实</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('acad', this)">🏫 常规学院</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('camp', this)">🏆 营会/公开赛</button>
+            <button class="btn-filter-pill" onclick="filterRegistrations('enrolled', this)">✅ 已入库/已录入</button>
+          </div>
+          <div style="width:260px; max-width:100%;">
+            <input type="text" id="regSearchInput" class="form-input" placeholder="搜索姓名 / 电话 / 凭单号..." style="width:100%; font-size:12.5px; padding:6px 12px;" oninput="renderRegistrationList()">
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>凭单号</th>
+                <th>提交时间</th>
+                <th>报名类别</th>
+                <th>学员姓名</th>
+                <th>年龄 / 学校</th>
+                <th>报读班级 / 活动</th>
+                <th>家长 / 联络电话</th>
+                <th>预估费用</th>
+                <th>审核状态</th>
+                <th style="text-align:right;">操作</th>
+              </tr>
+            </thead>
+            <tbody id="registrationsTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <!-- TAB 3: STUDENTS (ULTRA FAST ADD) -->
     <div class="tab-panel" id="panel-students">
@@ -1178,8 +1257,8 @@ function updateSeg(lang) {
         <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06);">
           <button class="btn-filter-pill active" onclick="filterAdminEvents('all', this)">全部赛事</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('open_status', this)">报名开放中</button>
-          <button class="btn-filter-pill" onclick="filterAdminEvents('host_club', this)">俱乐部</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('host_persatuan', this)">公会</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('host_club', this)">俱乐部</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('host_school', this)">校园</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('qiyuan', this)">「棋缘」启蒙</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('yifeng', this)">「弈峰」特训</button>
@@ -1435,6 +1514,38 @@ function updateSeg(lang) {
       </div>
     </div>
 
+    <!-- REGISTRATION DETAIL MODAL -->
+    <div id="regDetailModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(6px);">
+      <div style="background:var(--card); border:1px solid var(--border); width:92%; max-width:620px; border-radius:18px; padding:24px; max-height:90vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,0.5);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">
+          <div>
+            <span id="regModalBadge" style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(230,57,70,0.2); color:#e63946; margin-bottom:4px;">待核实</span>
+            <h3 id="regModalTitle" style="margin:0; font-size:18px; font-weight:900; color:var(--text);">报名凭单详情</h3>
+            <div id="regModalId" style="font-size:12px; font-family:monospace; color:var(--text2); margin-top:2px;">ACAD-XXXX</div>
+          </div>
+          <button onclick="closeRegDetailModal()" style="background:transparent; border:none; color:var(--text2); font-size:22px; cursor:pointer;">✕</button>
+        </div>
+
+        <div id="regModalContent" style="margin-bottom:20px;">
+          <!-- Injected dynamically -->
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border-top:1px solid var(--border); padding-top:16px;">
+          <button id="regModalDelBtn" class="btn" style="background:rgba(230,57,70,0.15); color:#e63946; border:1px solid rgba(230,57,70,0.3); padding:8px 14px; border-radius:8px; font-size:12.5px; cursor:pointer;">
+            🗑️ 删除此凭单
+          </button>
+          <div style="display:flex; gap:8px;">
+            <a id="regModalWaBtn" href="#" target="_blank" class="btn" style="background:#25D366; color:#fff; text-decoration:none; padding:8px 16px; border-radius:8px; font-weight:800; font-size:12.5px; display:inline-flex; align-items:center; gap:6px;">
+              💬 WhatsApp 联系家长
+            </a>
+            <button id="regModalEnrollBtn" class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 18px; border-radius:8px; font-weight:800; font-size:12.5px; cursor:pointer;">
+              📥 一键录入学员库
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <div class="modal-overlay" id="createTournamentModal">
   <div class="modal-content">
     <h3 style="margin-bottom:16px; font-size:18px; font-weight:900;">创建新比赛</h3>
@@ -1548,6 +1659,7 @@ function setAdminLang(lang) {
       logout: "退出登录",
       tabs: {
         dashboard: "运营看板",
+        registrations: "在线报名",
         students: "学员快速建档",
         payments: "学费审核追踪",
         records: "对局纸档案库",
@@ -1571,6 +1683,7 @@ function setAdminLang(lang) {
       logout: "Log Keluar",
       tabs: {
         dashboard: "Papan Operasi",
+        registrations: "Pendaftaran Online",
         students: "Rekod Pelajar",
         payments: "Bayaran Yuran",
         records: "Arkib Perlawanan",
@@ -1594,6 +1707,7 @@ function setAdminLang(lang) {
       logout: "Logout",
       tabs: {
         dashboard: "Dashboard",
+        registrations: "Online Registrations",
         students: "Student Registration",
         payments: "Fee Tracking",
         records: "Scoresheet Archive",
@@ -1623,7 +1737,20 @@ function setAdminLang(lang) {
   document.querySelectorAll('.nav-tabs .nav-tab').forEach(tab => {
     const key = tab.dataset.tab;
     if(key && cur.tabs && cur.tabs[key]) {
-      tab.textContent = cur.tabs[key];
+      if (key === 'registrations') {
+        const badge = tab.querySelector('#regBadgeCount');
+        tab.innerHTML = cur.tabs[key] + ' ';
+        if (badge) tab.appendChild(badge);
+        else {
+          const newB = document.createElement('span');
+          newB.id = 'regBadgeCount';
+          newB.style.cssText = 'display:none; background:#e63946; color:#fff; font-size:10px; font-weight:800; padding:1px 6px; border-radius:10px; margin-left:4px;';
+          newB.textContent = '0';
+          tab.appendChild(newB);
+        }
+      } else {
+        tab.textContent = cur.tabs[key];
+      }
     }
   });
 }
@@ -1664,6 +1791,9 @@ function switchTab(t){
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+t));
   
+  if (t === 'registrations') {
+    loadRegistrations();
+  }
   if (t === 'licenses') {
     loadSchoolLicenses();
   }
@@ -1673,7 +1803,7 @@ function switchTab(t){
 }
 
 async function loadAllData(){
-  await Promise.all([loadStudents(), loadMatches()]);
+  await Promise.all([loadStudents(), loadMatches(), loadRegistrations()]);
   renderDashboard();
   renderLadder(allStudents);
   renderAccountList();
@@ -3521,7 +3651,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_qiyuan_2026",
     category: "qiyuan",
-    seriesTag: "俱乐部 · 「棋缘」启蒙系列 · 第一届",
+    seriesTag: "公会 · 「棋缘」启蒙系列 · 第一届",
     title: "2026 第一届「棋缘」中国象棋启蒙教育营",
     date: "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
     status: "open",
@@ -3541,7 +3671,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_yifeng_2026",
     category: "yifeng",
-    seriesTag: "俱乐部 · 「弈峰」特训系列 · 假期集训",
+    seriesTag: "公会 · 「弈峰」特训系列 · 假期集训",
     title: "2026 第一届「弈峰」学校假期棋艺进阶特训营",
     date: "2026 学校假期 (School Holidays) · 封闭强化",
     status: "upcoming",
@@ -4503,9 +4633,421 @@ function updateMenuI18n(lang) {
   }
 }
 
+// ==========================================
+// 📋 在线报名管理中心 (Online Registrations Operations)
+// ==========================================
+
+window._registrations = [];
+window._currentRegFilter = 'all';
+
+async function loadRegistrations() {
+  let cloudList = [];
+  try {
+    const res = await fetch(GAS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'getRegistrations' })
+    });
+    const data = await res.json();
+    if (data && data.success && Array.isArray(data.registrations)) {
+      cloudList = data.registrations;
+    }
+  } catch(e) {
+    // Graceful fallback
+  }
+
+  // Also read local registrations (hybrid merge so offline/test submissions are always visible)
+  let localList = [];
+  try {
+    localList = JSON.parse(localStorage.getItem('cxb_registrations') || '[]');
+  } catch(e) {}
+
+  // Merge map by ID
+  const map = new Map();
+  // Cloud first
+  cloudList.forEach(r => { if(r && r.id) map.set(r.id, r); });
+  // Local merge
+  localList.forEach(r => {
+    if(r && r.id) {
+      if(!map.has(r.id)) {
+        map.set(r.id, r);
+      } else {
+        const existing = map.get(r.id);
+        map.set(r.id, { ...existing, ...r });
+      }
+    }
+  });
+
+  window._registrations = Array.from(map.values()).sort((a,b) => {
+    const ta = new Date(a.timestamp || 0).getTime();
+    const tb = new Date(b.timestamp || 0).getTime();
+    return tb - ta;
+  });
+
+  // Update badge count in nav tab
+  updateRegBadgeCount();
+
+  // Update stats
+  updateRegStats();
+
+  // Render table
+  renderRegistrationList();
+}
+
+function updateRegBadgeCount() {
+  const pendingCount = (window._registrations || []).filter(r => !r.status || r.status === 'pending').length;
+  const badgeEl = document.getElementById('regBadgeCount');
+  if (badgeEl) {
+    if (pendingCount > 0) {
+      badgeEl.textContent = pendingCount;
+      badgeEl.style.display = 'inline-block';
+    } else {
+      badgeEl.style.display = 'none';
+    }
+  }
+}
+
+function updateRegStats() {
+  const regs = window._registrations || [];
+  const total = regs.length;
+  const pending = regs.filter(r => !r.status || r.status === 'pending').length;
+  const acad = regs.filter(r => (r.type && r.type.includes('常规')) || (r.id && r.id.startsWith('ACAD'))).length;
+  const camp = regs.filter(r => (r.type && (r.type.includes('研习') || r.type.includes('公开'))) || (r.id && r.id.startsWith('CAMP'))).length;
+
+  const elTot = document.getElementById('regStatTotal'); if (elTot) elTot.textContent = total;
+  const elPen = document.getElementById('regStatPending'); if (elPen) elPen.textContent = pending;
+  const elAcad = document.getElementById('regStatAcad'); if (elAcad) elAcad.textContent = acad;
+  const elCamp = document.getElementById('regStatCamp'); if (elCamp) elCamp.textContent = camp;
+}
+
+function filterRegistrations(f, btnEl) {
+  window._currentRegFilter = f;
+  const container = btnEl ? btnEl.parentElement : null;
+  if (container) {
+    container.querySelectorAll('.btn-filter-pill').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+  }
+  renderRegistrationList();
+}
+
+function renderRegistrationList() {
+  const tbody = document.getElementById('registrationsTableBody');
+  if (!tbody) return;
+
+  const f = window._currentRegFilter || 'all';
+  const q = (document.getElementById('regSearchInput') ? document.getElementById('regSearchInput').value : '').trim().toLowerCase();
+
+  let list = window._registrations || [];
+
+  // Filter category
+  if (f === 'pending') {
+    list = list.filter(r => !r.status || r.status === 'pending');
+  } else if (f === 'acad') {
+    list = list.filter(r => (r.type && r.type.includes('常规')) || (r.id && r.id.startsWith('ACAD')));
+  } else if (f === 'camp') {
+    list = list.filter(r => (r.type && (r.type.includes('研习') || r.type.includes('公开'))) || (r.id && r.id.startsWith('CAMP')));
+  } else if (f === 'enrolled') {
+    list = list.filter(r => r.status === 'enrolled');
+  }
+
+  // Filter search
+  if (q) {
+    list = list.filter(r => {
+      const matchName = (r.cnName && r.cnName.toLowerCase().includes(q)) || (r.enName && r.enName.toLowerCase().includes(q));
+      const matchPhone = (r.parentPhone && r.parentPhone.includes(q)) || (r.phone && r.phone.includes(q));
+      const matchSchool = (r.school && r.school.toLowerCase().includes(q));
+      const matchId = (r.id && r.id.toLowerCase().includes(q));
+      return matchName || matchPhone || matchSchool || matchId;
+    });
+  }
+
+  if (list.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:40px; color:var(--text2);">暂无符合筛选条件的报名记录。</td></tr>';
+    return;
+  }
+
+  let html = '';
+  list.forEach(r => {
+    const isAcad = (r.type && r.type.includes('常规')) || (r.id && r.id.startsWith('ACAD'));
+    const phone = isAcad ? (r.parentPhone || '') : (r.phone || r.emergency || '');
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+    const waNumber = cleanPhone.startsWith('60') ? cleanPhone : (cleanPhone.startsWith('0') ? '60' + cleanPhone.substring(1) : cleanPhone);
+    const waMsg = encodeURIComponent(`您好！我是百乐象棋俱乐部教练，关于贵子弟【${r.cnName || ''}】的在线报名（凭单号：${r.id}），我们已收到，特向您跟进核实！`);
+    const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
+
+    // Status pill
+    let statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(230,57,70,0.18); color:#e63946;">⏳ 待核实</span>';
+    if (r.status === 'verified') {
+      statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(52,152,219,0.18); color:#3498db;">📞 已联系</span>';
+    } else if (r.status === 'enrolled') {
+      statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(39,174,96,0.18); color:#2ecc71;">✅ 已入库</span>';
+    }
+
+    // Time format
+    let dateStr = '-';
+    if (r.timestamp) {
+      try {
+        const d = new Date(r.timestamp);
+        dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      } catch(e) {}
+    }
+
+    const typeBadge = isAcad 
+      ? '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(241,196,15,0.15); color:var(--gold);">🏫 常规学院</span>'
+      : '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(46,204,113,0.15); color:#2ecc71;">🏆 营会/赛事</span>';
+
+    const itemTitle = isAcad ? (r.tier || '-') : (r.eventName || '-');
+    const parentInfo = isAcad ? `${r.parentName || '家长'} · ${r.parentPhone || '-'}` : (r.emergency ? `${r.phone || '-'} (紧急:${r.emergency})` : (r.phone || '-'));
+
+    html += `
+      <tr>
+        <td style="font-family:monospace; font-weight:800; color:var(--text);">${r.id}</td>
+        <td style="font-size:11.5px; color:var(--text2); white-space:nowrap;">${dateStr}</td>
+        <td>${typeBadge}</td>
+        <td style="font-weight:700;">${r.cnName || '-'} <span style="font-size:11px; color:var(--text2);">(${r.enName || '-'})</span></td>
+        <td style="font-size:12px;">${r.school || '-'} <span style="color:var(--text2); font-size:11px;">${r.birth ? '· ' + r.birth : ''}</span></td>
+        <td style="font-size:12.5px; font-weight:600; color:var(--text);">${itemTitle}</td>
+        <td style="font-size:12px;">${parentInfo}</td>
+        <td style="font-weight:800; color:var(--gold);">${r.total || '-'}</td>
+        <td>${statusBadge}</td>
+        <td style="text-align:right; white-space:nowrap;">
+          <a href="${waLink}" target="_blank" title="WhatsApp 联系" style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:6px; background:#25D366; color:#fff; text-decoration:none; margin-right:4px;">💬</a>
+          <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:4px 8px; border-radius:6px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:11.5px; cursor:pointer; margin-right:4px;">👁️ 凭单</button>
+          ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入学员库" style="padding:4px 8px; border-radius:6px; background:var(--pri3); border:none; color:#fff; font-size:11.5px; font-weight:700; cursor:pointer; margin-right:4px;">📥 录入</button>` : ''}
+          <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:4px 6px; border-radius:6px; background:rgba(230,57,70,0.1); border:1px solid rgba(230,57,70,0.2); color:#e63946; font-size:11.5px; cursor:pointer;">🗑️</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  tbody.innerHTML = html;
+}
+
+function openRegDetailModal(id) {
+  const r = (window._registrations || []).find(x => x.id === id);
+  if (!r) return;
+
+  const isAcad = (r.type && r.type.includes('常规')) || (r.id && r.id.startsWith('ACAD'));
+  document.getElementById('regModalId').textContent = r.id;
+  document.getElementById('regModalTitle').textContent = isAcad ? '常规棋艺学院入班报名凭单' : '研习营与公开赛个人报名凭单';
+
+  let statusBadge = '⏳ 待核实处理';
+  if (r.status === 'verified') statusBadge = '📞 已跟进联系';
+  if (r.status === 'enrolled') statusBadge = '✅ 已成功录入入库';
+  document.getElementById('regModalBadge').textContent = statusBadge;
+
+  let html = '<div class="tbl-wrap"><table><tbody>';
+  if (isAcad) {
+    html += `
+      <tr><td style="width:120px; font-weight:700; color:var(--text2);">报名类型</td><td>${r.type}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">报读班级</td><td><strong style="color:var(--gold);">${r.tier || '-'}</strong></td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">缴费周期</td><td>${r.payTerm || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">学员姓名</td><td><strong>${r.cnName || '-'}</strong> (${r.enName || '-'}) · ${r.gender || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">出生年份/年龄</td><td>${r.birth || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">就读学校</td><td>${r.school || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">棋艺现状基础</td><td>${r.level || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">家长姓名</td><td>${r.parentName || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">家长 WhatsApp</td><td><strong>${r.parentPhone || '-'}</strong></td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">预估学费</td><td><span style="color:var(--gold); font-weight:800; font-size:15px;">${r.total || '-'}</span></td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">备注需求</td><td>${r.remarks || '无'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">提交时间</td><td>${r.timestamp || '-'}</td></tr>
+    `;
+  } else {
+    html += `
+      <tr><td style="width:120px; font-weight:700; color:var(--text2);">活动名称</td><td><strong style="color:var(--gold);">${r.eventName || '-'}</strong></td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">参赛者姓名</td><td><strong>${r.cnName || '-'}</strong> (${r.enName || '-'}) · ${r.gender || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">身份证 IC</td><td>${r.ic || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">参赛组别</td><td>${r.category || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">代表学校/单位</td><td>${r.school || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">联络电话</td><td><strong>${r.phone || '-'}</strong></td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">紧急联络人</td><td>${r.emergency || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">膳食要求</td><td>${r.diet || '-'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">报名费用</td><td><span style="color:var(--gold); font-weight:800; font-size:15px;">${r.total || '-'}</span></td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">备注说明</td><td>${r.remarks || '无'}</td></tr>
+      <tr><td style="font-weight:700; color:var(--text2);">提交时间</td><td>${r.timestamp || '-'}</td></tr>
+    `;
+  }
+  html += '</tbody></table></div>';
+  document.getElementById('regModalContent').innerHTML = html;
+
+  // WhatsApp button
+  const phone = isAcad ? (r.parentPhone || '') : (r.phone || r.emergency || '');
+  const cleanPhone = phone.replace(/[^0-9]/g, '');
+  const waNumber = cleanPhone.startsWith('60') ? cleanPhone : (cleanPhone.startsWith('0') ? '60' + cleanPhone.substring(1) : cleanPhone);
+  const waMsg = encodeURIComponent(`您好！我是百乐象棋俱乐部教练，关于贵子弟【${r.cnName || ''}】的在线报名（凭单号：${r.id}），我们已收到，特向您跟进核实！`);
+  document.getElementById('regModalWaBtn').href = `https://wa.me/${waNumber}?text=${waMsg}`;
+
+  // Enroll button
+  const enrollBtn = document.getElementById('regModalEnrollBtn');
+  if (isAcad) {
+    enrollBtn.style.display = 'inline-block';
+    enrollBtn.onclick = () => { closeRegDetailModal(); enrollStudentFromReg(id); };
+  } else {
+    enrollBtn.style.display = 'none';
+  }
+
+  // Delete button
+  document.getElementById('regModalDelBtn').onclick = () => {
+    closeRegDetailModal();
+    deleteRegRecord(id);
+  };
+
+  document.getElementById('regDetailModal').style.display = 'flex';
+}
+
+function closeRegDetailModal() {
+  const modal = document.getElementById('regDetailModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function enrollStudentFromReg(id) {
+  const r = (window._registrations || []).find(x => x.id === id);
+  if (!r) return;
+
+  // Pre-fill fields in panel-students
+  if (document.getElementById('qName')) document.getElementById('qName').value = r.cnName || '';
+  if (document.getElementById('qEn')) document.getElementById('qEn').value = r.enName || '';
+  if (document.getElementById('qSchool')) document.getElementById('qSchool').value = r.school || '';
+  if (document.getElementById('qPhone')) document.getElementById('qPhone').value = r.parentPhone || r.phone || '';
+
+  // Match level
+  const qLevel = document.getElementById('qLevel');
+  if (qLevel && r.tier) {
+    if (r.tier.includes('进阶') || r.tier.includes('Tahap 3') || r.tier.includes('Tahap 4')) {
+      qLevel.value = 'Lv 2 进阶班';
+    } else if (r.tier.includes('精英') || r.tier.includes('Tahap 5') || r.tier.includes('Tahap 6')) {
+      qLevel.value = 'Lv 3 精英班';
+    } else {
+      qLevel.value = 'Lv 1 启蒙班';
+    }
+  }
+
+  // Match fee mode
+  const qFee = document.getElementById('qFee');
+  if (qFee && r.payTerm) {
+    if (r.payTerm.includes('季度') || r.payTerm.includes('3个')) {
+      qFee.value = 'Combo 季度 (RM200)';
+    } else {
+      qFee.value = '月缴 (RM70)';
+    }
+  }
+
+  // Update status to enrolled
+  updateRegStatus(id, 'enrolled');
+
+  // Switch to students tab
+  switchTab('students');
+
+  // Scroll to form
+  const formCard = document.querySelector('#panel-students .form-card');
+  if (formCard) formCard.scrollIntoView({ behavior: 'smooth' });
+
+  toast(`已自动填入【${r.cnName}】的报名信息，请核对后点击【立即建档入库】！`, 'success');
+}
+
+async function updateRegStatus(id, newStatus) {
+  // Update in local memory
+  const r = (window._registrations || []).find(x => x.id === id);
+  if (r) r.status = newStatus;
+
+  // Update in localStorage
+  try {
+    let list = JSON.parse(localStorage.getItem('cxb_registrations') || '[]');
+    let localItem = list.find(x => x.id === id);
+    if (localItem) localItem.status = newStatus;
+    localStorage.setItem('cxb_registrations', JSON.stringify(list));
+  } catch(e) {}
+
+  // Update in cloud
+  try {
+    fetch(GAS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'updateRegistrationStatus', id, status: newStatus })
+    });
+  } catch(e) {}
+
+  updateRegBadgeCount();
+  updateRegStats();
+  renderRegistrationList();
+}
+
+async function deleteRegRecord(id) {
+  if (!confirm(`确定要删除报名凭单【${id}】吗？删除后不可恢复。`)) return;
+
+  window._registrations = (window._registrations || []).filter(x => x.id !== id);
+
+  // Update in localStorage
+  try {
+    let list = JSON.parse(localStorage.getItem('cxb_registrations') || '[]');
+    list = list.filter(x => x.id !== id);
+    localStorage.setItem('cxb_registrations', JSON.stringify(list));
+  } catch(e) {}
+
+  // Delete in cloud
+  try {
+    fetch(GAS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'deleteRegistration', id })
+    });
+  } catch(e) {}
+
+  updateRegBadgeCount();
+  updateRegStats();
+  renderRegistrationList();
+  toast('已删除报名记录。', 'info');
+}
+
+function exportRegistrationsCSV() {
+  const regs = window._registrations || [];
+  if (regs.length === 0) {
+    toast('暂无可导出的报名记录！', 'warning');
+    return;
+  }
+
+  let csv = '\uFEFF凭单编号,提交时间,报名类别,学员中文名,英文全名,性别,年龄/出生,就读学校,棋艺基础/组别,报读班级/活动,缴费周期/膳食,家长姓名/紧急联系人,联络电话,费用总额,审核状态,备注信息\n';
+  regs.forEach(r => {
+    const isAcad = (r.type && r.type.includes('常规')) || (r.id && r.id.startsWith('ACAD'));
+    const esc = str => '"' + String(str || '').replace(/"/g, '""') + '"';
+    csv += [
+      esc(r.id),
+      esc(r.timestamp),
+      esc(r.type),
+      esc(r.cnName),
+      esc(r.enName),
+      esc(r.gender),
+      esc(r.birth || r.age),
+      esc(r.school),
+      esc(isAcad ? r.level : r.category),
+      esc(isAcad ? r.tier : r.eventName),
+      esc(isAcad ? r.payTerm : r.diet),
+      esc(isAcad ? r.parentName : r.emergency),
+      esc(isAcad ? r.parentPhone : r.phone),
+      esc(r.total),
+      esc(r.status === 'enrolled' ? '已入库' : (r.status === 'verified' ? '已联系' : '待核实')),
+      esc(r.remarks)
+    ].join(',') + '\n';
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+  a.download = `cxb_registrations_${dateStr}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('已成功导出报名记录 CSV！', 'success');
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('cxb_lang_pref') || 'zh';
   changeGlobalLang(saved);
+  loadRegistrations();
 });
 </script>
 
