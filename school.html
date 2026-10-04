@@ -7,6 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;800;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style id="printPageStyle">
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm 8mm 10mm;
+    }
+  </style>
   <style>
     :root {
   /* ========================================================
@@ -155,16 +161,141 @@
     /* APP CONTAINER */
     #schoolApp { display: none; }
     .nav-header {
-      background: var(--pri);
+      background: var(--top-color) !important;
+      backdrop-filter: blur(var(--top-blur)) !important;
+      -webkit-backdrop-filter: blur(var(--top-blur)) !important;
+      border-bottom: 1px solid rgba(241, 196, 15, 0.2);
       color: #FFF;
-      padding: 14px 24px;
+      padding: 11px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+    }
+    .nav-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-brand-emblem {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(241,196,15,0.7);
+      box-shadow: 0 0 14px rgba(241,196,15,0.25);
+    }
+    .nav-brand-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFF;
+      letter-spacing: -0.2px;
+    }
+    .nav-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(39, 174, 96, 0.15);
+      border: 1px solid rgba(39, 174, 96, 0.4);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      color: #2ECC71;
+      font-weight: 700;
+    }
+    .nav-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2ECC71;
+      box-shadow: 0 0 8px #2ECC71;
+      display: inline-block;
+      animation: livePulse 2s infinite;
+    }
+    @keyframes livePulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .nav-brand-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 1px;
+    }
+    .nav-actions-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-tool-btn {
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 980px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.05);
+      color: #FFF;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    .nav-tool-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .nav-tool-blue {
+      border-color: rgba(52, 152, 219, 0.35);
+      background: rgba(52, 152, 219, 0.08);
+      color: #E0F2FE;
+    }
+    .nav-tool-blue:hover {
+      border-color: rgba(52, 152, 219, 0.65);
+      background: rgba(52, 152, 219, 0.18);
+      box-shadow: 0 4px 14px rgba(52, 152, 219, 0.25);
+    }
+    .nav-tool-gold {
+      border-color: rgba(241, 196, 15, 0.4);
+      background: rgba(241, 196, 15, 0.09);
+      color: #FEF3C7;
+    }
+    .nav-tool-gold:hover {
+      border-color: rgba(241, 196, 15, 0.7);
+      background: rgba(241, 196, 15, 0.18);
+      box-shadow: 0 4px 14px rgba(241, 196, 15, 0.25);
+    }
+    .nav-tool-cert {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.12) 100%);
+      color: #FDE68A;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.15);
+    }
+    .nav-tool-cert:hover {
+      border-color: rgba(245, 158, 11, 0.8);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(217, 119, 6, 0.22) 100%);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+    }
+    .nav-tool-logout {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.06);
+      color: #FCA5A5;
+      padding: 7px 12px;
+    }
+    .nav-tool-logout:hover {
+      border-color: rgba(239, 68, 68, 0.65);
+      background: rgba(239, 68, 68, 0.2);
     }
     .main-wrap {
       max-width: 1100px;
@@ -439,17 +570,25 @@
     @media print {
       @page {
         size: A4 portrait;
-        margin: 10mm 12mm 12mm 12mm;
+        margin: 8mm 10mm 8mm 10mm;
       }
       html, body {
         background: #FFF !important;
         color: #000 !important;
         padding: 0 !important;
         margin: 0 !important;
-        font-size: 10pt;
+        min-height: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        font-size: 9.5pt;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Noto Sans SC", sans-serif !important;
       }
-      /* Hide ALL interactive screen elements */
+      body::before, body::after {
+        display: none !important;
+      }
+      /* Hide ALL screen and layout elements */
+      #schoolApp,
+      .main-wrap,
       .public-nav-bar,
       .nav-header,
       .no-print,
@@ -459,12 +598,18 @@
       #appleMegaMenu,
       #appleMegaBackdrop,
       #projectorModal,
+      #certificateModal,
       #securityLockOverlay,
       .card,
       #setupCard,
       #activeTournamentSection,
       .print-header {
         display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
       }
       /* Show ONLY the official print container */
       #officialPrintContainer {
@@ -477,19 +622,22 @@
       }
     }
 
+    /* COMPACT A4 OFFICIAL TOURNAMENT REPORT */
     .print-doc-page {
       padding: 0;
       color: #000;
+      page-break-after: avoid !important;
+      page-break-inside: avoid !important;
     }
     .print-doc-header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 8px;
+      gap: 12px;
+      margin-bottom: 4px;
     }
     .print-doc-logo {
-      width: 62px;
-      height: 62px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: cover;
     }
@@ -497,37 +645,37 @@
       flex: 1;
     }
     .print-brand-main {
-      font-size: 11pt;
+      font-size: 10pt;
       font-weight: 900;
       letter-spacing: 0.5px;
       color: #1A3144;
     }
     .print-brand-sub {
-      font-size: 8.5pt;
+      font-size: 8pt;
       font-weight: 700;
       color: #555;
       margin-top: 1px;
     }
     .print-doc-title {
-      font-size: 15pt;
+      font-size: 13.5pt;
       font-weight: 900;
       color: #000;
-      margin-top: 4px;
+      margin-top: 2px;
     }
     .print-header-divider {
-      border-bottom: 3px double #111;
-      margin: 8px 0 12px;
+      border-bottom: 2px double #111;
+      margin: 4px 0 8px;
     }
     .print-meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px 16px;
+      gap: 4px 12px;
       background: #F8F9FA;
       border: 1px solid #D1D5DB;
       border-radius: 6px;
-      padding: 8px 14px;
-      margin-bottom: 12px;
-      font-size: 9pt;
+      padding: 6px 12px;
+      margin-bottom: 8px;
+      font-size: 8.5pt;
     }
     .print-meta-item {
       display: flex;
@@ -544,13 +692,13 @@
     .official-print-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 9.5pt;
-      margin-bottom: 18px;
+      font-size: 9pt;
+      margin-bottom: 10px;
       page-break-inside: auto;
     }
     .official-print-table th, .official-print-table td {
       border: 1px solid #333;
-      padding: 6px 8px;
+      padding: 4px 6px;
       vertical-align: middle;
     }
     .official-print-table th {
@@ -566,29 +714,29 @@
     .print-sign-block {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 14px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 10px;
       page-break-inside: avoid;
     }
     .print-sign-col {
       border: 1px dashed #888;
       border-radius: 6px;
-      padding: 10px;
+      padding: 6px 8px;
       text-align: center;
-      min-height: 105px;
+      min-height: 80px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
     .print-sign-title {
-      font-size: 8.5pt;
+      font-size: 8pt;
       font-weight: 800;
       color: #222;
       border-bottom: 1px solid #DDD;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
     }
     .print-sign-name, .print-sign-date {
-      font-size: 8pt;
+      font-size: 7.5pt;
       color: #555;
       text-align: left;
     }
@@ -596,11 +744,11 @@
       align-items: center;
     }
     .print-stamp-box {
-      margin: 4px auto;
+      margin: 2px auto;
     }
     .print-stamp-circle {
-      width: 58px;
-      height: 58px;
+      width: 48px;
+      height: 48px;
       border: 2px dashed #B3262D;
       border-radius: 50%;
       display: flex;
@@ -608,24 +756,302 @@
       align-items: center;
       justify-content: center;
       color: #B3262D;
-      font-size: 6.5pt;
+      font-size: 6pt;
       font-weight: 900;
       line-height: 1.1;
       text-transform: uppercase;
       transform: rotate(-6deg);
     }
     .print-cert-code {
-      font-size: 7.5pt;
+      font-size: 7pt;
       color: #666;
       font-weight: 700;
     }
     .print-doc-footer {
-      margin-top: 10px;
+      margin-top: 6px;
       text-align: center;
-      font-size: 8pt;
+      font-size: 7pt;
       color: #777;
       border-top: 1px solid #DDD;
+      padding-top: 4px;
+    }
+
+    /* OFFICIAL CERTIFICATE (SIJIL) A4 LANDSCAPE STYLES */
+    .print-cert-sheet {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      min-height: 185mm;
+      max-height: 196mm;
+      padding: 10mm 15mm;
+      margin: 0 auto;
+      page-break-after: always;
+      page-break-inside: avoid;
+      background: #FFFFFF;
+      color: #111;
+      position: relative;
+      font-family: "Noto Serif SC", Georgia, "Times New Roman", serif;
+      border: 8px double #C59B27;
+      outline: 2px solid #1A3144;
+      outline-offset: -12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .print-cert-sheet:last-child {
+      page-break-after: avoid;
+    }
+    .cert-corner-deco {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 2px solid #C59B27;
+    }
+    .cert-tl { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+    .cert-tr { top: 16px; right: 16px; border-left: none; border-bottom: none; }
+    .cert-bl { bottom: 16px; left: 16px; border-right: none; border-top: none; }
+    .cert-br { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+    .cert-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+    .cert-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid #C59B27;
+    }
+    .cert-org-main {
+      font-size: 13pt;
+      font-weight: 900;
+      color: #0E2F44;
+      letter-spacing: 1px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .cert-org-sub {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 0.5px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .cert-badge-ribbon {
+      display: inline-block;
+      margin: 4px auto;
+      padding: 2px 18px;
+      background: #FFFDF5;
+      border-top: 1px solid #C59B27;
+      border-bottom: 1px solid #C59B27;
+      color: #9A7B1C;
+      font-size: 8.5pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .cert-title-bm {
+      font-size: 22pt;
+      font-weight: 900;
+      color: #0E2F44;
+      letter-spacing: 2px;
+      margin: 4px 0 1px;
+      text-transform: uppercase;
+    }
+    .cert-title-zh {
+      font-size: 13.5pt;
+      font-weight: 800;
+      color: #C59B27;
+      letter-spacing: 4px;
+      margin-bottom: 6px;
+    }
+    .cert-body-p {
+      font-size: 9.5pt;
+      color: #444;
+      margin: 2px 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .cert-recipient-name {
+      font-size: 20pt;
+      font-weight: 900;
+      color: #111;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+      text-decoration-thickness: 1.5px;
+      margin: 6px 0;
+      letter-spacing: 1px;
+    }
+    .cert-award-pill {
+      display: inline-block;
+      padding: 5px 22px;
+      border-radius: 30px;
+      background: #FDF4D8;
+      border: 1.5px solid #C59B27;
+      color: #8A6407;
+      font-size: 12pt;
+      font-weight: 900;
+      margin: 5px auto;
+      letter-spacing: 1.5px;
+    }
+    .cert-tourney-name {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #0E2F44;
+      margin: 3px 0;
+    }
+    .cert-footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: flex-end;
+      gap: 16px;
+      margin-top: 10px;
       padding-top: 6px;
+    }
+    .cert-sign-col {
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .cert-sign-line {
+      width: 140px;
+      margin: 0 auto 4px;
+      border-bottom: 1px solid #333;
+      height: 28px;
+    }
+    .cert-sign-title {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #222;
+    }
+    .cert-sign-sub {
+      font-size: 7pt;
+      color: #666;
+    }
+    .cert-seal-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .cert-seal-circle {
+      width: 54px;
+      height: 54px;
+      border: 2px dashed #B3262D;
+      border-radius: 50%;
+      color: #B3262D;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 6pt;
+      font-weight: 900;
+      transform: rotate(-6deg);
+    }
+    .cert-no {
+      font-size: 7pt;
+      color: #888;
+      margin-top: 4px;
+      font-family: monospace;
+    }
+
+    /* CERTIFICATE MODAL STYLES */
+    .cert-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 12, 23, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 99990;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .cert-modal-backdrop.show {
+      display: flex !important;
+    }
+    .cert-modal-card {
+      background: rgba(6, 23, 36, 0.95);
+      border: 1px solid rgba(241, 196, 15, 0.3);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 35px rgba(241,196,15,0.08);
+      overflow: hidden;
+      animation: modalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .cert-modal-header {
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .cert-modal-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFF;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .cert-modal-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+    .cert-modal-body {
+      padding: 20px 24px;
+    }
+    .cert-opt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .cert-opt-card {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: block;
+    }
+    .cert-opt-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(241, 196, 15, 0.4);
+    }
+    .cert-opt-card.active {
+      background: rgba(241, 196, 15, 0.1);
+      border-color: #F1C40F;
+      box-shadow: 0 0 16px rgba(241, 196, 15, 0.12);
+    }
+    .cert-opt-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FFF;
+    }
+    .cert-opt-desc {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 3px;
+    }
+    .cert-modal-footer {
+      padding: 16px 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.15);
     }
   
     /* SECURITY TERMINATION MODAL & LOCK OVERLAY */
@@ -1108,14 +1534,17 @@ function updateSeg(lang) {
 <div id="schoolApp">
   <!-- TOPBAR -->
   <div class="nav-header">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <img src="cxb_round_emblem.png" alt="CXQB Logo" style="width:38px; height:38px; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.25); border:1.5px solid rgba(241,196,15,0.6);">
+    <div class="nav-brand-wrap">
+      <img src="cxb_round_emblem.png" alt="CXQB Logo" class="nav-brand-emblem">
       <div>
-        <div style="font-size:16px; font-weight:900; color:#fff;" id="appSchoolTitle">校内象棋锦标赛控制台</div>
-        <div style="font-size:11px; opacity:0.85; color:rgba(255,255,255,0.7);" id="appSchoolSub">Club XiangQi Bera Pairing System · 官方赛事管理</div>
+        <div class="nav-brand-title-wrap">
+          <span class="nav-brand-title" id="appSchoolTitle">校内象棋锦标赛控制台</span>
+          <span class="nav-live-badge"><span class="nav-live-dot"></span><span id="appLiveStatus">官方认证节点 · LIVE</span></span>
+        </div>
+        <div class="nav-brand-sub" id="appSchoolSub">Persatuan Catur Cina Daerah Bera · 官方赛事技术引擎</div>
       </div>
     </div>
-    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+    <div class="nav-actions-wrap">
       <!-- In-system ZH / BM / EN language switch -->
       <div class="nav-lang-bar" id="appLangBar">
         <button type="button" class="nav-lang-chip active" id="sys_lang_zh" onclick="setSystemLang('zh')">中</button>
@@ -1123,14 +1552,17 @@ function updateSeg(lang) {
         <button type="button" class="nav-lang-chip" id="sys_lang_en" onclick="setSystemLang('en')">EN</button>
       </div>
 
-      <button class="btn btn-outline topbar-btn" id="btnSysProjector" onclick="openProjector()">
-        🖥️ 投影仪大屏
+      <button class="nav-tool-btn nav-tool-blue" id="btnSysProjector" onclick="openProjector()">
+        🖥️ <span id="btnSysProjectorText">大屏投影</span>
       </button>
-      <button class="btn btn-outline topbar-btn" id="btnSysPrint" onclick="printSchoolReport('standings')">
-        🖨️ 打印成绩单
+      <button class="nav-tool-btn nav-tool-gold" id="btnSysPrint" onclick="printSchoolReport('standings')">
+        🖨️ <span id="btnSysPrintText">打印成绩</span>
       </button>
-      <button class="btn btn-outline topbar-btn-sm" id="btnSysLogout" onclick="schoolLogout()">
-        退出
+      <button class="nav-tool-btn nav-tool-cert" id="btnSysCert" onclick="openCertificateModal()">
+        🏅 <span id="btnSysCertText">荣誉奖状</span>
+      </button>
+      <button class="nav-tool-btn nav-tool-logout" id="btnSysLogout" onclick="schoolLogout()">
+        <span id="btnSysLogoutText">退出</span>
       </button>
     </div>
   </div>
@@ -1263,6 +1695,63 @@ function updateSeg(lang) {
 <!-- OFFICIAL A4 CERTIFICATE & RESULTS PRINT CONTAINER (ONLY VISIBLE IN PRINT) -->
 <div id="officialPrintContainer"></div>
 
+<!-- 4. OFFICIAL CERTIFICATE (SIJIL) GENERATION MODAL -->
+<div id="certificateModal" class="cert-modal-backdrop">
+  <div class="cert-modal-card">
+    <div class="cert-modal-header">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:26px;">🏅</span>
+        <div>
+          <h3 id="certModalTitle" style="font-size:17px; font-weight:900; color:#FFF; margin:0;">官方荣誉奖状生成中心 (Sijil Rasmi)</h3>
+          <div id="certModalSub" style="font-size:11.5px; color:rgba(255,255,255,0.65); margin-top:2px;">百乐县象棋公会认证 · 自动匹配 PAJSK 课外活动标准格式</div>
+        </div>
+      </div>
+      <button class="cert-modal-close" onclick="closeCertificateModal()">✕</button>
+    </div>
+
+    <div class="cert-modal-body">
+      <div style="margin-bottom:16px;">
+        <label id="certLblMode" style="display:block; font-size:13px; font-weight:800; color:#E0E8F0; margin-bottom:8px;">选择打印模式 / Mode Cetakan</label>
+        <div class="cert-opt-grid">
+          <label class="cert-opt-card active" onclick="selectCertMode('winners')">
+            <input type="radio" name="certPrintMode" value="winners" checked style="display:none;">
+            <div style="font-size:18px; margin-bottom:4px;">🏆</div>
+            <div class="cert-opt-title" id="certOptWinnersTitle">前四强荣誉奖状 (Sijil Kejohanan)</div>
+            <div class="cert-opt-desc" id="certOptWinnersDesc">自动生成 Johan（冠）、Naib Johan（亚）、Ketiga（季）、Keempat（殿军）官方奖状</div>
+          </label>
+          <label class="cert-opt-card" onclick="selectCertMode('all')">
+            <input type="radio" name="certPrintMode" value="all" style="display:none;">
+            <div style="font-size:18px; margin-bottom:4px;">📜</div>
+            <div class="cert-opt-title" id="certOptAllTitle">全体参赛证明 (Sijil Penyertaan)</div>
+            <div class="cert-opt-desc" id="certOptAllDesc">为所有参赛名单批量生成 A4 横版参赛证明（含 PAJSK 报备印章）</div>
+          </label>
+          <label class="cert-opt-card" onclick="selectCertMode('single')">
+            <input type="radio" name="certPrintMode" value="single" style="display:none;">
+            <div style="font-size:18px; margin-bottom:4px;">👤</div>
+            <div class="cert-opt-title" id="certOptSingleTitle">指定单人奖状 (Individu)</div>
+            <div class="cert-opt-desc" id="certOptSingleDesc">自由指定并打印任一参赛学生的独立奖状</div>
+          </label>
+        </div>
+      </div>
+
+      <div id="certSinglePlayerWrap" style="display:none; margin-bottom:16px;">
+        <label id="certLblPlayer" style="display:block; font-size:13px; font-weight:800; color:#E0E8F0; margin-bottom:6px;">选择选手姓名</label>
+        <select id="certPlayerSelect" class="form-control-glass"></select>
+      </div>
+
+      <div style="background:rgba(241,196,15,0.06); border:1px solid rgba(241,196,15,0.25); border-radius:10px; padding:12px; font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;">
+        <div style="font-weight:800; color:#F1C40F; margin-bottom:2px;" id="certTipsTitle">💡 打印说明 (Tips)</div>
+        <div id="certTipsBody">系统将自动为奖状配置 <strong>A4 横版 (Landscape)</strong> 经典典雅排版与百乐县象棋公会认证防伪印章。点击打印后，在浏览器打印预览中确认纸张方向为横向即可。</div>
+      </div>
+    </div>
+
+    <div class="cert-modal-footer">
+      <button class="btn btn-outline" onclick="closeCertificateModal()" id="btnCertClose">关闭</button>
+      <button class="btn btn-pri-gold" onclick="executeCertPrint()" id="btnCertPrintNow">🖨️ 立即生成并打印</button>
+    </div>
+  </div>
+</div>
+
 <!-- 3. PROJECTOR / TV BIG DISPLAY MODAL -->
 <div id="projectorModal">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #23435C; padding-bottom:16px;">
@@ -1326,10 +1815,26 @@ const I18N = {
     errNet: '⚠️ 无法连接云端安全鉴权网关，请检查网络！',
     btnVerifying: '⏳ 正在通过 Cloudflare 安全验证...',
     appTitle: '校内象棋锦标赛控制台',
-    appSub: 'Club XiangQi Bera Pairing System · 官方赛事管理',
-    btnProj: '🖥️ 投影仪大屏',
-    btnPrint: '🖨️ 打印成绩单',
+    appSub: 'Persatuan Catur Cina Daerah Bera · 官方赛事技术引擎',
+    liveBadge: '官方认证节点 · LIVE',
+    btnProj: '大屏投影',
+    btnPrint: '打印成绩',
+    btnCert: '荣誉奖状',
     btnLogout: '退出',
+    certModalTitle: '官方荣誉奖状生成中心 (Sijil Rasmi)',
+    certModalSub: '百乐县象棋公会认证 · 自动匹配 PAJSK 课外活动标准格式',
+    certLblMode: '选择打印模式 / Mode Cetakan',
+    certOptWinnersTitle: '前四强荣誉奖状 (Sijil Kejohanan)',
+    certOptWinnersDesc: '自动生成 Johan（冠）、Naib Johan（亚）、Ketiga（季）、Keempat（殿军）官方奖状',
+    certOptAllTitle: '全体参赛证明 (Sijil Penyertaan)',
+    certOptAllDesc: '为所有参赛名单批量生成 A4 横版参赛证明（含 PAJSK 报备印章）',
+    certOptSingleTitle: '指定单人奖状 (Individu)',
+    certOptSingleDesc: '自由指定并打印任一参赛学生的独立奖状',
+    certLblPlayer: '选择选手姓名',
+    certTipsTitle: '💡 打印说明 (Tips)',
+    certTipsBody: '系统将自动为奖状配置 A4 横版 (Landscape) 经典典雅排版与百乐县象棋公会认证防伪印章。点击打印后，在浏览器打印预览中确认纸张方向为横向即可。',
+    certBtnClose: '关闭',
+    certBtnPrint: '🖨️ 立即生成并打印',
     setupTitle: '⚙️ 比赛基本设置',
     setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成百乐象棋对阵编排系统（CXQB）配对与胜负记分。',
     labelTourneyName: '比赛名称 / 所在学校',
@@ -1394,10 +1899,26 @@ const I18N = {
     errNet: '⚠️ Tidak dapat menyambung ke pelayan, sila semak internet!',
     btnVerifying: '⏳ Mengesahkan melalui Cloudflare SSL...',
     appTitle: 'Konsol Kejohanan Catur Sekolah',
-    appSub: 'Sistem Penjadualan CXQB · Pengurusan Kejohanan Rasmi',
-    btnProj: '🖥️ Layar Projektor',
-    btnPrint: '🖨️ Cetak Laporan Rasmi',
+    appSub: 'Persatuan Catur Cina Daerah Bera · Enjin Teknikal Rasmi',
+    liveBadge: 'Nod Rasmi Disahkan · LIVE',
+    btnProj: 'Layar Projektor',
+    btnPrint: 'Cetak Laporan',
+    btnCert: 'Sijil Rasmi',
     btnLogout: 'Keluar',
+    certModalTitle: 'Pusat Penjanaan Sijil Rasmi Kejohanan',
+    certModalSub: 'Disahkan oleh Persatuan Catur Cina Bera · Format Standard PAJSK',
+    certLblMode: 'Pilih Mod Cetakan / Print Mode',
+    certOptWinnersTitle: 'Sijil Kejohanan 4 Terbaik (Johan - Keempat)',
+    certOptWinnersDesc: 'Jana automatik sijil Johan, Naib Johan, Tempat Ketiga dan Keempat',
+    certOptAllTitle: 'Sijil Penyertaan Semua Peserta (Pukal A4)',
+    certOptAllDesc: 'Jana sijil penyertaan untuk semua pemain berdaftar (disahkan untuk PAJSK)',
+    certOptSingleTitle: 'Sijil Individu Tertentu',
+    certOptSingleDesc: 'Pilih dan cetak sijil untuk mana-mana seorang peserta',
+    certLblPlayer: 'Pilih Nama Peserta',
+    certTipsTitle: '💡 Panduan Cetakan (Tips)',
+    certTipsBody: 'Sistem menetapkan format A4 Landskap secara automatik dengan tera mohor rasmi Persatuan Catur Cina Bera. Sila pastikan orientasi cetakan adalah Landskap di tetingkap cetakan.',
+    certBtnClose: 'Tutup',
+    certBtnPrint: '🖨️ Jana & Cetak Sekarang',
     setupTitle: '⚙️ Tetapan Asas Kejohanan',
     setupDesc: 'Hanya tampal senarai nama peserta, sistem akan menjadualkan pusingan dan mengira mata secara automatik.',
     labelTourneyName: 'Nama Kejohanan / Sekolah',
@@ -1462,10 +1983,26 @@ const I18N = {
     errNet: '⚠️ Unable to connect to security gateway. Check network!',
     btnVerifying: '⏳ Authenticating via Cloudflare SSL...',
     appTitle: 'School Tournament Console',
-    appSub: 'Club XiangQi Bera Pairing System · Official Tech Engine',
-    btnProj: '🖥️ Projector Screen',
-    btnPrint: '🖨️ Print Standings',
+    appSub: 'Persatuan Catur Cina Daerah Bera · Official Tech Engine',
+    liveBadge: 'Verified Engine Node · LIVE',
+    btnProj: 'Projector Screen',
+    btnPrint: 'Print Standings',
+    btnCert: 'Certificates',
     btnLogout: 'Logout',
+    certModalTitle: 'Official Certificate Generator (Sijil Rasmi)',
+    certModalSub: 'Verified by Bera Xiangqi Association · Compatible with PAJSK standard',
+    certLblMode: 'Select Print Mode',
+    certOptWinnersTitle: 'Top 4 Championship Certificates (Johan - 4th)',
+    certOptWinnersDesc: 'Auto-generate certificates for Champion, 1st Runner-up, 2nd Runner-up & 4th Place',
+    certOptAllTitle: 'All Participants Certificates (Sijil Penyertaan)',
+    certOptAllDesc: 'Batch print landscape A4 certificates of participation for all registered players',
+    certOptSingleTitle: 'Individual Participant Certificate',
+    certOptSingleDesc: 'Select and print certificate for any specific individual player',
+    certLblPlayer: 'Select Player Name',
+    certTipsTitle: '💡 Printing Tips',
+    certTipsBody: 'The system auto-formats certificates in elegant A4 Landscape with official CXQB seal. Ensure page orientation is set to Landscape in your browser print preview.',
+    certBtnClose: 'Close',
+    certBtnPrint: '🖨️ Generate & Print Now',
     setupTitle: '⚙️ Tournament Setup',
     setupDesc: 'Paste player names below. The CXQB Pairing System will automatically generate matchups and calculate scores.',
     labelTourneyName: 'Tournament / School Name',
@@ -1661,12 +2198,46 @@ function setSystemLang(lang) {
   }
   const appSchoolSub = document.getElementById('appSchoolSub');
   if (appSchoolSub) appSchoolSub.textContent = t.appSub;
-  const btnSysProjector = document.getElementById('btnSysProjector');
-  if (btnSysProjector) btnSysProjector.textContent = t.btnProj;
-  const btnSysPrint = document.getElementById('btnSysPrint');
-  if (btnSysPrint) btnSysPrint.textContent = t.btnPrint;
-  const btnSysLogout = document.getElementById('btnSysLogout');
-  if (btnSysLogout) btnSysLogout.textContent = t.btnLogout;
+  const appLiveStatus = document.getElementById('appLiveStatus');
+  if (appLiveStatus) appLiveStatus.textContent = t.liveBadge;
+  const btnSysProjectorText = document.getElementById('btnSysProjectorText');
+  if (btnSysProjectorText) btnSysProjectorText.textContent = t.btnProj;
+  const btnSysPrintText = document.getElementById('btnSysPrintText');
+  if (btnSysPrintText) btnSysPrintText.textContent = t.btnPrint;
+  const btnSysCertText = document.getElementById('btnSysCertText');
+  if (btnSysCertText) btnSysCertText.textContent = t.btnCert;
+  const btnSysLogoutText = document.getElementById('btnSysLogoutText');
+  if (btnSysLogoutText) btnSysLogoutText.textContent = t.btnLogout;
+
+  // Certificate Modal i18n
+  const certModalTitle = document.getElementById('certModalTitle');
+  if (certModalTitle && t.certModalTitle) certModalTitle.textContent = t.certModalTitle;
+  const certModalSub = document.getElementById('certModalSub');
+  if (certModalSub && t.certModalSub) certModalSub.textContent = t.certModalSub;
+  const certLblMode = document.getElementById('certLblMode');
+  if (certLblMode && t.certLblMode) certLblMode.textContent = t.certLblMode;
+  const certOptWinnersTitle = document.getElementById('certOptWinnersTitle');
+  if (certOptWinnersTitle && t.certOptWinnersTitle) certOptWinnersTitle.textContent = t.certOptWinnersTitle;
+  const certOptWinnersDesc = document.getElementById('certOptWinnersDesc');
+  if (certOptWinnersDesc && t.certOptWinnersDesc) certOptWinnersDesc.textContent = t.certOptWinnersDesc;
+  const certOptAllTitle = document.getElementById('certOptAllTitle');
+  if (certOptAllTitle && t.certOptAllTitle) certOptAllTitle.textContent = t.certOptAllTitle;
+  const certOptAllDesc = document.getElementById('certOptAllDesc');
+  if (certOptAllDesc && t.certOptAllDesc) certOptAllDesc.textContent = t.certOptAllDesc;
+  const certOptSingleTitle = document.getElementById('certOptSingleTitle');
+  if (certOptSingleTitle && t.certOptSingleTitle) certOptSingleTitle.textContent = t.certOptSingleTitle;
+  const certOptSingleDesc = document.getElementById('certOptSingleDesc');
+  if (certOptSingleDesc && t.certOptSingleDesc) certOptSingleDesc.textContent = t.certOptSingleDesc;
+  const certLblPlayer = document.getElementById('certLblPlayer');
+  if (certLblPlayer && t.certLblPlayer) certLblPlayer.textContent = t.certLblPlayer;
+  const certTipsTitle = document.getElementById('certTipsTitle');
+  if (certTipsTitle && t.certTipsTitle) certTipsTitle.textContent = t.certTipsTitle;
+  const certTipsBody = document.getElementById('certTipsBody');
+  if (certTipsBody && t.certTipsBody) certTipsBody.innerHTML = t.certTipsBody;
+  const btnCertClose = document.getElementById('btnCertClose');
+  if (btnCertClose && t.certBtnClose) btnCertClose.textContent = t.certBtnClose;
+  const btnCertPrintNow = document.getElementById('btnCertPrintNow');
+  if (btnCertPrintNow && t.certBtnPrint) btnCertPrintNow.textContent = t.certBtnPrint;
 
   // 4. Update setupCard elements
   const tSetupTitle = document.getElementById('tSetupTitle');
@@ -2618,6 +3189,216 @@ function printSchoolReport(type = 'standings') {
     </div>
   `;
 
+  const printStyle = document.getElementById('printPageStyle');
+  if (printStyle) {
+    printStyle.textContent = '@page { size: A4 portrait; margin: 8mm 10mm 8mm 10mm; }';
+  }
+
+  window.print();
+}
+
+// --- OFFICIAL CERTIFICATE (SIJIL) PRINT ENGINE ---
+function openCertificateModal() {
+  const modal = document.getElementById('certificateModal');
+  if (!modal) return;
+
+  const sel = document.getElementById('certPlayerSelect');
+  if (sel) {
+    let players = [];
+    if (schoolTourney && schoolTourney.players && schoolTourney.players.length > 0) {
+      const standings = calcSchoolStandings();
+      players = standings.map(s => s.name);
+    } else {
+      players = getEnteredPlayerNames();
+    }
+    if (players.length > 0) {
+      sel.innerHTML = players.map((name, i) => `<option value="${i}">${i + 1}. ${name}</option>`).join('');
+    } else {
+      sel.innerHTML = '<option value="">(尚未录入选手名单 / Tiada Peserta)</option>';
+    }
+  }
+
+  modal.classList.add('show');
+}
+
+function closeCertificateModal() {
+  const modal = document.getElementById('certificateModal');
+  if (modal) modal.classList.remove('show');
+}
+
+function selectCertMode(mode) {
+  document.querySelectorAll('.cert-opt-card').forEach(c => c.classList.remove('active'));
+  const radio = document.querySelector(`input[name="certPrintMode"][value="${mode}"]`);
+  if (radio) {
+    radio.checked = true;
+    radio.closest('.cert-opt-card').classList.add('active');
+  }
+  const singleWrap = document.getElementById('certSinglePlayerWrap');
+  if (singleWrap) {
+    singleWrap.style.display = (mode === 'single') ? 'block' : 'none';
+  }
+}
+
+function executeCertPrint() {
+  const radio = document.querySelector('input[name="certPrintMode"]:checked');
+  const mode = radio ? radio.value : 'winners';
+  const playerIdx = document.getElementById('certPlayerSelect')?.value;
+  closeCertificateModal();
+  printSchoolCertificates(mode, playerIdx);
+}
+
+function printSchoolCertificates(mode = 'winners', targetIdx = null) {
+  const container = document.getElementById('officialPrintContainer');
+  if (!container) return;
+
+  const printStyle = document.getElementById('printPageStyle');
+  if (printStyle) {
+    printStyle.textContent = '@page { size: A4 landscape; margin: 6mm 8mm 6mm 8mm; }';
+  }
+
+  const t = I18N[currentLang] || I18N.zh;
+  const now = new Date();
+  const dateStrZh = `${now.getFullYear()} 年 ${now.getMonth() + 1} 月 ${now.getDate()} 日`;
+  const dateStrBm = `${now.getDate()} / ${now.getMonth() + 1} / ${now.getFullYear()}`;
+
+  const tourneyName = (schoolTourney && schoolTourney.name)
+    ? schoolTourney.name
+    : ((document.getElementById('schTourneyName') && document.getElementById('schTourneyName').value.trim()) || '校内象棋锦标赛');
+
+  let playerRecords = [];
+  if (schoolTourney && schoolTourney.players && schoolTourney.players.length > 0) {
+    const standings = calcSchoolStandings();
+    playerRecords = standings.map((st, idx) => ({
+      name: st.name,
+      rank: idx + 1,
+      totalPts: st.totalPts,
+      buchholz: st.buchholz
+    }));
+  } else {
+    const names = getEnteredPlayerNames();
+    playerRecords = names.map((name, idx) => ({
+      name: name,
+      rank: idx + 1,
+      totalPts: 0,
+      buchholz: 0
+    }));
+  }
+
+  if (playerRecords.length === 0) {
+    playerRecords = [{ name: '参赛学生姓名 (Player Name)', rank: 1, totalPts: 0, buchholz: 0 }];
+  }
+
+  let targetList = [];
+  if (mode === 'winners') {
+    targetList = playerRecords.slice(0, 4);
+    if (targetList.length === 0) targetList = playerRecords.slice(0, 1);
+  } else if (mode === 'single') {
+    const idx = parseInt(targetIdx, 10);
+    const chosen = (idx >= 0 && idx < playerRecords.length) ? playerRecords[idx] : playerRecords[0];
+    targetList = [chosen];
+  } else {
+    // 'all'
+    targetList = playerRecords;
+  }
+
+  const sheetsHTML = targetList.map((p, itemIdx) => {
+    let awardTitleBm = 'SIJIL PENYERTAAN';
+    let awardTitleZh = '参赛证明';
+    let awardPill = '📜 PENYERTAAN · 参赛优胜';
+    let rankBadgeColor = '#1A5276';
+
+    if (p.rank === 1) {
+      awardTitleBm = 'SIJIL PENCAPAIAN (JOHAN)';
+      awardTitleZh = '冠军 荣誉奖状';
+      awardPill = '🥇 JOHAN (JUARA) · 冠军';
+      rankBadgeColor = '#C59B27';
+    } else if (p.rank === 2) {
+      awardTitleBm = 'SIJIL PENCAPAIAN (NAIB JOHAN)';
+      awardTitleZh = '亚军 荣誉奖状';
+      awardPill = '🥈 NAIB JOHAN · 亚军';
+      rankBadgeColor = '#85929E';
+    } else if (p.rank === 3) {
+      awardTitleBm = 'SIJIL PENCAPAIAN (TEMPAT KETIGA)';
+      awardTitleZh = '季军 荣誉奖状';
+      awardPill = '🥉 TEMPAT KETIGA · 季军';
+      rankBadgeColor = '#B9770E';
+    } else if (p.rank === 4) {
+      awardTitleBm = 'SIJIL PENCAPAIAN (TEMPAT KEEMPAT)';
+      awardTitleZh = '殿军 荣誉奖状';
+      awardPill = '🏅 TEMPAT KEEMPAT · 殿军';
+      rankBadgeColor = '#2E4053';
+    }
+
+    const certSerial = `CXQB-SIJIL-${now.getFullYear()}-${String(itemIdx + 1).padStart(3, '0')}`;
+
+    return `
+      <div class="print-cert-sheet">
+        <div class="cert-corner-deco cert-tl"></div>
+        <div class="cert-corner-deco cert-tr"></div>
+        <div class="cert-corner-deco cert-bl"></div>
+        <div class="cert-corner-deco cert-br"></div>
+
+        <div>
+          <!-- HEADER -->
+          <div class="cert-header">
+            <img src="cxb_round_emblem.png" alt="CXQB" class="cert-logo">
+            <div>
+              <div class="cert-org-main">PERSATUAN CATUR CINA DAERAH BERA, PAHANG</div>
+              <div class="cert-org-sub">百乐县象棋公会 · 官方技术认证与赛事评级机构</div>
+            </div>
+          </div>
+
+          <div class="cert-badge-ribbon">★ KEJOHANAN CATUR PERINGKAT SEKOLAH & DAERAH BERA ★</div>
+
+          <!-- TITLE -->
+          <div class="cert-title-bm">${awardTitleBm}</div>
+          <div class="cert-title-zh">${awardTitleZh}</div>
+        </div>
+
+        <!-- RECIPIENT & BODY -->
+        <div style="margin: 8px 0;">
+          <div class="cert-body-p">Dengan ini diperakui bahawa / 兹证明：</div>
+          <div class="cert-recipient-name">${p.name}</div>
+          <div class="cert-body-p">
+            telah menyertai dan menunjukkan prestasi cemerlang dalam kejohanan / 参加以下赛事并荣获：
+          </div>
+          <div class="cert-award-pill" style="border-color:${rankBadgeColor}; color:${rankBadgeColor};">
+            ${awardPill}
+          </div>
+          <div class="cert-tourney-name">${tourneyName}</div>
+          <div class="cert-body-p" style="font-size:8.5pt; color:#666;">
+            Tarikh / 比赛日期: ${dateStrBm} (${dateStrZh})
+          </div>
+        </div>
+
+        <!-- FOOTER & SIGNATURES -->
+        <div class="cert-footer-grid">
+          <div class="cert-sign-col">
+            <div class="cert-sign-line"></div>
+            <div class="cert-sign-title">Pengerusi Persatuan Catur Cina Daerah Bera</div>
+            <div class="cert-sign-sub">百乐县象棋公会会长</div>
+          </div>
+
+          <div class="cert-seal-wrap">
+            <div class="cert-seal-circle">
+              <span>★ PERSATUAN ★</span>
+              <span>CATUR CINA BERA</span>
+              <span>VERIFIED 2026</span>
+            </div>
+            <div class="cert-no">${certSerial}</div>
+          </div>
+
+          <div class="cert-sign-col">
+            <div class="cert-sign-line"></div>
+            <div class="cert-sign-title">Guru Penasihat / Pihak Sekolah</div>
+            <div class="cert-sign-sub">校方指导老师 / 顾问</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = sheetsHTML;
   window.print();
 }
 
