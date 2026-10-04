@@ -283,7 +283,7 @@
 
     .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#FFF;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(14,47,68,0.2);transition:transform .15s;}
     .submit-btn:hover{transform:scale(1.02);}
-    .submit-btn.green{background:linear-gradient(135deg,var(--green),#2ECC71);}
+    .submit-btn.green{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 4px 16px rgba(16,185,129,0.3);}
 
     /* TABLES */
     .tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.18) transparent;}
@@ -323,7 +323,7 @@
 
     /* TOURNAMENT STYLES */
     .tournament-card { background: var(--card); border-radius: var(--radius); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-    .tournament-card h4 { margin-bottom: 4px; color: var(--pri); font-size: 16px; }
+    .tournament-card h4 { margin-bottom: 4px; color: #FFFFFF; font-size: 16px; }
     .tournament-card .meta { font-size: 12px; color: var(--text2); }
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
     .modal-overlay.show { display: flex; }
@@ -339,7 +339,7 @@
     .board-header { background: var(--bg); padding: 8px 12px; font-weight: 800; font-size: 12px; color: var(--text2); display: flex; justify-content: space-between; }
     .board-players { display: flex; justify-content: space-between; align-items: center; padding: 12px; font-weight: 800; font-size: 14px; }
     .board-players .red { color: var(--red); }
-    .board-players .black { color: var(--pri); }
+    .board-players .black { color: #E2E8F0; }
     .result-btn-group { display: flex; border-top: 1px solid var(--border); }
     .result-btn { flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 800; border: none; border-right: 1px solid var(--border); background: var(--card); cursor: pointer; transition: all .2s; }
     .result-btn:last-child { border-right: none; }
@@ -600,7 +600,7 @@ body::before {
       background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
       padding: 10px 14px; display: flex; flex-direction: column; justify-content: center;
     }
-    .stat-pill-sm .val { font-size: 18px; font-weight: 900; color: var(--pri2); }
+    .stat-pill-sm .val { font-size: 18px; font-weight: 900; color: #60A5FA; }
     .stat-pill-sm .lbl { font-size: 11px; color: var(--text2); font-weight: 700; margin-top: 2px; }
     .stat-pill-sm.green .val { color: var(--green); }
     .stat-pill-sm.orange .val { color: #E67E22; }
@@ -1095,14 +1095,14 @@ function updateSeg(lang) {
     <!-- TAB 3: STUDENTS (ULTRA FAST ADD) -->
     <div class="tab-panel" id="panel-students">
       <div class="form-card">
-        <h3>快速录入新学员</h3>
+        <h3 id="stdFormTitle" style="font-size:18px; font-weight:900; color:#FFFFFF; margin-bottom:14px;">快速录入新学员</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <div><label class="form-label">中文姓名 *</label><input type="text" id="qName" class="form-input" placeholder="如: 张小明"></div>
-          <div><label class="form-label">英文姓名</label><input type="text" id="qEn" class="form-input" placeholder="如: Chong Xiao Ming"></div>
+          <div><label class="form-label" id="stdLblCn">中文姓名 *</label><input type="text" id="qName" class="form-input" placeholder="如: 张小明"></div>
+          <div><label class="form-label" id="stdLblEn">英文姓名</label><input type="text" id="qEn" class="form-input" placeholder="如: Chong Xiao Ming"></div>
         </div>
 
         <div style="margin-top:10px;">
-          <label class="form-label">所在学校 (点击下方标签一键填入)：</label>
+          <label class="form-label" id="stdLblSchool">所在学校 (点击下方标签一键填入)：</label>
           <input type="text" id="qSchool" class="form-input" placeholder="点击下方华小标签自动输入">
           <div class="pill-group">
             <span class="tag-pill" onclick="pickSchool('SJK(C) Triang (1)')">直凉一校</span>
@@ -1117,9 +1117,9 @@ function updateSeg(lang) {
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px; margin-top:10px;">
           <div>
-            <label class="form-label">班级级别</label>
+            <label class="form-label" id="stdLblLevel">班级级别</label>
             <select id="qLevel" class="form-select" onchange="updateFeeOptions()">
               <option value="Tahap 1 零基础启蒙班">Tahap 1 零基础启蒙班</option>
               <option value="Tahap 2 初级基础实战班">Tahap 2 初级基础实战班</option>
@@ -1129,27 +1129,29 @@ function updateSeg(lang) {
             </select>
           </div>
           <div>
-            <label class="form-label">学费模式</label>
+            <label class="form-label" id="stdLblFee">学费模式</label>
             <select id="qFee" class="form-select">
               <option value="季付优惠 (RM99)">季付优惠 (RM99)</option>
               <option value="月缴 (RM39)">月缴 (RM39)</option>
             </select>
           </div>
           <div>
-            <label class="form-label">家长 WhatsApp</label>
+            <label class="form-label" id="stdLblPhone">家长 WhatsApp</label>
             <input type="tel" id="qPhone" class="form-input" placeholder="012-3456789">
           </div>
         </div>
 
-        <button class="submit-btn green" style="margin-top:14px;" onclick="submitFastStudent()">
-          立即建档入库 (自动分配新学号)
-        </button>
+        <div style="display:flex; justify-content:center; margin-top:18px;">
+          <button id="btnSubmitFastStudent" class="btn" style="min-width:320px; max-width:440px; width:100%; padding:12px 28px; background:linear-gradient(135deg, #F1C40F 0%, #D4AC0D 100%); color:#0A1929; border:none; border-radius:10px; font-size:14px; font-weight:900; cursor:pointer; box-shadow:0 4px 16px rgba(241,196,15,0.25); display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 20px rgba(241,196,15,0.4)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 16px rgba(241,196,15,0.25)';" onclick="submitFastStudent()">
+            立即建档入库 (自动分配新学号)
+          </button>
+        </div>
       </div>
 
-      <h3 style="font-size:15px;font-weight:900;margin:20px 0 10px;">全体在册学员档案</h3>
+      <h3 id="stdListTitle" style="font-size:16px;font-weight:900;margin:24px 0 12px; color:#FFFFFF;">全体在册学员档案</h3>
       <div class="tbl-wrap">
         <table>
-          <thead><tr><th>学号</th><th>中文名</th><th>英文名</th><th>性别</th><th>学校</th><th>班级</th><th>ELO</th><th>缴费</th><th style='text-align:center;'>操作</th></tr></thead>
+          <thead><tr><th id="thStdId">学号</th><th id="thStdCn">中文名</th><th id="thStdEn">英文名</th><th id="thStdGender">性别</th><th id="thStdSchool">学校</th><th id="thStdTier">班级</th><th id="thStdElo">ELO</th><th id="thStdPay">缴费</th><th id="thStdAction" style='text-align:center;'>操作</th></tr></thead>
           <tbody id="studentTable"></tbody>
         </table>
       </div>
@@ -1217,13 +1219,13 @@ function updateSeg(lang) {
             <div id="tourneyStatusBadge"></div>
           </div>
           <div class="form-card">
-            <h3 id="manageTitle" style="font-size:20px; font-weight:900; color:var(--pri);">比赛名称</h3>
+            <h3 id="manageTitle" style="font-size:20px; font-weight:900; color:#FFFFFF;">比赛名称</h3>
             <div style="font-size:12px; color:var(--text2); margin:4px 0 16px;">点击轮次圆点可切换查阅历史对阵与赛果：</div>
             <div class="round-timeline" id="roundTimeline"></div>
 
             <div id="pairingsSection">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-weight:800; color:var(--pri2);" id="pairingsHeading">第 1 轮对阵</h4>
+                <h4 style="font-weight:800; color:#F1C40F;" id="pairingsHeading">第 1 轮对阵</h4>
                 <span id="roundProgressText" style="font-size:12px; font-weight:800; color:var(--text2);"></span>
               </div>
               <div id="pairingsList"></div>
@@ -1234,7 +1236,7 @@ function updateSeg(lang) {
               </div>
             </div>
 
-            <h4 style="margin:28px 0 12px; font-weight:900; color:var(--pri2);">实时总积分榜 (Standings & Buchholz)</h4>
+            <h4 style="margin:28px 0 12px; font-weight:900; color:#FFFFFF;">实时总积分榜 (Standings & Buchholz)</h4>
             <div class="tbl-wrap">
               <table class="standings-table">
                 <thead id="standingsHead"></thead>
@@ -1327,21 +1329,21 @@ function updateSeg(lang) {
       <div class="form-card" style="margin-bottom:20px; border:1.5px solid rgba(41,128,185,0.4);">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
           <div>
-            <h3 style="font-size:18px; font-weight:900; color:var(--pri);">Cloudflare Workers + KV 商业租约授权网关</h3>
-            <div style="font-size:12px; color:var(--text2); margin-top:2px;">
+            <h3 id="licPanelTitle" style="font-size:18px; font-weight:900; color:#FFFFFF;">Cloudflare Workers + KV 商业租约授权网关</h3>
+            <div id="licPanelSub" style="font-size:12px; color:rgba(255,255,255,0.65); margin-top:3px;">
               向出租学校一键发放独立激活码 · 支持自动到期销毁 · 银行级防刷防盗用
             </div>
           </div>
-          <span class="badge badge-green" style="font-size:12px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#27AE60;"></span>边缘节点已连通 (cxb-license)</span>
+          <span id="licGatewayBadge" class="badge badge-green" style="font-size:12px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#27AE60;"></span>边缘节点已连通 (cxb-license)</span>
         </div>
 
         <div style="display:grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap:14px; margin-top:16px;">
           <div>
-            <label class="form-label">租用学校名称</label>
+            <label class="form-label" id="licSchoolNameLbl">租用学校名称</label>
             <input type="text" id="licSchoolName" class="form-input" placeholder="例如: 直凉华小 选拔赛">
           </div>
           <div>
-            <label class="form-label">有效天数</label>
+            <label class="form-label" id="licValidDaysLbl">有效天数</label>
             <select id="licValidDays" class="form-select">
               <option value="1">1 天 (临时赛)</option>
               <option value="3" selected>3 天 (常规标准)</option>
@@ -1350,7 +1352,7 @@ function updateSeg(lang) {
             </select>
           </div>
           <div>
-            <label class="form-label">授权赛事层级 (Tier License)</label>
+            <label class="form-label" id="licMaxRoundsLbl">授权赛事层级 (Tier License)</label>
             <select id="licMaxRounds" class="form-select">
               <option value="3">Mini 级 (微型授权 - 最高 3 轮)</option>
               <option value="4" selected>Standard 级 (标准授权 - 最高 4 轮)</option>
@@ -1360,26 +1362,26 @@ function updateSeg(lang) {
             </select>
           </div>
           <div>
-            <label class="form-label">操作</label>
-            <button class="submit-btn green" style="margin-top:0; height:42px; font-size:13px;" onclick="createSchoolLicense()">
+            <label class="form-label" id="licActionLbl">操作</label>
+            <button id="btnCreateSchoolLicense" class="btn" style="margin-top:0; height:42px; width:100%; font-size:13px; font-weight:800; background:linear-gradient(135deg, #10B981 0%, #059669 100%); color:#FFFFFF; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 14px rgba(16,185,129,0.3); transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 18px rgba(16,185,129,0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 14px rgba(16,185,129,0.3)';" onclick="createSchoolLicense()">
               生成授权激活码
             </button>
           </div>
         </div>
 
         <div id="generatedLicBox" style="display:none; margin-top:16px; padding:16px; background:rgba(39,174,96,0.08); border:1.5px dashed var(--green); border-radius:12px;">
-          <div style="font-size:12px; color:var(--text2); font-weight:700;">授权码已成功写入 Cloudflare KV 数据库：</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.7); font-weight:700;" id="licSuccessMsg">授权码已成功写入 Cloudflare KV 数据库：</div>
           <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">CXQB-XXXX</div>
-          <div style="font-size:12px; color:var(--text);">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:rgba(255,255,255,0.8);font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
-          <button class="btn-sm green" style="margin-top:10px;" onclick="copyGeneratedLicense()">复制授权码 (WhatsApp)</button>
+          <div style="font-size:12px; color:rgba(255,255,255,0.85);" id="licSchoolHelp">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:#60A5FA;font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
+          <button class="btn-sm green" style="margin-top:10px;" id="btnCopyLicense" onclick="copyGeneratedLicense()">复制授权码 (WhatsApp)</button>
         </div>
       </div>
 
       <!-- ACTIVE LICENSES LIST -->
       <div class="form-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <h4 style="font-size:16px; font-weight:900;">当前在约授权列表 (KV Records)</h4>
-          <button class="btn-sm" onclick="loadSchoolLicenses()">刷新列表</button>
+          <h4 id="licListHeading" style="font-size:16px; font-weight:900; color:#FFFFFF;">当前在约授权列表 (KV Records)</h4>
+          <button id="btnRefreshLicenses" class="btn-sm" onclick="loadSchoolLicenses()">刷新列表</button>
         </div>
         <div id="licensesTableContainer">
           <div style="padding:20px; text-align:center; color:var(--text2);">正在加载 Cloudflare KV 授权数据...</div>
@@ -1844,6 +1846,46 @@ function setAdminLang(lang) {
         accounts: "账号管理",
         gallery: "赛事与活动管理",
         licenses: "学校租约授权"
+      },
+      students: {
+        formTitle: "快速录入新学员",
+        lblCn: "中文姓名 *",
+        phCn: "如: 张小明",
+        lblEn: "英文姓名",
+        phEn: "如: Chong Xiao Ming",
+        lblSchool: "所在学校 (点击下方标签一键填入)：",
+        phSchool: "点击下方华小标签自动输入",
+        lblLevel: "班级级别",
+        lblFee: "学费模式",
+        lblPhone: "家长 WhatsApp",
+        phPhone: "012-3456789",
+        btnSubmit: "立即建档入库 (自动分配新学号)",
+        listTitle: "全体在册学员档案",
+        thId: "学号",
+        thCn: "中文名",
+        thEn: "英文名",
+        thGender: "性别",
+        thSchool: "学校",
+        thTier: "班级",
+        thElo: "ELO",
+        thPay: "缴费",
+        thAction: "操作"
+      },
+      licenses: {
+        title: "Cloudflare Workers + KV 商业租约授权网关",
+        sub: "向出租学校一键发放独立激活码 · 支持自动到期销毁 · 银行级防刷防盗用",
+        gatewayBadge: "边缘节点已连通 (cxb-license)",
+        lblSchool: "租用学校名称",
+        phSchool: "例如: 直凉华小 选拔赛",
+        lblDays: "有效天数",
+        lblTier: "授权赛事层级 (Tier License)",
+        lblAction: "操作",
+        btnCreate: "生成授权激活码",
+        listTitle: "当前在约授权列表 (KV Records)",
+        btnRefresh: "刷新列表",
+        successMsg: "授权码已成功写入 Cloudflare KV 数据库：",
+        schoolHelp: "学校可凭此激活码登录 <a href=\"school.html\" target=\"_blank\" style=\"color:#60A5FA;font-weight:700;\">school.html</a> 开赛。到期后系统将自动关停！",
+        btnCopy: "复制授权码 (WhatsApp)"
       }
     },
     bm: {
@@ -1869,6 +1911,46 @@ function setAdminLang(lang) {
         accounts: "Pengurusan Akaun",
         gallery: "Pengurusan Acara",
         licenses: "Lesen Sekolah"
+      },
+      students: {
+        formTitle: "Pendaftaran Pantas Pelajar Baru",
+        lblCn: "Nama Bahasa Cina *",
+        phCn: "cth: Zhang Xiao Ming",
+        lblEn: "Nama Bahasa Inggeris",
+        phEn: "cth: Chong Xiao Ming",
+        lblSchool: "Sekolah (Klik tag di bawah):",
+        phSchool: "Klik tag sekolah untuk isi automatik",
+        lblLevel: "Tahap Kelas",
+        lblFee: "Pakej Yuran",
+        lblPhone: "WhatsApp Ibu Bapa",
+        phPhone: "012-3456789",
+        btnSubmit: "Daftar Masuk Pelajar (Auto No. ID)",
+        listTitle: "Arkib Pelajar Berdaftar (Penuh)",
+        thId: "No. ID",
+        thCn: "Nama (CN)",
+        thEn: "Nama (EN)",
+        thGender: "Jantina",
+        thSchool: "Sekolah",
+        thTier: "Tahap Kelas",
+        thElo: "ELO",
+        thPay: "Status Yuran",
+        thAction: "Tindakan"
+      },
+      licenses: {
+        title: "Gerbang Lesen Komersial Cloudflare Workers + KV",
+        sub: "Keluarkan kod lesen untuk sekolah penyewa · Pembatalan automatik bila tamat · Perlindungan tahap bank",
+        gatewayBadge: "Nod Pinggir Bersambung (cxb-license)",
+        lblSchool: "Nama Sekolah / Acara",
+        phSchool: "cth: SJK(C) Triang Kejohanan",
+        lblDays: "Tempoh Sah",
+        lblTier: "Peringkat Lesen Acara (Tier License)",
+        lblAction: "Tindakan",
+        btnCreate: "Jana Kod Lesen",
+        listTitle: "Senarai Lesen Aktif (Rekod KV)",
+        btnRefresh: "Muat Semula",
+        successMsg: "Kod lesen berjaya disimpan ke pangkalan data KV Cloudflare:",
+        schoolHelp: "Sekolah boleh gunakan kod ini untuk log masuk ke <a href=\"school.html\" target=\"_blank\" style=\"color:#60A5FA;font-weight:700;\">school.html</a>. Sistem tamat automatik bila luput!",
+        btnCopy: "Salin Kod Lesen (WhatsApp)"
       }
     },
     en: {
@@ -1894,6 +1976,46 @@ function setAdminLang(lang) {
         accounts: "Account Management",
         gallery: "Events Management",
         licenses: "School Licenses"
+      },
+      students: {
+        formTitle: "Quick Student Registration",
+        lblCn: "Chinese Name *",
+        phCn: "e.g. Zhang Xiao Ming",
+        lblEn: "English Name",
+        phEn: "e.g. Chong Xiao Ming",
+        lblSchool: "School (Click tag below to auto-fill):",
+        phSchool: "Click school tag to auto-fill",
+        lblLevel: "Class Tier",
+        lblFee: "Tuition Plan",
+        lblPhone: "Parent WhatsApp",
+        phPhone: "012-3456789",
+        btnSubmit: "Enroll Student (Auto Generate ID)",
+        listTitle: "Complete Registered Student Directory",
+        thId: "Student ID",
+        thCn: "Name (CN)",
+        thEn: "Name (EN)",
+        thGender: "Gender",
+        thSchool: "School",
+        thTier: "Class Tier",
+        thElo: "ELO",
+        thPay: "Tuition Status",
+        thAction: "Action"
+      },
+      licenses: {
+        title: "Cloudflare Workers + KV Commercial License Gateway",
+        sub: "Issue standalone license keys to partner schools · Auto-expire on due date · Enterprise fraud prevention",
+        gatewayBadge: "Edge Node Connected (cxb-license)",
+        lblSchool: "School / Event Name",
+        phSchool: "e.g. SJK(C) Triang Tournament",
+        lblDays: "Valid Duration",
+        lblTier: "Tournament License Tier",
+        lblAction: "Action",
+        btnCreate: "Generate License Key",
+        listTitle: "Active License Registry (KV Records)",
+        btnRefresh: "Refresh List",
+        successMsg: "License key successfully written to Cloudflare KV database:",
+        schoolHelp: "Partner schools can use this key to login to <a href=\"school.html\" target=\"_blank\" style=\"color:#60A5FA;font-weight:700;\">school.html</a>. Access terminates automatically upon expiry!",
+        btnCopy: "Copy License Key (WhatsApp)"
       }
     }
   };
@@ -1932,6 +2054,61 @@ function setAdminLang(lang) {
       }
     }
   });
+
+  // Student Registration panel elements
+  if (cur.students) {
+    const s = cur.students;
+    const stdFormTitle = document.getElementById('stdFormTitle'); if (stdFormTitle) stdFormTitle.textContent = s.formTitle;
+    const stdLblCn = document.getElementById('stdLblCn'); if (stdLblCn) stdLblCn.textContent = s.lblCn;
+    const qName = document.getElementById('qName'); if (qName) qName.placeholder = s.phCn;
+    const stdLblEn = document.getElementById('stdLblEn'); if (stdLblEn) stdLblEn.textContent = s.lblEn;
+    const qEn = document.getElementById('qEn'); if (qEn) qEn.placeholder = s.phEn;
+    const stdLblSchool = document.getElementById('stdLblSchool'); if (stdLblSchool) stdLblSchool.textContent = s.lblSchool;
+    const qSchool = document.getElementById('qSchool'); if (qSchool) qSchool.placeholder = s.phSchool;
+    const stdLblLevel = document.getElementById('stdLblLevel'); if (stdLblLevel) stdLblLevel.textContent = s.lblLevel;
+    const stdLblFee = document.getElementById('stdLblFee'); if (stdLblFee) stdLblFee.textContent = s.lblFee;
+    const stdLblPhone = document.getElementById('stdLblPhone'); if (stdLblPhone) stdLblPhone.textContent = s.lblPhone;
+    const qPhone = document.getElementById('qPhone'); if (qPhone) qPhone.placeholder = s.phPhone;
+    const btnSubmitFast = document.getElementById('btnSubmitFastStudent'); if (btnSubmitFast) btnSubmitFast.textContent = s.btnSubmit;
+    const stdListTitle = document.getElementById('stdListTitle'); if (stdListTitle) stdListTitle.textContent = s.listTitle;
+
+    const thStdId = document.getElementById('thStdId'); if (thStdId) thStdId.textContent = s.thId;
+    const thStdCn = document.getElementById('thStdCn'); if (thStdCn) thStdCn.textContent = s.thCn;
+    const thStdEn = document.getElementById('thStdEn'); if (thStdEn) thStdEn.textContent = s.thEn;
+    const thStdGender = document.getElementById('thStdGender'); if (thStdGender) thStdGender.textContent = s.thGender;
+    const thStdSchool = document.getElementById('thStdSchool'); if (thStdSchool) thStdSchool.textContent = s.thSchool;
+    const thStdTier = document.getElementById('thStdTier'); if (thStdTier) thStdTier.textContent = s.thTier;
+    const thStdElo = document.getElementById('thStdElo'); if (thStdElo) thStdElo.textContent = s.thElo;
+    const thStdPay = document.getElementById('thStdPay'); if (thStdPay) thStdPay.textContent = s.thPay;
+    const thStdAction = document.getElementById('thStdAction'); if (thStdAction) thStdAction.textContent = s.thAction;
+  }
+
+  // School Licenses panel elements
+  if (cur.licenses) {
+    const l = cur.licenses;
+    const licTitle = document.getElementById('licPanelTitle'); if (licTitle) licTitle.textContent = l.title;
+    const licSub = document.getElementById('licPanelSub'); if (licSub) licSub.textContent = l.sub;
+    const licBadge = document.getElementById('licGatewayBadge');
+    if (licBadge) {
+      licBadge.innerHTML = `<span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#27AE60;"></span>${l.gatewayBadge}`;
+    }
+    const licSchoolNameLbl = document.getElementById('licSchoolNameLbl'); if (licSchoolNameLbl) licSchoolNameLbl.textContent = l.lblSchool;
+    const licSchoolName = document.getElementById('licSchoolName'); if (licSchoolName) licSchoolName.placeholder = l.phSchool;
+    const licValidDaysLbl = document.getElementById('licValidDaysLbl'); if (licValidDaysLbl) licValidDaysLbl.textContent = l.lblDays;
+    const licMaxRoundsLbl = document.getElementById('licMaxRoundsLbl'); if (licMaxRoundsLbl) licMaxRoundsLbl.textContent = l.lblTier;
+    const licActionLbl = document.getElementById('licActionLbl'); if (licActionLbl) licActionLbl.textContent = l.lblAction;
+    const btnCreateLic = document.getElementById('btnCreateSchoolLicense'); if (btnCreateLic) btnCreateLic.textContent = l.btnCreate;
+    const licListHeading = document.getElementById('licListHeading'); if (licListHeading) licListHeading.textContent = l.listTitle;
+    const btnRefreshLic = document.getElementById('btnRefreshLicenses'); if (btnRefreshLic) btnRefreshLic.textContent = l.btnRefresh;
+    const licSuccessMsg = document.getElementById('licSuccessMsg'); if (licSuccessMsg) licSuccessMsg.textContent = l.successMsg;
+    const licSchoolHelp = document.getElementById('licSchoolHelp'); if (licSchoolHelp) licSchoolHelp.innerHTML = l.schoolHelp;
+    const btnCopyLicense = document.getElementById('btnCopyLicense'); if (btnCopyLicense) btnCopyLicense.textContent = l.btnCopy;
+  }
+
+  if (typeof allStudents !== 'undefined' && allStudents && allStudents.length > 0) {
+    if (typeof renderStudentTables === 'function') renderStudentTables();
+  }
+  if (typeof updateFeeOptions === 'function') updateFeeOptions();
 
   updateAdminSeg(mapped);
 }
@@ -2025,6 +2202,32 @@ async function loadStudents(){
       dashTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:24px; color:#e63946;">未能连接到学员数据库，请检查网络连接后重试。</td></tr>';
     }
   }
+}
+
+function formatStudentLevelBadge(level, lang) {
+  const l = (level || '').trim();
+  lang = lang || localStorage.getItem('cxb_lang_pref') || 'zh';
+  if (l.includes('Tahap 7') || l.includes('代表队')) {
+    const text = lang === 'en' ? 'Tahap 7 · District Rep' : (lang === 'bm' ? 'Tahap 7 · Wakil Daerah' : 'Tahap 7 · 县代表队');
+    return `<span class="tier-chip tier-7" style="margin-bottom:0;">${text}</span>`;
+  }
+  if (l.includes('Tahap 5') || l.includes('Tahap 6') || l === 'Lv 3 精英班' || l.includes('高级') || l.includes('精英')) {
+    const text = lang === 'en' ? 'Tahap 5-6 · Senior Squad' : (lang === 'bm' ? 'Tahap 5-6 · Skuad Utama' : 'Tahap 5-6 · 精英研修班');
+    return `<span class="tier-chip tier-5" style="margin-bottom:0;">${text}</span>`;
+  }
+  if (l.includes('Tahap 3') || l.includes('Tahap 4') || l === 'Lv 2 进阶班' || l.includes('中级') || l.includes('进阶')) {
+    const text = lang === 'en' ? 'Tahap 3-4 · Intermediate' : (lang === 'bm' ? 'Tahap 3-4 · Lanjutan' : 'Tahap 3-4 · 进阶班');
+    return `<span class="tier-chip tier-3" style="margin-bottom:0;">${text}</span>`;
+  }
+  if (l.includes('Tahap 2') || l.includes('初级') || l.includes('基础实战')) {
+    const text = lang === 'en' ? 'Tahap 2 · Elementary' : (lang === 'bm' ? 'Tahap 2 · Asas Lanjut' : 'Tahap 2 · 基础班');
+    return `<span class="tier-chip tier-2" style="margin-bottom:0;">${text}</span>`;
+  }
+  if (l.includes('Tahap 1') || l === 'Lv 1 启蒙班' || l.includes('零基础') || l.includes('启蒙')) {
+    const text = lang === 'en' ? 'Tahap 1 · Foundation' : (lang === 'bm' ? 'Tahap 1 · Permulaan' : 'Tahap 1 · 启蒙班');
+    return `<span class="tier-chip tier-1" style="margin-bottom:0;">${text}</span>`;
+  }
+  return `<span class="tier-chip tier-0" style="margin-bottom:0;">${l || '-'}</span>`;
 }
 
 function getTierName(elo) {
@@ -2267,8 +2470,15 @@ async function loadMatches(){
 }
 
 function payBadge(s){
-  if(s.includes('已缴费')||s.includes('Verified'))return'<span class="badge badge-green">已缴费</span>';
-  return'<span class="badge badge-yellow">待缴费</span>';
+  const lang = localStorage.getItem('cxb_lang_pref') || 'zh';
+  const str = String(s || '');
+  const isPaid = str.includes('已缴费') || str.includes('Verified') || str.includes('Sudah Bayar') || str.includes('Paid');
+  if(isPaid){
+    const text = lang === 'en' ? 'Paid' : (lang === 'bm' ? 'Sudah Bayar' : '已缴费');
+    return `<span class="badge badge-green" style="font-size:11px; padding:3px 9px; font-weight:700; display:inline-flex; align-items:center; gap:5px;"><span style="width:5px; height:5px; border-radius:50%; background:#2ECC71; display:inline-block; box-shadow:0 0 5px #2ECC71;"></span>${text}</span>`;
+  }
+  const text = lang === 'en' ? 'Pending' : (lang === 'bm' ? 'Belum Bayar' : '待缴费');
+  return `<span class="badge badge-yellow" style="font-size:11px; padding:3px 9px; font-weight:700; display:inline-flex; align-items:center; gap:5px;"><span style="width:5px; height:5px; border-radius:50%; background:#F1C40F; display:inline-block; box-shadow:0 0 5px #F1C40F;"></span>${text}</span>`;
 }
 
 function renderDashboard(){
@@ -2299,10 +2509,10 @@ function renderDashboard(){
     } else {
       dashTable.innerHTML = allStudents.map(s=>
         `<tr>
-          <td style="white-space:nowrap; font-weight:800; font-family:monospace;">${s.id}</td>
-          <td style="font-weight:700; white-space:nowrap;">${s.cnName}</td>
-          <td style="white-space:nowrap;">${s.school}</td>
-          <td style="white-space:nowrap;"><span class="badge badge-blue">${s.level}</span></td>
+          <td style="white-space:nowrap;"><span style="font-family:'Plus Jakarta Sans', monospace; font-size:12px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.15); border:1px solid rgba(41,128,185,0.32); padding:2px 7px; border-radius:6px;">${s.id}</span></td>
+          <td style="font-weight:700; white-space:nowrap; color:#FFFFFF;">${s.cnName}</td>
+          <td style="white-space:nowrap; color:rgba(255,255,255,0.85);">${s.school}</td>
+          <td style="white-space:nowrap;">${formatStudentLevelBadge(s.level)}</td>
           <td style="white-space:nowrap; font-weight:800; color:var(--gold);">${s.elo}</td>
           <td style="white-space:nowrap;">${payBadge(s.payStatus)}</td>
         </tr>`
@@ -2398,36 +2608,51 @@ async function uploadMatchPhotoFile(date, round, redName, blackName, inputEl) {
 }
 
 function renderStudentTables(){
-  document.getElementById('studentTable').innerHTML=allStudents.map(s=>{
-    const parts = s.payStatus.split('|');
-    const statusText = parts[0];
-    return `<tr>
-      <td><strong>${s.id}</strong></td>
-      <td><strong>${s.cnName}</strong></td>
-      <td>${s.enName||'-'}</td>
-      <td>${s.gender}</td>
-      <td>${s.school}</td>
-      <td><span class="badge badge-blue">${s.level}</span></td>
-      <td>${s.elo}</td>
-      <td>${payBadge(statusText)}</td>
-      <td style="text-align:center;">
-        <button class="btn-sm" style="color:var(--red);border-color:var(--red);padding:4px 8px;font-size:11px;" onclick="deleteStudentAccount('${s.id}','${s.cnName}')">移除</button>
-      </td>
-    </tr>`;
-  }).join('');
+  const lang = localStorage.getItem('cxb_lang_pref') || 'zh';
+  const delText = lang === 'en' ? 'Remove' : (lang === 'bm' ? 'Padam' : '移除');
+  const tbody = document.getElementById('studentTable');
+  if (tbody) {
+    tbody.innerHTML=allStudents.map(s=>{
+      const parts = s.payStatus.split('|');
+      const statusText = parts[0];
+      return `<tr>
+        <td style="padding:10px 12px;"><span style="font-family:'Plus Jakarta Sans', monospace; font-size:12px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.15); border:1px solid rgba(41,128,185,0.32); padding:3px 9px; border-radius:6px; letter-spacing:0.5px;">${s.id}</span></td>
+        <td style="padding:10px 12px;"><strong style="color:#FFFFFF;">${s.cnName}</strong></td>
+        <td style="padding:10px 12px; color:rgba(255,255,255,0.7);">${s.enName||'-'}</td>
+        <td style="padding:10px 12px; color:rgba(255,255,255,0.85);">${s.gender}</td>
+        <td style="padding:10px 12px; color:rgba(255,255,255,0.85);">${s.school}</td>
+        <td style="padding:10px 12px;">${formatStudentLevelBadge(s.level, lang)}</td>
+        <td style="padding:10px 12px;"><span style="font-family:'Plus Jakarta Sans', monospace; font-size:13px; font-weight:800; color:#F1C40F;">${s.elo}</span></td>
+        <td style="padding:10px 12px;">${payBadge(statusText)}</td>
+        <td style="text-align:center; padding:10px 12px;">
+          <button class="btn-sm" style="background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.35); color:#F87171; border-radius:6px; padding:4px 12px; font-size:11.5px; font-weight:800; cursor:pointer; transition:all .2s;" onmouseover="this.style.background='#E74C3C'; this.style.color='#fff';" onmouseout="this.style.background='rgba(231,76,60,0.1)'; this.style.color='#F87171';" onclick="deleteStudentAccount('${s.id}','${s.cnName}')">${delText}</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
 
-  document.getElementById('paymentTable').innerHTML=allStudents.map(s=>{
-    const parts = s.payStatus.split('|');
-    const statusText = parts[0];
-    const imgUrl = parts[1] || '';
-    return `<tr><td><strong>${s.id}</strong></td><td>${s.cnName}</td><td>${s.level}</td><td>${s.feeMode}</td><td>${s.comboExpiry||'-'}</td><td>${payBadge(statusText)}</td>
-      <td>
-        <div style="display:flex; gap:4px; justify-content:center;">
-          <button class="btn-sm green" onclick="markPaid('${s.id}')">核准已缴</button>
-          ${imgUrl ? `<button class="btn-sm" style="background:#F39C12; color:#fff; border:none;" onclick="openLightbox('${imgUrl}')">查看凭证</button>` : ''}
-        </div>
-      </td></tr>`;
-  }).join('');
+  const payTbody = document.getElementById('paymentTable');
+  if (payTbody) {
+    payTbody.innerHTML=allStudents.map(s=>{
+      const parts = s.payStatus.split('|');
+      const statusText = parts[0];
+      const imgUrl = parts[1] || '';
+      return `<tr>
+        <td style="padding:10px 12px;"><span style="font-family:'Plus Jakarta Sans', monospace; font-size:12px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.15); border:1px solid rgba(41,128,185,0.32); padding:2px 7px; border-radius:6px;">${s.id}</span></td>
+        <td style="padding:10px 12px;"><strong style="color:#FFFFFF;">${s.cnName}</strong></td>
+        <td style="padding:10px 12px;">${formatStudentLevelBadge(s.level, lang)}</td>
+        <td style="padding:10px 12px; color:rgba(255,255,255,0.85);">${s.feeMode}</td>
+        <td style="padding:10px 12px; color:rgba(255,255,255,0.7);">${s.comboExpiry||'-'}</td>
+        <td style="padding:10px 12px;">${payBadge(statusText)}</td>
+        <td style="padding:10px 12px;">
+          <div style="display:flex; gap:6px; justify-content:center;">
+            <button class="btn-sm green" style="padding:4px 10px; font-size:11px;" onclick="markPaid('${s.id}')">核准已缴</button>
+            ${imgUrl ? `<button class="btn-sm" style="background:#F39C12; color:#fff; border:none; padding:4px 10px; font-size:11px;" onclick="openLightbox('${imgUrl}')">查看凭证</button>` : ''}
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
 }
 
 function renderMatchesTable(){
@@ -2477,7 +2702,7 @@ function renderGallery(){
             </button>
           </div>
           <div style="font-weight:900;font-size:14px;margin-top:4px;">[红] ${m.red} vs [黑] ${m.black}</div>
-          <div style="font-size:12px;color:var(--pri2);font-weight:800;margin-top:2px;">${m.result} · ${m.verdict}</div>
+          <div style="font-size:12px;color:#F1C40F;font-weight:800;margin-top:2px;">${m.result} · ${m.verdict}</div>
         </div>
         ${img}
         ${xqfBtn}
@@ -2487,27 +2712,41 @@ function renderGallery(){
 }
 
 function updateFeeOptions() {
-  const level = document.getElementById('qLevel').value;
+  const qLevelEl = document.getElementById('qLevel');
   const feeSelect = document.getElementById('qFee');
+  if (!qLevelEl || !feeSelect) return;
+  const level = qLevelEl.value;
+  const lang = localStorage.getItem('cxb_lang_pref') || 'zh';
   feeSelect.innerHTML = ''; // clear options
   
   if (level.includes('Tahap 1') || level.includes('Lv 1') || level.includes('启蒙')) {
-    feeSelect.add(new Option('季付优惠 (RM99)', '季付优惠 (RM99)'));
-    feeSelect.add(new Option('月缴 (RM39)', '月缴 (RM39)'));
+    const optQ = lang === 'en' ? 'Quarterly Promo (RM99)' : (lang === 'bm' ? 'Diskaun Suku Tahun (RM99)' : '季付优惠 (RM99)');
+    const optM = lang === 'en' ? 'Monthly (RM39)' : (lang === 'bm' ? 'Bulanan (RM39)' : '月缴 (RM39)');
+    feeSelect.add(new Option(optQ, '季付优惠 (RM99)'));
+    feeSelect.add(new Option(optM, '月缴 (RM39)'));
   } else if (level.includes('Tahap 2') || level.includes('初级')) {
-    feeSelect.add(new Option('季付优惠 (RM189)', '季付优惠 (RM189)'));
-    feeSelect.add(new Option('月缴优惠 (RM69)', '月缴优惠 (RM69)'));
+    const optQ = lang === 'en' ? 'Quarterly Promo (RM189)' : (lang === 'bm' ? 'Diskaun Suku Tahun (RM189)' : '季付优惠 (RM189)');
+    const optM = lang === 'en' ? 'Monthly Promo (RM69)' : (lang === 'bm' ? 'Bulanan Promo (RM69)' : '月缴优惠 (RM69)');
+    feeSelect.add(new Option(optQ, '季付优惠 (RM189)'));
+    feeSelect.add(new Option(optM, '月缴优惠 (RM69)'));
   } else if (level.includes('Tahap 3') || level.includes('Tahap 4') || level.includes('Lv 2') || level.includes('中级')) {
-    feeSelect.add(new Option('季付优惠 (RM269)', '季付优惠 (RM269)'));
-    feeSelect.add(new Option('月缴优惠 (RM99)', '月缴优惠 (RM99)'));
+    const optQ = lang === 'en' ? 'Quarterly Promo (RM269)' : (lang === 'bm' ? 'Diskaun Suku Tahun (RM269)' : '季付优惠 (RM269)');
+    const optM = lang === 'en' ? 'Monthly Promo (RM99)' : (lang === 'bm' ? 'Bulanan Promo (RM99)' : '月缴优惠 (RM99)');
+    feeSelect.add(new Option(optQ, '季付优惠 (RM269)'));
+    feeSelect.add(new Option(optM, '月缴优惠 (RM99)'));
   } else if (level.includes('Tahap 5') || level.includes('Tahap 6') || level.includes('Lv 3') || level.includes('高级')) {
-    feeSelect.add(new Option('季付优惠 (RM399)', '季付优惠 (RM399)'));
-    feeSelect.add(new Option('月缴优惠 (RM149)', '月缴优惠 (RM149)'));
+    const optQ = lang === 'en' ? 'Quarterly Promo (RM399)' : (lang === 'bm' ? 'Diskaun Suku Tahun (RM399)' : '季付优惠 (RM399)');
+    const optM = lang === 'en' ? 'Monthly Promo (RM149)' : (lang === 'bm' ? 'Bulanan Promo (RM149)' : '月缴优惠 (RM149)');
+    feeSelect.add(new Option(optQ, '季付优惠 (RM399)'));
+    feeSelect.add(new Option(optM, '月缴优惠 (RM149)'));
   } else if (level.includes('Tahap 7') || level.includes('代表队')) {
-    feeSelect.add(new Option('公会全额资助 (RM0)', '公会全额资助 (RM0)'));
+    const optS = lang === 'en' ? 'Club Sponsorship (RM0)' : (lang === 'bm' ? 'Tajaan Penuh Kelab (RM0)' : '公会全额资助 (RM0)');
+    feeSelect.add(new Option(optS, '公会全额资助 (RM0)'));
   } else {
-    feeSelect.add(new Option('季付优惠 (RM99)', '季付优惠 (RM99)'));
-    feeSelect.add(new Option('月缴 (RM39)', '月缴 (RM39)'));
+    const optQ = lang === 'en' ? 'Quarterly Promo (RM99)' : (lang === 'bm' ? 'Diskaun Suku Tahun (RM99)' : '季付优惠 (RM99)');
+    const optM = lang === 'en' ? 'Monthly (RM39)' : (lang === 'bm' ? 'Bulanan (RM39)' : '月缴 (RM39)');
+    feeSelect.add(new Option(optQ, '季付优惠 (RM99)'));
+    feeSelect.add(new Option(optM, '月缴 (RM39)'));
   }
 }
 
@@ -2988,7 +3227,7 @@ function showTournamentList() {
     return `
       <div class="tournament-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
         <div>
-          <h4 style="font-size:16px;font-weight:900;color:var(--pri);margin-bottom:4px;">${t.name}</h4>
+          <h4 style="font-size:16px;font-weight:900;color:#FFFFFF;margin-bottom:4px;">${t.name}</h4>
           <div style="font-size:12px;color:var(--text2);">${t.createdAt} · 赛程 ${t.totalRounds} 轮 · ${t.players.length} 名棋手 ${statusBadge}</div>
         </div>
         <div style="display:flex;gap:8px;">
@@ -3131,13 +3370,13 @@ function renderTournamentManage() {
             [红] ${p.redName} <span style="font-size:12px;color:var(--text2);font-weight:600;">(${redSc.toFixed(1)}分 · ${redPlayer ? redPlayer.elo : ''})</span>
           </div>
           <div style="font-size:12px;color:var(--text2);padding:0 10px;">VS</div>
-          <div style="color:var(--pri);flex:1;text-align:right;">
+          <div style="color:#FFFFFF;flex:1;text-align:right;">
             <span style="font-size:12px;color:var(--text2);font-weight:600;">(${blackPlayer ? blackPlayer.elo : ''} · ${blackSc.toFixed(1)}分)</span> ${p.blackName} [黑]
           </div>
         </div>
         <div class="result-btn-group" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
           <div style="grid-column:1/-1;text-align:center;font-size:12px;margin-bottom:4px;">
-             <label style="cursor:pointer;color:var(--pri2);text-decoration:underline;">
+             <label style="cursor:pointer;color:#60A5FA;text-decoration:underline;">
                 附加对局记谱纸/照片
                 <input type="file" style="display:none;" accept="image/*" onchange="uploadTourneyImg(${currentViewingRound}, ${bIdx}, this)">
              </label>
@@ -3203,7 +3442,7 @@ function renderTournamentManage() {
         <td style="padding:10px;text-align:center;font-weight:900;">${idx + 1}</td>
         <td style="padding:10px;text-align:left;font-weight:900;">${p.name}</td>
         ${rScoresHTML}
-        <td style="padding:10px;text-align:center;font-weight:900;color:var(--pri);">${p.totalPoints.toFixed(1)}</td>
+        <td style="padding:10px;text-align:center;font-weight:900;color:#F1C40F;">${p.totalPoints.toFixed(1)}</td>
         <td style="padding:10px;text-align:center;font-weight:700;color:var(--text2);">${p.buchholz.toFixed(1)}</td>
         <td style="padding:10px;text-align:center;color:var(--text2);">${p.elo}</td>
       </tr>`;
@@ -3383,18 +3622,18 @@ function parseSP98Batch() {
   } else {
     preview.style.display = 'block';
     const allMatched = parsedSP98Matches.every(m => m.matched);
-    let html = `<div style="font-weight:900;color:var(--pri);margin-bottom:10px;">✅ 成功识别 ${parsedSP98Matches.length} 盘 SP98 对局：</div>`;
+    let html = `<div style="font-weight:900;color:#34D399;margin-bottom:10px;">✅ 成功识别 ${parsedSP98Matches.length} 盘 SP98 对局：</div>`;
     html += parsedSP98Matches.map((m, i) => `
-      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:13px;">
         <div>
-          <span style="font-weight:800;color:var(--pri);">#${i + 1}</span>
-          <span style="margin-left:8px;font-weight:700;">${m.redName}</span>
-          ${m.redId ? `<span style="font-size:11px;color:var(--text2);">(${m.redId})</span>` : '<span style="color:red;font-size:11px;">[未建档]</span>'}
+          <span style="font-weight:800;color:#60A5FA;">#${i + 1}</span>
+          <span style="margin-left:8px;font-weight:700;color:#FFFFFF;">${m.redName}</span>
+          ${m.redId ? `<span style="font-size:11px;color:var(--text2);">(${m.redId})</span>` : '<span style="color:#F87171;font-size:11px;">[未建档]</span>'}
           <span style="color:var(--text2);margin:0 6px;">VS</span>
-          <span style="font-weight:700;">${m.blackName}</span>
-          ${m.blackId ? `<span style="font-size:11px;color:var(--text2);">(${m.blackId})</span>` : '<span style="color:red;font-size:11px;">[未建档]</span>'}
+          <span style="font-weight:700;color:#FFFFFF;">${m.blackName}</span>
+          ${m.blackId ? `<span style="font-size:11px;color:var(--text2);">(${m.blackId})</span>` : '<span style="color:#F87171;font-size:11px;">[未建档]</span>'}
         </div>
-        <div style="font-weight:800;">${m.resText}</div>
+        <div style="font-weight:800;color:#F1C40F;">${m.resText}</div>
       </div>
     `).join('');
 
@@ -3603,7 +3842,10 @@ function copyGeneratedLicense() {
 
 async function loadSchoolLicenses() {
   const container = document.getElementById('licensesTableContainer');
-  container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);">⏳ 正在从 Cloudflare KV 读取数据...</div>';
+  const lang = localStorage.getItem('cxb_lang_pref') || 'zh';
+  const tLoading = lang === 'en' ? 'Loading Cloudflare KV license data...' : (lang === 'bm' ? 'Memuatkan data lesen KV Cloudflare...' : '正在从 Cloudflare KV 读取数据...');
+  const tEmpty = lang === 'en' ? 'No active licenses found. Enter school name above to generate!' : (lang === 'bm' ? 'Tiada lesen aktif. Masukkan nama sekolah di atas untuk menjana!' : '暂无在约授权码。在上方输入学校即可一键生成！');
+  container.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text2);">${tLoading}</div>`;
 
   try {
     const res = await fetch(`${CF_WORKER_URL}/api/admin/list-licenses`, {
@@ -3615,55 +3857,71 @@ async function loadSchoolLicenses() {
 
     if (d.success && d.list) {
       if (!d.list.length) {
-        container.innerHTML = '<div style="padding:30px;text-align:center;color:var(--text2);">暂无在约授权码。在上方输入学校即可一键生成！</div>';
+        container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--text2);">${tEmpty}</div>`;
         return;
       }
+
+      const tKey = lang === 'en' ? 'License Key' : (lang === 'bm' ? 'Kod Lesen' : '授权激活码');
+      const tSchool = lang === 'en' ? 'School / Event' : (lang === 'bm' ? 'Sekolah / Acara' : '授权学校 / 赛事');
+      const tStatus = lang === 'en' ? 'Status' : (lang === 'bm' ? 'Status' : '状态');
+      const tExpiry = lang === 'en' ? 'Expiration (Local Time)' : (lang === 'bm' ? 'Tarikh Tamat (Waktu Tempatan)' : '到期时间 (本地时间)');
+      const tActions = lang === 'en' ? 'Action' : (lang === 'bm' ? 'Tindakan' : '操作');
+      const tActive = lang === 'en' ? 'Active' : (lang === 'bm' ? 'Aktif' : '租期有效');
+      const tEnded = lang === 'en' ? 'Terminated' : (lang === 'bm' ? 'Ditamatkan' : '已终止停用');
+      const tExpired = lang === 'en' ? 'Expired' : (lang === 'bm' ? 'Tamat Tempoh' : '租约已超期');
+      const tExt1 = lang === 'en' ? '+1 Day' : (lang === 'bm' ? '+1 Hari' : '+1天');
+      const tExt3 = lang === 'en' ? '+3 Days' : (lang === 'bm' ? '+3 Hari' : '+3天');
+      const tResume = lang === 'en' ? 'Resume' : (lang === 'bm' ? 'Aktifkan' : '重新启用');
+      const tEnd = lang === 'en' ? 'Terminate' : (lang === 'bm' ? 'Hentikan' : '终止开赛');
+      const tRevoke = lang === 'en' ? 'Delete' : (lang === 'bm' ? 'Padam' : '彻底移除');
 
       container.innerHTML = `
         <table style="width:100%; border-collapse:collapse; font-size:13px;">
           <thead>
             <tr style="background:var(--bg); border-bottom:2px solid var(--border);">
-              <th style="padding:10px 12px; text-align:left;">授权激活码</th>
-              <th style="padding:10px 12px; text-align:left;">授权学校 / 赛事</th>
-              <th style="padding:10px 12px; text-align:center;">状态</th>
-              <th style="padding:10px 12px; text-align:left;">到期时间 (本地时间)</th>
-              <th style="padding:10px 12px; text-align:center;">操作</th>
+              <th style="padding:10px 12px; text-align:left; color:rgba(255,255,255,0.7); font-weight:800;" id="thLicKey">${tKey}</th>
+              <th style="padding:10px 12px; text-align:left; color:rgba(255,255,255,0.7); font-weight:800;" id="thLicSchool">${tSchool}</th>
+              <th style="padding:10px 12px; text-align:center; color:rgba(255,255,255,0.7); font-weight:800;" id="thLicStatus">${tStatus}</th>
+              <th style="padding:10px 12px; text-align:left; color:rgba(255,255,255,0.7); font-weight:800;" id="thLicExpiry">${tExpiry}</th>
+              <th style="padding:10px 12px; text-align:center; color:rgba(255,255,255,0.7); font-weight:800;" id="thLicAction">${tActions}</th>
             </tr>
           </thead>
           <tbody>
             ${d.list.map(item => `
               <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:10px 12px; font-weight:900; color:var(--pri); font-family:monospace; font-size:14px;">${item.key}</td>
-                <td style="padding:10px 12px; font-weight:800;">${item.school}</td>
+                <td style="padding:10px 12px;">
+                  <span style="display:inline-block; font-family:'Plus Jakarta Sans', monospace; font-size:13px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.18); border:1px solid rgba(41,128,185,0.38); padding:3px 10px; border-radius:6px; letter-spacing:0.8px;">${item.key}</span>
+                </td>
+                <td style="padding:10px 12px; font-weight:800; color:#FFFFFF;">${item.school}</td>
                 <td style="padding:10px 12px; text-align:center;">
                   ${item.status === 'ended' 
-                    ? '<span class="badge" style="background:#EAECEE;color:#7F8C8D;font-size:11px;">已终止停用</span>'
+                    ? `<span class="badge" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); font-size:11px; padding:3px 8px;">${tEnded}</span>`
                     : (new Date(item.expiresAt).getTime() < Date.now() 
-                        ? '<span class="badge" style="background:#FDEDEC;color:#C0392B;font-size:11px;">租约已超期</span>' 
-                        : '<span class="badge badge-green" style="font-size:11px;">租期有效</span>')}
+                        ? `<span class="badge" style="background:rgba(231,76,60,0.15); border:1px solid rgba(231,76,60,0.35); color:#F87171; font-size:11px; padding:3px 8px;">${tExpired}</span>` 
+                        : `<span class="badge badge-green" style="font-size:11px; padding:3px 8px; display:inline-flex; align-items:center; gap:4px;"><span style="width:5px; height:5px; border-radius:50%; background:#2ECC71; display:inline-block; box-shadow:0 0 5px #2ECC71;"></span>${tActive}</span>`)}
                 </td>
-                <td style="padding:10px 12px; font-size:12px; color:var(--text2);">
-                  ${item.expiresAt ? new Date(item.expiresAt).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
+                <td style="padding:10px 12px; font-size:12px; color:rgba(255,255,255,0.7); font-family:monospace;">
+                  ${item.expiresAt ? new Date(item.expiresAt).toLocaleString(lang==='en'?'en-US':(lang==='bm'?'ms-MY':'zh-CN'), {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false}) : '-'}
                 </td>
                 <td style="padding:10px 12px; text-align:center;">
                   <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:center; align-items:center;">
                     <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 1)" title="顺延比赛时间 1 天">
-                      +1天
+                      ${tExt1}
                     </button>
                     <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 3)" title="顺延比赛时间 3 天">
-                      +3天
+                      ${tExt3}
                     </button>
                     ${item.status === 'ended' ? `
-                      <button class="btn-sm" style="color:var(--pri2); border-color:var(--pri2); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')" title="重新激活该授权">
-                        重新启用
+                      <button class="btn-sm" style="color:#60A5FA; border-color:rgba(96,165,250,0.4); background:rgba(41,128,185,0.15); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')" title="重新激活该授权">
+                        ${tResume}
                       </button>
                     ` : `
-                      <button class="btn-sm" style="color:var(--red); border-color:var(--red); padding:4px 8px; font-size:11px;" onclick="endSchoolLicense('${item.key}')" title="终止开赛权限（保留记录）">
-                        终止开赛
+                      <button class="btn-sm" style="color:#F87171; border-color:rgba(231,76,60,0.4); background:rgba(231,76,60,0.1); padding:4px 8px; font-size:11px;" onclick="endSchoolLicense('${item.key}')" title="终止开赛权限（保留记录）">
+                        ${tEnd}
                       </button>
                     `}
-                    <button class="btn-sm" style="color:#7F8C8D; border-color:#BDC3C7; padding:4px 8px; font-size:11px;" onclick="revokeSchoolLicense('${item.key}')" title="彻底删除此授权码记录">
-                      彻底移除
+                    <button class="btn-sm" style="color:rgba(255,255,255,0.5); border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.06); padding:4px 8px; font-size:11px;" onclick="revokeSchoolLicense('${item.key}')" title="彻底删除此授权码记录">
+                      ${tRevoke}
                     </button>
                   </div>
                 </td>
