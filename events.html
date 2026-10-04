@@ -1071,6 +1071,34 @@
     });
   }
 
+  // Dynamic sync with Admin Operations & Cloud
+  async function syncDynamicEvents() {
+    try {
+      let events = null;
+      try {
+        const local = localStorage.getItem('cxb_events_data');
+        if (local) events = JSON.parse(local);
+      } catch(e) {}
+
+      if (!events || !events.length) {
+        const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/events');
+        const data = await res.json();
+        events = data.events || data;
+      }
+
+      if (events && Array.isArray(events)) {
+        const archiveEvt = events.find(e => e.status === 'archive' && e.recap && e.recap.gallery && e.recap.gallery.length > 0);
+        if (archiveEvt && archiveEvt.recap.gallery.length > 0) {
+          tournamentGallery.length = 0;
+          archiveEvt.recap.gallery.forEach(g => tournamentGallery.push(g));
+        }
+      }
+    } catch(e) {
+      // Graceful fallback to static markup
+    }
+  }
+  syncDynamicEvents();
+
   const i18n = {
     cn: {
       "hero.title": "百乐象棋俱乐部",

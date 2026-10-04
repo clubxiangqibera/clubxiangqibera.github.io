@@ -450,6 +450,49 @@ body::before {
       background: var(--seg-active-bg); color: var(--seg-active-color); box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
+    /* === EVENTS MANAGEMENT PANEL STYLES === */
+    .btn-filter-pill {
+      padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      background: var(--card); color: var(--text2); border: 1px solid var(--border);
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-filter-pill:hover, .btn-filter-pill.active {
+      background: var(--pri3); color: #fff; border-color: var(--pri3);
+    }
+    .stat-pill-sm {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 14px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .stat-pill-sm .val { font-size: 18px; font-weight: 900; color: var(--pri2); }
+    .stat-pill-sm .lbl { font-size: 11px; color: var(--text2); font-weight: 700; margin-top: 2px; }
+    .stat-pill-sm.green .val { color: var(--green); }
+    .stat-pill-sm.orange .val { color: #E67E22; }
+    .stat-pill-sm.blue .val { color: #2980B9; }
+    .stat-pill-sm.gray .val { color: #95A5A6; }
+
+    .event-admin-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; display: flex; flex-direction: column; transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .event-admin-card:hover { border-color: rgba(241,196,15,0.4); transform: translateY(-2px); }
+    .event-admin-cover {
+      height: 140px; position: relative; display: flex; align-items: center; justify-content: center;
+      background: #112440; overflow: hidden;
+    }
+    .event-admin-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .event-admin-body { padding: 16px; display: flex; flex-direction: column; flex: 1; }
+    .event-badge-pill {
+      font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 8px;
+      display: inline-flex; align-items: center; gap: 4px; width: fit-content;
+    }
+    .event-badge-pill.open { background: #27AE60; color: #FFF; }
+    .event-badge-pill.upcoming { background: #F39C12; color: #0A1929; }
+    .event-badge-pill.official { background: #2980B9; color: #FFF; }
+    .event-badge-pill.archive { background: #7F8C8D; color: #FFF; }
+
+    .modal-lg { max-width: 680px !important; }
+
 </style>
   <link rel="stylesheet" href="cxb-theme.css">
 </head>
@@ -719,7 +762,7 @@ function updateSeg(lang) {
     <div class="nav-tab" data-tab="tournament" onclick="switchTab('tournament')">🏆 锦标赛</div>
     <div class="nav-tab" data-tab="ladder" onclick="switchTab('ladder')">🏅 ELO天梯榜</div>
     <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:2px solid rgba(241,196,15,0.5);">🔑 账号管理</div>
-    <div class="nav-tab superadmin-only" data-tab="gallery" onclick="switchTab('gallery')">📸 活动相册</div>
+    <div class="nav-tab superadmin-only" data-tab="gallery" onclick="switchTab('gallery')">🏆 赛事与活动</div>
     <div class="nav-tab superadmin-only" data-tab="licenses" onclick="switchTab('licenses')">🛡️ 学校租约授权 (Cloudflare)</div>
   </div>
 
@@ -1036,35 +1079,259 @@ function updateSeg(lang) {
 
 <!-- Create Tournament Modal -->
 
-    <!-- GALLERY TAB -->
-    <div class="tab-panel" id="panel-gallery">
+    <!-- EVENTS & ACTIVITIES MANAGEMENT TAB (UPGRADED FROM GALLERY) -->
+    <div class="tab-panel" id="panel-gallery" style="max-width:980px; margin:0 auto; padding:20px 16px;">
       <div class="form-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <div style="font-size:18px; font-weight:900;">📸 历届活动相册管理</div>
-          <div style="display:flex; gap:10px;">
-  <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="loadEvents(); if(typeof toast === 'function') toast('已刷新相册列表', 'info');">🔄 刷新列表</button>
-  <button class="btn" style="background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="document.getElementById('createGalleryModal').style.display='flex'">+ 创建新图集</button>
-</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:16px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:26px;">🏆</span>
+              <div>
+                <h3 style="margin:0; font-size:18px; font-weight:900; color:var(--text);">赛事与活动运营管理中心</h3>
+                <p style="margin:4px 0 0; font-size:12.5px; color:var(--text2);">全面统筹 events.html 赛事卡片、发布规程、报名开关、实况相册与前八强荣誉榜</p>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" style="background:var(--border); color:var(--text); border:none; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; font-size:12.5px;" onclick="resetDefaultEvents()">📥 恢复官方模版</button>
+            <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; font-size:12.5px;" onclick="syncEventsToCloud()">🔄 同步云端数据</button>
+            <button class="btn" style="background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer; font-size:13px;" onclick="openEventEditModal(-1)">+ 发布新赛事</button>
+          </div>
         </div>
-        <div id="galleryListArea" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));"></div>
+
+        <!-- Real-time Stats Pill Row -->
+        <div id="eventStatsBanner" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:12px; margin-bottom:20px;">
+          <!-- Dynamically injected stats pills -->
+        </div>
+
+        <!-- Series Filter Tabs -->
+        <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <button class="btn-filter-pill active" onclick="filterAdminEvents('all', this)">全部赛事</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('open_status', this)">🟢 报名开放中</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('qiyuan', this)">「棋缘」启蒙</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('yifeng', this)">「弈峰」特训</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('school', this)">校际锦标赛</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('open', this)">全县公开赛</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('festive', this)">传统节庆杯</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('archive_status', this)">⚪ 已落幕实录</button>
+        </div>
+
+        <!-- Events List Container -->
+        <div id="eventsManagementList" style="display:grid; gap:20px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
+          <!-- Injected by renderAdminEvents -->
+        </div>
       </div>
     </div>
 
-    <!-- CREATE GALLERY MODAL -->
-    <div id="createGalleryModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center;">
-      <div style="background:#fff; width:90%; max-width:500px; border-radius:16px; padding:24px; max-height:90vh; overflow-y:auto;">
-        <h3 style="margin-top:0; color:var(--pri);">上传新活动相册</h3>
-        <input type="text" id="galName" class="form-input" placeholder="活动名称 (例: 2026第一届棋缘教育营)" style="margin-bottom:12px;">
-        <input type="date" id="galDate" class="form-input" style="margin-bottom:12px;">
-        <textarea id="galDesc" class="form-input" placeholder="活动简短描述..." style="margin-bottom:12px; height:80px; resize:vertical;"></textarea>
-        <div style="margin-bottom:16px; background:#F8F9F9; padding:12px; border-radius:10px; border:1px dashed #BDC3C7;">
-          <label style="font-weight:700; font-size:13px; color:var(--text2); display:block; margin-bottom:8px;">选择多张照片上传 (自动压缩)</label>
-          <input type="file" id="galFiles" multiple accept="image/*" style="width:100%;">
+    <!-- CREATE / EDIT EVENT MODAL -->
+    <div id="eventEditModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(6px);">
+      <div style="background:var(--card); border:1px solid var(--border); width:92%; max-width:640px; border-radius:18px; padding:24px; max-height:90vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,0.5);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h3 id="eventEditModalTitle" style="margin:0; font-size:18px; font-weight:900; color:var(--text);">发布 / 编辑赛事</h3>
+          <button onclick="closeEventEditModal()" style="background:transparent; border:none; color:var(--text2); font-size:20px; cursor:pointer;">✕</button>
         </div>
-        <div id="galUploadProgress" style="font-size:13px; color:var(--pri); font-weight:800; margin-bottom:16px; display:none;">正在上传 0 / 0 ...</div>
-        <div style="display:flex; gap:10px; justify-content:flex-end;">
-          <button class="btn" style="background:#BDC3C7; color:#fff; border:none; padding:8px 16px; border-radius:10px;" onclick="document.getElementById('createGalleryModal').style.display='none'">取消</button>
-          <button id="galSubmitBtn" class="btn" style="background:var(--pri); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800;" onclick="submitGallery()">开始上传</button>
+
+        <input type="hidden" id="editEvtIndex" value="-1">
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">所属官方系列</label>
+            <select id="editEvtCategory" class="form-input" style="width:100%;" onchange="autoFillSeriesTag()">
+              <option value="qiyuan">「棋缘」启蒙系列</option>
+              <option value="yifeng">「弈峰」特训系列</option>
+              <option value="school">校际锦标赛系列</option>
+              <option value="open">全县公开赛系列</option>
+              <option value="festive">传统节庆杯系列</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">赛事状态</label>
+            <select id="editEvtStatus" class="form-input" style="width:100%;">
+              <option value="open">🟢 报名开放中 (open)</option>
+              <option value="upcoming">🟡 筹划筹备中 / 章程拟定中 (upcoming)</option>
+              <option value="official">🔵 官方年度大赛 (official)</option>
+              <option value="archive">⚪ 已圆满落幕 (archive)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">系列标签文本 (例: 「棋缘」启蒙系列 · 第一届)</label>
+          <input type="text" id="editEvtSeriesTag" class="form-input" style="width:100%;" placeholder="系列标签文本">
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">赛事全称</label>
+          <input type="text" id="editEvtTitle" class="form-input" style="width:100%;" placeholder="例如: 2026 第一届「棋缘」中国象棋启蒙教育营">
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">举办日期与时间描述</label>
+          <input type="text" id="editEvtDate" class="form-input" style="width:100%;" placeholder="例如: 2026年11月22日 (星期日) · 8:30 AM - 4:30 PM">
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">封面类型</label>
+            <select id="editEvtCoverType" class="form-input" style="width:100%;" onchange="toggleCoverTypeInput()">
+              <option value="image">图片文件 URL (如海报)</option>
+              <option value="badge">文字徽章背景 (CSS Gradient)</option>
+            </select>
+          </div>
+          <div>
+            <label id="editCoverValueLabel" style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">封面图片路径 / 文件名</label>
+            <input type="text" id="editEvtCover" class="form-input" style="width:100%;" placeholder="poster_qiyuan_final.jpg">
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">赛事简介导言</label>
+          <textarea id="editEvtDesc" class="form-input" style="width:100%; height:75px; resize:vertical;" placeholder="输入活动简短介绍..."></textarea>
+        </div>
+
+        <!-- 3项规程元数据 -->
+        <div style="background:var(--bg); padding:12px; border-radius:10px; border:1px solid var(--border); margin-bottom:12px;">
+          <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:8px;">📌 核心规程条目 (Meta 详情)</div>
+          <div style="display:grid; grid-template-columns: 90px 1fr; gap:8px; margin-bottom:8px; align-items:center;">
+            <input type="text" id="editMetaLabel1" class="form-input" value="活动地点">
+            <input type="text" id="editMetaVal1" class="form-input" placeholder="例如: 直凉一校大礼堂">
+          </div>
+          <div style="display:grid; grid-template-columns: 90px 1fr; gap:8px; margin-bottom:8px; align-items:center;">
+            <input type="text" id="editMetaLabel2" class="form-input" value="开放对象">
+            <input type="text" id="editMetaVal2" class="form-input" placeholder="例如: 百乐县各华小一至六年级学生">
+          </div>
+          <div style="display:grid; grid-template-columns: 90px 1fr; gap:8px; align-items:center;">
+            <input type="text" id="editMetaLabel3" class="form-input" value="营员福利">
+            <input type="text" id="editMetaVal3" class="form-input" placeholder="例如: 官方习题集 1 册 + 结业证书">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:16px;">
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">行动按钮文案</label>
+            <input type="text" id="editEvtBtnText" class="form-input" style="width:100%;" placeholder="例如: 进入在线报名中心 (启蒙营) →">
+          </div>
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">报名链接 (URL)</label>
+            <input type="text" id="editEvtRegUrl" class="form-input" style="width:100%;" placeholder="register.html?type=camp&event=qiyuan">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button class="btn" style="background:var(--border); color:var(--text); border:none; padding:8px 16px; border-radius:10px;" onclick="closeEventEditModal()">取消</button>
+          <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 20px; border-radius:10px; font-weight:800;" onclick="saveEventModal()">保存赛事数据</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT RECAP & HONOR ROLL MODAL -->
+    <div id="eventRecapModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(6px);">
+      <div style="background:var(--card); border:1px solid var(--border); width:94%; max-width:680px; border-radius:18px; padding:24px; max-height:90vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,0.5);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">
+          <div>
+            <h3 id="recapModalEventTitle" style="margin:0; font-size:17px; font-weight:900; color:var(--text);">赛事实况相册与荣誉榜管理</h3>
+            <div id="recapModalEventSub" style="font-size:12px; color:var(--text2); margin-top:3px;">配置现场照片全景图集与比赛前八强获奖名单</div>
+          </div>
+          <button onclick="closeRecapModalAdmin()" style="background:transparent; border:none; color:var(--text2); font-size:20px; cursor:pointer;">✕</button>
+        </div>
+
+        <input type="hidden" id="recapEvtIndex" value="-1">
+
+        <!-- 3 Recap Sub-tabs -->
+        <div style="display:flex; gap:8px; margin-bottom:18px;">
+          <button id="recapTabBtn_photos" class="btn-filter-pill active" onclick="switchRecapSubTab('photos')">📸 现场实况相册</button>
+          <button id="recapTabBtn_podium" class="btn-filter-pill" onclick="switchRecapSubTab('podium')">🏆 前八强荣誉榜</button>
+          <button id="recapTabBtn_quote" class="btn-filter-pill" onclick="switchRecapSubTab('quote')">💬 校方寄语与阵容</button>
+        </div>
+
+        <!-- SUB-TAB 1: PHOTOS -->
+        <div id="recapSubPanel_photos">
+          <div style="margin-bottom:14px; background:var(--bg); padding:12px; border-radius:12px; border:1px solid var(--border);">
+            <div style="font-size:13px; font-weight:800; margin-bottom:8px; color:var(--text);">+ 添加现场照片至图集</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
+              <input type="text" id="newPhotoSrc" class="form-input" placeholder="照片路径 / URL (如: event_2026_hall.jpg)">
+              <input type="text" id="newPhotoTitle" class="form-input" placeholder="照片说明文字 (例: 比赛现场对局实况)">
+            </div>
+            <button class="btn" style="background:var(--green); color:#fff; border:none; padding:7px 16px; border-radius:8px; font-weight:800; font-size:12px;" onclick="addPhotoToRecap()">+ 添加相片</button>
+          </div>
+          <div style="font-size:12.5px; font-weight:800; color:var(--text2); margin-bottom:8px;">现存相册照片列表 (前台灯箱全景展示)</div>
+          <div id="recapPhotosList" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:10px;">
+            <!-- Injected by renderRecapPhotos -->
+          </div>
+        </div>
+
+        <!-- SUB-TAB 2: PODIUM & WINNERS -->
+        <div id="recapSubPanel_podium" style="display:none;">
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:16px;">
+            <!-- GOLD -->
+            <div style="background:linear-gradient(180deg, rgba(241,196,15,0.12) 0%, var(--bg) 100%); border:1px solid #F1C40F; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:22px;">🥇</div>
+              <div style="font-weight:900; color:#F1C40F; font-size:13px; margin-bottom:6px;">冠军 (Gold)</div>
+              <input type="text" id="recapGoldName" class="form-input" placeholder="选手姓名" style="margin-bottom:6px; font-weight:800; text-align:center;">
+              <input type="text" id="recapGoldSchool" class="form-input" placeholder="代表学校" style="font-size:11.5px; text-align:center;">
+            </div>
+            <!-- SILVER -->
+            <div style="background:linear-gradient(180deg, rgba(189,195,199,0.12) 0%, var(--bg) 100%); border:1px solid #BDC3C7; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:22px;">🥈</div>
+              <div style="font-weight:900; color:#BDC3C7; font-size:13px; margin-bottom:6px;">亚军 (Silver)</div>
+              <input type="text" id="recapSilverName" class="form-input" placeholder="选手姓名" style="margin-bottom:6px; font-weight:800; text-align:center;">
+              <input type="text" id="recapSilverSchool" class="form-input" placeholder="代表学校" style="font-size:11.5px; text-align:center;">
+            </div>
+            <!-- BRONZE -->
+            <div style="background:linear-gradient(180deg, rgba(230,126,34,0.12) 0%, var(--bg) 100%); border:1px solid #E67E22; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:22px;">🥉</div>
+              <div style="font-weight:900; color:#E67E22; font-size:13px; margin-bottom:6px;">季军 (Bronze)</div>
+              <input type="text" id="recapBronzeName" class="form-input" placeholder="选手姓名" style="margin-bottom:6px; font-weight:800; text-align:center;">
+              <input type="text" id="recapBronzeSchool" class="form-input" placeholder="代表学校" style="font-size:11.5px; text-align:center;">
+            </div>
+          </div>
+
+          <div style="background:var(--bg); padding:12px; border-radius:12px; border:1px solid var(--border); margin-bottom:12px;">
+            <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:8px;">第四名、第五名与安慰奖</div>
+            <div style="margin-bottom:8px;">
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">第四名选手及学校</label>
+              <input type="text" id="recapRank4" class="form-input" style="width:100%;" placeholder="张宇诚（直凉华小一校）">
+            </div>
+            <div style="margin-bottom:8px;">
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">第五名选手及学校</label>
+              <input type="text" id="recapRank5" class="form-input" style="width:100%;" placeholder="陈嘉谦（直凉华小一校）">
+            </div>
+            <div>
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">安慰奖名单 (以 · 分隔)</label>
+              <input type="text" id="recapMerit" class="form-input" style="width:100%;" placeholder="颜宇仁（文德里华小）· 何品翰（吉拉央华小）· 苏奕宸（吉拉央华小）">
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-TAB 3: QUOTE & ORG -->
+        <div id="recapSubPanel_quote" style="display:none;">
+          <div style="background:var(--bg); padding:12px; border-radius:12px; border:1px solid var(--border); margin-bottom:12px;">
+            <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:8px;">校方寄语 / 嘉宾致辞</div>
+            <div style="margin-bottom:8px;">
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">寄语人姓名与职称</label>
+              <input type="text" id="recapQuoteAuthor" class="form-input" style="width:100%;" placeholder="例如: 林洁慧校长（吉拉央华小）">
+            </div>
+            <div>
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">寄语正文</label>
+              <textarea id="recapQuoteText" class="form-input" style="width:100%; height:75px; resize:vertical;" placeholder="输入寄语正文..."></textarea>
+            </div>
+          </div>
+          <div style="background:var(--bg); padding:12px; border-radius:12px; border:1px solid var(--border);">
+            <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:8px;">组织架构执裁阵容与参赛规模学校</div>
+            <div style="margin-bottom:8px;">
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">主办/协办/评审团队详情</label>
+              <textarea id="recapOrgDetail" class="form-input" style="width:100%; height:60px; resize:vertical;" placeholder="主办：吉拉央华小..."></textarea>
+            </div>
+            <div>
+              <label style="font-size:11px; font-weight:700; color:var(--text2); display:block; margin-bottom:2px;">参赛规模与源流小学名单</label>
+              <textarea id="recapScaleDetail" class="form-input" style="width:100%; height:60px; resize:vertical;" placeholder="全县 5 所华小 · 共 20 位小棋手..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px; border-top:1px solid var(--border); padding-top:14px;">
+          <button class="btn" style="background:var(--border); color:var(--text); border:none; padding:8px 16px; border-radius:10px;" onclick="closeRecapModalAdmin()">关闭</button>
+          <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 20px; border-radius:10px; font-weight:800;" onclick="saveRecapModalAdmin()">保存实况与荣誉榜</button>
         </div>
       </div>
     </div>
@@ -1188,7 +1455,7 @@ function setAdminLang(lang) {
         tournament: "锦标赛",
         ladder: "ELO天梯榜",
         accounts: "账号管理",
-        gallery: "活动相册",
+        gallery: "赛事与活动管理",
         licenses: "学校租约授权"
       }
     },
@@ -1211,7 +1478,7 @@ function setAdminLang(lang) {
         tournament: "Kejohanan",
         ladder: "Kedudukan ELO",
         accounts: "Pengurusan Akaun",
-        gallery: "Galeri Aktiviti",
+        gallery: "Pengurusan Acara",
         licenses: "Lesen Sekolah"
       }
     },
@@ -1234,7 +1501,7 @@ function setAdminLang(lang) {
         tournament: "Tournament",
         ladder: "ELO Standings",
         accounts: "Account Management",
-        gallery: "Photo Gallery",
+        gallery: "Events Management",
         licenses: "School Licenses"
       }
     }
@@ -1300,6 +1567,9 @@ function switchTab(t){
   
   if (t === 'licenses') {
     loadSchoolLicenses();
+  }
+  if (t === 'gallery') {
+    loadEvents();
   }
 }
 
@@ -3147,154 +3417,760 @@ if (typeof loadAllData !== 'undefined') {
 // --- End Coach Management JS ---
 
 
-// --- Gallery Upload & Management JS ---
+// ==========================================
+// 🏆 赛事与活动运营管理系统 (Events & Activities Operations Center)
+// ==========================================
+
+const DEFAULT_EVENTS = [
+  {
+    id: "evt_qiyuan_2026",
+    category: "qiyuan",
+    seriesTag: "「棋缘」启蒙系列 · 第一届",
+    title: "2026 第一届「棋缘」中国象棋启蒙教育营",
+    date: "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
+    status: "open",
+    statusText: "报名开放中",
+    desc: "由百乐象棋俱乐部携手百乐县中国象棋公会倾力打造。专为百乐县华小学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
+    cover: "poster_qiyuan_final.jpg",
+    coverType: "image",
+    meta: [
+      { label: "活动地点", val: "直凉一校大礼堂 Dewan SJK(C) Triang 1" },
+      { label: "开放对象", val: "百乐县各华小一至六年级学生 (零基础 / 初学)" },
+      { label: "营员福利", val: "官方习题集 1 册 + 实战考评 + 结业证书" }
+    ],
+    btnText: "进入在线报名中心 (启蒙营) →",
+    btnType: "primary",
+    regUrl: "register.html?type=camp&event=qiyuan"
+  },
+  {
+    id: "evt_yifeng_2026",
+    category: "yifeng",
+    seriesTag: "「弈峰」特训系列 · 假期集训",
+    title: "2026 第一届「弈峰」学校假期棋艺进阶特训营",
+    date: "2026 学校假期 (School Holidays) · 封闭强化",
+    status: "upcoming",
+    statusText: "筹划筹备中",
+    desc: "面向百乐县具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
+    cover: "radial-gradient(circle at center, #1b382b 0%, #07101e 100%)",
+    coverType: "badge",
+    badgeText: "YI FENG",
+    meta: [
+      { label: "集训基地", val: "百乐象棋公会活动中心 / 合作集训基地" },
+      { label: "开放对象", val: "百乐县各校具备基础之华小与初中进阶棋手" },
+      { label: "集训重点", val: "高压实战对局拆解 + 胜负手敏锐度特训" }
+    ],
+    btnText: "规程筹划中 · 关注公会通知",
+    btnType: "secondary",
+    regUrl: ""
+  },
+  {
+    id: "evt_school_annual",
+    category: "school",
+    seriesTag: "校际锦标赛系列 · 年度选拔",
+    title: "百乐县中小学校际中国象棋锦标赛",
+    date: "年度全县校际巡回赛",
+    status: "official",
+    statusText: "官方年度大赛",
+    desc: "百乐县最高规格官方校际棋艺大赛。统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。",
+    cover: "cxb_round_emblem.png",
+    coverType: "image",
+    meta: [
+      { label: "参赛对象", val: "百乐县各源流中小学正规代表队 (U12 / U18)" },
+      { label: "认证级别", val: "百乐县中国象棋公会官方权威认证" },
+      { label: "天梯积分", val: "成绩直接计入官网 0~2000 ELO 天梯排位" }
+    ],
+    btnText: "前往校际赛专页报名系统 →",
+    btnType: "secondary",
+    regUrl: "school.html"
+  },
+  {
+    id: "evt_open_2026",
+    category: "open",
+    seriesTag: "全县公开赛系列 · 棋王争霸",
+    title: "2026 第一届百乐县中国象棋公开锦标赛",
+    date: "2026 下半年度 · 全县争霸",
+    status: "upcoming",
+    statusText: "章程拟定中",
+    desc: "百乐县全面对外开放的高水平象棋公开赛。打破年龄与学校限制，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王。",
+    cover: "radial-gradient(circle at center, #2e1d10 0%, #07101e 100%)",
+    coverType: "badge",
+    badgeText: "BERA OPEN",
+    meta: [
+      { label: "参赛对象", val: "百乐县全体象棋爱好者 (公开组无年龄限制)" },
+      { label: "赛事荣誉", val: "全县棋王奖金 + 官方锦标奖杯 + 荣誉证书" },
+      { label: "天梯排位", val: "全员对局纳入百乐官方天梯排位数据库" }
+    ],
+    btnText: "详细章程即将发布 · 敬请期待",
+    btnType: "secondary",
+    regUrl: ""
+  },
+  {
+    id: "evt_festive_2027",
+    category: "festive",
+    seriesTag: "传统节庆杯系列 · 新春特辑",
+    title: "2027 百乐县新春中国象棋争霸赛",
+    date: "2027 农历新春期间 · 喜迎新春",
+    status: "upcoming",
+    statusText: "筹划筹备中",
+    desc: "百乐华社年度传统民俗棋艺盛宴。汇聚全县老中青三代棋手喜迎新春，棋盘贺岁、切磋棋艺，争夺新春棋王荣誉与丰厚红包奖金。",
+    cover: "radial-gradient(circle at center, #2e1212 0%, #07101e 100%)",
+    coverType: "badge",
+    badgeText: "FESTIVE CUP",
+    meta: [
+      { label: "参赛对象", val: "面向百乐县各界华社棋友、在籍学生与回乡校友" },
+      { label: "赛事特色", val: "新春贺岁特别快棋赛制 + 红包奖金 + 华团支持" },
+      { label: "天梯积分", val: "全员战绩结算计入官网 ELO 数据库" }
+    ],
+    btnText: "规程筹划中 · 关注公会通知",
+    btnType: "secondary",
+    regUrl: ""
+  },
+  {
+    id: "evt_done_primary_2026",
+    category: "school",
+    seriesTag: "校际锦标赛系列 · 2026 官方实录",
+    title: "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
+    date: "2026年6月13日 (星期六) · 官方圆满落幕",
+    status: "archive",
+    statusText: "已圆满落幕",
+    desc: "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。",
+    cover: "event_2026_group.png?v=20261004",
+    coverType: "image",
+    meta: [
+      { label: "主办单位", val: "吉拉央华小 SJK(C) Triang" },
+      { label: "协办指导", val: "百乐县中国象棋公会" },
+      { label: "实录特权", val: "含现场4幅高规格相册与前八强荣誉榜" }
+    ],
+    btnText: "查看官方实录与荣誉榜 →",
+    btnType: "secondary",
+    regUrl: "",
+    recap: {
+      gallery: [
+        { src: "event_2026_group.png?v=20261004", title: "2026 百乐县小学中国象棋赛 · 得奖师生合影" },
+        { src: "event_2026_hall.jpg?v=20261004", title: "比赛现场对局实况" },
+        { src: "event_2026_analysis.jpg?v=20261004", title: "姚和福副主席赛后复盘指点" },
+        { src: "event_2026_gift.png?v=20261004", title: "致赠纪念品仪式" }
+      ],
+      quote: {
+        badge: "赛事教育意义 · 校方寄语",
+        author: "林洁慧校长（吉拉央华小）",
+        text: "“举办中国象棋赛不仅能很好地培养小学生的逻辑思维能力、专注力和耐力，还要求孩子们学会在对局中进行细致的分析、判断与前瞻性规划，这对于提升他们日常解决问题的应变能力有着极大的帮助。”"
+      },
+      orgMeta: {
+        orgTitle: "组织架构与执裁阵容",
+        orgDetail: "主办：吉拉央华小\n协办：百乐县象棋公会（张福明主席主评、姚和福副主席复盘）\n评审：张泰理事、蔡妮寰财政、苏翠珊老师\n嘉宾：蔡伟雅女士 · 致辞：林洁慧校长",
+        scaleTitle: "参赛规模与源流学校",
+        scaleDetail: "全县 5 所华文小学 · 共 20 位代表小棋手\n吉拉央华小 · 直凉华小（一校）\n立德华小 · 明光华小 · 文德里华小"
+      },
+      podium: {
+        title: "比赛前八强荣誉榜",
+        gold: { name: "莫宇哲", school: "明光华小", badge: "冠军" },
+        silver: { name: "梁釉盛", school: "立德华小", badge: "亚军" },
+        bronze: { name: "黄礼阳", school: "直凉华小（一校）", badge: "季军" },
+        rank4: "张宇诚（直凉华小一校）",
+        rank5: "陈嘉谦（直凉华小一校）",
+        merit: "颜宇仁（文德里华小）· 何品翰（吉拉央华小）· 苏奕宸（吉拉央华小）"
+      }
+    }
+  }
+];
+
+window._events = [];
+window._currentEventFilter = 'all';
+
 async function loadEvents() {
+  // 1. Try fetching from Cloudflare Worker KV
   try {
     const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/events');
     const data = await res.json();
-    window._events = data.events || data || [];
-    renderEvents();
-  } catch(e) { console.error('Failed to load events'); }
+    if (data && (Array.isArray(data.events) || Array.isArray(data))) {
+      const arr = data.events || data;
+      if (arr.length > 0) {
+        window._events = arr;
+        localStorage.setItem('cxb_events_data', JSON.stringify(arr));
+        renderAdminEvents();
+        return;
+      }
+    }
+  } catch(e) {
+    console.warn('Worker KV events fetch fallback:', e);
+  }
+
+  // 2. Fallback to localStorage
+  try {
+    const local = localStorage.getItem('cxb_events_data');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        window._events = parsed;
+        renderAdminEvents();
+        return;
+      }
+    }
+  } catch(e) {}
+
+  // 3. Fallback to DEFAULT_EVENTS
+  window._events = JSON.parse(JSON.stringify(DEFAULT_EVENTS));
+  localStorage.setItem('cxb_events_data', JSON.stringify(window._events));
+  renderAdminEvents();
 }
 
-function renderEvents() {
-  const container = document.getElementById('galleryListArea');
-  if(!container) return;
-  if(!window._events || window._events.length === 0) {
-    container.innerHTML = '<div style="color:var(--text2); padding:40px; text-align:center; width:100%; grid-column: 1 / -1;">暂无活动相册，点击上方新建。</div>';
+function renderAdminEvents() {
+  const container = document.getElementById('eventsManagementList');
+  if (!container) return;
+
+  const events = window._events || [];
+
+  // Update Stats Banner
+  renderEventStats(events);
+
+  // Apply Filter
+  const f = window._currentEventFilter || 'all';
+  const filtered = events.filter(evt => {
+    if (f === 'all') return true;
+    if (f === 'open_status') return evt.status === 'open';
+    if (f === 'archive_status') return evt.status === 'archive';
+    return evt.category === f;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="color:var(--text2); padding:40px; text-align:center; width:100%; grid-column: 1 / -1;">此筛选分类下暂无赛事活动。</div>';
     return;
   }
+
   let html = '';
-  window._events.forEach((evt, idx) => {
-    const coverId = evt.photos && evt.photos.length > 0 ? evt.photos[0] : '';
-    const coverUrl = coverId ? 'https://drive.google.com/thumbnail?sz=w800&id=' + coverId : '';
-    html += `<div style="background:var(--bg); border-radius:12px; overflow:hidden; border:1px solid var(--border);">
-      <div style="height:160px; background:#ddd url('${coverUrl}') center/cover;"></div>
-      <div style="padding:16px;">
-        <div style="font-weight:900; font-size:15px; margin-bottom:4px;">${evt.name}</div>
-        <div style="font-size:12px; color:var(--text2); margin-bottom:12px;">📅 ${evt.date} · 📸 ${evt.photos ? evt.photos.length : 0} 张照片</div>
-        <div style="display:flex; gap:8px;">
-          <button onclick="editEvent(${idx})" class="btn" style="flex:1; padding:6px; background:#E8F8F5; color:#1ABC9C; border:none; border-radius:8px; font-weight:700;">编辑</button>
-          <button onclick="deleteEvent(${idx})" class="btn" style="flex:1; padding:6px; background:#FDEDEC; color:#E74C3C; border:none; border-radius:8px; font-weight:700;">删除</button>
+  filtered.forEach((evt) => {
+    // Locate original index in window._events
+    const origIdx = events.findIndex(e => e.id === evt.id);
+
+    // Status pill
+    let statusClass = evt.status || 'upcoming';
+    let statusLabel = evt.statusText || '筹划中';
+    if (evt.status === 'open') { statusClass = 'open'; statusLabel = '🟢 报名开放中'; }
+    else if (evt.status === 'official') { statusClass = 'official'; statusLabel = '🔵 官方年度大赛'; }
+    else if (evt.status === 'archive') { statusClass = 'archive'; statusLabel = '⚪ 已圆满落幕'; }
+    else { statusClass = 'upcoming'; statusLabel = '🟡 筹备筹划中'; }
+
+    // Cover rendering
+    let coverHtml = '';
+    if (evt.coverType === 'image' && evt.cover) {
+      coverHtml = `<img src="${evt.cover}" alt="${evt.title}" onerror="this.onerror=null; this.src='cxb_round_emblem.png';">`;
+    } else {
+      const badgeStyle = evt.cover && evt.cover.includes('gradient') ? `background:${evt.cover}` : 'background:radial-gradient(circle at center, #1b382b 0%, #07101e 100%)';
+      const text = evt.badgeText || (evt.category ? evt.category.toUpperCase() : 'EVENT');
+      coverHtml = `<div style="width:100%; height:100%; ${badgeStyle}; display:flex; align-items:center; justify-content:center; color:#F1C40F; font-weight:900; font-size:22px; letter-spacing:3px;">${text}</div>`;
+    }
+
+    // Photo count for archive
+    const photoCount = (evt.recap && evt.recap.gallery) ? evt.recap.gallery.length : 0;
+
+    html += `
+    <div class="event-admin-card">
+      <div class="event-admin-cover">
+        ${coverHtml}
+        <span class="event-badge-pill ${statusClass}" style="position:absolute; top:10px; right:10px; box-shadow:0 2px 8px rgba(0,0,0,0.4);">
+          ${statusLabel}
+        </span>
+      </div>
+      <div class="event-admin-body">
+        <div style="font-size:11px; font-weight:800; color:var(--gold); text-transform:uppercase; margin-bottom:4px;">
+          ${evt.seriesTag || '官方赛事系列'}
+        </div>
+        <h4 style="margin:0 0 6px; font-size:15px; font-weight:900; color:var(--text); line-height:1.4;">
+          ${evt.title}
+        </h4>
+        <div style="font-size:12px; color:var(--text2); margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+          <span>📅 ${evt.date || '待定'}</span>
+        </div>
+
+        <p style="font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:14px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+          ${evt.desc || '暂无赛事简介'}
+        </p>
+
+        <!-- Quick Status Switcher -->
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:6px 10px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11.5px; font-weight:800; color:var(--text2);">快捷切换状态：</span>
+          <select onchange="quickChangeStatus(${origIdx}, this.value)" style="background:transparent; border:none; color:var(--text); font-size:12px; font-weight:700; cursor:pointer; outline:none;">
+            <option value="open" ${evt.status==='open'?'selected':''}>🟢 报名开放中</option>
+            <option value="upcoming" ${evt.status==='upcoming'?'selected':''}>🟡 筹备筹划中</option>
+            <option value="official" ${evt.status==='official'?'selected':''}>🔵 官方年度大赛</option>
+            <option value="archive" ${evt.status==='archive'?'selected':''}>⚪ 已圆满落幕</option>
+          </select>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex; gap:8px; margin-top:auto; flex-wrap:wrap;">
+          <button onclick="openEventEditModal(${origIdx})" class="btn" style="flex:1; padding:7px 10px; background:var(--pri3); color:#fff; border:none; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
+            ✏️ 编辑规程
+          </button>
+          <button onclick="openRecapModalAdmin(${origIdx})" class="btn" style="flex:1.2; padding:7px 10px; background:${evt.status==='archive'?'rgba(241,196,15,0.15)':'var(--bg)'}; color:${evt.status==='archive'?'var(--gold)':'var(--text2)'}; border:1px solid ${evt.status==='archive'?'var(--gold)':'var(--border)'}; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
+            📸 相册与荣誉榜 ${photoCount>0?`(${photoCount}图)`:''}
+          </button>
+          <button onclick="deleteAdminEvent(${origIdx})" class="btn" style="padding:7px 10px; background:#FDEDEC; color:#E74C3C; border:none; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;" title="删除此赛事">
+            🗑️
+          </button>
         </div>
       </div>
-    </div>`;
+    </div>
+    `;
   });
+
   container.innerHTML = html;
 }
 
-async function submitGallery() {
-  const name = document.getElementById('galName').value.trim();
-  const date = document.getElementById('galDate').value;
-  const desc = document.getElementById('galDesc').value.trim();
-  const fileInput = document.getElementById('galFiles');
-  if(!name || !date || fileInput.files.length === 0) {
-    if(typeof toast === 'function') toast('请填写完整名称、日期，并至少选择一张照片', 'error');
+function renderEventStats(events) {
+  const banner = document.getElementById('eventStatsBanner');
+  if (!banner) return;
+
+  const total = events.length;
+  const openCount = events.filter(e => e.status === 'open').length;
+  const upcomingCount = events.filter(e => e.status === 'upcoming').length;
+  const officialCount = events.filter(e => e.status === 'official').length;
+  const archiveCount = events.filter(e => e.status === 'archive').length;
+
+  banner.innerHTML = `
+    <div class="stat-pill-sm">
+      <div class="val">${total}</div>
+      <div class="lbl">全部赛事系列</div>
+    </div>
+    <div class="stat-pill-sm green">
+      <div class="val">${openCount}</div>
+      <div class="lbl">🟢 报名开放中</div>
+    </div>
+    <div class="stat-pill-sm orange">
+      <div class="val">${upcomingCount}</div>
+      <div class="lbl">🟡 筹划筹备中</div>
+    </div>
+    <div class="stat-pill-sm blue">
+      <div class="val">${officialCount}</div>
+      <div class="lbl">🔵 官方年度大赛</div>
+    </div>
+    <div class="stat-pill-sm gray">
+      <div class="val">${archiveCount}</div>
+      <div class="lbl">⚪ 赛事实况实录</div>
+    </div>
+  `;
+}
+
+function filterAdminEvents(category, btn) {
+  window._currentEventFilter = category;
+  document.querySelectorAll('#panel-gallery .btn-filter-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderAdminEvents();
+}
+
+async function quickChangeStatus(idx, newStatus) {
+  if (!window._events || !window._events[idx]) return;
+  const evt = window._events[idx];
+  evt.status = newStatus;
+  if (newStatus === 'open') evt.statusText = '报名开放中';
+  else if (newStatus === 'official') evt.statusText = '官方年度大赛';
+  else if (newStatus === 'archive') evt.statusText = '已圆满落幕';
+  else evt.statusText = '筹划筹备中';
+
+  localStorage.setItem('cxb_events_data', JSON.stringify(window._events));
+  renderAdminEvents();
+  if (typeof toast === 'function') toast(`已切换状态为：${evt.statusText}`, 'success');
+  await saveEventsToCloudSilent();
+}
+
+function autoFillSeriesTag() {
+  const cat = document.getElementById('editEvtCategory').value;
+  const tagInput = document.getElementById('editEvtSeriesTag');
+  const catMap = {
+    qiyuan: '「棋缘」启蒙系列',
+    yifeng: '「弈峰」特训系列',
+    school: '校际锦标赛系列',
+    open: '全县公开赛系列',
+    festive: '传统节庆杯系列'
+  };
+  if (catMap[cat] && !tagInput.value) {
+    tagInput.value = catMap[cat];
+  }
+}
+
+function toggleCoverTypeInput() {
+  const type = document.getElementById('editEvtCoverType').value;
+  const label = document.getElementById('editCoverValueLabel');
+  const input = document.getElementById('editEvtCover');
+  if (type === 'image') {
+    label.textContent = '封面图片路径 / 文件名 (如 poster_qiyuan_final.jpg)';
+    input.placeholder = 'poster_qiyuan_final.jpg';
+  } else {
+    label.textContent = '徽章英文缩写文本 (如 YI FENG, BERA OPEN)';
+    input.placeholder = 'YI FENG';
+  }
+}
+
+function openEventEditModal(idx) {
+  document.getElementById('editEvtIndex').value = idx;
+  const isNew = idx === -1;
+  document.getElementById('eventEditModalTitle').textContent = isNew ? '+ 发布新赛事/活动' : '✏️ 编辑赛事与规程';
+
+  if (isNew) {
+    document.getElementById('editEvtCategory').value = 'qiyuan';
+    document.getElementById('editEvtStatus').value = 'upcoming';
+    document.getElementById('editEvtSeriesTag').value = '「棋缘」启蒙系列';
+    document.getElementById('editEvtTitle').value = '';
+    document.getElementById('editEvtDate').value = '';
+    document.getElementById('editEvtCoverType').value = 'image';
+    document.getElementById('editEvtCover').value = 'cxb_round_emblem.png';
+    document.getElementById('editEvtDesc').value = '';
+    document.getElementById('editMetaLabel1').value = '活动地点';
+    document.getElementById('editMetaVal1').value = '';
+    document.getElementById('editMetaLabel2').value = '开放对象';
+    document.getElementById('editMetaVal2').value = '';
+    document.getElementById('editMetaLabel3').value = '赛事福利';
+    document.getElementById('editMetaVal3').value = '';
+    document.getElementById('editEvtBtnText').value = '查看规程通知';
+    document.getElementById('editEvtRegUrl').value = '';
+  } else {
+    const evt = window._events[idx];
+    document.getElementById('editEvtCategory').value = evt.category || 'qiyuan';
+    document.getElementById('editEvtStatus').value = evt.status || 'upcoming';
+    document.getElementById('editEvtSeriesTag').value = evt.seriesTag || '';
+    document.getElementById('editEvtTitle').value = evt.title || '';
+    document.getElementById('editEvtDate').value = evt.date || '';
+    document.getElementById('editEvtCoverType').value = evt.coverType || 'image';
+    document.getElementById('editEvtCover').value = (evt.coverType === 'badge' ? evt.badgeText : evt.cover) || '';
+    document.getElementById('editEvtDesc').value = evt.desc || '';
+
+    const meta = evt.meta || [];
+    document.getElementById('editMetaLabel1').value = (meta[0] && meta[0].label) || '活动地点';
+    document.getElementById('editMetaVal1').value = (meta[0] && meta[0].val) || '';
+    document.getElementById('editMetaLabel2').value = (meta[1] && meta[1].label) || '开放对象';
+    document.getElementById('editMetaVal2').value = (meta[1] && meta[1].val) || '';
+    document.getElementById('editMetaLabel3').value = (meta[2] && meta[2].label) || '营员福利';
+    document.getElementById('editMetaVal3').value = (meta[2] && meta[2].val) || '';
+
+    document.getElementById('editEvtBtnText').value = evt.btnText || '';
+    document.getElementById('editEvtRegUrl').value = evt.regUrl || '';
+  }
+
+  toggleCoverTypeInput();
+  document.getElementById('eventEditModal').style.display = 'flex';
+}
+
+function closeEventEditModal() {
+  document.getElementById('eventEditModal').style.display = 'none';
+}
+
+async function saveEventModal() {
+  const idx = parseInt(document.getElementById('editEvtIndex').value, 10);
+  const title = document.getElementById('editEvtTitle').value.trim();
+  if (!title) {
+    if (typeof toast === 'function') toast('请填写赛事全称', 'error');
     return;
   }
 
-  const btn = document.getElementById('galSubmitBtn');
-  const prog = document.getElementById('galUploadProgress');
-  btn.disabled = true;
-  btn.textContent = '压缩并上传中...';
-  prog.style.display = 'block';
+  const category = document.getElementById('editEvtCategory').value;
+  const status = document.getElementById('editEvtStatus').value;
+  const seriesTag = document.getElementById('editEvtSeriesTag').value.trim();
+  const date = document.getElementById('editEvtDate').value.trim();
+  const coverType = document.getElementById('editEvtCoverType').value;
+  const coverVal = document.getElementById('editEvtCover').value.trim();
+  const desc = document.getElementById('editEvtDesc').value.trim();
 
-  let uploadedIds = [];
-  const files = fileInput.files;
-  for(let i=0; i<files.length; i++) {
-    prog.textContent = `正在处理并上传 第 ${i+1} / ${files.length} 张...`;
-    try {
-      const base64 = await compressImage(files[i]);
-      const res = await fetch(GAS_API_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'uploadEventPhoto', eventName: name, imageBase64: base64 })
-      });
-      const data = await res.json();
-      if(data.error && data.error.includes('未知操作')) {
-        alert('上传失败！系统检测到你的 Google Apps Script 还没更新发布。请按照我说的方法，去更新并部署新版 Code.gs！');
-        break; // stop uploading
-      }
-      if(data.success && data.fileId) {
-        uploadedIds.push(data.fileId);
-      } else {
-        console.error('GAS Error:', data.error);
-        if(typeof toast === 'function') toast('上传第'+(i+1)+'张失败: ' + (data.error||''), 'error');
-      }
-    } catch(e) {
-      console.error('Upload failed for file', i);
-    }
+  let cover = coverVal;
+  let badgeText = '';
+  if (coverType === 'badge') {
+    badgeText = coverVal || 'EVENT';
+    cover = 'radial-gradient(circle at center, #1b382b 0%, #07101e 100%)';
   }
 
-  prog.textContent = '照片上传完成，正在保存图集数据...';
-  
-  const newEvent = { id: 'evt_'+Date.now(), name, date, desc, photos: uploadedIds };
-  const events = [...(window._events || []), newEvent];
-  
-  try {
-    const res2 = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminPin: getAuthPin(), events: events })
-    });
-    const data2 = await res2.json();
-    if(data2.success) {
-      if(typeof toast === 'function') toast('相册创建成功！', 'success');
-      document.getElementById('createGalleryModal').style.display = 'none';
-      window._events = events;
-      renderEvents();
-      // clear form
-      document.getElementById('galName').value = '';
-      document.getElementById('galDate').value = '';
-      document.getElementById('galDesc').value = '';
-      fileInput.value = '';
-    } else {
-      if(typeof toast === 'function') toast('保存失败', 'error');
-    }
-  } catch(e) {
-    if(typeof toast === 'function') toast('网络错误', 'error');
+  let statusText = '筹划筹备中';
+  if (status === 'open') statusText = '报名开放中';
+  else if (status === 'official') statusText = '官方年度大赛';
+  else if (status === 'archive') statusText = '已圆满落幕';
+
+  const meta = [];
+  const m1_l = document.getElementById('editMetaLabel1').value.trim();
+  const m1_v = document.getElementById('editMetaVal1').value.trim();
+  if (m1_l && m1_v) meta.push({ label: m1_l, val: m1_v });
+
+  const m2_l = document.getElementById('editMetaLabel2').value.trim();
+  const m2_v = document.getElementById('editMetaVal2').value.trim();
+  if (m2_l && m2_v) meta.push({ label: m2_l, val: m2_v });
+
+  const m3_l = document.getElementById('editMetaLabel3').value.trim();
+  const m3_v = document.getElementById('editMetaVal3').value.trim();
+  if (m3_l && m3_v) meta.push({ label: m3_l, val: m3_v });
+
+  const btnText = document.getElementById('editEvtBtnText').value.trim() || '查看详情';
+  const regUrl = document.getElementById('editEvtRegUrl').value.trim();
+
+  const events = [...(window._events || [])];
+  if (idx === -1) {
+    // New Event
+    const newEvt = {
+      id: 'evt_' + Date.now(),
+      category,
+      seriesTag,
+      title,
+      date,
+      status,
+      statusText,
+      desc,
+      cover,
+      coverType,
+      badgeText,
+      meta,
+      btnText,
+      btnType: status === 'open' ? 'primary' : 'secondary',
+      regUrl
+    };
+    events.unshift(newEvt);
+  } else {
+    // Update existing
+    const existing = events[idx];
+    existing.category = category;
+    existing.seriesTag = seriesTag;
+    existing.title = title;
+    existing.date = date;
+    existing.status = status;
+    existing.statusText = statusText;
+    existing.desc = desc;
+    existing.cover = cover;
+    existing.coverType = coverType;
+    if (coverType === 'badge') existing.badgeText = badgeText;
+    existing.meta = meta;
+    existing.btnText = btnText;
+    existing.btnType = status === 'open' ? 'primary' : 'secondary';
+    existing.regUrl = regUrl;
   }
 
-  btn.disabled = false;
-  btn.textContent = '开始上传';
-  prog.style.display = 'none';
+  window._events = events;
+  localStorage.setItem('cxb_events_data', JSON.stringify(events));
+  closeEventEditModal();
+  renderAdminEvents();
+  if (typeof toast === 'function') toast('赛事数据已保存！', 'success');
+  await saveEventsToCloudSilent();
 }
 
-function compressImage(file) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        let w = img.width; let h = img.height;
-        const max = 1200;
-        if(w > max || h > max) {
-          if(w > h) { h = h * (max / w); w = max; }
-          else { w = w * (max / h); h = max; }
-        }
-        canvas.width = w; canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
-      };
+async function deleteAdminEvent(idx) {
+  if (!confirm("确定要删除此赛事活动吗？删除后前台也将不再展示此卡片。")) return;
+  const events = [...(window._events || [])];
+  events.splice(idx, 1);
+  window._events = events;
+  localStorage.setItem('cxb_events_data', JSON.stringify(events));
+  renderAdminEvents();
+  if (typeof toast === 'function') toast('赛事已删除', 'info');
+  await saveEventsToCloudSilent();
+}
+
+// --- RECAP & HONOR ROLL CONTROLLER ---
+function openRecapModalAdmin(idx) {
+  document.getElementById('recapEvtIndex').value = idx;
+  const evt = window._events[idx];
+  document.getElementById('recapModalEventTitle').textContent = `赛事实况与荣誉榜 · ${evt.title}`;
+
+  if (!evt.recap) {
+    evt.recap = {
+      gallery: [],
+      quote: { badge: '赛事教育意义 · 校方寄语', author: '', text: '' },
+      orgMeta: { orgTitle: '组织架构与执裁阵容', orgDetail: '', scaleTitle: '参赛规模与源流学校', scaleDetail: '' },
+      podium: { title: '比赛前八强荣誉榜', gold: { name: '', school: '', badge: '冠军' }, silver: { name: '', school: '', badge: '亚军' }, bronze: { name: '', school: '', badge: '季军' }, rank4: '', rank5: '', merit: '' }
     };
+  }
+
+  // Populate Photos
+  renderRecapPhotos(evt.recap.gallery || []);
+
+  // Populate Podium
+  const p = evt.recap.podium || {};
+  document.getElementById('recapGoldName').value = (p.gold && p.gold.name) || '';
+  document.getElementById('recapGoldSchool').value = (p.gold && p.gold.school) || '';
+  document.getElementById('recapSilverName').value = (p.silver && p.silver.name) || '';
+  document.getElementById('recapSilverSchool').value = (p.silver && p.silver.school) || '';
+  document.getElementById('recapBronzeName').value = (p.bronze && p.bronze.name) || '';
+  document.getElementById('recapBronzeSchool').value = (p.bronze && p.bronze.school) || '';
+  document.getElementById('recapRank4').value = p.rank4 || '';
+  document.getElementById('recapRank5').value = p.rank5 || '';
+  document.getElementById('recapMerit').value = p.merit || '';
+
+  // Populate Quote & Org
+  const q = evt.recap.quote || {};
+  document.getElementById('recapQuoteAuthor').value = q.author || '';
+  document.getElementById('recapQuoteText').value = q.text || '';
+
+  const om = evt.recap.orgMeta || {};
+  document.getElementById('recapOrgDetail').value = om.orgDetail || '';
+  document.getElementById('recapScaleDetail').value = om.scaleDetail || '';
+
+  switchRecapSubTab('photos');
+  document.getElementById('eventRecapModal').style.display = 'flex';
+}
+
+function closeRecapModalAdmin() {
+  document.getElementById('eventRecapModal').style.display = 'none';
+}
+
+function switchRecapSubTab(tab) {
+  ['photos', 'podium', 'quote'].forEach(t => {
+    const btn = document.getElementById(`recapTabBtn_${t}`);
+    const panel = document.getElementById(`recapSubPanel_${t}`);
+    if (btn) btn.classList.toggle('active', t === tab);
+    if (panel) panel.style.display = (t === tab) ? 'block' : 'none';
   });
 }
 
-// Hook into loadAllData or showApp to load events
-if(typeof loadAllData !== 'undefined') {
+function renderRecapPhotos(photos) {
+  const list = document.getElementById('recapPhotosList');
+  if (!list) return;
+
+  if (photos.length === 0) {
+    list.innerHTML = '<div style="color:var(--text2); font-size:12px; padding:20px; text-align:center; grid-column:1/-1;">暂未添加现场实况照片。</div>';
+    return;
+  }
+
+  let html = '';
+  photos.forEach((ph, i) => {
+    html += `
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; overflow:hidden;">
+        <div style="height:100px; background:#07101e; display:flex; align-items:center; justify-content:center;">
+          <img src="${ph.src}" alt="${ph.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.onerror=null; this.src='cxb_round_emblem.png';">
+        </div>
+        <div style="padding:8px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:11px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px;">${ph.title || '照片 '+(i+1)}</div>
+          <button onclick="removePhotoFromRecap(${i})" style="background:#FDEDEC; color:#E74C3C; border:none; border-radius:6px; padding:3px 8px; font-size:11px; cursor:pointer;" title="移除照片">✕</button>
+        </div>
+      </div>
+    `;
+  });
+  list.innerHTML = html;
+}
+
+function addPhotoToRecap() {
+  const src = document.getElementById('newPhotoSrc').value.trim();
+  const title = document.getElementById('newPhotoTitle').value.trim();
+  if (!src) {
+    if (typeof toast === 'function') toast('请输入照片路径或URL', 'error');
+    return;
+  }
+  const idx = parseInt(document.getElementById('recapEvtIndex').value, 10);
+  const evt = window._events[idx];
+  if (!evt.recap) evt.recap = { gallery: [] };
+  if (!evt.recap.gallery) evt.recap.gallery = [];
+
+  evt.recap.gallery.push({ src, title: title || '现场比赛实况' });
+  renderRecapPhotos(evt.recap.gallery);
+  document.getElementById('newPhotoSrc').value = '';
+  document.getElementById('newPhotoTitle').value = '';
+  if (typeof toast === 'function') toast('已添加相片', 'success');
+}
+
+function removePhotoFromRecap(photoIdx) {
+  const idx = parseInt(document.getElementById('recapEvtIndex').value, 10);
+  const evt = window._events[idx];
+  if (evt && evt.recap && evt.recap.gallery) {
+    evt.recap.gallery.splice(photoIdx, 1);
+    renderRecapPhotos(evt.recap.gallery);
+  }
+}
+
+async function saveRecapModalAdmin() {
+  const idx = parseInt(document.getElementById('recapEvtIndex').value, 10);
+  if (idx < 0 || !window._events[idx]) return;
+  const evt = window._events[idx];
+
+  if (!evt.recap) evt.recap = {};
+
+  // Save Podium
+  evt.recap.podium = {
+    title: '比赛前八强荣誉榜',
+    gold: {
+      name: document.getElementById('recapGoldName').value.trim(),
+      school: document.getElementById('recapGoldSchool').value.trim(),
+      badge: '冠军'
+    },
+    silver: {
+      name: document.getElementById('recapSilverName').value.trim(),
+      school: document.getElementById('recapSilverSchool').value.trim(),
+      badge: '亚军'
+    },
+    bronze: {
+      name: document.getElementById('recapBronzeName').value.trim(),
+      school: document.getElementById('recapBronzeSchool').value.trim(),
+      badge: '季军'
+    },
+    rank4: document.getElementById('recapRank4').value.trim(),
+    rank5: document.getElementById('recapRank5').value.trim(),
+    merit: document.getElementById('recapMerit').value.trim()
+  };
+
+  // Save Quote
+  evt.recap.quote = {
+    badge: '赛事教育意义 · 校方寄语',
+    author: document.getElementById('recapQuoteAuthor').value.trim(),
+    text: document.getElementById('recapQuoteText').value.trim()
+  };
+
+  // Save Org Meta
+  evt.recap.orgMeta = {
+    orgTitle: '组织架构与执裁阵容',
+    orgDetail: document.getElementById('recapOrgDetail').value.trim(),
+    scaleTitle: '参赛规模与源流学校',
+    scaleDetail: document.getElementById('recapScaleDetail').value.trim()
+  };
+
+  localStorage.setItem('cxb_events_data', JSON.stringify(window._events));
+  closeRecapModalAdmin();
+  renderAdminEvents();
+  if (typeof toast === 'function') toast('实况相册与荣誉榜数据已保存！', 'success');
+  await saveEventsToCloudSilent();
+}
+
+async function saveEventsToCloudSilent() {
+  try {
+    await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: getAuthPin(), events: window._events })
+    });
+  } catch(e) {
+    console.warn('Sync to cloud silently failed:', e);
+  }
+}
+
+async function syncEventsToCloud() {
+  if (typeof toast === 'function') toast('正在同步至云端...', 'info');
+  try {
+    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPin: getAuthPin(), events: window._events })
+    });
+    const data = await res.json();
+    if (data.success) {
+      if (typeof toast === 'function') toast('云端同步成功！前台页面将实时展示最新赛事', 'success');
+    } else {
+      if (typeof toast === 'function') toast('云端同步失败: ' + (data.error || '权限不足'), 'error');
+    }
+  } catch(e) {
+    if (typeof toast === 'function') toast('网络连接错误，数据已保存在本地', 'error');
+  }
+}
+
+function resetDefaultEvents() {
+  if (!confirm("确定要恢复官方预置的 6 大赛事模版吗？当前未保存的自定义修改将被重置。")) return;
+  window._events = JSON.parse(JSON.stringify(DEFAULT_EVENTS));
+  localStorage.setItem('cxb_events_data', JSON.stringify(window._events));
+  renderAdminEvents();
+  if (typeof toast === 'function') toast('已恢复官方赛事模版！', 'success');
+  saveEventsToCloudSilent();
+}
+
+// Hook into loadAllData or init to call loadEvents if superadmin
+if (typeof loadAllData !== 'undefined') {
   const oldLoadAllData = loadAllData;
   loadAllData = function() {
     oldLoadAllData();
     const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
     if (user && user.role === 'superadmin') {
-       loadEvents();
+      loadEvents();
     }
   };
 }
-// --- End Gallery JS ---
 </script>
 
 
