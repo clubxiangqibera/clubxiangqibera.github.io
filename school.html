@@ -851,7 +851,7 @@ function updateSeg(lang) {
         <input type="text" id="schoolPinInput" class="pin-input" placeholder="请输入授权码 (如 CXQB-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
       </div>
       
-      <button type="button" class="login-btn" id="sBtn" onclick="doSchoolLogin()" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">验证授权并进入比赛台</button>
+      <button type="button" class="login-btn" id="sBtn" onclick="verifySchoolLogin()" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">验证授权并进入比赛台</button>
       
       <div class="login-error" id="sError" style="margin-top:16px; display:none; color:#E63946; font-size:13px; font-weight:700;">授权码无效</div>
     </div>
@@ -1169,45 +1169,48 @@ const I18N = {
   }
 };
 
+const tCard = {
+  zh: {
+    badge: "CLUB XIANGQI BERA · 校际赛编排与赛事系统",
+    title: "校内象棋比赛管理系统",
+    sub: "百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影",
+    lbl: "比赛授权码",
+    ph: "请输入授权码 (如 CXQB-8888)",
+    btn: "验证授权并进入比赛台",
+    err: "授权码无效或已到期，请联系俱乐部获取",
+    errEmpty: "请输入比赛授权激活码",
+    verifying: "⏳ 正在通过 Cloudflare 安全验证..."
+  },
+  bm: {
+    badge: "CLUB XIANGQI BERA · Sistem Pertandingan Antara Sekolah",
+    title: "Sistem Pertandingan Catur",
+    sub: "Sistem Penjadualan CXQB · Seri Automatik · Paparan Skrin",
+    lbl: "Kod Akses",
+    ph: "Masukkan kod akses (cth: CXQB-8888)",
+    btn: "Sahkan & Masuk",
+    err: "Kod akses tidak sah atau tamat tempoh",
+    errEmpty: "Sila masukkan kod akses",
+    verifying: "⏳ Mengesahkan melalui Cloudflare SSL..."
+  },
+  en: {
+    badge: "CLUB XIANGQI BERA · School Pairing & Tournament System",
+    title: "School Tournament System",
+    sub: "CXQB Pairing Engine · Auto Tie-Break · Live Projection",
+    lbl: "Access Code",
+    ph: "Enter access code (e.g. CXQB-8888)",
+    btn: "Verify & Enter",
+    err: "Invalid or expired access code",
+    errEmpty: "Please enter access code",
+    verifying: "⏳ Authenticating via Cloudflare SSL..."
+  }
+};
+
 function setLoginLang(lang) {
   let mapped = (lang === 'cn' || lang === 'zh') ? 'zh' : (lang === 'my' || lang === 'bm' ? 'bm' : 'en');
   try { 
     localStorage.setItem('cxb_lang_pref', mapped);
     localStorage.setItem('cxb_school_lang', mapped);
   } catch(e){}
-
-  const tCard = {
-    zh: {
-      badge: "CLUB XIANGQI BERA · 校际赛编排与赛事系统",
-      title: "校内象棋比赛管理系统",
-      sub: "百乐象棋对阵编排系统 · 自动破同分 · 现场大屏投影",
-      lbl: "比赛授权码",
-      ph: "请输入授权码 (如 CXQB-8888)",
-      btn: "验证授权并进入比赛台",
-      err: "授权码无效或已到期，请联系俱乐部获取",
-      errEmpty: "请输入比赛授权激活码"
-    },
-    bm: {
-      badge: "CLUB XIANGQI BERA · Sistem Pertandingan Antara Sekolah",
-      title: "Sistem Pertandingan Catur",
-      sub: "Sistem Penjadualan CXQB · Seri Automatik · Paparan Skrin",
-      lbl: "Kod Akses",
-      ph: "Masukkan kod akses (cth: CXQB-8888)",
-      btn: "Sahkan & Masuk",
-      err: "Kod akses tidak sah atau tamat tempoh",
-      errEmpty: "Sila masukkan kod akses"
-    },
-    en: {
-      badge: "CLUB XIANGQI BERA · School Pairing & Tournament System",
-      title: "School Tournament System",
-      sub: "CXQB Pairing Engine · Auto Tie-Break · Live Projection",
-      lbl: "Access Code",
-      ph: "Enter access code (e.g. CXQB-8888)",
-      btn: "Verify & Enter",
-      err: "Invalid or expired access code",
-      errEmpty: "Please enter access code"
-    }
-  };
 
   const cur = tCard[mapped] || tCard.zh;
   const sBadgeText = document.getElementById('sBadgeText'); if (sBadgeText) { sBadgeText.textContent = cur.badge; } else { const sBadge = document.getElementById('sBadge'); if (sBadge) sBadge.textContent = cur.badge; }
@@ -1249,15 +1252,17 @@ function updateSchoolSeg(lang) {
 async function verifySchoolLogin() {
   const pinInput = document.getElementById('schoolPinInput');
   const pin = pinInput ? pinInput.value.trim().toUpperCase() : '';
-  const err = document.getElementById('schoolLoginErr');
-  const btn = document.getElementById('tSubmitBtn');
-  const t = I18N[currentLang] || I18N.zh;
+  const err = document.getElementById('sError') || document.getElementById('schoolLoginErr');
+  const btn = document.getElementById('sBtn') || document.getElementById('tSubmitBtn');
+  const mapped = (currentLang === 'cn' || currentLang === 'zh') ? 'zh' : (currentLang === 'my' || currentLang === 'bm' ? 'bm' : 'en');
+  const cur = tCard[mapped] || tCard.zh;
+  const t = (typeof I18N !== 'undefined' && I18N[mapped]) ? I18N[mapped] : (I18N && I18N.zh ? I18N.zh : {});
 
   if (err) err.style.display = 'none';
 
   if (!pin) {
     if (err) {
-      err.textContent = t.errEmpty;
+      err.textContent = cur.errEmpty || t.errEmpty || '请输入比赛授权激活码';
       err.style.display = 'block';
     }
     return;
@@ -1265,7 +1270,7 @@ async function verifySchoolLogin() {
 
   if (btn) {
     btn.disabled = true;
-    btn.textContent = t.btnVerifying;
+    btn.textContent = cur.verifying || t.btnVerifying || '⏳ 正在验证...';
   }
 
   try {
@@ -1287,7 +1292,7 @@ async function verifySchoolLogin() {
       showSchoolApp();
     } else {
       if (err) {
-        err.textContent = d.error || t.errInvalid;
+        err.textContent = d.error || cur.err || t.errInvalid || '授权码无效';
         err.style.display = 'block';
         setTimeout(() => { if (err) err.style.display = 'none'; }, 4000);
       }
@@ -1308,10 +1313,16 @@ async function verifySchoolLogin() {
   } finally {
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = t.submitBtn;
+      btn.textContent = cur.btn || t.submitBtn || '验证授权并进入比赛台';
     }
   }
 }
+
+function doSchoolLogin() {
+  verifySchoolLogin();
+}
+window.doSchoolLogin = verifySchoolLogin;
+window.verifySchoolLogin = verifySchoolLogin;
 
 function checkSchoolSession() {
   const s = localStorage.getItem('cxb_school_session');
@@ -1910,12 +1921,14 @@ function closeProjector() {
 setLoginLang(currentLang);
 
 // Explicit Button Event Listeners (Click + Touch) & Form Support
-const submitBtnEl = document.getElementById('tSubmitBtn');
+const submitBtnEl = document.getElementById('sBtn') || document.getElementById('tSubmitBtn');
 if (submitBtnEl) {
   submitBtnEl.addEventListener('click', function(e) {
+    e.preventDefault();
     verifySchoolLogin();
   });
   submitBtnEl.addEventListener('touchend', function(e) {
+    e.preventDefault();
     verifySchoolLogin();
   });
 }
