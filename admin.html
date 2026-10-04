@@ -1205,29 +1205,42 @@ function updateSeg(lang) {
 
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
           <div>
-            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">所属官方系列</label>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">所属核心系列</label>
             <select id="editEvtCategory" class="form-input" style="width:100%;" onchange="autoFillSeriesTag()">
+              <option value="school">校际锦标赛系列</option>
               <option value="qiyuan">「棋缘」启蒙系列</option>
               <option value="yifeng">「弈峰」特训系列</option>
-              <option value="school">校际锦标赛系列</option>
               <option value="open">全县公开赛系列</option>
               <option value="festive">传统节庆杯系列</option>
             </select>
           </div>
           <div>
-            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">赛事状态</label>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">生命周期状态</label>
             <select id="editEvtStatus" class="form-input" style="width:100%;">
-              <option value="open">报名开放中 (open)</option>
               <option value="upcoming">筹划筹备中 / 章程拟定中 (upcoming)</option>
-              <option value="official">官方年度大赛 (official)</option>
+              <option value="open">报名开放中 (open)</option>
               <option value="archive">已圆满落幕 (archive)</option>
             </select>
           </div>
         </div>
 
-        <div style="margin-bottom:12px;">
-          <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">系列标签文本 (例: 「棋缘」启蒙系列 · 第一届)</label>
-          <input type="text" id="editEvtSeriesTag" class="form-input" style="width:100%;" placeholder="系列标签文本">
+        <div style="display:grid; grid-template-columns: 140px 1fr; gap:12px; margin-bottom:12px;">
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">主办规格标签</label>
+            <select id="editEvtTierPrefix" class="form-input" style="width:100%;" onchange="autoFillSeriesTag()">
+              <option value="官方赛事">官方赛事</option>
+              <option value="官方活动">官方活动</option>
+              <option value="俱乐部活动">俱乐部活动</option>
+              <option value="公会特训">公会特训</option>
+              <option value="校园合办">校园合办</option>
+              <option value="公会节庆">公会节庆</option>
+              <option value="自定义">自定义前缀</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">系列标签完整文本</label>
+            <input type="text" id="editEvtSeriesTag" class="form-input" style="width:100%;" placeholder="例: 官方赛事 · 校际锦标赛系列">
+          </div>
         </div>
 
         <div style="margin-bottom:12px;">
@@ -3508,7 +3521,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_qiyuan_2026",
     category: "qiyuan",
-    seriesTag: "「棋缘」启蒙系列 · 第一届",
+    seriesTag: "俱乐部活动 · 「棋缘」启蒙系列 · 第一届",
     title: "2026 第一届「棋缘」中国象棋启蒙教育营",
     date: "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
     status: "open",
@@ -3528,7 +3541,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_yifeng_2026",
     category: "yifeng",
-    seriesTag: "「弈峰」特训系列 · 假期集训",
+    seriesTag: "公会特训 · 「弈峰」特训系列 · 假期集训",
     title: "2026 第一届「弈峰」学校假期棋艺进阶特训营",
     date: "2026 学校假期 (School Holidays) · 封闭强化",
     status: "upcoming",
@@ -3549,11 +3562,11 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_school_annual",
     category: "school",
-    seriesTag: "校际锦标赛系列 · 年度选拔",
-    title: "百乐县中小学校际中国象棋锦标赛",
-    date: "年度全县校际巡回赛",
-    status: "official",
-    statusText: "官方年度大赛",
+    seriesTag: "官方赛事 · 校际锦标赛系列",
+    title: "2027 百乐县中小学校际中国象棋锦标赛",
+    date: "2027 新学年度 · 年度全县巡回选拔",
+    status: "upcoming",
+    statusText: "筹划筹备中",
     desc: "百乐县最高规格官方校际棋艺大赛。统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。",
     cover: "cxb_round_emblem.png",
     coverType: "image",
@@ -3569,7 +3582,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_open_2026",
     category: "open",
-    seriesTag: "全县公开赛系列 · 棋王争霸",
+    seriesTag: "官方赛事 · 全县公开赛系列 · 棋王争霸",
     title: "2026 第一届百乐县中国象棋公开锦标赛",
     date: "2026 下半年度 · 全县争霸",
     status: "upcoming",
@@ -3590,7 +3603,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_festive_2027",
     category: "festive",
-    seriesTag: "传统节庆杯系列 · 新春特辑",
+    seriesTag: "公会节庆 · 传统节庆杯系列 · 新春特辑",
     title: "2027 百乐县新春中国象棋争霸赛",
     date: "2027 农历新春期间 · 喜迎新春",
     status: "upcoming",
@@ -3611,7 +3624,7 @@ const DEFAULT_EVENTS = [
   {
     id: "evt_done_primary_2026",
     category: "school",
-    seriesTag: "校际锦标赛系列 · 2026 官方实录",
+    seriesTag: "校园合办 · 校际锦标赛系列 · 2026 官方实录",
     title: "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
     date: "2026年6月13日 (星期六) · 官方圆满落幕",
     status: "archive",
@@ -3730,7 +3743,6 @@ function renderAdminEvents() {
     let statusClass = evt.status || 'upcoming';
     let statusLabel = evt.statusText || '筹划中';
     if (evt.status === 'open') { statusClass = 'open'; statusLabel = '报名开放中'; }
-    else if (evt.status === 'official') { statusClass = 'official'; statusLabel = '官方年度大赛'; }
     else if (evt.status === 'archive') { statusClass = 'archive'; statusLabel = '已圆满落幕'; }
     else { statusClass = 'upcoming'; statusLabel = '筹划筹备中'; }
 
@@ -3774,9 +3786,8 @@ function renderAdminEvents() {
         <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:6px 10px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between;">
           <span style="font-size:11.5px; font-weight:800; color:var(--text2);">快捷切换状态：</span>
           <select onchange="quickChangeStatus(${origIdx}, this.value)" class="status-dropdown-select">
+            <option value="upcoming" ${(evt.status==='upcoming'||evt.status==='official')?'selected':''}>筹划筹备中</option>
             <option value="open" ${evt.status==='open'?'selected':''}>报名开放中</option>
-            <option value="upcoming" ${evt.status==='upcoming'?'selected':''}>筹划筹备中</option>
-            <option value="official" ${evt.status==='official'?'selected':''}>官方年度大赛</option>
             <option value="archive" ${evt.status==='archive'?'selected':''}>已圆满落幕</option>
           </select>
         </div>
@@ -3807,8 +3818,7 @@ function renderEventStats(events) {
 
   const total = events.length;
   const openCount = events.filter(e => e.status === 'open').length;
-  const upcomingCount = events.filter(e => e.status === 'upcoming').length;
-  const officialCount = events.filter(e => e.status === 'official').length;
+  const upcomingCount = events.filter(e => e.status === 'upcoming' || e.status === 'official').length;
   const archiveCount = events.filter(e => e.status === 'archive').length;
 
   banner.innerHTML = `
@@ -3823,10 +3833,6 @@ function renderEventStats(events) {
     <div class="stat-pill-sm orange">
       <div class="val">${upcomingCount}</div>
       <div class="lbl">筹划筹备中</div>
-    </div>
-    <div class="stat-pill-sm blue">
-      <div class="val">${officialCount}</div>
-      <div class="lbl">官方年度大赛</div>
     </div>
     <div class="stat-pill-sm gray">
       <div class="val">${archiveCount}</div>
@@ -3847,7 +3853,6 @@ async function quickChangeStatus(idx, newStatus) {
   const evt = window._events[idx];
   evt.status = newStatus;
   if (newStatus === 'open') evt.statusText = '报名开放中';
-  else if (newStatus === 'official') evt.statusText = '官方年度大赛';
   else if (newStatus === 'archive') evt.statusText = '已圆满落幕';
   else evt.statusText = '筹划筹备中';
 
@@ -3859,16 +3864,28 @@ async function quickChangeStatus(idx, newStatus) {
 
 function autoFillSeriesTag() {
   const cat = document.getElementById('editEvtCategory').value;
+  const tierPrefix = document.getElementById('editEvtTierPrefix').value;
   const tagInput = document.getElementById('editEvtSeriesTag');
   const catMap = {
+    school: '校际锦标赛系列',
     qiyuan: '「棋缘」启蒙系列',
     yifeng: '「弈峰」特训系列',
-    school: '校际锦标赛系列',
     open: '全县公开赛系列',
     festive: '传统节庆杯系列'
   };
-  if (catMap[cat] && !tagInput.value) {
-    tagInput.value = catMap[cat];
+  const coreSeries = catMap[cat] || '官方赛事系列';
+  if (tierPrefix === '自定义') {
+    if (!tagInput.value) tagInput.value = coreSeries;
+  } else {
+    let suffix = '';
+    const currentVal = tagInput.value.trim();
+    if (currentVal.includes(' · ')) {
+      const parts = currentVal.split(' · ');
+      if (parts.length >= 3) {
+        suffix = ' · ' + parts.slice(2).join(' · ');
+      }
+    }
+    tagInput.value = `${tierPrefix} · ${coreSeries}${suffix}`;
   }
 }
 
@@ -3891,9 +3908,10 @@ function openEventEditModal(idx) {
   document.getElementById('eventEditModalTitle').textContent = isNew ? '+ 发布新赛事' : '编辑赛事与规程';
 
   if (isNew) {
-    document.getElementById('editEvtCategory').value = 'qiyuan';
+    document.getElementById('editEvtCategory').value = 'school';
     document.getElementById('editEvtStatus').value = 'upcoming';
-    document.getElementById('editEvtSeriesTag').value = '「棋缘」启蒙系列';
+    document.getElementById('editEvtTierPrefix').value = '官方赛事';
+    document.getElementById('editEvtSeriesTag').value = '官方赛事 · 校际锦标赛系列';
     document.getElementById('editEvtTitle').value = '';
     document.getElementById('editEvtDate').value = '';
     document.getElementById('editEvtCoverType').value = 'image';
@@ -3909,9 +3927,22 @@ function openEventEditModal(idx) {
     document.getElementById('editEvtRegUrl').value = '';
   } else {
     const evt = window._events[idx];
-    document.getElementById('editEvtCategory').value = evt.category || 'qiyuan';
-    document.getElementById('editEvtStatus').value = evt.status || 'upcoming';
-    document.getElementById('editEvtSeriesTag').value = evt.seriesTag || '';
+    document.getElementById('editEvtCategory').value = evt.category || 'school';
+    document.getElementById('editEvtStatus').value = (evt.status === 'official' ? 'upcoming' : (evt.status || 'upcoming'));
+    
+    // Detect prefix from evt.seriesTag
+    const tag = evt.seriesTag || '';
+    const knownPrefixes = ['官方赛事', '官方活动', '俱乐部活动', '公会特训', '校园合办', '公会节庆'];
+    let matchedPrefix = '自定义';
+    for (const p of knownPrefixes) {
+      if (tag.startsWith(p + ' · ') || tag === p) {
+        matchedPrefix = p;
+        break;
+      }
+    }
+    document.getElementById('editEvtTierPrefix').value = matchedPrefix;
+    document.getElementById('editEvtSeriesTag').value = tag;
+
     document.getElementById('editEvtTitle').value = evt.title || '';
     document.getElementById('editEvtDate').value = evt.date || '';
     document.getElementById('editEvtCoverType').value = evt.coverType || 'image';
@@ -3963,7 +3994,6 @@ async function saveEventModal() {
 
   let statusText = '筹划筹备中';
   if (status === 'open') statusText = '报名开放中';
-  else if (status === 'official') statusText = '官方年度大赛';
   else if (status === 'archive') statusText = '已圆满落幕';
 
   const meta = [];
