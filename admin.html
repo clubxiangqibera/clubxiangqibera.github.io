@@ -789,15 +789,15 @@ function updateSeg(lang) {
   </div>
 
   <div class="nav-tabs">
-    <div class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 运营看板</div>
-    <div class="nav-tab" data-tab="students" onclick="switchTab('students')">👥 学员快速建档</div>
-    <div class="nav-tab" data-tab="payments" onclick="switchTab('payments')">💰 学费审核追踪</div>
-    <div class="nav-tab" data-tab="records" onclick="switchTab('records')">📄 对局纸档案库</div>
-    <div class="nav-tab" data-tab="tournament" onclick="switchTab('tournament')">🏆 锦标赛</div>
-    <div class="nav-tab" data-tab="ladder" onclick="switchTab('ladder')">🏅 ELO天梯榜</div>
-    <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:2px solid rgba(241,196,15,0.5);">🔑 账号管理</div>
-    <div class="nav-tab superadmin-only" data-tab="gallery" onclick="switchTab('gallery')">🏆 赛事与活动</div>
-    <div class="nav-tab superadmin-only" data-tab="licenses" onclick="switchTab('licenses')">🛡️ 学校租约授权 (Cloudflare)</div>
+    <div class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">运营看板</div>
+    <div class="nav-tab" data-tab="students" onclick="switchTab('students')">学员建档</div>
+    <div class="nav-tab" data-tab="payments" onclick="switchTab('payments')">学费追踪</div>
+    <div class="nav-tab" data-tab="records" onclick="switchTab('records')">对局档案</div>
+    <div class="nav-tab" data-tab="tournament" onclick="switchTab('tournament')">锦标赛</div>
+    <div class="nav-tab" data-tab="ladder" onclick="switchTab('ladder')">ELO天梯榜</div>
+    <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:2px solid rgba(241,196,15,0.5);">账号管理</div>
+    <div class="nav-tab superadmin-only" data-tab="gallery" onclick="switchTab('gallery')">赛事与活动</div>
+    <div class="nav-tab superadmin-only" data-tab="licenses" onclick="switchTab('licenses')">学校租约授权 (Cloudflare)</div>
   </div>
 
   <div class="main-content">
@@ -1092,18 +1092,18 @@ function updateSeg(lang) {
           <div style="font-size:12px; color:var(--text2); font-weight:700;">🎉 授权码已成功写入 Cloudflare KV 数据库：</div>
           <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">CXQB-XXXX</div>
           <div style="font-size:12px; color:var(--text);">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:rgba(255,255,255,0.8);font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
-          <button class="btn-sm green" style="margin-top:10px;" onclick="copyGeneratedLicense()">📋 复制发给老师 WhatsApp</button>
+          <button class="btn-sm green" style="margin-top:10px;" onclick="copyGeneratedLicense()">复制授权码 (WhatsApp)</button>
         </div>
       </div>
 
       <!-- ACTIVE LICENSES LIST -->
       <div class="form-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <h4 style="font-size:16px; font-weight:900;">📋 当前在约授权列表 (KV Records)</h4>
-          <button class="btn-sm" onclick="loadSchoolLicenses()">🔄 刷新列表</button>
+          <h4 style="font-size:16px; font-weight:900;">当前在约授权列表 (KV Records)</h4>
+          <button class="btn-sm" onclick="loadSchoolLicenses()">刷新列表</button>
         </div>
         <div id="licensesTableContainer">
-          <div style="padding:20px; text-align:center; color:var(--text2);">⏳ 正在从 Cloudflare KV 自动加载数据...</div>
+          <div style="padding:20px; text-align:center; color:var(--text2);">正在加载 Cloudflare KV 授权数据...</div>
         </div>
       </div>
     </div>
@@ -1118,17 +1118,14 @@ function updateSeg(lang) {
       <div class="form-card">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:16px;">
           <div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="font-size:26px;">🏆</span>
-              <div>
-                <h3 style="margin:0; font-size:18px; font-weight:900; color:var(--text);">赛事与活动运营管理中心</h3>
-                <p style="margin:4px 0 0; font-size:12.5px; color:var(--text2);">全面统筹 events.html 赛事卡片、发布规程、报名开关、实况相册与前八强荣誉榜</p>
-              </div>
+            <div>
+              <h3 style="margin:0; font-size:18px; font-weight:900; color:var(--text);">赛事与活动运营管理中心</h3>
+              <p style="margin:4px 0 0; font-size:12.5px; color:var(--text2);">全面统筹 events.html 赛事卡片、发布规程、报名开关、实况相册与前八强荣誉榜</p>
             </div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn" style="background:var(--border); color:var(--text); border:none; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; font-size:12.5px;" onclick="resetDefaultEvents()">📥 恢复官方模版</button>
-            <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; font-size:12.5px;" onclick="syncEventsToCloud()">🔄 同步云端数据</button>
+            <button class="btn" style="background:var(--border); color:var(--text); border:none; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; font-size:12.5px;" onclick="resetDefaultEvents()">恢复官方模版</button>
+            <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; font-size:12.5px;" onclick="syncEventsToCloud()">同步云端数据</button>
             <button class="btn" style="background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:10px; font-weight:800; cursor:pointer; font-size:13px;" onclick="openEventEditModal(-1)">+ 发布新赛事</button>
           </div>
         </div>
@@ -1141,13 +1138,13 @@ function updateSeg(lang) {
         <!-- Series Filter Tabs -->
         <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06);">
           <button class="btn-filter-pill active" onclick="filterAdminEvents('all', this)">全部赛事</button>
-          <button class="btn-filter-pill" onclick="filterAdminEvents('open_status', this)">🟢 报名开放中</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('open_status', this)">报名开放中</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('qiyuan', this)">「棋缘」启蒙</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('yifeng', this)">「弈峰」特训</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('school', this)">校际锦标赛</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('open', this)">全县公开赛</button>
           <button class="btn-filter-pill" onclick="filterAdminEvents('festive', this)">传统节庆杯</button>
-          <button class="btn-filter-pill" onclick="filterAdminEvents('archive_status', this)">⚪ 已落幕实录</button>
+          <button class="btn-filter-pill" onclick="filterAdminEvents('archive_status', this)">已落幕实录</button>
         </div>
 
         <!-- Events List Container -->
@@ -1181,10 +1178,10 @@ function updateSeg(lang) {
           <div>
             <label style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">赛事状态</label>
             <select id="editEvtStatus" class="form-input" style="width:100%;">
-              <option value="open">🟢 报名开放中 (open)</option>
-              <option value="upcoming">🟡 筹划筹备中 / 章程拟定中 (upcoming)</option>
-              <option value="official">🔵 官方年度大赛 (official)</option>
-              <option value="archive">⚪ 已圆满落幕 (archive)</option>
+              <option value="open">报名开放中 (open)</option>
+              <option value="upcoming">筹划筹备中 / 章程拟定中 (upcoming)</option>
+              <option value="official">官方年度大赛 (official)</option>
+              <option value="archive">已圆满落幕 (archive)</option>
             </select>
           </div>
         </div>
@@ -1216,7 +1213,7 @@ function updateSeg(lang) {
             <label id="editCoverValueLabel" style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">封面图片路径 / 文件名</label>
             <input type="text" id="editEvtCover" class="form-input" style="width:100%;" placeholder="poster_qiyuan_final.jpg">
             <div style="margin-top:6px; display:flex; align-items:center; gap:8px;">
-              <label for="editCoverFileInput" class="btn" style="background:var(--pri3); color:#fff; padding:5px 10px; border-radius:6px; font-weight:700; font-size:11.5px; cursor:pointer;">📁 从本地选择海报</label>
+              <label for="editCoverFileInput" class="btn" style="background:var(--pri3); color:#fff; padding:5px 10px; border-radius:6px; font-weight:700; font-size:11.5px; cursor:pointer;">选择本地海报</label>
               <input type="file" id="editCoverFileInput" accept="image/*" style="display:none;" onchange="handleCoverFileUpload(this)">
               <span style="font-size:11px; color:var(--text2);">（选择图片自动压缩并填充）</span>
             </div>
@@ -1230,7 +1227,7 @@ function updateSeg(lang) {
 
         <!-- 3项规程元数据 -->
         <div style="background:var(--bg); padding:12px; border-radius:10px; border:1px solid var(--border); margin-bottom:12px;">
-          <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:8px;">📌 核心规程条目 (Meta 详情)</div>
+          <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:8px;">核心规程条目 (Meta 详情)</div>
           <div style="display:grid; grid-template-columns: 90px 1fr; gap:8px; margin-bottom:8px; align-items:center;">
             <input type="text" id="editMetaLabel1" class="form-input" value="活动地点">
             <input type="text" id="editMetaVal1" class="form-input" placeholder="例如: 直凉一校大礼堂">
@@ -1278,20 +1275,19 @@ function updateSeg(lang) {
 
         <!-- 3 Recap Sub-tabs -->
         <div style="display:flex; gap:8px; margin-bottom:18px;">
-          <button id="recapTabBtn_photos" class="btn-filter-pill active" onclick="switchRecapSubTab('photos')">📸 现场实况相册</button>
-          <button id="recapTabBtn_podium" class="btn-filter-pill" onclick="switchRecapSubTab('podium')">🏆 前八强荣誉榜</button>
-          <button id="recapTabBtn_quote" class="btn-filter-pill" onclick="switchRecapSubTab('quote')">💬 校方寄语与阵容</button>
+          <button id="recapTabBtn_photos" class="btn-filter-pill active" onclick="switchRecapSubTab('photos')">现场实况相册</button>
+          <button id="recapTabBtn_podium" class="btn-filter-pill" onclick="switchRecapSubTab('podium')">前八强荣誉榜</button>
+          <button id="recapTabBtn_quote" class="btn-filter-pill" onclick="switchRecapSubTab('quote')">校方寄语与执裁阵容</button>
         </div>
 
         <!-- SUB-TAB 1: PHOTOS -->
         <div id="recapSubPanel_photos">
           <!-- Method 1: Local File Picker (Preferred & Fast) -->
           <div style="background:linear-gradient(135deg, rgba(39, 174, 96, 0.12) 0%, rgba(13, 27, 42, 0.6) 100%); border:1.5px dashed #27AE60; border-radius:14px; padding:18px; text-align:center; margin-bottom:16px;">
-            <div style="font-size:24px; margin-bottom:4px;">📸</div>
             <div style="font-size:14px; font-weight:900; color:#2ECC71; margin-bottom:4px;">方法一：从本地电脑 / 手机直接选择照片上传</div>
             <div style="font-size:11.5px; color:var(--text2); margin-bottom:12px;">支持一次性选择多张照片，系统将自动进行高清压缩，无需手动填写路径</div>
             <label for="recapFileInput" class="btn" style="background:#27AE60; color:#fff; padding:9px 20px; border-radius:10px; font-weight:800; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(39,174,96,0.3);">
-              📁 从本地选择照片 (可多选自动压缩)
+              选择本地照片上传 (支持多选自动压缩)
             </label>
             <input type="file" id="recapFileInput" multiple accept="image/*" style="display:none;" onchange="handleRecapUploadFiles(this)">
             <div id="recapUploadStatus" style="display:none; font-size:12px; font-weight:800; color:var(--gold); margin-top:10px;"></div>
@@ -1305,7 +1301,7 @@ function updateSeg(lang) {
               <input type="text" id="newPhotoSrc" class="form-input" placeholder="图片文件名或链接 (如: event_2026_hall.jpg 或 https://...)">
               <input type="text" id="newPhotoTitle" class="form-input" placeholder="照片说明文字 (例: 比赛现场对局实况)">
             </div>
-            <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:7px 16px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer;" onclick="addPhotoToRecap()">+ 添加此链接照片</button>
+            <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:7px 16px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer;" onclick="addPhotoToRecap()">添加此链接照片</button>
           </div>
 
           <div style="font-size:12.5px; font-weight:800; color:var(--text2); margin-bottom:8px;">现存相册照片列表 (前台灯箱全景展示)</div>
@@ -1318,23 +1314,20 @@ function updateSeg(lang) {
         <div id="recapSubPanel_podium" style="display:none;">
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:16px;">
             <!-- GOLD -->
-            <div style="background:linear-gradient(180deg, rgba(241,196,15,0.12) 0%, var(--bg) 100%); border:1px solid #F1C40F; border-radius:12px; padding:12px; text-align:center;">
-              <div style="font-size:22px;">🥇</div>
-              <div style="font-weight:900; color:#F1C40F; font-size:13px; margin-bottom:6px;">冠军 (Gold)</div>
+            <div style="background:linear-gradient(180deg, rgba(241,196,15,0.12) 0%, var(--bg) 100%); border:1px solid #F1C40F; border-radius:12px; padding:14px 10px; text-align:center;">
+              <div style="font-weight:900; color:#F1C40F; font-size:13px; margin-bottom:8px;">冠军 (第一名)</div>
               <input type="text" id="recapGoldName" class="form-input" placeholder="选手姓名" style="margin-bottom:6px; font-weight:800; text-align:center;">
               <input type="text" id="recapGoldSchool" class="form-input" placeholder="代表学校" style="font-size:11.5px; text-align:center;">
             </div>
             <!-- SILVER -->
-            <div style="background:linear-gradient(180deg, rgba(189,195,199,0.12) 0%, var(--bg) 100%); border:1px solid #BDC3C7; border-radius:12px; padding:12px; text-align:center;">
-              <div style="font-size:22px;">🥈</div>
-              <div style="font-weight:900; color:#BDC3C7; font-size:13px; margin-bottom:6px;">亚军 (Silver)</div>
+            <div style="background:linear-gradient(180deg, rgba(189,195,199,0.12) 0%, var(--bg) 100%); border:1px solid #BDC3C7; border-radius:12px; padding:14px 10px; text-align:center;">
+              <div style="font-weight:900; color:#BDC3C7; font-size:13px; margin-bottom:8px;">亚军 (第二名)</div>
               <input type="text" id="recapSilverName" class="form-input" placeholder="选手姓名" style="margin-bottom:6px; font-weight:800; text-align:center;">
               <input type="text" id="recapSilverSchool" class="form-input" placeholder="代表学校" style="font-size:11.5px; text-align:center;">
             </div>
             <!-- BRONZE -->
-            <div style="background:linear-gradient(180deg, rgba(230,126,34,0.12) 0%, var(--bg) 100%); border:1px solid #E67E22; border-radius:12px; padding:12px; text-align:center;">
-              <div style="font-size:22px;">🥉</div>
-              <div style="font-weight:900; color:#E67E22; font-size:13px; margin-bottom:6px;">季军 (Bronze)</div>
+            <div style="background:linear-gradient(180deg, rgba(230,126,34,0.12) 0%, var(--bg) 100%); border:1px solid #E67E22; border-radius:12px; padding:14px 10px; text-align:center;">
+              <div style="font-weight:900; color:#E67E22; font-size:13px; margin-bottom:8px;">季军 (第三名)</div>
               <input type="text" id="recapBronzeName" class="form-input" placeholder="选手姓名" style="margin-bottom:6px; font-weight:800; text-align:center;">
               <input type="text" id="recapBronzeSchool" class="form-input" placeholder="代表学校" style="font-size:11.5px; text-align:center;">
             </div>
@@ -1452,7 +1445,7 @@ async function tryLogin(){
   const p = input.value.trim();
   const btn = document.getElementById('aBtn');
   const og = btn.innerHTML;
-  btn.innerHTML = '🔄 验证中...';
+  btn.innerHTML = '验证中...';
   btn.disabled = true;
 
   try {
@@ -1477,7 +1470,7 @@ async function tryLogin(){
     }
   } catch (e) {
     const err = document.getElementById('loginError');
-    err.textContent = '❌ 网络连接错误，请检查网络';
+    err.textContent = '网络连接错误，请检查网络';
     err.style.display='block';
   } finally {
     btn.innerHTML = og;
@@ -3700,10 +3693,10 @@ function renderAdminEvents() {
     // Status pill
     let statusClass = evt.status || 'upcoming';
     let statusLabel = evt.statusText || '筹划中';
-    if (evt.status === 'open') { statusClass = 'open'; statusLabel = '🟢 报名开放中'; }
-    else if (evt.status === 'official') { statusClass = 'official'; statusLabel = '🔵 官方年度大赛'; }
-    else if (evt.status === 'archive') { statusClass = 'archive'; statusLabel = '⚪ 已圆满落幕'; }
-    else { statusClass = 'upcoming'; statusLabel = '🟡 筹备筹划中'; }
+    if (evt.status === 'open') { statusClass = 'open'; statusLabel = '报名开放中'; }
+    else if (evt.status === 'official') { statusClass = 'official'; statusLabel = '官方年度大赛'; }
+    else if (evt.status === 'archive') { statusClass = 'archive'; statusLabel = '已圆满落幕'; }
+    else { statusClass = 'upcoming'; statusLabel = '筹划筹备中'; }
 
     // Cover rendering
     let coverHtml = '';
@@ -3734,7 +3727,7 @@ function renderAdminEvents() {
           ${evt.title}
         </h4>
         <div style="font-size:12px; color:var(--text2); margin-bottom:12px; display:flex; align-items:center; gap:6px;">
-          <span>📅 ${evt.date || '待定'}</span>
+          <span>${evt.date || '待定'}</span>
         </div>
 
         <p style="font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:14px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
@@ -3745,23 +3738,23 @@ function renderAdminEvents() {
         <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:6px 10px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between;">
           <span style="font-size:11.5px; font-weight:800; color:var(--text2);">快捷切换状态：</span>
           <select onchange="quickChangeStatus(${origIdx}, this.value)" class="status-dropdown-select">
-            <option value="open" ${evt.status==='open'?'selected':''}>🟢 报名开放中</option>
-            <option value="upcoming" ${evt.status==='upcoming'?'selected':''}>🟡 筹备筹划中</option>
-            <option value="official" ${evt.status==='official'?'selected':''}>🔵 官方年度大赛</option>
-            <option value="archive" ${evt.status==='archive'?'selected':''}>⚪ 已圆满落幕</option>
+            <option value="open" ${evt.status==='open'?'selected':''}>报名开放中</option>
+            <option value="upcoming" ${evt.status==='upcoming'?'selected':''}>筹划筹备中</option>
+            <option value="official" ${evt.status==='official'?'selected':''}>官方年度大赛</option>
+            <option value="archive" ${evt.status==='archive'?'selected':''}>已圆满落幕</option>
           </select>
         </div>
 
         <!-- Action Buttons -->
         <div style="display:flex; gap:8px; margin-top:auto; flex-wrap:wrap;">
           <button onclick="openEventEditModal(${origIdx})" class="btn" style="flex:1; padding:7px 10px; background:var(--pri3); color:#fff; border:none; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
-            ✏️ 编辑规程
+            编辑规程
           </button>
           <button onclick="openRecapModalAdmin(${origIdx})" class="btn" style="flex:1.2; padding:7px 10px; background:${evt.status==='archive'?'rgba(241,196,15,0.15)':'var(--bg)'}; color:${evt.status==='archive'?'var(--gold)':'var(--text2)'}; border:1px solid ${evt.status==='archive'?'var(--gold)':'var(--border)'}; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
-            📸 相册与荣誉榜 ${photoCount>0?`(${photoCount}图)`:''}
+            相册与荣誉榜 ${photoCount>0?`(${photoCount}图)`:''}
           </button>
-          <button onclick="deleteAdminEvent(${origIdx})" class="btn" style="padding:7px 10px; background:#FDEDEC; color:#E74C3C; border:none; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;" title="删除此赛事">
-            🗑️
+          <button onclick="deleteAdminEvent(${origIdx})" class="btn" style="padding:7px 12px; background:#FDEDEC; color:#E74C3C; border:none; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;" title="删除此赛事">
+            删除
           </button>
         </div>
       </div>
@@ -3789,19 +3782,19 @@ function renderEventStats(events) {
     </div>
     <div class="stat-pill-sm green">
       <div class="val">${openCount}</div>
-      <div class="lbl">🟢 报名开放中</div>
+      <div class="lbl">报名开放中</div>
     </div>
     <div class="stat-pill-sm orange">
       <div class="val">${upcomingCount}</div>
-      <div class="lbl">🟡 筹划筹备中</div>
+      <div class="lbl">筹划筹备中</div>
     </div>
     <div class="stat-pill-sm blue">
       <div class="val">${officialCount}</div>
-      <div class="lbl">🔵 官方年度大赛</div>
+      <div class="lbl">官方年度大赛</div>
     </div>
     <div class="stat-pill-sm gray">
       <div class="val">${archiveCount}</div>
-      <div class="lbl">⚪ 赛事实况实录</div>
+      <div class="lbl">赛事实况实录</div>
     </div>
   `;
 }
@@ -3859,7 +3852,7 @@ function toggleCoverTypeInput() {
 function openEventEditModal(idx) {
   document.getElementById('editEvtIndex').value = idx;
   const isNew = idx === -1;
-  document.getElementById('eventEditModalTitle').textContent = isNew ? '+ 发布新赛事/活动' : '✏️ 编辑赛事与规程';
+  document.getElementById('eventEditModalTitle').textContent = isNew ? '+ 发布新赛事' : '编辑赛事与规程';
 
   if (isNew) {
     document.getElementById('editEvtCategory').value = 'qiyuan';
@@ -4158,12 +4151,12 @@ async function handleRecapUploadFiles(input) {
   const statusEl = document.getElementById('recapUploadStatus');
   if (statusEl) {
     statusEl.style.display = 'block';
-    statusEl.textContent = `🔄 正在准备处理 ${files.length} 张照片...`;
+    statusEl.textContent = `正在准备处理 ${files.length} 张照片...`;
   }
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    if (statusEl) statusEl.textContent = `🔄 正在压缩处理第 ${i + 1} / ${files.length} 张 (${file.name})...`;
+    if (statusEl) statusEl.textContent = `正在压缩处理第 ${i + 1} / ${files.length} 张 (${file.name})...`;
     try {
       const base64 = await compressImage(file, 1280, 0.82);
       const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
@@ -4178,7 +4171,7 @@ async function handleRecapUploadFiles(input) {
 
   renderRecapPhotos(evt.recap.gallery);
   if (statusEl) {
-    statusEl.textContent = `✅ 成功导入 ${files.length} 张照片！请记得点击底部「保存实况与荣誉榜」`;
+    statusEl.textContent = `成功导入 ${files.length} 张照片！请记得点击底部「保存实况与荣誉榜」`;
     setTimeout(() => { statusEl.style.display = 'none'; }, 6000);
   }
   input.value = '';
@@ -4409,34 +4402,34 @@ function updateMenuI18n(lang) {
     if(expTitle) expTitle.innerText = '探索俱乐部';
     if(portalsTitle) portalsTitle.innerText = '专属入口';
     if(langTitle) langTitle.innerText = '系统语言';
-    if(homeLink) homeLink.innerText = '🏠 首页';
-    if(ladderLink) ladderLink.innerText = '🏆 天梯榜';
-    if(eventsLink) eventsLink.innerText = '📸 赛事与活动中心';
-    if(studentLink) studentLink.innerText = '🔐 学员专属登录';
-    if(schoolLink) schoolLink.innerText = '🏫 校际赛编排与赛事系统';
-    if(adminLink) adminLink.innerText = '👑 教练管理端';
+    if(homeLink) homeLink.innerText = '首页';
+    if(ladderLink) ladderLink.innerText = '天梯榜';
+    if(eventsLink) eventsLink.innerText = '赛事与活动中心';
+    if(studentLink) studentLink.innerText = '学员专属登录';
+    if(schoolLink) schoolLink.innerText = '校际赛编排与赛事系统';
+    if(adminLink) adminLink.innerText = '教练管理端';
   } else if(lang === 'bm') {
     if(btnText && !isOpen) btnText.innerText = 'Menu';
     if(expTitle) expTitle.innerText = 'Terokai Kelab';
     if(portalsTitle) portalsTitle.innerText = 'Portal Khas';
     if(langTitle) langTitle.innerText = 'Bahasa Sistem';
-    if(homeLink) homeLink.innerText = '🏠 Utama';
-    if(ladderLink) ladderLink.innerText = '🏆 Kedudukan';
-    if(eventsLink) eventsLink.innerText = '📸 Pusat Acara & Aktiviti';
-    if(studentLink) studentLink.innerText = '🔐 Log Masuk Pelajar';
-    if(schoolLink) schoolLink.innerText = '🏫 Sistem Pertandingan Antara Sekolah';
-    if(adminLink) adminLink.innerText = '👑 Portal Jurulatih';
+    if(homeLink) homeLink.innerText = 'Utama';
+    if(ladderLink) ladderLink.innerText = 'Kedudukan';
+    if(eventsLink) eventsLink.innerText = 'Pusat Acara & Aktiviti';
+    if(studentLink) studentLink.innerText = 'Log Masuk Pelajar';
+    if(schoolLink) schoolLink.innerText = 'Sistem Pertandingan Antara Sekolah';
+    if(adminLink) adminLink.innerText = 'Portal Jurulatih';
   } else {
     if(btnText && !isOpen) btnText.innerText = 'Menu';
     if(expTitle) expTitle.innerText = 'Explore Club';
     if(portalsTitle) portalsTitle.innerText = 'Portals';
     if(langTitle) langTitle.innerText = 'System Language';
-    if(homeLink) homeLink.innerText = '🏠 Home';
-    if(ladderLink) ladderLink.innerText = '🏆 Ladder';
-    if(eventsLink) eventsLink.innerText = '📸 Events & Activities';
-    if(studentLink) studentLink.innerText = '🔐 Student Login';
-    if(schoolLink) schoolLink.innerText = '🏫 School Pairing & Tournament System';
-    if(adminLink) adminLink.innerText = '👑 Admin Portal';
+    if(homeLink) homeLink.innerText = 'Home';
+    if(ladderLink) ladderLink.innerText = 'Ladder';
+    if(eventsLink) eventsLink.innerText = 'Events & Activities';
+    if(studentLink) studentLink.innerText = 'Student Login';
+    if(schoolLink) schoolLink.innerText = 'School Pairing & Tournament System';
+    if(adminLink) adminLink.innerText = 'Admin Portal';
   }
 }
 
