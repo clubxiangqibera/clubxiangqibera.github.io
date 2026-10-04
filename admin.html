@@ -112,24 +112,25 @@
     .nav-tab{flex:1;min-width:85px;padding:12px 8px;text-align:center;font-size:13px;font-weight:800;color:var(--text2);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
     .nav-tab.active{color:var(--pri2);border-bottom-color:var(--pri2);background:rgba(26,82,118,0.05);}
 
-    .main-content{max-width:980px;margin:0 auto;padding:20px 16px;}
+    .main-content{max-width:1440px;width:96%;margin:0 auto;padding:24px 20px;}
+    @media (min-width:1600px){.main-content{max-width:1600px;padding:28px 24px;}}
 
     .tab-panel{display:none;}
     .tab-panel.active{display:block;}
 
     /* STATS */
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px;}
-    .stat-card{background:var(--card);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:20px;}
+    .stat-card{background:var(--card);border-radius:var(--radius);padding:20px 22px;border:1px solid var(--border);box-shadow:var(--shadow);}
     .stat-icon{font-size:24px;margin-bottom:6px;}
-    .stat-val{font-size:28px;font-weight:900;color:var(--pri2);}
-    .stat-label{font-size:12px;color:var(--text2);font-weight:700;margin-top:2px;}
+    .stat-val{font-size:32px;font-weight:900;color:var(--pri2);letter-spacing:-0.5px;line-height:1.2;}
+    .stat-label{font-size:12.5px;color:var(--text2);font-weight:700;margin-top:4px;}
     .stat-card.green .stat-val{color:var(--green);}
     .stat-card.red .stat-val{color:var(--red);}
     .stat-card.gold .stat-val{color:var(--gold);}
 
     /* CARD CONTAINER */
-    .form-card{background:var(--card);border-radius:var(--radius);padding:22px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
-    .form-card h3{font-size:16px;font-weight:900;margin-bottom:14px;color:var(--pri2);display:flex;align-items:center;gap:6px;}
+    .form-card{background:var(--card);border-radius:var(--radius);padding:24px 28px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
+    .form-card h3{font-size:17px;font-weight:900;margin-bottom:14px;color:var(--pri2);display:flex;align-items:center;gap:6px;}
 
     /* QUICK PILLS FOR SCHOOLS & LEVELS */
     .pill-group{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;}
@@ -177,9 +178,9 @@
 
     /* TABLES */
     .tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
-    table{width:100%;border-collapse:collapse;font-size:13px;}
-    th{background:var(--bg);padding:11px 12px;text-align:left;font-weight:800;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
-    td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:middle;}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;}
+    th{background:var(--bg);padding:13px 14px;text-align:left;font-weight:800;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+    td{padding:12px 14px;border-top:1px solid var(--border);vertical-align:middle;}
     tr:hover td{background:rgba(41,128,185,0.03);}
     .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;white-space:nowrap;}
     .badge-green{background:#E8F8F5;color:#1ABC9C;}
@@ -245,36 +246,47 @@
     }
     .pod:hover{transform:translateY(-4px);}
     .pod-1{
-      order:2;padding:32px 16px 24px;border-color:#F1C40F;
-      background:linear-gradient(180deg,#FFFDF0 0%,var(--card) 100%);
-      box-shadow:0 12px 35px rgba(241,196,15,0.4);
+      order:2;padding:34px 18px 26px;border:2px solid #F59E0B;
+      background:linear-gradient(180deg, rgba(245,158,11,0.18) 0%, var(--card) 65%, rgba(245,158,11,0.08) 100%);
+      box-shadow:0 16px 40px rgba(0,0,0,0.6), 0 0 30px rgba(245,158,11,0.25);
     }
-    .pod-2{order:1;border-color:#D5D8DC;}
-    .pod-3{order:3;border-color:#EDBB99;}
+    .pod-2{
+      order:1;border:1.5px solid rgba(148,163,184,0.6);
+      background:linear-gradient(180deg, rgba(148,163,184,0.14) 0%, var(--card) 65%, rgba(148,163,184,0.05) 100%);
+      box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(148,163,184,0.15);
+    }
+    .pod-3{
+      order:3;border:1.5px solid rgba(217,119,6,0.6);
+      background:linear-gradient(180deg, rgba(217,119,6,0.14) 0%, var(--card) 65%, rgba(217,119,6,0.05) 100%);
+      box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(217,119,6,0.15);
+    }
     .crown{
       position:absolute;top:-15px;left:50%;transform:translateX(-50%);
-      background: #040C17;color:#7D6608;
-      font-size:11px;font-weight:900;padding:4px 14px;border-radius:14px;white-space:nowrap;
-      box-shadow:0 4px 12px rgba(241,196,15,0.4);
+      background:linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      color:#080E18;
+      font-size:11.5px;font-weight:900;padding:4px 14px;border-radius:14px;white-space:nowrap;
+      box-shadow:0 4px 14px rgba(245,158,11,0.5);
     }
-    .pod-medal{font-size:36px;margin-bottom:6px;}
-    .pod-1 .pod-medal{font-size:46px;}
-    .pod-name{font-size:18px;font-weight:900;color:var(--text);margin-bottom:3px;}
-    .pod-1 .pod-name{font-size:22px;}
+    .pod-medal{font-size:36px;margin-bottom:6px;font-weight:900;}
+    .pod-1 .pod-medal{font-size:46px;color:#FBBF24;text-shadow:0 0 16px rgba(245,158,11,0.5);}
+    .pod-2 .pod-medal{color:#E2E8F0;text-shadow:0 0 14px rgba(226,232,240,0.3);}
+    .pod-3 .pod-medal{color:#FB923C;text-shadow:0 0 14px rgba(251,146,60,0.3);}
+    .pod-name{font-size:19px;font-weight:900;color:var(--text);margin-bottom:3px;}
+    .pod-1 .pod-name{font-size:24px;color:#FEF08A;text-shadow:0 2px 8px rgba(0,0,0,0.5);}
     .pod-school{
-      font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;
+      font-size:12.5px;color:var(--text2);margin-bottom:8px;font-weight:600;
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
-    .pod-elo{font-size:26px;font-weight:900;color:var(--primary-mid);line-height:1;}
-    .pod-1 .pod-elo{font-size:32px;color:#D68910;}
-    .pod-stats{font-size:12px;color:var(--text2);margin-top:4px;font-weight:600;}
+    .pod-elo{font-size:28px;font-weight:900;color:var(--primary-mid);line-height:1;}
+    .pod-1 .pod-elo{font-size:36px;color:#F59E0B;text-shadow:0 0 14px rgba(245,158,11,0.4);}
+    .pod-stats{font-size:12.5px;color:var(--text2);margin-top:5px;font-weight:600;}
 
-    .tier-chip{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;}
-    .tier-5{background:#EBF5FB;color:#2980B9;}
-    .tier-4{background:#E8F8F5;color:#1ABC9C;}
-    .tier-3{background:#FEF9E7;color:#B7950B;}
-    .tier-2{background:#FDEDEC;color:#E74C3C;}
-    .tier-1{background: #040C17;color:#7D6608;}
+    .tier-chip{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:8px;margin-bottom:6px;border:1px solid transparent;}
+    .tier-5{background:rgba(56,189,248,0.15);color:#38BDF8;border-color:rgba(56,189,248,0.35);}
+    .tier-4{background:rgba(52,211,153,0.15);color:#34D399;border-color:rgba(52,211,153,0.35);}
+    .tier-3{background:rgba(251,191,36,0.15);color:#FBBF24;border-color:rgba(251,191,36,0.35);}
+    .tier-2{background:rgba(192,132,252,0.15);color:#C084FC;border-color:rgba(192,132,252,0.35);}
+    .tier-1{background:rgba(248,113,113,0.18);color:#F87171;border-color:rgba(248,113,113,0.4);}
 
     /* CENTERED SECTION HEADERS */
     .section-head{
@@ -847,18 +859,20 @@ function updateSeg(lang) {
     <!-- TAB 1: DASHBOARD -->
     <div class="tab-panel active" id="panel-dashboard">
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-val" id="sTotalStudents">5</div><div class="stat-label">总学员数 (Students)</div></div>
-        <div class="stat-card green"><div class="stat-val" id="sRevenue">RM 420</div><div class="stat-label">本月预估收入 (Revenue)</div></div>
-        <div class="stat-card red"><div class="stat-val" id="sPending">2</div><div class="stat-label">待收学费预警 (Pending)</div></div>
+        <div class="stat-card"><div class="stat-val" id="sTotalStudents">-</div><div class="stat-label">总学员数 (Students)</div></div>
+        <div class="stat-card green"><div class="stat-val" id="sRevenue">RM -</div><div class="stat-label">本月预估收入 (Revenue)</div></div>
+        <div class="stat-card red"><div class="stat-val" id="sPending">-</div><div class="stat-label">待收学费预警 (Pending)</div></div>
         <div class="stat-card gold"><div class="stat-val" id="sMatches">-</div><div class="stat-label">累计对局总数 (Matches)</div></div>
       </div>
 
       <div class="form-card">
         <h3>现役学员名册总览</h3>
         <div class="tbl-wrap">
-          <table>
+          <table style="min-width:760px;">
             <thead><tr><th>学号</th><th>中文名</th><th>所在学校</th><th>班级级别</th><th>ELO</th><th>学费状态</th></tr></thead>
-            <tbody id="dashStudentTable"></tbody>
+            <tbody id="dashStudentTable">
+              <tr><td colspan="6" style="text-align:center; padding:28px; color:var(--text2); font-size:13.5px;">⏳ 正在同步学员档案名册...</td></tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -919,7 +933,7 @@ function updateSeg(lang) {
 
         <!-- Table -->
         <div class="tbl-wrap">
-          <table>
+          <table style="min-width:1120px;">
             <thead>
               <tr>
                 <th>凭单号</th>
@@ -1232,7 +1246,7 @@ function updateSeg(lang) {
 <!-- Create Tournament Modal -->
 
     <!-- EVENTS & ACTIVITIES MANAGEMENT TAB (UPGRADED FROM GALLERY) -->
-    <div class="tab-panel" id="panel-gallery" style="max-width:980px; margin:0 auto; padding:20px 16px;">
+    <div class="tab-panel" id="panel-gallery">
       <div class="form-card">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:16px;">
           <div>
@@ -1768,12 +1782,12 @@ function showApp(){
     const isSuperAdmin = user && user.role === 'superadmin';
     const perms = (user && user.perms) || [];
 
-    const tabs = ['dashboard', 'students', 'payments', 'records', 'tournament', 'ladder', 'accounts', 'licenses', 'gallery'];
+    const tabs = ['dashboard', 'registrations', 'students', 'payments', 'records', 'tournament', 'ladder', 'accounts', 'licenses', 'gallery'];
     tabs.forEach(tab => {
        const tabEl = document.querySelector(`[data-tab="${tab}"]`);
        if (tabEl) {
           const permName = tab === 'records' ? 'matches' : tab;
-          if (isSuperAdmin || perms.includes(permName)) {
+          if (isSuperAdmin || perms.includes(permName) || tab === 'registrations' || tab === 'dashboard') {
              tabEl.style.display = 'block';
           } else {
              tabEl.style.display = 'none';
@@ -1792,21 +1806,29 @@ function switchTab(t){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+t));
   
   if (t === 'registrations') {
-    loadRegistrations();
+    if (typeof loadRegistrations === 'function') loadRegistrations();
   }
   if (t === 'licenses') {
-    loadSchoolLicenses();
+    if (typeof loadSchoolLicenses === 'function') loadSchoolLicenses();
   }
   if (t === 'gallery') {
-    loadEvents();
+    if (typeof loadEvents === 'function') loadEvents();
   }
 }
 
 async function loadAllData(){
-  await Promise.all([loadStudents(), loadMatches(), loadRegistrations()]);
+  try {
+    const tasks = [loadStudents(), loadMatches()];
+    if (typeof loadRegistrations === 'function') {
+      tasks.push(loadRegistrations());
+    }
+    await Promise.allSettled(tasks);
+  } catch(e) {
+    console.error('loadAllData error:', e);
+  }
   renderDashboard();
-  renderLadder(allStudents);
-  renderAccountList();
+  if (typeof renderLadder === 'function') renderLadder(allStudents);
+  if (typeof renderAccountList === 'function') renderAccountList();
 }
 
 async function loadStudents(){
@@ -1825,8 +1847,15 @@ async function loadStudents(){
       });
     }
     renderStudentTables();
+    renderDashboard();
     renderLadder(allStudents);
-  }catch(e){console.error(e);}
+  }catch(e){
+    console.error('loadStudents error:', e);
+    const dashTable = document.getElementById('dashStudentTable');
+    if (dashTable && (!allStudents || allStudents.length === 0)) {
+      dashTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:24px; color:#e63946;">⚠️ 未能连接到学员数据库，请检查网络或重新刷新。</td></tr>';
+    }
+  }
 }
 
 function getTierName(elo) {
@@ -2041,6 +2070,7 @@ async function loadMatches(){
     }
     renderMatchesTable();
     renderGallery();
+    renderDashboard();
   }catch(e){console.error(e);}
 }
 
@@ -2050,20 +2080,38 @@ function payBadge(s){
 }
 
 function renderDashboard(){
-  document.getElementById('sTotalStudents').textContent=allStudents.length;
-  const p=allStudents.filter(s=>!s.payStatus.includes('已缴费')&&!s.payStatus.includes('Verified')).length;
-  document.getElementById('sPending').textContent=p;
-  document.getElementById('sMatches').textContent=allMatches.length;
+  const elTotal = document.getElementById('sTotalStudents');
+  if (elTotal) elTotal.textContent = allStudents.length;
+  const p = allStudents.filter(s=>!s.payStatus.includes('已缴费')&&!s.payStatus.includes('Verified')).length;
+  const elPending = document.getElementById('sPending');
+  if (elPending) elPending.textContent = p;
+  const elMatches = document.getElementById('sMatches');
+  if (elMatches) elMatches.textContent = allMatches.length;
 
   let rev=0;
   allStudents.forEach(s=>{
     if(s.level.includes('Lv 1'))rev+=70;else if(s.level.includes('Lv 2'))rev+=85;else rev+=110;
   });
-  document.getElementById('sRevenue').textContent='RM '+rev;
+  const elRev = document.getElementById('sRevenue');
+  if (elRev) elRev.textContent = 'RM '+rev;
 
-  document.getElementById('dashStudentTable').innerHTML=allStudents.map(s=>
-    `<tr><td><strong>${s.id}</strong></td><td>${s.cnName}</td><td>${s.school}</td><td><span class="badge badge-blue">${s.level}</span></td><td><strong>${s.elo}</strong></td><td>${payBadge(s.payStatus)}</td></tr>`
-  ).join('');
+  const dashTable = document.getElementById('dashStudentTable');
+  if (dashTable) {
+    if (allStudents.length === 0) {
+      dashTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text2);">暂无学员数据。</td></tr>';
+    } else {
+      dashTable.innerHTML = allStudents.map(s=>
+        `<tr>
+          <td style="white-space:nowrap; font-weight:800; font-family:monospace;">${s.id}</td>
+          <td style="font-weight:700; white-space:nowrap;">${s.cnName}</td>
+          <td style="white-space:nowrap;">${s.school}</td>
+          <td style="white-space:nowrap;"><span class="badge badge-blue">${s.level}</span></td>
+          <td style="white-space:nowrap; font-weight:800; color:var(--gold);">${s.elo}</td>
+          <td style="white-space:nowrap;">${payBadge(s.payStatus)}</td>
+        </tr>`
+      ).join('');
+    }
+  }
 }
 
 
@@ -3632,11 +3680,11 @@ async function toggleCoachPerm(idx, permId) {
 // Hook into loadAllData or init to call loadCoaches if superadmin
 if (typeof loadAllData !== 'undefined') {
   const originalLoadAllData = loadAllData;
-  loadAllData = function() {
-    originalLoadAllData();
+  loadAllData = async function() {
+    await originalLoadAllData();
     const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
     if (user && user.role === 'superadmin') {
-      loadCoaches();
+      if (typeof loadCoaches === 'function') loadCoaches();
     }
   };
 }
@@ -4498,11 +4546,11 @@ function resetDefaultEvents() {
 // Hook into loadAllData or init to call loadEvents if superadmin
 if (typeof loadAllData !== 'undefined') {
   const oldLoadAllData = loadAllData;
-  loadAllData = function() {
-    oldLoadAllData();
+  loadAllData = async function() {
+    await oldLoadAllData();
     const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
     if (user && user.role === 'superadmin') {
-      loadEvents();
+      if (typeof loadEvents === 'function') loadEvents();
     }
   };
 }
@@ -4776,11 +4824,11 @@ function renderRegistrationList() {
     const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
 
     // Status pill
-    let statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(230,57,70,0.18); color:#e63946;">⏳ 待核实</span>';
+    let statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(230,57,70,0.18); color:#e63946; white-space:nowrap;">⏳ 待核实</span>';
     if (r.status === 'verified') {
-      statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(52,152,219,0.18); color:#3498db;">📞 已联系</span>';
+      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(52,152,219,0.18); color:#3498db; white-space:nowrap;">📞 已联系</span>';
     } else if (r.status === 'enrolled') {
-      statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(39,174,96,0.18); color:#2ecc71;">✅ 已入库</span>';
+      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(39,174,96,0.18); color:#2ecc71; white-space:nowrap;">✅ 已入库</span>';
     }
 
     // Time format
@@ -4793,28 +4841,28 @@ function renderRegistrationList() {
     }
 
     const typeBadge = isAcad 
-      ? '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(241,196,15,0.15); color:var(--gold);">🏫 常规学院</span>'
-      : '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; background:rgba(46,204,113,0.15); color:#2ecc71;">🏆 营会/赛事</span>';
+      ? '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(241,196,15,0.15); color:var(--gold); white-space:nowrap;">🏫 常规学院</span>'
+      : '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(46,204,113,0.15); color:#2ecc71; white-space:nowrap;">🏆 营会/赛事</span>';
 
     const itemTitle = isAcad ? (r.tier || '-') : (r.eventName || '-');
     const parentInfo = isAcad ? `${r.parentName || '家长'} · ${r.parentPhone || '-'}` : (r.emergency ? `${r.phone || '-'} (紧急:${r.emergency})` : (r.phone || '-'));
 
     html += `
       <tr>
-        <td style="font-family:monospace; font-weight:800; color:var(--text);">${r.id}</td>
-        <td style="font-size:11.5px; color:var(--text2); white-space:nowrap;">${dateStr}</td>
-        <td>${typeBadge}</td>
-        <td style="font-weight:700;">${r.cnName || '-'} <span style="font-size:11px; color:var(--text2);">(${r.enName || '-'})</span></td>
-        <td style="font-size:12px;">${r.school || '-'} <span style="color:var(--text2); font-size:11px;">${r.birth ? '· ' + r.birth : ''}</span></td>
-        <td style="font-size:12.5px; font-weight:600; color:var(--text);">${itemTitle}</td>
-        <td style="font-size:12px;">${parentInfo}</td>
-        <td style="font-weight:800; color:var(--gold);">${r.total || '-'}</td>
-        <td>${statusBadge}</td>
+        <td style="font-family:monospace; font-weight:800; font-size:13px; color:var(--text); white-space:nowrap;">${r.id}</td>
+        <td style="font-size:12.5px; color:var(--text2); white-space:nowrap;">${dateStr}</td>
+        <td style="white-space:nowrap;">${typeBadge}</td>
+        <td style="font-weight:700; font-size:13.5px; white-space:nowrap;">${r.cnName || '-'} <span style="font-size:12px; color:var(--text2); font-weight:normal;">(${r.enName || '-'})</span></td>
+        <td style="font-size:13px; white-space:nowrap;">${r.school || '-'} <span style="color:var(--text2); font-size:11.5px;">${r.birth ? '· ' + r.birth : ''}</span></td>
+        <td style="font-size:13px; font-weight:600; color:var(--text);">${itemTitle}</td>
+        <td style="font-size:13px; white-space:nowrap;">${parentInfo}</td>
+        <td style="font-weight:800; font-size:14px; color:var(--gold); white-space:nowrap;">${r.total || '-'}</td>
+        <td style="white-space:nowrap;">${statusBadge}</td>
         <td style="text-align:right; white-space:nowrap;">
-          <a href="${waLink}" target="_blank" title="WhatsApp 联系" style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:6px; background:#25D366; color:#fff; text-decoration:none; margin-right:4px;">💬</a>
-          <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:4px 8px; border-radius:6px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:11.5px; cursor:pointer; margin-right:4px;">👁️ 凭单</button>
-          ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入学员库" style="padding:4px 8px; border-radius:6px; background:var(--pri3); border:none; color:#fff; font-size:11.5px; font-weight:700; cursor:pointer; margin-right:4px;">📥 录入</button>` : ''}
-          <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:4px 6px; border-radius:6px; background:rgba(230,57,70,0.1); border:1px solid rgba(230,57,70,0.2); color:#e63946; font-size:11.5px; cursor:pointer;">🗑️</button>
+          <a href="${waLink}" target="_blank" title="WhatsApp 联系" style="display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:7px; background:#25D366; color:#fff; text-decoration:none; margin-right:4px; font-size:14px;">💬</a>
+          <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:5px 10px; border-radius:7px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:12px; cursor:pointer; margin-right:4px; font-weight:600;">👁️ 凭单</button>
+          ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入学员库" style="padding:5px 10px; border-radius:7px; background:var(--pri3); border:none; color:#fff; font-size:12px; font-weight:700; cursor:pointer; margin-right:4px;">📥 录入</button>` : ''}
+          <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:5px 8px; border-radius:7px; background:rgba(230,57,70,0.12); border:1px solid rgba(230,57,70,0.25); color:#e63946; font-size:12px; cursor:pointer;">🗑️</button>
         </td>
       </tr>
     `;
