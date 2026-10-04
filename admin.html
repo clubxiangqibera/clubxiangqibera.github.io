@@ -2108,11 +2108,11 @@ function renderDashboard(){
   let rev=0;
   allStudents.forEach(s=>{
     if(s.level.includes('Tahap 1') || s.level==='Lv 1 启蒙班') rev += 39;
-    else if(s.level.includes('Tahap 2')) rev += 59;
+    else if(s.level.includes('Tahap 2')) rev += 69;
     else if(s.level.includes('Tahap 3') || s.level.includes('Tahap 4') || s.level==='Lv 2 进阶班') rev += 99;
     else if(s.level.includes('Tahap 5') || s.level.includes('Tahap 6') || s.level==='Lv 3 精英班') rev += 149;
     else if(s.level.includes('Tahap 7')) rev += 0;
-    else rev += 59;
+    else rev += 69;
   });
   const elRev = document.getElementById('sRevenue');
   if (elRev) elRev.textContent = 'RM '+rev;
@@ -2320,10 +2320,10 @@ function updateFeeOptions() {
     feeSelect.add(new Option('季付优惠 (RM99)', '季付优惠 (RM99)'));
     feeSelect.add(new Option('月缴 (RM39)', '月缴 (RM39)'));
   } else if (level.includes('Tahap 2') || level.includes('初级')) {
-    feeSelect.add(new Option('季付优惠 (RM149)', '季付优惠 (RM149)'));
-    feeSelect.add(new Option('月缴优惠 (RM59)', '月缴优惠 (RM59)'));
+    feeSelect.add(new Option('季付优惠 (RM189)', '季付优惠 (RM189)'));
+    feeSelect.add(new Option('月缴优惠 (RM69)', '月缴优惠 (RM69)'));
   } else if (level.includes('Tahap 3') || level.includes('Tahap 4') || level.includes('Lv 2') || level.includes('中级')) {
-    feeSelect.add(new Option('季付优惠 (RM279)', '季付优惠 (RM279)'));
+    feeSelect.add(new Option('季付优惠 (RM269)', '季付优惠 (RM269)'));
     feeSelect.add(new Option('月缴优惠 (RM99)', '月缴优惠 (RM99)'));
   } else if (level.includes('Tahap 5') || level.includes('Tahap 6') || level.includes('Lv 3') || level.includes('高级')) {
     feeSelect.add(new Option('季付优惠 (RM399)', '季付优惠 (RM399)'));
