@@ -493,6 +493,40 @@ body::before {
 
     .modal-lg { max-width: 680px !important; }
 
+    /* Dropdown Options Color Fix for Dark Theme & OS Popups */
+    select, .form-select {
+      color-scheme: dark !important;
+    }
+    select option, .form-select option {
+      background-color: #071526 !important;
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      padding: 8px 12px !important;
+    }
+    .status-dropdown-select {
+      background: #081627 !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 8px !important;
+      color: #FFFFFF !important;
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      padding: 6px 10px !important;
+      cursor: pointer !important;
+      outline: none !important;
+      color-scheme: dark !important;
+      transition: all 0.2s;
+    }
+    .status-dropdown-select:hover {
+      border-color: var(--pri3) !important;
+      background: #0d2138 !important;
+    }
+    .status-dropdown-select option {
+      background-color: #071526 !important;
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      padding: 8px 12px !important;
+    }
+
 </style>
   <link rel="stylesheet" href="cxb-theme.css">
 </head>
@@ -1181,6 +1215,11 @@ function updateSeg(lang) {
           <div>
             <label id="editCoverValueLabel" style="display:block; font-size:12px; font-weight:800; color:var(--text2); margin-bottom:4px;">封面图片路径 / 文件名</label>
             <input type="text" id="editEvtCover" class="form-input" style="width:100%;" placeholder="poster_qiyuan_final.jpg">
+            <div style="margin-top:6px; display:flex; align-items:center; gap:8px;">
+              <label for="editCoverFileInput" class="btn" style="background:var(--pri3); color:#fff; padding:5px 10px; border-radius:6px; font-weight:700; font-size:11.5px; cursor:pointer;">📁 从本地选择海报</label>
+              <input type="file" id="editCoverFileInput" accept="image/*" style="display:none;" onchange="handleCoverFileUpload(this)">
+              <span style="font-size:11px; color:var(--text2);">（选择图片自动压缩并填充）</span>
+            </div>
           </div>
         </div>
 
@@ -1246,14 +1285,29 @@ function updateSeg(lang) {
 
         <!-- SUB-TAB 1: PHOTOS -->
         <div id="recapSubPanel_photos">
-          <div style="margin-bottom:14px; background:var(--bg); padding:12px; border-radius:12px; border:1px solid var(--border);">
-            <div style="font-size:13px; font-weight:800; margin-bottom:8px; color:var(--text);">+ 添加现场照片至图集</div>
+          <!-- Method 1: Local File Picker (Preferred & Fast) -->
+          <div style="background:linear-gradient(135deg, rgba(39, 174, 96, 0.12) 0%, rgba(13, 27, 42, 0.6) 100%); border:1.5px dashed #27AE60; border-radius:14px; padding:18px; text-align:center; margin-bottom:16px;">
+            <div style="font-size:24px; margin-bottom:4px;">📸</div>
+            <div style="font-size:14px; font-weight:900; color:#2ECC71; margin-bottom:4px;">方法一：从本地电脑 / 手机直接选择照片上传</div>
+            <div style="font-size:11.5px; color:var(--text2); margin-bottom:12px;">支持一次性选择多张照片，系统将自动进行高清压缩，无需手动填写路径</div>
+            <label for="recapFileInput" class="btn" style="background:#27AE60; color:#fff; padding:9px 20px; border-radius:10px; font-weight:800; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(39,174,96,0.3);">
+              📁 从本地选择照片 (可多选自动压缩)
+            </label>
+            <input type="file" id="recapFileInput" multiple accept="image/*" style="display:none;" onchange="handleRecapUploadFiles(this)">
+            <div id="recapUploadStatus" style="display:none; font-size:12px; font-weight:800; color:var(--gold); margin-top:10px;"></div>
+          </div>
+
+          <!-- Method 2: Manual Path or Web URL Input -->
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:16px;">
+            <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:6px;">方法二：使用预设文件名或网络图片链接</div>
+            <div style="font-size:11px; color:var(--text2); margin-bottom:10px;">若照片已存放在网站根目录（如 <code>event_2026_hall.jpg</code>），或使用在线相册图床 URL：</div>
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
-              <input type="text" id="newPhotoSrc" class="form-input" placeholder="照片路径 / URL (如: event_2026_hall.jpg)">
+              <input type="text" id="newPhotoSrc" class="form-input" placeholder="图片文件名或链接 (如: event_2026_hall.jpg 或 https://...)">
               <input type="text" id="newPhotoTitle" class="form-input" placeholder="照片说明文字 (例: 比赛现场对局实况)">
             </div>
-            <button class="btn" style="background:var(--green); color:#fff; border:none; padding:7px 16px; border-radius:8px; font-weight:800; font-size:12px;" onclick="addPhotoToRecap()">+ 添加相片</button>
+            <button class="btn" style="background:var(--pri3); color:#fff; border:none; padding:7px 16px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer;" onclick="addPhotoToRecap()">+ 添加此链接照片</button>
           </div>
+
           <div style="font-size:12.5px; font-weight:800; color:var(--text2); margin-bottom:8px;">现存相册照片列表 (前台灯箱全景展示)</div>
           <div id="recapPhotosList" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:10px;">
             <!-- Injected by renderRecapPhotos -->
@@ -3690,7 +3744,7 @@ function renderAdminEvents() {
         <!-- Quick Status Switcher -->
         <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:6px 10px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between;">
           <span style="font-size:11.5px; font-weight:800; color:var(--text2);">快捷切换状态：</span>
-          <select onchange="quickChangeStatus(${origIdx}, this.value)" style="background:transparent; border:none; color:var(--text); font-size:12px; font-weight:700; cursor:pointer; outline:none;">
+          <select onchange="quickChangeStatus(${origIdx}, this.value)" class="status-dropdown-select">
             <option value="open" ${evt.status==='open'?'selected':''}>🟢 报名开放中</option>
             <option value="upcoming" ${evt.status==='upcoming'?'selected':''}>🟡 筹备筹划中</option>
             <option value="official" ${evt.status==='official'?'selected':''}>🔵 官方年度大赛</option>
@@ -4057,6 +4111,94 @@ function addPhotoToRecap() {
   document.getElementById('newPhotoSrc').value = '';
   document.getElementById('newPhotoTitle').value = '';
   if (typeof toast === 'function') toast('已添加相片', 'success');
+}
+
+function compressImage(file, maxWidth = 1200, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width;
+        let h = img.height;
+        if (w > maxWidth || h > maxWidth) {
+          if (w > h) {
+            h = Math.round(h * (maxWidth / w));
+            w = maxWidth;
+          } else {
+            w = Math.round(w * (maxWidth / h));
+            h = maxWidth;
+          }
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+    };
+    reader.onerror = reject;
+  });
+}
+
+async function handleRecapUploadFiles(input) {
+  const files = input.files;
+  if (!files || files.length === 0) return;
+
+  const idx = parseInt(document.getElementById('recapEvtIndex').value, 10);
+  if (idx < 0 || !window._events[idx]) return;
+  const evt = window._events[idx];
+  if (!evt.recap) evt.recap = { gallery: [] };
+  if (!evt.recap.gallery) evt.recap.gallery = [];
+
+  const statusEl = document.getElementById('recapUploadStatus');
+  if (statusEl) {
+    statusEl.style.display = 'block';
+    statusEl.textContent = `🔄 正在准备处理 ${files.length} 张照片...`;
+  }
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (statusEl) statusEl.textContent = `🔄 正在压缩处理第 ${i + 1} / ${files.length} 张 (${file.name})...`;
+    try {
+      const base64 = await compressImage(file, 1280, 0.82);
+      const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
+      evt.recap.gallery.push({
+        src: base64,
+        title: cleanName || `现场实况照片 ${evt.recap.gallery.length + 1}`
+      });
+    } catch (err) {
+      console.error('Failed to compress file', file.name, err);
+    }
+  }
+
+  renderRecapPhotos(evt.recap.gallery);
+  if (statusEl) {
+    statusEl.textContent = `✅ 成功导入 ${files.length} 张照片！请记得点击底部「保存实况与荣誉榜」`;
+    setTimeout(() => { statusEl.style.display = 'none'; }, 6000);
+  }
+  input.value = '';
+  if (typeof toast === 'function') toast(`已添加 ${files.length} 张照片到图集！`, 'success');
+}
+
+async function handleCoverFileUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  try {
+    if (typeof toast === 'function') toast('正在压缩海报封面...', 'info');
+    const base64 = await compressImage(file, 1200, 0.85);
+    document.getElementById('editEvtCover').value = base64;
+    document.getElementById('editEvtCoverType').value = 'image';
+    toggleCoverTypeInput();
+    if (typeof toast === 'function') toast('本地海报已载入！保存后生效', 'success');
+  } catch (e) {
+    console.error('Failed to process cover file', e);
+  }
+  input.value = '';
 }
 
 function removePhotoFromRecap(photoIdx) {
