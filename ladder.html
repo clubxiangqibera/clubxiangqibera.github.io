@@ -80,6 +80,22 @@
     }
     .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
 
+    .nav-lang-bar {
+      display: inline-flex; background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+      padding: 2px; gap: 2px;
+    }
+    .nav-lang-chip {
+      background: transparent; border: none; color: rgba(255, 255, 255, 0.6);
+      font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 14px;
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .nav-lang-chip:hover { color: #fff; }
+    .nav-lang-chip.active {
+      background: rgba(255, 255, 255, 0.95); color: #061724;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
     .public-content-wrap {
       width: 100%; max-width: 1080px; padding: 28px 20px 60px;
     }
@@ -328,9 +344,17 @@
       </div>
     </a>
 
-    <button class="nav-menu-btn" onclick="toggleMainNav()">
-      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
-    </button>
+    <!-- 快捷语言切换 + 菜单按钮 -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="nav-lang-bar">
+        <button id="nav_lang_cn" class="nav-lang-chip active" onclick="setLang('cn'); updateSeg('cn');">中</button>
+        <button id="nav_lang_bm" class="nav-lang-chip" onclick="setLang('bm'); updateSeg('bm');">BM</button>
+        <button id="nav_lang_en" class="nav-lang-chip" onclick="setLang('en'); updateSeg('en');">EN</button>
+      </div>
+      <button class="nav-menu-btn" onclick="toggleMainNav()">
+        <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+      </button>
+    </div>
   </header>
 
   <div class="public-content-wrap">
@@ -492,9 +516,14 @@
   }
 
   function updateSeg(lang) {
+    const l = (lang === 'zh' ? 'cn' : lang);
     document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
-    const btn = document.getElementById('seg_' + (lang === 'zh' ? 'cn' : lang));
+    const btn = document.getElementById('seg_' + l);
     if (btn) btn.classList.add('active');
+
+    document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
+    const navBtn = document.getElementById('nav_lang_' + l);
+    if (navBtn) navBtn.classList.add('active');
   }
 
   function parseCSV(t) {
