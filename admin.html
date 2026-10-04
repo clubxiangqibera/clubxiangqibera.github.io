@@ -100,38 +100,146 @@
     .login-btn:hover{transform:scale(1.02);}
     .login-error{color:var(--red);font-size:12px;font-weight:700;margin-top:14px;display:none;background:#FDEDEC;padding:10px;border-radius:10px;border:1px solid rgba(192,57,43,0.2);}
 
+    /* === NAV LANG CHIPS === */
+    .nav-lang-bar {
+      display: inline-flex; background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+      padding: 2px; gap: 2px;
+    }
+    .nav-lang-chip {
+      background: transparent; border: none; color: rgba(255, 255, 255, 0.6);
+      font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 14px;
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .nav-lang-chip:hover { color: #fff; }
+    .nav-lang-chip.active {
+      background: rgba(255, 255, 255, 0.95); color: #061724;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
     /* === MAIN LAYOUT === */
-    #mainApp{display:none;}
-    .topbar{background:var(--pri);color:#FFF;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;position:sticky;top:0;z-index:50;box-shadow:0 4px 15px rgba(0,0,0,0.15);}
-    .topbar-title{font-size:16px;font-weight:900;display:flex;align-items:center;gap:8px;}
-    .topbar-right{display:flex;align-items:center;gap:12px;}
-    .btn-logout{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#FFF;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+    #mainApp { display: none; }
+    .topbar {
+      background: var(--top-color) !important;
+      backdrop-filter: blur(var(--top-blur)) !important;
+      -webkit-backdrop-filter: blur(var(--top-blur)) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 24px;
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .topbar-logo {
+      width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+      border: 2px solid rgba(241,196,15,0.45); box-shadow: 0 0 10px rgba(241,196,15,0.2);
+    }
+    .topbar-title {
+      font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.2px; line-height: 1.2;
+    }
+    .topbar-sub {
+      font-size: 10px; font-weight: 700; color: rgba(241,196,15,0.85); letter-spacing: 1.2px; text-transform: uppercase; margin-top: 1px;
+    }
+    .topbar-right {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .return-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8);
+      text-decoration: none; padding: 6px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .return-link:hover {
+      background: rgba(255,255,255,0.12); border-color: rgba(241,196,15,0.4); color: var(--gold-hover);
+    }
+    .btn-logout {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(230,57,70,0.2) 0%, rgba(217,4,41,0.25) 100%);
+      border: 1px solid rgba(230,57,70,0.4); color: #ff858d;
+      padding: 6px 15px; border-radius: 10px; font-size: 12px; font-weight: 800;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-logout:hover {
+      background: linear-gradient(135deg, #e63946 0%, #d90429 100%);
+      color: #fff; border-color: #e63946; box-shadow: 0 4px 14px rgba(230,57,70,0.35);
+    }
 
     /* NAV TABS */
-    .nav-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
-    .nav-tab{flex:1;min-width:85px;padding:12px 8px;text-align:center;font-size:13px;font-weight:800;color:var(--text2);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
-    .nav-tab.active{color:var(--pri2);border-bottom-color:var(--pri2);background:rgba(26,82,118,0.05);}
+    .nav-tabs {
+      display: flex;
+      background: rgba(6, 23, 36, 0.8);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding: 6px 16px; gap: 6px; scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab {
+      padding: 8px 16px; text-align: center; font-size: 13px; font-weight: 700;
+      color: rgba(255, 255, 255, 0.65); cursor: pointer; border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); white-space: nowrap;
+      border: 1px solid transparent; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .nav-tab:hover {
+      color: #fff; background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.08);
+    }
+    .nav-tab.active {
+      color: #F1C40F;
+      background: rgba(241, 196, 15, 0.12);
+      border-color: rgba(241, 196, 15, 0.35);
+      font-weight: 800;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), inset 0 0 12px rgba(241, 196, 15, 0.08);
+    }
 
-    .main-content{width:98%;max-width:1820px;margin:0 auto;padding:18px 14px;}
-    @media (min-width:1920px){.main-content{max-width:1920px;width:98%;padding:22px 16px;}}
+    .main-content { width: 98%; max-width: 1820px; margin: 0 auto; padding: 20px 16px; }
+    @media (min-width: 1920px) { .main-content { max-width: 1920px; width: 98%; padding: 24px 20px; } }
 
-    .tab-panel{display:none;}
-    .tab-panel.active{display:block;}
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     /* STATS */
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:20px;}
-    .stat-card{background:var(--card);border-radius:var(--radius);padding:20px 22px;border:1px solid var(--border);box-shadow:var(--shadow);}
-    .stat-icon{font-size:24px;margin-bottom:6px;}
-    .stat-val{font-size:32px;font-weight:900;color:var(--pri2);letter-spacing:-0.5px;line-height:1.2;}
-    .stat-label{font-size:12.5px;color:var(--text2);font-weight:700;margin-top:4px;}
-    .stat-card.green .stat-val{color:var(--green);}
-    .stat-card.red .stat-val{color:var(--red);}
-    .stat-card.gold .stat-val{color:var(--gold);}
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .stat-card {
+      background: linear-gradient(180deg, rgba(11, 26, 47, 0.85) 0%, rgba(7, 16, 30, 0.95) 100%);
+      border-radius: 16px; padding: 20px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(241, 196, 15, 0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    }
+    .stat-icon { font-size: 24px; margin-bottom: 6px; }
+    .stat-val { font-size: 30px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px; line-height: 1.2; }
+    .stat-label { font-size: 11.5px; color: rgba(255, 255, 255, 0.6); font-weight: 700; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card.green .stat-val { color: #2ECC71; text-shadow: 0 0 12px rgba(46,204,113,0.3); }
+    .stat-card.red .stat-val { color: #E74C3C; text-shadow: 0 0 12px rgba(231,76,60,0.3); }
+    .stat-card.gold .stat-val { color: #F1C40F; text-shadow: 0 0 12px rgba(241,196,15,0.3); }
 
     /* CARD CONTAINER */
-    .form-card{background:var(--card);border-radius:var(--radius);padding:22px 24px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
-    @media (max-width:768px){.form-card{padding:16px 14px;}}
-    .form-card h3{font-size:17px;font-weight:900;margin-bottom:14px;color:var(--pri2);display:flex;align-items:center;gap:6px;}
+    .form-card {
+      background: linear-gradient(180deg, rgba(11, 26, 47, 0.8) 0%, rgba(7, 16, 30, 0.92) 100%);
+      border-radius: 18px; padding: 22px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 22px;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    @media (max-width: 768px) { .form-card { padding: 16px 14px; } }
+    .form-card h3 {
+      font-size: 16.5px; font-weight: 900; margin-bottom: 16px; color: #FFFFFF;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .form-card h3::before {
+      content: ""; display: inline-block; width: 4px; height: 16px;
+      background: linear-gradient(180deg, #F1C40F 0%, #D68910 100%);
+      border-radius: 4px;
+    }
 
     /* QUICK PILLS FOR SCHOOLS & LEVELS */
     .pill-group{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;}
@@ -599,16 +707,23 @@ body::before {
   
   <!-- PUBLIC STICKY TOP TAB BAR -->
   <header class="public-nav-bar" style="position:relative; z-index:9600;">
-    <div class="p-nav-brand">
+    <a href="index.html" class="p-nav-brand">
       <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
       <div>
         <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
-        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+        <div class="p-nav-sub">CLUB XIANGQI BERA · 教练管理端</div>
       </div>
+    </a>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="nav-lang-bar">
+        <button id="login_nav_lang_cn" class="nav-lang-chip active" onclick="setAdminLang('zh'); updateAdminSeg('zh');">中</button>
+        <button id="login_nav_lang_bm" class="nav-lang-chip" onclick="setAdminLang('bm'); updateAdminSeg('bm');">BM</button>
+        <button id="login_nav_lang_en" class="nav-lang-chip" onclick="setAdminLang('en'); updateAdminSeg('en');">EN</button>
+      </div>
+      <button class="nav-menu-btn" onclick="toggleMainNav()">
+        <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
+      </button>
     </div>
-    <button class="nav-menu-btn" onclick="toggleMainNav()">
-      <span id="navMenuBtnIcon" style="font-size:16px;">☰</span> <span id="navMenuBtnText" data-i18n="nav.menu">菜单</span>
-    </button>
   </header>
 
 <!-- === APPLE STYLE MEGA MENU === -->
@@ -842,10 +957,21 @@ function updateSeg(lang) {
 <!-- MAIN APP -->
 <div id="mainApp">
   <div class="topbar">
-    <div class="topbar-title">CXQB 教练与俱乐部管理后台</div>
+    <a href="index.html" class="topbar-brand">
+      <img src="cxb_round_emblem.png" alt="CXB" class="topbar-logo">
+      <div>
+        <div class="topbar-title">百乐象棋俱乐部</div>
+        <div class="topbar-sub">CLUB XIANGQI BERA · 教练管理后台</div>
+      </div>
+    </a>
     <div class="topbar-right">
-      <a href="index.html" class="return-link" id="aReturn" style="display:inline-block; margin-top:20px; font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none; padding:8px 16px; border-radius:20px; background:var(--input-glass-bg); transition:all 0.3s;" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'; this.style.color=\'#fff\';" onmouseout="this.style.background=\'rgba(255,255,255,0.05)\'; this.style.color=\'rgba(255,255,255,0.5)\';">公开天梯榜</a>
-      <button class="btn-logout" onclick="logout()">退出</button>
+      <div class="nav-lang-bar">
+        <button id="nav_lang_cn" class="nav-lang-chip active" onclick="setAdminLang('zh'); updateAdminSeg('zh');">中</button>
+        <button id="nav_lang_bm" class="nav-lang-chip" onclick="setAdminLang('bm'); updateAdminSeg('bm');">BM</button>
+        <button id="nav_lang_en" class="nav-lang-chip" onclick="setAdminLang('en'); updateAdminSeg('en');">EN</button>
+      </div>
+      <a href="index.html" class="return-link" id="aReturn">← 返回主页</a>
+      <button class="btn-logout" onclick="logout()">退出登录</button>
     </div>
   </div>
 
@@ -859,9 +985,9 @@ function updateSeg(lang) {
     <div class="nav-tab" data-tab="records" onclick="switchTab('records')">对局档案</div>
     <div class="nav-tab" data-tab="tournament" onclick="switchTab('tournament')">锦标赛</div>
     <div class="nav-tab" data-tab="ladder" onclick="switchTab('ladder')">ELO天梯榜</div>
-    <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:2px solid rgba(241,196,15,0.5);">账号管理</div>
+    <div class="nav-tab superadmin-only" data-tab="accounts" onclick="switchTab('accounts')" style="border-left:1px solid rgba(255,255,255,0.12);">账号管理</div>
     <div class="nav-tab superadmin-only" data-tab="gallery" onclick="switchTab('gallery')">赛事与活动</div>
-    <div class="nav-tab superadmin-only" data-tab="licenses" onclick="switchTab('licenses')">学校租约授权 (Cloudflare)</div>
+    <div class="nav-tab superadmin-only" data-tab="licenses" onclick="switchTab('licenses')">学校租约授权</div>
   </div>
 
   <div class="main-content">
@@ -1165,12 +1291,16 @@ function updateSeg(lang) {
     <!-- TAB 8: ACCOUNT MANAGER (SUPER ADMIN ONLY) -->
     <div class="tab-panel" id="panel-accounts">
       <!-- Coach Management -->
-      <div class="form-card" style="margin-bottom:24px; border:1.5px solid rgba(41,128,185,0.4);">
-        <div style="font-size:16px;font-weight:900;margin-bottom:16px;">教练管理 (Coach Management)</div>
-        <div style="margin-bottom:16px; display:flex; gap:10px;">
-          <input type="text" id="newCoachName" class="form-input" placeholder="教练姓名" style="width:150px;">
-          <input type="text" id="newCoachPin" class="form-input" placeholder="教练PIN" style="width:100px;">
-          <button onclick="addCoach()" class="btn login-btn" style="width:auto; padding:8px 16px;">添加教练</button>
+      <div class="form-card" style="margin-bottom:24px;">
+        <div style="font-size:16.5px; font-weight:900; margin-bottom:16px; color:#fff; display:flex; align-items:center; gap:8px;">
+          教练权限与账号管理 (Coach Management)
+        </div>
+        <div style="margin-bottom:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <input type="text" id="newCoachName" class="form-input" placeholder="教练姓名 (Name)" style="width:180px;">
+          <input type="text" id="newCoachPin" class="form-input" placeholder="教练登录 PIN" style="width:140px;">
+          <button onclick="addCoach()" style="background:linear-gradient(135deg, #F39C12 0%, #D68910 100%); color:#0A1929; border:none; padding:10px 20px; border-radius:10px; font-size:13px; font-weight:800; cursor:pointer; box-shadow:0 4px 14px rgba(243,156,18,0.3); transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 18px rgba(243,156,18,0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 14px rgba(243,156,18,0.3)';">
+            + 添加教练
+          </button>
         </div>
         <div id="coachListTable" style="overflow-x:auto;">
           <!-- Table dynamically generated -->
@@ -1179,9 +1309,14 @@ function updateSeg(lang) {
 
       <!-- Student Account List -->
       <div class="form-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <div style="font-size:16px;font-weight:900;">学员账号管理 (修改姓名 / 密码)</div>
-          <span class="badge badge-blue" style="font-size:12px;" id="accStudentCount">共 0 名学员</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <div style="font-size:16.5px; font-weight:900; color:#fff;">学员账号管理 (修改姓名 / 登录密码 / 班级归属)</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.6); margin-top:3px;">
+              修改后即刻自动同步至云端数据库 · 学员可凭学号与密码登录专属学员中心
+            </div>
+          </div>
+          <span class="badge" style="font-size:12px; padding:6px 14px; background:rgba(41,128,185,0.18); border:1px solid rgba(41,128,185,0.35); color:#60A5FA; border-radius:20px; font-weight:800;" id="accStudentCount">共 0 名学员</span>
         </div>
         <div id="accountListTable"></div>
       </div>
@@ -1667,6 +1802,20 @@ async function tryLogin(){
   }
 }
 
+function updateAdminSeg(lang) {
+  const l = (lang === 'zh' || lang === 'cn') ? 'cn' : (lang === 'bm' || lang === 'my' ? 'bm' : 'en');
+  
+  // Update login screen language segments if present
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('lang_' + (l === 'cn' ? 'zh' : l)) || document.getElementById('lang_' + l);
+  if (btn) btn.classList.add('active');
+
+  // Update nav-lang-chip elements on both login and dashboard topbars
+  document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
+  const chips = document.querySelectorAll('#nav_lang_' + l + ', #login_nav_lang_' + l);
+  chips.forEach(c => c.classList.add('active'));
+}
+
 function setAdminLang(lang) {
   let mapped = (lang === 'cn' || lang === 'zh') ? 'zh' : (lang === 'my' || lang === 'bm' ? 'bm' : 'en');
   try { localStorage.setItem('cxb_lang_pref', mapped); } catch(e){}
@@ -1681,7 +1830,8 @@ function setAdminLang(lang) {
       btn: "进入管理控制台",
       err: "密码错误，请重新输入",
       ret: "← 返回主页",
-      appTitle: "CXQB 教练与俱乐部管理后台",
+      appTitle: "百乐象棋俱乐部",
+      appSub: "CLUB XIANGQI BERA · 教练管理后台",
       logout: "退出登录",
       tabs: {
         dashboard: "运营看板",
@@ -1705,7 +1855,8 @@ function setAdminLang(lang) {
       btn: "Log Masuk",
       err: "Kata laluan salah, sila cuba lagi",
       ret: "← Kembali ke Utama",
-      appTitle: "CXQB Papan Kawalan Jurulatih",
+      appTitle: "Kelab XiangQi Bera",
+      appSub: "CLUB XIANGQI BERA · Papan Kawalan Jurulatih",
       logout: "Log Keluar",
       tabs: {
         dashboard: "Papan Operasi",
@@ -1729,7 +1880,8 @@ function setAdminLang(lang) {
       btn: "Login",
       err: "Invalid password, please try again",
       ret: "← Return to Home",
-      appTitle: "CXQB Coach & Club Admin Portal",
+      appTitle: "Club XiangQi Bera",
+      appSub: "CLUB XIANGQI BERA · Coach Admin Portal",
       logout: "Logout",
       tabs: {
         dashboard: "Dashboard",
@@ -1758,6 +1910,7 @@ function setAdminLang(lang) {
   const aRet = document.getElementById('aReturn'); if(aRet) aRet.textContent = cur.ret;
 
   const topTitle = document.querySelector('.topbar-title'); if(topTitle) topTitle.textContent = cur.appTitle;
+  const topSub = document.querySelector('.topbar-sub'); if(topSub) topSub.textContent = cur.appSub;
   const btnLogout = document.querySelector('.btn-logout'); if(btnLogout) btnLogout.textContent = cur.logout;
 
   document.querySelectorAll('.nav-tabs .nav-tab').forEach(tab => {
@@ -1779,6 +1932,8 @@ function setAdminLang(lang) {
       }
     }
   });
+
+  updateAdminSeg(mapped);
 }
 
 function logout(){
@@ -1790,6 +1945,8 @@ function logout(){
 function showApp(){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('mainApp').style.display='block';
+    const savedLang = localStorage.getItem('cxb_lang_pref') || 'zh';
+    setAdminLang(savedLang);
     const user = JSON.parse(localStorage.getItem('cxb_auth_user'));
     const isSuperAdmin = user && user.role === 'superadmin';
     const perms = (user && user.perms) || [];
@@ -1901,9 +2058,18 @@ function getPlayerStats(id, name) {
 
 // ── ACCOUNT MANAGER ──────────────────────────────────────────
 function getDefaultPwd(student) {
-  // Default password = Level digit + ID number, e.g. Lv2 XQB-001 → 2001
-  const lvMatch = (student.level || '').match(/Lv\s*(\d)/);
-  const lvNum = lvMatch ? lvMatch[1] : '1';
+  // Default password = Level digit + ID number, e.g. Tahap 1 XQB-001 → 1001, Tahap 2 XQB-002 → 2002
+  let lvNum = '1';
+  const level = (student.level || '');
+  if (level.includes('Tahap 7') || level.includes('代表队')) lvNum = '7';
+  else if (level.includes('Tahap 5') || level.includes('Tahap 6') || level.includes('Lv 3') || level.includes('精英')) lvNum = '5';
+  else if (level.includes('Tahap 3') || level.includes('Tahap 4') || level.includes('Lv 2') || level.includes('进阶')) lvNum = '3';
+  else if (level.includes('Tahap 2') || level.includes('初级')) lvNum = '2';
+  else if (level.includes('Tahap 1') || level.includes('Lv 1') || level.includes('启蒙')) lvNum = '1';
+  else {
+    const m = level.match(/Lv\s*(\d)/);
+    if (m) lvNum = m[1];
+  }
   const idMatch = (student.id || '').match(/(\d+)$/);
   const idNum = idMatch ? idMatch[1] : '000';
   return lvNum + idNum;
@@ -1921,18 +2087,22 @@ function renderAccountList() {
   if (dispSuper) dispSuper.textContent = '********';
   if (dispCoach) dispCoach.textContent = '********';
 
-  // Teacher PIN editor removed (moved to coach list UI)
+  if (!allStudents || allStudents.length === 0) {
+    el.innerHTML = '<div style="text-align:center; padding:36px; color:rgba(255,255,255,0.5); font-size:13px;">暂无学员账号记录</div>';
+    return;
+  }
+
   el.innerHTML = `
-    <div style="overflow-x:auto;">
-      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+    <div class="tbl-wrap">
+      <table style="width:100%; border-collapse:separate; border-spacing:0; font-size:13px;">
         <thead>
-          <tr style="background:var(--bg);border-bottom:2px solid var(--border);">
-            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">学号</th>
-            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">中文姓名 (账号)</th>
-            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">密码 <span style="font-weight:500;color:var(--text2);font-size:11px;">(默认=级别+编号)</span></th>
-            <th style="padding:10px 12px;text-align:left;font-weight:800;color:var(--text2);">班级</th>
-            <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">状态</th>
-            <th style="padding:10px 12px;text-align:center;font-weight:800;color:var(--text2);">操作</th>
+          <tr>
+            <th style="padding:12px 14px; text-align:left; font-weight:800;">学号 (ID)</th>
+            <th style="padding:12px 14px; text-align:left; font-weight:800;">学员姓名 (账号)</th>
+            <th style="padding:12px 14px; text-align:left; font-weight:800;">登录密码 <span style="font-weight:500; font-size:11px; color:rgba(255,255,255,0.5);">(默认=级别+编号)</span></th>
+            <th style="padding:12px 14px; text-align:left; font-weight:800;">班级归属</th>
+            <th style="padding:12px 14px; text-align:center; font-weight:800;">账号状态</th>
+            <th style="padding:12px 14px; text-align:center; font-weight:800;">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -1941,26 +2111,30 @@ function renderAccountList() {
             const currentPwd = s.password || defaultPwd;
             const isDefault = currentPwd === defaultPwd;
             return `
-            <tr style="border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">
-              <td style="padding:10px 12px;font-weight:700;color:var(--text2);">${s.id}</td>
-              <td style="padding:10px 12px;">
-                <input type="text" id="acc_name_${i}" value="${s.cnName}"
-                  style="width:100%;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);transition:border-color .2s;"
-                  onfocus="this.style.borderColor='#F39C12'"
-                  onblur="autoSaveAccount(${i},'${s.id}',this)">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:12px 14px;">
+                <span style="display:inline-block; font-family:'Plus Jakarta Sans', monospace; font-size:12px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.15); border:1px solid rgba(41,128,185,0.32); padding:3px 9px; border-radius:6px; letter-spacing:0.5px;">${s.id}</span>
               </td>
-              <td style="padding:10px 12px;">
-                <div style="display:flex;align-items:center;gap:6px;">
+              <td style="padding:12px 14px;">
+                <input type="text" id="acc_name_${i}" value="${s.cnName}"
+                  style="width:100%; max-width:220px; padding:7px 12px; border:1px solid rgba(255,255,255,0.15); border-radius:8px; font-size:13px; font-weight:700; color:#FFFFFF; background:rgba(7,21,38,0.85); transition:all .2s;"
+                  onfocus="this.style.borderColor='#F1C40F'; this.style.boxShadow='0 0 10px rgba(241,196,15,0.25)';"
+                  onblur="this.style.boxShadow='none'; this.style.borderColor='rgba(255,255,255,0.15)'; autoSaveAccount(${i},'${s.id}',this)">
+              </td>
+              <td style="padding:12px 14px;">
+                <div style="display:flex; align-items:center; gap:8px;">
                   <input type="text" id="acc_pwd_${i}" value="${currentPwd}" maxlength="8"
-                    style="width:90px;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;background:var(--bg);transition:border-color .2s;"
-                    onfocus="this.style.borderColor='#F39C12'"
-                    onblur="autoSaveAccount(${i},'${s.id}',this)">
-                  ${isDefault ? '<span style="font-size:10px;background:rgba(41,128,185,0.12);color:#2980B9;padding:2px 6px;border-radius:6px;font-weight:700;">默认</span>' : '<span style="font-size:10px;background:rgba(39,174,96,0.12);color:#27AE60;padding:2px 6px;border-radius:6px;font-weight:700;">已改</span>'}
+                    style="width:90px; padding:7px 10px; border:1px solid rgba(255,255,255,0.15); border-radius:8px; font-size:13px; font-weight:800; font-family:monospace; color:#FFFFFF; background:rgba(7,21,38,0.85); text-align:center; transition:all .2s;"
+                    onfocus="this.style.borderColor='#F1C40F'; this.style.boxShadow='0 0 10px rgba(241,196,15,0.25)';"
+                    onblur="this.style.boxShadow='none'; this.style.borderColor='rgba(255,255,255,0.15)'; autoSaveAccount(${i},'${s.id}',this)">
+                  ${isDefault ? '<span style="font-size:10.5px; background:rgba(41,128,185,0.18); border:1px solid rgba(41,128,185,0.35); color:#60A5FA; padding:3px 7px; border-radius:6px; font-weight:800; white-space:nowrap;">默认</span>' : '<span style="font-size:10.5px; background:rgba(39,174,96,0.18); border:1px solid rgba(39,174,96,0.35); color:#34D399; padding:3px 7px; border-radius:6px; font-weight:800; white-space:nowrap;">已改</span>'}
                 </div>
               </td>
-              <td style="padding:10px 12px;">
+              <td style="padding:12px 14px;">
                 <select id="acc_level_${i}" 
-                  style="width:100%;padding:4px 6px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;background:var(--bg);"
+                  style="width:100%; max-width:240px; padding:7px 10px; border:1px solid rgba(255,255,255,0.15); border-radius:8px; font-size:12.5px; font-weight:700; color:#FFFFFF; background:rgba(7,21,38,0.92); color-scheme:dark; transition:all .2s;"
+                  onfocus="this.style.borderColor='#F1C40F';"
+                  onblur="this.style.borderColor='rgba(255,255,255,0.15)';"
                   onchange="autoSaveAccount(${i},'${s.id}',this)">
                   <option value="Tahap 1 零基础启蒙班" ${s.level.includes('Tahap 1')||s.level==='Lv 1 启蒙班'?'selected':''}>Tahap 1 零基础启蒙班</option>
                   <option value="Tahap 2 初级基础实战班" ${s.level.includes('Tahap 2')?'selected':''}>Tahap 2 初级基础实战班</option>
@@ -1970,13 +2144,14 @@ function renderAccountList() {
                   <option value="非本会学员" ${s.level==='非本会学员'?'selected':''}>非本会学员</option>
                 </select>
               </td>
-              <td style="padding:10px 12px;text-align:center;" id="acc_status_${i}">
-                <span style="font-size:11px;color:var(--text2);">-</span>
+              <td style="padding:12px 14px; text-align:center;" id="acc_status_${i}">
+                <span style="display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:#34D399; background:rgba(39,174,96,0.12); border:1px solid rgba(39,174,96,0.25); padding:3px 8px; border-radius:6px;"><span style="width:6px; height:6px; border-radius:50%; background:#34D399; display:inline-block; box-shadow:0 0 6px #34D399;"></span>正常</span>
               </td>
-              <td style="padding:10px 12px;text-align:center;">
+              <td style="padding:12px 14px; text-align:center;">
                 <button onclick="deleteStudentAccount('${s.id}','${s.cnName}')"
-                  style="background:none;border:1px solid var(--red);color:var(--red);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:800;cursor:pointer;"
-                  onmouseover="this.style.background='var(--red)';this.style.color='#fff';" onmouseout="this.style.background='none';this.style.color='var(--red)';">
+                  style="background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.35); color:#F87171; border-radius:8px; padding:5px 14px; font-size:11.5px; font-weight:800; cursor:pointer; transition:all .2s;"
+                  onmouseover="this.style.background='#E74C3C'; this.style.color='#fff'; this.style.borderColor='#E74C3C'; this.style.boxShadow='0 2px 10px rgba(231,76,60,0.4)';"
+                  onmouseout="this.style.background='rgba(231,76,60,0.1)'; this.style.color='#F87171'; this.style.borderColor='rgba(231,76,60,0.35)'; this.style.boxShadow='none';">
                   删除
                 </button>
               </td>
@@ -3607,17 +3782,17 @@ function renderCoaches() {
   const container = document.getElementById('coachListTable');
   if (!container) return;
   
-  if (window._coaches.length === 0) {
-    container.innerHTML = '<div style="padding:10px;color:var(--text2);">暂无教练账号。</div>';
+  if (!window._coaches || window._coaches.length === 0) {
+    container.innerHTML = '<div style="padding:24px; text-align:center; color:rgba(255,255,255,0.5); font-size:13px;">暂无教练账号记录。</div>';
     return;
   }
 
-  let html = `<table class="cxb-table" style="width:100%; border-collapse: collapse;">
-    <thead><tr style="border-bottom:2px solid var(--border); text-align:left;">
-      <th style="padding:10px;">姓名</th>
-      <th style="padding:10px;">PIN</th>
-      <th style="padding:10px;">权限配置</th>
-      <th style="padding:10px; text-align:right;">操作</th>
+  let html = `<div class="tbl-wrap"><table style="width:100%; border-collapse:separate; border-spacing:0; font-size:13px;">
+    <thead><tr>
+      <th style="padding:12px 14px; text-align:left; font-weight:800;">教练姓名</th>
+      <th style="padding:12px 14px; text-align:left; font-weight:800;">登录 PIN</th>
+      <th style="padding:12px 14px; text-align:left; font-weight:800;">功能授权配置</th>
+      <th style="padding:12px 14px; text-align:center; font-weight:800;">操作</th>
     </tr></thead><tbody>`;
 
   const availablePerms = [
@@ -3633,19 +3808,19 @@ function renderCoaches() {
   window._coaches.forEach((c, i) => {
     let permsHtml = availablePerms.map(p => {
       const checked = (c.perms && c.perms.includes(p.id)) ? 'checked' : '';
-      return `<label style="margin-right:8px;font-size:12px;cursor:pointer;"><input type="checkbox" onchange="toggleCoachPerm(${i}, '${p.id}')" ${checked}> ${p.name}</label>`;
+      return `<label style="display:inline-flex; align-items:center; gap:5px; margin-right:10px; font-size:12px; color:rgba(255,255,255,0.85); cursor:pointer; background:rgba(255,255,255,0.05); padding:4px 9px; border-radius:6px; border:1px solid rgba(255,255,255,0.1);"><input type="checkbox" onchange="toggleCoachPerm(${i}, '${p.id}')" ${checked} style="accent-color:#F1C40F; cursor:pointer;"> ${p.name}</label>`;
     }).join('');
 
-    html += `<tr style="border-bottom:1px solid var(--border);">
-      <td style="padding:10px;"><b>${c.name}</b></td>
-      <td style="padding:10px;color:var(--text2);">${c.pin}</td>
-      <td style="padding:10px;"><div style="display:flex;flex-wrap:wrap;gap:4px;">${permsHtml}</div></td>
-      <td style="padding:10px; text-align:right;">
-        <button onclick="deleteCoach(${i})" class="btn" style="background:var(--red);color:#fff;padding:6px 12px;border:none;border-radius:8px;cursor:pointer;">删除</button>
+    html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+      <td style="padding:12px 14px; font-weight:800; color:#fff;">${c.name}</td>
+      <td style="padding:12px 14px;"><span style="font-family:monospace; font-size:13px; font-weight:700; color:#60A5FA; background:rgba(41,128,185,0.15); border:1px solid rgba(41,128,185,0.3); padding:3px 8px; border-radius:6px;">${c.pin}</span></td>
+      <td style="padding:12px 14px;"><div style="display:flex; flex-wrap:wrap; gap:6px;">${permsHtml}</div></td>
+      <td style="padding:12px 14px; text-align:center;">
+        <button onclick="deleteCoach(${i})" style="background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.35); color:#F87171; border-radius:8px; padding:5px 14px; font-size:11.5px; font-weight:800; cursor:pointer; transition:all .2s;" onmouseover="this.style.background='#E74C3C'; this.style.color='#fff'; this.style.borderColor='#E74C3C';" onmouseout="this.style.background='rgba(231,76,60,0.1)'; this.style.color='#F87171'; this.style.borderColor='rgba(231,76,60,0.35)';">删除</button>
       </td>
     </tr>`;
   });
-  html += `</tbody></table>`;
+  html += `</tbody></table></div>`;
   container.innerHTML = html;
 }
 
