@@ -112,8 +112,8 @@
     .nav-tab{flex:1;min-width:85px;padding:12px 8px;text-align:center;font-size:13px;font-weight:800;color:var(--text2);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
     .nav-tab.active{color:var(--pri2);border-bottom-color:var(--pri2);background:rgba(26,82,118,0.05);}
 
-    .main-content{max-width:1440px;width:96%;margin:0 auto;padding:24px 20px;}
-    @media (min-width:1600px){.main-content{max-width:1600px;padding:28px 24px;}}
+    .main-content{width:98%;max-width:1820px;margin:0 auto;padding:18px 14px;}
+    @media (min-width:1920px){.main-content{max-width:1920px;width:98%;padding:22px 16px;}}
 
     .tab-panel{display:none;}
     .tab-panel.active{display:block;}
@@ -129,7 +129,8 @@
     .stat-card.gold .stat-val{color:var(--gold);}
 
     /* CARD CONTAINER */
-    .form-card{background:var(--card);border-radius:var(--radius);padding:24px 28px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
+    .form-card{background:var(--card);border-radius:var(--radius);padding:22px 24px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:20px;}
+    @media (max-width:768px){.form-card{padding:16px 14px;}}
     .form-card h3{font-size:17px;font-weight:900;margin-bottom:14px;color:var(--pri2);display:flex;align-items:center;gap:6px;}
 
     /* QUICK PILLS FOR SCHOOLS & LEVELS */
@@ -177,10 +178,14 @@
     .submit-btn.green{background:linear-gradient(135deg,var(--green),#2ECC71);}
 
     /* TABLES */
-    .tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
-    table{width:100%;border-collapse:collapse;font-size:13.5px;}
-    th{background:var(--bg);padding:13px 14px;text-align:left;font-weight:800;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
-    td{padding:12px 14px;border-top:1px solid var(--border);vertical-align:middle;}
+    .tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.18) transparent;}
+    .tbl-wrap::-webkit-scrollbar{height:6px;width:6px;}
+    .tbl-wrap::-webkit-scrollbar-track{background:rgba(255,255,255,0.03);border-radius:4px;}
+    .tbl-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.18);border-radius:4px;}
+    .tbl-wrap::-webkit-scrollbar-thumb:hover{background:rgba(241,196,15,0.4);}
+    table{width:100%;border-collapse:collapse;font-size:13px;}
+    th{background:var(--bg);padding:11px 9px;text-align:left;font-weight:800;font-size:11.5px;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;}
+    td{padding:10px 9px;border-top:1px solid var(--border);vertical-align:middle;}
     tr:hover td{background:rgba(41,128,185,0.03);}
     .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;white-space:nowrap;}
     .badge-green{background:#E8F8F5;color:#1ABC9C;}
@@ -873,7 +878,7 @@ function updateSeg(lang) {
       <div class="form-card">
         <h3>现役学员名册总览</h3>
         <div class="tbl-wrap">
-          <table style="min-width:760px;">
+          <table style="width:100%;">
             <thead><tr><th>学号</th><th>中文名</th><th>所在学校</th><th>班级级别</th><th>ELO</th><th>学费状态</th></tr></thead>
             <tbody id="dashStudentTable">
               <tr><td colspan="6" style="text-align:center; padding:28px; color:var(--text2); font-size:13.5px;">正在同步学员档案名册...</td></tr>
@@ -938,19 +943,19 @@ function updateSeg(lang) {
 
         <!-- Table -->
         <div class="tbl-wrap">
-          <table style="min-width:1120px;">
+          <table id="regTable" style="width:100%;">
             <thead>
               <tr>
-                <th>凭单号</th>
-                <th>提交时间</th>
-                <th>报名类别</th>
-                <th>学员姓名</th>
-                <th>年龄 / 学校</th>
-                <th>报读班级 / 活动</th>
-                <th>家长 / 联络电话</th>
-                <th>预估费用</th>
-                <th>审核状态</th>
-                <th style="text-align:right;">操作</th>
+                <th style="white-space:nowrap;">凭单号</th>
+                <th style="white-space:nowrap;">提交时间</th>
+                <th style="white-space:nowrap;">类别</th>
+                <th style="white-space:nowrap;">学员姓名</th>
+                <th>学校 / 年龄</th>
+                <th>报读班级 / 项目</th>
+                <th style="white-space:nowrap;">家长 / 联络</th>
+                <th style="white-space:nowrap;">预估费用</th>
+                <th style="white-space:nowrap;">状态</th>
+                <th style="text-align:right; white-space:nowrap;">操作</th>
               </tr>
             </thead>
             <tbody id="registrationsTableBody">
@@ -4832,45 +4837,63 @@ function renderRegistrationList() {
     const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
 
     // Status pill
-    let statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(230,57,70,0.18); color:#e63946; white-space:nowrap;">待核实</span>';
+    let statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; border-radius:5px; background:rgba(230,57,70,0.18); color:#e63946; white-space:nowrap;">待核实</span>';
     if (r.status === 'verified') {
-      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(52,152,219,0.18); color:#3498db; white-space:nowrap;">已联系</span>';
+      statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; border-radius:5px; background:rgba(52,152,219,0.18); color:#3498db; white-space:nowrap;">已联系</span>';
     } else if (r.status === 'enrolled') {
-      statusBadge = '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(39,174,96,0.18); color:#2ecc71; white-space:nowrap;">已入库</span>';
+      statusBadge = '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; border-radius:5px; background:rgba(39,174,96,0.18); color:#2ecc71; white-space:nowrap;">已入库</span>';
     }
 
     // Time format
     let dateStr = '-';
+    let timeStr = '';
     if (r.timestamp) {
       try {
         const d = new Date(r.timestamp);
-        dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+        dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        timeStr = `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
       } catch(e) {}
     }
 
     const typeBadge = isAcad 
-      ? '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(241,196,15,0.15); color:var(--gold); white-space:nowrap;">常规学院</span>'
-      : '<span style="display:inline-block; font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:rgba(46,204,113,0.15); color:#2ecc71; white-space:nowrap;">营会/赛事</span>';
+      ? '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; border-radius:5px; background:rgba(241,196,15,0.15); color:var(--gold); white-space:nowrap;">常规学院</span>'
+      : '<span style="display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; border-radius:5px; background:rgba(46,204,113,0.15); color:#2ecc71; white-space:nowrap;">营会/赛事</span>';
 
     const itemTitle = isAcad ? (r.tier || '-') : (r.eventName || '-');
-    const parentInfo = isAcad ? `${r.parentName || '家长'} · ${r.parentPhone || '-'}` : (r.emergency ? `${r.phone || '-'} (紧急:${r.emergency})` : (r.phone || '-'));
+    const parentName = isAcad ? (r.parentName || '家长') : (r.emergency ? `紧急:${r.emergency}` : '-');
 
     html += `
       <tr>
-        <td style="font-family:monospace; font-weight:800; font-size:13px; color:var(--text); white-space:nowrap;">${r.id}</td>
-        <td style="font-size:12.5px; color:var(--text2); white-space:nowrap;">${dateStr}</td>
+        <td style="font-family:monospace; font-weight:800; font-size:11.5px; color:var(--text); white-space:nowrap;">${r.id}</td>
+        <td style="white-space:nowrap;">
+          <div style="font-size:12px; font-weight:600; color:var(--text);">${dateStr}</div>
+          ${timeStr ? `<div style="font-size:11px; color:var(--text2);">${timeStr}</div>` : ''}
+        </td>
         <td style="white-space:nowrap;">${typeBadge}</td>
-        <td style="font-weight:700; font-size:13.5px; white-space:nowrap;">${r.cnName || '-'} <span style="font-size:12px; color:var(--text2); font-weight:normal;">(${r.enName || '-'})</span></td>
-        <td style="font-size:13px; white-space:nowrap;">${r.school || '-'} <span style="color:var(--text2); font-size:11.5px;">${r.birth ? '· ' + r.birth : ''}</span></td>
-        <td style="font-size:13px; font-weight:600; color:var(--text);">${itemTitle}</td>
-        <td style="font-size:13px; white-space:nowrap;">${parentInfo}</td>
-        <td style="font-weight:800; font-size:14px; color:var(--gold); white-space:nowrap;">${r.total || '-'}</td>
+        <td style="white-space:nowrap;">
+          <div style="font-weight:700; font-size:13px; color:var(--text);">${r.cnName || '-'}</div>
+          ${r.enName ? `<div style="font-size:11px; color:var(--text2); font-weight:normal;">${r.enName}</div>` : ''}
+        </td>
+        <td>
+          <div style="font-size:12px; font-weight:600; color:var(--text); line-height:1.25; max-width:180px;">${r.school || '-'}</div>
+          ${r.birth ? `<div style="font-size:11px; color:var(--text2); margin-top:2px;">${r.birth} 年</div>` : ''}
+        </td>
+        <td>
+          <div style="font-size:12px; font-weight:700; color:var(--gold); line-height:1.25; max-width:160px;">${itemTitle}</div>
+        </td>
+        <td style="white-space:nowrap;">
+          <div style="font-size:12px; font-weight:600; color:var(--text);">${parentName}</div>
+          <div style="font-size:11.5px; font-family:monospace; color:var(--text2);">${phone}</div>
+        </td>
+        <td style="font-weight:800; font-size:13px; color:var(--gold); white-space:nowrap;">${r.total || '-'}</td>
         <td style="white-space:nowrap;">${statusBadge}</td>
         <td style="text-align:right; white-space:nowrap;">
-          <a href="${waLink}" target="_blank" title="WhatsApp 官方跟进" style="display:inline-flex; align-items:center; justify-content:center; padding:5px 10px; border-radius:7px; background:rgba(37,211,102,0.14); border:1px solid rgba(37,211,102,0.32); color:#25D366; text-decoration:none; margin-right:4px; font-size:12px; font-weight:800; letter-spacing:0.3px;">WhatsApp</a>
-          <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:5px 10px; border-radius:7px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:12px; cursor:pointer; margin-right:4px; font-weight:700;">凭单详情</button>
-          ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入在册学员库" style="padding:5px 10px; border-radius:7px; background:var(--pri3); border:none; color:#fff; font-size:12px; font-weight:700; cursor:pointer; margin-right:4px;">录入学员</button>` : ''}
-          <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:5px 8px; border-radius:7px; background:rgba(230,57,70,0.12); border:1px solid rgba(230,57,70,0.25); color:#e63946; font-size:12px; cursor:pointer; font-weight:700;">删除</button>
+          <div style="display:inline-flex; align-items:center; gap:4px; justify-content:flex-end;">
+            <a href="${waLink}" target="_blank" title="WhatsApp 官方跟进" style="display:inline-flex; align-items:center; justify-content:center; padding:4px 7px; border-radius:6px; background:rgba(37,211,102,0.14); border:1px solid rgba(37,211,102,0.3); color:#25D366; text-decoration:none; font-size:11.5px; font-weight:800;">WA</a>
+            <button onclick="openRegDetailModal('${r.id}')" title="查看完整凭证" style="padding:4px 7px; border-radius:6px; background:rgba(255,255,255,0.08); border:1px solid var(--border); color:var(--text); font-size:11.5px; cursor:pointer; font-weight:700;">凭单</button>
+            ${isAcad ? `<button onclick="enrollStudentFromReg('${r.id}')" title="录入在册学员库" style="padding:4px 7px; border-radius:6px; background:var(--pri3); border:none; color:#fff; font-size:11.5px; font-weight:700; cursor:pointer;">入库</button>` : ''}
+            <button onclick="deleteRegRecord('${r.id}')" title="删除记录" style="padding:4px 6px; border-radius:6px; background:rgba(230,57,70,0.12); border:1px solid rgba(230,57,70,0.25); color:#e63946; font-size:11.5px; cursor:pointer; font-weight:700;">删除</button>
+          </div>
         </td>
       </tr>
     `;
