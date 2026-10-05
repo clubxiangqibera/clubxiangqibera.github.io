@@ -691,8 +691,8 @@
 
       <!-- CARD 2: YI FENG INTERMEDIATE HOLIDAY CAMP -->
       <div class="event-card" data-event-id="evt_yifeng_2026" data-category="yifeng" data-host="persatuan club">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--font-serif); font-size:26px; font-weight:800; color:var(--gold); letter-spacing:4px; text-transform:uppercase;">YI FENG</div>
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
+          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:32px; font-weight:800; color:var(--gold); letter-spacing:4px; text-shadow:0 2px 14px rgba(0,0,0,0.6);">弈峰</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt2_camp.status">筹划筹备中</span>
         </div>
         <div class="event-card__body">
@@ -726,8 +726,8 @@
 
       <!-- CARD 3: BERA INTER-SCHOOL CHAMPIONSHIP -->
       <div class="event-card" data-event-id="evt_school_annual" data-category="school" data-host="persatuan school">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #112440 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
-          <img src="cxb_round_emblem.png" alt="Inter-School Emblem" style="width:100px; height:100px; opacity:0.9; filter:drop-shadow(0 4px 16px rgba(241,196,15,0.3));">
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
+          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">百乐县中小学校际象棋锦标赛</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt2.status">筹划筹备中</span>
         </div>
         <div class="event-card__body">
@@ -761,8 +761,8 @@
 
       <!-- CARD 4: BERA OPEN CHAMPIONSHIP -->
       <div class="event-card" data-event-id="evt_open_2026" data-category="open" data-host="persatuan">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #2e1d10 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--font-serif); font-size:26px; font-weight:800; color:var(--gold); letter-spacing:4px; text-transform:uppercase;">BERA OPEN</div>
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
+          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">百乐县中国象棋公开锦标赛</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt_open.status">筹划筹备中</span>
         </div>
         <div class="event-card__body">
@@ -796,8 +796,8 @@
 
       <!-- CARD 5: FESTIVE & HERITAGE CUP -->
       <div class="event-card" data-event-id="evt_festive_2027" data-category="festive" data-host="persatuan">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #2e1212 0%, #07101e 100%); display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--font-serif); font-size:24px; font-weight:800; color:var(--gold); letter-spacing:3px; text-transform:uppercase;">FESTIVE CUP</div>
+        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
+          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">百乐县新春中国象棋争霸赛</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt_festive.status">筹划筹备中</span>
         </div>
         <div class="event-card__body">
@@ -1282,6 +1282,47 @@
                    document.querySelector(`.event-card[data-category="${evt.category}"]`);
       if (!card) return;
 
+      // 0. Update Cover Wrap (Image or CSS Text Picture)
+      const coverWrap = card.querySelector('.event-card__cover-wrap');
+      if (coverWrap && evt.status !== 'archive') {
+        const currentStatusEl = coverWrap.querySelector('.event-card__status');
+        const statusHtml = currentStatusEl ? currentStatusEl.outerHTML : '';
+
+        if (evt.coverType === 'image' && evt.cover) {
+          coverWrap.style.background = '#07101e';
+          coverWrap.style.display = '';
+          coverWrap.style.padding = '';
+          coverWrap.style.textAlign = '';
+          coverWrap.style.cursor = 'zoom-in';
+          coverWrap.onclick = () => openLightbox(evt.cover);
+          coverWrap.innerHTML = `
+            <img src="${evt.cover}" alt="${evt.title || ''}" class="event-card__cover">
+            ${statusHtml}
+          `;
+        } else if (evt.coverType === 'badge' || evt.badgeText) {
+          const badgeBg = (evt.cover && evt.cover.includes('gradient'))
+            ? evt.cover
+            : 'radial-gradient(circle at center, #1b382b 0%, #07101e 100%)';
+          const text = evt.badgeText || (evt.category ? evt.category.toUpperCase() : 'EVENT');
+          const fontSize = text.length > 8 ? '20px' : (text.length > 4 ? '26px' : '32px');
+
+          coverWrap.style.background = badgeBg;
+          coverWrap.style.display = 'flex';
+          coverWrap.style.alignItems = 'center';
+          coverWrap.style.justifyContent = 'center';
+          coverWrap.style.padding = '20px';
+          coverWrap.style.textAlign = 'center';
+          coverWrap.style.cursor = 'default';
+          coverWrap.onclick = null;
+          coverWrap.innerHTML = `
+            <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:${fontSize}; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">
+              ${text}
+            </div>
+            ${statusHtml}
+          `;
+        }
+      }
+
       // Title
       const titleEl = card.querySelector('.event-card__title');
       if (titleEl && evt.title) titleEl.textContent = evt.title;
@@ -1319,6 +1360,11 @@
       }
     });
   }
+
+  // Cross-tab auto-sync with Admin Operations
+  window.addEventListener('storage', e => {
+    if (e.key === 'cxb_events_data') syncDynamicEvents();
+  });
 
   // Dynamic sync with Admin Operations & Cloud
   async function syncDynamicEvents() {
