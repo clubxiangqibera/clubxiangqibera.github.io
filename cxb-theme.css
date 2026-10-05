@@ -91,9 +91,89 @@
 }
 
 /* ---------- Base ---------- */
+:root {
+  color-scheme: dark;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+html, body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+/* ---------- Global Sleek Apple / Glass Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(241, 196, 15, 0.5);
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Form Controls & Containers */
+textarea, select, pre, .form-control, .form-input, .form-control-glass, .tbl-wrap {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.02);
+}
+textarea::-webkit-scrollbar,
+select::-webkit-scrollbar,
+pre::-webkit-scrollbar,
+.form-control::-webkit-scrollbar,
+.form-input::-webkit-scrollbar,
+.form-control-glass::-webkit-scrollbar,
+.tbl-wrap::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+textarea::-webkit-scrollbar-track,
+select::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track,
+.form-control::-webkit-scrollbar-track,
+.form-input::-webkit-scrollbar-track,
+.form-control-glass::-webkit-scrollbar-track,
+.tbl-wrap::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  margin: 4px;
+}
+textarea::-webkit-scrollbar-thumb,
+select::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb,
+.form-control::-webkit-scrollbar-thumb,
+.form-input::-webkit-scrollbar-thumb,
+.form-control-glass::-webkit-scrollbar-thumb,
+.tbl-wrap::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+}
+textarea::-webkit-scrollbar-thumb:hover,
+select::-webkit-scrollbar-thumb:hover,
+pre::-webkit-scrollbar-thumb:hover,
+.form-control::-webkit-scrollbar-thumb:hover,
+.form-input::-webkit-scrollbar-thumb:hover,
+.form-control-glass::-webkit-scrollbar-thumb:hover,
+.tbl-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(241, 196, 15, 0.6);
+}
 
 body {
   margin: 0;

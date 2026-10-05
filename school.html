@@ -90,7 +90,34 @@
       --radius: 14px;
       --shadow: 0 4px 18px rgba(0,0,0,0.06);
     }
+    :root, html, body {
+      color-scheme: dark;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* UNIVERSAL SLEEK SCROLLBAR (CHROME, EDGE, SAFARI) */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background-clip: padding-box;
+      transition: background 0.2s ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(241, 196, 15, 0.5);
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
     body { margin: 0 !important; padding: 0 !important; font-family: "Plus Jakarta Sans", "Noto Sans SC", sans-serif; background: #040C17 !important; color: #fff; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
     /* LOGIN SCREEN */
@@ -396,6 +423,25 @@
       background: #0B1A2F;
       color: #fff;
       padding: 8px;
+    }
+    textarea.form-control-glass {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.03);
+    }
+    textarea.form-control-glass::-webkit-scrollbar {
+      width: 6px;
+    }
+    textarea.form-control-glass::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+      margin: 4px;
+    }
+    textarea.form-control-glass::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 6px;
+    }
+    textarea.form-control-glass::-webkit-scrollbar-thumb:hover {
+      background: rgba(241, 196, 15, 0.6);
     }
 
     /* FORMAL TOURNAMENT TABLE (MATCHES / PAIRINGS) */
@@ -1601,7 +1647,7 @@ function updateSeg(lang) {
         <label id="tLabelPlayers" style="display:block; font-size:13px; font-weight:800; margin-bottom:6px; color:rgba(255,255,255,0.85);">
           📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)
         </label>
-        <textarea id="schPlayerNamesText" class="form-control-glass" style="height:140px; font-family:monospace; line-height:1.6;" placeholder="示例 / Example:&#10;曾俊杰&#10;李浩宇&#10;张小明&#10;陈伟豪&#10;王家伦&#10;刘思颖&#10;黄子豪&#10;周凯文"></textarea>
+        <textarea id="schPlayerNamesText" class="form-control-glass" style="min-height:140px; height:150px; font-family:var(--font-sans), monospace; line-height:1.6; resize:vertical; overflow-y:auto;" placeholder="示例 / Example:&#10;曾俊杰&#10;李浩宇&#10;张小明&#10;陈伟豪&#10;王家伦&#10;(每行一位学生姓名，支持直接复制粘贴)"></textarea>
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
@@ -1841,7 +1887,7 @@ const I18N = {
     phTourneyName: '请输入赛事名称 (例如: 直凉华小校内选拔赛)',
     labelTotalRounds: '比赛总轮数 (根据参赛人数自动建议)',
     labelPlayers: '📋 参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)',
-    phPlayers: '示例 / Example:\n曾俊杰\n李浩宇\n张小明\n陈伟豪\n王家伦\n刘思颖\n黄子豪\n周凯文',
+    phPlayers: '示例 / Example:\n曾俊杰\n李浩宇\n张小明\n陈伟豪\n王家伦\n(每行一位学生姓名，支持直接复制粘贴)',
     playerCountPrefix: '当前识别: ',
     playerCountSuffix: ' 人',
     btnStartTourney: '⚡ 一键生成第 1 轮对阵',
@@ -1925,7 +1971,7 @@ const I18N = {
     phTourneyName: 'cth: Kejohanan Catur SJK(C) Triang 1',
     labelTotalRounds: 'Jumlah Pusingan (Disyorkan ikut peserta)',
     labelPlayers: '📋 Senarai Nama Peserta (Seorang sebaris, tampal dari WhatsApp/Excel)',
-    phPlayers: 'Contoh / Example:\nAhmad\nTan Wei Lun\nSiti\nLee Jia Hao\nChong\nKumar\nMuhammad',
+    phPlayers: 'Contoh / Example:\nAhmad\nTan Wei Lun\nSiti Nur\nLee Jia Hao\n(Seorang sebaris, tampal dari WhatsApp/Excel)',
     playerCountPrefix: 'Peserta Dikesan: ',
     playerCountSuffix: ' orang',
     btnStartTourney: '⚡ Jana Pusingan 1 Sekarang',
@@ -2009,7 +2055,7 @@ const I18N = {
     phTourneyName: 'e.g. SJK(C) Triang Interschool Xiangqi 2026',
     labelTotalRounds: 'Total Rounds (Auto-recommended by players)',
     labelPlayers: '📋 Player Names List (One name per line, paste from WhatsApp/Excel)',
-    phPlayers: 'Example:\nAhmad\nTan Wei Lun\nAlex Smith\nLee Jia Hao\nDavid\nChong\nMuhammad',
+    phPlayers: 'Example:\nAhmad\nTan Wei Lun\nAlex Smith\nLee Jia Hao\n(One name per line, paste from WhatsApp/Excel)',
     playerCountPrefix: 'Players Detected: ',
     playerCountSuffix: ' players',
     btnStartTourney: '⚡ Generate Round 1 Pairings',
