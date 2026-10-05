@@ -2415,7 +2415,7 @@ async function autoSaveAccount(idx, studentId, inputEl) {
       body: JSON.stringify({ action: 'updateAccount', studentId, newName, newPwd, newLevel })
     });
     const data = await res.json();
-    if (data.status === 'ok') {
+    if (data.status === 'ok' || data.success === true) {
       if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:#27AE60;">✅ 已保存</span>';
       if (inputEl) inputEl.style.borderColor = '#27AE60';
       setTimeout(() => { if (statusEl) statusEl.innerHTML = '<span style="font-size:11px;color:var(--text2);">-</span>'; }, 3000);
@@ -4204,8 +4204,8 @@ const DEFAULT_EVENTS = [
     id: "evt_yifeng_2026",
     category: "yifeng",
     seriesTag: "公会 · 「弈峰」特训系列 · 假期集训",
-    title: "2026 第一届「弈峰」学校假期棋艺进阶特训营",
-    date: "2026 学校假期 (School Holidays) · 封闭强化",
+    title: "2027 第一届「弈峰」学校假期棋艺进阶特训营",
+    date: "2027 学校假期 (School Holidays) · 封闭强化",
     status: "upcoming",
     statusText: "筹划筹备中",
     desc: "面向百乐县具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
@@ -4245,10 +4245,10 @@ const DEFAULT_EVENTS = [
     id: "evt_open_2026",
     category: "open",
     seriesTag: "公会 · 全县公开赛系列 · 棋王争霸",
-    title: "2026 第一届百乐县中国象棋公开锦标赛",
-    date: "2026 下半年度 · 全县争霸",
+    title: "2027 第一届百乐县中国象棋公开锦标赛",
+    date: "2027 下半年度 · 全县争霸",
     status: "upcoming",
-    statusText: "章程拟定中",
+    statusText: "筹划筹备中",
     desc: "百乐县全面对外开放的高水平象棋公开赛。打破年龄与学校限制，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王。",
     cover: "radial-gradient(circle at center, #2e1d10 0%, #07101e 100%)",
     coverType: "badge",
