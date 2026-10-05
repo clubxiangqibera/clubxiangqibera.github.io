@@ -766,7 +766,7 @@
       <div class="fee-strip">
         <div class="fee-strip-item">
           <span class="fee-strip-label" data-i18n="reg.fee_event_fee">营费 / 报名费</span>
-          <span class="fee-strip-val" id="dispCampFee">RM 50</span>
+          <span class="fee-strip-val" id="dispCampFee">RM 40</span>
         </div>
         <div class="fee-strip-item">
           <span class="fee-strip-label" data-i18n="reg.fee_event_include">包含内容</span>
@@ -774,7 +774,7 @@
         </div>
         <div class="fee-strip-item">
           <span class="fee-strip-label" data-i18n="reg.fee_total">应缴合计</span>
-          <span class="fee-strip-total" id="dispCampTotal">RM 50</span>
+          <span class="fee-strip-total" id="dispCampTotal">RM 40</span>
         </div>
       </div>
 
@@ -1043,9 +1043,9 @@
       const totEl = document.getElementById('dispCampTotal');
 
       if (val.includes('棋缘')) {
-        feeEl.textContent = 'RM 50';
+        feeEl.textContent = 'RM 40';
         incEl.textContent = '官方习题册 + 午餐 + 结业证书';
-        totEl.textContent = 'RM 50';
+        totEl.textContent = 'RM 40';
       } else if (val.includes('弈峰')) {
         feeEl.textContent = '预报名 (待定)';
         incEl.textContent = '假期封闭集训 + 残局定式 + 战术复盘';
