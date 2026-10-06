@@ -65,31 +65,29 @@
       opacity: 0.6;
     }
 
+    #securityGate {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; min-height: 100vh; padding: 0;
+    }
+
+    /* PUBLIC STICKY NAV BAR (100% 与首页一致) */
     .public-nav-bar {
-      width: 100%; max-width: 1200px; height: 68px; display: flex;
-      align-items: center; justify-content: space-between; padding: 0 24px;
-      position: sticky; top: 0; z-index: 9600;
-      background: var(--top-color); backdrop-filter: blur(var(--top-blur));
-      -webkit-backdrop-filter: blur(var(--top-blur));
-      border-bottom: 1px solid var(--top-border);
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: var(--top-color) !important; backdrop-filter: blur(var(--top-blur)) !important; -webkit-backdrop-filter: blur(var(--top-blur)) !important; backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
     }
-    .p-nav-brand {
-      display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;
-    }
-    .p-nav-logo {
-      width: 42px; height: 42px; border-radius: 50%; object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-    }
-    .p-nav-title { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; }
-    .p-nav-sub { font-size: 9px; color: var(--ink-dim); letter-spacing: 1.5px; }
+    .p-nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .p-nav-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(241,196,15,0.4); }
+    .p-nav-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
 
     .nav-menu-btn {
-      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14);
-      color: var(--ink); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 7px 16px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12);
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
     }
-    .nav-menu-btn:hover { background: rgba(255, 255, 255, 0.16); }
+    .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
 
     .nav-lang-bar {
       display: inline-flex; background: rgba(255, 255, 255, 0.08);
@@ -108,12 +106,19 @@
     }
 
     .public-content-wrap {
-      width: 100%; max-width: 1200px; padding: 32px 24px 80px; flex-grow: 1;
+      width: 100%; max-width: 1180px; padding: 28px 20px 60px; flex-grow: 1; margin: 0 auto;
     }
 
-    /* HERO */
+    /* HERO (与首页/学院一致的卡片风格) */
     .hero {
-      text-align: center; padding: 32px 0 48px;
+      margin-top: 16px;
+      padding: clamp(32px, 5vw, 52px) 24px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+      margin-bottom: 48px;
     }
     .hero__logo {
       width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 18px; display: block;
@@ -333,30 +338,22 @@
     }
     .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* FOOTER */
-    .footer {
-      width: 100%; border-top: 1px solid var(--line-soft);
-      background: rgba(4, 12, 23, 0.95); padding: 40px 24px 24px;
-      margin-top: auto; display: flex; flex-direction: column; align-items: center;
+    /* FOOTER (100% 与首页一致) */
+    .footer { width: 100%; margin-top: auto; border-top: 1px solid var(--line-soft); padding: 40px 0 30px; background: rgba(4, 12, 23, 0.95); }
+    .footer__grid {
+      max-width: 1040px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1.4fr 1.2fr 1fr; gap: 36px;
     }
-    .footer-inner {
-      width: 100%; max-width: 1200px; display: grid;
-      grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 32px;
+    .footer h3 { font-size: 1rem; color: var(--ink); margin-bottom: 12px; }
+    .footer a:hover { color: var(--gold-soft); }
+    .footer__legal {
+      margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;
+      color: var(--ink-dim); font-size: 0.8rem;
     }
-    .footer-brand h5 { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: var(--ink); }
-    .footer-brand p { font-size: 12px; color: var(--ink-dim); line-height: 1.6; }
-    .footer-col h6 {
-      font-size: 12px; font-weight: 800; color: var(--gold-soft);
-      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
-    }
-    .footer-col a {
-      display: block; font-size: 12px; color: var(--ink-dim); text-decoration: none;
-      margin-bottom: 8px; transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--gold-soft); }
-    .footer-bottom {
-      width: 100%; max-width: 1200px; padding-top: 16px; border-top: 1px solid var(--line-soft);
-      text-align: center; font-size: 11px; color: rgba(255,255,255,0.4);
+
+    @media (max-width: 768px) {
+      .footer__grid { grid-template-columns: 1fr; text-align: center; }
+      .footer__grid > div { text-align: center !important; }
     }
 
     /* APPLE STYLE MEGA MENU */
@@ -368,7 +365,7 @@
     }
     .apple-backdrop.open { opacity: 1; pointer-events: auto; }
     .apple-mega-menu {
-      position: fixed; top: 68px; left: 0; width: 100%; z-index: 9500;
+      position: fixed; top: 60px; left: 0; width: 100%; z-index: 9500;
       background: var(--mega-bg); backdrop-filter: blur(var(--mega-blur));
       -webkit-backdrop-filter: blur(var(--mega-blur));
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -418,8 +415,10 @@
 </head>
 <body>
 
-  <!-- 顶栏导航 -->
-  <header class="public-nav-bar">
+<div id="securityGate">
+
+  <!-- 顶栏导航 (100% 与首页一致) -->
+  <header class="public-nav-bar" style="position:relative; z-index:9600;">
     <a href="index.html" class="p-nav-brand">
       <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
       <div>
@@ -650,41 +649,37 @@
 
   </div>
 
-  <!-- 全局页脚 -->
+  <!-- 全局页脚 (100% 首页一致) -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <h5 data-i18n="footer.about_title">关于我们</h5>
-        <p data-i18n="footer.about_desc">
-          百乐象棋俱乐部 (Club XiangQi Bera - CXQB)<br>
-          彭亨州百乐县唯一专业中国象棋教育学院与青训基地<br>
-          统筹全县青少年赛事、教研大纲与天梯等级分考评认证
-        </p>
+    <div class="footer__grid" style="align-items: start; gap: 36px;">
+      <!-- Col 1: About -->
+      <div>
+        <h3 data-i18n="footer.about_title">关于我们</h3>
+        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证</span></p>
       </div>
-      <div class="footer-col" style="text-align: center;">
-        <h6 data-i18n="footer.partners_title">指导机构与合作伙伴</h6>
-        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:8px;">
-          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 75px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-          <p style="font-size:12px; color:var(--ink-dim); line-height:1.6;" data-i18n="footer.assoc_name">
-            百乐县中国象棋公会<br>
-            (Persatuan Catur Cina Daerah Bera)<br>
-            国家体育专署 (PJS) 注册编号：0242/2012
-          </p>
+      
+      <!-- Col 2: Partners -->
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">百乐县象棋公会</span>
         </div>
       </div>
-      <div class="footer-col">
-        <h6 data-i18n="footer.contact_title">快速通道</h6>
-        <a href="index.html" data-i18n="nav.home">官方首页</a>
-        <a href="academy.html" data-i18n="nav.academy">象棋学院</a>
-        <a href="team.html" style="color:var(--gold);" data-i18n="nav.team">组织与师资</a>
-        <a href="ladder.html" data-i18n="nav.ladder">天梯积分榜</a>
-        <a href="school.html" data-i18n="nav.school_portal">校际联赛门户</a>
+
+      <!-- Col 3: Contact -->
+      <div style="text-align: right;">
+        <h3 data-i18n="footer.contact_title">联系我们</h3>
+        <p>Email: clubxiangqibera@gmail.com</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      &copy; 2026 Persatuan Catur Cina Daerah Bera & Club XiangQi Bera (CXQB). All rights reserved.
+    
+    <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
+      © 2026 Club XiangQi Bera. All rights reserved.
     </div>
   </footer>
+
+</div> <!-- Close securityGate -->
 
   <!-- APPLE STYLE MEGA MENU & BACKDROP -->
   <div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
