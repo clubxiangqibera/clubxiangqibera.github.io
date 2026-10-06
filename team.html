@@ -83,11 +83,24 @@
     .p-nav-sub { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; }
 
     .nav-menu-btn {
-      padding: 7px 16px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer;
-      background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12);
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .nav-menu-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(241,196,15,0.4); color: var(--gold-hover); }
+    .nav-menu-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(241, 196, 15, 0.1);
+    }
 
     .nav-lang-bar {
       display: inline-flex; background: rgba(255, 255, 255, 0.08);
@@ -356,49 +369,81 @@
       .footer__grid > div { text-align: center !important; }
     }
 
-    /* APPLE STYLE MEGA MENU */
+    /* APPLE STYLE MEGA MENU (100% 首页一致) */
     .apple-backdrop {
       position: fixed; inset: 0; z-index: 9400;
-      background: var(--backdrop-bg); backdrop-filter: blur(var(--backdrop-blur));
-      -webkit-backdrop-filter: blur(var(--backdrop-blur));
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      background: rgba(4, 12, 23, 0.5);
+      backdrop-filter: blur(var(--backdrop-blur)); -webkit-backdrop-filter: blur(24px);
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
     }
     .apple-backdrop.open { opacity: 1; pointer-events: auto; }
+
     .apple-mega-menu {
-      position: fixed; top: 60px; left: 0; width: 100%; z-index: 9500;
-      background: var(--mega-bg); backdrop-filter: blur(var(--mega-blur));
-      -webkit-backdrop-filter: blur(var(--mega-blur));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      transform: translateY(-10px); opacity: 0; pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 9500;
+      background: var(--mega-bg) !important; backdrop-filter: blur(var(--mega-blur)) !important; -webkit-backdrop-filter: blur(var(--mega-blur)) !important; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-100%);
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 100px 40px 60px; /* Extra top padding to clear navbar */
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
-    .apple-mega-menu.open {
-      transform: translateY(0); opacity: 1; pointer-events: auto;
-    }
+    .apple-mega-menu.open { transform: translateY(0); }
+
     .apple-mega-container {
-      max-width: 1200px; margin: 0 auto; padding: 36px 24px;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+      max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;
     }
+    .apple-mega-col { display: flex; flex-direction: column; gap: 16px; }
     .apple-mega-col h4 {
-      font-size: 12px; font-weight: 800; color: var(--gold-soft);
-      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px;
+      font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+      letter-spacing: 2px !important;
+      margin-bottom: 10px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      padding-bottom: 8px !important;
     }
     .apple-mega-col a {
-      display: block; font-size: 15px; color: rgba(255, 255, 255, 0.8);
-      text-decoration: none; padding: 6px 0; font-weight: 500;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 400 !important;
+      color: rgba(255, 255, 255, 0.75) !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      display: flex !important;
+      align-items: center !important;
     }
-    .apple-mega-col a:hover { color: #fff; transform: translateX(4px); }
+    .apple-mega-col a:hover {
+      color: var(--gold-hover) !important;
+      transform: translateX(4px) !important;
+    }
+
+    /* Apple Style Segmented Control */
     .apple-segment {
-      display: flex; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 4px; width: 100%; max-width: 300px;
+      display: flex;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 4px;
+      width: 100%;
+      max-width: 300px;
     }
     .apple-segment .seg-btn {
-      flex: 1; background: transparent; border: none; color: rgba(255, 255, 255, 0.5);
-      padding: 10px 0; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 8px;
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px;
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .apple-segment .seg-btn.active {
-      background: rgba(255, 255, 255, 0.95); color: #111; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      background: rgba(255, 255, 255, 0.95);
+      color: #111;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     /* RESPONSIVE */
@@ -409,7 +454,6 @@
       .faculty-grid { grid-template-columns: 1fr; }
       .system-grid { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
-      .apple-mega-container { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
     }
   </style>
 </head>
@@ -681,45 +725,49 @@
 
 </div> <!-- Close securityGate -->
 
-  <!-- APPLE STYLE MEGA MENU & BACKDROP -->
-  <div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
-  <div id="appleMegaMenu" class="apple-mega-menu">
-    <div class="apple-mega-container">
-      <div class="apple-mega-col">
-        <h4 data-i18n="nav.explore">探索俱乐部</h4>
-        <a href="index.html" data-i18n="nav.home">首页</a>
-        <a href="academy.html" data-i18n="nav.academy">象棋学院 (研习班)</a>
-        <a href="team.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.team">组织架构与师资</a>
-        <a href="ladder.html" data-i18n="nav.ladder">天梯榜</a>
-        <a href="register.html" data-i18n="nav.register">在线报名</a>
-        <a href="events.html" data-i18n="events.title">活动中心</a>
-      </div>
-      <div class="apple-mega-col">
-        <h4 data-i18n="nav.portals">专属门户</h4>
-        <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
-        <a href="school.html" data-i18n="nav.school_portal">校际联赛系统</a>
-        <a href="admin.html" data-i18n="nav.admin_portal">教务管理后台</a>
-      </div>
-      <div class="apple-mega-col">
-        <h4 data-i18n="nav.language">系统语言</h4>
-        <div class="apple-segment">
-          <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
-          <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
-          <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
-        </div>
+<!-- === APPLE STYLE MEGA MENU === -->
+<div id="appleMegaBackdrop" class="apple-backdrop" onclick="closeMainNav()"></div>
+<div id="appleMegaMenu" class="apple-mega-menu">
+  <div class="apple-mega-container">
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索俱乐部</h4>
+      <a href="index.html" data-i18n="nav.home">首页</a>
+      <a href="academy.html" style="color:var(--gold); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
+      <a href="team.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.team">组织架构与师资</a>
+      <a href="ladder.html" data-i18n="nav.ladder">天梯榜</a>
+      <a href="register.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.register">在线报名中心</a>
+      <a href="events.html" data-i18n="events.title">赛事与活动中心</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.portals">专属入口</h4>
+      <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
+      <a href="school.html" data-i18n="nav.school_portal">校际赛编排与赛事系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+    </div>
+    
+    <div class="apple-mega-col">
+      <h4 data-i18n="nav.language">系统语言</h4>
+      <div class="apple-segment">
+        <button id="seg_cn" class="seg-btn active" onclick="setLang('cn'); updateSeg('cn'); closeMainNav()">中文</button>
+        <button id="seg_bm" class="seg-btn" onclick="setLang('bm'); updateSeg('bm'); closeMainNav()">Melayu</button>
+        <button id="seg_en" class="seg-btn" onclick="setLang('en'); updateSeg('en'); closeMainNav()">English</button>
       </div>
     </div>
+
   </div>
+</div>
 
   <script>
     const i18n = {
       cn: {
         "hero.title": "百乐象棋俱乐部",
-        "nav.home": "首页", "nav.academy": "象棋学院 (研习班)", "nav.ladder": "天梯榜",
-        "nav.team": "组织架构与师资", "events.title": "活动中心",
-        "nav.explore": "探索俱乐部", "nav.portals": "专属门户", "nav.student_login": "学员专属登录",
-        "nav.school_portal": "校际联赛系统", "nav.admin_portal": "教务管理后台",
-        "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "在线报名",
+        "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.ladder": "天梯榜",
+        "nav.team": "组织架构与师资", "events.title": "赛事与活动中心",
+        "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
+        "nav.school_portal": "校际赛编排与赛事系统", "nav.admin_portal": "教练管理端",
+        "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "在线报名中心",
         
         "team.hero_title": "组织架构与专业师资团队",
         "team.hero_sub": "百乐县官方指导大旗护航 · 双中枢委员会统筹领航 · 马象总认证名师与现役州代表亲授",
@@ -793,11 +841,11 @@
       },
       bm: {
         "hero.title": "Kelab XiangQi Bera",
-        "nav.home": "Utama", "nav.academy": "Akademi Catur", "nav.ladder": "Kedudukan ELO",
-        "nav.team": "Struktur & Jurulatih", "events.title": "Pusat Acara",
+        "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.ladder": "Kedudukan ELO",
+        "nav.team": "Struktur & Jurulatih", "events.title": "Pusat Acara & Aktiviti",
         "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
-        "nav.school_portal": "Portal Sekolah", "nav.admin_portal": "Portal Jurulatih",
-        "nav.language": "Bahasa Sistem", "nav.menu": "Menu", "nav.register": "Pendaftaran",
+        "nav.school_portal": "Sistem Pertandingan Antara Sekolah", "nav.admin_portal": "Portal Jurulatih",
+        "nav.language": "Bahasa Sistem", "nav.menu": "Menu", "nav.register": "Portal Pendaftaran",
 
         "team.hero_title": "Struktur Organisasi & Pasukan Jurulatih Rasmi",
         "team.hero_sub": "Di bawah naungan Persatuan Rasmi Daerah Bera · Dwi-Jawatankuasa Eksekutif · Jurulatih bertauliah kebangsaan & wakil negeri Pahang",
@@ -871,11 +919,11 @@
       },
       en: {
         "hero.title": "Club XiangQi Bera",
-        "nav.home": "Home", "nav.academy": "Academy", "nav.ladder": "ELO Ladder",
-        "nav.team": "Structure & Faculty", "events.title": "Events",
-        "nav.explore": "Explore", "nav.portals": "Portals", "nav.student_login": "Student Login",
-        "nav.school_portal": "School Portal", "nav.admin_portal": "Admin Portal",
-        "nav.language": "Language", "nav.menu": "Menu", "nav.register": "Register",
+        "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.ladder": "ELO Standings",
+        "nav.team": "Structure & Faculty", "events.title": "Events & Activities Center",
+        "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
+        "nav.school_portal": "School Pairing & Tournament System", "nav.admin_portal": "Admin Portal",
+        "nav.language": "System Language", "nav.menu": "Menu", "nav.register": "Online Registration",
 
         "team.hero_title": "Organizational Structure & Professional Bench",
         "team.hero_sub": "Under Official District Association Patronage · Dual Executive Directorate · Federation-Certified Coaches & Active State Reps",
@@ -949,74 +997,99 @@
       }
     };
 
-    function setLang(lang) {
-      let prefLang = lang === 'cn' ? 'zh' : lang;
-      localStorage.setItem('cxb_lang_pref', prefLang);
-      window._currentLang = lang;
+    // --- MAIN NAV SYSTEM (100% 首页移植) ---
+    function getActiveNavLang() {
+      const saved = localStorage.getItem('cxb_lang_pref') || 'zh';
+      return (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
+    }
 
-      const dict = i18n[lang] || i18n.cn;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[key]) {
-          el.innerHTML = dict[key];
-        }
-      });
+    function updateNavMenuBtn() {
+      const menu = document.getElementById('appleMegaMenu');
+      const btnText = document.getElementById('navMenuBtnText');
+      const btnIcon = document.getElementById('navMenuBtnIcon');
+      if(!btnText) return;
+      const lang = getActiveNavLang();
+      const isOpen = menu && menu.classList.contains('open');
 
-      updateSeg(lang);
-      updateNavMenuBtnText(false);
+      const textMap = {
+        cn: { open: '菜单', close: '关闭' },
+        bm: { open: 'Menu', close: 'Tutup' },
+        en: { open: 'Menu', close: 'Close' }
+      };
+      const cur = textMap[lang] || textMap.en;
+      btnText.innerText = isOpen ? cur.close : cur.open;
+      if(btnIcon) btnIcon.innerText = isOpen ? '✕' : '☰';
     }
 
     function toggleMainNav() {
       const menu = document.getElementById('appleMegaMenu');
       const backdrop = document.getElementById('appleMegaBackdrop');
-      const isOpen = menu.classList.contains('open');
-      if (isOpen) {
+      if(!menu) return;
+
+      if(menu.classList.contains('open')) {
         closeMainNav();
       } else {
-        openMainNav();
+        menu.classList.add('open');
+        if(backdrop) backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        updateNavMenuBtn();
       }
-    }
-
-    function openMainNav() {
-      document.getElementById('appleMegaMenu').classList.add('open');
-      document.getElementById('appleMegaBackdrop').classList.add('open');
-      document.getElementById('navMenuBtnIcon').textContent = '✕';
-      updateNavMenuBtnText(true);
     }
 
     function closeMainNav() {
-      document.getElementById('appleMegaMenu').classList.remove('open');
-      document.getElementById('appleMegaBackdrop').classList.remove('open');
-      document.getElementById('navMenuBtnIcon').textContent = '☰';
-      updateNavMenuBtnText(false);
+      const menu = document.getElementById('appleMegaMenu');
+      const backdrop = document.getElementById('appleMegaBackdrop');
+      if(menu) menu.classList.remove('open');
+      if(backdrop) backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+      updateNavMenuBtn();
     }
+    // --- END MAIN NAV SYSTEM ---
 
-    function updateNavMenuBtnText(isOpen) {
-      const lang = localStorage.getItem('cxb_lang_pref') || 'cn';
-      const textEl = document.getElementById('navMenuBtnText');
-      if (!textEl) return;
-      if (isOpen) {
-        textEl.textContent = (lang === 'bm') ? 'Tutup' : (lang === 'en' ? 'Close' : '关闭');
-      } else {
-        textEl.textContent = (lang === 'bm') ? 'Menu' : (lang === 'en' ? 'Menu' : '菜单');
-      }
+    function setLang(lang) {
+      let prefLang = (lang === 'cn' || lang === 'zh') ? 'zh' : lang;
+      localStorage.setItem('cxb_lang_pref', prefLang);
+      window._currentLang = (lang === 'zh' ? 'cn' : lang);
+      let internalLang = window._currentLang;
+
+      const dict = i18n[internalLang] || i18n.cn;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        if(el.id === 'navMenuBtnText') return;
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = dict[key];
+          } else {
+            el.innerHTML = dict[key];
+          }
+        }
+      });
+
+      updateSeg(internalLang);
+      updateNavMenuBtn();
     }
 
     function updateSeg(lang) {
       const l = (lang === 'zh' ? 'cn' : lang);
-      document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.getElementById('seg_' + l);
-      if (btn) btn.classList.add('active');
+      document.querySelectorAll('.apple-segment .seg-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('seg_' + l);
+      if(activeBtn) activeBtn.classList.add('active');
 
-      document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
-      const navBtn = document.getElementById('nav_lang_' + l);
-      if (navBtn) navBtn.classList.add('active');
+      document.querySelectorAll('.nav-lang-chip').forEach(btn => btn.classList.remove('active'));
+      const activeNavBtn = document.getElementById('nav_lang_' + l);
+      if(activeNavBtn) activeNavBtn.classList.add('active');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('cxb_lang_pref') || 'cn';
-      const initial = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
-      setLang(initial);
+      let saved = localStorage.getItem('cxb_lang_pref');
+      if(saved) {
+        let internalLang = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
+        setLang(internalLang);
+        if(typeof updateSeg === 'function') updateSeg(internalLang);
+        updateNavMenuBtn();
+      } else {
+        updateNavMenuBtn();
+      }
     });
   </script>
 </body>
