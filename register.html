@@ -398,26 +398,22 @@
       cursor: pointer; text-align: center;
     }
 
-    /* FOOTER */
-    .footer {
-      width: 100%; border-top: 1px solid var(--line-soft);
-      background: var(--navy-950); padding: 48px 20px 32px; margin-top: auto;
+    /* FOOTER (100% 首页一致) */
+    .footer { width: 100%; margin-top: auto; border-top: 1px solid var(--line-soft); padding: 40px 0 30px; background: rgba(4, 12, 23, 0.95); }
+    .footer__grid {
+      max-width: 1040px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1.4fr 1.2fr 1fr; gap: 36px;
     }
-    .footer__inner {
-      max-width: 1040px; margin: 0 auto; display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 36px;
+    .footer h3 { font-size: 1rem; color: var(--ink); margin-bottom: 12px; }
+    .footer a:hover { color: var(--gold-soft); }
+    .footer__legal {
+      margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;
+      color: var(--ink-dim); font-size: 0.8rem;
     }
-    .footer__col h4 {
-      font-size: 13px; font-weight: 700; color: var(--gold);
-      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
-    }
-    .footer__col p, .footer__col a {
-      font-size: 13px; color: var(--ink-dim); line-height: 1.8; text-decoration: none;
-    }
-    .footer__bottom {
-      max-width: 1040px; margin: 36px auto 0; padding-top: 20px;
-      border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--ink-dim);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+
+    @media (max-width: 768px) {
+      .footer__grid { grid-template-columns: 1fr; text-align: center; }
+      .footer__grid > div { text-align: center !important; }
     }
 
     @media (max-width: 600px) {
@@ -885,39 +881,33 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- 全局页脚 (100% 首页一致) -->
   <footer class="footer">
-    <div class="footer__inner">
-      <div class="footer__col">
-        <h4 data-i18n="footer.about_title">百乐象棋俱乐部</h4>
-        <p data-i18n="footer.about_desc">
-          彭亨百乐县唯一专业中国象棋教育学院<br>
-          负责统筹全县赛事与等级分考级认证体系。
-        </p>
+    <div class="footer__grid" style="align-items: start; gap: 36px;">
+      <!-- Col 1: About -->
+      <div>
+        <h3 data-i18n="footer.about_title">关于我们</h3>
+        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证</span></p>
       </div>
-      <div class="footer__col">
-        <h4 data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h4>
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 60px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-          <div>
-            <strong data-i18n="footer.assoc_name" style="font-size:14px; color:var(--gold-soft);">百乐县中国象棋公会</strong><br>
-            <span style="font-size:11px; opacity:0.75; letter-spacing:0.5px;">PERSATUAN CATUR CINA DAERAH BERA</span>
-          </div>
+      
+      <!-- Col 2: Partners -->
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">百乐县象棋公会</span>
         </div>
-        <p style="font-size:12px; opacity:0.65; margin:0;">
-          技术支持：Club XiangQi Bera 数字化系统
-        </p>
       </div>
-      <div class="footer__col">
-        <h4 data-i18n="footer.contact_title">联络与咨询</h4>
-        <p>
-          电邮: clubxiangqibera@gmail.com
-        </p>
+
+      <!-- Col 3: Contact -->
+      <div style="text-align: right;">
+        <h3 data-i18n="footer.contact_title">联系我们</h3>
+        <p>Email: clubxiangqibera@gmail.com</p>
       </div>
     </div>
-    <div class="footer__bottom">
-      <span>© 2026 Club XiangQi Bera (CXQB). All Rights Reserved.</span>
-      <span data-i18n="footer.cert">百乐县中国象棋公会官方认证系统</span>
+    
+    <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
+      © 2026 Club XiangQi Bera. All rights reserved.
     </div>
   </footer>
 
@@ -1486,12 +1476,11 @@
         "modal_alert.badge": "资料尚未填妥",
         "modal_alert.title": "请完整填写必填信息",
         "modal_alert.btn": "返回补充信息",
-        "footer.about_title": "百乐象棋俱乐部",
-        "footer.about_desc": "彭亨百乐县唯一专业中国象棋教育学院<br>负责统筹全县赛事与等级分考级认证体系。",
+        "footer.about_title": "关于我们",
+        "footer.about_desc": "百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证",
         "footer.partners_title": "认证机构 & 官方合作伙伴",
-        "footer.assoc_name": "百乐县中国象棋公会",
-        "footer.contact_title": "联络与咨询",
-        "footer.cert": "百乐县中国象棋公会官方认证系统"
+        "footer.contact_title": "联系我们",
+        "footer.assoc_name": "百乐县象棋公会"
       },
       bm: {
         "hero.title": "Kelab XiangQi Bera",
@@ -1611,12 +1600,11 @@
         "modal_alert.badge": "Maklumat Belum Lengkap",
         "modal_alert.title": "Sila Isi Ruangan Wajib",
         "modal_alert.btn": "Kembali Lengkapkan Maklumat",
-        "footer.about_title": "Kelab XiangQi Bera",
-        "footer.about_desc": "Satu-satunya akademi catur Cina profesional di Bera, Pahang.<br>Mengendalikan kejohanan dan pensijilan gred ELO rasmi.",
+        "footer.about_title": "Mengenai Kami",
+        "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Bera, Pahang.",
         "footer.partners_title": "Rakan Rasmi & Pensijilan",
-        "footer.assoc_name": "Persatuan Catur Cina Daerah Bera",
         "footer.contact_title": "Hubungi Kami",
-        "footer.cert": "Sistem Pensijilan Rasmi Persatuan Catur Daerah Bera"
+        "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
       },
       en: {
         "hero.title": "Club XiangQi Bera",
@@ -1736,12 +1724,11 @@
         "modal_alert.badge": "Incomplete Information",
         "modal_alert.title": "Please Complete Required Fields",
         "modal_alert.btn": "Return to Complete",
-        "footer.about_title": "Club XiangQi Bera",
-        "footer.about_desc": "The only professional Chinese Chess academy in Bera, Pahang.<br>Organizer of district championships and official ELO grading.",
-        "footer.partners_title": "Official Partners & Certification",
-        "footer.assoc_name": "Bera District Xiangqi Association",
-        "footer.contact_title": "Contact & Enquiries",
-        "footer.cert": "Official Bera Xiangqi Association Certification System"
+        "footer.about_title": "About Us",
+        "footer.about_desc": "Club XiangQi Bera (CXQB)<br>The only professional Xiangqi academy and rating body in Bera District, Pahang.",
+        "footer.partners_title": "Official Partners",
+        "footer.contact_title": "Contact Us",
+        "footer.assoc_name": "BERA XIANGQI ASSOCIATION"
       }
     };
 
