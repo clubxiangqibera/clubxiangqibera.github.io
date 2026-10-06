@@ -175,9 +175,8 @@
       flex-shrink: 0; text-align: center;
     }
     .patron-logo {
-      width: 104px; height: 104px; border-radius: 50%;
-      border: 3px solid var(--gold); padding: 4px; background: rgba(255,255,255,0.06);
-      filter: drop-shadow(0 6px 20px rgba(0,0,0,0.6));
+      width: 110px; height: 110px; object-fit: contain;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.65));
     }
     .patron-info { flex-grow: 1; }
     .patron-title {
@@ -446,7 +445,11 @@
 
     <!-- HERO HEADER -->
     <header class="hero">
-      <img src="cxb_round_emblem.png" alt="CXB Emblem" class="hero__logo">
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:18px;">
+        <img src="persatuan_emblem.png" alt="Persatuan Catur Cina Daerah Bera" style="width:72px; height:72px; object-fit:contain; filter:drop-shadow(0 4px 16px rgba(0,0,0,0.6));" title="百乐县中国象棋公会 (指导机构)">
+        <span style="font-size:22px; color:var(--gold); opacity:0.6;">✕</span>
+        <img src="cxb_round_emblem.png" alt="Club XiangQi Bera" style="width:72px; height:72px; object-fit:contain; border-radius:50%; filter:drop-shadow(0 4px 16px rgba(0,0,0,0.6));" title="百乐象棋俱乐部 (执行机构)">
+      </div>
       <h1 class="hero__title" data-i18n="team.hero_title">组织架构与专业师资团队</h1>
       <div class="hero__en">ORGANIZATIONAL STRUCTURE & PROFESSIONAL BENCH</div>
       <p class="hero__tagline" data-i18n="team.hero_sub">
@@ -469,7 +472,7 @@
 
       <div class="patron-card">
         <div class="patron-logo-wrap">
-          <img src="cxb_round_emblem.png" alt="Persatuan Catur Cina Daerah Bera" class="patron-logo">
+          <img src="persatuan_emblem.png" alt="Persatuan Catur Cina Daerah Bera" class="patron-logo">
         </div>
         <div class="patron-info">
           <h3 class="patron-title" data-i18n="patron.name">百乐县中国象棋公会</h3>
@@ -658,13 +661,16 @@
           统筹全县青少年赛事、教研大纲与天梯等级分考评认证
         </p>
       </div>
-      <div class="footer-col">
+      <div class="footer-col" style="text-align: center;">
         <h6 data-i18n="footer.partners_title">指导机构与合作伙伴</h6>
-        <p style="font-size:12px; color:var(--ink-dim); line-height:1.6;" data-i18n="footer.assoc_name">
-          百乐县中国象棋公会<br>
-          (Persatuan Catur Cina Daerah Bera)<br>
-          国家体育专署 (PJS) 注册编号：0242/2012
-        </p>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:8px;">
+          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 75px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <p style="font-size:12px; color:var(--ink-dim); line-height:1.6;" data-i18n="footer.assoc_name">
+            百乐县中国象棋公会<br>
+            (Persatuan Catur Cina Daerah Bera)<br>
+            国家体育专署 (PJS) 注册编号：0242/2012
+          </p>
+        </div>
       </div>
       <div class="footer-col">
         <h6 data-i18n="footer.contact_title">快速通道</h6>
