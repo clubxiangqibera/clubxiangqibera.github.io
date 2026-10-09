@@ -2179,7 +2179,7 @@ function updateSeg(lang) {
     <!-- ==================== TAB 1: WEEKLY CLUB ACTIVITIES ==================== -->
     <div id="tabWeeklySection">
       <!-- 4 Top Metric Cards -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px; margin-bottom:20px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:16px; margin-bottom:20px;">
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #3B82F6;">
           <div id="statTitle1"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">学会注册总人数</div>
           <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyTotalMurid">8<span id="txtMuridUnit"> 人</span></div>
@@ -2199,6 +2199,11 @@ function updateSeg(lang) {
           <div id="statTitle4"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">每周水平微切磋</div>
           <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyLadderGames"><span id="txtGames">16 局已完成</span></div>
           <div id="statSub4" style="font-size:11.5px; color:#A78BFA; margin-top:2px;"><span id="txtStatSub4">段位自动势均力敌匹配</span></div>
+        </div>
+        <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #E91E63; display:flex; flex-direction:column; justify-content:center;">
+          <div id="statTitle5" style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">授权剩余时长 (License)</div>
+          <div style="font-size:28px; font-weight:900; color:#E91E63; margin-top:4px;" id="metricLicenseTime">--<span style="font-size:15px; color:rgba(255,255,255,0.5);"> 天</span></div>
+          <div id="statSub5" style="font-size:11.5px; color:#F48FB1; margin-top:2px;">距授权到期时间</div>
         </div>
       </div>
 
@@ -6765,6 +6770,27 @@ function renderWeeklyAttendance() {
     totalGames += (s.wins || 0) + (s.draws || 0) + (s.losses || 0);
   });
   totalGames = Math.floor(totalGames / 2);
+
+  
+  const sessionStr = localStorage.getItem('cxb_school_session');
+  if (sessionStr) {
+    try {
+      const d = JSON.parse(sessionStr);
+      const metricLic = document.getElementById('metricLicenseTime');
+      if (metricLic && d.expiresAt) {
+        const now = Date.now();
+        const exp = new Date(d.expiresAt).getTime();
+        let daysLeft = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+        if (daysLeft < 0) daysLeft = 0;
+        metricLic.innerHTML = `${daysLeft}<span style="font-size:15px; color:rgba(255,255,255,0.5);"> ${currentLang === 'en' ? 'Days' : (currentLang === 'bm' ? 'Hari' : '天')}</span>`;
+      }
+      
+      const title5 = document.getElementById('statTitle5');
+      const sub5 = document.getElementById('statSub5');
+      if (title5) title5.textContent = currentLang === 'en' ? 'LICENSE REMAINING' : (currentLang === 'bm' ? 'BAKI LESEN' : '系统授权剩余');
+      if (sub5) sub5.textContent = currentLang === 'en' ? 'Days until expiration' : (currentLang === 'bm' ? 'Hari sebelum tamat tempoh' : '距授权到期时间');
+    } catch(e){}
+  }
 
   const metricSession = document.getElementById('metricWeeklyCurrentSession');
   if (metricSession) {
