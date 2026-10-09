@@ -2818,7 +2818,7 @@ function openAccessDeniedModal(reqTier, curTier) {
   } else {
     titleEl.innerHTML = `专属 <span style="color:#F1C40F;">${reqTier}</span> 授权功能`;
     descEl.innerHTML = `您当前使用的节点为 <b style="color:#60A5FA;">[${curTier}]</b>。<br><br>此核心功能专属于 <b style="color:#F1C40F;">[${reqTier}]</b> 或更高级别授权。请联系官方进行系统升级，以解锁全套专业系统。`;
-    btnEl.textContent = "查看 7 大授权等级表";
+    btnEl.textContent = "查看 7 大授权版本权限表";
     cancelEl.textContent = "暂不升级";
   }
   
@@ -2856,7 +2856,7 @@ function closePremiumUpgradeModal() {
       You are currently on <b style="color:#60A5FA;">[PLUS]</b>. This exclusive feature requires <b style="color:#F1C40F;">[PRO]</b> or above. Please contact the administrator to upgrade.
     </div>
 
-    <button class="btn btn-pri-gold" style="width:100%; padding:14px; font-size:14px; justify-content:center; border-radius:12px; margin-bottom:16px; font-weight:800; text-transform:uppercase; letter-spacing:1px; box-shadow:0 6px 20px rgba(241,196,15,0.25); position:relative; z-index:1; border:none; background:linear-gradient(90deg, #F1C40F 0%, #D4AC0D 100%); color:#000; cursor:pointer;" onclick="closePremiumUpgradeModal(); setTimeout(openTierComparisonModal, 150);">
+    <button class="btn" style="width:100%; padding:14px; font-size:14px; justify-content:center; border-radius:12px; margin-bottom:16px; font-weight:800; text-transform:uppercase; letter-spacing:1px; box-shadow:0 6px 20px rgba(241,196,15,0.25); position:relative; z-index:1; border:none; background:linear-gradient(90deg, #F1C40F 0%, #D4AC0D 100%); color:#000; cursor:pointer;" onclick="closePremiumUpgradeModal(); setTimeout(openTierComparisonModal, 150);">
       <span id="premiumUpgradeBtnText">View License Tiers</span>
     </button>
     
