@@ -1699,6 +1699,26 @@ const i18n = {
     "footer.contact_title": "联系方式"
   },
   bm: {
+      statTitle1: 'Jumlah Ahli Berdaftar',
+      statTitle2: 'Kemajuan Perjumpaan',
+      statTitle3: 'Purata Kehadiran',
+      statTitle4: 'Mikro-Perlawanan Mingguan',
+      tab1Title: 'Buku Kehadiran Mingguan Kokurikulum',
+      tab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      microTitle: '⚡ Mikro-Perlawanan Catur Mingguan 15 Minit',
+      microDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      btnGenerateMicro: 'Jana Padanan Cabaran Mikro',
+      microEmptyText: 'Klik butang di atas untuk menjana padanan perlawanan secara automatik bagi murid yang hadir hari ini!',
+      reportTitle: 'Auto Buku Laporan Kokurikulum',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+      btnGenerateReport: '✨ Jana Laporan Mingguan',
+      tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
+      tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskF1: '1. Kehadiran (Maksimum 50 markah)',
+      pajskF2: '2. Jawatan (Maksimum 10 markah)',
+      pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
+      pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)',
     "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.team": "Struktur & Jurulatih", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
     "hero.title": "Akademi Catur QiJing",
     "hero.tagline": "Akademi Catur Cina Profesional Berteraskan Teknologi & Silibus Saintifik",
@@ -1739,6 +1759,26 @@ const i18n = {
     "footer.contact_title": "Hubungi Kami"
   },
   en: {
+      statTitle1: 'Total Registered Members',
+      statTitle2: 'Meetings Progress',
+      statTitle3: 'Average Attendance Rate',
+      statTitle4: 'Weekly Micro-Matches',
+      tab1Title: 'Weekly Co-curricular Attendance Roster',
+      tab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      microTitle: '⚡ 15-Min Weekly Micro-Matches',
+      microDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      btnGenerateMicro: 'Generate Micro-Matches Today',
+      microEmptyText: 'Click the button above to automatically pair up present students for weekly micro-matches!',
+      reportTitle: 'Auto Co-curricular Report Generator',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Generates ready-to-copy official weekly reports in Malay, saving teachers 20 minutes a week.',
+      btnGenerateReport: '✨ Generate Weekly Report',
+      tab3Title: 'Student Roster, Roles & PAJSK Final Report',
+      tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
+      pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
+      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
+      pajskF2: '2. Role (Jawatan • Max 10 pts)',
+      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
+      pajskF4: '4. Commitment (Komitmen • Max 20 pts)',
     "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.team": "Structure & Faculty", "nav.ladder": "ELO Standings", "nav.login": "Login",
     "hero.title": "QiJing School System",
     "hero.tagline": "Professional Digital Xiangqi Academy Powered by Advanced ELO Rating",
@@ -2023,22 +2063,22 @@ function updateSeg(lang) {
       <!-- 4 Top Metric Cards -->
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px; margin-bottom:20px;">
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #3B82F6;">
-          <div style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">学会注册总人数</div>
+          <div id="statTitle1"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">学会注册总人数</div>
           <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyTotalMurid">8 人</div>
           <div style="font-size:11.5px; color:#60A5FA; margin-top:2px;" id="metricSchoolBadgeName">SJK(C) Triang 1 棋艺学会</div>
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #10B981;">
-          <div style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">本学期集会进度</div>
+          <div id="statTitle2"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">本学期集会进度</div>
           <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;"><span id="metricWeeklyCurrentSession">第 1 周</span> <span style="font-size:15px; color:rgba(255,255,255,0.5);">/ 12 次标准</span></div>
           <div style="font-size:11.5px; color:#34D399; margin-top:2px;">教育部 KPM 课外活动学分达标率</div>
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #F1C40F;">
-          <div style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">平均出勤得分率</div>
+          <div id="statTitle3"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">平均出勤得分率</div>
           <div style="font-size:28px; font-weight:900; color:#F1C40F; margin-top:4px;" id="metricWeeklyAvgAttend">95.8%</div>
           <div style="font-size:11.5px; color:rgba(241,196,15,0.8); margin-top:2px;">折合 PAJSK 出勤分平均 47.9 / 50 分</div>
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #8B5CF6;">
-          <div style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">每周水平微切磋</div>
+          <div id="statTitle4"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">每周水平微切磋</div>
           <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyLadderGames">16 局已完成</div>
           <div style="font-size:11.5px; color:#A78BFA; margin-top:2px;">段位自动势均力敌匹配</div>
         </div>
@@ -2048,7 +2088,7 @@ function updateSeg(lang) {
       <div class="card" style="padding:24px; margin-bottom:20px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
           <div>
-            <h4 style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)</h4>
+            <h4 id="tab1Title"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
               点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分
             </div>
@@ -2097,7 +2137,7 @@ function updateSeg(lang) {
       <div class="card" style="padding:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
           <div>
-            <h4 style="font-size:18px; font-weight:900; color:#FFF; margin:0;">⚡ 每周 15 分钟水平快棋微挑战 (Mikro-Perlawanan Mingguan)</h4>
+            <h4 id="microTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">⚡ 每周 15 分钟水平快棋微挑战 (Mikro-Perlawanan Mingguan)</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
               针对今日出席学生，一键按战力接近度配对对局 · 告别无序乱下，课外活动纪律立竿见影！
             </div>
@@ -2116,7 +2156,7 @@ function updateSeg(lang) {
     <div class="card no-print" style="padding:24px; margin-bottom:20px; border-left:4px solid #10B981; background:linear-gradient(90deg, rgba(16,185,129,0.05) 0%, transparent 100%);">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
         <div>
-          <h4 style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动报告自动代写 (Auto Buku Laporan Kokurikulum)</h4>
+          <h4 id="reportTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动报告自动代写 (Auto Buku Laporan Kokurikulum)</h4>
           <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:4px;">
             <span style="display:inline-block; padding:2px 6px; background:rgba(243,156,18,0.2); color:#F39C12; border-radius:4px; font-size:10px; font-weight:800; margin-right:6px;">PLUS TIER+</span>
             一键生成标准的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下20分钟。
@@ -2278,7 +2318,7 @@ function updateSeg(lang) {
       <div class="card" style="padding:24px; margin-bottom:20px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
           <div>
-            <h4 style="font-size:18px; font-weight:900; color:#FFF; margin:0;">学会名册、AJK 职务与教育部 PAJSK 终极报表</h4>
+            <h4 id="tab3Title"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">学会名册、AJK 职务与教育部 PAJSK 终极报表</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
               一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级
             </div>
@@ -2324,19 +2364,19 @@ function updateSeg(lang) {
         <h5 style="font-size:14px; font-weight:800; color:#F1C40F; margin:0 0 10px;">📌 马来西亚教育部课外活动评估系统 (PAJSK KPM) 官方分值参照表</h5>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; font-size:12px; color:rgba(255,255,255,0.7);">
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight:800; color:#FFF; margin-bottom:4px;">1. Kehadiran (出勤率 · 占 50分)</div>
+            <div id="pajskF1"  style="font-weight:800; color:#FFF; margin-bottom:4px;">1. Kehadiran (出勤率 · 占 50分)</div>
             <div>满勤 12 次集会 = 50 分整<br>缺席 1 次按比例折算（每节 4.17分）</div>
           </div>
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight:800; color:#FFF; margin-bottom:4px;">2. Jawatan (学会职务 · 占 10分)</div>
+            <div id="pajskF2"  style="font-weight:800; color:#FFF; margin-bottom:4px;">2. Jawatan (学会职务 · 占 10分)</div>
             <div>Pengerusi 10分 · Naib 8分 · Setiausaha/Bendahari 7分 · AJK 5分 · Ahli 1~3分</div>
           </div>
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight:800; color:#FFF; margin-bottom:4px;">3. Pencapaian (校内赛成绩 · 占 20分)</div>
+            <div id="pajskF3"  style="font-weight:800; color:#FFF; margin-bottom:4px;">3. Pencapaian (校内赛成绩 · 占 20分)</div>
             <div>Johan 20分 · Naib Johan 17分 · Ketiga 14分 · Keempat 12分 · Top 8 10分 · 参赛 8分</div>
           </div>
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight:800; color:#FFF; margin-bottom:4px;">4. Komitmen (责任感与参与 · 占 20分)</div>
+            <div id="pajskF4"  style="font-weight:800; color:#FFF; margin-bottom:4px;">4. Komitmen (责任感与参与 · 占 20分)</div>
             <div>代表校队 / 积极承担学会事务自动核算 18~20分满分</div>
           </div>
         </div>
@@ -2945,6 +2985,26 @@ let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
 
 const I18N = {
   zh: {
+      statTitle1: '学会注册总人数',
+      statTitle2: '本学期集会进度',
+      statTitle3: '平均出勤得分率',
+      statTitle4: '每周水平微切磋',
+      tab1Title: '课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)',
+      tab1Desc: '点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分',
+      microTitle: '⚡ 每周 15 分钟水平快棋微挑战 (Mikro-Perlawanan Mingguan)',
+      microDesc: '针对今日出席学生，一键抽签实力就近对战。胜出无序名次下，提升临场应变身心等反应！',
+      btnGenerateMicro: '一键生成今日微挑战对阵',
+      microEmptyText: '点击右上角【一键生成今日微挑战对阵】，系统将自动抽取今日出勤学员并按水平两两匹配！',
+      reportTitle: '课外活动报告自动代写 (Auto Buku Laporan Kokurikulum)',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> 一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。',
+      btnGenerateReport: '✨ 生成本周报告 (Jana Laporan)',
+      tab3Title: '学会名册、AJK 职务与教育部 PAJSK 终极报表',
+      tab3Desc: '一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级',
+      pajskFooterTitle: '📌 马来西亚教育部课外活动评估系统 (PAJSK KPM) 官方分值参照表',
+      pajskF1: '1. Kehadiran (出勤率 • 占 50分)',
+      pajskF2: '2. Jawatan (学会职务 • 占 10分)',
+      pajskF3: '3. Pencapaian (校内赛成绩 • 占 20分)',
+      pajskF4: '4. Komitmen (责任感与参与 • 占 20分)',
     brandSub: '棋境校园系统 · 官方技术认证体系',
     badgeText: '全国中小学及校际赛事专用系统',
     mainTitle: '棋境校园象棋系统',
@@ -3053,6 +3113,26 @@ const I18N = {
     printDisclaimer: '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'
   },
   bm: {
+      statTitle1: 'Jumlah Ahli Berdaftar',
+      statTitle2: 'Kemajuan Perjumpaan',
+      statTitle3: 'Purata Kehadiran',
+      statTitle4: 'Mikro-Perlawanan Mingguan',
+      tab1Title: 'Buku Kehadiran Mingguan Kokurikulum',
+      tab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      microTitle: '⚡ Mikro-Perlawanan Catur Mingguan 15 Minit',
+      microDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      btnGenerateMicro: 'Jana Padanan Cabaran Mikro',
+      microEmptyText: 'Klik butang di atas untuk menjana padanan perlawanan secara automatik bagi murid yang hadir hari ini!',
+      reportTitle: 'Auto Buku Laporan Kokurikulum',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+      btnGenerateReport: '✨ Jana Laporan Mingguan',
+      tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
+      tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskF1: '1. Kehadiran (Maksimum 50 markah)',
+      pajskF2: '2. Jawatan (Maksimum 10 markah)',
+      pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
+      pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)',
     brandSub: 'Sistem Catur Sekolah QiJing · Sistem Pensijilan Rasmi',
     badgeText: 'Sistem Khas Kejohanan Sekolah & Antara Sekolah',
     mainTitle: 'Sistem Catur Sekolah QiJing',
@@ -3157,6 +3237,26 @@ const I18N = {
     printDisclaimer: '* Laporan ini dijana berasaskan Sistem Swiss dengan kiraan Buchholz rasmi. Sah dengan tandatangan dan cop rasmi sekolah.'
   },
   en: {
+      statTitle1: 'Total Registered Members',
+      statTitle2: 'Meetings Progress',
+      statTitle3: 'Average Attendance Rate',
+      statTitle4: 'Weekly Micro-Matches',
+      tab1Title: 'Weekly Co-curricular Attendance Roster',
+      tab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      microTitle: '⚡ 15-Min Weekly Micro-Matches',
+      microDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      btnGenerateMicro: 'Generate Micro-Matches Today',
+      microEmptyText: 'Click the button above to automatically pair up present students for weekly micro-matches!',
+      reportTitle: 'Auto Co-curricular Report Generator',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Generates ready-to-copy official weekly reports in Malay, saving teachers 20 minutes a week.',
+      btnGenerateReport: '✨ Generate Weekly Report',
+      tab3Title: 'Student Roster, Roles & PAJSK Final Report',
+      tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
+      pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
+      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
+      pajskF2: '2. Role (Jawatan • Max 10 pts)',
+      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
+      pajskF4: '4. Commitment (Komitmen • Max 20 pts)',
     brandSub: 'QiJing School System · Official Tech Partner',
     badgeText: 'Official Tournament Portal for Schools',
     mainTitle: 'School Tournament System',
@@ -3275,6 +3375,26 @@ const tCard = {
     verifying: "⏳ 正在通过安全验证..."
   },
   bm: {
+      statTitle1: 'Jumlah Ahli Berdaftar',
+      statTitle2: 'Kemajuan Perjumpaan',
+      statTitle3: 'Purata Kehadiran',
+      statTitle4: 'Mikro-Perlawanan Mingguan',
+      tab1Title: 'Buku Kehadiran Mingguan Kokurikulum',
+      tab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      microTitle: '⚡ Mikro-Perlawanan Catur Mingguan 15 Minit',
+      microDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      btnGenerateMicro: 'Jana Padanan Cabaran Mikro',
+      microEmptyText: 'Klik butang di atas untuk menjana padanan perlawanan secara automatik bagi murid yang hadir hari ini!',
+      reportTitle: 'Auto Buku Laporan Kokurikulum',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+      btnGenerateReport: '✨ Jana Laporan Mingguan',
+      tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
+      tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskF1: '1. Kehadiran (Maksimum 50 markah)',
+      pajskF2: '2. Jawatan (Maksimum 10 markah)',
+      pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
+      pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)',
     badge: "SISTEM SEKOLAH QIJING · Pemadanan & Tayangan Langsung",
     title: "Sistem Pertandingan Catur Sekolah QiJing",
     sub: "Sistem Pemadanan Swiss Automatik · Paparan Skrin Besar · Skor PAJSK",
@@ -3286,6 +3406,26 @@ const tCard = {
     verifying: "⏳ Mengesahkan melalui SSL..."
   },
   en: {
+      statTitle1: 'Total Registered Members',
+      statTitle2: 'Meetings Progress',
+      statTitle3: 'Average Attendance Rate',
+      statTitle4: 'Weekly Micro-Matches',
+      tab1Title: 'Weekly Co-curricular Attendance Roster',
+      tab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      microTitle: '⚡ 15-Min Weekly Micro-Matches',
+      microDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      btnGenerateMicro: 'Generate Micro-Matches Today',
+      microEmptyText: 'Click the button above to automatically pair up present students for weekly micro-matches!',
+      reportTitle: 'Auto Co-curricular Report Generator',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Generates ready-to-copy official weekly reports in Malay, saving teachers 20 minutes a week.',
+      btnGenerateReport: '✨ Generate Weekly Report',
+      tab3Title: 'Student Roster, Roles & PAJSK Final Report',
+      tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
+      pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
+      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
+      pajskF2: '2. Role (Jawatan • Max 10 pts)',
+      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
+      pajskF4: '4. Commitment (Komitmen • Max 20 pts)',
     badge: "QIJING SCHOOL SYSTEM · Tournament Pairing & Projector",
     title: "QiJing School Tournament System",
     sub: "Automated Swiss Pairing Engine · Auto Tie-Break · Live Projector",
@@ -5121,8 +5261,48 @@ function updateNavMenuBtn() {
 
   const textMap = {
     cn: { open: '菜单', close: '关闭' },
-    bm: { open: 'Menu', close: 'Tutup' },
-    en: { open: 'Menu', close: 'Close' }
+    bm: {
+      statTitle1: 'Jumlah Ahli Berdaftar',
+      statTitle2: 'Kemajuan Perjumpaan',
+      statTitle3: 'Purata Kehadiran',
+      statTitle4: 'Mikro-Perlawanan Mingguan',
+      tab1Title: 'Buku Kehadiran Mingguan Kokurikulum',
+      tab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      microTitle: '⚡ Mikro-Perlawanan Catur Mingguan 15 Minit',
+      microDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      btnGenerateMicro: 'Jana Padanan Cabaran Mikro',
+      microEmptyText: 'Klik butang di atas untuk menjana padanan perlawanan secara automatik bagi murid yang hadir hari ini!',
+      reportTitle: 'Auto Buku Laporan Kokurikulum',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+      btnGenerateReport: '✨ Jana Laporan Mingguan',
+      tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
+      tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskF1: '1. Kehadiran (Maksimum 50 markah)',
+      pajskF2: '2. Jawatan (Maksimum 10 markah)',
+      pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
+      pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)', open: 'Menu', close: 'Tutup' },
+    en: {
+      statTitle1: 'Total Registered Members',
+      statTitle2: 'Meetings Progress',
+      statTitle3: 'Average Attendance Rate',
+      statTitle4: 'Weekly Micro-Matches',
+      tab1Title: 'Weekly Co-curricular Attendance Roster',
+      tab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      microTitle: '⚡ 15-Min Weekly Micro-Matches',
+      microDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      btnGenerateMicro: 'Generate Micro-Matches Today',
+      microEmptyText: 'Click the button above to automatically pair up present students for weekly micro-matches!',
+      reportTitle: 'Auto Co-curricular Report Generator',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> Generates ready-to-copy official weekly reports in Malay, saving teachers 20 minutes a week.',
+      btnGenerateReport: '✨ Generate Weekly Report',
+      tab3Title: 'Student Roster, Roles & PAJSK Final Report',
+      tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
+      pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
+      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
+      pajskF2: '2. Role (Jawatan • Max 10 pts)',
+      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
+      pajskF4: '4. Commitment (Komitmen • Max 20 pts)', open: 'Menu', close: 'Close' }
   };
   const cur = textMap[lang] || textMap.en;
   btnText.innerText = isOpen ? cur.close : cur.open;
