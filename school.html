@@ -3354,7 +3354,7 @@ function showSchoolNotice(msg, title = null) {
   cleanMsg = cleanMsg.replace(/[❌⚠️🔒⏳🏅🥈🥉🥇📜]/g, '').trim();
 
   if (titleEl) titleEl.textContent = title || defaultTitle;
-  if (bodyEl) bodyEl.textContent = cleanMsg;
+  if (bodyEl) bodyEl.innerHTML = cleanMsg;
   if (btnEl) btnEl.textContent = btnText;
 
   modal.style.display = 'flex';
