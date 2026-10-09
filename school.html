@@ -2636,6 +2636,39 @@ function updateSeg(lang) {
   </div>
 </div>
 
+<!-- ACCESS DENIED MODAL (UPSELL) -->
+<div id="accessDeniedModal" class="school-notice-backdrop" style="display: none;" onclick="closeAccessDeniedModal()">
+  <div class="school-notice-card" style="max-width:400px; text-align:center; padding:32px 24px;" onclick="event.stopPropagation()">
+    <div style="font-size:42px; margin-bottom:16px;">🔒</div>
+    <div style="font-size:20px; font-weight:900; color:#EF4444; margin-bottom:8px;">权限受限 (Akses Ditolak)</div>
+    <div id="accessDeniedMsg" style="font-size:14px; color:rgba(255,255,255,0.8); line-height:1.6; margin-bottom:24px;">
+      您当前的版本无法使用此功能。
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <button class="btn" style="background:#F1C40F; color:#000; font-weight:800; font-size:14px; padding:12px; justify-content:center; width:100%; border:none; cursor:pointer; border-radius:8px;" onclick="closeAccessDeniedModal(); openTierComparisonModal();">
+        📋 查看 7 大授权版本权限表
+      </button>
+      <button class="btn btn-outline" style="font-size:14px; padding:12px; justify-content:center; width:100%; border:1px solid rgba(255,255,255,0.2); color:#FFF; cursor:pointer; background:transparent; border-radius:8px;" onclick="closeAccessDeniedModal()">
+        ✖️ 关闭
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+function openAccessDeniedModal(reqTier, curTier) {
+  const m = document.getElementById('accessDeniedModal');
+  const msg = document.getElementById('accessDeniedMsg');
+  if (m && msg) {
+    msg.innerHTML = `您当前使用的节点为 <b style="color:#60A5FA;">[${curTier} 版]</b>。<br><br>此功能专属于 <b style="color:#F1C40F;">[${reqTier} 授权版]</b> 或更高级别节点。请联系官方进行系统升级以解锁更多强大功能。`;
+    m.style.display = 'flex';
+  }
+}
+function closeAccessDeniedModal() {
+  const m = document.getElementById('accessDeniedModal');
+  if (m) m.style.display = 'none';
+}
+</script>
+
 <!-- LUXURY APPLE 7-TIER COMPARISON MODAL -->
 <div id="tierComparisonModal" class="school-notice-backdrop" onclick="closeTierComparisonModal()">
   <div class="school-notice-card" style="max-width:920px; width:95%; text-align:left; padding:28px 24px; max-height:90vh; overflow-y:auto;" onclick="event.stopPropagation()">
@@ -4314,14 +4347,7 @@ function resetSchoolTourney() {
 function openProjector() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockProjector) {
-    const isEn = currentLang === 'en';
-    const isBm = currentLang === 'bm';
-    const msg = isEn
-      ? `Live Screen Projector is restricted on ${limits.tier} TIER. Please upgrade to PRO TIER or higher to cast live tournament rounds onto big screen displays.`
-      : (isBm
-        ? `Paparan Skrin Besar disekat pada ${limits.tier} TIER. Sila naik taraf ke PRO TIER atau lebih tinggi untuk memaparkan perlawanan di skrin besar.`
-        : `【功能受限】当前【${limits.tier} TIER】未包含现场大屏投屏功能。大屏投屏为 PRO TIER（专业高级版）及以上专属功能。如需投屏至礼堂或投影仪请联系总控教练升级授权！`);
-    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    openAccessDeniedModal('PRO+', limits.tier || 'STANDARD');
     return;
   }
   if (!schoolTourney || !schoolTourney.rounds || schoolTourney.rounds.length === 0 || !schoolTourney.rounds[viewRoundIdx]) {
@@ -4600,14 +4626,7 @@ function printSchoolReport(type = 'standings') {
 function openCertificateModal() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockCert) {
-    const isEn = currentLang === 'en';
-    const isBm = currentLang === 'bm';
-    const msg = isEn
-      ? `Official Certificate Generation is restricted on ${limits.tier} TIER. Please upgrade to STANDARD TIER or higher to print official achievement certificates.`
-      : (isBm
-        ? `Penjanaan Sijil Rasmi disekat pada ${limits.tier} TIER. Sila naik taraf ke STANDARD TIER atau lebih tinggi untuk mencetak sijil rasmi.`
-        : `【功能受限】当前【${limits.tier} TIER】未包含官方荣誉奖状生成功能。荣誉奖状为 STANDARD TIER（标准校队版）及以上标配功能。如需打印请升级授权！`);
-    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    openAccessDeniedModal('STANDARD+', limits.tier || 'NANO');
     return;
   }
   const modal = document.getElementById('certificateModal');
@@ -4659,6 +4678,11 @@ function executeCertPrint() {
 }
 
 function printSchoolCertificates(mode = 'winners', targetIdx = null) {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && limits.blockCert) {
+    openAccessDeniedModal('STANDARD+', limits.tier || 'NANO');
+    return;
+  }
   const container = document.getElementById('officialPrintContainer');
   if (!container) return;
 
@@ -5072,14 +5096,7 @@ function calcSchoolEloStandings() {
 function openSchoolEloModal() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockElo) {
-    const isEn = currentLang === 'en';
-    const isBm = currentLang === 'bm';
-    const msg = isEn
-      ? `ELO Rating System is restricted on ${limits.tier} TIER. Please upgrade to PLUS TIER or higher to unlock official school ELO rating and board ranking.`
-      : (isBm
-        ? `Sistem Penarafan ELO disekat pada ${limits.tier} TIER. Sila naik taraf ke PLUS TIER atau lebih tinggi untuk membuka ranking ELO rasmi.`
-        : `【功能受限】当前【${limits.tier} TIER】未包含校内专属 ELO 战力体系。该功能属于 PLUS TIER（增强教务版）及以上专属高级功能。如需启用请升级授权！`);
-    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    openAccessDeniedModal('PLUS+', limits.tier || 'STANDARD');
     return;
   }
   const modal = document.getElementById('schoolEloModal');
