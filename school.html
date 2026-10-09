@@ -2050,25 +2050,21 @@ function updateSeg(lang) {
           </div>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
             <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.06); padding:4px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
-              <span style="font-size:12px; color:rgba(255,255,255,0.7);">操作周次:</span>
-              <select id="quickSessionSelect" style="background:transparent; border:none; color:#F1C40F; font-weight:800; font-size:12.5px; outline:none; cursor:pointer;">
-                <option value="1">第 1 次集会</option>
-                <option value="2">第 2 次集会</option>
-                <option value="3">第 3 次集会</option>
-                <option value="4">第 4 次集会</option>
-                <option value="5">第 5 次集会</option>
-                <option value="6">第 6 次集会</option>
-                <option value="7">第 7 次集会</option>
-                <option value="8">第 8 次集会</option>
-                <option value="9">第 9 次集会</option>
-                <option value="10">第 10 次集会</option>
-                <option value="11">第 11 次集会</option>
-                <option value="12">第 12 次集会</option>
-              </select>
-            </div>
-            <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px;" onclick="markAllCurrentSessionPresent()">
-              本周全员打卡
-            </button>
+                <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="removeAttendanceWeek()" title="减少集会">-</button>
+                <span style="font-size:12px; color:rgba(255,255,255,0.7);">操作周次:</span>
+                <select id="quickSessionSelect" style="background:transparent; border:none; color:#F1C40F; font-weight:800; font-size:12.5px; outline:none; cursor:pointer;" onchange="renderWeeklyAttendance()">
+                </select>
+                <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="addAttendanceWeek()" title="增加集会">+</button>
+              </div>
+              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#10B981; border-color:rgba(16,185,129,0.4);" onclick="markAllCurrentSessionPresent()">
+                本周全员出席
+              </button>
+              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#EF4444; border-color:rgba(239,68,68,0.4);" onclick="clearCurrentSession()">
+                清空本周
+              </button>
+              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px;" onclick="printWeeklyAttendanceSheet()">
+                打印记录表
+              </button>
             <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px;" onclick="printWeeklyAttendanceSheet()">
               打印出勤记录表
             </button>
@@ -2078,22 +2074,11 @@ function updateSeg(lang) {
         <div style="overflow-x:auto;">
           <table class="attend-grid-table formal-table" style="font-size:13px; width:100%; border-collapse:collapse;">
             <thead>
-              <tr>
+              <tr id="weeklyAttendanceHeaderRow">
                 <th style="width:36px;">#</th>
                 <th style="text-align:left; min-width:90px;">学生姓名</th>
                 <th style="width:55px;">班级</th>
-                <th style="width:30px;">W1</th>
-                <th style="width:30px;">W2</th>
-                <th style="width:30px;">W3</th>
-                <th style="width:30px;">W4</th>
-                <th style="width:30px;">W5</th>
-                <th style="width:30px;">W6</th>
-                <th style="width:30px;">W7</th>
-                <th style="width:30px;">W8</th>
-                <th style="width:30px;">W9</th>
-                <th style="width:30px;">W10</th>
-                <th style="width:30px;">W11</th>
-                <th style="width:30px;">W12</th>
+                
                 <th style="width:75px;">总出席</th>
                 <th style="width:95px;">PAJSK 出勤分</th>
               </tr>
@@ -2232,7 +2217,7 @@ function updateSeg(lang) {
           <!-- FORMAL COMPETITION TABLE -->
           <table class="formal-table">
             <thead>
-              <tr>
+              <tr id="weeklyAttendanceHeaderRow">
                 <th class="cell-board" id="thBoard">台次</th>
                 <th style="background:rgba(239, 68, 68, 0.22) !important; color:#FF7875 !important; border-bottom:2px solid #EF4444; font-weight:800;" id="thRed">🔴 红方 (执先手)</th>
                 <th style="background:rgba(59, 130, 246, 0.18) !important; color:#93C5FD !important; border-bottom:2px solid #3B82F6; font-weight:800;" id="thBlack">⚫ 黑方 (执后手)</th>
@@ -2308,7 +2293,7 @@ function updateSeg(lang) {
         <div style="overflow-x:auto;">
           <table class="formal-table" style="font-size:13px; width:100%; border-collapse:collapse;">
             <thead>
-              <tr>
+              <tr id="weeklyAttendanceHeaderRow">
                 <th style="width:36px;">#</th>
                 <th style="text-align:left;" id="thPajskName">学生姓名</th>
                 <th style="width:60px;" id="thPajskClass">班级</th>
@@ -5386,15 +5371,35 @@ function calcStudentTeamRole(rank) {
   return currentLang === 'en' ? '♟️ Academy Trainee' : (currentLang === 'bm' ? '♟️ Pemain Pelapis' : '♟️ 梯队棋手 (Peserta)');
 }
 
+
 function renderWeeklyAttendance() {
   const tbody = document.getElementById('weeklyAttendanceBody');
-  if (!tbody) return;
+  const theadTr = document.getElementById('weeklyAttendanceHeaderRow');
+  if (!tbody || !theadTr) return;
+
+  const tw = schoolHub.totalWeeks || 12;
+
+  // 1. Render Header
+  let thHtml = `<th style="width:36px;">#</th><th style="text-align:left; min-width:90px;">学生姓名</th><th style="width:55px;">班级</th>`;
+  for(let i=1; i<=tw; i++) { thHtml += `<th style="width:30px;">W${i}</th>`; }
+  thHtml += `<th style="width:75px;">总出席</th><th style="width:95px;">PAJSK 出勤分</th>`;
+  theadTr.innerHTML = thHtml;
+
+  // 2. Render Select Options
+  const select = document.getElementById('quickSessionSelect');
+  if (select) {
+    const currentVal = select.value;
+    let optHtml = '';
+    for(let i=1; i<=tw; i++) { optHtml += `<option value="${i}">第 ${i} 次集会</option>`; }
+    select.innerHTML = optHtml;
+    if (parseInt(currentVal) <= tw) select.value = currentVal;
+  }
 
   const totalMurid = schoolHub.students.length;
   if (totalMurid === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="17" style="text-align:center; padding:35px 20px; color:#94A3B8;">
+        <td colspan="${tw + 5}" style="text-align:center; padding:35px 20px; color:#94A3B8;">
           <div style="font-size:14px; font-weight:700; margin-bottom:8px; color:#FFF;">暂无在籍学员记录 (Tiada Rekod Murid)</div>
           <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请前往【学员档案】选项卡添加学员，或一键恢复示范学员名单。</div>
           <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="resetDefaultStudents()">恢复默认示范学员名单</button>
@@ -5406,16 +5411,24 @@ function renderWeeklyAttendance() {
     return;
   }
 
-  let totalPossible = totalMurid * 12;
+  let totalPossible = totalMurid * tw;
   let totalAttended = 0;
 
   const rows = schoolHub.students.map((s, idx) => {
-    const attendArr = s.attendance || [0,0,0,0,0,0,0,0,0,0,0,0];
+    // Ensure array is exactly tw long
+    let attendArr = s.attendance || [];
+    while(attendArr.length < tw) attendArr.push(0);
+    if(attendArr.length > tw) attendArr = attendArr.slice(0, tw);
+    s.attendance = attendArr; // update inline
+
     const presentCount = attendArr.reduce((acc, v) => acc + (v ? 1 : 0), 0);
     totalAttended += presentCount;
 
-    // 50 marks max in MOE PAJSK
-    const attendScore = ((presentCount / 12) * 50).toFixed(1);
+    // 50 marks max in MOE PAJSK (Based on 12 minimum or tw if smaller)
+    const baseDenom = 12; // MOE usually uses 12 as base
+    let score = (presentCount / baseDenom) * 50;
+    if (score > 50) score = 50; // Cap at 50
+    const attendScore = score.toFixed(1);
 
     const weekCells = attendArr.map((v, wIdx) => {
       const isChecked = v === 1;
@@ -5428,38 +5441,32 @@ function renderWeeklyAttendance() {
       `;
     }).join('');
 
-    const displayNameBm = (s.nameBm || s.name).toUpperCase();
-    const displayNameCn = (s.name && s.name !== s.nameBm) ? s.name : '';
-
     return `
       <tr>
-        <td style="font-weight:800; color:rgba(255,255,255,0.6);">${idx + 1}</td>
-        <td style="text-align:left; font-weight:800; color:#FFF;">
-          <span style="font-size:13px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Kad Prestasi">${displayNameBm}</span>
-          ${displayNameCn ? `<span style="font-size:11.5px; color:#94A3B8; margin-left:6px; font-weight:normal; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')">(${displayNameCn})</span>` : ''}
-        </td>
-        <td style="color:rgba(255,255,255,0.7);">${s.class}</td>
+        <td>${idx + 1}</td>
+        <td style="text-align:left; font-weight:700;">${s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? '<br><span style="font-size:11px; color:rgba(255,255,255,0.5);">' + s.name + '</span>' : ''}` : s.name}</td>
+        <td>${s.class || '-'}</td>
         ${weekCells}
-        <td style="font-weight:800; color:#FFF;">${presentCount} / 12</td>
-        <td style="font-weight:900; color:#10B981;">${attendScore} 分</td>
+        <td style="font-weight:800;">${presentCount} / ${tw}</td>
+        <td style="font-weight:800; color:#10B981;">${attendScore} 分</td>
       </tr>
     `;
-  }).join('');
+  });
 
-  tbody.innerHTML = rows;
-
-  // Update top metrics
-  const totalMuridEl = document.getElementById('metricWeeklyTotalMurid');
-  if (totalMuridEl) totalMuridEl.textContent = `${totalMurid} 人`;
-
-  const avgAttendPercent = totalPossible > 0 ? ((totalAttended / totalPossible) * 100).toFixed(1) : 0;
-  const avgAttendEl = document.getElementById('metricWeeklyAvgAttend');
-  if (avgAttendEl) avgAttendEl.textContent = `${avgAttendPercent}%`;
-
-  const avgAttendScore = ((avgAttendPercent / 100) * 50).toFixed(1);
-  const avgAttendDesc = avgAttendEl ? avgAttendEl.nextElementSibling : null;
-  if (avgAttendDesc) avgAttendDesc.textContent = `折合 PAJSK 出勤分平均 ${avgAttendScore} / 50 分`;
+  tbody.innerHTML = rows.join('');
+  
+  const metricTotal = document.getElementById('metricWeeklyTotalMurid');
+  if (metricTotal) metricTotal.textContent = `${totalMurid} 人`;
+  
+  const metricAtt = document.getElementById('metricWeeklyAvgAttendance');
+  if (metricAtt) {
+    const pct = totalPossible > 0 ? ((totalAttended / totalPossible) * 100).toFixed(1) : '0.0';
+    let avgAtt = totalPossible > 0 ? ((totalAttended/totalMurid)/12) * 50 : 0;
+    if (avgAtt > 50) avgAtt = 50;
+    metricAtt.innerHTML = `${pct}%<br><span style="font-size:10px; color:rgba(255,255,255,0.5); font-weight:normal;">折合 PAJSK 出勤平均 ${avgAtt.toFixed(1)} / 50 分</span>`;
+  }
 }
+
 
 function toggleAttendance(studentId, weekIdx) {
   const student = schoolHub.students.find(s => s.id === studentId);
@@ -5468,6 +5475,37 @@ function toggleAttendance(studentId, weekIdx) {
   student.attendance[weekIdx] = student.attendance[weekIdx] === 1 ? 0 : 1;
   saveSchoolHub();
   renderWeeklyAttendance();
+}
+
+
+function addAttendanceWeek() {
+  if (schoolHub.totalWeeks >= 24) { showSchoolNotice('最多支持 24 次集会记录！', '限制'); return; }
+  schoolHub.totalWeeks++;
+  saveSchoolHub();
+  renderWeeklyAttendance();
+}
+function removeAttendanceWeek() {
+  if (schoolHub.totalWeeks <= 1) return;
+  const isEn = currentLang === 'en';
+  const isBm = currentLang === 'bm';
+  if (confirm(isEn ? "Are you sure you want to remove the last meeting? Data will be lost." : (isBm ? "Adakah anda pasti untuk padam perjumpaan terakhir?" : "确认要删除最后一次集会的考勤列吗？该列数据将被移除。"))) {
+    schoolHub.totalWeeks--;
+    saveSchoolHub();
+    renderWeeklyAttendance();
+  }
+}
+function clearCurrentSession() {
+  const select = document.getElementById('quickSessionSelect');
+  if (!select) return;
+  const sessionIdx = parseInt(select.value, 10) - 1;
+  schoolHub.students.forEach(s => {
+    if (s.attendance && s.attendance.length > sessionIdx) {
+      s.attendance[sessionIdx] = 0;
+    }
+  });
+  saveSchoolHub();
+  renderWeeklyAttendance();
+  showSchoolNotice(\"已清空第 \" + (sessionIdx + 1) + \" 次集会的所有打卡记录！\", '清除成功');
 }
 
 function markAllCurrentSessionPresent() {
@@ -6356,6 +6394,7 @@ if (document.readyState === 'loading') {
 </script>
 </body>
 </html>
+
 
 
 
