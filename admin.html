@@ -5619,19 +5619,19 @@ async function submitEditLicense(e) {
 <!-- LUXURY EDIT LICENSE MODAL -->
 <div id="editLicenseModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); backdrop-filter:blur(5px); z-index:9999; justify-content:center; align-items:center;" onclick="closeEditLicenseModal()">
   <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 40px rgba(0,0,0,0.5); border-radius:16px; max-width:400px; width:90%; text-align:left; padding:28px 24px;" onclick="event.stopPropagation()">
-    <div style="font-size:16px; font-weight:800; color:#FFF; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">✏️ 缂栬緫鎺堟潈璧勬枡 (Edit License)</div>
+    <div style="font-size:16px; font-weight:800; color:#FFF; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">✏️ 编辑授权资料 (Edit License)</div>
     <form onsubmit="submitEditLicense(event)" style="display:flex; flex-direction:column; gap:16px;">
       <input type="hidden" id="editLicKey">
       <div>
-        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">鎺堟潈浠ｇ爜 (License Key)</label>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">授权代码 (License Key)</label>
         <input type="text" id="editLicKeyDisplay" disabled style="width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; font-family:monospace; color:#60A5FA; font-weight:800; outline:none; cursor:not-allowed;">
       </div>
       <div>
-        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">瀛︽牎 / 璧涗簨鍚嶇О (School / Event)</label>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">学校 / 赛事名称 (School / Event)</label>
         <input type="text" id="editLicSchool" required style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; font-size:13px; color:#FFF; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#F1C40F'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
       </div>
       <div>
-        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">鎺堟潈绛风骇 (License Tier)</label>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">授权等级 (License Tier)</label>
         <select id="editLicTier" required style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; font-size:13px; color:#FFF; outline:none; cursor:pointer;">
           <option value="LITE" style="color:#000">LITE</option>
           <option value="STANDARD" style="color:#000">STANDARD</option>
@@ -5642,7 +5642,7 @@ async function submitEditLicense(e) {
         </select>
       </div>
       <div>
-        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">绮剧‘鍒版湡鏃堕棿 (Exact Expiry Time)</label>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">精确到期时间 (Exact Expiry Time)</label>
         <input type="datetime-local" id="editLicExpiry" required style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; font-size:13px; color:#FFF; outline:none; transition:0.2s; color-scheme:dark;" onfocus="this.style.borderColor='#F1C40F'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
       </div>
       <div style="display:flex; gap:12px; margin-top:8px;">
