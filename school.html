@@ -2299,10 +2299,10 @@ function updateSeg(lang) {
             <thead>
               <tr id="weeklyAttendanceHeaderRow">
                 <th style="width:36px;">#</th>
-                <th style="text-align:left;" id="thPajskName">学生姓名</th>
+                <th style="text-align:left; width:280px;" id="thPajskName">学生姓名</th>
                 <th style="width:60px;" id="thPajskClass">班级</th>
-                <th style="text-align:left; width:130px;" id="thPajskIc">身份证号 (IC)</th>
-                <th style="width:140px;" id="thPajskRole">学会职务 (AJK)</th>
+                <th style="text-align:left;" id="thPajskIc">身份证号 (IC)</th>
+                <th id="thPajskRole">学会职务 (AJK)</th>
                 <th style="width:90px;" id="thPajskScore">职务得分</th>
                 <th style="width:90px;" id="thPajskElo">校内 ELO</th>
                 
@@ -2490,7 +2490,7 @@ function updateSeg(lang) {
 
 
 <!-- TOURNEY HISTORY MODAL -->
-<div class="modal-overlay" id="tourneyHistoryModal" style="display:none; z-index:9999;">
+<div class="cert-modal-backdrop" id="tourneyHistoryModal" style="display:none; align-items:center; justify-content:center; z-index:9999;">
   <div class="modal-content" style="max-width:800px; width:95%; background:var(--bg-card); box-shadow:0 10px 40px rgba(0,0,0,0.5);">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
       <h3 style="font-size:18px; font-weight:900; color:#FFF;">📁 历届赛事档案 (Rekod Arkib Pertandingan)</h3>
