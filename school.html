@@ -4353,10 +4353,47 @@ function checkSchoolSession() {
   if (s) {
     try {
       const d = JSON.parse(s);
-      if (Date.now() - d.ts < 86400000 * 3) {
-        showSchoolApp();
-        return;
+      
+      // If session is older than 12 hours (43200000 ms), silently re-verify in background
+      if (Date.now() - d.ts > 43200000) {
+        fetch(`${CF_WORKER_URL}/api/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ licenseKey: d.pin })
+        }).then(res => res.json()).then(resData => {
+          if (resData.valid) {
+            let finalSchoolName = resData.school || '校内象棋比赛';
+            let tier = 'STANDARD';
+            if (finalSchoolName.includes('||TIER:')) {
+              const parts = finalSchoolName.split('||TIER:');
+              finalSchoolName = parts[0];
+              tier = parts[1];
+            }
+            localStorage.setItem('cxb_school_session', JSON.stringify({
+              pin: d.pin, name: finalSchoolName, tier: tier,
+              expiresAt: resData.expiresAt, token: resData.token, ts: Date.now()
+            }));
+            
+            // Auto refresh the UI to show new days left if updated
+            const metricLic = document.getElementById('metricLicenseTime');
+            if (metricLic && resData.expiresAt) {
+              const now = Date.now();
+              const exp = new Date(resData.expiresAt).getTime();
+              let daysLeft = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+              if (daysLeft < 0) daysLeft = 0;
+              metricLic.innerHTML = `${daysLeft}<span style="font-size:15px; color:rgba(255,255,255,0.5);"> ${currentLang === 'en' ? 'Days' : (currentLang === 'bm' ? 'Hari' : '天')}</span>`;
+            }
+          } else {
+            // Revoked or ended
+            localStorage.removeItem('cxb_school_session');
+            location.reload();
+          }
+        }).catch(err => console.log('Silent verify failed:', err));
       }
+
+      // Show app immediately (optimistic UI)
+      showSchoolApp();
+      return;
     } catch(e){}
   }
 }
