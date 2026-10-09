@@ -1719,7 +1719,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
-      lblSession: 'Pilih Minggu: ',
+      lblSelectSession: 'Pilih Minggu:',
 
 
       menuSecNavTitle: 'Modul',
@@ -1839,7 +1839,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
-      lblSession: 'Select Week: ',
+      lblSelectSession: 'Select Week:',
 
 
       menuSecNavTitle: 'Modules',
@@ -2195,7 +2195,7 @@ function updateSeg(lang) {
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #F1C40F;">
           <div id="statTitle3"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">平均出勤得分率</div>
           <div style="font-size:28px; font-weight:900; color:#F1C40F; margin-top:4px;" id="metricWeeklyAvgAttend">95.8%</div>
-          <div style="font-size:11.5px; color:rgba(241,196,15,0.8); margin-top:2px;">折合 PAJSK 出勤分平均 47.9 / 50 分</div>
+          <div id="txtStatSub3" style="font-size:11.5px; color:rgba(241,196,15,0.8); margin-top:2px;">折合 PAJSK 出勤分平均 47.9 / 50 分</div>
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #8B5CF6;">
           <div id="statTitle4"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">每周水平微切磋</div>
@@ -2221,15 +2221,9 @@ function updateSeg(lang) {
                 </select>
                 <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="addAttendanceWeek()" id="btnAddWeek" title="增加集会">+</button>
               </div>
-              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#10B981; border-color:rgba(16,185,129,0.4);" onclick="markAllCurrentSessionPresent()">
-                本周全员出席
-              </button>
-              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#EF4444; border-color:rgba(239,68,68,0.4);" onclick="clearCurrentSession()">
-                清空本周
-              </button>
-              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px;" onclick="printWeeklyAttendanceSheet()">
-                打印记录表
-              </button>
+              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#10B981; border-color:rgba(16,185,129,0.4);" onclick="markAllCurrentSessionPresent()"><span id="btnMarkAllPresent">本周全员出席</span></button>
+              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#EF4444; border-color:rgba(239,68,68,0.4);" onclick="clearCurrentSession()"><span id="btnClearSession">清空本周</span></button>
+              <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px;" onclick="printWeeklyAttendanceSheet()"><span id="btnPrintAttSheet">打印记录表</span></button>
             <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px;" onclick="printWeeklyAttendanceSheet()">
               打印出勤记录表
             </button>
@@ -2265,9 +2259,7 @@ function updateSeg(lang) {
           </button>
         </div>
         <div id="weeklyMicroPairingsWrap">
-          <div style="text-align:center; padding:30px 20px; color:rgba(255,255,255,0.4); font-size:13px;">
-            点击右上角【一键生成今日微挑战对阵】，系统将自动抓取今日出勤学员并按水平两两匹配！
-          </div>
+          <div style="text-align:center; padding:30px 20px; color:rgba(255,255,255,0.4); font-size:13px;"><span id="microEmptyText">点击右上角【一键生成今日微挑战对阵】，系统将自动抓取今日出勤学员并按水平两两匹配！</span></div>
         </div>
       </div>
     <!-- AUTO BUKU LAPORAN KOKURIKULUM (PLUS TIER) -->
@@ -2277,12 +2269,10 @@ function updateSeg(lang) {
           <h4 id="reportTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动报告自动代写</h4>
           <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:4px;">
             <span style="display:inline-block; padding:2px 6px; background:rgba(243,156,18,0.2); color:#F39C12; border-radius:4px; font-size:10px; font-weight:800; margin-right:6px;">PLUS TIER+</span>
-            一键生成标准的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下20分钟。
+            <span id="txtReportDesc">一键生成标准的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下20分钟。</span>
           </div>
         </div>
-        <button class="btn" style="background:linear-gradient(135deg, #10B981, #059669); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:800; font-size:13px; cursor:pointer; box-shadow:0 4px 15px rgba(16,185,129,0.25);" onclick="generateAutoLaporan()">
-          ✨ 生成本周报告 (Jana Laporan)
-        </button>
+        <button class="btn" style="background:linear-gradient(135deg, #10B981, #059669); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:800; font-size:13px; cursor:pointer; box-shadow:0 4px 15px rgba(16,185,129,0.25);" onclick="generateAutoLaporan()"><span id="btnGenerateReport">✨ 生成本周报告 (Jana Laporan)</span></button>
       </div>
       <div id="laporanOutputArea" style="display:none; margin-top:16px; padding:16px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:8px;">
         <textarea id="laporanText" style="width:100%; height:120px; background:transparent; border:none; color:#E0F2FE; font-size:14px; font-family:'Plus Jakarta Sans', sans-serif; resize:vertical; outline:none;" readonly></textarea>
@@ -3104,7 +3094,7 @@ btnPrintAttSheet: '打印记录表', btnPrintAttReport: '打印出勤记录表',
       eloFooterNote: '<span id="eloFooterNote">* 自动符合马来西亚教育部 (MOE) PAJSK 课外活动分级与校队选拔标准</span>',
       btnMarkAllPresent: '本周全员出席',
       btnClearSession: '清空本周',
-      lblSession: '操作周次: ',
+      lblSelectSession: '操作周次:',
 
 
       menuSecNavTitle: '教务模块',
@@ -3129,7 +3119,7 @@ btnPrintAttSheet: '打印记录表', btnPrintAttReport: '打印出勤记录表',
       txtStatSub4: '段位自动势均力敌匹配',
       txtTab1Desc: '点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分',
       txtMicroDesc: '针对今日出席学生，一键抽签实力就近对战。胜出无序名次下，提升临场应变身心等反应！',
-      txtReportDesc: '一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。',
+      txtReportDesc: '一键生成标准的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下20分钟。',
 
 
       btnMssd: '打印 MSSD 选拔公函',
@@ -3155,7 +3145,7 @@ btnPrintAttSheet: '打印记录表', btnPrintAttReport: '打印出勤记录表',
       btnGenerateMicro: '一键生成今日微挑战对阵',
       microEmptyText: '<span id="microEmptyText">点击右上角【一键生成今日微挑战对阵】，系统将自动抽取今日出勤学员并按水平两两匹配！</span>',
       reportTitle: '课外活动报告自动代写',
-      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> <span id="txtReportDesc">一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。</span>',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> <span id="txtReportDesc">一键生成标准的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下20分钟。</span>',
       btnGenerateReport: '✨ 生成本周报告 (Jana Laporan)',
       tab3Title: '学会名册、AJK 职务与教育部 PAJSK 终极报表',
       tab3Desc: '<span id="txtTab3Desc">一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级</span>',
@@ -3292,7 +3282,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
-      lblSession: 'Pilih Minggu: ',
+      lblSelectSession: 'Pilih Minggu:',
 
 
       menuSecNavTitle: 'Modul',
@@ -3476,7 +3466,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
-      lblSession: 'Select Week: ',
+      lblSelectSession: 'Select Week:',
 
 
       menuSecNavTitle: 'Modules',
@@ -3674,7 +3664,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
-      lblSession: 'Pilih Minggu: ',
+      lblSelectSession: 'Pilih Minggu:',
 
 
       menuSecNavTitle: 'Modul',
@@ -3765,7 +3755,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
-      lblSession: 'Select Week: ',
+      lblSelectSession: 'Select Week:',
 
 
       menuSecNavTitle: 'Modules',
@@ -4246,7 +4236,7 @@ function setSystemLang(lang) {
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
   
-    const idsToUpdate = ['eloModalTitle', 'eloModalSub', 'lblEloTotalPlayers', 'lblEloTopRating', 'lblEloAvgRating', 'lblEloRoundsPlayed', 'thEloRank', 'thEloName', 'thEloScore', 'thEloDelta', 'thEloRecord', 'thEloTeam', 'btnEloClose', 'btnEloPrint', 'eloFooterNote', 'btnMarkAllPresent', 'btnClearSession', 'lblSession', 'btnPrintAttSheet', 'btnPrintAttReport', 'pajskF1Sub', 'pajskF2Sub', 'pajskF3Sub', 'pajskF4Sub', 'pajskFooterTitle', 'txtTab3Desc', 'profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtStatSub2', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
+    const idsToUpdate = ['eloModalTitle', 'eloModalSub', 'lblEloTotalPlayers', 'lblEloTopRating', 'lblEloAvgRating', 'lblEloRoundsPlayed', 'thEloRank', 'thEloName', 'thEloScore', 'thEloDelta', 'thEloRecord', 'thEloTeam', 'btnEloClose', 'btnEloPrint', 'eloFooterNote', 'btnMarkAllPresent', 'btnClearSession', 'lblSelectSession', 'btnPrintAttSheet', 'btnPrintAttReport', 'pajskF1Sub', 'pajskF2Sub', 'pajskF3Sub', 'pajskF4Sub', 'pajskFooterTitle', 'txtTab3Desc', 'profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtStatSub2', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
     idsToUpdate.forEach(id => {
       const el = document.getElementById(id);
       if (el && t[id]) el.innerHTML = t[id];
@@ -5690,7 +5680,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
-      lblSession: 'Pilih Minggu: ',
+      lblSelectSession: 'Pilih Minggu:',
 
 
       menuSecNavTitle: 'Modul',
@@ -5771,7 +5761,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
-      lblSession: 'Select Week: ',
+      lblSelectSession: 'Select Week:',
 
 
       menuSecNavTitle: 'Modules',
@@ -6459,15 +6449,21 @@ function renderWeeklyAttendance() {
     }
   }
 
-  const metricAtt = document.getElementById('metricWeeklyAvgAttendance');
+  const metricAtt = document.getElementById('metricWeeklyAvgAttend');
+  const metricAttSub = document.getElementById('txtStatSub3');
   if (metricAtt) {
     const pct = totalPossible > 0 ? ((totalAttended / totalPossible) * 100).toFixed(1) : '0.0';
+    metricAtt.textContent = `${pct}%`;
+    
     let avgAtt = totalPossible > 0 ? ((totalAttended/totalMurid)/12) * 50 : 0;
     if (avgAtt > 50) avgAtt = 50;
-    let metricAttSub = `折合 PAJSK 出勤平均 ${avgAtt.toFixed(1)} / 50 分`;
-    if (currentLang === 'en') {
-      metricAttSub = `Average PAJSK Score ${avgAtt.toFixed(1)} / 50 pt`;
-    } else if (currentLang === 'bm') {
+    
+    if (metricAttSub) {
+      if (currentLang === 'en') metricAttSub.textContent = `Average PAJSK Score ${avgAtt.toFixed(1)} / 50 pt`;
+      else if (currentLang === 'bm') metricAttSub.textContent = `Purata Kehadiran PAJSK ${avgAtt.toFixed(1)} / 50 pt`;
+      else metricAttSub.textContent = `折合 PAJSK 出勤分平均 ${avgAtt.toFixed(1)} / 50 分`;
+    }
+  } else if (currentLang === 'bm') {
       metricAttSub = `Purata Kehadiran PAJSK ${avgAtt.toFixed(1)} / 50 pt`;
     }
     metricAtt.innerHTML = `${pct}%<br><span style="font-size:10px; color:rgba(255,255,255,0.5); font-weight:normal;" id="txtStatSub3">${metricAttSub}</span>`;
