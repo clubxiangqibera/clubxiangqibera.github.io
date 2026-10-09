@@ -6690,7 +6690,42 @@ function calcStudentTeamRole(rank) {
 }
 
 
+window.currentAttendanceFilter = 'ALL';
+window.setAttendanceFilter = function(f) {
+  window.currentAttendanceFilter = f;
+  renderWeeklyAttendance();
+};
+
 function renderWeeklyAttendance() {
+  const filterContainer = document.getElementById('attendanceFilterContainer');
+  if (filterContainer && schoolHub.students) {
+    const digits = new Set();
+    schoolHub.students.forEach(s => {
+      const match = (s.class || '').match(/\d/);
+      if (match) digits.add(match[0]);
+    });
+    
+    const isEn = currentLang === 'en';
+    const isBm = currentLang === 'bm';
+    
+    let filterHtml = `<button class="seg-btn ${window.currentAttendanceFilter === 'ALL' ? 'active' : ''}" style="padding:6px 12px; font-size:12px; white-space:nowrap;" onclick="setAttendanceFilter('ALL')">${isEn ? 'All Students' : (isBm ? 'Semua Murid' : '全部学员')}</button>`;
+    
+    Array.from(digits).sort().forEach(d => {
+      const label = isEn ? `Year/Form ${d}` : (isBm ? `Tahun/Ting. ${d}` : `${d} 年级/中${d}`);
+      filterHtml += `<button class="seg-btn ${window.currentAttendanceFilter === d ? 'active' : ''}" style="padding:6px 12px; font-size:12px; white-space:nowrap;" onclick="setAttendanceFilter('${d}')">${label}</button>`;
+    });
+    
+    filterContainer.innerHTML = filterHtml;
+  }
+  
+  let displayStudents = schoolHub.students || [];
+  if (window.currentAttendanceFilter !== 'ALL') {
+    displayStudents = displayStudents.filter(s => {
+      const match = (s.class || '').match(/\d/);
+      return match && match[0] === window.currentAttendanceFilter;
+    });
+  }
+
   const tbody = document.getElementById('weeklyAttendanceBody');
   const theadTr = document.getElementById('weeklyAttendanceHeaderRow');
   if (!tbody || !theadTr) return;
@@ -6731,7 +6766,7 @@ function renderWeeklyAttendance() {
     if (parseInt(currentVal) <= tw) select.value = currentVal;
   }
 
-  const totalMurid = schoolHub.students.length;
+  const totalMurid = displayStudents.length;
 
   if (totalMurid === 0) {
     tbody.innerHTML = `
@@ -6751,7 +6786,7 @@ function renderWeeklyAttendance() {
   let totalPossible = totalMurid * tw;
   let totalAttended = 0;
 
-  const rows = schoolHub.students.map((s, idx) => {
+  const rows = displayStudents.map((s, idx) => {
     // Ensure array is exactly tw long
     let attendArr = s.attendance || [];
     while(attendArr.length < tw) attendArr.push(0);
@@ -6798,7 +6833,7 @@ function renderWeeklyAttendance() {
   
   let maxWeek = 1;
   let totalGames = 0;
-  schoolHub.students.forEach(s => {
+  displayStudents.forEach(s => {
     (s.attendance || []).forEach((att, wIdx) => {
        if (att) {
          if (wIdx + 1 > maxWeek) maxWeek = wIdx + 1;
@@ -6912,7 +6947,7 @@ function clearCurrentSession() {
   const select = document.getElementById('quickSessionSelect');
   if (!select) return;
   const sessionIdx = parseInt(select.value, 10) - 1;
-  schoolHub.students.forEach(s => {
+  displayStudents.forEach(s => {
     if (s.attendance && s.attendance.length > sessionIdx) {
       s.attendance[sessionIdx] = 0;
     }
@@ -6934,7 +6969,7 @@ async function executeYearEndRollover() {
 
   schoolHub.totalWeeks = 12;
   schoolHub.weekTitles = [];
-  schoolHub.students.forEach(s => {
+  displayStudents.forEach(s => {
     s.attendance = [];
     s.class = '';
   });
@@ -6965,7 +7000,7 @@ function markAllCurrentSessionPresent() {
   }
   const select = document.getElementById('quickSessionSelect');
   const sessionIdx = parseInt(select ? select.value : '1', 10) - 1;
-  schoolHub.students.forEach(s => {
+  displayStudents.forEach(s => {
     if (!s.attendance) s.attendance = [0,0,0,0,0,0,0,0,0,0,0,0];
     s.attendance[sessionIdx] = 1;
   });
@@ -7080,7 +7115,7 @@ function renderPajskRoster() {
   const tbody = document.getElementById('pajskRosterTableBody');
   if (!tbody) return;
 
-  const totalMurid = schoolHub.students.length;
+  const totalMurid = displayStudents.length;
   if (totalMurid === 0) {
     tbody.innerHTML = `
       <tr>
