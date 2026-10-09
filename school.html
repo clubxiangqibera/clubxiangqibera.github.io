@@ -2810,130 +2810,18 @@ function closeAccessDeniedModal() {}
 <div id="tierComparisonModal" class="school-notice-backdrop" onclick="closeTierComparisonModal()">
   <div class="school-notice-card" style="max-width:1400px; width:98%; text-align:left; padding:28px 24px; max-height:90vh; overflow-y:auto;" onclick="event.stopPropagation()">
     <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:14px;">
-      <div>
-        <div style="font-size:17px; font-weight:900; color:#FFFFFF; display:flex; align-items:center; gap:8px;">
-          <span>🏛️ 棋境校园数字化教务系统 · 7 大授权等级权限对照表</span>
-        </div>
-        <div style="font-size:12px; color:#94A3B8; margin-top:3px;">
-          Sistem Pengurusan Catur Sekolah QiJing · Jadual Perbandingan Peringkat Lesen Rasmi
-        </div>
+      <div id="tierModalHeaderTitle" style="font-size:18px; font-weight:800; color:#E0F2FE;">
+        🏛️ 棋境校园数字化教务系统 · 7 大授权等级权限对照表<br>
+        <span style="font-size:12px; color:#94A3B8; font-weight:500; margin-top:4px; display:inline-block;">Sistem Pengurusan Catur Sekolah QiJing · Jadual Perbandingan Peringkat Lesen Rasmi</span>
       </div>
       <button type="button" onclick="closeTierComparisonModal()" style="background:none; border:none; color:#94A3B8; font-size:20px; cursor:pointer; padding:2px 8px; border-radius:6px; line-height:1;" onmouseover="this.style.color='#FFF'" onmouseout="this.style.color='#94A3B8'">✕</button>
     </div>
 
-    <div style="overflow-x:auto;">
-      <table class="formal-table" style="font-size:12.5px; width:100%; text-align:center; white-space:nowrap;">
-        <thead>
-          <tr style="background:rgba(255,255,255,0.08);">
-            <th style="padding:10px 8px;">授权等级 (Tahap)</th>
-            <th style="padding:10px 8px;">PAJSK 档案容量</th>
-            <th style="padding:10px 8px;">单场赛事规模</th>
-            <th style="padding:10px 8px;">赛事轮数 </th>
-            <th style="padding:10px 8px;">瑞士轮 (Swiss)</th>
-            <th style="padding:10px 8px;">PAJSK 报表 (KPM)</th>
-            <th style="padding:10px 8px;">官方荣誉奖状</th>
-            <th style="padding:10px 8px;">校内 ELO 体系 (ELO)</th>
-            <th style="padding:10px 8px;">现场大屏投屏 (Proyektor)</th>
-            <th style="padding:10px 8px;">MSSD 选拔公函 (Surat)</th>
-          </tr>
-        </thead>
-        <tbody id="tierTableBody">
-          <tr id="tierRow_LITE">
-            <td style="font-weight:800; color:#94A3B8;">LITE (轻量版)</td>
-            <td style="color:#EF4444;">0 人 (锁定)</td>
-            <td>16 人</td>
-            <td>4 轮</td>
-            <td style="color:#10B981;">✅ 基础</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-          </tr>
-          <tr id="tierRow_MINI">
-            <td style="font-weight:800; color:#94A3B8;">MINI (入门版)</td>
-            <td>40 人</td>
-            <td>32 人</td>
-            <td>5 轮</td>
-            <td style="color:#10B981;">✅ 基础</td>
-            <td style="color:#10B981;">✅ 包含</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-          </tr>
-          <tr id="tierRow_STANDARD" style="background:rgba(241,196,15,0.08); border-left:3px solid #F1C40F;">
-            <td style="font-weight:900; color:#F1C40F;">STANDARD (标准版)</td>
-            <td style="font-weight:800; color:#FFF;">80 人</td>
-            <td style="font-weight:800; color:#FFF;">64 人</td>
-            <td>6 轮</td>
-            <td style="color:#10B981;">✅ 正规瑞士轮</td>
-            <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981; font-weight:800;">✅ 官方奖状</td>
-            <td style="color:#EF4444; font-weight:800;">❌ 锁定 (PLUS版起)</td>
-            <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-          </tr>
-          <tr id="tierRow_PLUS" style="background:rgba(16,185,129,0.08); border-left:3px solid #10B981;">
-            <td style="font-weight:900; color:#10B981;">PLUS (增强版)</td>
-            <td style="font-weight:800; color:#FFF;">150 人</td>
-            <td style="font-weight:800; color:#FFF;">96 人</td>
-            <td>7 轮</td>
-            <td style="color:#10B981;">✅ 正规瑞士轮</td>
-            <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981; font-weight:800;">✅ 官方奖状</td>
-            <td style="color:#10B981; font-weight:800;">✅ 校内 ELO 战力榜</td>
-            <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-          </tr>
-          <tr id="tierRow_PRO">
-            <td style="font-weight:900; color:#60A5FA;">PRO (专业版)</td>
-            <td style="font-weight:800; color:#FFF;">300 人</td>
-            <td style="font-weight:800; color:#FFF;">128 人</td>
-            <td>7 轮</td>
-            <td style="color:#10B981;">✅ 正规瑞士轮</td>
-            <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981;">✅ 官方奖状</td>
-            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
-            <td style="color:#10B981; font-weight:800;">✅ 现场大屏白板投屏</td>
-            <td style="color:#EF4444;">❌ 锁定</td>
-          </tr>
-          <tr id="tierRow_ULTRA">
-            <td style="font-weight:900; color:#A78BFA;">ULTRA (旗舰版)</td>
-            <td style="font-weight:800; color:#FFF;">600 人</td>
-            <td style="font-weight:800; color:#FFF;">256 人</td>
-            <td>8 轮</td>
-            <td style="color:#10B981;">✅ 正规瑞士轮</td>
-            <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981;">✅ 官方奖状</td>
-            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
-            <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
-            <td style="color:#10B981; font-weight:800;">✅ MSSD 官方选拔公函</td>
-          </tr>
-          <tr id="tierRow_TITAN">
-            <td style="font-weight:900; color:#F59E0B;">TITAN (联盟专属版)</td>
-            <td style="font-weight:800; color:#F59E0B;">无限 (9999)</td>
-              <td style="font-weight:800; color:#F59E0B;">无限 (9999)</td>
-              <td>20 轮</td>
-            <td style="color:#10B981;">✅ 顶级瑞士轮</td>
-            <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981;">✅ 官方奖状</td>
-            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
-            <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
-            <td style="color:#10B981;">✅ MSSD 官方选拔公函</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div style="margin-top:16px; padding:12px 16px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); font-size:12px; color:rgba(255,255,255,0.7); line-height:1.6;">
-      <div style="font-weight:800; color:#F1C40F; margin-bottom:4px;">📌 核心说明：为什么 STANDARD (标准版) 不含校内 ELO 战力排行榜？</div>
-      <div>• <b>STANDARD (标准版)</b> 定位为全马中小学常规课外活动官方普及版（限 64 名学员），完整支持教育部 PAJSK 50-10-20-20 分值折算及 A4 官方荣誉奖状 (Sijil Pencapaian)，完全满足学校常规考评与年终出勤报告。</div>
-      <div>• <b>PLUS (增强教务版，96人)</b> 起方正式激活校内专属 ELO 战力阶梯天梯系统，实时跟踪每位学员的比赛战力浮动与台次定位。如需启用 ELO 战力榜，请联系总教练升级授权。</div>
+    <div id="tierModalTableWrap" style="overflow-x:auto;">
     </div>
 
     <div style="margin-top:18px; display:flex; justify-content:flex-end;">
-      <button type="button" onclick="closeTierComparisonModal()" class="btn btn-pri-gold" style="padding:10px 24px; font-size:13.5px;">我知道了 / Close</button>
+      <button type="button" onclick="closeTierComparisonModal()" id="btnTierModalClose" class="btn btn-pri-gold" style="padding:10px 24px; font-size:13.5px;">我知道了 / Close</button>
     </div>
   </div>
 </div>
@@ -6034,6 +5922,27 @@ function closeSchoolEloModal() {
 function openTierComparisonModal() {
   const modal = document.getElementById('tierComparisonModal');
   if (!modal) return;
+  
+  const header = document.getElementById('tierModalHeaderTitle');
+  const btnClose = document.getElementById('btnTierModalClose');
+  const wrap = document.getElementById('tierModalTableWrap');
+  
+  if (header && btnClose && wrap) {
+      if (currentLang === 'en') {
+          header.innerHTML = `🏛️ QiJing School System · 7-Tier License Comparison<br><span style="font-size:12px; color:#94A3B8; font-weight:500; margin-top:4px; display:inline-block;">Official System Features & Limits</span>`;
+          btnClose.textContent = "I Understand / Close";
+          wrap.innerHTML = getTierTableEn();
+      } else if (currentLang === 'bm') {
+          header.innerHTML = `🏛️ Sistem Catur Sekolah QiJing · Jadual Lesen Rasmi<br><span style="font-size:12px; color:#94A3B8; font-weight:500; margin-top:4px; display:inline-block;">Jadual Perbandingan 7 Peringkat Lesen Rasmi</span>`;
+          btnClose.textContent = "Faham / Tutup";
+          wrap.innerHTML = getTierTableBm();
+      } else {
+          header.innerHTML = `🏛️ 棋境校园数字化教务系统 · 7 大授权等级权限对照表<br><span style="font-size:12px; color:#94A3B8; font-weight:500; margin-top:4px; display:inline-block;">Sistem Pengurusan Catur Sekolah QiJing · Jadual Perbandingan Peringkat Lesen Rasmi</span>`;
+          btnClose.textContent = "我知道了 / Close";
+          wrap.innerHTML = getTierTableZh();
+      }
+  }
+
   modal.style.display = 'flex';
 
   const limits = window.SCHOOL_TIER_LIMITS || { tier: 'STANDARD' };
@@ -6041,14 +5950,342 @@ function openTierComparisonModal() {
   ['LITE', 'MINI', 'STANDARD', 'PLUS', 'PRO', 'ULTRA', 'TITAN'].forEach(t => {
     const row = document.getElementById(`tierRow_${t}`);
     if (row) {
-      if (t === currentTier) {
-        row.style.background = 'rgba(241,196,15,0.18)';
-      } else {
-        row.style.background = '';
-      }
+      if (t === currentTier) row.style.background = 'rgba(241,196,15,0.18)';
+      else row.style.background = '';
     }
   });
 }
+
+function getTierTableEn() {
+return `<table class="formal-table" style="font-size:12.5px; width:100%; text-align:center; white-space:nowrap;">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.08);">
+            <th style="padding:10px 8px;">License Tier</th>
+            <th style="padding:10px 8px;">PAJSK Students</th>
+            <th style="padding:10px 8px;">Max Players/Event</th>
+            <th style="padding:10px 8px;">Max Rounds</th>
+            <th style="padding:10px 8px;">Swiss Format</th>
+            <th style="padding:10px 8px;">PAJSK Report</th>
+            <th style="padding:10px 8px;">Official Certificate</th>
+            <th style="padding:10px 8px;">School ELO System</th>
+            <th style="padding:10px 8px;">Live Projector</th>
+            <th style="padding:10px 8px;">MSSD Letter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="tierRow_LITE">
+            <td style="font-weight:700; color:#94A3B8;">LITE</td>
+            <td style="color:#EF4444; font-weight:bold;">0 (Locked)</td>
+            <td>16 pax</td>
+            <td>4 Rnds</td>
+            <td style="color:#10B981;">✅ Basic</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+          </tr>
+          <tr id="tierRow_MINI">
+            <td style="font-weight:700; color:#94A3B8;">MINI</td>
+            <td style="font-weight:bold;">40 pax</td>
+            <td>32 pax</td>
+            <td>5 Rnds</td>
+            <td style="color:#10B981;">✅ Basic</td>
+            <td style="color:#10B981;">✅ Included</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+          </tr>
+          <tr id="tierRow_STANDARD">
+            <td style="font-weight:900; color:#F1C40F;">STANDARD</td>
+            <td style="font-weight:bold; color:#F1C40F;">80 pax</td>
+            <td style="color:#F1C40F; font-weight:bold;">64 pax</td>
+            <td>6 Rnds</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Calc</td>
+            <td style="color:#10B981;">✅ Included</td>
+            <td style="color:#EF4444; font-weight:bold;">❌ Locked (PLUS+)</td>
+            <td style="color:#EF4444;">❌ Locked (PRO+)</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+          </tr>
+          <tr id="tierRow_PLUS">
+            <td style="font-weight:900; color:#10B981;">PLUS</td>
+            <td style="font-weight:bold; color:#10B981;">150 pax</td>
+            <td style="font-weight:bold; color:#10B981;">96 pax</td>
+            <td>7 Rnds</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Calc</td>
+            <td style="color:#10B981;">✅ Included</td>
+            <td style="color:#10B981; font-weight:bold;">✅ ELO Rating</td>
+            <td style="color:#EF4444;">❌ Locked (PRO+)</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+          </tr>
+          <tr id="tierRow_PRO">
+            <td style="font-weight:900; color:#3B82F6;">PRO</td>
+            <td style="font-weight:bold; color:#3B82F6;">300 pax</td>
+            <td style="font-weight:bold; color:#3B82F6;">128 pax</td>
+            <td>7 Rnds</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Calc</td>
+            <td style="color:#10B981;">✅ Included</td>
+            <td style="color:#10B981;">✅ ELO Rating</td>
+            <td style="color:#10B981; font-weight:bold;">✅ Live Projector</td>
+            <td style="color:#EF4444;">❌ Locked</td>
+          </tr>
+          <tr id="tierRow_ULTRA">
+            <td style="font-weight:900; color:#8B5CF6;">ULTRA</td>
+            <td style="font-weight:bold; color:#8B5CF6;">600 pax</td>
+            <td style="font-weight:bold; color:#8B5CF6;">256 pax</td>
+            <td>8 Rnds</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Calc</td>
+            <td style="color:#10B981;">✅ Included</td>
+            <td style="color:#10B981;">✅ ELO Rating</td>
+            <td style="color:#10B981;">✅ Live Projector</td>
+            <td style="color:#10B981; font-weight:bold;">✅ MSSD Letter</td>
+          </tr>
+          <tr id="tierRow_TITAN">
+            <td style="font-weight:900; color:#F59E0B;">TITAN</td>
+            <td style="font-weight:bold; color:#F59E0B;">Unlimited</td>
+            <td style="font-weight:bold; color:#F59E0B;">Unlimited</td>
+            <td>20 Rnds</td>
+            <td style="color:#10B981;">✅ Ultimate</td>
+            <td style="color:#10B981;">✅ Auto Calc</td>
+            <td style="color:#10B981;">✅ Included</td>
+            <td style="color:#10B981;">✅ ELO Rating</td>
+            <td style="color:#10B981;">✅ Live Projector</td>
+            <td style="color:#10B981;">✅ MSSD Letter</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px; padding:12px; background:rgba(255,255,255,0.05); border-left:3px solid #F1C40F; border-radius:4px; font-size:11.5px; line-height:1.6; color:rgba(255,255,255,0.7); text-align:left;">
+        <span style="color:#F1C40F; font-weight:bold;">📌 Note: Why does STANDARD not include ELO Rating?</span><br>
+        • STANDARD Tier is designed for general PAJSK co-curricular management (up to 64 active members). It fully supports MOE PAJSK 50-10-20-20 score conversion and official certificates.<br>
+        • PLUS Tier+ activates the official in-school ELO rating system to dynamically track students' competitive strength. Contact head coach to upgrade.
+      </div>`;
+}
+
+function getTierTableBm() {
+return `<table class="formal-table" style="font-size:12.5px; width:100%; text-align:center; white-space:nowrap;">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.08);">
+            <th style="padding:10px 8px;">Tahap Lesen</th>
+            <th style="padding:10px 8px;">Kapasiti PAJSK</th>
+            <th style="padding:10px 8px;">Maks Peserta/Acara</th>
+            <th style="padding:10px 8px;">Maks Pusingan</th>
+            <th style="padding:10px 8px;">Format Swiss</th>
+            <th style="padding:10px 8px;">Laporan PAJSK</th>
+            <th style="padding:10px 8px;">Sijil Rasmi</th>
+            <th style="padding:10px 8px;">Sistem ELO</th>
+            <th style="padding:10px 8px;">Live Projector</th>
+            <th style="padding:10px 8px;">Surat MSSD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="tierRow_LITE">
+            <td style="font-weight:700; color:#94A3B8;">LITE</td>
+            <td style="color:#EF4444; font-weight:bold;">0 (Kunci)</td>
+            <td>16 org</td>
+            <td>4 Pus</td>
+            <td style="color:#10B981;">✅ Asas</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+          </tr>
+          <tr id="tierRow_MINI">
+            <td style="font-weight:700; color:#94A3B8;">MINI</td>
+            <td style="font-weight:bold;">40 org</td>
+            <td>32 org</td>
+            <td>5 Pus</td>
+            <td style="color:#10B981;">✅ Asas</td>
+            <td style="color:#10B981;">✅ Termasuk</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+          </tr>
+          <tr id="tierRow_STANDARD">
+            <td style="font-weight:900; color:#F1C40F;">STANDARD</td>
+            <td style="font-weight:bold; color:#F1C40F;">80 org</td>
+            <td style="color:#F1C40F; font-weight:bold;">64 org</td>
+            <td>6 Pus</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Kira</td>
+            <td style="color:#10B981;">✅ Termasuk</td>
+            <td style="color:#EF4444; font-weight:bold;">❌ Kunci (PLUS+)</td>
+            <td style="color:#EF4444;">❌ Kunci (PRO+)</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+          </tr>
+          <tr id="tierRow_PLUS">
+            <td style="font-weight:900; color:#10B981;">PLUS</td>
+            <td style="font-weight:bold; color:#10B981;">150 org</td>
+            <td style="font-weight:bold; color:#10B981;">96 org</td>
+            <td>7 Pus</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Kira</td>
+            <td style="color:#10B981;">✅ Termasuk</td>
+            <td style="color:#10B981; font-weight:bold;">✅ Rating ELO</td>
+            <td style="color:#EF4444;">❌ Kunci (PRO+)</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+          </tr>
+          <tr id="tierRow_PRO">
+            <td style="font-weight:900; color:#3B82F6;">PRO</td>
+            <td style="font-weight:bold; color:#3B82F6;">300 org</td>
+            <td style="font-weight:bold; color:#3B82F6;">128 org</td>
+            <td>7 Pus</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Kira</td>
+            <td style="color:#10B981;">✅ Termasuk</td>
+            <td style="color:#10B981;">✅ Rating ELO</td>
+            <td style="color:#10B981; font-weight:bold;">✅ Live Projector</td>
+            <td style="color:#EF4444;">❌ Kunci</td>
+          </tr>
+          <tr id="tierRow_ULTRA">
+            <td style="font-weight:900; color:#8B5CF6;">ULTRA</td>
+            <td style="font-weight:bold; color:#8B5CF6;">600 org</td>
+            <td style="font-weight:bold; color:#8B5CF6;">256 org</td>
+            <td>8 Pus</td>
+            <td style="color:#10B981;">✅ Standard</td>
+            <td style="color:#10B981;">✅ Auto Kira</td>
+            <td style="color:#10B981;">✅ Termasuk</td>
+            <td style="color:#10B981;">✅ Rating ELO</td>
+            <td style="color:#10B981;">✅ Live Projector</td>
+            <td style="color:#10B981; font-weight:bold;">✅ Surat MSSD</td>
+          </tr>
+          <tr id="tierRow_TITAN">
+            <td style="font-weight:900; color:#F59E0B;">TITAN</td>
+            <td style="font-weight:bold; color:#F59E0B;">Tanpa Had</td>
+            <td style="font-weight:bold; color:#F59E0B;">Tanpa Had</td>
+            <td>20 Pus</td>
+            <td style="color:#10B981;">✅ Ultimate</td>
+            <td style="color:#10B981;">✅ Auto Kira</td>
+            <td style="color:#10B981;">✅ Termasuk</td>
+            <td style="color:#10B981;">✅ Rating ELO</td>
+            <td style="color:#10B981;">✅ Live Projector</td>
+            <td style="color:#10B981;">✅ Surat MSSD</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px; padding:12px; background:rgba(255,255,255,0.05); border-left:3px solid #F1C40F; border-radius:4px; font-size:11.5px; line-height:1.6; color:rgba(255,255,255,0.7); text-align:left;">
+        <span style="color:#F1C40F; font-weight:bold;">📌 Nota: Mengapa STANDARD tidak mempunyai Sistem ELO?</span><br>
+        • Tahap STANDARD direka untuk pengurusan kokurikulum PAJSK asas (sehingga 64 ahli). Ia menyokong penukaran markah 50-10-20-20 PAJSK KPM secara automatik dan sijil rasmi.<br>
+        • Tahap PLUS+ mengaktifkan sistem rating ELO sekolah rasmi untuk mengesan kekuatan kompetitif pelajar secara dinamik. Hubungi ketua jurulatih untuk menaik taraf.
+      </div>`;
+}
+
+function getTierTableZh() {
+return `<table class="formal-table" style="font-size:12.5px; width:100%; text-align:center; white-space:nowrap;">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.08);">
+            <th style="padding:10px 8px;">授权等级 (Tahap)</th>
+            <th style="padding:10px 8px;">PAJSK 档案容量</th>
+            <th style="padding:10px 8px;">单场赛事规模</th>
+            <th style="padding:10px 8px;">赛事轮数</th>
+            <th style="padding:10px 8px;">瑞士轮 (Swiss)</th>
+            <th style="padding:10px 8px;">PAJSK 报表 (KPM)</th>
+            <th style="padding:10px 8px;">官方荣誉奖状</th>
+            <th style="padding:10px 8px;">校内 ELO 体系 (ELO)</th>
+            <th style="padding:10px 8px;">现场大屏投屏 (Proyektor)</th>
+            <th style="padding:10px 8px;">MSSD 选拔公函 (Surat)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="tierRow_LITE">
+            <td style="font-weight:700; color:#94A3B8;">LITE (轻量版)</td>
+            <td style="color:#EF4444; font-weight:bold;">0 人 (锁定)</td>
+            <td>16 人</td>
+            <td>4 轮</td>
+            <td style="color:#10B981;">✅ 基础</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_MINI">
+            <td style="font-weight:700; color:#94A3B8;">MINI (入门版)</td>
+            <td style="font-weight:bold;">40 人</td>
+            <td>32 人</td>
+            <td>5 轮</td>
+            <td style="color:#10B981;">✅ 基础</td>
+            <td style="color:#10B981;">✅ 包含</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_STANDARD">
+            <td style="font-weight:900; color:#F1C40F;">STANDARD (标准版)</td>
+            <td style="font-weight:bold; color:#F1C40F;">80 人</td>
+            <td style="color:#F1C40F; font-weight:bold;">64 人</td>
+            <td>6 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
+            <td style="color:#EF4444; font-weight:bold;">❌ 锁定 (PLUS版起)</td>
+            <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_PLUS">
+            <td style="font-weight:900; color:#10B981;">PLUS (增强版)</td>
+            <td style="font-weight:bold; color:#10B981;">150 人</td>
+            <td style="font-weight:bold; color:#10B981;">96 人</td>
+            <td>7 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
+            <td style="color:#10B981; font-weight:bold;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_PRO">
+            <td style="font-weight:900; color:#3B82F6;">PRO (专业版)</td>
+            <td style="font-weight:bold; color:#3B82F6;">300 人</td>
+            <td style="font-weight:bold; color:#3B82F6;">128 人</td>
+            <td>7 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
+            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#10B981; font-weight:bold;">✅ 现场大屏白板投屏</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_ULTRA">
+            <td style="font-weight:900; color:#8B5CF6;">ULTRA (旗舰版)</td>
+            <td style="font-weight:bold; color:#8B5CF6;">600 人</td>
+            <td style="font-weight:bold; color:#8B5CF6;">256 人</td>
+            <td>8 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
+            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
+            <td style="color:#10B981; font-weight:bold;">✅ MSSD 官方选拔公函</td>
+          </tr>
+          <tr id="tierRow_TITAN">
+            <td style="font-weight:900; color:#F59E0B;">TITAN (联盟专属版)</td>
+            <td style="font-weight:bold; color:#F59E0B;">无限 (9999)</td>
+            <td style="font-weight:bold; color:#F59E0B;">无限 (9999)</td>
+            <td>20 轮</td>
+            <td style="color:#10B981;">✅ 顶级瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
+            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
+            <td style="color:#10B981;">✅ MSSD 官方选拔公函</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px; padding:12px; background:rgba(255,255,255,0.05); border-left:3px solid #F1C40F; border-radius:4px; font-size:11.5px; line-height:1.6; color:rgba(255,255,255,0.7); text-align:left;">
+        <span style="color:#F1C40F; font-weight:bold;">📌 核心说明：为什么 STANDARD (标准版) 不含校内 ELO 战力排行榜？</span><br>
+        • STANDARD (标准版) 定位为全马中小学常规课外活动官方普及版（限 64 名学员），完整支持教育部 PAJSK 50-10-20-20 分值折算及 A4 官方荣誉奖状 (Sijil Pencapaian)，完全满足学校常规考评与年终出勤报告。<br>
+        • PLUS (增强教务版，96人) 起方正式激活校内专属 ELO 战力阶梯天梯系统，实时跟踪每位学员的比赛战力浮动与台次定位。如需启用 ELO 战力榜，请联系总教练升级授权。
+      </div>`;
+}
+
 
 function closeTierComparisonModal() {
   const modal = document.getElementById('tierComparisonModal');
