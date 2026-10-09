@@ -1866,8 +1866,25 @@ function updateSeg(lang) {
   <!-- FORMAL APPLE STYLE TOOLS MEGA MENU (MONOCHROME ICONS, NO EMOJIS, 100% I18N) -->
   <div id="schoolToolsBackdrop" class="apple-backdrop no-print" onclick="closeSchoolToolsMenu()"></div>
   <div id="schoolToolsMenu" class="apple-mega-menu no-print">
-    <div class="apple-mega-container" style="max-width: 820px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 10px 0;">
-      <!-- Column 1: 赛事与教务工具 -->
+    <div class="apple-mega-container" style="max-width: 980px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; padding: 10px 0;">
+      <!-- Column 1: 三大核心教务模块导航 -->
+      <div class="apple-mega-col">
+        <h4 id="menuSecNavTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">教务模块直达 (Modul Sistem)</h4>
+        <a onclick="switchSchoolTab('weekly')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
+          <svg width="16" height="16" fill="none" stroke="#60A5FA" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span style="font-weight:700;">1. 每周课外活动 (Aktiviti)</span>
+        </a>
+        <a onclick="switchSchoolTab('tourney')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
+          <svg width="16" height="16" fill="none" stroke="#F1C40F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          <span style="font-weight:700;">2. 校内锦标赛与选拔 (Kejohanan)</span>
+        </a>
+        <a onclick="switchSchoolTab('pajsk')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
+          <svg width="16" height="16" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <span style="font-weight:700;">3. 学员档案与 PAJSK (Profil)</span>
+        </a>
+      </div>
+
+      <!-- Column 2: 赛事与教务工具 -->
       <div class="apple-mega-col">
         <h4 id="menuSecToolsTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">赛事与教务工具箱 (Tournament & Tools)</h4>
         <a id="btnSysProjector" onclick="openProjector(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
@@ -1892,7 +1909,7 @@ function updateSeg(lang) {
         </a>
       </div>
 
-      <!-- Column 2: 授权与系统管理 -->
+      <!-- Column 3: 授权与系统管理 -->
       <div class="apple-mega-col">
         <h4 id="menuSecStatusTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">系统节点与管理 (System & Status)</h4>
         <div style="padding:14px 16px; background:rgba(255,255,255,0.04); border-radius:8px; border:1px solid rgba(255,255,255,0.08); margin-bottom:14px;">
@@ -3484,13 +3501,13 @@ function showSchoolApp() {
         const tier = d.tier || 'STANDARD';
         let maxRoundsAllowed = 7, maxPlayersAllowed = 256, blockProjector = false, blockCert = false, blockPajsk = false, blockElo = false;
         
-        if (tier === 'NANO') { maxRoundsAllowed = 3; maxPlayersAllowed = 16; }
-        else if (tier === 'MINI') { maxRoundsAllowed = 4; maxPlayersAllowed = 32; }
-        else if (tier === 'STANDARD') { maxRoundsAllowed = 5; maxPlayersAllowed = 64; }
-        else if (tier === 'PLUS') { maxRoundsAllowed = 6; maxPlayersAllowed = 96; }
-        else if (tier === 'PRO') { maxRoundsAllowed = 6; maxPlayersAllowed = 128; }
-        else if (tier === 'ULTRA') { maxRoundsAllowed = 7; maxPlayersAllowed = 256; }
-        else if (tier === 'TITAN') { maxRoundsAllowed = 20; maxPlayersAllowed = 9999; }
+        if (tier === 'NANO') { maxRoundsAllowed = 3; maxPlayersAllowed = 16; blockProjector = true; blockCert = true; blockElo = true; }
+        else if (tier === 'MINI') { maxRoundsAllowed = 4; maxPlayersAllowed = 32; blockProjector = true; blockCert = true; blockElo = true; }
+        else if (tier === 'STANDARD') { maxRoundsAllowed = 5; maxPlayersAllowed = 64; blockProjector = true; blockCert = false; blockElo = true; }
+        else if (tier === 'PLUS') { maxRoundsAllowed = 6; maxPlayersAllowed = 96; blockProjector = true; blockCert = false; blockElo = false; }
+        else if (tier === 'PRO') { maxRoundsAllowed = 6; maxPlayersAllowed = 128; blockProjector = false; blockCert = false; blockElo = false; }
+        else if (tier === 'ULTRA') { maxRoundsAllowed = 7; maxPlayersAllowed = 256; blockProjector = false; blockCert = false; blockElo = false; }
+        else if (tier === 'TITAN') { maxRoundsAllowed = 20; maxPlayersAllowed = 9999; blockProjector = false; blockCert = false; blockElo = false; }
 
         window.SCHOOL_TIER_LIMITS = { maxRoundsAllowed, maxPlayersAllowed, blockProjector, blockCert, blockElo, blockPajsk, tier };
         updateMenuTierDisplay();
@@ -4041,6 +4058,18 @@ function resetSchoolTourney() {
 
 // --- PROJECTOR / TV BIG SCREEN ---
 function openProjector() {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && limits.blockProjector) {
+    const isEn = currentLang === 'en';
+    const isBm = currentLang === 'bm';
+    const msg = isEn
+      ? `Live Screen Projector is restricted on ${limits.tier} TIER. Please upgrade to PRO TIER or higher to cast live tournament rounds onto big screen displays.`
+      : (isBm
+        ? `Paparan Skrin Besar disekat pada ${limits.tier} TIER. Sila naik taraf ke PRO TIER atau lebih tinggi untuk memaparkan perlawanan di skrin besar.`
+        : `【功能受限】当前【${limits.tier} TIER】未包含现场大屏投屏功能。大屏投屏为 PRO TIER（专业高级版）及以上专属功能。如需投屏至礼堂或投影仪请联系总控教练升级授权！`);
+    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    return;
+  }
   if (!schoolTourney || !schoolTourney.rounds || schoolTourney.rounds.length === 0 || !schoolTourney.rounds[viewRoundIdx]) {
     const isEn = currentLang === 'en';
     const isBm = currentLang === 'bm';
@@ -4315,6 +4344,18 @@ function printSchoolReport(type = 'standings') {
 
 // --- OFFICIAL CERTIFICATE (SIJIL) PRINT ENGINE ---
 function openCertificateModal() {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && limits.blockCert) {
+    const isEn = currentLang === 'en';
+    const isBm = currentLang === 'bm';
+    const msg = isEn
+      ? `Official Certificate Generation is restricted on ${limits.tier} TIER. Please upgrade to STANDARD TIER or higher to print official achievement certificates.`
+      : (isBm
+        ? `Penjanaan Sijil Rasmi disekat pada ${limits.tier} TIER. Sila naik taraf ke STANDARD TIER atau lebih tinggi untuk mencetak sijil rasmi.`
+        : `【功能受限】当前【${limits.tier} TIER】未包含官方荣誉奖状生成功能。荣誉奖状为 STANDARD TIER（标准校队版）及以上标配功能。如需打印请升级授权！`);
+    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    return;
+  }
   const modal = document.getElementById('certificateModal');
   if (!modal) return;
 
@@ -4775,6 +4816,18 @@ function calcSchoolEloStandings() {
 }
 
 function openSchoolEloModal() {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && limits.blockElo) {
+    const isEn = currentLang === 'en';
+    const isBm = currentLang === 'bm';
+    const msg = isEn
+      ? `ELO Rating System is restricted on ${limits.tier} TIER. Please upgrade to PLUS TIER or higher to unlock official school ELO rating and board ranking.`
+      : (isBm
+        ? `Sistem Penarafan ELO disekat pada ${limits.tier} TIER. Sila naik taraf ke PLUS TIER atau lebih tinggi untuk membuka ranking ELO rasmi.`
+        : `【功能受限】当前【${limits.tier} TIER】未包含校内专属 ELO 战力体系。该功能属于 PLUS TIER（增强教务版）及以上专属高级功能。如需启用请升级授权！`);
+    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    return;
+  }
   const modal = document.getElementById('schoolEloModal');
   if (!modal) return;
 
@@ -4950,6 +5003,7 @@ function updateSchoolUiLabels() {
 }
 
 function switchSchoolTab(tab) {
+  closeSchoolToolsMenu();
   const tabs = ['weekly', 'tourney', 'pajsk'];
   tabs.forEach(t => {
     const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
@@ -5412,7 +5466,16 @@ function submitNewStudent(event) {
   const ic = icInput ? icInput.value.trim() : '';
 
   const isEn = currentLang === 'en';
-  const isBm = currentLang === 'bm';
+  const limits = window.SCHOOL_TIER_LIMITS || { maxPlayersAllowed: 64, tier: 'STANDARD' };
+  if (schoolHub.students && schoolHub.students.length >= limits.maxPlayersAllowed) {
+    const msg = isEn
+      ? `Student quota reached! Your ${limits.tier} TIER license allows a maximum of ${limits.maxPlayersAllowed} registered students. Please upgrade to a higher tier to add more students.`
+      : (isBm
+        ? `Had kuota murid telah dicapai! Lesen ${limits.tier} TIER membenarkan maksimum ${limits.maxPlayersAllowed} orang murid. Sila naik taraf lesen untuk menambah murid lagi.`
+        : `【授权名额已满】当前【${limits.tier} TIER】最多支持录入 ${limits.maxPlayersAllowed} 位在籍学员。如需继续扩充学员名单，请联系总控教练升级授权层级！`);
+    showSchoolNotice(msg, isEn ? 'Quota Reached' : (isBm ? 'Had Kuota Dicapai' : '名额已达上限'));
+    return;
+  }
 
   if (!nameBm && !nameCn) {
     showSchoolNotice(
@@ -5862,9 +5925,20 @@ function exportComprehensivePajskCsv() {
   a.click();
 }
 
-// Ensure init runs on load
 // --- AUTO BUKU LAPORAN ---
 function generateAutoLaporan() {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && (limits.tier === 'NANO' || limits.tier === 'MINI' || limits.tier === 'STANDARD')) {
+    const isEn = currentLang === 'en';
+    const isBm = currentLang === 'bm';
+    const msg = isEn
+      ? `Auto Buku Laporan Kokurikulum is restricted on ${limits.tier} TIER. This feature requires PLUS TIER or higher.`
+      : (isBm
+        ? `Penjanaan Auto Buku Laporan Kokurikulum disekat pada ${limits.tier} TIER. Ciri ini memerlukan PLUS TIER atau lebih tinggi.`
+        : `【功能受限】课外活动周报告自动代写 (Auto Buku Laporan) 为 PLUS TIER（增强教务版）及以上专属功能。当前【${limits.tier} TIER】暂未包含此权益，如需使用请联系总控教练升级！`);
+    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    return;
+  }
   const dateObj = new Date();
   const dateStr = dateObj.toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
   const dayStr = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
