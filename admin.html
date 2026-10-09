@@ -3909,28 +3909,26 @@ async function loadSchoolLicenses() {
             </tr>
           </thead>
           <tbody>
-            ${d.list.map(item => `
+            ${d.list.map(item => {
+              let sName = item.school || '';
+              let sTier = 'STANDARD';
+              if (sName.includes('||TIER:')) {
+                const parts = sName.split('||TIER:');
+                sName = parts[0];
+                sTier = parts[1];
+              }
+              let tierColor = '#60A5FA';
+              if(sTier === 'TITAN' || sTier === 'ULTRA') tierColor = '#F39C12';
+              else if(sTier === 'PRO') tierColor = '#9B59B6';
+
+              return `
               <tr style="border-bottom:1px solid var(--border);">
                 <td style="padding:10px 12px;">
                   <span style="display:inline-block; font-family:'Plus Jakarta Sans', monospace; font-size:13px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.18); border:1px solid rgba(41,128,185,0.38); padding:3px 10px; border-radius:6px; letter-spacing:0.8px;">${item.key}</span>
                 </td>
                 <td style="padding:10px 12px; font-weight:800; color:#FFFFFF;">
-                  ${(() => {
-                    let sName = item.school || '';
-                    let sTier = 'STANDARD';
-                    if (sName.includes('||TIER:')) {
-                      const parts = sName.split('||TIER:');
-                      sName = parts[0];
-                      sTier = parts[1];
-                    }
-                    let tierColor = '#60A5FA';
-                    if(sTier === 'TITAN' || sTier === 'ULTRA') tierColor = '#F39C12';
-                    else if(sTier === 'PRO') tierColor = '#9B59B6';
-                    return `
-                      <div>${sName}</div>
-                      <span style="display:inline-block; margin-top:4px; font-size:10px; padding:2px 6px; background:rgba(255,255,255,0.08); color:${tierColor}; border-radius:4px; font-weight:bold;">${sTier} TIER</span>
-                    `;
-                  })()}
+                  <div>${sName}</div>
+                  <span style="display:inline-block; margin-top:4px; font-size:10px; padding:2px 6px; background:rgba(255,255,255,0.08); color:${tierColor}; border-radius:4px; font-weight:bold;">${sTier} TIER</span>
                 </td>
                 <td style="padding:10px 12px; text-align:center;">
                   ${item.status === 'ended' 
@@ -3962,7 +3960,7 @@ async function loadSchoolLicenses() {
                   </div>
                 </td>
               </tr>
-            `).join('')}
+            `}).join('')}
           </tbody>
         </table>`;
     } else {
