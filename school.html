@@ -6463,10 +6463,6 @@ function renderWeeklyAttendance() {
       else if (currentLang === 'bm') metricAttSub.textContent = `Purata Kehadiran PAJSK ${avgAtt.toFixed(1)} / 50 pt`;
       else metricAttSub.textContent = `折合 PAJSK 出勤分平均 ${avgAtt.toFixed(1)} / 50 分`;
     }
-  } else if (currentLang === 'bm') {
-      metricAttSub = `Purata Kehadiran PAJSK ${avgAtt.toFixed(1)} / 50 pt`;
-    }
-    metricAtt.innerHTML = `${pct}%<br><span style="font-size:10px; color:rgba(255,255,255,0.5); font-weight:normal;" id="txtStatSub3">${metricAttSub}</span>`;
   }
 }
 
