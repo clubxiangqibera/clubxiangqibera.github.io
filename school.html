@@ -326,7 +326,7 @@
     }
     .main-wrap {
       width: 100%;
-      max-width: 1600px;
+      /* max-width: 1600px; removed for wider UI */
       margin: 0 auto;
       padding: 24px 32px 80px;
       box-sizing: border-box;
@@ -2176,6 +2176,9 @@ function updateSeg(lang) {
           <button id="tBtnStartTourney" class="btn btn-pri-gold" style="padding:12px 28px; font-size:15px;" onclick="startSchoolTournament()">
             一键生成第 1 轮对阵
           </button>
+          <button id="tBtnHistory" class="btn btn-outline" style="padding:12px 28px; font-size:15px; margin-left: 8px;" onclick="openTourneyHistory()">
+            📁 赛事档案归档
+          </button>
         </div>
       </div>
 
@@ -2302,7 +2305,7 @@ function updateSeg(lang) {
                 <th style="width:140px;" id="thPajskRole">学会职务 (AJK)</th>
                 <th style="width:90px;" id="thPajskScore">职务得分</th>
                 <th style="width:90px;" id="thPajskElo">校内 ELO</th>
-                <th style="text-align:left; width:130px;" id="thPajskTeam">校队定位</th>
+                
                 <th class="col-sticky-action" style="width:175px; min-width:175px; text-align:center;" id="thPajskAction">操作</th>
               </tr>
             </thead>
@@ -2962,7 +2965,7 @@ const I18N = {
     thPajskRole: '学会职务 (AJK)',
     thPajskScore: '职务得分',
     thPajskElo: '校内 ELO',
-    thPajskTeam: '校队定位',
+    
     thPajskAction: '操作',
     btnAddStudent: '添加学员',
     btnPrintNoticeboard: '打印布告栏风云榜 (A4)',
@@ -3066,7 +3069,7 @@ const I18N = {
     thPajskRole: 'Jawatan Kelab (AJK)',
     thPajskScore: 'Skor Jawatan',
     thPajskElo: 'ELO Sekolah',
-    thPajskTeam: 'Kedudukan Skuad',
+    
     thPajskAction: 'Tindakan',
     btnAddStudent: 'Tambah Murid',
     btnPrintNoticeboard: 'Cetak Kedudukan Papan Kenyataan (A4)',
@@ -3170,7 +3173,7 @@ const I18N = {
     thPajskRole: 'Club Position (AJK)',
     thPajskScore: 'Position Score',
     thPajskElo: 'School ELO',
-    thPajskTeam: 'Team Standing',
+    
     thPajskAction: 'Action',
     btnAddStudent: 'Add Student',
     btnPrintNoticeboard: 'Print Noticeboard Ranking (A4)',
@@ -3629,8 +3632,8 @@ function setSystemLang(lang) {
   if (thPajskScore && t.thPajskScore) thPajskScore.textContent = t.thPajskScore;
   const thPajskElo = document.getElementById('thPajskElo');
   if (thPajskElo && t.thPajskElo) thPajskElo.textContent = t.thPajskElo;
-  const thPajskTeam = document.getElementById('thPajskTeam');
-  if (thPajskTeam && t.thPajskTeam) thPajskTeam.textContent = t.thPajskTeam;
+  
+  
   const thPajskAction = document.getElementById('thPajskAction');
   if (thPajskAction && t.thPajskAction) thPajskAction.textContent = t.thPajskAction;
   const btnAddStudentText = document.getElementById('btnAddStudentText');
@@ -5776,7 +5779,7 @@ function renderPajskRoster() {
             ? `<span style="font-weight:700; color:#94A3B8; font-size:12px;">1000</span> <span style="font-size:10px; color:#F1C40F; padding:1px 5px; background:rgba(241,196,15,0.12); border-radius:3px; border:1px solid rgba(241,196,15,0.25); cursor:pointer;" onclick="openTierComparisonModal()" title="标准版为统一基准分，点击查看授权等级表">🔒 PLUS+</span>` 
             : `<span style="font-weight:900; color:#F1C40F;">${s.elo}</span>`}
         </td>
-        <td style="text-align:left; font-size:12px; font-weight:700; color:#60A5FA;">${teamRole}</td>
+        
         <td class="col-sticky-action" style="text-align:center; white-space:nowrap;">
           <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
             <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#EF4444; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.08); white-space:nowrap; cursor:pointer;" onclick="deleteStudent('${s.id}')" title="删除学员 / Padam Murid">
