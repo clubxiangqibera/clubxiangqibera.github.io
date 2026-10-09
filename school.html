@@ -2678,7 +2678,8 @@ function closeAccessDeniedModal() {}
         <thead>
           <tr style="background:rgba(255,255,255,0.08);">
             <th style="padding:10px 8px;">授权等级 (Tahap)</th>
-            <th style="padding:10px 8px;">在籍学员 (Murid)</th>
+            <th style="padding:10px 8px;">PAJSK 档案容量</th>
+            <th style="padding:10px 8px;">单场赛事规模</th>
             <th style="padding:10px 8px;">赛事轮数 (Pusingan)</th>
             <th style="padding:10px 8px;">瑞士轮 (Swiss)</th>
             <th style="padding:10px 8px;">PAJSK 报表 (KPM)</th>
@@ -2691,8 +2692,9 @@ function closeAccessDeniedModal() {}
         <tbody id="tierTableBody">
           <tr id="tierRow_NANO">
             <td style="font-weight:800; color:#94A3B8;">NANO</td>
+            <td style="color:#EF4444;">0 人 (锁定)</td>
             <td>16 人</td>
-            <td>3 轮</td>
+            <td>4 轮</td>
             <td style="color:#10B981;">✅ 基础</td>
             <td style="color:#EF4444;">❌ 锁定</td>
             <td style="color:#EF4444;">❌ 锁定</td>
@@ -2702,8 +2704,9 @@ function closeAccessDeniedModal() {}
           </tr>
           <tr id="tierRow_MINI">
             <td style="font-weight:800; color:#94A3B8;">MINI</td>
+            <td>40 人</td>
             <td>32 人</td>
-            <td>4 轮</td>
+            <td>5 轮</td>
             <td style="color:#10B981;">✅ 基础</td>
             <td style="color:#10B981;">✅ 包含</td>
             <td style="color:#EF4444;">❌ 锁定</td>
@@ -2713,8 +2716,9 @@ function closeAccessDeniedModal() {}
           </tr>
           <tr id="tierRow_STANDARD" style="background:rgba(241,196,15,0.08); border-left:3px solid #F1C40F;">
             <td style="font-weight:900; color:#F1C40F;">STANDARD (标准版)</td>
+            <td style="font-weight:800; color:#FFF;">80 人</td>
             <td style="font-weight:800; color:#FFF;">64 人</td>
-            <td>5 轮</td>
+            <td>6 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
             <td style="color:#10B981; font-weight:800;">✅ 官方奖状 (Sijil)</td>
@@ -2724,8 +2728,9 @@ function closeAccessDeniedModal() {}
           </tr>
           <tr id="tierRow_PLUS" style="background:rgba(16,185,129,0.08); border-left:3px solid #10B981;">
             <td style="font-weight:900; color:#10B981;">PLUS (增强教务版)</td>
+            <td style="font-weight:800; color:#FFF;">150 人</td>
             <td style="font-weight:800; color:#FFF;">96 人</td>
-            <td>6 轮</td>
+            <td>7 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
             <td style="color:#10B981; font-weight:800;">✅ 官方奖状 (Sijil)</td>
@@ -2735,8 +2740,9 @@ function closeAccessDeniedModal() {}
           </tr>
           <tr id="tierRow_PRO">
             <td style="font-weight:900; color:#60A5FA;">PRO (专业竞技版)</td>
+            <td style="font-weight:800; color:#FFF;">300 人</td>
             <td style="font-weight:800; color:#FFF;">128 人</td>
-            <td>6 轮</td>
+            <td>7 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
             <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
@@ -2746,8 +2752,9 @@ function closeAccessDeniedModal() {}
           </tr>
           <tr id="tierRow_ULTRA">
             <td style="font-weight:900; color:#A78BFA;">ULTRA (区级联赛版)</td>
+            <td style="font-weight:800; color:#FFF;">600 人</td>
             <td style="font-weight:800; color:#FFF;">256 人</td>
-            <td>7 轮</td>
+            <td>8 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
             <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
@@ -3414,9 +3421,9 @@ function updateMenuTierDisplay(lang) {
   if (!tierEl) return;
   const targetLang = lang || (typeof currentLang !== 'undefined' ? currentLang : 'zh');
   const currentMapped = (targetLang === 'cn' || targetLang === 'zh') ? 'zh' : (targetLang === 'my' || targetLang === 'bm' ? 'bm' : 'en');
-  const limits = window.SCHOOL_TIER_LIMITS || { tier: 'STANDARD', maxPlayersAllowed: 64 };
+  const limits = window.SCHOOL_TIER_LIMITS || { tier: 'STANDARD', maxTourneyPlayers: 64 };
   const tierName = (limits.tier || 'STANDARD') + ' TIER';
-  const max = limits.maxPlayersAllowed || 64;
+  const max = limits.maxTourneyPlayers || 64;
   let suffix = '';
   if (currentMapped === 'zh') {
     suffix = max >= 9999 ? '无限人数版' : `${max}人版`;
@@ -3763,23 +3770,37 @@ function showSchoolApp() {
 
         // Apply Tier Limits
         const tier = (d.tier || 'STANDARD').toString().trim().toUpperCase();
-        let maxRoundsAllowed = 5, maxPlayersAllowed = 64, blockProjector = true, blockCert = false, blockPajsk = false, blockElo = true;
+        let maxRoundsAllowed = 6, maxPajskStudents = 80, maxTourneyPlayers = 64, blockProjector = true, blockCert = false, blockPajsk = false, blockElo = true;
         
-        if (tier === 'NANO') { maxRoundsAllowed = 3; maxPlayersAllowed = 16; blockProjector = true; blockCert = true; blockPajsk = true; blockElo = true; }
-        else if (tier === 'MINI') { maxRoundsAllowed = 4; maxPlayersAllowed = 32; blockProjector = true; blockCert = true; blockElo = true; }
-        else if (tier === 'STANDARD') { maxRoundsAllowed = 5; maxPlayersAllowed = 64; blockProjector = true; blockCert = false; blockElo = true; }
-        else if (tier === 'PLUS') { maxRoundsAllowed = 6; maxPlayersAllowed = 96; blockProjector = true; blockCert = false; blockElo = false; }
-        else if (tier === 'PRO') { maxRoundsAllowed = 6; maxPlayersAllowed = 128; blockProjector = false; blockCert = false; blockElo = false; }
-        else if (tier === 'ULTRA') { maxRoundsAllowed = 7; maxPlayersAllowed = 256; blockProjector = false; blockCert = false; blockElo = false; }
-        else if (tier === 'TITAN') { maxRoundsAllowed = 20; maxPlayersAllowed = 9999; blockProjector = false; blockCert = false; blockElo = false; }
+        if (tier === 'NANO') { maxRoundsAllowed = 4; maxPajskStudents = 0; maxTourneyPlayers = 16; blockProjector = true; blockCert = true; blockPajsk = true; blockElo = true; }
+        else if (tier === 'MINI') { maxRoundsAllowed = 5; maxPajskStudents = 40; maxTourneyPlayers = 32; blockProjector = true; blockCert = true; blockElo = true; }
+        else if (tier === 'STANDARD') { maxRoundsAllowed = 6; maxPajskStudents = 80; maxTourneyPlayers = 64; blockProjector = true; blockCert = false; blockElo = true; }
+        else if (tier === 'PLUS') { maxRoundsAllowed = 7; maxPajskStudents = 150; maxTourneyPlayers = 96; blockProjector = true; blockCert = false; blockElo = false; }
+        else if (tier === 'PRO') { maxRoundsAllowed = 7; maxPajskStudents = 300; maxTourneyPlayers = 128; blockProjector = false; blockCert = false; blockElo = false; }
+        else if (tier === 'ULTRA') { maxRoundsAllowed = 8; maxPajskStudents = 600; maxTourneyPlayers = 256; blockProjector = false; blockCert = false; blockElo = false; }
+        else if (tier === 'TITAN') { maxRoundsAllowed = 20; maxPajskStudents = 9999; maxTourneyPlayers = 9999; blockProjector = false; blockCert = false; blockElo = false; }
 
-        window.SCHOOL_TIER_LIMITS = { maxRoundsAllowed, maxPlayersAllowed, blockProjector, blockCert, blockElo, blockPajsk, tier };
+        window.SCHOOL_TIER_LIMITS = { maxRoundsAllowed, maxPajskStudents, maxTourneyPlayers, blockProjector, blockCert, blockElo, blockPajsk, tier };
         updateMenuTierDisplay();
 
         const selRounds = document.getElementById('schTotalRounds');
         if (selRounds) {
-          selRounds.value = maxRoundsAllowed > 10 ? 10 : maxRoundsAllowed;
-          selRounds.disabled = true; // Lock rounds to tier max
+          selRounds.disabled = false; // 解开锁定，允许向下选
+          Array.from(selRounds.options).forEach(opt => {
+            const val = parseInt(opt.value);
+            if (val > maxRoundsAllowed) {
+              opt.disabled = true;
+              opt.text = `${val} 轮 (需升级) 🔒`;
+              opt.style.color = 'rgba(255,255,255,0.3)';
+            } else {
+              opt.disabled = false;
+              opt.text = `${val} 轮 (Pusingan)`;
+              opt.style.color = '';
+            }
+          });
+          if (!selRounds.value || parseInt(selRounds.value) > maxRoundsAllowed) {
+            selRounds.value = maxRoundsAllowed > 10 ? 10 : maxRoundsAllowed;
+          }
           
           let hint = document.getElementById('tierHintDisplay');
           if (!hint) {
@@ -3788,7 +3809,7 @@ function showSchoolApp() {
             hint.style = 'font-size:12.5px; color:#10B981; margin-top:8px; font-weight:800;';
             selRounds.parentNode.appendChild(hint);
           }
-          hint.innerHTML = `🔒 授权绑定: <b>${tier} TIER</b> (限 ${maxPlayersAllowed} 人)`;
+          hint.innerHTML = `🔒 授权绑定: <b>${tier} TIER</b> (限 ${maxTourneyPlayers} 人)`;
         }
       } catch(e){}
     }
@@ -3944,9 +3965,9 @@ function startSchoolTournament() {
     return;
   }
 
-  const limits = window.SCHOOL_TIER_LIMITS || { maxPlayersAllowed: 9999 };
-  if (rawNames.length > limits.maxPlayersAllowed) {
-    alert(`【授权受限】当前级别 (${window.SCHOOL_TIER_LIMITS.tier}) 最高仅允许 ${limits.maxPlayersAllowed} 人参赛。您输入了 ${rawNames.length} 人。`);
+  const limits = window.SCHOOL_TIER_LIMITS || { maxTourneyPlayers: 9999 };
+  if (rawNames.length > limits.maxTourneyPlayers) {
+    alert(`【授权受限】当前级别 (${window.SCHOOL_TIER_LIMITS.tier}) 单场赛事最高仅允许 ${limits.maxTourneyPlayers} 人参赛。您输入了 ${rawNames.length} 人。`);
     return;
   }
 
@@ -5784,13 +5805,13 @@ function submitNewStudent(event) {
   const ic = icInput ? icInput.value.trim() : '';
 
   const isEn = currentLang === 'en';
-  const limits = window.SCHOOL_TIER_LIMITS || { maxPlayersAllowed: 64, tier: 'STANDARD' };
-  if (schoolHub.students && schoolHub.students.length >= limits.maxPlayersAllowed) {
+  const limits = window.SCHOOL_TIER_LIMITS || { maxPajskStudents: 80, tier: 'STANDARD' };
+  if (schoolHub.students && schoolHub.students.length >= limits.maxPajskStudents) {
     const msg = isEn
-      ? `Student quota reached! Your ${limits.tier} TIER license allows a maximum of ${limits.maxPlayersAllowed} registered students. Please upgrade to a higher tier to add more students.`
+      ? `Student quota reached! Your ${limits.tier} TIER license allows a maximum of ${limits.maxPajskStudents} registered PAJSK students. Please upgrade to a higher tier to add more students.`
       : (isBm
-        ? `Had kuota murid telah dicapai! Lesen ${limits.tier} TIER membenarkan maksimum ${limits.maxPlayersAllowed} orang murid. Sila naik taraf lesen untuk menambah murid lagi.`
-        : `【授权名额已满】当前【${limits.tier} TIER】最多支持录入 ${limits.maxPlayersAllowed} 位在籍学员。如需继续扩充学员名单，请联系总控教练升级授权层级！`);
+        ? `Had kuota murid telah dicapai! Lesen ${limits.tier} TIER membenarkan maksimum ${limits.maxPajskStudents} orang murid PAJSK. Sila naik taraf lesen untuk menambah murid lagi.`
+        : `【PAJSK 档案名额已满】当前【${limits.tier} TIER】最多支持录入 ${limits.maxPajskStudents} 位在籍学员。如需继续扩充学员名单，请联系总控教练升级授权层级！`);
     showSchoolNotice(msg, isEn ? 'Quota Reached' : (isBm ? 'Had Kuota Dicapai' : '名额已达上限'));
     return;
   }
