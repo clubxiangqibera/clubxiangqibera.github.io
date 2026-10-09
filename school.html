@@ -1797,11 +1797,11 @@ function setLang(lang) {
 function updateSeg(lang) {
   const l = (lang === 'zh' || lang === 'cn') ? 'cn' : lang;
   const sysL = (lang === 'cn' || lang === 'zh') ? 'zh' : lang;
-  document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
-  let activeBtn = document.getElementById('seg_' + l);
-  if(activeBtn) activeBtn.classList.add('active');
-  let sysBtn = document.getElementById('sys_lang_' + sysL);
-  if(sysBtn) sysBtn.classList.add('active');
+  document.querySelectorAll('.apple-segment .seg-btn, .nav-lang-chip').forEach(b => b.classList.remove('active'));
+  ['seg_' + l, 'login_nav_lang_' + l, 'nav_lang_' + l, 'sys_lang_' + sysL].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  });
 }
 </script>
 
@@ -2204,10 +2204,6 @@ function updateSeg(lang) {
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span id="btnPrintNoticeboardText">打印布告栏风云榜 (A4)</span>
             </button>
-            <button class="btn btn-outline" style="font-size:13px; padding:8px 14px; display:inline-flex; align-items:center; gap:6px;" onclick="exportSchoolPajskCsv()">
-              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>导出 PAJSK CSV</span>
-            </button>
             <button class="btn btn-outline" style="font-size:13px; padding:8px 16px; display:inline-flex; align-items:center; gap:6px; border-color:rgba(255,255,255,0.25);" onclick="openAddStudentModal()">
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               <span id="btnAddStudentText">添加学员</span>
@@ -2597,6 +2593,60 @@ function updateSeg(lang) {
 <script>
 // --- AUTHENTICATION VIA CLOUDFLARE WORKER + KV ---
 const CF_WORKER_URL = 'https://qijing-api.qijing.workers.dev';
+
+// --- 0. QIJING SCHOOL OPERATING SYSTEM CORE STATE ---
+const DEFAULT_SCHOOL_STUDENTS = [
+  { id: "S1", name: "曾俊杰", nameBm: "CHAN JUN JIE", class: "6A", ic: "130512-06-1234", jawatan: "Pengerusi", elo: 1180, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 4, draws: 0, losses: 0 },
+  { id: "S2", name: "李浩宇", nameBm: "LEE HAO YU", class: "6B", ic: "130722-06-2345", jawatan: "Naib Pengerusi", elo: 1145, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 3, draws: 1, losses: 0 },
+  { id: "S3", name: "张小明", nameBm: "TEO XIAO MING", class: "5A", ic: "140315-06-3456", jawatan: "Setiausaha", elo: 1110, attendance: [1,1,1,1,1,1,1,1,0,1,1,1], wins: 3, draws: 0, losses: 1 },
+  { id: "S4", name: "陈伟豪", nameBm: "TAN WEI HAO", class: "5C", ic: "140819-06-4567", jawatan: "Bendahari", elo: 1090, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 2, draws: 1, losses: 1 },
+  { id: "S5", name: "王家伦", nameBm: "ONG JIA LUN", class: "4A", ic: "150110-06-5678", jawatan: "AJK", elo: 1060, attendance: [1,1,1,1,1,0,1,1,1,1,1,1], wins: 2, draws: 0, losses: 2 },
+  { id: "S6", name: "林子轩", nameBm: "LIM ZI XUAN", class: "4B", ic: "150920-06-6789", jawatan: "AJK", elo: 1040, attendance: [1,1,1,1,1,1,1,1,1,1,0,1], wins: 1, draws: 1, losses: 2 },
+  { id: "S7", name: "黄嘉欣", nameBm: "NG JIA XIN", class: "5B", ic: "141105-06-7890", jawatan: "Ahli Aktif", elo: 1020, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 1, draws: 0, losses: 3 },
+  { id: "S8", name: "吴宇哲", nameBm: "GOH YU ZHE", class: "3A", ic: "160228-06-8901", jawatan: "Ahli Biasa", elo: 1000, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 0, draws: 1, losses: 3 }
+];
+
+let initStudents = null;
+try {
+  const raw = localStorage.getItem('qj_school_students');
+  if (raw) initStudents = JSON.parse(raw);
+} catch(e) {}
+
+if (!Array.isArray(initStudents) || initStudents.length === 0) {
+  initStudents = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
+} else {
+  initStudents.forEach((s, idx) => {
+    if (!s.id) s.id = `S_${idx + 1}`;
+    if (!s.nameBm) {
+      const def = DEFAULT_SCHOOL_STUDENTS.find(d => d.id === s.id || d.name === s.name);
+      s.nameBm = def ? def.nameBm : (s.name || '').toUpperCase();
+    }
+    if (!Array.isArray(s.attendance) || s.attendance.length < 12) {
+      s.attendance = [1,1,1,1,1,1,1,1,1,1,1,1];
+    }
+  });
+}
+
+let schoolHub = {
+  activeSchool: localStorage.getItem('qj_active_school') || "SJK(C) Triang 1",
+  students: initStudents,
+  microPairings: []
+};
+
+function saveSchoolHub() {
+  try {
+    localStorage.setItem('qj_active_school', schoolHub.activeSchool);
+    localStorage.setItem('qj_school_students', JSON.stringify(schoolHub.students));
+  } catch(e) {}
+}
+
+function resetDefaultStudents() {
+  schoolHub.students = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
+  saveSchoolHub();
+  renderWeeklyAttendance();
+  renderPajskRoster();
+  showSchoolNotice('已成功重置并载入示范学员数据。', '数据已恢复');
+}
 
 // --- LANGUAGE SWITCHER FOR LOGIN & SYSTEM ---
 let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
@@ -3024,16 +3074,15 @@ function updateSchoolSeg(lang) {
   const l = (lang === 'zh' || lang === 'cn') ? 'cn' : (lang === 'bm' || lang === 'my' ? 'bm' : 'en');
   const sysL = (lang === 'cn' || lang === 'zh') ? 'zh' : (lang === 'bm' || lang === 'my' ? 'bm' : 'en');
   
-  // Update segment control if present
-  document.querySelectorAll('.apple-segment .seg-btn').forEach(b => b.classList.remove('active'));
-  const segBtn = document.getElementById('seg_' + l);
-  if (segBtn) segBtn.classList.add('active');
-  const sysBtn = document.getElementById('sys_lang_' + sysL);
-  if (sysBtn) sysBtn.classList.add('active');
+  // 1. Remove active from all language segments and nav chips
+  document.querySelectorAll('.apple-segment .seg-btn, .nav-lang-chip').forEach(b => b.classList.remove('active'));
 
-  // Update nav-lang-chip elements
-  document.querySelectorAll('.nav-lang-chip').forEach(b => b.classList.remove('active'));
-  const chips = document.querySelectorAll('#nav_lang_' + l + ', #login_nav_lang_' + l + ', #sys_lang_' + sysL);
+  // 2. Add active to matched language buttons across the entire page
+  const targetIds = ['seg_' + l, 'login_nav_lang_' + l, 'nav_lang_' + l, 'sys_lang_' + sysL];
+  targetIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  });
 }
 
 function showSchoolNotice(msg, title = null) {
@@ -3299,7 +3348,10 @@ function setSystemLang(lang) {
   const btnPrintNoticeboardText = document.getElementById('btnPrintNoticeboardText');
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
-  // Re-render Tab 3 Roster if present
+  // Re-render Tab 1 Attendance & Tab 3 Roster if present
+  if (typeof renderWeeklyAttendance === 'function') {
+    renderWeeklyAttendance();
+  }
   if (typeof renderPajskRoster === 'function') {
     renderPajskRoster();
   }
@@ -4864,56 +4916,8 @@ function printSchoolEloRanking() {
 }
 
 // ========================================================
-// 6. QIJING SCHOOL OPERATING SYSTEM (HUB, ATTENDANCE & PAJSK)
+// 6. QIJING SCHOOL OPERATING SYSTEM FUNCTIONS
 // ========================================================
-
-const DEFAULT_SCHOOL_STUDENTS = [
-  { id: "S1", name: "曾俊杰", nameBm: "CHAN JUN JIE", class: "6A", ic: "130512-06-1234", jawatan: "Pengerusi", elo: 1180, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 4, draws: 0, losses: 0 },
-  { id: "S2", name: "李浩宇", nameBm: "LEE HAO YU", class: "6B", ic: "130722-06-2345", jawatan: "Naib Pengerusi", elo: 1145, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 3, draws: 1, losses: 0 },
-  { id: "S3", name: "张小明", nameBm: "TEO XIAO MING", class: "5A", ic: "140315-06-3456", jawatan: "Setiausaha", elo: 1110, attendance: [1,1,1,1,1,1,1,1,0,1,1,1], wins: 3, draws: 0, losses: 1 },
-  { id: "S4", name: "陈伟豪", nameBm: "TAN WEI HAO", class: "5C", ic: "140819-06-4567", jawatan: "Bendahari", elo: 1090, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 2, draws: 1, losses: 1 },
-  { id: "S5", name: "王家伦", nameBm: "ONG JIA LUN", class: "4A", ic: "150110-06-5678", jawatan: "AJK", elo: 1060, attendance: [1,1,1,1,1,0,1,1,1,1,1,1], wins: 2, draws: 0, losses: 2 },
-  { id: "S6", name: "林子轩", nameBm: "LIM ZI XUAN", class: "4B", ic: "150920-06-6789", jawatan: "AJK", elo: 1040, attendance: [1,1,1,1,1,1,1,1,1,1,0,1], wins: 1, draws: 1, losses: 2 },
-  { id: "S7", name: "黄嘉欣", nameBm: "NG JIA XIN", class: "5B", ic: "141105-06-7890", jawatan: "Ahli Aktif", elo: 1020, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 1, draws: 0, losses: 3 },
-  { id: "S8", name: "吴宇哲", nameBm: "GOH YU ZHE", class: "3A", ic: "160228-06-8901", jawatan: "Ahli Biasa", elo: 1000, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 0, draws: 1, losses: 3 }
-];
-
-let initStudents = null;
-try {
-  const raw = localStorage.getItem('qj_school_students');
-  if (raw) initStudents = JSON.parse(raw);
-} catch(e) {}
-
-if (!Array.isArray(initStudents) || initStudents.length === 0) {
-  initStudents = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
-} else {
-  initStudents.forEach((s, idx) => {
-    if (!s.id) s.id = `S_${idx + 1}`;
-    if (!s.nameBm) {
-      const def = DEFAULT_SCHOOL_STUDENTS.find(d => d.id === s.id || d.name === s.name);
-      s.nameBm = def ? def.nameBm : (s.name || '').toUpperCase();
-    }
-  });
-}
-
-let schoolHub = {
-  activeSchool: localStorage.getItem('qj_active_school') || "SJK(C) Triang 1",
-  students: initStudents,
-  microPairings: []
-};
-
-function resetDefaultStudents() {
-  schoolHub.students = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
-  saveSchoolHub();
-  renderWeeklyAttendance();
-  renderPajskRoster();
-  showSchoolNotice('已成功重置并载入示范学员数据。', '数据已恢复');
-}
-
-function saveSchoolHub() {
-  localStorage.setItem('qj_active_school', schoolHub.activeSchool);
-  localStorage.setItem('qj_school_students', JSON.stringify(schoolHub.students));
-}
 
 function onSchoolSelectChange(val) {
   if (val === 'custom') {
@@ -5904,11 +5908,17 @@ function copyLaporanText() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initSchoolHubPage() {
   updateSchoolUiLabels();
   renderWeeklyAttendance();
   renderPajskRoster();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSchoolHubPage);
+} else {
+  initSchoolHubPage();
+}
 </script>
 </body>
 </html>
