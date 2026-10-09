@@ -2204,9 +2204,17 @@ function updateSeg(lang) {
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span id="btnPrintNoticeboardText">打印布告栏风云榜 (A4)</span>
             </button>
+            <button class="btn btn-outline" style="font-size:13px; padding:8px 14px; display:inline-flex; align-items:center; gap:6px;" onclick="exportSchoolPajskCsv()">
+              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>导出 PAJSK CSV</span>
+            </button>
             <button class="btn btn-outline" style="font-size:13px; padding:8px 16px; display:inline-flex; align-items:center; gap:6px; border-color:rgba(255,255,255,0.25);" onclick="openAddStudentModal()">
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               <span id="btnAddStudentText">添加学员</span>
+            </button>
+            <button class="btn btn-outline" style="font-size:13px; padding:8px 12px; display:inline-flex; align-items:center; gap:6px; color:#94A3B8; border-color:rgba(255,255,255,0.18);" onclick="resetDefaultStudents()" title="重置并恢复示范学员名单">
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>重置学员</span>
             </button>
           </div>
         </div>
@@ -2223,7 +2231,7 @@ function updateSeg(lang) {
                 <th style="width:90px;" id="thPajskScore">职务得分</th>
                 <th style="width:90px;" id="thPajskElo">校内 ELO</th>
                 <th style="text-align:left; width:130px;" id="thPajskTeam">校队定位</th>
-                <th style="width:90px; text-align:center;" id="thPajskAction">操作</th>
+                <th style="width:165px; text-align:center;" id="thPajskAction">操作</th>
               </tr>
             </thead>
             <tbody id="pajskRosterTableBody"></tbody>
@@ -2505,8 +2513,18 @@ function updateSeg(lang) {
 
     <form onsubmit="submitNewStudent(event)" style="display:flex; flex-direction:column; gap:16px;">
       <div>
-        <label id="lblStudentName" style="display:block; font-size:12.5px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">学生全名 (Full Name) <span style="color:#F87171;">*</span></label>
-        <input type="text" id="newStudentName" required placeholder="如：林俊杰 / Tan Wei Liang" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:11px 14px; font-size:13.5px; color:#FFF; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.45)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <label id="lblStudentNameBm" style="display:block; font-size:12.5px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">
+          国文/英文官方姓名 (Nama IC/BM) <span style="color:#F87171;">*</span>
+          <span style="font-size:11px; color:#94A3B8; font-weight:normal; margin-left:6px;">(公函 Surat MSSD / 证书及 PAJSK 必须使用)</span>
+        </label>
+        <input type="text" id="newStudentNameBm" required placeholder="如：CHAN JUN JIE / LEE HAO YU" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:11px 14px; font-size:13.5px; color:#FFF; outline:none; text-transform:uppercase; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.45)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'" oninput="this.value = this.value.toUpperCase()">
+      </div>
+
+      <div>
+        <label id="lblStudentNameCn" style="display:block; font-size:12.5px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">
+          中文姓名 (Nama Cina) <span style="font-size:11px; color:#94A3B8; font-weight:normal; margin-left:6px;">(可选，用于校内对阵榜及风云榜)</span>
+        </label>
+        <input type="text" id="newStudentName" placeholder="如：曾俊杰 / 李浩宇" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:11px 14px; font-size:13.5px; color:#FFF; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.45)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
       </div>
 
       <div style="display:grid; grid-template-columns:1fr 1.3fr; gap:12px;">
@@ -2683,10 +2701,10 @@ const I18N = {
     printMetaPlayers: '参赛人数',
     printTieBreak: '个人总积分 ➔ 布赫兹对手分 (Buchholz) ➔ 种子排位',
     printSignArbiter: '裁判长签署 (Chief Arbiter)',
-    printSignSchool: '校方指导老师/顾问 (Teacher Advisor)',
-    printSignCert: '棋境教研技术委员会认证 (QiJing)',
-    printCertCode: '官方认证识别码: QiJing-VERIFIED-2026',
-    printDisclaimer: '* 本报告由棋境教研技术委员会官方赛事系统自动破同分核算，签署与盖章后即具官方正规赛事认证效力。'
+    printSignSchool: '校方指导老师/顾问 (Guru Penasihat)',
+    printSignCert: '校方行政签署 (Guru Besar / Pengetua)',
+    printCertCode: '校方公章 (Cop Rasmi Sekolah)',
+    printDisclaimer: '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'
   },
   bm: {
     brandSub: 'Sistem Catur Sekolah QiJing · Sistem Pensijilan Rasmi',
@@ -2788,9 +2806,9 @@ const I18N = {
     printTieBreak: 'Jumlah Mata ➔ Mata Lawan (Buchholz) ➔ Pilihan Asal',
     printSignArbiter: 'Ketua Pengadil (Chief Arbiter)',
     printSignSchool: 'Guru Penasihat / Pihak Sekolah (Advisor)',
-    printSignCert: 'Pensijilan Rasmi QiJing (QiJing School System)',
-    printCertCode: 'No. Pensijilan: QiJing-VERIFIED-2026',
-    printDisclaimer: '* Laporan ini dijana dan disahkan secara automatik oleh sistem rasmi QiJing. Sah dengan tandatangan dan cop rasmi.'
+    printSignCert: 'Guru Besar / Pengetua (Pihak Pentadbir)',
+    printCertCode: 'Tandatangan & Cop Rasmi Sekolah',
+    printDisclaimer: '* Laporan ini dijana berasaskan Sistem Swiss dengan kiraan Buchholz rasmi. Sah dengan tandatangan dan cop rasmi sekolah.'
   },
   en: {
     brandSub: 'QiJing School System · Official Tech Partner',
@@ -2890,11 +2908,11 @@ const I18N = {
     printMetaRounds: 'Tournament Format',
     printMetaPlayers: 'Total Players',
     printTieBreak: 'Total Points ➔ Buchholz Opponent Score ➔ Seed Rank',
-    printSignArbiter: 'Chief Arbiter Signature',
-    printSignSchool: 'Teacher Advisor / Principal Signature',
-    printSignCert: 'QiJing School System Certification',
-    printCertCode: 'Certificate ID: QiJing-VERIFIED-2026',
-    printDisclaimer: '* This report is automatically calculated and verified by the official QiJing Pairing Engine. Valid upon signature and official seal.'
+    printSignArbiter: 'Chief Arbiter Signature (Ketua Pengadil)',
+    printSignSchool: 'Teacher Advisor (Guru Penasihat)',
+    printSignCert: 'Principal / Headmaster (Guru Besar)',
+    printCertCode: 'Official School Stamp (Cop Rasmi)',
+    printDisclaimer: '* This official tournament report is calculated using the Swiss-System engine with tie-breaks. Valid upon school signature and official stamp.'
   }
 };
 
@@ -3443,6 +3461,8 @@ function showSchoolApp() {
     }
 
     loadStoredSchoolTourney();
+    renderWeeklyAttendance();
+    renderPajskRoster();
     startLicenseLiveMonitor();
     setSystemLang(currentLang);
   } catch (err) {
@@ -4142,9 +4162,9 @@ function printSchoolReport(type = 'standings') {
             }
 
             let rankLabel = `${i + 1}`;
-            if (i === 0) rankLabel = `🥇 冠军 (Johan)`;
-            else if (i === 1) rankLabel = `🥈 亚军 (Naib Johan)`;
-            else if (i === 2) rankLabel = `🥉 季军 (Ketiga)`;
+            if (i === 0) rankLabel = `1 (Johan / 冠军)`;
+            else if (i === 1) rankLabel = `2 (Naib Johan / 亚军)`;
+            else if (i === 2) rankLabel = `3 (Tempat Ketiga / 季军)`;
 
             return `
               <tr style="${i < 3 ? 'background:#FFFDF5;' : ''}">
@@ -4168,7 +4188,7 @@ function printSchoolReport(type = 'standings') {
       <div class="print-doc-header">
         <img src="cxb_round_emblem.png" alt="QiJing" class="print-doc-logo">
         <div class="print-doc-header-text">
-          <div class="print-brand-main">${t.printLetterheadTitle || '棋境教研技术委员会 · 全国校际象棋赛事技术委员会'}</div>
+          <div class="print-brand-main">${t.printLetterheadTitle || '棋境校园系统 · 全国校际象棋赛事技术委员会'}</div>
           <div class="print-brand-sub">${t.printEngineName || '官方认证赛事编排引擎 · QiJing PAIRING ENGINE'}</div>
           <div class="print-doc-title">${docTitle}</div>
         </div>
@@ -4204,7 +4224,7 @@ function printSchoolReport(type = 'standings') {
         ${tableHTML}
       </div>
 
-      <!-- OFFICIAL THREE-COLUMN SIGN-OFF & CERTIFICATION BLOCK -->
+      <!-- OFFICIAL THREE-COLUMN SIGN-OFF (MALAYSIAN SCHOOL STANDARD) -->
       <div class="print-sign-block">
         <div class="print-sign-col">
           <div class="print-sign-title">${t.printSignArbiter || '裁判长签署 (Chief Arbiter)'}</div>
@@ -4213,27 +4233,22 @@ function printSchoolReport(type = 'standings') {
           <div class="print-sign-date">日期: 2026 年 ___ 月 ___ 日</div>
         </div>
         <div class="print-sign-col">
-          <div class="print-sign-title">${t.printSignSchool || '校方指导老师/顾问 (Teacher Advisor)'}</div>
+          <div class="print-sign-title">${t.printSignSchool || '校方指导老师/顾问 (Guru Penasihat)'}</div>
           <div class="print-sign-line"></div>
           <div class="print-sign-name">签名 / 盖章: _____________________</div>
           <div class="print-sign-date">日期: 2026 年 ___ 月 ___ 日</div>
         </div>
-        <div class="print-sign-col print-stamp-col">
-          <div class="print-sign-title">${t.printSignCert || '棋境教研技术委员会官方认证 (QiJing)'}</div>
-          <div class="print-stamp-box">
-            <div class="print-stamp-circle">
-              <span>★ QiJing ★</span>
-              <span>官方技术认证</span>
-              <span>VERIFIED</span>
-            </div>
-          </div>
-          <div class="print-cert-code">${t.printCertCode || '认证识别号: QiJing-VERIFIED-2026'}</div>
+        <div class="print-sign-col">
+          <div class="print-sign-title">${t.printSignCert || '校方行政签署 (Guru Besar / Pengetua)'}</div>
+          <div class="print-sign-line"></div>
+          <div class="print-sign-name">签名 / 盖章: _____________________</div>
+          <div class="print-sign-date">${t.printCertCode || '校方公章 (Cop Rasmi Sekolah)'}</div>
         </div>
       </div>
 
       <!-- FOOTER NOTE -->
       <div class="print-doc-footer">
-        ${t.printDisclaimer || '* 本报告由棋境教研技术委员会官方赛事系统自动破同分核算，签署与盖章后即具官方正规赛事认证效力。'}
+        ${t.printDisclaimer || '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'}
       </div>
     </div>
   `;
@@ -4390,12 +4405,12 @@ function printSchoolCertificates(mode = 'winners', targetIdx = null) {
           <div class="cert-header">
             <img src="cxb_round_emblem.png" alt="QiJing" class="cert-logo">
             <div>
-              <div class="cert-org-main">QIJING ACADEMIC & TECHNICAL DIRECTORATE, PAHANG</div>
-              <div class="cert-org-sub">棋境教研技术委员会 · 官方技术认证与赛事评级机构</div>
+              <div class="cert-org-main">KEMENTERIAN PENDIDIKAN MALAYSIA · UNIT KOKURIKULUM</div>
+              <div class="cert-org-sub">SISTEM PENGURUSAN CATUR SEKOLAH · KEJOHANAN CATUR PERINGKAT SEKOLAH</div>
             </div>
           </div>
 
-          <div class="cert-badge-ribbon">★ KEJOHANAN CATUR PERINGKAT SEKOLAH & SIRI QI JING ★</div>
+          <div class="cert-badge-ribbon">KEJOHANAN CATUR PERINGKAT SEKOLAH · PAJSK KPM</div>
 
           <!-- TITLE -->
           <div class="cert-title-bm">${awardTitleBm}</div>
@@ -4675,9 +4690,10 @@ function calcSchoolEloStandings() {
   } else if (typeof schoolHub !== 'undefined' && schoolHub.students && schoolHub.students.length > 0) {
     const list = schoolHub.students.map((s, idx) => {
       const curElo = s.elo || 1000;
+      const displayName = s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name;
       return {
         id: s.id || ('s_' + idx),
-        name: s.name,
+        name: displayName,
         seed: idx + 1,
         currentElo: curElo,
         deltaElo: 0,
@@ -4748,7 +4764,7 @@ function renderSchoolEloLeaderboard() {
     return `
       <tr style="border-bottom:1px solid rgba(255,255,255,0.06); ${p.rank <= 3 ? 'background:rgba(241,196,15,0.04);' : ''}">
         <td style="padding:10px 12px; font-weight:900; color:#FFF;">${medal}</td>
-        <td style="padding:10px 14px; text-align:left; font-weight:800; color:#FFF;">${p.name}</td>
+        <td style="padding:10px 14px; text-align:left; font-weight:800; color:#FFF; cursor:pointer;" onclick="openStudentProfileCard('${p.id}')" title="查看战力表现卡 / Kad Prestasi">${p.name}</td>
         <td style="padding:10px 12px; font-weight:900; color:#F1C40F; font-size:14px;">${p.currentElo}</td>
         <td style="padding:10px 12px; font-weight:800; color:${deltaColor};">${deltaSign}</td>
         <td style="padding:10px 12px; color:rgba(255,255,255,0.85);">${p.wins}胜 / ${p.draws}平 / ${p.losses}负</td>
@@ -4852,21 +4868,47 @@ function printSchoolEloRanking() {
 // ========================================================
 
 const DEFAULT_SCHOOL_STUDENTS = [
-  { id: "S1", name: "曾俊杰", class: "6A", ic: "130512-06-1234", jawatan: "Pengerusi", elo: 1180, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 4, draws: 0, losses: 0 },
-  { id: "S2", name: "李浩宇", class: "6B", ic: "130722-06-2345", jawatan: "Naib Pengerusi", elo: 1145, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 3, draws: 1, losses: 0 },
-  { id: "S3", name: "张小明", class: "5A", ic: "140315-06-3456", jawatan: "Setiausaha", elo: 1110, attendance: [1,1,1,1,1,1,1,1,0,1,1,1], wins: 3, draws: 0, losses: 1 },
-  { id: "S4", name: "陈伟豪", class: "5C", ic: "140819-06-4567", jawatan: "Bendahari", elo: 1090, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 2, draws: 1, losses: 1 },
-  { id: "S5", name: "王家伦", class: "4A", ic: "150110-06-5678", jawatan: "AJK", elo: 1060, attendance: [1,1,1,1,1,0,1,1,1,1,1,1], wins: 2, draws: 0, losses: 2 },
-  { id: "S6", name: "林子轩", class: "4B", ic: "150920-06-6789", jawatan: "AJK", elo: 1040, attendance: [1,1,1,1,1,1,1,1,1,1,0,1], wins: 1, draws: 1, losses: 2 },
-  { id: "S7", name: "黄嘉欣", class: "5B", ic: "141105-06-7890", jawatan: "Ahli Aktif", elo: 1020, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 1, draws: 0, losses: 3 },
-  { id: "S8", name: "吴宇哲", class: "3A", ic: "160228-06-8901", jawatan: "Ahli Biasa", elo: 1000, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 0, draws: 1, losses: 3 }
+  { id: "S1", name: "曾俊杰", nameBm: "CHAN JUN JIE", class: "6A", ic: "130512-06-1234", jawatan: "Pengerusi", elo: 1180, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 4, draws: 0, losses: 0 },
+  { id: "S2", name: "李浩宇", nameBm: "LEE HAO YU", class: "6B", ic: "130722-06-2345", jawatan: "Naib Pengerusi", elo: 1145, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 3, draws: 1, losses: 0 },
+  { id: "S3", name: "张小明", nameBm: "TEO XIAO MING", class: "5A", ic: "140315-06-3456", jawatan: "Setiausaha", elo: 1110, attendance: [1,1,1,1,1,1,1,1,0,1,1,1], wins: 3, draws: 0, losses: 1 },
+  { id: "S4", name: "陈伟豪", nameBm: "TAN WEI HAO", class: "5C", ic: "140819-06-4567", jawatan: "Bendahari", elo: 1090, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 2, draws: 1, losses: 1 },
+  { id: "S5", name: "王家伦", nameBm: "ONG JIA LUN", class: "4A", ic: "150110-06-5678", jawatan: "AJK", elo: 1060, attendance: [1,1,1,1,1,0,1,1,1,1,1,1], wins: 2, draws: 0, losses: 2 },
+  { id: "S6", name: "林子轩", nameBm: "LIM ZI XUAN", class: "4B", ic: "150920-06-6789", jawatan: "AJK", elo: 1040, attendance: [1,1,1,1,1,1,1,1,1,1,0,1], wins: 1, draws: 1, losses: 2 },
+  { id: "S7", name: "黄嘉欣", nameBm: "NG JIA XIN", class: "5B", ic: "141105-06-7890", jawatan: "Ahli Aktif", elo: 1020, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 1, draws: 0, losses: 3 },
+  { id: "S8", name: "吴宇哲", nameBm: "GOH YU ZHE", class: "3A", ic: "160228-06-8901", jawatan: "Ahli Biasa", elo: 1000, attendance: [1,1,1,1,1,1,1,1,1,1,1,1], wins: 0, draws: 1, losses: 3 }
 ];
+
+let initStudents = null;
+try {
+  const raw = localStorage.getItem('qj_school_students');
+  if (raw) initStudents = JSON.parse(raw);
+} catch(e) {}
+
+if (!Array.isArray(initStudents) || initStudents.length === 0) {
+  initStudents = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
+} else {
+  initStudents.forEach((s, idx) => {
+    if (!s.id) s.id = `S_${idx + 1}`;
+    if (!s.nameBm) {
+      const def = DEFAULT_SCHOOL_STUDENTS.find(d => d.id === s.id || d.name === s.name);
+      s.nameBm = def ? def.nameBm : (s.name || '').toUpperCase();
+    }
+  });
+}
 
 let schoolHub = {
   activeSchool: localStorage.getItem('qj_active_school') || "SJK(C) Triang 1",
-  students: JSON.parse(localStorage.getItem('qj_school_students') || "null") || DEFAULT_SCHOOL_STUDENTS,
+  students: initStudents,
   microPairings: []
 };
+
+function resetDefaultStudents() {
+  schoolHub.students = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
+  saveSchoolHub();
+  renderWeeklyAttendance();
+  renderPajskRoster();
+  showSchoolNotice('已成功重置并载入示范学员数据。', '数据已恢复');
+}
 
 function saveSchoolHub() {
   localStorage.setItem('qj_active_school', schoolHub.activeSchool);
@@ -4942,6 +4984,21 @@ function renderWeeklyAttendance() {
   if (!tbody) return;
 
   const totalMurid = schoolHub.students.length;
+  if (totalMurid === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="17" style="text-align:center; padding:35px 20px; color:#94A3B8;">
+          <div style="font-size:14px; font-weight:700; margin-bottom:8px; color:#FFF;">暂无在籍学员记录 (Tiada Rekod Murid)</div>
+          <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请前往【学员档案】选项卡添加学员，或一键恢复示范学员名单。</div>
+          <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="resetDefaultStudents()">恢复默认示范学员名单</button>
+        </td>
+      </tr>
+    `;
+    const totalMuridEl = document.getElementById('metricWeeklyTotalMurid');
+    if (totalMuridEl) totalMuridEl.textContent = `0 人`;
+    return;
+  }
+
   let totalPossible = totalMurid * 12;
   let totalAttended = 0;
 
@@ -4964,11 +5021,15 @@ function renderWeeklyAttendance() {
       `;
     }).join('');
 
+    const displayNameBm = (s.nameBm || s.name).toUpperCase();
+    const displayNameCn = (s.name && s.name !== s.nameBm) ? s.name : '';
+
     return `
       <tr>
         <td style="font-weight:800; color:rgba(255,255,255,0.6);">${idx + 1}</td>
         <td style="text-align:left; font-weight:800; color:#FFF;">
-          <span>${s.name}</span>
+          <span style="font-size:13px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Kad Prestasi">${displayNameBm}</span>
+          ${displayNameCn ? `<span style="font-size:11.5px; color:#94A3B8; margin-left:6px; font-weight:normal; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')">(${displayNameCn})</span>` : ''}
         </td>
         <td style="color:rgba(255,255,255,0.7);">${s.class}</td>
         ${weekCells}
@@ -5003,15 +5064,19 @@ function toggleAttendance(studentId, weekIdx) {
 }
 
 function markAllCurrentSessionPresent() {
+  if (!schoolHub.students || schoolHub.students.length === 0) {
+    showSchoolNotice('暂无在籍学员！请先在【学员档案】中添加学员或恢复默认名单。', '提示');
+    return;
+  }
   const select = document.getElementById('quickSessionSelect');
-  const sessionIdx = parseInt(select.value, 10) - 1;
+  const sessionIdx = parseInt(select ? select.value : '1', 10) - 1;
   schoolHub.students.forEach(s => {
     if (!s.attendance) s.attendance = [0,0,0,0,0,0,0,0,0,0,0,0];
     s.attendance[sessionIdx] = 1;
   });
   saveSchoolHub();
   renderWeeklyAttendance();
-  alert(`✅ 已为全员打卡完成第 ${sessionIdx + 1} 次集会出勤！`);
+  showSchoolNotice(`已为全员 (${schoolHub.students.length}人) 完成第 ${sessionIdx + 1} 次集会出勤打卡！`, '打卡完成');
 }
 
 function generateWeeklyMicroPairings() {
@@ -5024,7 +5089,7 @@ function generateWeeklyMicroPairings() {
   // Filter attending students today
   const attending = schoolHub.students.filter(s => (s.attendance && s.attendance[sessionIdx] === 1));
   if (attending.length < 2) {
-    alert('当前集会出席人数不足 2 人，无法进行快棋配对！');
+    showSchoolNotice(`第 ${sessionIdx + 1} 次集会当前出席人数不足 2 人 (${attending.length}人出席)。请先在上方为出勤学员打卡或点击「本周全员打卡」，再一键生成微挑战对阵！`, '出席人数不足');
     return;
   }
 
@@ -5056,15 +5121,17 @@ function generateWeeklyMicroPairings() {
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
       ${pairings.map((p, idx) => {
+        const redName = p.red.nameBm || p.red.name;
         if (!p.black) {
           return `
             <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px 14px;">
               <div style="font-size:11px; color:rgba(255,255,255,0.5); font-weight:800;">第 ${idx + 1} 台 ｜ 轮空休息</div>
-              <div style="font-size:14px; font-weight:800; color:#FFF; margin-top:4px;">🔴 ${p.red.name} (${p.red.elo} ELO)</div>
+              <div style="font-size:14px; font-weight:800; color:#FFF; margin-top:4px;">🔴 ${redName} (${p.red.elo} ELO)</div>
               <div style="font-size:11.5px; color:#10B981; margin-top:4px;">💤 本轮轮空自动得胜</div>
             </div>
           `;
         }
+        const blackName = p.black.nameBm || p.black.name;
         return `
           <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px 14px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -5072,9 +5139,9 @@ function generateWeeklyMicroPairings() {
               <span style="font-size:11px; color:#F1C40F; font-weight:800;">势均力敌</span>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0;">
-              <div style="font-size:13px; font-weight:800; color:#FCA5A5;">🔴 ${p.red.name} <span style="font-size:11px; color:rgba(255,255,255,0.5);">(${p.red.elo})</span></div>
+              <div style="font-size:13px; font-weight:800; color:#FCA5A5;">🔴 ${redName} <span style="font-size:11px; color:rgba(255,255,255,0.5);">(${p.red.elo})</span></div>
               <span style="font-size:11px; color:rgba(255,255,255,0.4);">VS</span>
-              <div style="font-size:13px; font-weight:800; color:#93C5FD;">⚫ ${p.black.name} <span style="font-size:11px; color:rgba(255,255,255,0.5);">(${p.black.elo})</span></div>
+              <div style="font-size:13px; font-weight:800; color:#93C5FD;">⚫ ${blackName} <span style="font-size:11px; color:rgba(255,255,255,0.5);">(${p.black.elo})</span></div>
             </div>
             <div style="display:flex; gap:6px;">
               <button class="btn btn-outline" style="flex:1; padding:4px 0; font-size:11px;" onclick="recordMicroResult(${idx}, 'red')">🔴 红胜</button>
@@ -5111,12 +5178,29 @@ function recordMicroResult(pairIdx, result) {
   saveSchoolHub();
   renderWeeklyAttendance();
   renderPajskRoster();
-  alert(`✅ 战果已录入！积分已实时微调生效！`);
+  showSchoolNotice('对战结果已录入！双方积分与 ELO 战力已实时微调更新。', '录入成功');
 }
 
 function renderPajskRoster() {
   const tbody = document.getElementById('pajskRosterTableBody');
   if (!tbody) return;
+
+  const totalMurid = schoolHub.students.length;
+  if (totalMurid === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="9" style="text-align:center; padding:35px 20px; color:#94A3B8;">
+          <div style="font-size:14px; font-weight:700; margin-bottom:8px; color:#FFF;">花名册暂无在籍学员 (Tiada Murid Berdaftar)</div>
+          <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请点击上方「添加学员」录入新学员，或一键恢复示范学员数据。</div>
+          <div style="display:flex; gap:10px; justify-content:center;">
+            <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="openAddStudentModal()">+ 添加新学员</button>
+            <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="resetDefaultStudents()">恢复默认示范学员名单</button>
+          </div>
+        </td>
+      </tr>
+    `;
+    return;
+  }
 
   // Sort by ELO descending
   schoolHub.students.sort((a,b) => b.elo - a.elo);
@@ -5124,17 +5208,23 @@ function renderPajskRoster() {
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
   const delBtnText = isEn ? 'Delete' : (isBm ? 'Padam' : '删除');
+  const cardBtnText = isEn ? 'Performance' : (isBm ? 'Kad Prestasi' : '战力表现卡');
   const scoreUnit = isEn ? 'pts' : (isBm ? 'markah' : '分');
 
   tbody.innerHTML = schoolHub.students.map((s, idx) => {
     const roleScore = calcStudentPajskRoleScore(s.jawatan);
     const teamRole = calcStudentTeamRole(idx + 1);
+    const displayNameBm = (s.nameBm || s.name).toUpperCase();
+    const displayNameCn = (s.name && s.name !== s.nameBm) ? s.name : '';
 
     return `
       <tr>
         <td style="font-weight:800; color:rgba(255,255,255,0.6);">${idx + 1}</td>
-        <td style="text-align:left; font-weight:800; color:#FFF;">
-          <span>${s.name}</span>
+        <td style="text-align:left;">
+          <div style="font-weight:800; color:#FFF; font-size:13.5px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Klik untuk Kad Prestasi">
+            ${displayNameBm}
+          </div>
+          ${displayNameCn ? `<div style="font-size:11.5px; color:#94A3B8; margin-top:2px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')">${displayNameCn}</div>` : ''}
         </td>
         <td style="color:rgba(255,255,255,0.8);">${s.class}</td>
         <td style="text-align:left; font-family:monospace; color:rgba(255,255,255,0.6);">${s.ic || '-'}</td>
@@ -5152,8 +5242,11 @@ function renderPajskRoster() {
         <td style="font-weight:800; color:#F1C40F;">${roleScore} / 10${scoreUnit}</td>
         <td style="font-weight:900; color:#F1C40F;">${s.elo}</td>
         <td style="text-align:left; font-size:12px; font-weight:700; color:#60A5FA;">${teamRole}</td>
-        <td style="text-align:center;">
-          <button class="btn btn-outline" style="padding:4px 10px; font-size:11.5px; color:#F87171; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.06); transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.18)'" onmouseout="this.style.background='rgba(239,68,68,0.06)'" onclick="deleteStudent('${s.id}')">
+        <td style="text-align:center; white-space:nowrap;">
+          <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#F1C40F; border-color:rgba(241,196,15,0.35); background:rgba(241,196,15,0.06); margin-right:4px;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Kad Prestasi">
+            📊 ${cardBtnText}
+          </button>
+          <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#F87171; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.06); transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.18)'" onmouseout="this.style.background='rgba(239,68,68,0.06)'" onclick="deleteStudent('${s.id}')">
             ${delBtnText}
           </button>
         </td>
@@ -5175,19 +5268,28 @@ function updateStudentRole(studentId, newRole) {
 let pendingDeleteStudentId = null;
 
 function deleteStudent(studentId) {
-  const s = schoolHub.students.find(item => item.id === studentId);
+  let s = schoolHub.students.find(item => item.id === studentId || String(item.id) === String(studentId));
+  if (!s && typeof studentId === 'number') {
+    s = schoolHub.students[studentId];
+    if (s) studentId = s.id;
+  }
+  if (!s) {
+    s = schoolHub.students.find(item => item.name === studentId || item.nameBm === studentId);
+    if (s) studentId = s.id;
+  }
   if (!s) return;
 
   pendingDeleteStudentId = studentId;
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
+  const displayName = s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name;
 
   const title = isEn ? 'Delete Student' : (isBm ? 'Padam Murid' : '确认删除学员');
   const body = isEn
-    ? `Are you sure you want to remove "${s.name}" (${s.class || '-'}) from the school roster and PAJSK records? This action cannot be undone.`
+    ? `Are you sure you want to remove "${displayName}" (${s.class || '-'}) from the school roster and PAJSK records? This action cannot be undone.`
     : (isBm
-      ? `Adakah anda pasti mahu memadam "${s.name}" (${s.class || '-'}) daripada senarai nama murid dan rekod PAJSK sekolah?`
-      : `确定要将学员「${s.name}」（${s.class || '-'} 班）从本校花名册及 PAJSK 学籍档案中删除吗？`);
+      ? `Adakah anda pasti mahu memadam "${displayName}" (${s.class || '-'}) daripada senarai nama murid dan rekod PAJSK sekolah? Tindakan ini tidak boleh diundur.`
+      : `确定要将学员「${displayName}」（${s.class || '-'} 班）从本校花名册及 PAJSK 学籍档案中删除吗？删除后不可撤销。`);
 
   const okBtnText = isEn ? 'Delete' : (isBm ? 'Padam' : '确认删除');
   const cancelBtnText = isEn ? 'Cancel' : (isBm ? 'Batal' : '取消');
@@ -5215,9 +5317,12 @@ function closeSchoolConfirm() {
 function executePendingDeleteStudent() {
   if (!pendingDeleteStudentId) return;
   const targetId = pendingDeleteStudentId;
-  const idx = schoolHub.students.findIndex(s => s.id === targetId);
+  let idx = schoolHub.students.findIndex(s => s.id === targetId || String(s.id) === String(targetId));
+  if (idx === -1) {
+    idx = schoolHub.students.findIndex(s => s.name === targetId || s.nameBm === targetId);
+  }
   if (idx !== -1) {
-    const deletedName = schoolHub.students[idx].name;
+    const deletedName = schoolHub.students[idx].nameBm || schoolHub.students[idx].name;
     schoolHub.students.splice(idx, 1);
     saveSchoolHub();
     renderWeeklyAttendance();
@@ -5242,7 +5347,8 @@ function openAddStudentModal() {
 
   const titleEl = document.getElementById('addStudentModalTitle');
   const subEl = document.getElementById('addStudentModalSub');
-  const lblName = document.getElementById('lblStudentName');
+  const lblNameBm = document.getElementById('lblStudentNameBm');
+  const lblNameCn = document.getElementById('lblStudentNameCn');
   const lblClass = document.getElementById('lblStudentClass');
   const lblIc = document.getElementById('lblStudentIc');
   const btnCancel = document.getElementById('btnCancelAddStudent');
@@ -5250,22 +5356,33 @@ function openAddStudentModal() {
 
   if (titleEl) titleEl.textContent = isEn ? 'Add New Student' : (isBm ? 'Tambah Murid Baharu' : '添加新学员');
   if (subEl) subEl.textContent = isEn ? 'Register student into school chess roster & PAJSK records' : (isBm ? 'Daftar murid ke dalam senarai catur dan rekod PAJSK' : '录入校内棋手花名册与 PAJSK 学籍档案');
-  if (lblName) lblName.innerHTML = isEn ? 'Student Full Name <span style="color:#F87171;">*</span>' : (isBm ? 'Nama Penuh Murid <span style="color:#F87171;">*</span>' : '学生全名 (Full Name) <span style="color:#F87171;">*</span>');
-  if (lblClass) lblClass.innerHTML = isEn ? 'Class (e.g. 5A) <span style="color:#F87171;">*</span>' : (isBm ? 'Kelas (cth: 5A) <span style="color:#F87171;">*</span>' : '所在班级 (Kelas) <span style="color:#F87171;">*</span>');
+  if (lblNameBm) lblNameBm.innerHTML = isEn
+    ? 'Official IC/BM Name <span style="color:#F87171;">*</span> <span style="font-size:11px; color:#94A3B8; font-weight:normal;">(For MSSD Surat & PAJSK)</span>'
+    : (isBm
+      ? 'Nama Rasmi IC / Kad Pengenalan <span style="color:#F87171;">*</span> <span style="font-size:11px; color:#94A3B8; font-weight:normal;">(Surat MSSD & PAJSK)</span>'
+      : '国文/英文官方姓名 (Nama IC/BM) <span style="color:#F87171;">*</span> <span style="font-size:11px; color:#94A3B8; font-weight:normal;">(公函 Surat MSSD / 证书 / PAJSK 专用)</span>');
+  if (lblNameCn) lblNameCn.innerHTML = isEn
+    ? 'Chinese Name <span style="font-size:11px; color:#94A3B8; font-weight:normal;">(Optional, for pairings)</span>'
+    : (isBm
+      ? 'Nama Bahasa Cina <span style="font-size:11px; color:#94A3B8; font-weight:normal;">(Pilihan, untuk papan catur)</span>'
+      : '中文姓名 (Nama Cina) <span style="font-size:11px; color:#94A3B8; font-weight:normal;">(可选，用于校内对阵榜)</span>');
+  if (lblClass) lblClass.innerHTML = isEn ? 'Class (Kelas) <span style="color:#F87171;">*</span>' : (isBm ? 'Kelas <span style="color:#F87171;">*</span>' : '所在班级 (Kelas) <span style="color:#F87171;">*</span>');
   if (lblIc) lblIc.textContent = isEn ? 'IC / Student ID (Optional)' : (isBm ? 'No. Kad Pengenalan / Murid (Pilihan)' : '身份证 / 学号 (IC / ID, 可选)');
   if (btnCancel) btnCancel.textContent = isEn ? 'Cancel' : (isBm ? 'Batal' : '取消');
   if (btnConfirm) btnConfirm.textContent = isEn ? 'Save Student' : (isBm ? 'Simpan Murid' : '保存学员');
 
-  const nameInput = document.getElementById('newStudentName');
+  const nameBmInput = document.getElementById('newStudentNameBm');
+  const nameCnInput = document.getElementById('newStudentName');
   const classInput = document.getElementById('newStudentClass');
   const icInput = document.getElementById('newStudentIc');
 
-  if (nameInput) nameInput.value = '';
+  if (nameBmInput) nameBmInput.value = '';
+  if (nameCnInput) nameCnInput.value = '';
   if (classInput) classInput.value = '5A';
   if (icInput) icInput.value = '';
 
   modal.style.display = 'flex';
-  setTimeout(() => { if (nameInput) nameInput.focus(); }, 40);
+  setTimeout(() => { if (nameBmInput) nameBmInput.focus(); }, 40);
 }
 
 function closeAddStudentModal() {
@@ -5280,30 +5397,36 @@ function addNewStudentPrompt() {
 function submitNewStudent(event) {
   if (event) event.preventDefault();
 
-  const nameInput = document.getElementById('newStudentName');
+  const nameBmInput = document.getElementById('newStudentNameBm');
+  const nameCnInput = document.getElementById('newStudentName');
   const classInput = document.getElementById('newStudentClass');
   const icInput = document.getElementById('newStudentIc');
 
-  const name = nameInput ? nameInput.value.trim() : '';
+  const nameBm = nameBmInput ? nameBmInput.value.trim().toUpperCase() : '';
+  const nameCn = nameCnInput ? nameCnInput.value.trim() : '';
   const kelas = classInput ? classInput.value.trim() : '5A';
   const ic = icInput ? icInput.value.trim() : '';
 
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
 
-  if (!name) {
+  if (!nameBm && !nameCn) {
     showSchoolNotice(
-      isEn ? 'Please enter the student\'s full name.' : (isBm ? 'Sila masukkan nama penuh murid.' : '请输入学生全名。'),
+      isEn ? 'Please enter the student\'s official name.' : (isBm ? 'Sila masukkan nama rasmi murid.' : '请输入学生国文/英文姓名或中文姓名。'),
       isEn ? 'Missing Information' : (isBm ? 'Maklumat Tidak Lengkap' : '信息不完整')
     );
-    if (nameInput) nameInput.focus();
+    if (nameBmInput) nameBmInput.focus();
     return;
   }
+
+  const finalNameBm = nameBm || nameCn.toUpperCase();
+  const finalNameCn = nameCn || nameBm;
 
   const newId = `S_${Date.now()}`;
   schoolHub.students.push({
     id: newId,
-    name: name,
+    name: finalNameCn,
+    nameBm: finalNameBm,
     class: kelas || '5A',
     ic: ic,
     jawatan: 'Ahli Biasa',
@@ -5320,22 +5443,29 @@ function submitNewStudent(event) {
   closeAddStudentModal();
 
   showSchoolNotice(
-    isEn ? `Student "${name}" has been added successfully.` : (isBm ? `Murid "${name}" berjaya ditambah.` : `学员「${name}」已成功添加至花名册。`),
+    isEn ? `Student "${finalNameBm}" has been added successfully.` : (isBm ? `Murid "${finalNameBm}" berjaya ditambah.` : `学员「${finalNameBm}${finalNameCn !== finalNameBm ? ' (' + finalNameCn + ')' : ''}」已成功添加至花名册。`),
     isEn ? 'Added Successfully' : (isBm ? 'Berjaya Ditambah' : '添加成功')
   );
 }
 
 function loadRosterIntoTourneyTextarea() {
+  if (!schoolHub.students || schoolHub.students.length === 0) {
+    showSchoolNotice('花名册中暂无学员名单！请先添加学员或恢复示范名单。', '提示');
+    return;
+  }
   const textarea = document.getElementById('schPlayerNamesText');
   if (!textarea) return;
-  textarea.value = schoolHub.students.map(s => s.name).join('\n');
+  textarea.value = schoolHub.students.map(s => (s.nameBm ? `${s.nameBm} (${s.name})` : s.name)).join('\n');
   const preview = document.getElementById('nameCountPreview');
   if (preview) preview.textContent = `当前识别: ${schoolHub.students.length} 人`;
-  alert(`✅ 已一键将全学会 ${schoolHub.students.length} 位学员名单载入至比赛设置！`);
+  showSchoolNotice(`已一键将全学会 ${schoolHub.students.length} 位学员名单载入至比赛设置！`, '载入成功');
 }
 
 function openStudentProfileCard(studentId) {
-  const s = schoolHub.students.find(item => item.id === studentId);
+  let s = schoolHub.students.find(item => item.id === studentId || String(item.id) === String(studentId));
+  if (!s) {
+    s = schoolHub.students.find(item => item.name === studentId || item.nameBm === studentId);
+  }
   if (!s) return;
 
   const modal = document.getElementById('studentProfileModal');
@@ -5344,13 +5474,22 @@ function openStudentProfileCard(studentId) {
   // Calculate rank
   const sorted = [...schoolHub.students].sort((a,b) => b.elo - a.elo);
   const rank = sorted.findIndex(item => item.id === s.id) + 1;
-  const teamRole = calcStudentTeamRole(rank);
+  const teamRole = calcStudentTeamRole(rank || 1);
 
-  document.getElementById('profileCardName').textContent = s.name;
-  document.getElementById('profileCardMeta').textContent = `班级: ${s.class} ｜ 学会职务: ${s.jawatan} (PAJSK ${calcStudentPajskRoleScore(s.jawatan)}分)`;
-  document.getElementById('profileCardRoleBadge').textContent = teamRole;
-  document.getElementById('profileCardElo').textContent = s.elo;
-  document.getElementById('profileCardRecord').textContent = `${s.wins || 0}胜 ${s.draws || 0}平 ${s.losses || 0}负`;
+  const displayNameBm = (s.nameBm || s.name).toUpperCase();
+  const displayNameCn = (s.name && s.name !== s.nameBm) ? s.name : '';
+  const fullName = displayNameCn ? `${displayNameBm} (${displayNameCn})` : displayNameBm;
+
+  const nameEl = document.getElementById('profileCardName');
+  if (nameEl) nameEl.textContent = fullName;
+  const metaEl = document.getElementById('profileCardMeta');
+  if (metaEl) metaEl.textContent = `班级: ${s.class || '-'} ｜ 学会职务: ${s.jawatan || 'Ahli Biasa'} (PAJSK ${calcStudentPajskRoleScore(s.jawatan)}分)`;
+  const roleBadge = document.getElementById('profileCardRoleBadge');
+  if (roleBadge) roleBadge.textContent = teamRole;
+  const eloEl = document.getElementById('profileCardElo');
+  if (eloEl) eloEl.textContent = s.elo || 1000;
+  const recordEl = document.getElementById('profileCardRecord');
+  if (recordEl) recordEl.textContent = `${s.wins || 0}胜 ${s.draws || 0}平 ${s.losses || 0}负`;
 
   const attendCount = (s.attendance || []).reduce((acc, v) => acc + (v ? 1 : 0), 0);
   const attendPercent = ((attendCount / 12) * 100).toFixed(0);
@@ -5441,16 +5580,17 @@ function printSingleStudentProfileCard() {
 
 function printMssdAppointmentLetter() {
   const sorted = [...schoolHub.students].sort((a,b) => b.elo - a.elo);
-  const p1 = sorted[0] || { name: '曾俊杰', class: '6A', ic: '130512-06-1234', elo: 1180 };
-  const p2 = sorted[1] || { name: '李浩宇', class: '6B', ic: '130722-06-2345', elo: 1145 };
-  const p3 = sorted[2] || { name: '张小明', class: '5A', ic: '140315-06-3456', elo: 1110 };
-  const p4 = sorted[3] || { name: '陈伟豪', class: '5C', ic: '140819-06-4567', elo: 1090 };
-  const simpanan = sorted[4] || { name: '王家伦', class: '4A', ic: '150110-06-5678', elo: 1060 };
+  const p1 = sorted[0] || { name: '曾俊杰', nameBm: 'CHAN JUN JIE', class: '6A', ic: '130512-06-1234', elo: 1180 };
+  const p2 = sorted[1] || { name: '李浩宇', nameBm: 'LEE HAO YU', class: '6B', ic: '130722-06-2345', elo: 1145 };
+  const p3 = sorted[2] || { name: '张小明', nameBm: 'TEO XIAO MING', class: '5A', ic: '140315-06-3456', elo: 1110 };
+  const p4 = sorted[3] || { name: '陈伟豪', nameBm: 'TAN WEI HAO', class: '5C', ic: '140819-06-4567', elo: 1090 };
+  const simpanan = sorted[4] || { name: '王家伦', nameBm: 'ONG JIA LUN', class: '4A', ic: '150110-06-5678', elo: 1060 };
 
   const printArea = document.getElementById('officialPrintContainer') || document.getElementById('printDocumentArea');
   if (!printArea) return;
 
   const dateStr = new Date().toLocaleDateString('ms-MY', { year:'numeric', month:'long', day:'numeric' });
+  const getBmName = (p) => (p && (p.nameBm || p.name) ? (p.nameBm || p.name).trim().toUpperCase() : '-');
 
   printArea.innerHTML = `
     <div style="padding:40px; font-family:'Times New Roman', serif; color:#000; max-width:760px; margin:0 auto; line-height:1.5;">
@@ -5473,7 +5613,7 @@ function printMssdAppointmentLetter() {
         <thead>
           <tr style="background:#f3f4f6;">
             <th style="padding:8px; border:1px solid #000; text-align:center; width:50px;">Bil</th>
-            <th style="padding:8px; border:1px solid #000; text-align:left;">Nama Murid</th>
+            <th style="padding:8px; border:1px solid #000; text-align:left;">Nama Murid (Huruf Besar Mengikut IC)</th>
             <th style="padding:8px; border:1px solid #000; text-align:center; width:60px;">Kelas</th>
             <th style="padding:8px; border:1px solid #000; text-align:center; width:130px;">No. Kad Pengenalan</th>
             <th style="padding:8px; border:1px solid #000; text-align:center; width:80px;">Skor ELO</th>
@@ -5483,7 +5623,7 @@ function printMssdAppointmentLetter() {
         <tbody>
           <tr>
             <td style="padding:8px; border:1px solid #000; text-align:center;">1</td>
-            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${p1.name}</td>
+            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${getBmName(p1)}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p1.class}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p1.ic || '-'}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center; font-weight:bold;">${p1.elo}</td>
@@ -5491,7 +5631,7 @@ function printMssdAppointmentLetter() {
           </tr>
           <tr>
             <td style="padding:8px; border:1px solid #000; text-align:center;">2</td>
-            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${p2.name}</td>
+            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${getBmName(p2)}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p2.class}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p2.ic || '-'}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center; font-weight:bold;">${p2.elo}</td>
@@ -5499,7 +5639,7 @@ function printMssdAppointmentLetter() {
           </tr>
           <tr>
             <td style="padding:8px; border:1px solid #000; text-align:center;">3</td>
-            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${p3.name}</td>
+            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${getBmName(p3)}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p3.class}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p3.ic || '-'}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center; font-weight:bold;">${p3.elo}</td>
@@ -5507,7 +5647,7 @@ function printMssdAppointmentLetter() {
           </tr>
           <tr>
             <td style="padding:8px; border:1px solid #000; text-align:center;">4</td>
-            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${p4.name}</td>
+            <td style="padding:8px; border:1px solid #000; font-weight:bold;">${getBmName(p4)}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p4.class}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${p4.ic || '-'}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center; font-weight:bold;">${p4.elo}</td>
@@ -5515,7 +5655,7 @@ function printMssdAppointmentLetter() {
           </tr>
           <tr style="background:#fafafa;">
             <td style="padding:8px; border:1px solid #000; text-align:center;">5</td>
-            <td style="padding:8px; border:1px solid #000;">${simpanan.name}</td>
+            <td style="padding:8px; border:1px solid #000;">${getBmName(simpanan)}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${simpanan.class}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${simpanan.ic || '-'}</td>
             <td style="padding:8px; border:1px solid #000; text-align:center;">${simpanan.elo}</td>
@@ -5578,7 +5718,7 @@ function printNoticeboardRanking() {
           ${sorted.map((s, idx) => `
             <tr style="text-align:center; ${idx < 4 ? 'background:#FEF3C7; font-weight:bold;' : ''}">
               <td style="padding:10px; border:1px solid #ddd;">${idx === 0 ? '🥇 1' : (idx === 1 ? '🥈 2' : (idx === 2 ? '🥉 3' : idx + 1))}</td>
-              <td style="padding:10px; border:1px solid #ddd; text-align:left;">${s.name}</td>
+              <td style="padding:10px; border:1px solid #ddd; text-align:left;">${s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name}</td>
               <td style="padding:10px; border:1px solid #ddd;">${s.class}</td>
               <td style="padding:10px; border:1px solid #ddd; color:#B45309; font-weight:bold;">${s.elo}</td>
               <td style="padding:10px; border:1px solid #ddd;">${s.wins || 0}胜 ${s.draws || 0}平 ${s.losses || 0}负</td>
@@ -5651,7 +5791,7 @@ function printWeeklyAttendanceSheet() {
             return `
               <tr style="text-align:center;">
                 <td style="padding:5px; border:1px solid #333;">${idx + 1}</td>
-                <td style="padding:5px; border:1px solid #333; text-align:left; font-weight:bold;">${s.name}</td>
+                <td style="padding:5px; border:1px solid #333; text-align:left; font-weight:bold;">${s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name}</td>
                 <td style="padding:5px; border:1px solid #333;">${s.class}</td>
                 ${(s.attendance || [0,0,0,0,0,0,0,0,0,0,0,0]).map(v => `
                   <td style="padding:5px; border:1px solid #333;">${v === 1 ? '✓' : ''}</td>
@@ -5725,27 +5865,43 @@ function generateAutoLaporan() {
   const dateStr = dateObj.toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
   const dayStr = dateObj.toLocaleDateString('ms-MY', { weekday: 'long' });
   
-  let presentCount = 0;
-  let totalCount = allStudents.length;
-  // If no attendance array yet, default to all present for the draft
-  if (totalCount === 0) presentCount = 0;
-  else presentCount = totalCount; // Can be enhanced later to read actual tick boxes
+  const select = document.getElementById('quickSessionSelect');
+  const sessionIdx = parseInt(select ? select.value : '1', 10) - 1;
+  const totalCount = (schoolHub && schoolHub.students) ? schoolHub.students.length : 0;
+  let presentCount = (schoolHub && schoolHub.students)
+    ? schoolHub.students.filter(s => s.attendance && s.attendance[sessionIdx] === 1).length
+    : 0;
+  if (presentCount === 0 && totalCount > 0) {
+    presentCount = totalCount;
+  }
 
-  const text = `Pada hari ini, ${dayStr}, ${dateStr}, Kelab Catur telah mengadakan perjumpaan aktiviti kokurikulum. Seramai ${presentCount} orang murid telah hadir.
+  const text = `Pada hari ini, ${dayStr}, ${dateStr}, Kelab Catur telah mengadakan perjumpaan aktiviti kokurikulum (Perjumpaan Ke-${sessionIdx + 1}). Seramai ${presentCount} daripada ${totalCount} orang murid telah hadir.
 
 Aktiviti utama pada hari ini ialah latihan taktikal, analisis permainan, dan perlawanan catur persahabatan menggunakan sistem Swiss. Murid-murid telah menunjukkan minat dan semangat kesukanan yang tinggi.
 
 Aktiviti berjalan lancar dan tamat pada masa yang ditetapkan.`;
 
-  document.getElementById('laporanOutputArea').style.display = 'block';
-  document.getElementById('laporanText').value = text;
+  const outputArea = document.getElementById('laporanOutputArea');
+  const textarea = document.getElementById('laporanText');
+  if (outputArea) outputArea.style.display = 'block';
+  if (textarea) textarea.value = text;
 }
 
 function copyLaporanText() {
   const el = document.getElementById('laporanText');
+  if (!el) return;
   el.select();
-  document.execCommand('copy');
-  alert('报告已复制！(Laporan disalin!)');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(el.value).then(() => {
+      showSchoolNotice('报告文本已成功复制！老师可直接粘贴至课外活动官方记录簿 (Buku Laporan Kokurikulum)。', '复制成功');
+    }).catch(() => {
+      document.execCommand('copy');
+      showSchoolNotice('报告已复制！(Laporan disalin!)', '复制成功');
+    });
+  } else {
+    document.execCommand('copy');
+    showSchoolNotice('报告已复制！(Laporan disalin!)', '复制成功');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
