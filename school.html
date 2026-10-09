@@ -1700,6 +1700,14 @@ const i18n = {
   },
   bm: {
 
+      menuSecNavTitle: 'Modul',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi PAJSK KPM',
+      pajskF1Sub: 'Kehadiran penuh 12 sesi = 50 pt<br>Tidak hadir 1 sesi ditolak secara pro-rata (4.17pt)',
+      pajskF2Sub: 'Pengerusi 10pt · Naib 8pt · SU/Bendahari 7pt · AJK 5pt · Ahli 1~3pt',
+      pajskF3Sub: 'Johan 20pt · Naib 17pt · Ketiga 14pt · Keempat 12pt · Top 8 10pt · Penyertaan 8pt',
+      pajskF4Sub: 'Mewakili sekolah / Komitmen tinggi secara automatik 18~20pt',
+
+
       profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
       profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
       profileBtnPrint: '🖨️ Cetak Kad Prestasi',
@@ -1790,6 +1798,14 @@ const i18n = {
   },
   en: {
 
+      menuSecNavTitle: 'Modules',
+      pajskFooterTitle: '📌 Official KPM PAJSK Scoring Reference',
+      pajskF1Sub: 'Full 12 meetings = 50 pts<br>Absence deducted pro-rata (4.17 pts per meeting)',
+      pajskF2Sub: 'President 10pt · Vice 8pt · Sec/Treas 7pt · Comm 5pt · Member 1~3pt',
+      pajskF3Sub: 'Champion 20pt · Runner-up 17pt · 3rd 14pt · 4th 12pt · Top 8 10pt · Entry 8pt',
+      pajskF4Sub: 'School rep / high commitment automatically scores 18~20pts',
+
+
       profileModalStudentName: 'Student Performance & Grading Card',
       profileModalStudentSub: 'QiJing Chess System Evaluation',
       profileBtnPrint: '🖨️ Print Performance Card',
@@ -1835,10 +1851,10 @@ const i18n = {
       tab3Title: 'Student Roster, Roles & PAJSK Final Report',
       tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
       pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
-      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
-      pajskF2: '2. Role (Jawatan • Max 10 pts)',
-      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
-      pajskF4: '4. Commitment (Komitmen • Max 20 pts)',
+      pajskF1: '1. Attendance (Max 50 pts)',
+      pajskF2: '2. Role (Max 10 pts)',
+      pajskF3: '3. Achievement (Max 20 pts)',
+      pajskF4: '4. Commitment (Max 20 pts)',
     "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.team": "Structure & Faculty", "nav.ladder": "ELO Standings", "nav.login": "Login",
     "hero.title": "QiJing School System",
     "hero.tagline": "Professional Digital Xiangqi Academy Powered by Advanced ELO Rating",
@@ -2380,7 +2396,7 @@ function updateSeg(lang) {
           <div>
             <h4 id="tab3Title"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">学会名册、AJK 职务与教育部 PAJSK 终极报表</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
-              一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级
+              <span id="txtTab3Desc">一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级</span>
             </div>
           </div>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
@@ -2418,23 +2434,23 @@ function updateSeg(lang) {
 
       <!-- KPM PAJSK CRITERIA REFERENCE -->
       <div class="card" style="padding:20px 24px; background:rgba(6,23,36,0.6);">
-        <h5 style="font-size:14px; font-weight:800; color:#F1C40F; margin:0 0 10px;">📌 马来西亚教育部课外活动评估系统 (PAJSK: KPM) 官方分值参照表</h5>
+        <h5 id="pajskFooterTitle" style="font-size:14px; font-weight:800; color:#F1C40F; margin:0 0 10px;">📌 马来西亚教育部课外活动评估系统 (PAJSK KPM) 官方分值参照表</h5>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; font-size:12px; color:rgba(255,255,255,0.7);">
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div id="pajskF1"  style="font-weight:800; color:#FFF; margin-bottom:4px;">1. Kehadiran (出勤率 · 占 50分)</div>
-            <div>满勤 12 次集会 = 50 分整<br>缺席 1 次按比例折算（每节 4.17分）</div>
+            <div id="pajskF1"  style="font-weight:800; color:#FFF; margin-bottom:4px;">1. 集会出勤 (占 50分)</div>
+            <div id="pajskF1Sub">满勤 12 次集会 = 50 分整<br>缺席 1 次按比例折算（每节 4.17分）</div>
           </div>
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div id="pajskF2"  style="font-weight:800; color:#FFF; margin-bottom:4px;">2. Jawatan (学会职务 · 占 10分)</div>
-            <div>Pengerusi 10分 · Naib 8分 · Setiausaha/Bendahari 7分 · AJK 5分 · Ahli 1~3分</div>
+            <div id="pajskF2"  style="font-weight:800; color:#FFF; margin-bottom:4px;">2. 学会职务 (占 10分)</div>
+            <div id="pajskF2Sub">Pengerusi 10分 · Naib 8分 · Setiausaha/Bendahari 7分 · AJK 5分 · Ahli 1~3分</div>
           </div>
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div id="pajskF3"  style="font-weight:800; color:#FFF; margin-bottom:4px;">3. Pencapaian (校内赛成绩 · 占 20分)</div>
-            <div>Johan 20分 · Naib Johan 17分 · Ketiga 14分 · Keempat 12分 · Top 8 10分 · 参赛 8分</div>
+            <div id="pajskF3"  style="font-weight:800; color:#FFF; margin-bottom:4px;">3. 比赛成绩 (占 20分)</div>
+            <div id="pajskF3Sub">Johan 20分 · Naib Johan 17分 · Ketiga 14分 · Keempat 12分 · Top 8 10分 · 参赛 8分</div>
           </div>
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-            <div id="pajskF4"  style="font-weight:800; color:#FFF; margin-bottom:4px;">4. Komitmen (责任感与参与 · 占 20分)</div>
-            <div>代表校队 / 积极承担学会事务自动核算 18~20分满分</div>
+            <div id="pajskF4"  style="font-weight:800; color:#FFF; margin-bottom:4px;">4. 责任感与参与 (占 20分)</div>
+            <div id="pajskF4Sub">代表校队 / 积极承担学会事务自动核算 18~20分满分</div>
           </div>
         </div>
       </div>
@@ -3034,6 +3050,14 @@ let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
 const I18N = {
   zh: {
 
+      menuSecNavTitle: '教务模块',
+      pajskFooterTitle: '📌 马来西亚教育部 PAJSK 官方分值参照表',
+      pajskF1Sub: '满勤 12 次集会 = 50 分整<br>缺席 1 次按比例折算（每节 4.17分）',
+      pajskF2Sub: '主席 10分 · 副主席 8分 · 秘书/财政 7分 · 理事 5分 · 会员 1~3分',
+      pajskF3Sub: '冠军 20分 · 亚军 17分 · 季军 14分 · 殿军 12分 · 前八 10分 · 参赛 8分',
+      pajskF4Sub: '代表校队或积极承担学会事务，自动核算满分 (18~20分)',
+
+
       profileModalStudentName: '学员战力诊断与考级评估卡',
       profileModalStudentSub: '棋境技术评级',
       profileBtnPrint: '🖨️ 打印个人表现卡',
@@ -3077,12 +3101,12 @@ const I18N = {
       reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> <span id="txtReportDesc">一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。</span>',
       btnGenerateReport: '✨ 生成本周报告 (Jana Laporan)',
       tab3Title: '学会名册、AJK 职务与教育部 PAJSK 终极报表',
-      tab3Desc: '一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级',
+      tab3Desc: '<span id="txtTab3Desc">一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级</span>',
       pajskFooterTitle: '📌 马来西亚教育部课外活动评估系统 (PAJSK: KPM) 官方分值参照表',
-      pajskF1: '1. Kehadiran (出勤率 • 占 50分)',
-      pajskF2: '2. Jawatan (学会职务 • 占 10分)',
-      pajskF3: '3. Pencapaian (校内赛成绩 • 占 20分)',
-      pajskF4: '4. Komitmen (责任感与参与 • 占 20分)',
+      pajskF1: '1. Kehadiran (Maks 50 pt)',
+      pajskF2: '2. Jawatan (Maks 10 pt)',
+      pajskF3: '3. Pencapaian (Maks 20 pt)',
+      pajskF4: '4. Komitmen (Maks 20 pt)',
     brandSub: '棋境校园系统 · 官方技术认证体系',
     badgeText: '全国中小学及校际赛事专用系统',
     mainTitle: '棋境校园象棋系统',
@@ -3191,6 +3215,14 @@ const I18N = {
     printDisclaimer: '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'
   },
   bm: {
+
+      menuSecNavTitle: 'Modul',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi PAJSK KPM',
+      pajskF1Sub: 'Kehadiran penuh 12 sesi = 50 pt<br>Tidak hadir 1 sesi ditolak secara pro-rata (4.17pt)',
+      pajskF2Sub: 'Pengerusi 10pt · Naib 8pt · SU/Bendahari 7pt · AJK 5pt · Ahli 1~3pt',
+      pajskF3Sub: 'Johan 20pt · Naib 17pt · Ketiga 14pt · Keempat 12pt · Top 8 10pt · Penyertaan 8pt',
+      pajskF4Sub: 'Mewakili sekolah / Komitmen tinggi secara automatik 18~20pt',
+
 
       profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
       profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
@@ -3346,6 +3378,14 @@ const I18N = {
   },
   en: {
 
+      menuSecNavTitle: 'Modules',
+      pajskFooterTitle: '📌 Official KPM PAJSK Scoring Reference',
+      pajskF1Sub: 'Full 12 meetings = 50 pts<br>Absence deducted pro-rata (4.17 pts per meeting)',
+      pajskF2Sub: 'President 10pt · Vice 8pt · Sec/Treas 7pt · Comm 5pt · Member 1~3pt',
+      pajskF3Sub: 'Champion 20pt · Runner-up 17pt · 3rd 14pt · 4th 12pt · Top 8 10pt · Entry 8pt',
+      pajskF4Sub: 'School rep / high commitment automatically scores 18~20pts',
+
+
       profileModalStudentName: 'Student Performance & Grading Card',
       profileModalStudentSub: 'QiJing Chess System Evaluation',
       profileBtnPrint: '🖨️ Print Performance Card',
@@ -3391,10 +3431,10 @@ const I18N = {
       tab3Title: 'Student Roster, Roles & PAJSK Final Report',
       tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
       pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
-      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
-      pajskF2: '2. Role (Jawatan • Max 10 pts)',
-      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
-      pajskF4: '4. Commitment (Komitmen • Max 20 pts)',
+      pajskF1: '1. Attendance (Max 50 pts)',
+      pajskF2: '2. Role (Max 10 pts)',
+      pajskF3: '3. Achievement (Max 20 pts)',
+      pajskF4: '4. Commitment (Max 20 pts)',
     brandSub: 'QiJing School System · Official Tech Partner',
     badgeText: 'Official Tournament Portal for Schools',
     mainTitle: 'School Tournament System',
@@ -3514,6 +3554,14 @@ const tCard = {
   },
   bm: {
 
+      menuSecNavTitle: 'Modul',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi PAJSK KPM',
+      pajskF1Sub: 'Kehadiran penuh 12 sesi = 50 pt<br>Tidak hadir 1 sesi ditolak secara pro-rata (4.17pt)',
+      pajskF2Sub: 'Pengerusi 10pt · Naib 8pt · SU/Bendahari 7pt · AJK 5pt · Ahli 1~3pt',
+      pajskF3Sub: 'Johan 20pt · Naib 17pt · Ketiga 14pt · Keempat 12pt · Top 8 10pt · Penyertaan 8pt',
+      pajskF4Sub: 'Mewakili sekolah / Komitmen tinggi secara automatik 18~20pt',
+
+
       profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
       profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
       profileBtnPrint: '🖨️ Cetak Kad Prestasi',
@@ -3575,6 +3623,14 @@ const tCard = {
   },
   en: {
 
+      menuSecNavTitle: 'Modules',
+      pajskFooterTitle: '📌 Official KPM PAJSK Scoring Reference',
+      pajskF1Sub: 'Full 12 meetings = 50 pts<br>Absence deducted pro-rata (4.17 pts per meeting)',
+      pajskF2Sub: 'President 10pt · Vice 8pt · Sec/Treas 7pt · Comm 5pt · Member 1~3pt',
+      pajskF3Sub: 'Champion 20pt · Runner-up 17pt · 3rd 14pt · 4th 12pt · Top 8 10pt · Entry 8pt',
+      pajskF4Sub: 'School rep / high commitment automatically scores 18~20pts',
+
+
       profileModalStudentName: 'Student Performance & Grading Card',
       profileModalStudentSub: 'QiJing Chess System Evaluation',
       profileBtnPrint: '🖨️ Print Performance Card',
@@ -3620,10 +3676,10 @@ const tCard = {
       tab3Title: 'Student Roster, Roles & PAJSK Final Report',
       tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
       pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
-      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
-      pajskF2: '2. Role (Jawatan • Max 10 pts)',
-      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
-      pajskF4: '4. Commitment (Komitmen • Max 20 pts)',
+      pajskF1: '1. Attendance (Max 50 pts)',
+      pajskF2: '2. Role (Max 10 pts)',
+      pajskF3: '3. Achievement (Max 20 pts)',
+      pajskF4: '4. Commitment (Max 20 pts)',
     badge: "QIJING SCHOOL SYSTEM · Tournament Pairing & Projector",
     title: "QiJing School Tournament System",
     sub: "Automated Swiss Pairing Engine · Auto Tie-Break · Live Projector",
@@ -3891,7 +3947,9 @@ function setSystemLang(lang) {
   if (appSchoolTitle && schoolTourney && schoolTourney.name) {
     appSchoolTitle.textContent = schoolTourney.name;
   }
-  const btnSysProjectorText = document.getElementById('btnSysProjectorText');
+  const menuSecNavTitle = document.getElementById('menuSecNavTitle');
+    if (menuSecNavTitle && t.menuSecNavTitle) menuSecNavTitle.textContent = t.menuSecNavTitle;
+    const btnSysProjectorText = document.getElementById('btnSysProjectorText');
   if (btnSysProjectorText) btnSysProjectorText.textContent = t.btnProj;
   const btnSysEloText = document.getElementById('btnSysEloText');
   if (btnSysEloText) btnSysEloText.textContent = t.btnElo;
@@ -4043,7 +4101,7 @@ function setSystemLang(lang) {
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
   
-    const idsToUpdate = ['profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtSessionWk1', 'txtSessionWk2', 'txtGames', 'txtStatSub2', 'txtStatSub3', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
+    const idsToUpdate = ['pajskF1Sub', 'pajskF2Sub', 'pajskF3Sub', 'pajskF4Sub', 'pajskFooterTitle', 'txtTab3Desc', 'profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtSessionWk1', 'txtSessionWk2', 'txtGames', 'txtStatSub2', 'txtStatSub3', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
     idsToUpdate.forEach(id => {
       const el = document.getElementById(id);
       if (el && t[id]) el.innerHTML = t[id];
@@ -5468,6 +5526,14 @@ function updateNavMenuBtn() {
     cn: { open: '菜单', close: '关闭' },
     bm: {
 
+      menuSecNavTitle: 'Modul',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi PAJSK KPM',
+      pajskF1Sub: 'Kehadiran penuh 12 sesi = 50 pt<br>Tidak hadir 1 sesi ditolak secara pro-rata (4.17pt)',
+      pajskF2Sub: 'Pengerusi 10pt · Naib 8pt · SU/Bendahari 7pt · AJK 5pt · Ahli 1~3pt',
+      pajskF3Sub: 'Johan 20pt · Naib 17pt · Ketiga 14pt · Keempat 12pt · Top 8 10pt · Penyertaan 8pt',
+      pajskF4Sub: 'Mewakili sekolah / Komitmen tinggi secara automatik 18~20pt',
+
+
       profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
       profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
       profileBtnPrint: '🖨️ Cetak Kad Prestasi',
@@ -5519,6 +5585,14 @@ function updateNavMenuBtn() {
       pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)', open: 'Menu', close: 'Tutup' },
     en: {
 
+      menuSecNavTitle: 'Modules',
+      pajskFooterTitle: '📌 Official KPM PAJSK Scoring Reference',
+      pajskF1Sub: 'Full 12 meetings = 50 pts<br>Absence deducted pro-rata (4.17 pts per meeting)',
+      pajskF2Sub: 'President 10pt · Vice 8pt · Sec/Treas 7pt · Comm 5pt · Member 1~3pt',
+      pajskF3Sub: 'Champion 20pt · Runner-up 17pt · 3rd 14pt · 4th 12pt · Top 8 10pt · Entry 8pt',
+      pajskF4Sub: 'School rep / high commitment automatically scores 18~20pts',
+
+
       profileModalStudentName: 'Student Performance & Grading Card',
       profileModalStudentSub: 'QiJing Chess System Evaluation',
       profileBtnPrint: '🖨️ Print Performance Card',
@@ -5564,10 +5638,10 @@ function updateNavMenuBtn() {
       tab3Title: 'Student Roster, Roles & PAJSK Final Report',
       tab3Desc: 'All-in-one: Attendance (50%) + Role (10%) + Achievement (20%) + Commitment (20%) = Official Grade',
       pajskFooterTitle: '📌 Official PAJSK (KPM) Scoring Reference Guide',
-      pajskF1: '1. Attendance (Kehadiran • Max 50 pts)',
-      pajskF2: '2. Role (Jawatan • Max 10 pts)',
-      pajskF3: '3. Achievement (Pencapaian • Max 20 pts)',
-      pajskF4: '4. Commitment (Komitmen • Max 20 pts)', open: 'Menu', close: 'Close' }
+      pajskF1: '1. Attendance (Max 50 pts)',
+      pajskF2: '2. Role (Max 10 pts)',
+      pajskF3: '3. Achievement (Max 20 pts)',
+      pajskF4: '4. Commitment (Max 20 pts)', open: 'Menu', close: 'Close' }
   };
   const cur = textMap[lang] || textMap.en;
   btnText.innerText = isOpen ? cur.close : cur.open;
@@ -6429,13 +6503,13 @@ function renderPajskRoster() {
         <td style="text-align:left; font-family:monospace; color:rgba(255,255,255,0.6);">${s.ic || '-'}</td>
         <td>
           <select style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#FFF; padding:4px 8px; border-radius:6px; font-size:12px; font-weight:700; outline:none; cursor:pointer;" onchange="updateStudentRole('${s.id}', this.value)">
-            <option value="Pengerusi" ${s.jawatan === 'Pengerusi' ? 'selected' : ''}>Pengerusi (主席)</option>
-            <option value="Naib Pengerusi" ${s.jawatan === 'Naib Pengerusi' ? 'selected' : ''}>Naib Pengerusi (副主席)</option>
-            <option value="Setiausaha" ${s.jawatan === 'Setiausaha' ? 'selected' : ''}>Setiausaha (秘书)</option>
-            <option value="Bendahari" ${s.jawatan === 'Bendahari' ? 'selected' : ''}>Bendahari (财政)</option>
-            <option value="AJK" ${s.jawatan === 'AJK' ? 'selected' : ''}>AJK (理事)</option>
-            <option value="Ahli Aktif" ${s.jawatan === 'Ahli Aktif' ? 'selected' : ''}>Ahli Aktif (活跃会员)</option>
-            <option value="Ahli Biasa" ${s.jawatan === 'Ahli Biasa' ? 'selected' : ''}>Ahli Biasa (普通会员)</option>
+                            <option value="Pengerusi" ${s.jawatan === 'Pengerusi' ? 'selected' : ''}>${currentLang === 'en' ? 'President' : (currentLang === 'bm' ? 'Pengerusi' : '主席')}</option>
+                <option value="Naib Pengerusi" ${s.jawatan === 'Naib Pengerusi' ? 'selected' : ''}>${currentLang === 'en' ? 'Vice President' : (currentLang === 'bm' ? 'Naib Pengerusi' : '副主席')}</option>
+                <option value="Setiausaha" ${s.jawatan === 'Setiausaha' ? 'selected' : ''}>${currentLang === 'en' ? 'Secretary' : (currentLang === 'bm' ? 'Setiausaha' : '秘书')}</option>
+                <option value="Bendahari" ${s.jawatan === 'Bendahari' ? 'selected' : ''}>${currentLang === 'en' ? 'Treasurer' : (currentLang === 'bm' ? 'Bendahari' : '财政')}</option>
+                <option value="AJK" ${s.jawatan === 'AJK' ? 'selected' : ''}>${currentLang === 'en' ? 'Committee' : (currentLang === 'bm' ? 'AJK' : '理事')}</option>
+                <option value="Ahli Aktif" ${s.jawatan === 'Ahli Aktif' ? 'selected' : ''}>${currentLang === 'en' ? 'Active Member' : (currentLang === 'bm' ? 'Ahli Aktif' : '活跃会员')}</option>
+                <option value="Ahli Biasa" ${s.jawatan === 'Ahli Biasa' ? 'selected' : ''}>${currentLang === 'en' ? 'Normal Member' : (currentLang === 'bm' ? 'Ahli Biasa' : '普通会员')}</option>
           </select>
         </td>
         <td style="font-weight:800; color:#F1C40F;">${roleScore} / 10${scoreUnit}</td>
