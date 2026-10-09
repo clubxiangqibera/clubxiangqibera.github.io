@@ -6833,7 +6833,7 @@ function renderWeeklyAttendance() {
   
   let maxWeek = 1;
   let totalGames = 0;
-  displayStudents.forEach(s => {
+  schoolHub.students.forEach(s => {
     (s.attendance || []).forEach((att, wIdx) => {
        if (att) {
          if (wIdx + 1 > maxWeek) maxWeek = wIdx + 1;
@@ -6947,7 +6947,7 @@ function clearCurrentSession() {
   const select = document.getElementById('quickSessionSelect');
   if (!select) return;
   const sessionIdx = parseInt(select.value, 10) - 1;
-  displayStudents.forEach(s => {
+  schoolHub.students.forEach(s => {
     if (s.attendance && s.attendance.length > sessionIdx) {
       s.attendance[sessionIdx] = 0;
     }
@@ -6969,7 +6969,7 @@ async function executeYearEndRollover() {
 
   schoolHub.totalWeeks = 12;
   schoolHub.weekTitles = [];
-  displayStudents.forEach(s => {
+  schoolHub.students.forEach(s => {
     s.attendance = [];
     s.class = '';
   });
@@ -7000,7 +7000,7 @@ function markAllCurrentSessionPresent() {
   }
   const select = document.getElementById('quickSessionSelect');
   const sessionIdx = parseInt(select ? select.value : '1', 10) - 1;
-  displayStudents.forEach(s => {
+  schoolHub.students.forEach(s => {
     if (!s.attendance) s.attendance = [0,0,0,0,0,0,0,0,0,0,0,0];
     s.attendance[sessionIdx] = 1;
   });
@@ -7115,7 +7115,7 @@ function renderPajskRoster() {
   const tbody = document.getElementById('pajskRosterTableBody');
   if (!tbody) return;
 
-  const totalMurid = displayStudents.length;
+  const totalMurid = schoolHub.students.length;
   if (totalMurid === 0) {
     tbody.innerHTML = `
       <tr>
