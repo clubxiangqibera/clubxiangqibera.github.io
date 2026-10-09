@@ -3944,11 +3944,8 @@ async function loadSchoolLicenses() {
                 </td>
                 <td style="padding:10px 12px; text-align:center;">
                   <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:center; align-items:center;">
-                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 1)" title="顺延比赛时间 1 天">
-                      ${tExt1}
-                    </button>
-                    <button class="btn-sm green" style="padding:4px 8px; font-size:11px;" onclick="extendSchoolLicense('${item.key}', 3)" title="顺延比赛时间 3 天">
-                      ${tExt3}
+                    <button class="btn-sm" style="padding:4px 8px; font-size:11px; background:rgba(96,165,250,0.15); color:#60A5FA; border:1px solid rgba(96,165,250,0.4);" onclick="openEditLicenseModal('${item.key}', '${sName.replace(/'/g, "\'")}', '${sTier}', '${item.expiresAt || ''}')">
+                      ${lang === 'en' ? 'Edit' : (lang === 'bm' ? 'Edit' : '编辑')}
                     </button>
                     ${item.status === 'ended' ? `
                       <button class="btn-sm" style="color:#60A5FA; border-color:rgba(96,165,250,0.4); background:rgba(41,128,185,0.15); padding:4px 8px; font-size:11px;" onclick="resumeSchoolLicense('${item.key}')" title="重新激活该授权">
@@ -5558,7 +5555,104 @@ window.addEventListener('DOMContentLoaded', () => {
   changeGlobalLang(saved);
   loadRegistrations();
 });
+
+function openEditLicenseModal(key, school, tier, expiresAt) {
+  document.getElementById('editLicKey').value = key;
+  document.getElementById('editLicKeyDisplay').value = key;
+  document.getElementById('editLicSchool').value = school;
+  document.getElementById('editLicTier').value = tier || 'STANDARD';
+  
+  if (expiresAt) {
+    const d = new Date(expiresAt);
+    const pad = (n) => n.toString().padStart(2, '0');
+    const iso = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    document.getElementById('editLicExpiry').value = iso;
+  } else {
+    document.getElementById('editLicExpiry').value = '';
+  }
+  
+  document.getElementById('editLicenseModal').style.display = 'flex';
+}
+
+function closeEditLicenseModal() {
+  document.getElementById('editLicenseModal').style.display = 'none';
+}
+
+async function submitEditLicense(e) {
+  e.preventDefault();
+  const key = document.getElementById('editLicKey').value;
+  const school = document.getElementById('editLicSchool').value.trim();
+  const tier = document.getElementById('editLicTier').value;
+  const expiryStr = document.getElementById('editLicExpiry').value;
+  
+  if (!school || !expiryStr) return;
+  
+  const newExpiresAt = new Date(expiryStr).toISOString();
+  const finalSchoolName = school + '||TIER:' + tier;
+  
+  toast('正在提交修改 (Submitting)...', 'info');
+  try {
+    const res = await fetch(`${CF_WORKER_URL}/api/admin/update-license`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        adminPin: getAuthPin(),
+        licenseKey: key,
+        newSchoolName: finalSchoolName,
+        newExpiresAt: newExpiresAt
+      })
+    });
+    const d = await res.json();
+    if (d.success) {
+      toast('授权资料已更新 (License updated)', 'success');
+      closeEditLicenseModal();
+      loadSchoolLicenses();
+    } else {
+      toast('更新失败 (Failed): ' + (d.error || ''), 'error');
+    }
+  } catch(err) {
+    toast('网络错误 (Network error): ' + err.message, 'error');
+  }
+}
+
 </script>
 
+
+<!-- LUXURY EDIT LICENSE MODAL -->
+<div id="editLicenseModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); backdrop-filter:blur(5px); z-index:9999; justify-content:center; align-items:center;" onclick="closeEditLicenseModal()">
+  <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 40px rgba(0,0,0,0.5); border-radius:16px; max-width:400px; width:90%; text-align:left; padding:28px 24px;" onclick="event.stopPropagation()">
+    <div style="font-size:16px; font-weight:800; color:#FFF; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">✏️ 缂栬緫鎺堟潈璧勬枡 (Edit License)</div>
+    <form onsubmit="submitEditLicense(event)" style="display:flex; flex-direction:column; gap:16px;">
+      <input type="hidden" id="editLicKey">
+      <div>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">鎺堟潈浠ｇ爜 (License Key)</label>
+        <input type="text" id="editLicKeyDisplay" disabled style="width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; font-family:monospace; color:#60A5FA; font-weight:800; outline:none; cursor:not-allowed;">
+      </div>
+      <div>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">瀛︽牎 / 璧涗簨鍚嶇О (School / Event)</label>
+        <input type="text" id="editLicSchool" required style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; font-size:13px; color:#FFF; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#F1C40F'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+      </div>
+      <div>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">鎺堟潈绛风骇 (License Tier)</label>
+        <select id="editLicTier" required style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; font-size:13px; color:#FFF; outline:none; cursor:pointer;">
+          <option value="LITE" style="color:#000">LITE</option>
+          <option value="STANDARD" style="color:#000">STANDARD</option>
+          <option value="PLUS" style="color:#000">PLUS</option>
+          <option value="PRO" style="color:#000">PRO</option>
+          <option value="ULTRA" style="color:#000">ULTRA</option>
+          <option value="TITAN" style="color:#000">TITAN</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block; font-size:12px; font-weight:700; color:#E2E8F0; margin-bottom:6px;">绮剧‘鍒版湡鏃堕棿 (Exact Expiry Time)</label>
+        <input type="datetime-local" id="editLicExpiry" required style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px; font-size:13px; color:#FFF; outline:none; transition:0.2s; color-scheme:dark;" onfocus="this.style.borderColor='#F1C40F'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+      </div>
+      <div style="display:flex; gap:12px; margin-top:8px;">
+        <button type="button" onclick="closeEditLicenseModal()" style="flex:1; padding:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#94A3B8; font-weight:700; border-radius:8px; cursor:pointer;">Cancel</button>
+        <button type="submit" style="flex:1; padding:10px; background:linear-gradient(135deg, #F1C40F, #F39C12); border:none; color:#000; font-weight:800; border-radius:8px; cursor:pointer; box-shadow:0 4px 15px rgba(241,196,15,0.3);">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>
