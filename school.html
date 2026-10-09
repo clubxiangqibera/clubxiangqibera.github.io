@@ -1700,6 +1700,18 @@ const i18n = {
   },
   bm: {
 
+      txtMuridUnit: ' Org',
+      txtSessionWk1: 'Minggu 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Pusingan',
+      txtStatSub2: 'Kadar Capaian Kehadiran KPM',
+      txtStatSub3: 'Purata Kehadiran PAJSK 47.9 / 50 pt',
+      txtStatSub4: 'Padanan Tahap Kemahiran Auto',
+      txtTab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      txtMicroDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+
+
       btnMssd: 'Cetak Surat Wakil MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
@@ -1772,6 +1784,18 @@ const i18n = {
     "footer.contact_title": "Hubungi Kami"
   },
   en: {
+
+      txtMuridUnit: '',
+      txtSessionWk1: 'Week 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Matches',
+      txtStatSub2: 'KPM Co-curricular KPI Target',
+      txtStatSub3: 'Average PAJSK Score 47.9 / 50 pt',
+      txtStatSub4: 'Auto skill-based matchmaking',
+      txtTab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      txtMicroDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      txtReportDesc: 'Generates ready-to-copy official weekly reports, saving teachers 20 minutes a week.',
+
 
       btnMssd: 'Print MSSD Selection Letter',
       btnNoticeboard2: 'Print Noticeboard Ranking',
@@ -2090,13 +2114,13 @@ function updateSeg(lang) {
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px; margin-bottom:20px;">
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #3B82F6;">
           <div id="statTitle1"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">学会注册总人数</div>
-          <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyTotalMurid">8 人</div>
+          <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyTotalMurid">8<span id="txtMuridUnit"> 人</span></div>
           <div style="font-size:11.5px; color:#60A5FA; margin-top:2px;" id="metricSchoolBadgeName">SJK(C) Triang 1 棋艺学会</div>
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #10B981;">
           <div id="statTitle2"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">本学期集会进度</div>
-          <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;"><span id="metricWeeklyCurrentSession">第 1 周</span> <span style="font-size:15px; color:rgba(255,255,255,0.5);">/ 12 次标准</span></div>
-          <div style="font-size:11.5px; color:#34D399; margin-top:2px;">教育部 KPM 课外活动学分达标率</div>
+          <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;"><span id="metricWeeklyCurrentSession"><span id="txtSessionWk1">第 1 周</span></span> <span id="txtSessionWk2" style="font-size:15px; color:rgba(255,255,255,0.5);">/ 12 次标准</span></div>
+          <div id="statSub2" style="font-size:11.5px; color:#34D399; margin-top:2px;"><span id="txtStatSub2">教育部 KPM 课外活动学分达标率</span></div>
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #F1C40F;">
           <div id="statTitle3"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">平均出勤得分率</div>
@@ -2105,8 +2129,8 @@ function updateSeg(lang) {
         </div>
         <div class="card" style="padding:18px 20px; background:rgba(6,23,36,0.85); border-left:4px solid #8B5CF6;">
           <div id="statTitle4"  style="font-size:12px; font-weight:800; color:rgba(255,255,255,0.6); text-transform:uppercase;">每周水平微切磋</div>
-          <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyLadderGames">16 局已完成</div>
-          <div style="font-size:11.5px; color:#A78BFA; margin-top:2px;">段位自动势均力敌匹配</div>
+          <div style="font-size:28px; font-weight:900; color:#FFF; margin-top:4px;" id="metricWeeklyLadderGames"><span id="txtGames">16 局已完成</span></div>
+          <div id="statSub4" style="font-size:11.5px; color:#A78BFA; margin-top:2px;"><span id="txtStatSub4">段位自动势均力敌匹配</span></div>
         </div>
       </div>
 
@@ -2116,7 +2140,7 @@ function updateSeg(lang) {
           <div>
             <h4 id="tab1Title"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
-              点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分
+              <span id="txtTab1Desc">点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分</span>
             </div>
           </div>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
@@ -3012,6 +3036,18 @@ let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
 const I18N = {
   zh: {
 
+      txtMuridUnit: ' 人',
+      txtSessionWk1: '第 1 周',
+      txtSessionWk2: '/ 12 次标准',
+      txtGames: '16 局已完成',
+      txtStatSub2: '教育部 KPM 课外活动学分达标率',
+      txtStatSub3: '折合 PAJSK 出勤分平均 47.9 / 50 分',
+      txtStatSub4: '段位自动势均力敌匹配',
+      txtTab1Desc: '点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分',
+      txtMicroDesc: '针对今日出席学生，一键抽签实力就近对战。胜出无序名次下，提升临场应变身心等反应！',
+      txtReportDesc: '一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。',
+
+
       btnMssd: '打印 MSSD 选拔公函',
       btnNoticeboard2: '打印布告栏风云榜',
       btnArchive: '📥 归档比赛 (Arkib)',
@@ -3029,13 +3065,13 @@ const I18N = {
       statTitle3: '平均出勤得分率',
       statTitle4: '每周水平微切磋',
       tab1Title: '课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)',
-      tab1Desc: '点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分',
+      tab1Desc: '<span id="txtTab1Desc">点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分</span>',
       microTitle: '⚡ 每周 15 分钟水平快棋微挑战 (Mikro-Perlawanan Mingguan)',
-      microDesc: '针对今日出席学生，一键抽签实力就近对战。胜出无序名次下，提升临场应变身心等反应！',
+      microDesc: '<span id="txtMicroDesc">针对今日出席学生，一键抽签实力就近对战。胜出无序名次下，提升临场应变身心等反应！</span>',
       btnGenerateMicro: '一键生成今日微挑战对阵',
       microEmptyText: '点击右上角【一键生成今日微挑战对阵】，系统将自动抽取今日出勤学员并按水平两两匹配！',
       reportTitle: '课外活动报告自动代写 (Auto Buku Laporan Kokurikulum)',
-      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> 一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。',
+      reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> <span id="txtReportDesc">一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。</span>',
       btnGenerateReport: '✨ 生成本周报告 (Jana Laporan)',
       tab3Title: '学会名册、AJK 职务与教育部 PAJSK 终极报表',
       tab3Desc: '一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级',
@@ -3152,6 +3188,18 @@ const I18N = {
     printDisclaimer: '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'
   },
   bm: {
+
+      txtMuridUnit: ' Org',
+      txtSessionWk1: 'Minggu 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Pusingan',
+      txtStatSub2: 'Kadar Capaian Kehadiran KPM',
+      txtStatSub3: 'Purata Kehadiran PAJSK 47.9 / 50 pt',
+      txtStatSub4: 'Padanan Tahap Kemahiran Auto',
+      txtTab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      txtMicroDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+
 
       btnMssd: 'Cetak Surat Wakil MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
@@ -3289,6 +3337,18 @@ const I18N = {
     printDisclaimer: '* Laporan ini dijana berasaskan Sistem Swiss dengan kiraan Buchholz rasmi. Sah dengan tandatangan dan cop rasmi sekolah.'
   },
   en: {
+
+      txtMuridUnit: '',
+      txtSessionWk1: 'Week 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Matches',
+      txtStatSub2: 'KPM Co-curricular KPI Target',
+      txtStatSub3: 'Average PAJSK Score 47.9 / 50 pt',
+      txtStatSub4: 'Auto skill-based matchmaking',
+      txtTab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      txtMicroDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      txtReportDesc: 'Generates ready-to-copy official weekly reports, saving teachers 20 minutes a week.',
+
 
       btnMssd: 'Print MSSD Selection Letter',
       btnNoticeboard2: 'Print Noticeboard Ranking',
@@ -3441,6 +3501,18 @@ const tCard = {
   },
   bm: {
 
+      txtMuridUnit: ' Org',
+      txtSessionWk1: 'Minggu 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Pusingan',
+      txtStatSub2: 'Kadar Capaian Kehadiran KPM',
+      txtStatSub3: 'Purata Kehadiran PAJSK 47.9 / 50 pt',
+      txtStatSub4: 'Padanan Tahap Kemahiran Auto',
+      txtTab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      txtMicroDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+
+
       btnMssd: 'Cetak Surat Wakil MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
@@ -3484,6 +3556,18 @@ const tCard = {
     verifying: "⏳ Mengesahkan melalui SSL..."
   },
   en: {
+
+      txtMuridUnit: '',
+      txtSessionWk1: 'Week 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Matches',
+      txtStatSub2: 'KPM Co-curricular KPI Target',
+      txtStatSub3: 'Average PAJSK Score 47.9 / 50 pt',
+      txtStatSub4: 'Auto skill-based matchmaking',
+      txtTab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      txtMicroDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      txtReportDesc: 'Generates ready-to-copy official weekly reports, saving teachers 20 minutes a week.',
+
 
       btnMssd: 'Print MSSD Selection Letter',
       btnNoticeboard2: 'Print Noticeboard Ranking',
@@ -3936,7 +4020,7 @@ function setSystemLang(lang) {
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
   
-    const idsToUpdate = ['statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
+    const idsToUpdate = ['txtMuridUnit', 'txtSessionWk1', 'txtSessionWk2', 'txtGames', 'txtStatSub2', 'txtStatSub3', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
     idsToUpdate.forEach(id => {
       const el = document.getElementById(id);
       if (el && t[id]) el.innerHTML = t[id];
@@ -5361,6 +5445,18 @@ function updateNavMenuBtn() {
     cn: { open: '菜单', close: '关闭' },
     bm: {
 
+      txtMuridUnit: ' Org',
+      txtSessionWk1: 'Minggu 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Pusingan',
+      txtStatSub2: 'Kadar Capaian Kehadiran KPM',
+      txtStatSub3: 'Purata Kehadiran PAJSK 47.9 / 50 pt',
+      txtStatSub4: 'Padanan Tahap Kemahiran Auto',
+      txtTab1Desc: 'Klik petak untuk menanda (Hadir/Tidak Hadir). Mengira automatik 50% markah kehadiran PAJSK',
+      txtMicroDesc: 'Cabaran pantas untuk murid yang hadir hari ini. Padanan automatik berdasarkan tahap kemahiran!',
+      txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
+
+
       btnMssd: 'Cetak Surat Wakil MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
@@ -5394,6 +5490,18 @@ function updateNavMenuBtn() {
       pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
       pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)', open: 'Menu', close: 'Tutup' },
     en: {
+
+      txtMuridUnit: '',
+      txtSessionWk1: 'Week 1',
+      txtSessionWk2: '/ 12 standard',
+      txtGames: '16 Matches',
+      txtStatSub2: 'KPM Co-curricular KPI Target',
+      txtStatSub3: 'Average PAJSK Score 47.9 / 50 pt',
+      txtStatSub4: 'Auto skill-based matchmaking',
+      txtTab1Desc: 'Click to mark attendance (Present/Absent). Automatically calculates 50% core PAJSK score.',
+      txtMicroDesc: 'Generate quick 1v1 matches for students present today based on their skill level.',
+      txtReportDesc: 'Generates ready-to-copy official weekly reports, saving teachers 20 minutes a week.',
+
 
       btnMssd: 'Print MSSD Selection Letter',
       btnNoticeboard2: 'Print Noticeboard Ranking',
@@ -5985,7 +6093,7 @@ function renderWeeklyAttendance() {
         <td>${s.class || '-'}</td>
         ${weekCells}
         <td style="font-weight:800;">${presentCount} / ${tw}</td>
-        <td style="font-weight:800; color:#10B981;">${attendScore} 分</td>
+        <td style="font-weight:800; color:#10B981;">${attendScore} ` + (currentLang === "en" ? "" : (currentLang === "bm" ? " pt" : " 分")) + `</td>
       </tr>
     `;
   });
@@ -5993,7 +6101,7 @@ function renderWeeklyAttendance() {
   tbody.innerHTML = rows.join('');
   
   const metricTotal = document.getElementById('metricWeeklyTotalMurid');
-  if (metricTotal) metricTotal.textContent = `${totalMurid} 人`;
+  if (metricTotal) metricTotal.textContent = `${totalMurid}` + (currentLang === "en" ? "" : (currentLang === "bm" ? " Org" : " 人"));
   
   const metricAtt = document.getElementById('metricWeeklyAvgAttendance');
   if (metricAtt) {
@@ -6519,7 +6627,7 @@ function openStudentProfileCard(studentId) {
   const nameEl = document.getElementById('profileCardName');
   if (nameEl) nameEl.textContent = fullName;
   const metaEl = document.getElementById('profileCardMeta');
-  if (metaEl) metaEl.textContent = `班级: ${s.class || '-'} ｜ 学会职务: ${s.jawatan || 'Ahli Biasa'} (PAJSK ${calcStudentPajskRoleScore(s.jawatan)}分)`;
+  if (metaEl) metaEl.textContent = `班级: ${s.class || '-'} ｜ 学会职务: ${s.jawatan || 'Ahli Biasa'} (PAJSK ${calcStudentPajskRoleScore(s.jawatan)}` + (currentLang === "en" ? "" : (currentLang === "bm" ? " pt" : " 分")) + `)`;
   const roleBadge = document.getElementById('profileCardRoleBadge');
   if (roleBadge) roleBadge.textContent = teamRole;
   const eloEl = document.getElementById('profileCardElo');
