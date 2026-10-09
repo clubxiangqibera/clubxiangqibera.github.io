@@ -4485,7 +4485,7 @@ function switchViewRound(idx) {
   renderActiveTourney();
 }
 
-function resetSchoolTourney() {
+async function resetSchoolTourney() {
   const confirmMsg = currentLang === 'en'
     ? 'Are you sure you want to discard this tournament and create a new one?'
     : (currentLang === 'bm'
