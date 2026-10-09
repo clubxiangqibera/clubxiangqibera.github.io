@@ -5112,10 +5112,9 @@ function openTierComparisonModal() {
     const row = document.getElementById(`tierRow_${t}`);
     if (row) {
       if (t === currentTier) {
-        row.style.outline = '2px solid #F1C40F';
         row.style.background = 'rgba(241,196,15,0.18)';
       } else {
-        row.style.outline = 'none';
+        row.style.background = '';
       }
     }
   });
