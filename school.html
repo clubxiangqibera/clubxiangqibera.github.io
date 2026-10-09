@@ -2001,7 +2001,7 @@ function updateSeg(lang) {
 
       <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
         <label id="sLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">学校授权码 / 教师工号</label>
-        <input type="text" id="schoolPinInput" class="pin-input" placeholder="请输入学校授权码 (如: QiJing-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
+        <input type="text" id="schoolPinInput" onkeydown="if(event.key === 'Enter') verifySchoolLogin()" class="pin-input" placeholder="请输入学校授权码 (如: QiJing-8888)" maxlength="16" autofocus autocomplete="off" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
       </div>
       
       <button type="button" class="login-btn" id="sBtn" onclick="verifySchoolLogin()" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">验证授权并进入校务管理系统</button>

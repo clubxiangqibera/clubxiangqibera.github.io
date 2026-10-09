@@ -943,7 +943,7 @@ function updateSeg(lang) {
       <form onsubmit="event.preventDefault(); tryLogin(); return false;">
         <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
           <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">管理密码</label>
-          <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入管理密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
+          <input type="password" id="adminPinInput" onkeydown="if(event.key === 'Enter') tryLogin()" class="pin-input" placeholder="请输入管理密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
         </div>
         
         <button type="submit" class="login-btn" id="aBtn" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">进入管理控制台</button>
