@@ -5599,17 +5599,17 @@ function renderWeeklyAttendance() {
   const txtClass = isEn ? 'Class' : (isBm ? 'Kelas' : '班级');
   const txtTotal = isEn ? 'Total' : (isBm ? 'Hadir' : '总出席');
   const txtScore = isEn ? 'PAJSK Score' : (isBm ? 'Markah PAJSK' : 'PAJSK 出勤分');
-  const txtMeet = isEn ? 'Meeting' : (isBm ? 'Perjumpaan' : '第 {i} 次集会');
-  const txtClick = isEn ? 'Click to set title' : (isBm ? 'Klik untuk tajuk' : '点击设置主题');
+  const txtMeet = isEn ? 'Meeting {i}' : (isBm ? 'Perjumpaan {i}' : '第 {i} 次集会');
+  const txtClick = isEn ? 'Click to edit' : (isBm ? 'Klik utk edit' : '点击设置主题');
 
   // 1. Render Header
   let thHtml = `<th style="width:36px;">#</th><th style="text-align:left; min-width:90px;">${txtName}</th><th style="width:55px;">${txtClass}</th>`;
   for(let i=1; i<=tw; i++) { 
-      const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : '';
-      const titleAttr = wt ? `W${i}: ${wt}` : `W${i} (点击设置主题)`;
-      thHtml += `<th style="width:30px; cursor:pointer;" onclick="renameWeek(${i})" title="${titleAttr}">W${i}<br><span style="font-size:9px; color:rgba(255,255,255,0.3); font-weight:normal;">✏️</span></th>`; 
-    }
-  thHtml += `<th style="width:75px;">总出席</th><th style="width:95px;">PAJSK 出勤分</th>`;
+    const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : '';
+    const titleAttr = wt ? `W${i}: ${wt}` : `W${i} (${txtClick})`;
+    thHtml += `<th style="width:30px; cursor:pointer;" onclick="renameWeek(${i})" title="${titleAttr}">W${i}<br><span style="font-size:9px; color:rgba(255,255,255,0.3); font-weight:normal;">✏️</span></th>`; 
+  }
+  thHtml += `<th style="width:75px;">${txtTotal}</th><th style="width:95px;">${txtScore}</th>`;
   theadTr.innerHTML = thHtml;
 
   // 2. Render Select Options
@@ -5618,14 +5618,17 @@ function renderWeeklyAttendance() {
     const currentVal = select.value;
     let optHtml = '';
     for(let i=1; i<=tw; i++) { 
-      const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : `第 ${i} 次集会`;
-      optHtml += `<option value="${i}">${i}. ${wt}</option>`; 
+      const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : '';
+      const defaultStr = txtMeet.replace('{i}', i);
+      const display = wt ? `${i}. ${wt}` : defaultStr;
+      optHtml += `<option value="${i}">${display}</option>`; 
     }
     select.innerHTML = optHtml;
     if (parseInt(currentVal) <= tw) select.value = currentVal;
   }
 
   const totalMurid = schoolHub.students.length;
+
   if (totalMurid === 0) {
     tbody.innerHTML = `
       <tr>
