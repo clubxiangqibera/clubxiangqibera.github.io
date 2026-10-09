@@ -4016,7 +4016,7 @@ function archiveSchoolTourney() {
   schoolTourney = null;
   localStorage.removeItem('cxb_school_current_tourney');
   
-  renderActiveTourney();
+  switchSchoolTab('tourney');
   showSchoolNotice('比赛已成功归档！您现在可以开启下一场新比赛了。', '归档成功');
 }
 
@@ -5804,7 +5804,8 @@ function renderPajskRoster() {
         </td>
         <td style="font-weight:800; color:#F1C40F;">${roleScore} / 10${scoreUnit}</td>
         <td>
-          ${isEloBlocked 
+            <div style="white-space:nowrap;">
+              ${isEloBlocked 
             ? `<span style="font-weight:700; color:#94A3B8; font-size:12px;">1000</span> <span style="font-size:10px; color:#F1C40F; padding:1px 5px; background:rgba(241,196,15,0.12); border-radius:3px; border:1px solid rgba(241,196,15,0.25); cursor:pointer;" onclick="openTierComparisonModal()" title="标准版为统一基准分，点击查看授权等级表">🔒 PLUS+</span>` 
             : `<span style="font-weight:900; color:#F1C40F;">${s.elo}</span>`}
         </td>
