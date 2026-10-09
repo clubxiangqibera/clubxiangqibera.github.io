@@ -1851,118 +1851,167 @@ function updateSeg(lang) {
   </div>
 </div>
 
-<div id="schoolApp" style="display: none; min-height: 100vh; background: #0b0f19;">
-  <!-- TOP NAVBAR (FORMAL APPLE STYLE) -->
-  <header class="public-nav-bar no-print" style="position: sticky; top: 0; z-index: 9200; background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
-    <!-- LEFT: System Logo + System Name + School Name below (FORMAL ACADEMIC) -->
-    <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
-      <img src="cxb_round_emblem.png" alt="QiJing" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(241,196,15,0.4); flex-shrink: 0;">
+<div id="schoolApp" style="display: none; height: 100vh; background: #0b0f19; overflow: hidden; flex-direction: row; width: 100%;">
+  <style>
+    /* Sidebar Styles */
+    .sidebar-hub {
+      width: 280px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: 100%;
+      z-index: 100;
+    }
+    .sidebar-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      width: 100%;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .sidebar-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+    }
+    .sidebar-nav-btn.active {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+    .sidebar-tool-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      color: #cbd5e1;
+      font-size: 13.5px;
+      text-decoration: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sidebar-tool-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Ensure main wrap takes up remaining space properly */
+    .main-wrap {
+      flex: 1;
+      overflow-y: auto;
+      height: 100vh;
+      padding: 24px 32px 80px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    
+    @media print {
+      .sidebar-hub { display: none !important; }
+      .main-wrap { height: auto; overflow: visible; padding: 0; }
+      #schoolApp { height: auto; display: block !important; }
+    }
+  </style>
+
+  <!-- LEFT SIDEBAR HUB -->
+  <aside class="sidebar-hub no-print">
+    <!-- Header / Logo -->
+    <div style="padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 12px;">
+      <img src="cxb_round_emblem.png" alt="QiJing" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid rgba(241,196,15,0.4); flex-shrink: 0;">
       <div style="display: flex; flex-direction: column;">
-        <span id="appSystemTitle" style="font-size: 15px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.3px; line-height: 1.2;">棋境校园 · 数字化教务系统</span>
-        <span id="appSchoolTitle" style="font-size: 12px; font-weight: 700; color: #94A3B8; margin-top: 3px; letter-spacing: 0.5px; text-transform: uppercase;">SJK(C) TRIANG</span>
+        <span id="appSystemTitle" style="font-size: 15px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.3px; line-height: 1.2;">棋境校园 · 数字教务</span>
+        <span id="appSchoolTitle" style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase;">SJK(C) TRIANG</span>
       </div>
     </div>
+    
+    <!-- Navigation Area -->
+    <nav style="flex: 1; padding: 20px 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px;">
+      <div id="menuSecNavTitle" style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 8px; padding-left: 8px; letter-spacing: 1px;">教务模块 (Modul)</div>
+      
+      <button class="sidebar-nav-btn active" id="tabBtnWeekly" onclick="switchSchoolTab('weekly')">
+        <svg width="18" height="18" fill="none" stroke="#60A5FA" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <span style="flex:1;">1. 课外活动 (Aktiviti)</span>
+      </button>
+      
+      <button class="sidebar-nav-btn" id="tabBtnTourney" onclick="switchSchoolTab('tourney')">
+        <svg width="18" height="18" fill="none" stroke="#F1C40F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4v4m-5-8a5 5 0 0010 0V5H7v4zm10-2h2a2 2 0 012 2v1a3 3 0 01-3 3h-1m-10-6H5a2 2 0 00-2 2v1a3 3 0 003 3h1"/></svg>
+        <span style="flex:1;">2. 选拔赛 (Kejohanan)</span>
+      </button>
+      
+      <button class="sidebar-nav-btn" id="tabBtnPajsk" onclick="switchSchoolTab('pajsk')">
+        <svg width="18" height="18" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        <span style="flex:1;">3. 档案与 PAJSK (Profil)</span>
+      </button>
 
-    <!-- RIGHT: Language Switcher + Formal Menu Button (CLEAN LIKE HOME & ACADEMY) -->
-    <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
-      <div class="apple-segment" style="width: auto; padding: 2px;">
-        <button type="button" class="seg-btn nav-lang-chip active" id="sys_lang_zh" onclick="setSystemLang('zh')" style="padding: 5px 11px; font-size: 12px;">中</button>
-        <button type="button" class="seg-btn nav-lang-chip" id="sys_lang_bm" onclick="setSystemLang('bm')" style="padding: 5px 11px; font-size: 12px;">BM</button>
-        <button type="button" class="seg-btn nav-lang-chip" id="sys_lang_en" onclick="setSystemLang('en')" style="padding: 5px 11px; font-size: 12px;">EN</button>
+      <div id="menuSecToolsTitle" style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-top: 28px; margin-bottom: 8px; padding-left: 8px; letter-spacing: 1px;">教务工具箱 (Tools)</div>
+      
+      <a class="sidebar-tool-btn" id="btnSysAddStudent" onclick="openAddStudentModal()">
+        <svg width="16" height="16" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+        <span id="btnSysAddStudentText">添加新学员 (Daftar Murid)</span>
+      </a>
+      
+      <a class="sidebar-tool-btn" id="btnSysProjector" onclick="openProjector()">
+        <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <span id="btnSysProjectorText" style="flex:1;">现场大屏投屏 (Projector)</span>
+        <span id="tagSysProjectorTier" style="font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; background:rgba(96,165,250,0.12); color:#60A5FA; border:1px solid rgba(96,165,250,0.25);">PRO+</span>
+      </a>
+
+      <a class="sidebar-tool-btn" id="btnSysElo" onclick="openSchoolEloModal()">
+        <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        <span id="btnSysEloText" style="flex:1;">校内 ELO 战力榜 (Ranking)</span>
+        <span id="tagSysEloTier" style="font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; background:rgba(241,196,15,0.12); color:#F1C40F; border:1px solid rgba(241,196,15,0.25);">PLUS+</span>
+      </a>
+
+      <a class="sidebar-tool-btn" id="btnSysPrint" onclick="printSchoolReport('standings')">
+        <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+        <span id="btnSysPrintText">布告栏大字报 (Print)</span>
+      </a>
+
+      <a class="sidebar-tool-btn" id="btnSysCert" onclick="openCertificateModal()">
+        <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+        <span id="btnSysCertText">单人荣誉奖状 (Sijil)</span>
+      </a>
+
+      <a class="sidebar-tool-btn" id="btnSysCertBatch" onclick="printSchoolCertificates('all')">
+        <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        <span id="btnSysCertBatchText">一键全员证书 (Batch Sijil)</span>
+      </a>
+    </nav>
+    
+    <!-- Footer Section (Language & Logout) -->
+    <div style="padding: 16px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="margin-bottom: 12px;">
+        <div id="menuTierLabel" style="font-size:10px; color:#94A3B8; text-transform:uppercase; font-weight:700;">授权级别 (License)</div>
+        <div id="menuTierDisplay" style="font-size:13px; font-weight:900; color:#F1C40F; margin-top:2px;">PLUS TIER</div>
+        <button type="button" class="btn btn-outline" style="font-size:10px; padding:3px 6px; margin-top:6px; border-color:rgba(241,196,15,0.35); color:#F1C40F; width:100%; justify-content:center; background:rgba(241,196,15,0.06); font-weight:700;" onclick="openTierComparisonModal()">
+          📋 查看 7 大授权权限表
+        </button>
       </div>
 
-      <button class="school-nav-menu-btn" id="schoolNavMenuBtn" onclick="toggleSchoolToolsMenu()">
-        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        <span id="navSchoolMenuText">菜单 / 工具</span>
-      </button>
+      <div class="apple-segment" style="width: 100%; padding: 2px; margin-bottom: 12px; display: flex;">
+        <button type="button" class="seg-btn nav-lang-chip active" id="sys_lang_zh" onclick="setSystemLang('zh')" style="flex:1; padding: 4px; font-size: 11px;">中</button>
+        <button type="button" class="seg-btn nav-lang-chip" id="sys_lang_bm" onclick="setSystemLang('bm')" style="flex:1; padding: 4px; font-size: 11px;">BM</button>
+        <button type="button" class="seg-btn nav-lang-chip" id="sys_lang_en" onclick="setSystemLang('en')" style="flex:1; padding: 4px; font-size: 11px;">EN</button>
+      </div>
+
+      <a id="btnSysLogout" onclick="schoolLogout()" style="display:flex; align-items:center; justify-content:center; gap:8px; color:#F87171; font-size:13px; padding:8px; cursor:pointer; font-weight:700; border-radius:8px; background: rgba(248, 113, 113, 0.1);">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+        <span id="btnSysLogoutText">退出管理节点 (Logout)</span>
+      </a>
     </div>
-  </header>
+  </aside>
 
-  <!-- FORMAL APPLE STYLE TOOLS MEGA MENU (MONOCHROME ICONS, NO EMOJIS, 100% I18N) -->
-  <div id="schoolToolsBackdrop" class="apple-backdrop no-print" onclick="closeSchoolToolsMenu()"></div>
-  <div id="schoolToolsMenu" class="apple-mega-menu no-print">
-    <div class="apple-mega-container" style="max-width: 980px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; padding: 10px 0;">
-      <!-- Column 1: 三大核心教务模块导航 -->
-      <div class="apple-mega-col">
-        <h4 id="menuSecNavTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">教务模块直达 (Modul Sistem)</h4>
-        <a onclick="switchSchoolTab('weekly')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#60A5FA" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-          <span style="font-weight:700;">1. 每周课外活动 (Aktiviti)</span>
-        </a>
-        <a onclick="switchSchoolTab('tourney')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#F1C40F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4v4m-5-8a5 5 0 0010 0V5H7v4zm10-2h2a2 2 0 012 2v1a3 3 0 01-3 3h-1m-10-6H5a2 2 0 00-2 2v1a3 3 0 003 3h1"/></svg>
-          <span style="font-weight:700;">2. 校内锦标赛与选拔 (Kejohanan)</span>
-        </a>
-        <a onclick="switchSchoolTab('pajsk')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-          <span style="font-weight:700;">3. 学员档案与 PAJSK (Profil)</span>
-        </a>
-      </div>
-
-      <!-- Column 2: 赛事与教务工具 -->
-      <div class="apple-mega-col">
-        <h4 id="menuSecToolsTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">赛事与教务工具箱 (Tournament & Tools)</h4>
-        <a id="btnSysAddStudent" onclick="openAddStudentModal(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
-          <span id="btnSysAddStudentText">添加新学员 (Daftar Murid)</span>
-        </a>
-        <a id="btnSysProjector" onclick="openProjector(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-          <span id="btnSysProjectorText">现场大屏投屏 (Cast to Board)</span>
-          <span id="tagSysProjectorTier" style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; background:rgba(96,165,250,0.12); color:#60A5FA; border:1px solid rgba(96,165,250,0.25);">PRO+</span>
-        </a>
-        <a id="btnSysElo" onclick="openSchoolEloModal(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          <span id="btnSysEloText">校内 ELO 战力榜 (School Ranking)</span>
-          <span id="tagSysEloTier" style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; background:rgba(241,196,15,0.12); color:#F1C40F; border:1px solid rgba(241,196,15,0.25);">PLUS+</span>
-        </a>
-        <a id="btnSysPrint" onclick="printSchoolReport('standings'); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-          <span id="btnSysPrintText">布告栏成绩大字报 (Noticeboard Print)</span>
-        </a>
-        <a id="btnSysCert" onclick="openCertificateModal(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-          <span id="btnSysCertText">官方荣誉奖状 (Sijil Pencapaian)</span>
-        </a>
-        <a id="btnSysCertBatch" onclick="printSchoolCertificates('all'); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-          <span id="btnSysCertBatchText">一键全员参与证书 (Batch Sijil)</span>
-        </a>
-      </div>
-
-      <!-- Column 3: 授权与系统管理 -->
-      <div class="apple-mega-col">
-        <h4 id="menuSecStatusTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">系统节点与管理 (System & Status)</h4>
-        <div style="padding:14px 16px; background:rgba(255,255,255,0.04); border-radius:8px; border:1px solid rgba(255,255,255,0.08); margin-bottom:14px;">
-          <div id="menuTierLabel" style="font-size:11px; color:#94A3B8; text-transform:uppercase; font-weight:700;">授权级别 (License Tier)</div>
-          <div id="menuTierDisplay" style="font-size:15px; font-weight:900; color:#F1C40F; margin-top:4px;">PLUS TIER (96人版)</div>
-          <div id="menuTierSub" style="font-size:11px; color:rgba(255,255,255,0.5); margin-top:3px;">官方教务数字节点已激活</div>
-          <button type="button" class="btn btn-outline" style="font-size:11px; padding:4px 10px; margin-top:10px; border-color:rgba(241,196,15,0.35); color:#F1C40F; width:100%; justify-content:center; background:rgba(241,196,15,0.06); font-weight:700;" onclick="openTierComparisonModal(); closeSchoolToolsMenu();">
-            📋 查看 7 大授权等级权限表
-          </button>
-        </div>
-        <a id="btnSysLogout" onclick="schoolLogout()" style="display:flex; align-items:center; gap:10px; color:#F87171; font-size:14px; padding:8px 0; cursor:pointer; font-weight:700;">
-          <svg width="16" height="16" fill="none" stroke="#F87171" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-          <span id="btnSysLogoutText">退出管理节点 (Logout)</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="main-wrap" style="width: 100%; max-width: 1650px; margin: 0 auto; padding: 24px 32px 80px; box-sizing: border-box;">
-
-    <!-- 3 MASTER TABS (PROMINENT AT TOP OF MAIN CONTENT) -->
-    <div class="school-tab-bar no-print" style="display: flex; gap: 12px; margin-bottom: 24px; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
-      <button class="sch-tab-pill active" id="tabBtnWeekly" onclick="switchSchoolTab('weekly')" style="padding: 10px 22px; font-size: 13.5px; font-weight: 700; border-radius: 8px; cursor: pointer;">
-        1. 每周课外活动 (Aktiviti Mingguan)
-      </button>
-      <button class="sch-tab-pill" id="tabBtnTourney" onclick="switchSchoolTab('tourney')" style="padding: 10px 22px; font-size: 13.5px; font-weight: 700; border-radius: 8px; cursor: pointer;">
-        2. 校内锦标赛与选拔 (Kejohanan Sekolah)
-      </button>
-      <button class="sch-tab-pill" id="tabBtnPajsk" onclick="switchSchoolTab('pajsk')" style="padding: 10px 22px; font-size: 13.5px; font-weight: 700; border-radius: 8px; cursor: pointer;">
-        3. 学员档案、职务与 PAJSK
-      </button>
-    </div>
+  <div class="main-wrap">
 
     <!-- ==================== TAB 1: WEEKLY CLUB ACTIVITIES ==================== -->
     <div id="tabWeeklySection">
@@ -3675,7 +3724,7 @@ function showSchoolApp() {
   const loginScreen = document.getElementById('schoolLoginScreen');
   const appScreen = document.getElementById('schoolApp');
   if (loginScreen) loginScreen.style.display = 'none';
-  if (appScreen) appScreen.style.display = 'block';
+  if (appScreen) appScreen.style.display = 'flex';
 
   try {
     // Read school name from authenticated session
@@ -5562,9 +5611,6 @@ function renderPajskRoster() {
         <td style="text-align:left; font-size:12px; font-weight:700; color:#60A5FA;">${teamRole}</td>
         <td class="col-sticky-action" style="text-align:center; white-space:nowrap;">
           <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
-            <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#F1C40F; border-color:rgba(241,196,15,0.35); background:rgba(241,196,15,0.08); white-space:nowrap; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Kad Prestasi">
-              📊 ${cardBtnText}
-            </button>
             <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#EF4444; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.08); white-space:nowrap; cursor:pointer;" onclick="deleteStudent('${s.id}')" title="删除学员 / Padam Murid">
               🗑️ ${delBtnText}
             </button>
