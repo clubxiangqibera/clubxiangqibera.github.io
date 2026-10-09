@@ -4766,7 +4766,9 @@ function startSchoolTournament() {
 
   const limits = window.SCHOOL_TIER_LIMITS || { maxTourneyPlayers: 9999 };
   if (rawNames.length > limits.maxTourneyPlayers) {
-    alert(`【授权受限】当前级别 (${window.SCHOOL_TIER_LIMITS.tier}) 单场赛事最高仅允许 ${limits.maxTourneyPlayers} 人参赛。您输入了 ${rawNames.length} 人。`);
+    const t = limits.tier || 'LITE';
+    const nextTier = t === 'LITE' ? 'MINI' : (t === 'MINI' ? 'STANDARD' : (t === 'STANDARD' ? 'PLUS' : (t === 'PLUS' ? 'PRO' : (t === 'PRO' ? 'ULTRA' : 'TITAN'))));
+    openAccessDeniedModal(nextTier, t);
     return;
   }
 
@@ -6771,7 +6773,7 @@ function renderWeeklyAttendance() {
         <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17a2 2 0 100-4 2 2 0 000 4zm6-9V6a6 6 0 10-12 0v2H5v14h14V8h-1zm-4 0H10V6a2 2 0 114 0v2z"/></svg>
         ${lockMsg}
       </div>
-      <button onclick="showSchoolNotice('${alertMsg}', '${upgradeBtn}')" style="background:rgba(241,196,15,0.15); color:#F1C40F; border:1px solid rgba(241,196,15,0.4); border-radius:20px; padding:6px 14px; font-size:11.5px; font-weight:700; cursor:pointer; margin-left:4px; transition:all 0.2s;" onmouseover="this.style.background='rgba(241,196,15,0.25)'" onmouseout="this.style.background='rgba(241,196,15,0.15)'">${upgradeBtn}</button>`;
+      <button onclick="openAccessDeniedModal('STANDARD', (window.SCHOOL_TIER_LIMITS || {}).tier || 'LITE')" style="background:rgba(241,196,15,0.15); color:#F1C40F; border:1px solid rgba(241,196,15,0.4); border-radius:20px; padding:6px 14px; font-size:11.5px; font-weight:700; cursor:pointer; margin-left:4px; transition:all 0.2s;" onmouseover="this.style.background='rgba(241,196,15,0.25)'" onmouseout="this.style.background='rgba(241,196,15,0.15)'">${upgradeBtn}</button>`;
     }
 
     filterContainer.innerHTML = filterHtml;
@@ -7456,12 +7458,9 @@ function submitNewStudent(event) {
   const isEn = currentLang === 'en';
   const limits = window.SCHOOL_TIER_LIMITS || { maxPajskStudents: 80, tier: 'STANDARD' };
   if (schoolHub.students && schoolHub.students.length >= limits.maxPajskStudents) {
-    const msg = isEn
-      ? `Student quota reached! Your ${limits.tier} TIER license allows a maximum of ${limits.maxPajskStudents} registered PAJSK students. Please upgrade to a higher tier to add more students.`
-      : (isBm
-        ? `Had kuota murid telah dicapai! Lesen ${limits.tier} TIER membenarkan maksimum ${limits.maxPajskStudents} orang murid PAJSK. Sila naik taraf lesen untuk menambah murid lagi.`
-        : `【PAJSK 档案名额已满】当前【${limits.tier} TIER】最多支持录入 ${limits.maxPajskStudents} 位在籍学员。如需继续扩充学员名单，请联系数字系统委员会升级授权层级！`);
-    showSchoolNotice(msg, isEn ? 'Quota Reached' : (isBm ? 'Had Kuota Dicapai' : '名额已达上限'));
+    const t = limits.tier || 'LITE';
+    const nextTier = t === 'LITE' ? 'MINI' : (t === 'MINI' ? 'STANDARD' : (t === 'STANDARD' ? 'PLUS' : (t === 'PLUS' ? 'PRO' : (t === 'PRO' ? 'ULTRA' : 'TITAN'))));
+    openAccessDeniedModal(nextTier, t);
     return;
   }
 
@@ -7913,14 +7912,7 @@ function exportComprehensivePajskCsv() {
 function generateAutoLaporan() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && (limits.tier === 'LITE' || limits.tier === 'MINI' || limits.tier === 'STANDARD')) {
-    const isEn = currentLang === 'en';
-    const isBm = currentLang === 'bm';
-    const msg = isEn
-      ? `Auto Buku Laporan Kokurikulum is restricted on ${limits.tier} TIER. This feature requires PLUS TIER or higher.`
-      : (isBm
-        ? `Penjanaan Auto Buku Laporan Kokurikulum disekat pada ${limits.tier} TIER. Ciri ini memerlukan PLUS TIER atau lebih tinggi.`
-        : `【功能受限】课外活动周报告自动代写 (Auto Buku Laporan) 为 PLUS TIER（增强教务版）及以上专属功能。当前【${limits.tier} TIER】暂未包含此权益，如需使用请联系数字系统委员会升级！`);
-    showSchoolNotice(msg, isEn ? 'Feature Restricted' : (isBm ? 'Fungsi Terhad' : '功能授权受限'));
+    openAccessDeniedModal('PLUS', limits.tier);
     return;
   }
   const dateObj = new Date();
