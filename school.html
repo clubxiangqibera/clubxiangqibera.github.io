@@ -3935,6 +3935,13 @@ function setSystemLang(lang) {
   const btnPrintNoticeboardText = document.getElementById('btnPrintNoticeboardText');
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
+  
+    const idsToUpdate = ['statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
+    idsToUpdate.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && t[id]) el.innerHTML = t[id];
+    });
+
   // Re-render Tab 1 Attendance & Tab 3 Roster if present
   if (typeof renderWeeklyAttendance === 'function') {
     renderWeeklyAttendance();
