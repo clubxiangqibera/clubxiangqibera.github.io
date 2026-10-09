@@ -3654,7 +3654,7 @@ function setSystemLang(lang) {
 
 
 
-async function verifySchoolLogin() {
+async function verifySchoolLogin() { 
   const pinInput = document.getElementById('schoolPinInput');
   const pin = pinInput ? pinInput.value.trim().toUpperCase() : '';
   const err = document.getElementById('sError') || document.getElementById('schoolLoginErr');
@@ -5505,7 +5505,7 @@ function clearCurrentSession() {
   });
   saveSchoolHub();
   renderWeeklyAttendance();
-  showSchoolNotice(\"已清空第 \" + (sessionIdx + 1) + \" 次集会的所有打卡记录！\", '清除成功');
+  showSchoolNotice('已清空第 ' + (sessionIdx + 1) + ' 次集会的所有打卡记录！', '清除成功');
 }
 
 function markAllCurrentSessionPresent() {
@@ -6394,6 +6394,8 @@ if (document.readyState === 'loading') {
 </script>
 </body>
 </html>
+
+
 
 
 
