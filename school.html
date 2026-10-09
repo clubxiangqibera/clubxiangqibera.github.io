@@ -6694,6 +6694,18 @@ function calcStudentTeamRole(rank) {
 
 
 window.currentAttendanceFilter = 'ALL';
+window.toggleSchoolMode = function() {
+  let mode = localStorage.getItem('cxb_school_level_mode');
+  if (mode === 'secondary') mode = 'primary';
+  else if (mode === 'primary') mode = 'secondary';
+  else {
+    const sName = (schoolHub.activeSchool || '').toUpperCase();
+    mode = (sName.includes('SMK') || sName.includes('SMJK')) ? 'primary' : 'secondary';
+  }
+  localStorage.setItem('cxb_school_level_mode', mode);
+  renderWeeklyAttendance();
+};
+
 window.setAttendanceFilter = function(f) {
   window.currentAttendanceFilter = f;
   renderWeeklyAttendance();
@@ -6711,13 +6723,38 @@ function renderWeeklyAttendance() {
     const isEn = currentLang === 'en';
     const isBm = currentLang === 'bm';
     
-    let filterHtml = `<button class="seg-btn ${window.currentAttendanceFilter === 'ALL' ? 'active' : ''}" style="padding:6px 12px; font-size:12px; white-space:nowrap;" onclick="setAttendanceFilter('ALL')">${isEn ? 'All Students' : (isBm ? 'Semua Murid' : '全部学员')}</button>`;
+    // Auto-detect or load school level mode (Primary vs Secondary)
+    let schoolMode = localStorage.getItem('cxb_school_level_mode');
+    if (!schoolMode) {
+      const sName = (schoolHub.activeSchool || '').toUpperCase();
+      if (sName.includes('SMK') || sName.includes('SMJK') || sName.includes('MIDDLE') || sName.includes('HIGH')) {
+        schoolMode = 'secondary';
+      } else {
+        schoolMode = 'primary';
+      }
+    }
+
+    const getBtnStyle = (isActive) => {
+      if (isActive) return 'background:#3B82F6; color:#FFF; border:1px solid #3B82F6; border-radius:20px; padding:6px 18px; font-size:12.5px; font-weight:800; cursor:pointer; box-shadow:0 2px 10px rgba(59,130,246,0.3); transition:all 0.2s; white-space:nowrap;';
+      return 'background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:6px 18px; font-size:12.5px; font-weight:700; cursor:pointer; transition:all 0.2s; white-space:nowrap;';
+    };
+
+    let filterHtml = `<button style="${getBtnStyle(window.currentAttendanceFilter === 'ALL')}" onclick="setAttendanceFilter('ALL')" onmouseover="if(window.currentAttendanceFilter !== 'ALL') this.style.background='rgba(255,255,255,0.1)'" onmouseout="if(window.currentAttendanceFilter !== 'ALL') this.style.background='rgba(255,255,255,0.06)'">${isEn ? 'All Students' : (isBm ? 'Semua Murid' : '全部学员')}</button>`;
     
     Array.from(digits).sort().forEach(d => {
-      const label = isEn ? `Year/Form ${d}` : (isBm ? `Tahun/Ting. ${d}` : `${d} 年级/中${d}`);
-      filterHtml += `<button class="seg-btn ${window.currentAttendanceFilter === d ? 'active' : ''}" style="padding:6px 12px; font-size:12px; white-space:nowrap;" onclick="setAttendanceFilter('${d}')">${label}</button>`;
+      let label = '';
+      if (schoolMode === 'secondary') {
+        label = isEn ? `Form ${d}` : (isBm ? `Tingkatan ${d}` : `中 ${d} (Form ${d})`);
+      } else {
+        label = isEn ? `Year ${d}` : (isBm ? `Tahun ${d}` : `${d} 年级 (Tahun ${d})`);
+      }
+      filterHtml += `<button style="${getBtnStyle(window.currentAttendanceFilter === d)}" onclick="setAttendanceFilter('${d}')" onmouseover="if(window.currentAttendanceFilter !== '${d}') this.style.background='rgba(255,255,255,0.1)'" onmouseout="if(window.currentAttendanceFilter !== '${d}') this.style.background='rgba(255,255,255,0.06)'">${label}</button>`;
     });
-    
+
+    // Add a tiny mode switcher icon
+    const switchLabel = schoolMode === 'primary' ? (isEn?'Switch to SMK':'转为中学模式') : (isEn?'Switch to SJK':'转为小学模式');
+    filterHtml += `<div style="flex:1;"></div><button style="background:transparent; border:none; color:rgba(255,255,255,0.4); font-size:11px; cursor:pointer; text-decoration:underline;" onclick="toggleSchoolMode()">${switchLabel}</button>`;
+
     filterContainer.innerHTML = filterHtml;
   }
   
