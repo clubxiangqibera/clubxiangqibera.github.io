@@ -2871,17 +2871,17 @@ function openAccessDeniedModal(reqTier, curTier) {
   
   if (isEn) {
     titleEl.innerHTML = `<span style="color:#F1C40F;">${reqTier}</span> License Required`;
-    descEl.innerHTML = `Your current node is <b style="color:#60A5FA;">[${curTier}]</b>.<br><br>This exclusive feature requires <b style="color:#F1C40F;">[${reqTier}]</b> or above. Please contact the Digital Systems Committee to upgrade and unlock more powerful capabilities.`;
+    descEl.innerHTML = `Your current node is <b style="color:#60A5FA;">[${curTier}]</b>.<br><br>This exclusive feature requires <b style="color:#F1C40F;">[${reqTier}]</b> or above.<br>Please contact the Digital Systems Committee to upgrade.`;
     btnEl.textContent = "Discover Premium Features";
     cancelEl.textContent = "Maybe Later";
   } else if (isBm) {
     titleEl.innerHTML = `Lesen <span style="color:#F1C40F;">${reqTier}</span> Diperlukan`;
-    descEl.innerHTML = `Nod semasa anda adalah <b style="color:#60A5FA;">[${curTier}]</b>.<br><br>Fungsi eksklusif ini memerlukan lesen <b style="color:#F1C40F;">[${reqTier}]</b> ke atas. Sila hubungi Jawatankuasa Sistem Digital untuk menaik taraf sistem.`;
+    descEl.innerHTML = `Nod semasa anda adalah <b style="color:#60A5FA;">[${curTier}]</b>.<br><br>Fungsi eksklusif ini memerlukan lesen <b style="color:#F1C40F;">[${reqTier}]</b> ke atas.<br>Sila hubungi Jawatankuasa Sistem Digital untuk naik taraf.`;
     btnEl.textContent = "Teroka Ciri-ciri Premium";
     cancelEl.textContent = "Tutup";
   } else {
     titleEl.innerHTML = `专属 <span style="color:#F1C40F;">${reqTier}</span> 授权功能`;
-    descEl.innerHTML = `您当前使用的节点为 <b style="color:#60A5FA;">[${curTier}]</b>。<br><br>此核心功能专属于 <b style="color:#F1C40F;">[${reqTier}]</b> 或更高级别授权。请联系数字系统委员会进行系统升级，以解锁全套专业系统。`;
+    descEl.innerHTML = `您当前使用的节点为 <b style="color:#60A5FA;">[${curTier}]</b>。<br><br>此核心功能专属于 <b style="color:#F1C40F;">[${reqTier}]</b> 或更高级别授权。<br>请联系数字系统委员会升级，解锁全套专业系统。`;
     btnEl.textContent = "了解高级版专属特权";
     cancelEl.textContent = "暂不升级";
   }
