@@ -472,7 +472,7 @@
       vertical-align: middle;
       text-align: center;
     }
-    .formal-table tr:hover td { background: var(--input-glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--input-glass-border); }
+    .formal-table tr:hover td { background: var(--input-glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 
     /* STICKY ACTION COLUMN - NEVER CLIPPED BY HORIZONTAL SCROLL */
     .col-sticky-action {
@@ -2694,7 +2694,7 @@ function closeAccessDeniedModal() {}
             <td>16 人</td>
             <td>3 轮</td>
             <td style="color:#10B981;">✅ 基础</td>
-            <td style="color:#10B981;">✅ 基础</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
             <td style="color:#EF4444;">❌ 锁定</td>
             <td style="color:#EF4444;">❌ 锁定</td>
             <td style="color:#EF4444;">❌ 锁定</td>
@@ -3765,7 +3765,7 @@ function showSchoolApp() {
         const tier = (d.tier || 'STANDARD').toString().trim().toUpperCase();
         let maxRoundsAllowed = 5, maxPlayersAllowed = 64, blockProjector = true, blockCert = false, blockPajsk = false, blockElo = true;
         
-        if (tier === 'NANO') { maxRoundsAllowed = 3; maxPlayersAllowed = 16; blockProjector = true; blockCert = true; blockElo = true; }
+        if (tier === 'NANO') { maxRoundsAllowed = 3; maxPlayersAllowed = 16; blockProjector = true; blockCert = true; blockPajsk = true; blockElo = true; }
         else if (tier === 'MINI') { maxRoundsAllowed = 4; maxPlayersAllowed = 32; blockProjector = true; blockCert = true; blockElo = true; }
         else if (tier === 'STANDARD') { maxRoundsAllowed = 5; maxPlayersAllowed = 64; blockProjector = true; blockCert = false; blockElo = true; }
         else if (tier === 'PLUS') { maxRoundsAllowed = 6; maxPlayersAllowed = 96; blockProjector = true; blockCert = false; blockElo = false; }
@@ -5166,6 +5166,11 @@ function renderSchoolEloLeaderboard() {
 }
 
 function exportSchoolPajskCsv() {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && limits.blockPajsk) {
+    openAccessDeniedModal('MINI+', limits.tier || 'NANO');
+    return;
+  }
   const eloList = calcSchoolEloStandings();
   const schoolName = (schoolTourney && schoolTourney.name) || '校内象棋比赛';
   let csv = 'Kedudukan (Rank),Nama Murid (Student Name),Skor ELO (Rating),Perubahan (+/-),Menang (W),Seri (D),Kalah (L),Pencapaian PAJSK,Status Pasukan Sekolah\n';
@@ -6202,6 +6207,11 @@ function printWeeklyAttendanceSheet() {
 }
 
 function exportComprehensivePajskCsv() {
+  const limits = window.SCHOOL_TIER_LIMITS;
+  if (limits && limits.blockPajsk) {
+    openAccessDeniedModal('MINI+', limits.tier || 'NANO');
+    return;
+  }
   const sorted = [...schoolHub.students].sort((a,b) => b.elo - a.elo);
   let csv = 'Kedudukan,Nama Murid,Kelas,No. Kad Pengenalan,Jawatan (AJK),Markah Jawatan (10%),Kehadiran (Sesi/12),Markah Kehadiran (50%),Pencapaian Kejohanan,Markah Pencapaian (20%),Komitmen (20%),Jumlah Markah PAJSK (100%),Gred PAJSK,Status Pasukan Sekolah\n';
 
