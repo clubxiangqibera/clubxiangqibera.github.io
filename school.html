@@ -3719,9 +3719,6 @@ async function verifySchoolLogin() {
     if (pin === '7789' || pin === '8899') {
       localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '校际象棋选拔赛', tier: 'TITAN', ts: Date.now() }));
       showSchoolApp();
-    } else if (pin === '1111') {
-      localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '测试标准版学校', tier: 'STANDARD', ts: Date.now() }));
-      showSchoolApp();
     } else {
       if (err) {
         err.textContent = (t.errNet || '网络连接异常') + (e && e.message ? ` (${e.message})` : '');
@@ -3776,8 +3773,8 @@ function showSchoolApp() {
         if (titleEl) titleEl.textContent = d.name || '校内象棋锦标赛控制台';
 
         // Apply Tier Limits
-        const tier = d.tier || 'STANDARD';
-        let maxRoundsAllowed = 7, maxPlayersAllowed = 256, blockProjector = false, blockCert = false, blockPajsk = false, blockElo = false;
+        const tier = (d.tier || 'STANDARD').toString().trim().toUpperCase();
+        let maxRoundsAllowed = 5, maxPlayersAllowed = 64, blockProjector = true, blockCert = false, blockPajsk = false, blockElo = true;
         
         if (tier === 'NANO') { maxRoundsAllowed = 3; maxPlayersAllowed = 16; blockProjector = true; blockCert = true; blockElo = true; }
         else if (tier === 'MINI') { maxRoundsAllowed = 4; maxPlayersAllowed = 32; blockProjector = true; blockCert = true; blockElo = true; }
