@@ -7370,7 +7370,8 @@ function submitEditStudent(e) {
     s.class = sClass;
     s.ic = ic;
     saveSchoolHub();
-    renderSchoolDashboard();
+    renderWeeklyAttendance();
+    renderPajskRoster();
     
     closeEditStudentModal();
     const isEn = typeof currentLang !== 'undefined' && currentLang === 'en';
