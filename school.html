@@ -5696,12 +5696,14 @@ function toggleAttendance(studentId, weekIdx) {
 
 
 function addAttendanceWeek() {
+  if (!schoolHub.totalWeeks) schoolHub.totalWeeks = 12;
   if (schoolHub.totalWeeks >= 24) { showSchoolNotice('最多支持 24 次集会记录！', '限制'); return; }
   schoolHub.totalWeeks++;
   saveSchoolHub();
   renderWeeklyAttendance();
 }
 async function removeAttendanceWeek() {
+  if (!schoolHub.totalWeeks) schoolHub.totalWeeks = 12;
   if (schoolHub.totalWeeks <= 1) return;
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
