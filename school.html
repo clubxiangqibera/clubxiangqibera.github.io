@@ -1715,7 +1715,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       thEloRecord: 'Rekod (M/S/K)',
       thEloTeam: 'Status Pasukan',
       btnEloClose: 'Tutup',
-      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)',
+      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>Lihat 7 Tahap Lesen',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
@@ -1835,7 +1835,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       thEloRecord: 'Record (W/D/L)',
       thEloTeam: 'Team Status',
       btnEloClose: 'Close',
-      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)',
+      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>View 7 License Tiers',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
@@ -2153,9 +2153,7 @@ function updateSeg(lang) {
       <div style="margin-bottom: 12px;">
         <div id="menuTierLabel" style="font-size:10px; color:#94A3B8; text-transform:uppercase; font-weight:700;">授权级别 (License)</div>
         <div id="menuTierDisplay" style="font-size:13px; font-weight:900; color:#F1C40F; margin-top:2px;">PLUS TIER</div>
-        <button type="button" class="btn btn-outline" style="font-size:10px; padding:3px 6px; margin-top:6px; border-color:rgba(241,196,15,0.35); color:#F1C40F; width:100%; justify-content:center; background:rgba(241,196,15,0.06); font-weight:700;" onclick="openTierComparisonModal()">
-          📋 查看 7 大授权权限表
-        </button>
+        <button type="button" class="btn btn-outline" id="btnTierCompareSidebar" style="font-size:10px; padding:3px 6px; margin-top:6px; border-color:rgba(241,196,15,0.35); color:#F1C40F; width:100%; justify-content:center; background:rgba(241,196,15,0.06); font-weight:700;" onclick="openTierComparisonModal()"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>查看 7 大授权权限表</button>
       </div>
 
       <div class="apple-segment" style="width: 100%; padding: 2px; margin-bottom: 12px; display: flex;">
@@ -2254,9 +2252,7 @@ function updateSeg(lang) {
             <h4 id="microTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">⚡ 每周 15 分钟水平快棋微挑战</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;"><span id="txtMicroDesc">针对今日出席学生，一键按战力接近度配对对局 · 告别无序乱下，课外活动纪律立竿见影！</span></div>
           </div>
-          <button class="btn btn-pri-gold" style="font-size:13px; padding:8px 18px;" onclick="generateWeeklyMicroPairings()">
-            一键生成今日微挑战对阵
-          </button>
+          <button class="btn btn-pri-gold" style="font-size:13px; padding:8px 18px;" onclick="generateWeeklyMicroPairings()"><span id="btnGenerateMicro">一键生成今日微挑战对阵</span></button>
         </div>
         <div id="weeklyMicroPairingsWrap">
           <div style="text-align:center; padding:30px 20px; color:rgba(255,255,255,0.4); font-size:13px;"><span id="microEmptyText">点击右上角【一键生成今日微挑战对阵】，系统将自动抓取今日出勤学员并按水平两两匹配！</span></div>
@@ -2798,7 +2794,7 @@ function openAccessDeniedModal(reqTier, curTier) {
       此功能专属于 <b style="color:#F1C40F;">[${reqTier} 授权版]</b> 或更高级别节点。请联系官方进行系统升级以解锁更多强大功能。
     </div>
     <button class="btn" style="background:#F1C40F; color:#000; font-weight:800; font-size:14px; padding:12px; justify-content:center; width:100%; border:none; cursor:pointer; border-radius:8px;" onclick="closeSchoolNotice(); setTimeout(openTierComparisonModal, 100);">
-      📋 查看 7 大授权版本权限表
+      ${isEn ? "View 7 License Tiers" : (isBm ? "Lihat 7 Tahap Lesen" : "查看 7 大授权版本权限表")}
     </button>`;
   
   if (typeof showSchoolNotice === 'function') {
@@ -3090,7 +3086,7 @@ btnPrintAttSheet: '打印记录表', btnPrintAttReport: '打印出勤记录表',
       thEloRecord: '战绩 (胜/平/负)',
       thEloTeam: '推荐定位',
       btnEloClose: '关闭',
-      btnEloPrint: '🖨️ 打印校内战力榜 (A4)',
+      btnEloPrint: '🖨️ 打印校内战力榜 (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>查看 7 大授权权限表',
       eloFooterNote: '<span id="eloFooterNote">* 自动符合马来西亚教育部 (MOE) PAJSK 课外活动分级与校队选拔标准</span>',
       btnMarkAllPresent: '本周全员出席',
       btnClearSession: '清空本周',
@@ -3278,7 +3274,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       thEloRecord: 'Rekod (M/S/K)',
       thEloTeam: 'Status Pasukan',
       btnEloClose: 'Tutup',
-      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)',
+      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>Lihat 7 Tahap Lesen',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
@@ -3462,7 +3458,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       thEloRecord: 'Record (W/D/L)',
       thEloTeam: 'Team Status',
       btnEloClose: 'Close',
-      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)',
+      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>View 7 License Tiers',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
@@ -3660,7 +3656,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       thEloRecord: 'Rekod (M/S/K)',
       thEloTeam: 'Status Pasukan',
       btnEloClose: 'Tutup',
-      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)',
+      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>Lihat 7 Tahap Lesen',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
@@ -3751,7 +3747,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       thEloRecord: 'Record (W/D/L)',
       thEloTeam: 'Team Status',
       btnEloClose: 'Close',
-      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)',
+      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>View 7 License Tiers',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
@@ -4236,7 +4232,7 @@ function setSystemLang(lang) {
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
   
-    const idsToUpdate = ['eloModalTitle', 'eloModalSub', 'lblEloTotalPlayers', 'lblEloTopRating', 'lblEloAvgRating', 'lblEloRoundsPlayed', 'thEloRank', 'thEloName', 'thEloScore', 'thEloDelta', 'thEloRecord', 'thEloTeam', 'btnEloClose', 'btnEloPrint', 'eloFooterNote', 'btnMarkAllPresent', 'btnClearSession', 'lblSelectSession', 'btnPrintAttSheet', 'btnPrintAttReport', 'pajskF1Sub', 'pajskF2Sub', 'pajskF3Sub', 'pajskF4Sub', 'pajskFooterTitle', 'txtTab3Desc', 'profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtStatSub2', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
+    const idsToUpdate = ['btnTierCompareSidebar', 'eloModalTitle', 'eloModalSub', 'lblEloTotalPlayers', 'lblEloTopRating', 'lblEloAvgRating', 'lblEloRoundsPlayed', 'thEloRank', 'thEloName', 'thEloScore', 'thEloDelta', 'thEloRecord', 'thEloTeam', 'btnEloClose', 'btnEloPrint', 'eloFooterNote', 'btnMarkAllPresent', 'btnClearSession', 'lblSelectSession', 'btnPrintAttSheet', 'btnPrintAttReport', 'pajskF1Sub', 'pajskF2Sub', 'pajskF3Sub', 'pajskF4Sub', 'pajskFooterTitle', 'txtTab3Desc', 'profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtStatSub2', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
     idsToUpdate.forEach(id => {
       const el = document.getElementById(id);
       if (el && t[id]) el.innerHTML = t[id];
@@ -5676,7 +5672,7 @@ btnPrintAttSheet: 'Cetak Lembaran', btnPrintAttReport: 'Cetak Laporan',
       thEloRecord: 'Rekod (M/S/K)',
       thEloTeam: 'Status Pasukan',
       btnEloClose: 'Tutup',
-      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)',
+      btnEloPrint: '🖨️ Cetak Kedudukan ELO (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>Lihat 7 Tahap Lesen',
       eloFooterNote: '* Memenuhi kriteria pemilihan pasukan sekolah dan penilaian PAJSK (MOE) secara automatik',
       btnMarkAllPresent: 'Hadir Semua',
       btnClearSession: 'Padam Kehadiran',
@@ -5757,7 +5753,7 @@ btnPrintAttSheet: 'Print Sheet', btnPrintAttReport: 'Print Report',
       thEloRecord: 'Record (W/D/L)',
       thEloTeam: 'Team Status',
       btnEloClose: 'Close',
-      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)',
+      btnEloPrint: '🖨️ Print ELO Leaderboard (A4)', btnTierCompareSidebar: '<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>View 7 License Tiers',
       eloFooterNote: '* Automatically complies with MOE PAJSK co-curricular grading and team selection standards',
       btnMarkAllPresent: 'Mark All Present',
       btnClearSession: 'Clear Session',
