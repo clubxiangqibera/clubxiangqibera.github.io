@@ -2488,6 +2488,35 @@ function updateSeg(lang) {
   </div>
 </div>
 
+
+<!-- TOURNEY HISTORY MODAL -->
+<div class="modal-overlay" id="tourneyHistoryModal" style="display:none; z-index:9999;">
+  <div class="modal-content" style="max-width:800px; width:95%; background:var(--bg-card); box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3 style="font-size:18px; font-weight:900; color:#FFF;">📁 历届赛事档案 (Rekod Arkib Pertandingan)</h3>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:12px;" onclick="closeTourneyHistory()">关闭 (Tutup)</button>
+    </div>
+    <div style="overflow-x:auto; max-height:400px; overflow-y:auto;">
+      <table class="formal-table" style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead style="position:sticky; top:0; z-index:2; background:#1E293B;">
+          <tr>
+            <th style="width:40px;">#</th>
+            <th style="text-align:left;">赛事名称 (Nama Pertandingan)</th>
+            <th>日期 (Tarikh)</th>
+            <th>参赛人数</th>
+            <th>总轮次</th>
+            <th>冠军 (Johan)</th>
+            <th style="width:80px;">操作</th>
+          </tr>
+        </thead>
+        <tbody id="tourneyHistoryBody">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <!-- 4. OFFICIAL CERTIFICATE (SIJIL) GENERATION MODAL -->
 <div id="certificateModal" class="cert-modal-backdrop">
   <div class="cert-modal-card">
@@ -5530,7 +5559,7 @@ function renderWeeklyAttendance() {
     return `
       <tr>
         <td>${idx + 1}</td>
-        <td style="text-align:left; font-weight:700;">${s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? '<br><span style="font-size:11px; color:rgba(255,255,255,0.5);">' + s.name + '</span>' : ''}` : s.name}</td>
+        <td style="text-align:left; font-weight:700;">${s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' <span style="font-size:11px; color:rgba(255,255,255,0.5); margin-left:6px;">(' + s.name + ')</span>' : ''}` : s.name}</td>
         <td>${s.class || '-'}</td>
         ${weekCells}
         <td style="font-weight:800;">${presentCount} / ${tw}</td>
