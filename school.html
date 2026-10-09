@@ -6136,6 +6136,41 @@ function renderWeeklyAttendance() {
   const metricTotal = document.getElementById('metricWeeklyTotalMurid');
   if (metricTotal) metricTotal.textContent = `${totalMurid}` + (currentLang === "en" ? "" : (currentLang === "bm" ? " Org" : " 人"));
   
+  
+  let maxWeek = 1;
+  let totalGames = 0;
+  schoolHub.students.forEach(s => {
+    (s.attendance || []).forEach((att, wIdx) => {
+       if (att) {
+         if (wIdx + 1 > maxWeek) maxWeek = wIdx + 1;
+       }
+    });
+    totalGames += (s.wins || 0) + (s.draws || 0) + (s.losses || 0);
+  });
+  totalGames = Math.floor(totalGames / 2);
+
+  const metricSession = document.getElementById('metricWeeklyCurrentSession');
+  if (metricSession) {
+    if (currentLang === 'en') {
+      metricSession.innerHTML = `<span id="txtSessionWk1">Week ${maxWeek}</span>`;
+    } else if (currentLang === 'bm') {
+      metricSession.innerHTML = `<span id="txtSessionWk1">Minggu ${maxWeek}</span>`;
+    } else {
+      metricSession.innerHTML = `<span id="txtSessionWk1">第 ${maxWeek} 周</span>`;
+    }
+  }
+
+  const metricGames = document.getElementById('metricWeeklyLadderGames');
+  if (metricGames) {
+    if (currentLang === 'en') {
+      metricGames.innerHTML = `<span id="txtGames">${totalGames} Matches</span>`;
+    } else if (currentLang === 'bm') {
+      metricGames.innerHTML = `<span id="txtGames">${totalGames} Pusingan</span>`;
+    } else {
+      metricGames.innerHTML = `<span id="txtGames">${totalGames} 局已完成</span>`;
+    }
+  }
+
   const metricAtt = document.getElementById('metricWeeklyAvgAttendance');
   if (metricAtt) {
     const pct = totalPossible > 0 ? ((totalAttended / totalPossible) * 100).toFixed(1) : '0.0';
