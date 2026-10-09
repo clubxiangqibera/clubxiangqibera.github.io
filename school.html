@@ -2189,6 +2189,7 @@ function updateSeg(lang) {
             <div style="display:flex; gap:8px;">
               <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printMssdAppointmentLetter()">打印 MSSD 选拔公函</button>
               <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printNoticeboardRanking()">打印布告栏风云榜</button>
+              <button class="btn btn-outline" style="padding:6px 12px; font-size:12px; background:rgba(16, 185, 129, 0.1); color:#10B981; border-color:rgba(16, 185, 129, 0.3);" onclick="archiveSchoolTourney()">📥 归档比赛 (Arkib)</button>
               <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="resetSchoolTourney()">重新创建比赛</button>
             </div>
           </div>
@@ -3951,6 +3952,88 @@ if (playerInputEl) {
 }
 
 // --- START TOURNAMENT ---
+
+let schoolTourneyHistory = [];
+try {
+  const h = localStorage.getItem('cxb_school_tourney_history');
+  if (h) schoolTourneyHistory = JSON.parse(h);
+} catch(e) {}
+
+function saveTourneyHistory() {
+  localStorage.setItem('cxb_school_tourney_history', JSON.stringify(schoolTourneyHistory));
+}
+
+function archiveSchoolTourney() {
+  if (!schoolTourney) return;
+  const isEn = currentLang === 'en';
+  const isBm = currentLang === 'bm';
+  if (!confirm(isEn ? "Are you sure you want to end and archive this tournament?" : (isBm ? "Adakah anda pasti untuk menamatkan dan mengarkibkan pertandingan ini?" : "确定要【结束并归档】本次比赛吗？归档后，您可以在「比赛档案」中随时查阅榜单，并重新开启新的一届比赛！"))) return;
+  
+  schoolTourney.archivedAt = new Date().toISOString();
+  
+  let champName = '-';
+  if (schoolTourney.players && schoolTourney.players.length > 0) {
+    const sorted = [...schoolTourney.players].sort((a, b) => b.score - a.score || b.buchholz - a.buchholz || b.seed - a.seed);
+    champName = sorted[0].name;
+  }
+  schoolTourney.championName = champName;
+
+  schoolTourneyHistory.unshift(schoolTourney);
+  saveTourneyHistory();
+
+  schoolTourney = null;
+  localStorage.removeItem('cxb_school_current_tourney');
+  
+  renderActiveTourney();
+  showSchoolNotice('比赛已成功归档！您现在可以开启下一场新比赛了。', '归档成功');
+}
+
+function openTourneyHistory() {
+  document.getElementById('tourneyHistoryModal').style.display = 'flex';
+  renderTourneyHistoryList();
+}
+
+function closeTourneyHistory() {
+  document.getElementById('tourneyHistoryModal').style.display = 'none';
+}
+
+function renderTourneyHistoryList() {
+  const tbody = document.getElementById('tourneyHistoryBody');
+  if (!schoolTourneyHistory || schoolTourneyHistory.length === 0) {
+    tbody.innerHTML = <tr><td colspan="7" style="text-align:center; padding:30px; color:#94A3B8;">暂无历史归档记录 (Tiada rekod arkib)</td></tr>;
+    return;
+  }
+  
+  let html = '';
+  schoolTourneyHistory.forEach((t, i) => {
+    const dateStr = t.archivedAt ? new Date(t.archivedAt).toLocaleDateString() : '-';
+    html += 
+      <tr>
+        <td style="text-align:center; color:#94A3B8;"></td>
+        <td style="text-align:left; font-weight:bold; color:#FFF;"></td>
+        <td style="text-align:center; color:#94A3B8;"></td>
+        <td style="text-align:center; color:#94A3B8;"> 人</td>
+        <td style="text-align:center; color:#94A3B8;"> 轮</td>
+        <td style="text-align:center; color:#F59E0B; font-weight:900;"></td>
+        <td style="text-align:center;">
+          <button class="btn btn-outline" style="padding:4px 8px; font-size:11px;" onclick="viewArchivedRanking()">查看榜单</button>
+        </td>
+      </tr>
+    ;
+  });
+  tbody.innerHTML = html;
+}
+
+function viewArchivedRanking(idx) {
+  const t = schoolTourneyHistory[idx];
+  if (!t) return;
+  const backup = schoolTourney;
+  schoolTourney = t;
+  printNoticeboardRanking();
+  schoolTourney = backup;
+}
+
+
 function startSchoolTournament() {
   if (isLicenseTerminated) {
     showSchoolNotice('比赛授权已被管理员终止，无法执行此操作！', '授权已终止');
