@@ -3578,13 +3578,24 @@ function setSystemLang(lang) {
   const tBtnStartTourney = document.getElementById('tBtnStartTourney');
   if (tBtnStartTourney) tBtnStartTourney.textContent = t.btnStartTourney;
 
-  // Update schTotalRounds select options preserving selected value
+  // Update schTotalRounds select options preserving selected value and enforcing tier limits
   const schTotalRounds = document.getElementById('schTotalRounds');
   if (schTotalRounds && roundOptions[mapped]) {
-    const curVal = schTotalRounds.value || '4';
-    schTotalRounds.innerHTML = roundOptions[mapped].map(opt =>
-      `<option value="${opt.val}" ${opt.val === curVal ? 'selected' : ''}>${opt.label}</option>`
-    ).join('');
+    const limits = window.SCHOOL_TIER_LIMITS || { maxRoundsAllowed: 6 };
+    const curVal = schTotalRounds.value || limits.maxRoundsAllowed.toString();
+    
+    schTotalRounds.innerHTML = roundOptions[mapped].map(opt => {
+      const val = parseInt(opt.val);
+      if (val > limits.maxRoundsAllowed) {
+        return `<option value="${opt.val}" disabled style="color:rgba(255,255,255,0.3);">${opt.val} 轮 (需升级 / Naik Taraf) 🔒</option>`;
+      } else {
+        return `<option value="${opt.val}" ${opt.val === curVal ? 'selected' : ''}>${opt.label}</option>`;
+      }
+    }).join('');
+    
+    if (parseInt(schTotalRounds.value) > limits.maxRoundsAllowed || !schTotalRounds.value) {
+       schTotalRounds.value = limits.maxRoundsAllowed > 10 ? 10 : limits.maxRoundsAllowed;
+    }
   }
 
   // Update player counter
