@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-MY">
 <head>
   <meta charset="UTF-8">
@@ -2680,7 +2680,7 @@ function closeAccessDeniedModal() {}
             <th style="padding:10px 8px;">授权等级 (Tahap)</th>
             <th style="padding:10px 8px;">PAJSK 档案容量</th>
             <th style="padding:10px 8px;">单场赛事规模</th>
-            <th style="padding:10px 8px;">赛事轮数 (Pusingan)</th>
+            <th style="padding:10px 8px;">赛事轮数 </th>
             <th style="padding:10px 8px;">瑞士轮 (Swiss)</th>
             <th style="padding:10px 8px;">PAJSK 报表 (KPM)</th>
             <th style="padding:10px 8px;">官方荣誉奖状 (Sijil)</th>
@@ -3248,14 +3248,14 @@ const tCard = {
 const roundOptions = {
   zh: [
     { val: '2', label: '2 轮 (体验/极速)' },
-    { val: '3', label: '3 轮 (Pusingan)' },
-    { val: '4', label: '4 轮 (Pusingan)' },
-    { val: '5', label: '5 轮 (Pusingan)' },
-    { val: '6', label: '6 轮 (Pusingan)' },
-    { val: '7', label: '7 轮 (Pusingan)' },
-    { val: '8', label: '8 轮 (Pusingan)' },
-    { val: '9', label: '9 轮 (Pusingan)' },
-    { val: '10', label: '10 轮 (Pusingan)' }
+    { val: '3', label: '3 轮 ' },
+    { val: '4', label: '4 轮 ' },
+    { val: '5', label: '5 轮 ' },
+    { val: '6', label: '6 轮 ' },
+    { val: '7', label: '7 轮 ' },
+    { val: '8', label: '8 轮 ' },
+    { val: '9', label: '9 轮 ' },
+    { val: '10', label: '10 轮 ' }
   ],
   bm: [
     { val: '2', label: '2 Pusingan (Ekspres)' },
@@ -3587,7 +3587,11 @@ function setSystemLang(lang) {
     schTotalRounds.innerHTML = roundOptions[mapped].map(opt => {
       const val = parseInt(opt.val);
       if (val > limits.maxRoundsAllowed) {
-        return `<option value="${opt.val}" disabled style="color:rgba(255,255,255,0.3);">${opt.val} 轮 (需升级 / Naik Taraf) 🔒</option>`;
+        let lockText = '';
+        if (mapped === 'zh') lockText = `${opt.val} 轮 (需升级) 🔒`;
+        else if (mapped === 'bm') lockText = `${opt.val} Pusingan (Naik Taraf) 🔒`;
+        else lockText = `${opt.val} Rounds (Upgrade Req) 🔒`;
+        return `<option value="${opt.val}" disabled style="color:rgba(255,255,255,0.3);">${lockText}</option>`;
       } else {
         return `<option value="${opt.val}" ${opt.val === curVal ? 'selected' : ''}>${opt.label}</option>`;
       }
@@ -3805,7 +3809,7 @@ function showSchoolApp() {
               opt.style.color = 'rgba(255,255,255,0.3)';
             } else {
               opt.disabled = false;
-              opt.text = `${val} 轮 (Pusingan)`;
+              opt.text = `${val} 轮`;
               opt.style.color = '';
             }
           });
@@ -6351,3 +6355,5 @@ if (document.readyState === 'loading') {
 </script>
 </body>
 </html>
+
+
