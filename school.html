@@ -2004,7 +2004,12 @@ function updateSeg(lang) {
         <button type="button" class="seg-btn nav-lang-chip" id="sys_lang_en" onclick="setSystemLang('en')" style="flex:1; padding: 4px; font-size: 11px;">EN</button>
       </div>
 
-      <a id="btnSysLogout" onclick="schoolLogout()" style="display:flex; align-items:center; justify-content:center; gap:8px; color:#F87171; font-size:13px; padding:8px; cursor:pointer; font-weight:700; border-radius:8px; background: rgba(248, 113, 113, 0.1);">
+      
+        <a class="sidebar-tool-btn" id="btnSysRollover" onclick="executeYearEndRollover()" style="color:#EF4444; margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:16px;">
+          <svg width="16" height="16" fill="none" stroke="#EF4444" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          <span id="btnSysRolloverText">年度跨年结转 (Year-End)</span>
+        </a>
+        <a id="btnSysLogout" onclick="schoolLogout()" style="display:flex; align-items:center; justify-content:center; gap:8px; color:#F87171; font-size:13px; padding:8px; cursor:pointer; font-weight:700; border-radius:8px; background: rgba(248, 113, 113, 0.1);">
         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
         <span id="btnSysLogoutText">退出管理节点 (Logout)</span>
       </a>
@@ -5496,7 +5501,11 @@ function renderWeeklyAttendance() {
 
   // 1. Render Header
   let thHtml = `<th style="width:36px;">#</th><th style="text-align:left; min-width:90px;">学生姓名</th><th style="width:55px;">班级</th>`;
-  for(let i=1; i<=tw; i++) { thHtml += `<th style="width:30px;">W${i}</th>`; }
+  for(let i=1; i<=tw; i++) { 
+      const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : '';
+      const titleAttr = wt ? `W${i}: ${wt}` : `W${i} (点击设置主题)`;
+      thHtml += `<th style="width:30px; cursor:pointer;" onclick="renameWeek(${i})" title="${titleAttr}">W${i}<br><span style="font-size:9px; color:rgba(255,255,255,0.3); font-weight:normal;">✏️</span></th>`; 
+    }
   thHtml += `<th style="width:75px;">总出席</th><th style="width:95px;">PAJSK 出勤分</th>`;
   theadTr.innerHTML = thHtml;
 
@@ -5505,7 +5514,10 @@ function renderWeeklyAttendance() {
   if (select) {
     const currentVal = select.value;
     let optHtml = '';
-    for(let i=1; i<=tw; i++) { optHtml += `<option value="${i}">第 ${i} 次集会</option>`; }
+    for(let i=1; i<=tw; i++) { 
+      const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : `第 ${i} 次集会`;
+      optHtml += `<option value="${i}">${i}. ${wt}</option>`; 
+    }
     select.innerHTML = optHtml;
     if (parseInt(currentVal) <= tw) select.value = currentVal;
   }
@@ -5621,6 +5633,42 @@ function clearCurrentSession() {
   saveSchoolHub();
   renderWeeklyAttendance();
   showSchoolNotice('已清空第 ' + (sessionIdx + 1) + ' 次集会的所有打卡记录！', '清除成功');
+}
+
+
+function executeYearEndRollover() {
+  const isEn = currentLang === 'en';
+  const isBm = currentLang === 'bm';
+  const msg = isEn ? "WARNING! This will clear all attendance, week titles, and class fields to prepare for the new year. ELO will be retained. Type CONFIRM to proceed:" :
+    (isBm ? "AMARAN! Semua kehadiran, tajuk kelas, dan data kelas akan dipadam. ELO dikekalkan. Taip CONFIRM untuk teruskan:" :
+    "【高危警告】此操作将清空所有学员的考勤记录、集会主题和班级信息，以迎接新学年！战力 ELO 将完美保留。\n\n请输入大写 CONFIRM 继续执行：");
+  const ans = prompt(msg);
+  if (ans !== 'CONFIRM') return;
+
+  schoolHub.totalWeeks = 12;
+  schoolHub.weekTitles = [];
+  schoolHub.students.forEach(s => {
+    s.attendance = [];
+    s.class = '';
+  });
+  saveSchoolHub();
+  renderWeeklyAttendance();
+  renderPajskRoster();
+  showSchoolNotice('新年结转成功！所有考勤与班级已重置，战力数据已完美继承。', '结转成功');
+}
+
+function renameWeek(weekIdx) {
+  const current = (schoolHub.weekTitles && schoolHub.weekTitles[weekIdx-1]) ? schoolHub.weekTitles[weekIdx-1] : '';
+  const isEn = currentLang === 'en';
+  const isBm = currentLang === 'bm';
+  const promptMsg = isEn ? `Enter class theme/title for Week ${weekIdx}:` : (isBm ? `Masukkan tajuk/tema kelas untuk Minggu ${weekIdx}:` : `请输入 W${weekIdx} 的课程主题 (如：开学迎新赛 / 开局战术)：`);
+  const ans = prompt(promptMsg, current);
+  if (ans !== null) {
+    if (!schoolHub.weekTitles) schoolHub.weekTitles = [];
+    schoolHub.weekTitles[weekIdx-1] = ans.trim();
+    saveSchoolHub();
+    renderWeeklyAttendance();
+  }
 }
 
 function markAllCurrentSessionPresent() {
@@ -6265,6 +6313,9 @@ function printMssdAppointmentLetter() {
 }
 
 function printNoticeboardRanking() {
+  const limits = window.SCHOOL_TIER_LIMITS || {};
+  const isEloBlocked = !!limits.blockElo;
+
   const sorted = [...schoolHub.students].sort((a,b) => b.elo - a.elo);
   const printArea = document.getElementById('officialPrintContainer') || document.getElementById('printDocumentArea');
   if (!printArea) return;
@@ -6275,7 +6326,7 @@ function printNoticeboardRanking() {
     <div style="padding:36px; font-family:'Noto Sans SC', sans-serif; color:#111; max-width:800px; margin:0 auto; border:4px double #1F2937;">
       <div style="text-align:center; border-bottom:2px solid #111; padding-bottom:14px; margin-bottom:20px;">
         <h1 style="font-size:24px; margin:0 0 6px;">${schoolHub.activeSchool} · 棋艺学会</h1>
-        <h2 style="font-size:18px; margin:0 0 4px; color:#B45309;">🏆 校内中国象棋风云榜 · ELO 战力排行榜 (PAPAN KENYATAAN)</h2>
+        <h2 style="font-size:18px; margin:0 0 4px; color:#B45309;">🏆 校内中国象棋风云榜 · 战力排行榜 (PAPAN KENYATAAN)</h2>
         <p style="font-size:12px; color:#666; margin:0;">公告日期：${dateStr} ｜ 官方数字化教务系统：棋境校园 QiJing School OS</p>
       </div>
 
@@ -6296,27 +6347,15 @@ function printNoticeboardRanking() {
               <td style="padding:10px; border:1px solid #ddd;">${idx === 0 ? '🥇 1' : (idx === 1 ? '🥈 2' : (idx === 2 ? '🥉 3' : idx + 1))}</td>
               <td style="padding:10px; border:1px solid #ddd; text-align:left;">${s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name}</td>
               <td style="padding:10px; border:1px solid #ddd;">${s.class}</td>
-              <td style="padding:10px; border:1px solid #ddd; color:#B45309; font-weight:bold;">${s.elo}</td>
+              <td style="padding:10px; border:1px solid #ddd; color:#B45309; font-weight:bold;">${isEloBlocked ? '1000 🔒' : s.elo}</td>
               <td style="padding:10px; border:1px solid #ddd;">${s.wins || 0}胜 ${s.draws || 0}平 ${s.losses || 0}负</td>
-              <td style="padding:10px; border:1px solid #ddd; text-align:left;">${calcStudentTeamRole(idx + 1)}</td>
+              <td style="padding:10px; border:1px solid #ddd; text-align:left;">${isEloBlocked ? '🔒 升级 PLUS+ 完整解锁' : calcStudentTeamRole(idx + 1)}</td>
             </tr>
           `).join('')}
         </tbody>
       </table>
-
-      <div style="background:#EFF6FF; border:1px solid #BFDBFE; padding:14px; border-radius:8px; font-size:12px; color:#1E40AF; margin-bottom:24px;">
-        📢 <strong>布告栏温馨提示：</strong> 前 4 位正选棋手将正式进入代表学校征战 MSSD 县级锦标赛集训营！全体同学请在每周三课外活动积极参与快棋切磋，战力将持续动态更新！
-      </div>
-
-      <div style="display:flex; justify-content:space-between; margin-top:30px; padding:0 30px;">
-        <div style="text-align:center;">
-          <div style="width:160px; border-bottom:1px solid #000; margin-bottom:6px;"></div>
-          <div style="font-size:12px;">指导老师签署 (Guru Penasihat)</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="width:160px; border-bottom:1px solid #000; margin-bottom:6px;"></div>
-          <div style="font-size:12px;">课外活动处盖章 (Unit Kokurikulum)</div>
-        </div>
+      <div style="font-size:12px; color:#1D4ED8; padding:16px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px;">
+        📢 <b>布告栏温馨提示：</b> 前 4 位正选棋手将正式进入代表学校征战 MSSD 县级锦标赛集训营！全体同学请在每周三课外活动积极参与快棋切磋，战力将持续动态更新！
       </div>
     </div>
   `;
