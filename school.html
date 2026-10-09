@@ -2690,8 +2690,8 @@ function closeAccessDeniedModal() {}
           </tr>
         </thead>
         <tbody id="tierTableBody">
-          <tr id="tierRow_NANO">
-            <td style="font-weight:800; color:#94A3B8;">NANO</td>
+          <tr id="tierRow_LITE">
+            <td style="font-weight:800; color:#94A3B8;">LITE (轻量版)</td>
             <td style="color:#EF4444;">0 人 (锁定)</td>
             <td>16 人</td>
             <td>4 轮</td>
@@ -2703,7 +2703,7 @@ function closeAccessDeniedModal() {}
             <td style="color:#EF4444;">❌ 锁定</td>
           </tr>
           <tr id="tierRow_MINI">
-            <td style="font-weight:800; color:#94A3B8;">MINI</td>
+            <td style="font-weight:800; color:#94A3B8;">MINI (入门版)</td>
             <td>40 人</td>
             <td>32 人</td>
             <td>5 轮</td>
@@ -2727,7 +2727,7 @@ function closeAccessDeniedModal() {}
             <td style="color:#EF4444;">❌ 锁定</td>
           </tr>
           <tr id="tierRow_PLUS" style="background:rgba(16,185,129,0.08); border-left:3px solid #10B981;">
-            <td style="font-weight:900; color:#10B981;">PLUS (增强教务版)</td>
+            <td style="font-weight:900; color:#10B981;">PLUS (增强版)</td>
             <td style="font-weight:800; color:#FFF;">150 人</td>
             <td style="font-weight:800; color:#FFF;">96 人</td>
             <td>7 轮</td>
@@ -2739,7 +2739,7 @@ function closeAccessDeniedModal() {}
             <td style="color:#EF4444;">❌ 锁定</td>
           </tr>
           <tr id="tierRow_PRO">
-            <td style="font-weight:900; color:#60A5FA;">PRO (专业竞技版)</td>
+            <td style="font-weight:900; color:#60A5FA;">PRO (专业版)</td>
             <td style="font-weight:800; color:#FFF;">300 人</td>
             <td style="font-weight:800; color:#FFF;">128 人</td>
             <td>7 轮</td>
@@ -2751,7 +2751,7 @@ function closeAccessDeniedModal() {}
             <td style="color:#EF4444;">❌ 锁定</td>
           </tr>
           <tr id="tierRow_ULTRA">
-            <td style="font-weight:900; color:#A78BFA;">ULTRA (区级联赛版)</td>
+            <td style="font-weight:900; color:#A78BFA;">ULTRA (旗舰版)</td>
             <td style="font-weight:800; color:#FFF;">600 人</td>
             <td style="font-weight:800; color:#FFF;">256 人</td>
             <td>8 轮</td>
@@ -2763,7 +2763,7 @@ function closeAccessDeniedModal() {}
             <td style="color:#10B981; font-weight:800;">✅ MSSD 官方选拔公函</td>
           </tr>
           <tr id="tierRow_TITAN">
-            <td style="font-weight:900; color:#F59E0B;">TITAN (全州旗舰版)</td>
+            <td style="font-weight:900; color:#F59E0B;">TITAN (联盟专属版)</td>
             <td style="font-weight:800; color:#F59E0B;">无限 (9999)</td>
               <td style="font-weight:800; color:#F59E0B;">无限 (9999)</td>
               <td>20 轮</td>
@@ -3250,7 +3250,7 @@ const roundOptions = {
   zh: [
     { val: '2', label: '2 轮 (体验/极速 - 最多 4 人)' },
     { val: '3', label: '3 轮 (基础 - 最多 8 人)' },
-    { val: '4', label: '4 轮 (NANO 级 - 最多 16 人)' },
+    { val: '4', label: '4 轮 (LITE 级 - 最多 16 人)' },
     { val: '5', label: '5 轮 (MINI 级 - 最多 32 人)' },
     { val: '6', label: '6 轮 (STANDARD 级 - 最多 64 人)' },
     { val: '7', label: '7 轮 (PRO 级 - 最多 128 人)' },
@@ -3261,7 +3261,7 @@ const roundOptions = {
   bm: [
     { val: '2', label: '2 Pusingan (Ekspres - Maks 4 Murid)' },
     { val: '3', label: '3 Pusingan (Asas - Maks 8 Murid)' },
-    { val: '4', label: '4 Pusingan (Tahap NANO - Maks 16 Murid)' },
+    { val: '4', label: '4 Pusingan (Tahap LITE - Maks 16 Murid)' },
     { val: '5', label: '5 Pusingan (Tahap MINI - Maks 32 Murid)' },
     { val: '6', label: '6 Pusingan (Tahap STANDARD - Maks 64 Murid)' },
     { val: '7', label: '7 Pusingan (Tahap PRO - Maks 128 Murid)' },
@@ -3272,7 +3272,7 @@ const roundOptions = {
   en: [
     { val: '2', label: '2 Rounds (Express - Max 4 Players)' },
     { val: '3', label: '3 Rounds (Basic - Max 8 Players)' },
-    { val: '4', label: '4 Rounds (NANO Tier - Max 16 Players)' },
+    { val: '4', label: '4 Rounds (LITE Tier - Max 16 Players)' },
     { val: '5', label: '5 Rounds (MINI Tier - Max 32 Players)' },
     { val: '6', label: '6 Rounds (STANDARD Tier - Max 64 Players)' },
     { val: '7', label: '7 Rounds (PRO Tier - Max 128 Players)' },
@@ -3788,7 +3788,7 @@ function showSchoolApp() {
         const tier = (d.tier || 'STANDARD').toString().trim().toUpperCase();
         let maxRoundsAllowed = 6, maxPajskStudents = 80, maxTourneyPlayers = 64, blockProjector = true, blockCert = false, blockPajsk = false, blockElo = true;
         
-        if (tier === 'NANO') { maxRoundsAllowed = 4; maxPajskStudents = 0; maxTourneyPlayers = 16; blockProjector = true; blockCert = true; blockPajsk = true; blockElo = true; }
+        if (tier === 'LITE') { maxRoundsAllowed = 4; maxPajskStudents = 0; maxTourneyPlayers = 16; blockProjector = true; blockCert = true; blockPajsk = true; blockElo = true; }
         else if (tier === 'MINI') { maxRoundsAllowed = 5; maxPajskStudents = 40; maxTourneyPlayers = 32; blockProjector = true; blockCert = true; blockElo = true; }
         else if (tier === 'STANDARD') { maxRoundsAllowed = 6; maxPajskStudents = 80; maxTourneyPlayers = 64; blockProjector = true; blockCert = false; blockElo = true; }
         else if (tier === 'PLUS') { maxRoundsAllowed = 7; maxPajskStudents = 150; maxTourneyPlayers = 96; blockProjector = true; blockCert = false; blockElo = false; }
@@ -4652,7 +4652,7 @@ function printSchoolReport(type = 'standings') {
 function openCertificateModal() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockCert) {
-    openAccessDeniedModal('STANDARD+', limits.tier || 'NANO');
+    openAccessDeniedModal('STANDARD+', limits.tier || 'LITE');
     return;
   }
   const modal = document.getElementById('certificateModal');
@@ -4706,7 +4706,7 @@ function executeCertPrint() {
 function printSchoolCertificates(mode = 'winners', targetIdx = null) {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockCert) {
-    openAccessDeniedModal('STANDARD+', limits.tier || 'NANO');
+    openAccessDeniedModal('STANDARD+', limits.tier || 'LITE');
     return;
   }
   const container = document.getElementById('officialPrintContainer');
@@ -5145,7 +5145,7 @@ function openTierComparisonModal() {
 
   const limits = window.SCHOOL_TIER_LIMITS || { tier: 'STANDARD' };
   const currentTier = (limits.tier || 'STANDARD').toUpperCase();
-  ['NANO', 'MINI', 'STANDARD', 'PLUS', 'PRO', 'ULTRA', 'TITAN'].forEach(t => {
+  ['LITE', 'MINI', 'STANDARD', 'PLUS', 'PRO', 'ULTRA', 'TITAN'].forEach(t => {
     const row = document.getElementById(`tierRow_${t}`);
     if (row) {
       if (t === currentTier) {
@@ -5204,7 +5204,7 @@ function renderSchoolEloLeaderboard() {
 function exportSchoolPajskCsv() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockPajsk) {
-    openAccessDeniedModal('MINI+', limits.tier || 'NANO');
+    openAccessDeniedModal('MINI+', limits.tier || 'LITE');
     return;
   }
   const eloList = calcSchoolEloStandings();
@@ -6245,7 +6245,7 @@ function printWeeklyAttendanceSheet() {
 function exportComprehensivePajskCsv() {
   const limits = window.SCHOOL_TIER_LIMITS;
   if (limits && limits.blockPajsk) {
-    openAccessDeniedModal('MINI+', limits.tier || 'NANO');
+    openAccessDeniedModal('MINI+', limits.tier || 'LITE');
     return;
   }
   const sorted = [...schoolHub.students].sort((a,b) => b.elo - a.elo);
@@ -6288,7 +6288,7 @@ function exportComprehensivePajskCsv() {
 // --- AUTO BUKU LAPORAN ---
 function generateAutoLaporan() {
   const limits = window.SCHOOL_TIER_LIMITS;
-  if (limits && (limits.tier === 'NANO' || limits.tier === 'MINI' || limits.tier === 'STANDARD')) {
+  if (limits && (limits.tier === 'LITE' || limits.tier === 'MINI' || limits.tier === 'STANDARD')) {
     const isEn = currentLang === 'en';
     const isBm = currentLang === 'bm';
     const msg = isEn
