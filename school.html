@@ -2843,6 +2843,31 @@ function closeAccessDeniedModal() {}
 </div>
 
 
+
+<!-- CXB CUSTOM PROMPT/CONFIRM MODALS -->
+<div class="cert-modal-backdrop" id="cxbConfirmModal" style="display:none; align-items:center; justify-content:center; z-index:10001;">
+  <div class="cert-modal-card" style="width:90%; max-width:400px; padding:24px; text-align:left; border-radius:16px;">
+    <h3 id="cxbConfirmTitle" style="margin:0 0 10px; font-size:18px; color:#fff; font-weight:800;">确认操作</h3>
+    <p id="cxbConfirmMessage" style="margin:0 0 24px; font-size:14px; color:#94A3B8; line-height:1.5; white-space:pre-wrap;"></p>
+    <div style="display:flex; gap:10px;">
+      <button id="cxbConfirmCancel" class="btn btn-outline" style="flex:1; justify-content:center; padding:12px; font-size:14px;">取消</button>
+      <button id="cxbConfirmOk" class="btn btn-pri-gold" style="flex:1; justify-content:center; padding:12px; font-size:14px;">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="cert-modal-backdrop" id="cxbPromptModal" style="display:none; align-items:center; justify-content:center; z-index:10001;">
+  <div class="cert-modal-card" style="width:90%; max-width:400px; padding:24px; text-align:left; border-radius:16px;">
+    <h3 id="cxbPromptTitle" style="margin:0 0 10px; font-size:18px; color:#fff; font-weight:800;">提示</h3>
+    <p id="cxbPromptMessage" style="margin:0 0 16px; font-size:13px; color:#94A3B8; line-height:1.4;"></p>
+    <input type="text" id="cxbPromptInput" class="app-input" style="width:100%; margin-bottom:20px; font-size:15px; padding:12px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:8px;" />
+    <div style="display:flex; gap:10px;">
+      <button id="cxbPromptCancel" class="btn btn-outline" style="flex:1; justify-content:center; padding:12px; font-size:14px;">取消</button>
+      <button id="cxbPromptOk" class="btn btn-pri-blue" style="flex:1; justify-content:center; padding:12px; font-size:14px; background:linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); border:none; box-shadow:0 4px 12px rgba(37,99,235,0.3);">确定</button>
+    </div>
+  </div>
+</div>
+
 <!-- SECURITY LOCK & REVOCATION MODAL -->
 <div id="securityLockOverlay">
   <div class="lock-card">
@@ -4000,11 +4025,11 @@ function saveTourneyHistory() {
   localStorage.setItem('cxb_school_tourney_history', JSON.stringify(schoolTourneyHistory));
 }
 
-function archiveSchoolTourney() {
+async function archiveSchoolTourney() {
   if (!schoolTourney) return;
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
-  if (!confirm(isEn ? "Are you sure you want to end and archive this tournament?" : (isBm ? "Adakah anda pasti untuk menamatkan dan mengarkibkan pertandingan ini?" : "确定要【结束并归档】本次比赛吗？归档后，您可以在「比赛档案」中随时查阅榜单，并重新开启新的一届比赛！"))) return;
+  if (!(await cxbConfirm(isEn?"Archive Tournament":isBm?"Arkib Pertandingan":"比赛归档确认", isEn ? "Are you sure you want to end and archive this tournament?" : (isBm ? "Adakah anda pasti untuk menamatkan dan mengarkibkan pertandingan ini?" : "确定要【结束并归档】本次比赛吗？\n\n归档后，您可以在「比赛档案」中随时查阅榜单，并重新开启新的一届比赛！"), true))) return;
   
   schoolTourney.archivedAt = new Date().toISOString();
   
@@ -4466,7 +4491,7 @@ function resetSchoolTourney() {
     : (currentLang === 'bm'
       ? 'Adakah anda pasti mahu memadam kejohanan semasa dan memulakan yang baharu?'
       : '确定放弃当前比赛并重新建立新比赛吗？');
-  if (!confirm(confirmMsg)) return;
+  if (!(await cxbConfirm(isEn?"Re-pair Warning":isBm?"Amaran":"⚠️ 危险操作", confirmMsg, true))) return;
   localStorage.removeItem('cxb_school_current_tourney');
   schoolTourney = null;
   document.getElementById('setupCard').style.display = 'block';
@@ -5404,9 +5429,9 @@ function printSchoolEloRanking() {
 // 6. QIJING SCHOOL OPERATING SYSTEM FUNCTIONS
 // ========================================================
 
-function onSchoolSelectChange(val) {
+async function onSchoolSelectChange(val) {
   if (val === 'custom') {
-    const customName = prompt(currentLang === 'en' ? 'Enter school name:' : (currentLang === 'bm' ? 'Masukkan nama sekolah:' : '请输入学校名称:'));
+    const customName = await cxbPrompt(currentLang === 'en' ? 'Custom School' : (currentLang === 'bm' ? 'Sekolah Tersuai' : '添加学校'), currentLang === 'en' ? 'Enter school name:' : (currentLang === 'bm' ? 'Masukkan nama sekolah:' : '请输入学校名称:'));
     if (customName && customName.trim()) {
       schoolHub.activeSchool = customName.trim();
       const select = document.getElementById('activeSchoolSelect');
@@ -5611,11 +5636,11 @@ function addAttendanceWeek() {
   saveSchoolHub();
   renderWeeklyAttendance();
 }
-function removeAttendanceWeek() {
+async function removeAttendanceWeek() {
   if (schoolHub.totalWeeks <= 1) return;
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
-  if (confirm(isEn ? "Are you sure you want to remove the last meeting? Data will be lost." : (isBm ? "Adakah anda pasti untuk padam perjumpaan terakhir?" : "确认要删除最后一次集会的考勤列吗？该列数据将被移除。"))) {
+  if (await cxbConfirm(isEn?"Remove Meeting":isBm?"Padam Perjumpaan":"删除考勤列", isEn ? "Are you sure you want to remove the last meeting? Data will be lost." : (isBm ? "Adakah anda pasti untuk padam perjumpaan terakhir?" : "确认要删除最后一次集会的考勤列吗？该列数据将被移除。"), true)) {
     schoolHub.totalWeeks--;
     saveSchoolHub();
     renderWeeklyAttendance();
@@ -5636,13 +5661,13 @@ function clearCurrentSession() {
 }
 
 
-function executeYearEndRollover() {
+async function executeYearEndRollover() {
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
   const msg = isEn ? "WARNING! This will clear all attendance, week titles, and class fields to prepare for the new year. ELO will be retained. Type CONFIRM to proceed:" :
     (isBm ? "AMARAN! Semua kehadiran, tajuk kelas, dan data kelas akan dipadam. ELO dikekalkan. Taip CONFIRM untuk teruskan:" :
     "【高危警告】此操作将清空所有学员的考勤记录、集会主题和班级信息，以迎接新学年！战力 ELO 将完美保留。\n\n请输入大写 CONFIRM 继续执行：");
-  const ans = prompt(msg);
+  const ans = await cxbPrompt(isEn?"Year-End Rollover":isBm?"Tutup Akaun Tahun":"⚠️ 年度跨年结转", msg);
   if (ans !== 'CONFIRM') return;
 
   schoolHub.totalWeeks = 12;
@@ -5657,12 +5682,12 @@ function executeYearEndRollover() {
   showSchoolNotice('新年结转成功！所有考勤与班级已重置，战力数据已完美继承。', '结转成功');
 }
 
-function renameWeek(weekIdx) {
+async function renameWeek(weekIdx) {
   const current = (schoolHub.weekTitles && schoolHub.weekTitles[weekIdx-1]) ? schoolHub.weekTitles[weekIdx-1] : '';
   const isEn = currentLang === 'en';
   const isBm = currentLang === 'bm';
   const promptMsg = isEn ? `Enter class theme/title for Week ${weekIdx}:` : (isBm ? `Masukkan tajuk/tema kelas untuk Minggu ${weekIdx}:` : `请输入 W${weekIdx} 的课程主题 (如：开学迎新赛 / 开局战术)：`);
-  const ans = prompt(promptMsg, current);
+  const ans = await cxbPrompt(isEn?`Week ${weekIdx} Title`:isBm?`Tajuk W${weekIdx}`:`W${weekIdx} 集会主题`, promptMsg, current);
   if (ans !== null) {
     if (!schoolHub.weekTitles) schoolHub.weekTitles = [];
     schoolHub.weekTitles[weekIdx-1] = ans.trim();
