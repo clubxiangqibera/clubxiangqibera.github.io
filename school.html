@@ -4000,26 +4000,26 @@ function closeTourneyHistory() {
 function renderTourneyHistoryList() {
   const tbody = document.getElementById('tourneyHistoryBody');
   if (!schoolTourneyHistory || schoolTourneyHistory.length === 0) {
-    tbody.innerHTML = <tr><td colspan="7" style="text-align:center; padding:30px; color:#94A3B8;">暂无历史归档记录 (Tiada rekod arkib)</td></tr>;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#94A3B8;">暂无历史归档记录 (Tiada rekod arkib)</td></tr>`;
     return;
   }
   
   let html = '';
   schoolTourneyHistory.forEach((t, i) => {
     const dateStr = t.archivedAt ? new Date(t.archivedAt).toLocaleDateString() : '-';
-    html += 
+    html += `
       <tr>
-        <td style="text-align:center; color:#94A3B8;"></td>
-        <td style="text-align:left; font-weight:bold; color:#FFF;"></td>
-        <td style="text-align:center; color:#94A3B8;"></td>
-        <td style="text-align:center; color:#94A3B8;"> 人</td>
-        <td style="text-align:center; color:#94A3B8;"> 轮</td>
-        <td style="text-align:center; color:#F59E0B; font-weight:900;"></td>
+        <td style="text-align:center; color:#94A3B8;">${schoolTourneyHistory.length - i}</td>
+        <td style="text-align:left; font-weight:bold; color:#FFF;">${t.name}</td>
+        <td style="text-align:center; color:#94A3B8;">${dateStr}</td>
+        <td style="text-align:center; color:#94A3B8;">${t.players ? t.players.length : 0} 人</td>
+        <td style="text-align:center; color:#94A3B8;">${t.totalRounds || 0} 轮</td>
+        <td style="text-align:center; color:#F59E0B; font-weight:900;">${t.championName || '-'}</td>
         <td style="text-align:center;">
-          <button class="btn btn-outline" style="padding:4px 8px; font-size:11px;" onclick="viewArchivedRanking()">查看榜单</button>
+          <button class="btn btn-outline" style="padding:4px 8px; font-size:11px;" onclick="viewArchivedRanking(${i})">查看榜单</button>
         </td>
       </tr>
-    ;
+    `;
   });
   tbody.innerHTML = html;
 }
