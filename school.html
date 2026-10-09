@@ -1700,6 +1700,11 @@ const i18n = {
   },
   bm: {
 
+      profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
+      profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
+      profileBtnPrint: '🖨️ Cetak Kad Prestasi',
+
+
       txtMuridUnit: ' Org',
       txtSessionWk1: 'Minggu 1',
       txtSessionWk2: '/ 12 standard',
@@ -1712,14 +1717,14 @@ const i18n = {
       txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
 
 
-      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnMssd: 'Cetak Surat MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
       btnResetTourney: 'Bina Semula Kejohanan',
 
-      btnSysAddStudentText: 'Tambah Murid (Daftar)',
-      btnSysProjectorText: 'Pancaran Skrin (Projector)',
-      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysAddStudentText: 'Tambah Murid Baru',
+      btnSysProjectorText: 'Pancaran Skrin',
+      btnSysEloText: 'Kedudukan ELO',
       btnSysPrintText: 'Cetak Papan Kenyataan',
       btnSysCertText: 'Sijil Pencapaian Individu',
       btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
@@ -1739,7 +1744,7 @@ const i18n = {
       btnGenerateReport: '✨ Jana Laporan Mingguan',
       tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
       tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
-      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK: KPM)',
       pajskF1: '1. Kehadiran (Maksimum 50 markah)',
       pajskF2: '2. Jawatan (Maksimum 10 markah)',
       pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
@@ -1785,6 +1790,11 @@ const i18n = {
   },
   en: {
 
+      profileModalStudentName: 'Student Performance & Grading Card',
+      profileModalStudentSub: 'QiJing Chess System Evaluation',
+      profileBtnPrint: '🖨️ Print Performance Card',
+
+
       txtMuridUnit: '',
       txtSessionWk1: 'Week 1',
       txtSessionWk2: '/ 12 standard',
@@ -1802,7 +1812,7 @@ const i18n = {
       btnArchive: '📥 Archive Tournament',
       btnResetTourney: 'Reset & Recreate Tournament',
 
-      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysAddStudentText: 'Add New Student',
       btnSysProjectorText: 'Live Projector Cast',
       btnSysEloText: 'School ELO Rankings',
       btnSysPrintText: 'Official Noticeboard Sheet',
@@ -2047,34 +2057,34 @@ function updateSeg(lang) {
       
       <a class="sidebar-tool-btn" id="btnSysAddStudent" onclick="openAddStudentModal()">
         <svg width="16" height="16" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
-        <span id="btnSysAddStudentText">添加新学员 (Daftar Murid)</span>
+        <span id="btnSysAddStudentText">添加新学员</span>
       </a>
       
       <a class="sidebar-tool-btn" id="btnSysProjector" onclick="openProjector()">
         <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-        <span id="btnSysProjectorText" style="flex:1;">现场大屏投屏 (Projector)</span>
+        <span id="btnSysProjectorText" style="flex:1;">现场大屏投屏</span>
         <span id="tagSysProjectorTier" style="font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; background:rgba(96,165,250,0.12); color:#60A5FA; border:1px solid rgba(96,165,250,0.25);">PRO+</span>
       </a>
 
       <a class="sidebar-tool-btn" id="btnSysElo" onclick="openSchoolEloModal()">
         <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-        <span id="btnSysEloText" style="flex:1;">校内 ELO 战力榜 (Ranking)</span>
+        <span id="btnSysEloText" style="flex:1;">校内 ELO 战力榜</span>
         <span id="tagSysEloTier" style="font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; background:rgba(241,196,15,0.12); color:#F1C40F; border:1px solid rgba(241,196,15,0.25);">PLUS+</span>
       </a>
 
       <a class="sidebar-tool-btn" id="btnSysPrint" onclick="printSchoolReport('standings')">
         <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-        <span id="btnSysPrintText">布告栏大字报 (Print)</span>
+        <span id="btnSysPrintText">布告栏大字报</span>
       </a>
 
       <a class="sidebar-tool-btn" id="btnSysCert" onclick="openCertificateModal()">
         <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-        <span id="btnSysCertText">单人荣誉奖状 (Sijil)</span>
+        <span id="btnSysCertText">单人荣誉奖状</span>
       </a>
 
       <a class="sidebar-tool-btn" id="btnSysCertBatch" onclick="printSchoolCertificates('all')">
         <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-        <span id="btnSysCertBatchText">一键全员证书 (Batch Sijil)</span>
+        <span id="btnSysCertBatchText">一键全员证书</span>
       </a>
     </nav>
     
@@ -2097,7 +2107,7 @@ function updateSeg(lang) {
       
         <a class="sidebar-tool-btn" id="btnSysRollover" onclick="executeYearEndRollover()" style="color:#EF4444; margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:16px;">
           <svg width="16" height="16" fill="none" stroke="#EF4444" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-          <span id="btnSysRolloverText">年度跨年结转 (Year-End)</span>
+          <span id="btnSysRolloverText">年度跨年结转</span>
         </a>
         <a id="btnSysLogout" onclick="schoolLogout()" style="display:flex; align-items:center; justify-content:center; gap:8px; color:#F87171; font-size:13px; padding:8px; cursor:pointer; font-weight:700; border-radius:8px; background: rgba(248, 113, 113, 0.1);">
         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -2138,7 +2148,7 @@ function updateSeg(lang) {
       <div class="card" style="padding:24px; margin-bottom:20px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
           <div>
-            <h4 id="tab1Title"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)</h4>
+            <h4 id="tab1Title"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动 12 次集会签到点名簿</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
               <span id="txtTab1Desc">点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分</span>
             </div>
@@ -2187,7 +2197,7 @@ function updateSeg(lang) {
       <div class="card" style="padding:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
           <div>
-            <h4 id="microTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">⚡ 每周 15 分钟水平快棋微挑战 (Mikro-Perlawanan Mingguan)</h4>
+            <h4 id="microTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">⚡ 每周 15 分钟水平快棋微挑战</h4>
             <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:3px;">
               针对今日出席学生，一键按战力接近度配对对局 · 告别无序乱下，课外活动纪律立竿见影！
             </div>
@@ -2206,7 +2216,7 @@ function updateSeg(lang) {
     <div class="card no-print" style="padding:24px; margin-bottom:20px; border-left:4px solid #10B981; background:linear-gradient(90deg, rgba(16,185,129,0.05) 0%, transparent 100%);">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
         <div>
-          <h4 id="reportTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动报告自动代写 (Auto Buku Laporan Kokurikulum)</h4>
+          <h4 id="reportTitle"  style="font-size:18px; font-weight:900; color:#FFF; margin:0;">课外活动报告自动代写</h4>
           <div style="font-size:12.5px; color:rgba(255,255,255,0.6); margin-top:4px;">
             <span style="display:inline-block; padding:2px 6px; background:rgba(243,156,18,0.2); color:#F39C12; border-radius:4px; font-size:10px; font-weight:800; margin-right:6px;">PLUS TIER+</span>
             一键生成标准的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下20分钟。
@@ -2287,7 +2297,7 @@ function updateSeg(lang) {
             <div style="display:flex; gap:8px;">
               <button id="btnMssd"  class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printMssdAppointmentLetter()">打印 MSSD 选拔公函</button>
               <button id="btnNoticeboard2"  class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printNoticeboardRanking()">打印布告栏风云榜</button>
-              <button id="btnArchive"  class="btn btn-outline" style="padding:6px 12px; font-size:12px; background:rgba(16, 185, 129, 0.1); color:#10B981; border-color:rgba(16, 185, 129, 0.3);" onclick="archiveSchoolTourney()">📥 归档比赛 (Arkib)</button>
+              <button id="btnArchive"  class="btn btn-outline" style="padding:6px 12px; font-size:12px; background:rgba(16, 185, 129, 0.1); color:#10B981; border-color:rgba(16, 185, 129, 0.3);" onclick="archiveSchoolTourney()">📥 归档比赛</button>
               <button id="btnResetTourney"  class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="resetSchoolTourney()">重新创建比赛</button>
             </div>
           </div>
@@ -2382,10 +2392,7 @@ function updateSeg(lang) {
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               <span id="btnAddStudentText">+ 添加学员</span>
             </button>
-            <button class="btn btn-outline" style="font-size:13px; padding:8px 12px; display:inline-flex; align-items:center; gap:6px; color:#94A3B8; border-color:rgba(255,255,255,0.18);" onclick="resetDefaultStudents()" title="重置并恢复示范学员名单">
-              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              <span>重置学员</span>
-            </button>
+            
           </div>
         </div>
 
@@ -2411,7 +2418,7 @@ function updateSeg(lang) {
 
       <!-- KPM PAJSK CRITERIA REFERENCE -->
       <div class="card" style="padding:20px 24px; background:rgba(6,23,36,0.6);">
-        <h5 style="font-size:14px; font-weight:800; color:#F1C40F; margin:0 0 10px;">📌 马来西亚教育部课外活动评估系统 (PAJSK KPM) 官方分值参照表</h5>
+        <h5 style="font-size:14px; font-weight:800; color:#F1C40F; margin:0 0 10px;">📌 马来西亚教育部课外活动评估系统 (PAJSK: KPM) 官方分值参照表</h5>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; font-size:12px; color:rgba(255,255,255,0.7);">
           <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
             <div id="pajskF1"  style="font-weight:800; color:#FFF; margin-bottom:4px;">1. Kehadiran (出勤率 · 占 50分)</div>
@@ -2516,7 +2523,7 @@ function updateSeg(lang) {
         <span style="font-size:28px;">🥋</span>
         <div>
           <h3 id="profileModalStudentName" style="font-size:18px; font-weight:900; color:#FFF; margin:0;">学员战力诊断与考级评估卡</h3>
-          <div id="profileModalStudentSub" style="font-size:12px; color:rgba(255,255,255,0.7); margin-top:2px;">Kad Prestasi Individu Murid · 棋境技术评级</div>
+          <div id="profileModalStudentSub" style="font-size:12px; color:rgba(255,255,255,0.7); margin-top:2px;">棋境技术评级</div>
         </div>
       </div>
       <button class="cert-modal-close" onclick="closeStudentProfileCard()">✕</button>
@@ -2565,20 +2572,11 @@ function updateSeg(lang) {
       </div>
 
       <!-- COMMERCIAL FUNNEL TO QIHENG ACADEMY -->
-      <div style="background:linear-gradient(135deg, rgba(239,68,68,0.15), rgba(6,23,36,0.95)); border:1px solid rgba(239,68,68,0.3); border-radius:14px; padding:16px; text-align:center;">
-        <div style="font-size:13px; font-weight:900; color:#FCA5A5; margin-bottom:4px;">🎯 进阶冲刺与官方考级绿色通道</div>
-        <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.5; margin-bottom:12px;">
-          欲冲刺全校第一台 (Papan 1)、入选 MSSD 县代表或考取【棋衡学院】官方七级棋士认证证书？
-        </div>
-        <a href="https://wa.me/60139865365?text=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E6%A3%8B%E8%A1%A1%E5%AD%A6%E9%99%A2%E7%9A%84%E5%AE%98%E6%96%B9%E8%80%83%E7%BA%A7%E4%B8%8E%E7%B2%BE%E8%8B%B1%E9%9B%86%E8%AE%AD%E8%AF%BE%E7%A8%8B%EF%BC%81" target="_blank" class="btn btn-pri-gold" style="display:inline-block; text-decoration:none; padding:8px 20px; font-size:13px;">
-          💬 WhatsApp 预约 1对1 棋力体检与考级
-        </a>
       </div>
-    </div>
 
     <div class="cert-modal-footer" style="display:flex; justify-content:space-between; align-items:center;">
       <button class="btn btn-outline" onclick="closeStudentProfileCard()">关闭</button>
-      <button class="btn btn-outline" onclick="printSingleStudentProfileCard()">🖨️ 打印个人表现卡 (A4)</button>
+      <button id="profileBtnPrint" class="btn btn-outline" onclick="printSingleStudentProfileCard()">🖨️ 打印个人表现卡</button>
     </div>
   </div>
 </div>
@@ -2796,7 +2794,7 @@ function closeAccessDeniedModal() {}
             <th style="padding:10px 8px;">赛事轮数 </th>
             <th style="padding:10px 8px;">瑞士轮 (Swiss)</th>
             <th style="padding:10px 8px;">PAJSK 报表 (KPM)</th>
-            <th style="padding:10px 8px;">官方荣誉奖状 (Sijil)</th>
+            <th style="padding:10px 8px;">官方荣誉奖状</th>
             <th style="padding:10px 8px;">校内 ELO 体系 (ELO)</th>
             <th style="padding:10px 8px;">现场大屏投屏 (Proyektor)</th>
             <th style="padding:10px 8px;">MSSD 选拔公函 (Surat)</th>
@@ -2834,7 +2832,7 @@ function closeAccessDeniedModal() {}
             <td>6 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981; font-weight:800;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981; font-weight:800;">✅ 官方奖状</td>
             <td style="color:#EF4444; font-weight:800;">❌ 锁定 (PLUS版起)</td>
             <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
             <td style="color:#EF4444;">❌ 锁定</td>
@@ -2846,7 +2844,7 @@ function closeAccessDeniedModal() {}
             <td>7 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981; font-weight:800;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981; font-weight:800;">✅ 官方奖状</td>
             <td style="color:#10B981; font-weight:800;">✅ 校内 ELO 战力榜</td>
             <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
             <td style="color:#EF4444;">❌ 锁定</td>
@@ -2858,7 +2856,7 @@ function closeAccessDeniedModal() {}
             <td>7 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
             <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
             <td style="color:#10B981; font-weight:800;">✅ 现场大屏白板投屏</td>
             <td style="color:#EF4444;">❌ 锁定</td>
@@ -2870,7 +2868,7 @@ function closeAccessDeniedModal() {}
             <td>8 轮</td>
             <td style="color:#10B981;">✅ 正规瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
             <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
             <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
             <td style="color:#10B981; font-weight:800;">✅ MSSD 官方选拔公函</td>
@@ -2882,7 +2880,7 @@ function closeAccessDeniedModal() {}
               <td>20 轮</td>
             <td style="color:#10B981;">✅ 顶级瑞士轮</td>
             <td style="color:#10B981;">✅ 完整自动折算</td>
-            <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981;">✅ 官方奖状</td>
             <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
             <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
             <td style="color:#10B981;">✅ MSSD 官方选拔公函</td>
@@ -2995,7 +2993,7 @@ try {
 } catch(e) {}
 
 if (!Array.isArray(initStudents) || initStudents.length === 0) {
-  initStudents = JSON.parse(JSON.stringify(DEFAULT_SCHOOL_STUDENTS));
+  initStudents = []; // Removed testing data
 } else {
   initStudents.forEach((s, idx) => {
     if (!s.id) s.id = `S_${idx + 1}`;
@@ -3036,6 +3034,11 @@ let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
 const I18N = {
   zh: {
 
+      profileModalStudentName: '学员战力诊断与考级评估卡',
+      profileModalStudentSub: '棋境技术评级',
+      profileBtnPrint: '🖨️ 打印个人表现卡',
+
+
       txtMuridUnit: ' 人',
       txtSessionWk1: '第 1 周',
       txtSessionWk2: '/ 12 次标准',
@@ -3050,32 +3053,32 @@ const I18N = {
 
       btnMssd: '打印 MSSD 选拔公函',
       btnNoticeboard2: '打印布告栏风云榜',
-      btnArchive: '📥 归档比赛 (Arkib)',
+      btnArchive: '📥 归档比赛',
       btnResetTourney: '重新创建比赛',
 
-      btnSysAddStudentText: '添加新学员 (Daftar Murid)',
-      btnSysProjectorText: '现场大屏投屏 (Projector)',
-      btnSysEloText: '校内 ELO 战力榜 (Ranking)',
-      btnSysPrintText: '布告栏大字报 (Print)',
-      btnSysCertText: '单人荣誉奖状 (Sijil)',
-      btnSysCertBatchText: '一键全员证书 (Batch Sijil)',
-      btnSysRolloverText: '年度跨年结转 (Year-End)',
+      btnSysAddStudentText: '添加新学员',
+      btnSysProjectorText: '现场大屏投屏',
+      btnSysEloText: '校内 ELO 战力榜',
+      btnSysPrintText: '布告栏大字报',
+      btnSysCertText: '单人荣誉奖状',
+      btnSysCertBatchText: '一键全员证书',
+      btnSysRolloverText: '年度跨年结转',
       statTitle1: '学会注册总人数',
       statTitle2: '本学期集会进度',
       statTitle3: '平均出勤得分率',
       statTitle4: '每周水平微切磋',
-      tab1Title: '课外活动 12 次集会签到点名簿 (Buku Kehadiran Mingguan)',
+      tab1Title: '课外活动 12 次集会签到点名簿',
       tab1Desc: '<span id="txtTab1Desc">点击对应格号即可打勾 (出席 / 缺席) · 自动换算教育部 PAJSK 出席率与 50% 核心折合分</span>',
-      microTitle: '⚡ 每周 15 分钟水平快棋微挑战 (Mikro-Perlawanan Mingguan)',
+      microTitle: '⚡ 每周 15 分钟水平快棋微挑战',
       microDesc: '<span id="txtMicroDesc">针对今日出席学生，一键抽签实力就近对战。胜出无序名次下，提升临场应变身心等反应！</span>',
       btnGenerateMicro: '一键生成今日微挑战对阵',
       microEmptyText: '点击右上角【一键生成今日微挑战对阵】，系统将自动抽取今日出勤学员并按水平两两匹配！',
-      reportTitle: '课外活动报告自动代写 (Auto Buku Laporan Kokurikulum)',
+      reportTitle: '课外活动报告自动代写',
       reportDesc: '<span style="color:#F1C40F; font-weight:bold; font-size:10px; padding:2px 6px; background:rgba(241,196,15,0.15); border-radius:4px; margin-right:6px;">PLUS TIER+</span> <span id="txtReportDesc">一键生成排版好的马来文官方活动报告，老师可直接复制粘贴到官方报告簿，每周省下 20 分钟。</span>',
       btnGenerateReport: '✨ 生成本周报告 (Jana Laporan)',
       tab3Title: '学会名册、AJK 职务与教育部 PAJSK 终极报表',
       tab3Desc: '一站式涵盖：出勤分 (50%) + 职务分 (10%) + 比赛成绩分 (20%) + 参与分 (20%) = 官方自动折合等级',
-      pajskFooterTitle: '📌 马来西亚教育部课外活动评估系统 (PAJSK KPM) 官方分值参照表',
+      pajskFooterTitle: '📌 马来西亚教育部课外活动评估系统 (PAJSK: KPM) 官方分值参照表',
       pajskF1: '1. Kehadiran (出勤率 • 占 50分)',
       pajskF2: '2. Jawatan (学会职务 • 占 10分)',
       pajskF3: '3. Pencapaian (校内赛成绩 • 占 20分)',
@@ -3091,33 +3094,33 @@ const I18N = {
     errNet: '无法连接云端安全鉴权网关，请检查网络',
     btnVerifying: '正在通过 Cloudflare 安全验证...',
     appTitle: '棋境校园 · 数字化教务系统',
-    appSub: 'Sistem Digital Kelab Catur Sekolah QiJing (QiJing School OS) · 官方数字化教务中枢',
+    appSub: '棋境校园系统 · 官方数字化教务中枢',
     liveBadge: '官方认证节点 · LIVE',
-    btnProj: '现场大屏投屏 (Cast to Board)',
-    btnElo: '校内 ELO 战力榜 (School Ranking)',
-    btnPrint: '布告栏成绩大字报 (Noticeboard Print)',
-    btnCert: '官方荣誉奖状 (Sijil Pencapaian)',
-    btnBatchCert: '一键全员参与证书 (Batch Sijil)',
-    menuToolsTitle: '赛事与教务工具箱 (Tournament & Tools)',
-    menuStatusTitle: '系统节点与管理 (System & Status)',
-    menuTierLabel: '授权级别 (License Tier)',
+    btnProj: '现场大屏投屏',
+    btnElo: '校内 ELO 战力榜',
+    btnPrint: '布告栏成绩大字报',
+    btnCert: '官方荣誉奖状',
+    btnBatchCert: '一键全员参与证书',
+    menuToolsTitle: '赛事与教务工具箱',
+    menuStatusTitle: '系统节点与管理',
+    menuTierLabel: '授权级别',
     menuTierSub: '官方教务数字节点已激活',
-    btnLogout: '退出管理节点 (Logout)',
-    navMenuText: '菜单 / 工具',
-    tab1Text: '1. 每周课外活动 (Aktiviti Mingguan)',
-    tab2Text: '2. 校内锦标赛与选拔 (Kejohanan Sekolah)',
+    btnLogout: '退出系统管理',
+    navMenuText: '菜单/工具',
+    tab1Text: '1. 每周课外活动',
+    tab2Text: '2. 校内锦标赛与选拔',
     tab3Text: '3. 学员档案、职务与 PAJSK',
-    certModalTitle: '官方荣誉奖状生成中心 (Sijil Rasmi)',
+    certModalTitle: '官方荣誉奖状生成中心',
     certModalSub: '棋境教研技术委员会认证 · 自动匹配 PAJSK 课外活动标准格式',
-    certLblMode: '选择打印模式 / Mode Cetakan',
-    certOptWinnersTitle: '前四强荣誉奖状 (Sijil Kejohanan)',
+    certLblMode: '选择打印模式',
+    certOptWinnersTitle: '前四强荣誉奖状',
     certOptWinnersDesc: '自动生成 Johan（冠）、Naib Johan（亚）、Ketiga（季）、Keempat（殿军）官方奖状',
-    certOptAllTitle: '全体参赛证明 (Sijil Penyertaan)',
+    certOptAllTitle: '全体参赛证明',
     certOptAllDesc: '为所有参赛名单批量生成 A4 横版参赛证明（含 PAJSK 报备印章）',
-    certOptSingleTitle: '指定单人奖状 (Individu)',
+    certOptSingleTitle: '指定单人奖状',
     certOptSingleDesc: '自由指定并打印任一参赛学生的独立奖状',
     certLblPlayer: '选择选手姓名',
-    certTipsTitle: '💡 打印说明 (Tips)',
+    certTipsTitle: '💡 打印说明',
     certTipsBody: '系统将自动为奖状配置 A4 横版 (Landscape) 经典典雅排版与棋境教研技术委员会认证防伪印章。点击打印后，在浏览器打印预览中确认纸张方向为横向即可。',
     certBtnClose: '关闭',
     certBtnPrint: '🖨️ 立即生成并打印',
@@ -3166,7 +3169,7 @@ const I18N = {
     
     thPajskAction: '操作',
     btnAddStudent: '添加学员',
-    btnPrintNoticeboard: '打印布告栏风云榜 (A4)',
+    btnPrintNoticeboard: '打印布告栏风云榜',
     rankMedals: ['冠军', '亚军', '季军'],
     rankTh: ['名次', '棋手姓名', '总分', '对手分 (Buchholz)', '初排位'],
     projTitle: '现场大屏对阵表',
@@ -3181,13 +3184,18 @@ const I18N = {
     printMetaRounds: '赛制规格',
     printMetaPlayers: '参赛人数',
     printTieBreak: '个人总积分 ➔ 布赫兹对手分 (Buchholz) ➔ 种子排位',
-    printSignArbiter: '裁判长签署 (Chief Arbiter)',
-    printSignSchool: '校方指导老师/顾问 (Guru Penasihat)',
-    printSignCert: '校方行政签署 (Guru Besar / Pengetua)',
-    printCertCode: '校方公章 (Cop Rasmi Sekolah)',
+    printSignArbiter: '裁判长签署',
+    printSignSchool: '校方指导老师/顾问',
+    printSignCert: '校方行政签署',
+    printCertCode: '校方公章',
     printDisclaimer: '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'
   },
   bm: {
+
+      profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
+      profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
+      profileBtnPrint: '🖨️ Cetak Kad Prestasi',
+
 
       txtMuridUnit: ' Org',
       txtSessionWk1: 'Minggu 1',
@@ -3201,14 +3209,14 @@ const I18N = {
       txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
 
 
-      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnMssd: 'Cetak Surat MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
       btnResetTourney: 'Bina Semula Kejohanan',
 
-      btnSysAddStudentText: 'Tambah Murid (Daftar)',
-      btnSysProjectorText: 'Pancaran Skrin (Projector)',
-      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysAddStudentText: 'Tambah Murid Baru',
+      btnSysProjectorText: 'Pancaran Skrin',
+      btnSysEloText: 'Kedudukan ELO',
       btnSysPrintText: 'Cetak Papan Kenyataan',
       btnSysCertText: 'Sijil Pencapaian Individu',
       btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
@@ -3228,7 +3236,7 @@ const I18N = {
       btnGenerateReport: '✨ Jana Laporan Mingguan',
       tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
       tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
-      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK: KPM)',
       pajskF1: '1. Kehadiran (Maksimum 50 markah)',
       pajskF2: '2. Jawatan (Maksimum 10 markah)',
       pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
@@ -3338,6 +3346,11 @@ const I18N = {
   },
   en: {
 
+      profileModalStudentName: 'Student Performance & Grading Card',
+      profileModalStudentSub: 'QiJing Chess System Evaluation',
+      profileBtnPrint: '🖨️ Print Performance Card',
+
+
       txtMuridUnit: '',
       txtSessionWk1: 'Week 1',
       txtSessionWk2: '/ 12 standard',
@@ -3355,7 +3368,7 @@ const I18N = {
       btnArchive: '📥 Archive Tournament',
       btnResetTourney: 'Reset & Recreate Tournament',
 
-      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysAddStudentText: 'Add New Student',
       btnSysProjectorText: 'Live Projector Cast',
       btnSysEloText: 'School ELO Rankings',
       btnSysPrintText: 'Official Noticeboard Sheet',
@@ -3501,6 +3514,11 @@ const tCard = {
   },
   bm: {
 
+      profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
+      profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
+      profileBtnPrint: '🖨️ Cetak Kad Prestasi',
+
+
       txtMuridUnit: ' Org',
       txtSessionWk1: 'Minggu 1',
       txtSessionWk2: '/ 12 standard',
@@ -3513,14 +3531,14 @@ const tCard = {
       txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
 
 
-      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnMssd: 'Cetak Surat MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
       btnResetTourney: 'Bina Semula Kejohanan',
 
-      btnSysAddStudentText: 'Tambah Murid (Daftar)',
-      btnSysProjectorText: 'Pancaran Skrin (Projector)',
-      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysAddStudentText: 'Tambah Murid Baru',
+      btnSysProjectorText: 'Pancaran Skrin',
+      btnSysEloText: 'Kedudukan ELO',
       btnSysPrintText: 'Cetak Papan Kenyataan',
       btnSysCertText: 'Sijil Pencapaian Individu',
       btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
@@ -3540,7 +3558,7 @@ const tCard = {
       btnGenerateReport: '✨ Jana Laporan Mingguan',
       tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
       tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
-      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK: KPM)',
       pajskF1: '1. Kehadiran (Maksimum 50 markah)',
       pajskF2: '2. Jawatan (Maksimum 10 markah)',
       pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
@@ -3556,6 +3574,11 @@ const tCard = {
     verifying: "⏳ Mengesahkan melalui SSL..."
   },
   en: {
+
+      profileModalStudentName: 'Student Performance & Grading Card',
+      profileModalStudentSub: 'QiJing Chess System Evaluation',
+      profileBtnPrint: '🖨️ Print Performance Card',
+
 
       txtMuridUnit: '',
       txtSessionWk1: 'Week 1',
@@ -3574,7 +3597,7 @@ const tCard = {
       btnArchive: '📥 Archive Tournament',
       btnResetTourney: 'Reset & Recreate Tournament',
 
-      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysAddStudentText: 'Add New Student',
       btnSysProjectorText: 'Live Projector Cast',
       btnSysEloText: 'School ELO Rankings',
       btnSysPrintText: 'Official Noticeboard Sheet',
@@ -4020,7 +4043,7 @@ function setSystemLang(lang) {
   if (btnPrintNoticeboardText && t.btnPrintNoticeboard) btnPrintNoticeboardText.textContent = t.btnPrintNoticeboard;
 
   
-    const idsToUpdate = ['txtMuridUnit', 'txtSessionWk1', 'txtSessionWk2', 'txtGames', 'txtStatSub2', 'txtStatSub3', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
+    const idsToUpdate = ['profileModalStudentName', 'profileModalStudentSub', 'profileBtnPrint', 'txtMuridUnit', 'txtSessionWk1', 'txtSessionWk2', 'txtGames', 'txtStatSub2', 'txtStatSub3', 'txtStatSub4', 'txtTab1Desc', 'txtMicroDesc', 'txtReportDesc', 'statTitle1', 'statTitle2', 'statTitle3', 'statTitle4', 'tab1Title', 'tab1Desc', 'microTitle', 'microDesc', 'btnGenerateMicro', 'microEmptyText', 'reportTitle', 'reportDesc', 'btnGenerateReport', 'tab3Title', 'tab3Desc', 'pajskFooterTitle', 'pajskF1', 'pajskF2', 'pajskF3', 'pajskF4', 'btnSysAddStudentText', 'btnSysProjectorText', 'btnSysEloText', 'btnSysPrintText', 'btnSysCertText', 'btnSysCertBatchText', 'btnSysRolloverText', 'btnMssd', 'btnNoticeboard2', 'btnArchive', 'btnResetTourney'];
     idsToUpdate.forEach(id => {
       const el = document.getElementById(id);
       if (el && t[id]) el.innerHTML = t[id];
@@ -5135,22 +5158,22 @@ function printSchoolReport(type = 'standings') {
       <!-- OFFICIAL THREE-COLUMN SIGN-OFF (MALAYSIAN SCHOOL STANDARD) -->
       <div class="print-sign-block">
         <div class="print-sign-col">
-          <div class="print-sign-title">${t.printSignArbiter || '裁判长签署 (Chief Arbiter)'}</div>
+          <div class="print-sign-title">${t.printSignArbiter || '裁判长签署'}</div>
           <div class="print-sign-line"></div>
           <div class="print-sign-name">签名 / 盖章: _____________________</div>
           <div class="print-sign-date">日期: 2026 年 ___ 月 ___ 日</div>
         </div>
         <div class="print-sign-col">
-          <div class="print-sign-title">${t.printSignSchool || '校方指导老师/顾问 (Guru Penasihat)'}</div>
+          <div class="print-sign-title">${t.printSignSchool || '校方指导老师/顾问'}</div>
           <div class="print-sign-line"></div>
           <div class="print-sign-name">签名 / 盖章: _____________________</div>
           <div class="print-sign-date">日期: 2026 年 ___ 月 ___ 日</div>
         </div>
         <div class="print-sign-col">
-          <div class="print-sign-title">${t.printSignCert || '校方行政签署 (Guru Besar / Pengetua)'}</div>
+          <div class="print-sign-title">${t.printSignCert || '校方行政签署'}</div>
           <div class="print-sign-line"></div>
           <div class="print-sign-name">签名 / 盖章: _____________________</div>
-          <div class="print-sign-date">${t.printCertCode || '校方公章 (Cop Rasmi Sekolah)'}</div>
+          <div class="print-sign-date">${t.printCertCode || '校方公章'}</div>
         </div>
       </div>
 
@@ -5445,6 +5468,11 @@ function updateNavMenuBtn() {
     cn: { open: '菜单', close: '关闭' },
     bm: {
 
+      profileModalStudentName: 'Kad Prestasi & Penilaian Catur',
+      profileModalStudentSub: 'Penilaian Sistem Catur QiJing',
+      profileBtnPrint: '🖨️ Cetak Kad Prestasi',
+
+
       txtMuridUnit: ' Org',
       txtSessionWk1: 'Minggu 1',
       txtSessionWk2: '/ 12 standard',
@@ -5457,14 +5485,14 @@ function updateNavMenuBtn() {
       txtReportDesc: 'Menjana laporan rasmi kokurikulum mingguan secara automatik untuk disalin ke buku log rasmi.',
 
 
-      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnMssd: 'Cetak Surat MSSD',
       btnNoticeboard2: 'Cetak Papan Kenyataan',
       btnArchive: '📥 Arkib Kejohanan',
       btnResetTourney: 'Bina Semula Kejohanan',
 
-      btnSysAddStudentText: 'Tambah Murid (Daftar)',
-      btnSysProjectorText: 'Pancaran Skrin (Projector)',
-      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysAddStudentText: 'Tambah Murid Baru',
+      btnSysProjectorText: 'Pancaran Skrin',
+      btnSysEloText: 'Kedudukan ELO',
       btnSysPrintText: 'Cetak Papan Kenyataan',
       btnSysCertText: 'Sijil Pencapaian Individu',
       btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
@@ -5484,12 +5512,17 @@ function updateNavMenuBtn() {
       btnGenerateReport: '✨ Jana Laporan Mingguan',
       tab3Title: 'Senarai Nama, Jawatan AJK & Laporan Akhir PAJSK KPM',
       tab3Desc: 'Merangkumi: Kehadiran (50%) + Jawatan (10%) + Pencapaian (20%) + Komitmen (20%) = Gred Rasmi',
-      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK KPM)',
+      pajskFooterTitle: '📌 Rujukan Markah Rasmi Sistem Pentaksiran Aktiviti Jasmani, Sukan & Kokurikulum (PAJSK: KPM)',
       pajskF1: '1. Kehadiran (Maksimum 50 markah)',
       pajskF2: '2. Jawatan (Maksimum 10 markah)',
       pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
       pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)', open: 'Menu', close: 'Tutup' },
     en: {
+
+      profileModalStudentName: 'Student Performance & Grading Card',
+      profileModalStudentSub: 'QiJing Chess System Evaluation',
+      profileBtnPrint: '🖨️ Print Performance Card',
+
 
       txtMuridUnit: '',
       txtSessionWk1: 'Week 1',
@@ -5508,7 +5541,7 @@ function updateNavMenuBtn() {
       btnArchive: '📥 Archive Tournament',
       btnResetTourney: 'Reset & Recreate Tournament',
 
-      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysAddStudentText: 'Add New Student',
       btnSysProjectorText: 'Live Projector Cast',
       btnSysEloText: 'School ELO Rankings',
       btnSysPrintText: 'Official Noticeboard Sheet',
@@ -5690,7 +5723,7 @@ function calcSchoolEloStandings() {
       else if (idx === 1) item.teamRole = currentLang === 'en' ? '🥈 School Team 2nd Board' : (currentLang === 'bm' ? '🥈 Papan 2 Pasukan Sekolah' : '🥈 校队第二台 (Papan 2)');
       else if (idx === 2) item.teamRole = currentLang === 'en' ? '🥉 School Team 3rd Board' : (currentLang === 'bm' ? '🥉 Papan 3 Pasukan Sekolah' : '🥉 校队第三台 (Papan 3)');
       else if (idx === 3) item.teamRole = currentLang === 'en' ? '🏅 School Team 4th Board' : (currentLang === 'bm' ? '🏅 Papan 4 Pasukan Sekolah' : '🏅 校队第四台 (Papan 4)');
-      else if (idx < 8) item.teamRole = currentLang === 'en' ? '⭐ School Reserve Squad' : (currentLang === 'bm' ? '⭐ Skuad Simpanan Sekolah' : '⭐ 校队后备 (Simpanan)');
+      else if (idx < 8) item.teamRole = currentLang === 'en' ? '⭐ School Reserve Squad' : (currentLang === 'bm' ? '⭐ Skuad Simpanan Sekolah' : '⭐ 校队后备');
       else item.teamRole = currentLang === 'en' ? '♟️ Academy Trainee' : (currentLang === 'bm' ? '♟️ Pemain Pelapis' : '♟️ 梯队棋手 (Peserta)');
     });
 
@@ -5720,7 +5753,7 @@ function calcSchoolEloStandings() {
       else if (idx === 1) item.teamRole = currentLang === 'en' ? '🥈 School Team 2nd Board' : (currentLang === 'bm' ? '🥈 Papan 2 Pasukan Sekolah' : '🥈 校队第二台 (Papan 2)');
       else if (idx === 2) item.teamRole = currentLang === 'en' ? '🥉 School Team 3rd Board' : (currentLang === 'bm' ? '🥉 Papan 3 Pasukan Sekolah' : '🥉 校队第三台 (Papan 3)');
       else if (idx === 3) item.teamRole = currentLang === 'en' ? '🏅 School Team 4th Board' : (currentLang === 'bm' ? '🏅 Papan 4 Pasukan Sekolah' : '🏅 校队第四台 (Papan 4)');
-      else if (idx < 8) item.teamRole = currentLang === 'en' ? '⭐ School Reserve Squad' : (currentLang === 'bm' ? '⭐ Skuad Simpanan Sekolah' : '⭐ 校队后备 (Simpanan)');
+      else if (idx < 8) item.teamRole = currentLang === 'en' ? '⭐ School Reserve Squad' : (currentLang === 'bm' ? '⭐ Skuad Simpanan Sekolah' : '⭐ 校队后备');
       else item.teamRole = currentLang === 'en' ? '♟️ Academy Trainee' : (currentLang === 'bm' ? '♟️ Pemain Pelapis' : '♟️ 梯队棋手 (Peserta)');
     });
 
@@ -5802,7 +5835,7 @@ function renderSchoolEloLeaderboard() {
     return `
       <tr style="border-bottom:1px solid rgba(255,255,255,0.06); ${p.rank <= 3 ? 'background:rgba(241,196,15,0.04);' : ''}">
         <td style="padding:10px 12px; font-weight:900; color:#FFF;">${medal}</td>
-        <td style="padding:10px 14px; text-align:left; font-weight:800; color:#FFF; cursor:pointer;" onclick="openStudentProfileCard('${p.id}')" title="查看战力表现卡 / Kad Prestasi">${p.name}</td>
+        <td style="padding:10px 14px; text-align:left; font-weight:800; color:#FFF; cursor:pointer;" onclick="openStudentProfileCard('${p.id}')" title="查看战力表现卡">${p.name}</td>
         <td style="padding:10px 12px; font-weight:900; color:#F1C40F; font-size:14px;">${p.currentElo}</td>
         <td style="padding:10px 12px; font-weight:800; color:${deltaColor};">${deltaSign}</td>
         <td style="padding:10px 12px; color:rgba(255,255,255,0.85);">${p.wins}胜 / ${p.draws}平 / ${p.losses}负</td>
@@ -5993,7 +6026,7 @@ function calcStudentTeamRole(rank) {
   if (rank === 2) return currentLang === 'en' ? '🥈 School Team 2nd Board' : (currentLang === 'bm' ? '🥈 Papan 2 Pasukan Sekolah' : '🥈 校队第二台 (Papan 2)');
   if (rank === 3) return currentLang === 'en' ? '🥉 School Team 3rd Board' : (currentLang === 'bm' ? '🥉 Papan 3 Pasukan Sekolah' : '🥉 校队第三台 (Papan 3)');
   if (rank === 4) return currentLang === 'en' ? '🏅 School Team 4th Board' : (currentLang === 'bm' ? '🏅 Papan 4 Pasukan Sekolah' : '🏅 校队第四台 (Papan 4)');
-  if (rank <= 6) return currentLang === 'en' ? '⭐ School Reserve Squad' : (currentLang === 'bm' ? '⭐ Skuad Simpanan Sekolah' : '⭐ 校队后备 (Simpanan)');
+  if (rank <= 6) return currentLang === 'en' ? '⭐ School Reserve Squad' : (currentLang === 'bm' ? '⭐ Skuad Simpanan Sekolah' : '⭐ 校队后备');
   return currentLang === 'en' ? '♟️ Academy Trainee' : (currentLang === 'bm' ? '♟️ Pemain Pelapis' : '♟️ 梯队棋手 (Peserta)');
 }
 
@@ -6046,8 +6079,8 @@ function renderWeeklyAttendance() {
       <tr>
         <td colspan="${tw + 5}" style="text-align:center; padding:35px 20px; color:#94A3B8;">
           <div style="font-size:14px; font-weight:700; margin-bottom:8px; color:#FFF;">暂无在籍学员记录 (Tiada Rekod Murid)</div>
-          <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请前往【学员档案】选项卡添加学员，或一键恢复示范学员名单。</div>
-          <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="resetDefaultStudents()">恢复默认示范学员名单</button>
+          <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请前往【学员档案】选项卡添加学员，。</div>
+          
         </td>
       </tr>
     `;
@@ -6319,10 +6352,10 @@ function renderPajskRoster() {
       <tr>
         <td colspan="9" style="text-align:center; padding:35px 20px; color:#94A3B8;">
           <div style="font-size:14px; font-weight:700; margin-bottom:8px; color:#FFF;">花名册暂无在籍学员 (Tiada Murid Berdaftar)</div>
-          <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请点击上方「添加学员」录入新学员，或一键恢复示范学员数据。</div>
+          <div style="font-size:12.5px; margin-bottom:14px; color:rgba(255,255,255,0.6);">请点击上方「添加学员」录入新学员。</div>
           <div style="display:flex; gap:10px; justify-content:center;">
             <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="openAddStudentModal()">+ 添加新学员</button>
-            <button class="btn btn-outline" style="font-size:12.5px; padding:6px 16px; border-color:rgba(255,255,255,0.3);" onclick="resetDefaultStudents()">恢复默认示范学员名单</button>
+            
           </div>
         </td>
       </tr>
@@ -6352,7 +6385,7 @@ function renderPajskRoster() {
       <tr>
         <td style="font-weight:800; color:rgba(255,255,255,0.6);">${idx + 1}</td>
         <td style="text-align:left;">
-          <div style="font-weight:800; color:#FFF; font-size:13.5px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Klik untuk Kad Prestasi">
+          <div style="font-weight:800; color:#FFF; font-size:13.5px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡">
             ${displayNameBm}
           </div>
           ${displayNameCn ? `<div style="font-size:11.5px; color:#94A3B8; margin-top:2px; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')">${displayNameCn}</div>` : ''}
@@ -6380,7 +6413,7 @@ function renderPajskRoster() {
         
         <td class="col-sticky-action" style="text-align:center; white-space:nowrap;">
           <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
-            <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#EF4444; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.08); white-space:nowrap; cursor:pointer;" onclick="deleteStudent('${s.id}')" title="删除学员 / Padam Murid">
+            <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#EF4444; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.08); white-space:nowrap; cursor:pointer;" onclick="deleteStudent('${s.id}')" title="删除学员">
               🗑️ ${delBtnText}
             </button>
           </div>
@@ -6627,7 +6660,7 @@ function openStudentProfileCard(studentId) {
   const nameEl = document.getElementById('profileCardName');
   if (nameEl) nameEl.textContent = fullName;
   const metaEl = document.getElementById('profileCardMeta');
-  if (metaEl) metaEl.textContent = `班级: ${s.class || '-'} ｜ 学会职务: ${s.jawatan || 'Ahli Biasa'} (PAJSK ${calcStudentPajskRoleScore(s.jawatan)}` + (currentLang === "en" ? "" : (currentLang === "bm" ? " pt" : " 分")) + `)`;
+  if (metaEl) metaEl.textContent = `班级: ${s.class || '-'} ｜ 学会职务: ${s.jawatan || 'Ahli Biasa'} (PAJSK: ${calcStudentPajskRoleScore(s.jawatan)}` + (currentLang === "en" ? "" : (currentLang === "bm" ? " pt" : " 分")) + `)`;
   const roleBadge = document.getElementById('profileCardRoleBadge');
   if (roleBadge) roleBadge.textContent = teamRole;
   const eloEl = document.getElementById('profileCardElo');
@@ -6673,7 +6706,7 @@ function printSingleStudentProfileCard() {
     <div style="padding:40px; font-family:'Noto Sans SC', sans-serif; color:#111; max-width:700px; margin:0 auto; border:3px double #B45309;">
       <div style="text-align:center; border-bottom:2px solid #333; padding-bottom:16px; margin-bottom:24px;">
         <h2 style="font-size:22px; margin:0 0 6px;">${schoolHub.activeSchool} · 棋艺学会</h2>
-        <h3 style="font-size:16px; margin:0 0 4px; color:#B45309;">学员中国象棋综合表现与战力诊断报告 (KAD PRESTASI MURID)</h3>
+        <h3 style="font-size:16px; margin:0 0 4px; color:#B45309;">学员中国象棋综合表现与战力诊断报告</h3>
         <p style="font-size:12px; color:#666; margin:0;">教育部 PAJSK 报备存档 ｜ 棋境校园数字化技术引擎 QiJing School OS</p>
       </div>
 
