@@ -6431,34 +6431,21 @@ function renderWeeklyAttendance() {
     if (currentLang === 'en') {
       metricSession.innerHTML = `<span id="txtSessionWk1">Week ${maxWeek}</span>`;
     }
-
-  const metricSessionWk2 = document.getElementById('txtSessionWk2');
-  if (metricSessionWk2) {
-    if (currentLang === 'en') metricSessionWk2.textContent = '/ 12 standard';
-    else if (currentLang === 'bm') metricSessionWk2.textContent = '/ 12 standard';
-    else metricSessionWk2.textContent = '/ 12 次标准';
-  }
  else if (currentLang === 'bm') {
       metricSession.innerHTML = `<span id="txtSessionWk1">Minggu ${maxWeek}</span>`;
     }
-
-  const metricSessionWk2 = document.getElementById('txtSessionWk2');
-  if (metricSessionWk2) {
-    if (currentLang === 'en') metricSessionWk2.textContent = '/ 12 standard';
-    else if (currentLang === 'bm') metricSessionWk2.textContent = '/ 12 standard';
-    else metricSessionWk2.textContent = '/ 12 次标准';
-  }
  else {
       metricSession.innerHTML = `<span id="txtSessionWk1">第 ${maxWeek} 周</span>`;
     }
 
+  }
+
+  
   const metricSessionWk2 = document.getElementById('txtSessionWk2');
   if (metricSessionWk2) {
     if (currentLang === 'en') metricSessionWk2.textContent = '/ 12 standard';
     else if (currentLang === 'bm') metricSessionWk2.textContent = '/ 12 standard';
     else metricSessionWk2.textContent = '/ 12 次标准';
-  }
-
   }
 
   const metricGames = document.getElementById('metricWeeklyLadderGames');
