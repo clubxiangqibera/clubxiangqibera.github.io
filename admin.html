@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CXQB Admin — 俱乐部教练与管理控制台</title>
+  <title>教练管理端 · 棋境 QiJing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
   /* ========================================================
-     CXQB MASTER DESIGN TOKENS (全站统一视觉色彩与毛玻璃规范)
+     QiJing MASTER DESIGN TOKENS (全站统一视觉色彩与毛玻璃规范)
      在此处修改一次，全站三端（首页、教练端、校际端）自动同步！
      ======================================================== */
 
@@ -631,7 +631,7 @@ body::before {
     .modal-lg { max-width: 680px !important; }
 
     /* =========================================================
-       FORM CONTROLS & MODALS: CXQB DARK NAVY THEME HARMONIZATION
+       FORM CONTROLS & MODALS: QiJing DARK NAVY THEME HARMONIZATION
        Eliminates invisible white-on-white text in select dropdowns
        and replaces glaring pure white input boxes with elegant navy
        ========================================================= */
@@ -708,10 +708,10 @@ body::before {
   <!-- PUBLIC STICKY TOP TAB BAR -->
   <header class="public-nav-bar" style="position:relative; z-index:9600;">
     <a href="index.html" class="p-nav-brand">
-      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <img src="cxb_round_emblem.png" alt="QiJing" class="p-nav-logo">
       <div>
-        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
-        <div class="p-nav-sub">CLUB XIANGQI BERA · 教练管理端</div>
+        <div class="p-nav-title" data-i18n="hero.title">棋境象棋研习学院</div>
+        <div class="p-nav-sub">QI JING XIANGQI ACADEMY · 教练管理端</div>
       </div>
     </a>
     <div style="display:flex; align-items:center; gap:10px;">
@@ -762,11 +762,11 @@ body::before {
 const i18n = {
   cn: {
     "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.team": "组织架构与师资", "nav.ladder": "天梯榜", "nav.login": "登录",
-    "hero.title": "百乐象棋俱乐部",
-    "hero.tagline": "彭亨百乐 · 全县唯一中国象棋教育学院",
-    "hero.badge1": "👑 全县唯一象棋教育学院",
-    "hero.badge2": "⚔️ CXQB ELO 官方排位",
-    "hero.badge3": "🏅 公会官方七级考评认证体系",
+    "hero.title": "棋境象棋研习学院",
+    "hero.tagline": "传承国粹智慧 · 淬炼棋艺巅峰 · 现代化专业中国象棋教研基地",
+    "hero.badge1": "🏆 马象总认证专业师资执教",
+    "hero.badge2": "⚔️ QiJing ELO 官方排位",
+    "hero.badge3": "🏅 学院官方七级考评认证体系",
     "camp.status": "✅ 报名开放中",
     "camp.title": "2026 第一届「棋缘」中国象棋启蒙教育营",
     "camp.date": "📅 日期：11月22日 (星期日)",
@@ -774,10 +774,10 @@ const i18n = {
     "camp.highlight": "🎯 亮点：零基础教学 · 全套教材 · 结业证书",
     "camp.btn": "📝 立即填写 Google Form 报名表",
     "gallery.title": "历届活动相册",
-    "gallery.sub": "记录在百乐县中国象棋公会的精彩瞬间",
+    "gallery.sub": "记录在棋境学术与教研治理委员会的精彩瞬间",
     "gallery.empty": "暂无公开相册。",
     "events.title": "赛事与活动中心",
-    "events.sub": "记录百乐县中国象棋公会的精彩瞬间与赛事资源",
+    "events.sub": "记录棋境学术与教研治理委员会的精彩瞬间与赛事资源",
     "nav.explore": "探索俱乐部",
     "nav.portals": "专属入口",
     "nav.student_login": "学员专属登录",
@@ -786,28 +786,28 @@ const i18n = {
     "nav.language": "系统语言",
     "nav.menu": "菜单", "nav.register": "在线报名中心",
     "events.view_all": "📚 查看所有历届活动 / View All Events",
-    "ladder.title": "CXQB 官方天梯排位榜",
-    "ladder.sub": "百乐县官方等级分体系 · 实时同步",
-    "login.badge": "🏛️ CLUB XIANGQI BERA · 学员专属登录",
-    "login.title": "百乐象棋俱乐部",
+    "ladder.title": "QiJing 官方天梯排位榜",
+    "ladder.sub": "棋境官方等级分体系 · 实时同步",
+    "login.badge": "🏛️ QI JING XIANGQI ACADEMY · 学员专属登录",
+    "login.title": "棋境象棋研习学院",
     "login.sub": "请使用俱乐部发放的学员账号密码登录",
     "login.name_label": "👤 学员姓名 (Name)",
     "login.name_ph": "如: 黄梓轩 或 admin",
     "login.pwd_label": "🔑 专属密码 (Password)",
     "login.pwd_ph": "请输入密码",
     "login.btn": "🔐 登录进入系统",
-    "footer.about_title": "百乐象棋俱乐部",
-    "footer.about_desc": "彭亨百乐县唯一专业中国象棋教育学院，负责统筹全县赛事与等级分考级认证。",
+    "footer.about_title": "棋境象棋研习学院",
+    "footer.about_desc": "专业中国象棋数字化教育基地，负责统筹全县赛事与等级分考级认证。",
     "footer.partners_title": "认证机构 & 官方合作伙伴",
     "footer.contact_title": "联系方式"
   },
   bm: {
     "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.team": "Struktur & Jurulatih", "nav.ladder": "Kedudukan ELO", "nav.login": "Log Masuk",
-    "hero.title": "Kelab XiangQi Bera",
-    "hero.tagline": "Satu-satunya Akademi Catur Cina di Daerah Bera, Pahang",
-    "hero.badge1": "👑 Satu-satunya Akademi Catur di Bera",
-    "hero.badge2": "⚔️ Sistem ELO Rasmi CXQB",
-    "hero.badge3": "🏅 Sistem Penilaian 7 Tahap Rasmi CXQB",
+    "hero.title": "Akademi Catur QiJing",
+    "hero.tagline": "Akademi Catur Cina Profesional Berteraskan Teknologi & Silibus Saintifik",
+    "hero.badge1": "🏆 Silibus Standard & Jurulatih Bertauliah",
+    "hero.badge2": "⚔️ Sistem ELO Rasmi QiJing",
+    "hero.badge3": "🏅 Sistem Penilaian 7 Tahap Rasmi QiJing",
     "camp.status": "✅ Pendaftaran Dibuka",
     "camp.title": "Kem Asas Catur Cina «Qi Yuan» 2026",
     "camp.date": "📅 Tarikh: 22 Nov (Ahad)",
@@ -815,10 +815,10 @@ const i18n = {
     "camp.highlight": "🎯 Asas Sifar · Bahan Penuh · Sijil Penyertaan",
     "camp.btn": "📝 Isi Borang Google Sekarang",
     "gallery.title": "Galeri Acara Lepas",
-    "gallery.sub": "Merakam detik-detik indah bersama CXQB",
+    "gallery.sub": "Merakam detik-detik indah bersama QiJing",
         "gallery.empty": "Tiada album awam setakat ini.",
     "events.title": "Pusat Acara & Aktiviti",
-    "events.sub": "Sumber dan Rekod Acara CXQB",
+    "events.sub": "Sumber dan Rekod Acara QiJing",
     "nav.explore": "Terokai Kelab",
     "nav.portals": "Portal Khas",
     "nav.student_login": "Log Masuk Pelajar",
@@ -826,27 +826,27 @@ const i18n = {
     "nav.admin_portal": "Portal Jurulatih",
     "nav.language": "Bahasa Sistem",
     "nav.menu": "Menu", "nav.register": "Portal Pendaftaran",
-    "ladder.title": "Carta Kedudukan ELO Rasmi CXQB",
-    "ladder.sub": "Sistem Penarafan Catur Daerah Bera · Segerak Langsung",
-    "login.badge": "🏛️ CLUB XIANGQI BERA · Log Masuk Pelajar",
-    "login.title": "Kelab XiangQi Bera",
+    "ladder.title": "Carta Kedudukan ELO Rasmi QiJing",
+    "ladder.sub": "Sistem Penarafan Catur Rasmi QiJing · Segerak Langsung",
+    "login.badge": "🏛️ QI JING XIANGQI ACADEMY · Log Masuk Pelajar",
+    "login.title": "Akademi Catur QiJing",
     "login.sub": "Sila gunakan akaun pelajar yang diberikan",
     "login.name_label": "👤 Nama Pelajar",
     "login.name_ph": "Contoh: Ahmad",
     "login.pwd_label": "🔑 Kata Laluan",
     "login.pwd_ph": "Masukkan kata laluan",
     "login.btn": "🔐 Log Masuk",
-    "footer.about_title": "Kelab XiangQi Bera",
-    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Institusi latihan dan pensijilan rasmi catur Cina di Bera, Pahang.",
+    "footer.about_title": "Akademi Catur QiJing",
+    "footer.about_desc": "QiJing Xiangqi Academy (QiJing)<br>Institusi latihan dan pensijilan rasmi catur Cina di Pahang.",
     "footer.partners_title": "Rakan Rasmi & Pensijilan",
     "footer.contact_title": "Hubungi Kami"
   },
   en: {
     "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.team": "Structure & Faculty", "nav.ladder": "ELO Standings", "nav.login": "Login",
-    "hero.title": "Club XiangQi Bera",
-    "hero.tagline": "The Only Chinese Chess Academy in Bera District, Pahang",
-    "hero.badge1": "👑 The Only Chess Academy in Bera",
-    "hero.badge2": "⚔️ CXQB Official ELO System",
+    "hero.title": "QiJing Xiangqi Academy",
+    "hero.tagline": "Professional Digital Xiangqi Academy Powered by Advanced ELO Rating",
+    "hero.badge1": "🏆 Federation-Certified Coaching Bench",
+    "hero.badge2": "⚔️ QiJing Official ELO System",
     "hero.badge3": "🏅 Official 7-Grade Assessment System",
     "camp.status": "✅ Registration Open",
     "camp.title": "2026 «Qi Yuan» Xiangqi Beginner Camp",
@@ -855,10 +855,10 @@ const i18n = {
     "camp.highlight": "🎯 Zero Basics · Full Material · Certificate",
     "camp.btn": "📝 Fill Google Form Now",
     "gallery.title": "Past Event Gallery",
-    "gallery.sub": "Capturing wonderful moments at CXQB",
+    "gallery.sub": "Capturing wonderful moments at QiJing",
         "gallery.empty": "No public albums available.",
     "events.title": "Events & Activities Center",
-    "events.sub": "CXQB Event Resources and Records",
+    "events.sub": "QiJing Event Resources and Records",
     "nav.explore": "Explore Club",
     "nav.portals": "Portals",
     "nav.student_login": "Student Login",
@@ -866,18 +866,18 @@ const i18n = {
     "nav.admin_portal": "Admin Portal",
     "nav.language": "System Language",
     "nav.menu": "Menu", "nav.register": "Online Registration",
-    "ladder.title": "CXQB Official ELO Standings",
-    "ladder.sub": "Bera District Xiangqi Rating System · Live Sync",
-    "login.badge": "🏛️ CLUB XIANGQI BERA · Student Login",
-    "login.title": "Club XiangQi Bera",
+    "ladder.title": "QiJing Official ELO Standings",
+    "ladder.sub": "QiJing Official Xiangqi Rating System · Live Sync",
+    "login.badge": "🏛️ QI JING XIANGQI ACADEMY · Student Login",
+    "login.title": "QiJing Xiangqi Academy",
     "login.sub": "Please use the student credentials provided by the club",
     "login.name_label": "👤 Student Name",
     "login.name_ph": "e.g. Ahmad",
     "login.pwd_label": "🔑 Password",
     "login.pwd_ph": "Enter password",
     "login.btn": "🔐 Login",
-    "footer.about_title": "Club XiangQi Bera",
-    "footer.about_desc": "Club XiangQi Bera (CXQB)<br>The official training and certification institution in Bera, Pahang.",
+    "footer.about_title": "QiJing Xiangqi Academy",
+    "footer.about_desc": "QiJing Xiangqi Academy (QiJing)<br>The official training and certification institution in Pahang.",
     "footer.partners_title": "Official Partners",
     "footer.contact_title": "Contact Us"
   }
@@ -932,18 +932,18 @@ function updateSeg(lang) {
     <div class="gate-card animate-zoom" style="margin:0 auto; width:100%; max-width:440px; background:var(--card-glass); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--input-glass-border); box-shadow:0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(241,196,15,0.06); padding:40px; border-radius:24px; text-align:center;">
       
       <div style="margin-bottom:16px;">
-        <img src="cxb_round_emblem.png" alt="CXB Logo" style="width:64px; height:64px; border-radius:50%; object-fit:cover; display:block; margin:0 auto; border:2.5px solid rgba(241,196,15,0.6); box-shadow:0 4px 16px rgba(241,196,15,0.15);">
+        <img src="cxb_round_emblem.png" alt="QiJing Logo" style="width:64px; height:64px; border-radius:50%; object-fit:cover; display:block; margin:0 auto; border:2.5px solid rgba(241,196,15,0.6); box-shadow:0 4px 16px rgba(241,196,15,0.15);">
       </div>
       <div id="aBadge" style="display:inline-flex; align-items:center; justify-content:center; background:var(--badge-gold-bg); color:var(--badge-gold-text); padding:6px 18px; border-radius:30px; font-size:11px; font-weight:800; margin-bottom:20px; box-shadow:0 2px 8px rgba(241,196,15,0.25); white-space:nowrap;">
-        <span id="aBadgeText">CLUB XIANGQI BERA · 教练管理端</span>
+        <span id="aBadgeText">棋境管理中枢 · 教练与管理员控制台</span>
       </div>
-      <h1 id="aTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">百乐象棋俱乐部</h1>
-      <p class="sub" id="aSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">请使用俱乐部发放的教练密码登入控制台</p>
+      <h1 id="aTitle" style="font-family:'Noto Serif SC', serif; font-size:26px; color:#fff; margin-bottom:8px; font-weight:900;">棋境管理控制台</h1>
+      <p class="sub" id="aSub" style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:32px;">请输入管理密码登入控制台</p>
 
       <form onsubmit="event.preventDefault(); tryLogin(); return false;">
         <div class="login-input-wrap" style="text-align:left; margin-bottom:32px;">
           <label id="aLbl" style="display:block; font-size:13px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px;">管理密码</label>
-          <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
+          <input type="password" id="adminPinInput" class="pin-input" placeholder="请输入管理密码" maxlength="16" autofocus autocomplete="current-password" style="width:100%; padding:14px 16px; background:var(--input-glass-bg); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-size:15px; outline:none; text-align:left;">
         </div>
         
         <button type="submit" class="login-btn" id="aBtn" style="width:100%; padding:16px; background:var(--btn-primary-bg); box-shadow:var(--btn-primary-shadow); color:#fff; font-size:16px; font-weight:700; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 15px rgba(217,4,41,0.3); transition:transform 0.2s;">进入管理控制台</button>
@@ -959,10 +959,10 @@ function updateSeg(lang) {
 <div id="mainApp">
   <div class="topbar">
     <a href="index.html" class="topbar-brand">
-      <img src="cxb_round_emblem.png" alt="CXB" class="topbar-logo">
+      <img src="cxb_round_emblem.png" alt="QiJing" class="topbar-logo">
       <div>
-        <div class="topbar-title">百乐象棋俱乐部</div>
-        <div class="topbar-sub">CLUB XIANGQI BERA · 教练管理后台</div>
+        <div class="topbar-title">棋境管理控制台</div>
+        <div class="topbar-sub">QIJING DIGITAL ECOSYSTEM · 教练与管理后台</div>
       </div>
     </a>
     <div class="topbar-right">
@@ -1126,7 +1126,7 @@ function updateSeg(lang) {
               <option value="Tahap 2 初级基础实战班">Tahap 2 初级基础实战班</option>
               <option value="Tahap 3-4 中级战术进阶班">Tahap 3-4 中级战术进阶班</option>
               <option value="Tahap 5-6 高级精英研修班">Tahap 5-6 高级精英研修班</option>
-              <option value="Tahap 7 百乐县正选代表队">Tahap 7 百乐县正选代表队</option>
+              <option value="Tahap 7 棋境正选集训队">Tahap 7 棋境正选集训队</option>
             </select>
           </div>
           <div>
@@ -1164,7 +1164,7 @@ function updateSeg(lang) {
         <div>
           <div style="font-size:11px;opacity:.75;">官方收款账户 (Official Bank Account)</div>
           <div style="font-size:20px;font-weight:900;letter-spacing:1px;margin-top:2px;">3246504527</div>
-          <div style="font-size:12px;opacity:.85;margin-top:2px;">PUBLIC BANK · Persatuan Catur Cina Daerah Bera</div>
+          <div style="font-size:12px;opacity:.85;margin-top:2px;">PUBLIC BANK · Komiti Akademik & Teknikal QiJing</div>
         </div>
         <button class="btn-sm" style="background:rgba(255,255,255,0.2);color:#fff;border:none;" onclick="copyAcc()">复制账号</button>
       </div>
@@ -1280,8 +1280,8 @@ function updateSeg(lang) {
     <!-- TAB 7: LADDER -->
     <div class="tab-panel" id="panel-ladder">
       <div class="section-head">
-        <div class="section-title">百乐全县青少年天梯三甲</div>
-        <div class="section-sub">CXQB ELO 官方排位体系 · 实时同步</div>
+        <div class="section-title">全网青少年天梯三甲</div>
+        <div class="section-sub">QiJing ELO 官方排位体系 · 实时同步</div>
       </div>
       <div id="podiumArea" class="podium"></div>
       <div class="section-head" style="margin-top:34px;">
@@ -1359,16 +1359,18 @@ function updateSeg(lang) {
           <div>
             <label class="form-label" id="licMaxRoundsLbl">授权赛事层级 (Tier License)</label>
             <select id="licMaxRounds" class="form-select">
-              <option value="3">Mini 级 (微型授权 - 最高 3 轮)</option>
-              <option value="4" selected>Standard 级 (标准授权 - 最高 4 轮)</option>
-              <option value="5">Major 级 (大型授权 - 最高 5 轮)</option>
-              <option value="7">District 级 (县级授权 - 最高 7 轮)</option>
-              <option value="10">Epic 级 (史诗授权 - 最高 10 轮)</option>
+              <option value="NANO">NANO (入门版 - 限3轮/16人)</option>
+              <option value="MINI">MINI (基础版 - 限4轮/32人)</option>
+              <option value="STANDARD" selected>STANDARD (标准版 - 限5轮/64人/解锁证书)</option>
+              <option value="PLUS">PLUS (增强版 - 限6轮/96人)</option>
+              <option value="PRO">PRO (专业版 - 限6轮/128人/解锁报表)</option>
+              <option value="ULTRA">ULTRA (极致版 - 限7轮/256人)</option>
+              <option value="TITAN">TITAN (泰坦版 - 不限轮数人数/全解锁)</option>
             </select>
           </div>
           <div>
             <label class="form-label" id="licActionLbl">操作</label>
-            <button id="btnCreateSchoolLicense" class="btn" style="margin-top:0; height:42px; width:100%; font-size:13px; font-weight:800; background:linear-gradient(135deg, #10B981 0%, #059669 100%); color:#FFFFFF; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 14px rgba(16,185,129,0.3); transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 18px rgba(16,185,129,0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 14px rgba(16,185,129,0.3)';" onclick="createSchoolLicense()">
+            <button id="btnCreateSchoolLicense" class="btn" style="margin-top:0; height:42px; width:100%; font-size:13px; font-weight:800; background:linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); color:#FFFFFF; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 14px rgba(59,130,246,0.3); transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 18px rgba(59,130,246,0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 14px rgba(59,130,246,0.3)';" onclick="createSchoolLicense()">
               生成授权激活码
             </button>
           </div>
@@ -1376,7 +1378,7 @@ function updateSeg(lang) {
 
         <div id="generatedLicBox" style="display:none; margin-top:16px; padding:16px; background:rgba(39,174,96,0.08); border:1.5px dashed var(--green); border-radius:12px;">
           <div style="font-size:12px; color:rgba(255,255,255,0.7); font-weight:700;" id="licSuccessMsg">授权码已成功写入 Cloudflare KV 数据库：</div>
-          <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">CXQB-XXXX</div>
+          <div style="font-size:24px; font-weight:900; color:var(--green); letter-spacing:4px; margin:8px 0;" id="displayGeneratedKey">QiJing-XXXX</div>
           <div style="font-size:12px; color:rgba(255,255,255,0.85);" id="licSchoolHelp">学校可凭此激活码登录 <a href="school.html" target="_blank" style="color:#60A5FA;font-weight:700;">school.html</a> 开赛。到期后系统将自动关停！</div>
           <button class="btn-sm green" style="margin-top:10px;" id="btnCopyLicense" onclick="copyGeneratedLicense()">复制授权码 (WhatsApp)</button>
         </div>
@@ -1529,7 +1531,7 @@ function updateSeg(lang) {
           </div>
           <div style="display:grid; grid-template-columns: 90px 1fr; gap:8px; margin-bottom:8px; align-items:center;">
             <input type="text" id="editMetaLabel2" class="form-input" value="开放对象">
-            <input type="text" id="editMetaVal2" class="form-input" placeholder="例如: 百乐县各华小一至六年级学生">
+            <input type="text" id="editMetaVal2" class="form-input" placeholder="例如: 全彭各华小一至六年级学生">
           </div>
           <div style="display:grid; grid-template-columns: 90px 1fr; gap:8px; align-items:center;">
             <input type="text" id="editMetaLabel3" class="form-input" value="营员福利">
@@ -1746,7 +1748,8 @@ function updateSeg(lang) {
 
 <script>
 const SHEET_ID = '1s_QoX0venwd3kDj1m3QoxgjJPsS82G9Ii8oMHr8150Y';
-const GAS_API_URL = 'https://cxb-license.clubxiangqibera.workers.dev/api/action';
+const GAS_API_URL = 'https://qijing-api.qijing.workers.dev/api/action';
+const CF_WORKER_URL = 'https://qijing-api.qijing.workers.dev';
 function getAuthPin() {
   const s = localStorage.getItem('cxb_auth');
   return s ? JSON.parse(s).pin : '';
@@ -1776,7 +1779,7 @@ async function tryLogin(){
   btn.disabled = true;
 
   try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/login', {
+    const res = await fetch('https://qijing-api.qijing.workers.dev/api/admin/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ pin: p })
@@ -1825,16 +1828,16 @@ function setAdminLang(lang) {
 
   const t = {
     zh: {
-      badge: "CLUB XIANGQI BERA · 教练管理端",
-      title: "百乐象棋俱乐部",
-      sub: "请使用俱乐部发放的教练密码登入控制台",
+      badge: "棋境管理中枢 · 教练与管理员控制台",
+      title: "棋境管理控制台",
+      sub: "请输入管理密码登入控制台",
       lbl: "管理密码",
       ph: "请输入管理密码",
       btn: "进入管理控制台",
       err: "密码错误，请重新输入",
       ret: "← 返回主页",
-      appTitle: "百乐象棋俱乐部",
-      appSub: "CLUB XIANGQI BERA · 教练管理后台",
+      appTitle: "棋境管理控制台",
+      appSub: "QIJING DIGITAL ECOSYSTEM · 教练与管理后台",
       logout: "退出登录",
       tabs: {
         dashboard: "运营看板",
@@ -1890,16 +1893,16 @@ function setAdminLang(lang) {
       }
     },
     bm: {
-      badge: "CLUB XIANGQI BERA · Portal Pentadbir",
-      title: "Kelab XiangQi Bera",
-      sub: "Sila gunakan kata laluan jurulatih untuk log masuk",
-      lbl: "Kata Laluan",
+      badge: "PENTADBIR QIJING · Papan Kawalan Jurulatih & Pengurusan",
+      title: "Pusat Kawalan Pengurusan QiJing",
+      sub: "Sila masukkan kata laluan pentadbir untuk log masuk",
+      lbl: "Kata Laluan Pentadbir",
       ph: "Masukkan kata laluan",
-      btn: "Log Masuk",
+      btn: "Log Masuk Kawalan",
       err: "Kata laluan salah, sila cuba lagi",
       ret: "← Kembali ke Utama",
-      appTitle: "Kelab XiangQi Bera",
-      appSub: "CLUB XIANGQI BERA · Papan Kawalan Jurulatih",
+      appTitle: "Pusat Kawalan Pengurusan QiJing",
+      appSub: "EKOSISTEM QIJING · Papan Kawalan Pentadbir",
       logout: "Log Keluar",
       tabs: {
         dashboard: "Papan Operasi",
@@ -1940,7 +1943,7 @@ function setAdminLang(lang) {
       licenses: {
         title: "Gerbang Lesen Komersial Cloudflare Workers + KV",
         sub: "Keluarkan kod lesen untuk sekolah penyewa · Pembatalan automatik bila tamat · Perlindungan tahap bank",
-        gatewayBadge: "Nod Pinggir Bersambung (cxb-license)",
+        gatewayBadge: "Nod Pinggir Bersambung (QiJing Cloud Gateway)",
         lblSchool: "Nama Sekolah / Acara",
         phSchool: "cth: SJK(C) Triang Kejohanan",
         lblDays: "Tempoh Sah",
@@ -1955,16 +1958,16 @@ function setAdminLang(lang) {
       }
     },
     en: {
-      badge: "CLUB XIANGQI BERA · Coach Portal",
-      title: "Club XiangQi Bera",
-      sub: "Please use coach credentials to access dashboard",
+      badge: "QIJING ADMIN PORTAL · Coach & Governance Console",
+      title: "QiJing Management Console",
+      sub: "Please enter admin password to access console",
       lbl: "Admin Password",
       ph: "Enter admin password",
-      btn: "Login",
+      btn: "Enter Admin Console",
       err: "Invalid password, please try again",
       ret: "← Return to Home",
-      appTitle: "Club XiangQi Bera",
-      appSub: "CLUB XIANGQI BERA · Coach Admin Portal",
+      appTitle: "QiJing Management Console",
+      appSub: "QIJING ECOSYSTEM · Coach & Governance Portal",
       logout: "Logout",
       tabs: {
         dashboard: "Dashboard",
@@ -2005,7 +2008,7 @@ function setAdminLang(lang) {
       licenses: {
         title: "Cloudflare Workers + KV Commercial License Gateway",
         sub: "Issue standalone license keys to partner schools · Auto-expire on due date · Enterprise fraud prevention",
-        gatewayBadge: "Edge Node Connected (cxb-license)",
+        gatewayBadge: "Edge Node Connected (QiJing Cloud Gateway)",
         lblSchool: "School / Event Name",
         phSchool: "e.g. SJK(C) Triang Tournament",
         lblDays: "Valid Duration",
@@ -2232,13 +2235,13 @@ function formatStudentLevelBadge(level, lang) {
 }
 
 function getTierName(elo) {
-  if (elo >= 1800) return '<span class="tier-chip tier-7" title="公会官方七级考评 · Wakil Daerah">Lv 7 · 县代表</span>';
-  if (elo >= 1500) return '<span class="tier-chip tier-6" title="公会官方六级考评 · Skuad Bera">Lv 6 · 县种子</span>';
-  if (elo >= 1300) return '<span class="tier-chip tier-5" title="公会官方五级考评 · Wakil Sekolah">Lv 5 · 校队领军</span>';
-  if (elo >= 1000) return '<span class="tier-chip tier-4" title="公会官方四级考评 · Lanjutan">Lv 4 · 校队主力</span>';
-  if (elo >= 700)  return '<span class="tier-chip tier-3" title="公会官方三级考评 · Pertengahan">Lv 3 · 进阶</span>';
-  if (elo >= 300)  return '<span class="tier-chip tier-2" title="公会官方二级考评 · Permulaan">Lv 2 · 基础</span>';
-  if (elo >= 100)  return '<span class="tier-chip tier-1" title="公会官方一级考评 · Asas">Lv 1 · 启蒙</span>';
+  if (elo >= 1800) return '<span class="tier-chip tier-7" title="学院官方七级考评 · Wakil Daerah">Lv 7 · 县代表</span>';
+  if (elo >= 1500) return '<span class="tier-chip tier-6" title="学院官方六级考评 · Skuad Utama QiJing">Lv 6 · 县种子</span>';
+  if (elo >= 1300) return '<span class="tier-chip tier-5" title="学院官方五级考评 · Wakil Sekolah">Lv 5 · 校队领军</span>';
+  if (elo >= 1000) return '<span class="tier-chip tier-4" title="学院官方四级考评 · Lanjutan">Lv 4 · 校队主力</span>';
+  if (elo >= 700)  return '<span class="tier-chip tier-3" title="学院官方三级考评 · Pertengahan">Lv 3 · 进阶</span>';
+  if (elo >= 300)  return '<span class="tier-chip tier-2" title="学院官方二级考评 · Permulaan">Lv 2 · 基础</span>';
+  if (elo >= 100)  return '<span class="tier-chip tier-1" title="学院官方一级考评 · Asas">Lv 1 · 启蒙</span>';
   return '<span class="tier-chip tier-0">未定级</span>';
 }
 
@@ -2262,7 +2265,7 @@ function getPlayerStats(id, name) {
 
 // ── ACCOUNT MANAGER ──────────────────────────────────────────
 function getDefaultPwd(student) {
-  // Default password = Level digit + ID number, e.g. Tahap 1 XQB-001 → 1001, Tahap 2 XQB-002 → 2002
+  // Default password = Level digit + ID number, e.g. Tahap 1 QH-001 → 1001, Tahap 2 QH-002 → 2002
   let lvNum = '1';
   const level = (student.level || '');
   if (level.includes('Tahap 7') || level.includes('代表队')) lvNum = '7';
@@ -2344,7 +2347,7 @@ function renderAccountList() {
                   <option value="Tahap 2 初级基础实战班" ${s.level.includes('Tahap 2')?'selected':''}>Tahap 2 初级基础实战班</option>
                   <option value="Tahap 3-4 中级战术进阶班" ${s.level.includes('Tahap 3')||s.level.includes('Tahap 4')||s.level==='Lv 2 进阶班'?'selected':''}>Tahap 3-4 中级战术进阶班</option>
                   <option value="Tahap 5-6 高级精英研修班" ${s.level.includes('Tahap 5')||s.level.includes('Tahap 6')||s.level==='Lv 3 精英班'?'selected':''}>Tahap 5-6 高级精英研修班</option>
-                  <option value="Tahap 7 百乐县正选代表队" ${s.level.includes('Tahap 7')?'selected':''}>Tahap 7 百乐县正选代表队</option>
+                  <option value="Tahap 7 棋境正选集训队" ${s.level.includes('Tahap 7')?'selected':''}>Tahap 7 棋境正选集训队</option>
                   <option value="非本会学员" ${s.level==='非本会学员'?'selected':''}>非本会学员</option>
                 </select>
               </td>
@@ -2374,7 +2377,7 @@ async function saveCoachPin(newPin) {
   if (input) input.style.borderColor = '#F39C12';
   
   try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/set-coach-pin', {
+    const res = await fetch('https://qijing-api.qijing.workers.dev/api/admin/set-coach-pin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminPin: getAuthPin(), newCoachPin: trimmed })
@@ -2741,8 +2744,8 @@ function updateFeeOptions() {
     feeSelect.add(new Option(optQ, '季付优惠 (RM399)'));
     feeSelect.add(new Option(optM, '月缴优惠 (RM149)'));
   } else if (level.includes('Tahap 7') || level.includes('代表队')) {
-    const optS = lang === 'en' ? 'Club Sponsorship (RM0)' : (lang === 'bm' ? 'Tajaan Penuh Kelab (RM0)' : '公会全额资助 (RM0)');
-    feeSelect.add(new Option(optS, '公会全额资助 (RM0)'));
+    const optS = lang === 'en' ? 'QiHeng Academy Sponsorship (RM0)' : (lang === 'bm' ? 'Tajaan Akademi QiHeng (RM0)' : '棋衡学院专项资助 (RM0)');
+    feeSelect.add(new Option(optS, '棋衡学院专项资助 (RM0)'));
   } else {
     const optQ = lang === 'en' ? 'Quarterly Promo (RM99)' : (lang === 'bm' ? 'Diskaun Suku Tahun (RM99)' : '季付优惠 (RM99)');
     const optM = lang === 'en' ? 'Monthly (RM39)' : (lang === 'bm' ? 'Bulanan (RM39)' : '月缴 (RM39)');
@@ -2846,7 +2849,7 @@ async function showCreateModal() {
   // Auto-fill a friendly default tournament name if empty
   if (nameInput && !nameInput.value.trim()) {
     const todayStr = new Date().toISOString().split('T')[0];
-    nameInput.value = `CXQB (Club XiangQi Bera) 比赛 (${todayStr})`;
+    nameInput.value = `QiJing (QiJing Xiangqi Academy) 比赛 (${todayStr})`;
   }
 
   // If students not loaded yet, fetch immediately
@@ -2900,7 +2903,7 @@ function createTournament() {
 
   if (!name) {
     const todayStr = new Date().toISOString().split('T')[0];
-    name = `CXQB (Club XiangQi Bera) 比赛 (${todayStr})`;
+    name = `QiJing (QiJing Xiangqi Academy) 比赛 (${todayStr})`;
   }
 
   if (checked.length < 2) {
@@ -3792,7 +3795,6 @@ async function deleteStudentAccount(studentId, studentName) {
 
 
 // ── CLOUDFLARE WORKER LICENSE MANAGEMENT ──────────────────────
-const CF_WORKER_URL = 'https://cxb-license.clubxiangqibera.workers.dev';
 let lastGeneratedKey = '';
 
 function toggleCustomDaysInput(val) {
@@ -3825,14 +3827,16 @@ async function createSchoolLicense() {
   toast('⏳ 正在向 Cloudflare Worker 写入授权...', 'info');
 
   try {
+    const tier = document.getElementById('licMaxRounds').value;
+    const finalSchoolName = schoolName + '||TIER:' + tier;
     const res = await fetch(`${CF_WORKER_URL}/api/admin/create-license`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         adminPin: getAuthPin(),
-        schoolName,
+        schoolName: finalSchoolName,
         validDays,
-        maxRounds
+        maxRounds: 4
       })
     });
     const d = await res.json();
@@ -3853,7 +3857,7 @@ async function createSchoolLicense() {
 
 function copyGeneratedLicense() {
   const schoolName = document.getElementById('licSchoolName').value.trim() || '学校比赛';
-  const textToCopy = `【百乐象棋俱乐部 · 赛事系统授权激活码】\n学校/赛事: ${schoolName}\n比赛登录网址: https://clubxiangqibera.github.io/school.html\n激活码: ${lastGeneratedKey}\n\n* 请在有效租期内使用，预祝比赛圆满举行！`;
+  const textToCopy = `【棋境象棋研习学院 · 赛事系统授权激活码】\n学校/赛事: ${schoolName}\n比赛登录网址: https://clubxiangqiqijing.github.io/school.html\n激活码: ${lastGeneratedKey}\n\n* 请在有效租期内使用，预祝比赛圆满举行！`;
   navigator.clipboard.writeText(textToCopy);
   toast('✅ 激活码已复制，可直接粘贴发到 WhatsApp！', 'success');
 }
@@ -3910,7 +3914,24 @@ async function loadSchoolLicenses() {
                 <td style="padding:10px 12px;">
                   <span style="display:inline-block; font-family:'Plus Jakarta Sans', monospace; font-size:13px; font-weight:800; color:#60A5FA; background:rgba(41,128,185,0.18); border:1px solid rgba(41,128,185,0.38); padding:3px 10px; border-radius:6px; letter-spacing:0.8px;">${item.key}</span>
                 </td>
-                <td style="padding:10px 12px; font-weight:800; color:#FFFFFF;">${item.school}</td>
+                <td style="padding:10px 12px; font-weight:800; color:#FFFFFF;">
+                  ${(() => {
+                    let sName = item.school || '';
+                    let sTier = 'STANDARD';
+                    if (sName.includes('||TIER:')) {
+                      const parts = sName.split('||TIER:');
+                      sName = parts[0];
+                      sTier = parts[1];
+                    }
+                    let tierColor = '#60A5FA';
+                    if(sTier === 'TITAN' || sTier === 'ULTRA') tierColor = '#F39C12';
+                    else if(sTier === 'PRO') tierColor = '#9B59B6';
+                    return `
+                      <div>${sName}</div>
+                      <span style="display:inline-block; margin-top:4px; font-size:10px; padding:2px 6px; background:rgba(255,255,255,0.08); color:${tierColor}; border-radius:4px; font-weight:bold;">${sTier} TIER</span>
+                    `;
+                  })()}
+                </td>
                 <td style="padding:10px 12px; text-align:center;">
                   ${item.status === 'ended' 
                     ? `<span class="badge" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); font-size:11px; padding:3px 8px;">${tEnded}</span>`
@@ -4043,7 +4064,7 @@ async function revokeSchoolLicense(key) {
 // --- Coach Management JS ---
 async function loadCoaches() {
   try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/coaches?adminPin=' + getAuthPin());
+    const res = await fetch('https://qijing-api.qijing.workers.dev/api/admin/coaches?adminPin=' + getAuthPin());
     const data = await res.json();
     if (data.success) {
       window._coaches = data.coaches || [];
@@ -4102,7 +4123,7 @@ function renderCoaches() {
 
 async function saveCoaches(coaches) {
   try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/coaches', {
+    const res = await fetch('https://qijing-api.qijing.workers.dev/api/admin/coaches', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminPin: getAuthPin(), coaches: coaches })
@@ -4185,12 +4206,12 @@ const DEFAULT_EVENTS = [
     date: "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
     status: "open",
     statusText: "报名开放中",
-    desc: "由百乐象棋俱乐部携手百乐县中国象棋公会倾力打造。专为百乐县华小学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
+    desc: "由棋境象棋研习学院携手棋境学术与教研治理委员会倾力打造。专为各校学生与校队学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
     cover: "poster_qiyuan_final.jpg",
     coverType: "image",
     meta: [
       { label: "活动地点", val: "直凉一校大礼堂 Dewan SJK(C) Triang 1" },
-      { label: "开放对象", val: "百乐县各华小一至六年级学生 (零基础 / 初学)" },
+      { label: "开放对象", val: "全彭各华小一至六年级学生 (零基础 / 初学)" },
       { label: "营员福利", val: "官方习题集 1 册 + 实战考评 + 结业证书" }
     ],
     btnText: "进入在线报名中心 (启蒙营) →",
@@ -4205,79 +4226,16 @@ const DEFAULT_EVENTS = [
     date: "2027 学校假期 (School Holidays) · 封闭强化",
     status: "upcoming",
     statusText: "筹划筹备中",
-    desc: "面向百乐县具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
+    desc: "面向全彭具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
     cover: "radial-gradient(circle at center, #1b382b 0%, #07101e 100%)",
     coverType: "badge",
     badgeText: "弈峰",
     meta: [
-      { label: "集训基地", val: "百乐象棋公会活动中心 / 合作集训基地" },
-      { label: "开放对象", val: "百乐县各校具备基础之华小与初中进阶棋手" },
+      { label: "集训基地", val: "棋境研习基地 / 合作培训中心" },
+      { label: "开放对象", val: "全彭各校具备基础之华小与初中进阶棋手" },
       { label: "集训重点", val: "高压实战对局拆解 + 胜负手敏锐度特训" }
     ],
-    btnText: "规程筹划中 · 关注公会通知",
-    btnType: "secondary",
-    regUrl: ""
-  },
-  {
-    id: "evt_school_annual",
-    category: "school",
-    seriesTag: "官方赛事 · 校际锦标赛系列",
-    title: "2027 百乐县中小学校际中国象棋锦标赛",
-    date: "2027 新学年度 · 年度全县巡回选拔",
-    status: "upcoming",
-    statusText: "筹划筹备中",
-    desc: "百乐县最高规格官方校际棋艺大赛。统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。",
-    cover: "radial-gradient(circle at center, #1b382b 0%, #07101e 100%)",
-    coverType: "badge",
-    badgeText: "百乐县中小学校际象棋锦标赛",
-    meta: [
-      { label: "参赛对象", val: "百乐县各源流中小学正规代表队 (U12 / U18)" },
-      { label: "认证级别", val: "百乐县中国象棋公会官方权威认证" },
-      { label: "天梯积分", val: "成绩直接计入官网 0~2000 ELO 天梯排位" }
-    ],
-    btnText: "前往校际赛专页报名系统 →",
-    btnType: "secondary",
-    regUrl: "school.html"
-  },
-  {
-    id: "evt_open_2026",
-    category: "open",
-    seriesTag: "全县公开赛系列 · 棋王争霸",
-    title: "2027 第一届百乐县中国象棋公开锦标赛",
-    date: "2027 下半年度 · 全县争霸",
-    status: "upcoming",
-    statusText: "筹划筹备中",
-    desc: "百乐县全面对外开放的高水平象棋公开赛。打破年龄与学校限制，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王。",
-    cover: "radial-gradient(circle at center, #1b382b 0%, #07101e 100%)",
-    coverType: "badge",
-    badgeText: "百乐县中国象棋公开锦标赛",
-    meta: [
-      { label: "参赛对象", val: "百乐县全体象棋爱好者 (公开组无年龄限制)" },
-      { label: "赛事荣誉", val: "全县棋王奖金 + 官方锦标奖杯 + 荣誉证书" },
-      { label: "天梯排位", val: "全员对局纳入百乐官方天梯排位数据库" }
-    ],
-    btnText: "规程筹划中 · 关注公会通知",
-    btnType: "secondary",
-    regUrl: ""
-  },
-  {
-    id: "evt_festive_2027",
-    category: "festive",
-    seriesTag: "传统节庆杯系列 · 新春特辑",
-    title: "2027 百乐县新春中国象棋争霸赛",
-    date: "2027 农历新春期间 · 喜迎新春",
-    status: "upcoming",
-    statusText: "筹划筹备中",
-    desc: "百乐华社年度传统民俗棋艺盛宴。汇聚全县老中青三代棋手喜迎新春，棋盘贺岁、切磋棋艺，争夺新春棋王荣誉与丰厚红包奖金。",
-    cover: "radial-gradient(circle at center, #1b382b 0%, #07101e 100%)",
-    coverType: "badge",
-    badgeText: "百乐县新春中国象棋争霸赛",
-    meta: [
-      { label: "参赛对象", val: "面向百乐县各界华社棋友、在籍学生与回乡校友" },
-      { label: "赛事特色", val: "新春贺岁特别快棋赛制 + 红包奖金 + 华团支持" },
-      { label: "天梯积分", val: "全员战绩结算计入官网 ELO 数据库" }
-    ],
-    btnText: "规程筹划中 · 关注公会通知",
+    btnText: "规程筹划中 · 关注官方教务通知",
     btnType: "secondary",
     regUrl: ""
   },
@@ -4285,16 +4243,16 @@ const DEFAULT_EVENTS = [
     id: "evt_done_primary_2026",
     category: "school",
     seriesTag: "校际锦标赛系列 · 2026 官方实录",
-    title: "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
+    title: "2026年全彭小学中国象棋赛（“旗开得胜”校园赛）",
     date: "2026年6月13日 (星期六) · 官方圆满落幕",
     status: "archive",
     statusText: "已圆满落幕",
-    desc: "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。",
+    desc: "各校学生与校队象棋新星交流盛会，由吉拉央华小主办、棋境教研技术委员会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。",
     cover: "event_2026_group.png?v=20261004",
     coverType: "image",
     meta: [
       { label: "主办单位", val: "吉拉央华小 SJK(C) Triang" },
-      { label: "协办指导", val: "百乐县中国象棋公会" },
+      { label: "协办指导", val: "棋境学术与教研治理委员会" },
       { label: "实录特权", val: "含现场4幅高规格相册与前八强荣誉榜" }
     ],
     btnText: "查看官方实录与荣誉榜 →",
@@ -4302,9 +4260,9 @@ const DEFAULT_EVENTS = [
     regUrl: "",
     recap: {
       gallery: [
-        { src: "event_2026_group.png?v=20261004", title: "2026 百乐县小学中国象棋赛 · 得奖师生合影" },
+        { src: "event_2026_group.png?v=20261004", title: "2026 全彭小学中国象棋赛 · 得奖师生合影" },
         { src: "event_2026_hall.jpg?v=20261004", title: "比赛现场对局实况" },
-        { src: "event_2026_analysis.jpg?v=20261004", title: "姚和福副主席赛后复盘指点" },
+        { src: "event_2026_analysis.jpg?v=20261004", title: "教练组副主席赛后复盘指点" },
         { src: "event_2026_gift.png?v=20261004", title: "致赠纪念品仪式" }
       ],
       quote: {
@@ -4314,7 +4272,7 @@ const DEFAULT_EVENTS = [
       },
       orgMeta: {
         orgTitle: "组织架构与执裁阵容",
-        orgDetail: "主办：吉拉央华小\n协办：百乐县象棋公会（张福明主席主评、姚和福副主席复盘）\n评审：张泰理事、蔡妮寰财政、苏翠珊老师\n嘉宾：蔡伟雅女士 · 致辞：林洁慧校长",
+        orgDetail: "主办：吉拉央华小\n协办：棋境教研技术委员会（国家级认证教练组与大师级复盘指导）\n评审：马象总国家级认证裁判团队 · 专业竞赛执裁组\n嘉宾：蔡伟雅女士 · 致辞：林洁慧校长",
         scaleTitle: "参赛规模与源流学校",
         scaleDetail: "全县 5 所华文小学 · 共 20 位代表小棋手\n吉拉央华小 · 直凉华小（一校）\n立德华小 · 明光华小 · 文德里华小"
       },
@@ -4337,7 +4295,7 @@ window._currentEventFilter = 'all';
 async function loadEvents() {
   // 1. Try fetching from Cloudflare Worker KV
   try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/events');
+    const res = await fetch('https://qijing-api.qijing.workers.dev/api/events');
     const data = await res.json();
     if (data && (Array.isArray(data.events) || Array.isArray(data))) {
       const arr = data.events || data;
@@ -4557,7 +4515,7 @@ function toggleCoverTypeInput() {
     label.textContent = '封面图片路径 / 文件名 (如 poster_qiyuan_final.jpg)';
     input.placeholder = 'poster_qiyuan_final.jpg';
   } else {
-    label.textContent = '徽章英文缩写文本 (如 YI FENG, BERA OPEN)';
+    label.textContent = '徽章英文缩写文本 (如 YI FENG, QI JING OPEN)';
     input.placeholder = 'YI FENG';
   }
 }
@@ -4592,7 +4550,7 @@ function openEventEditModal(idx) {
     
     // Detect prefix from evt.seriesTag
     const tag = evt.seriesTag || '';
-    const knownPrefixes = ['俱乐部', '公会', '校园', '官方赛事', '官方活动', '俱乐部活动', '公会特训', '校园合办', '公会节庆'];
+    const knownPrefixes = ['俱乐部', '学院', '校园', '官方赛事', '官方活动', '学院活动', '学院特训', '校园合办', '学院节庆'];
     let matchedPrefix = '自定义';
     for (const p of knownPrefixes) {
       if (tag.startsWith(p + ' · ') || tag === p) {
@@ -4983,7 +4941,7 @@ async function saveRecapModalAdmin() {
 
 async function saveEventsToCloudSilent() {
   try {
-    await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+    await fetch('https://qijing-api.qijing.workers.dev/api/admin/events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminPin: getAuthPin(), events: window._events })
@@ -4996,7 +4954,7 @@ async function saveEventsToCloudSilent() {
 async function syncEventsToCloud() {
   if (typeof toast === 'function') toast('正在同步至云端...', 'info');
   try {
-    const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/admin/events', {
+    const res = await fetch('https://qijing-api.qijing.workers.dev/api/admin/events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminPin: getAuthPin(), events: window._events })
@@ -5298,7 +5256,7 @@ function renderRegistrationList() {
     const phone = isAcad ? (r.parentPhone || '') : (r.phone || r.emergency || '');
     const cleanPhone = phone.replace(/[^0-9]/g, '');
     const waNumber = cleanPhone.startsWith('60') ? cleanPhone : (cleanPhone.startsWith('0') ? '60' + cleanPhone.substring(1) : cleanPhone);
-    const waMsg = encodeURIComponent(`您好！我是百乐象棋俱乐部教练，关于贵子弟【${r.cnName || ''}】的在线报名（凭单号：${r.id}），我们已收到，特向您跟进核实！`);
+    const waMsg = encodeURIComponent(`您好！我是棋境象棋研习学院教练，关于贵子弟【${r.cnName || ''}】的在线报名（凭单号：${r.id}），我们已收到，特向您跟进核实！`);
     const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
 
     // Status pill
@@ -5418,7 +5376,7 @@ function openRegDetailModal(id) {
   const phone = isAcad ? (r.parentPhone || '') : (r.phone || r.emergency || '');
   const cleanPhone = phone.replace(/[^0-9]/g, '');
   const waNumber = cleanPhone.startsWith('60') ? cleanPhone : (cleanPhone.startsWith('0') ? '60' + cleanPhone.substring(1) : cleanPhone);
-  const waMsg = encodeURIComponent(`您好！我是百乐象棋俱乐部教练，关于贵子弟【${r.cnName || ''}】的在线报名（凭单号：${r.id}），我们已收到，特向您跟进核实！`);
+  const waMsg = encodeURIComponent(`您好！我是棋境象棋研习学院教练，关于贵子弟【${r.cnName || ''}】的在线报名（凭单号：${r.id}），我们已收到，特向您跟进核实！`);
   document.getElementById('regModalWaBtn').href = `https://wa.me/${waNumber}?text=${waMsg}`;
 
   // Enroll button
@@ -5466,7 +5424,7 @@ function enrollStudentFromReg(id) {
     } else if (r.tier.includes('Tahap 5') || r.tier.includes('Tahap 6') || r.tier.includes('精英')) {
       qLevel.value = 'Tahap 5-6 高级精英研修班';
     } else if (r.tier.includes('Tahap 7') || r.tier.includes('代表队')) {
-      qLevel.value = 'Tahap 7 百乐县正选代表队';
+      qLevel.value = 'Tahap 7 棋境正选集训队';
     } else {
       qLevel.value = 'Tahap 1 零基础启蒙班';
     }
@@ -5587,7 +5545,7 @@ function exportRegistrationsCSV() {
   a.href = url;
   const now = new Date();
   const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
-  a.download = `cxb_registrations_${dateStr}.csv`;
+  a.download = `qijing_registrations_${dateStr}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
