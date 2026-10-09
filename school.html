@@ -472,8 +472,23 @@
       vertical-align: middle;
       text-align: center;
     }
-    .formal-table tr:last-child td { border-bottom: none; }
     .formal-table tr:hover td { background: var(--input-glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--input-glass-border); }
+
+    /* STICKY ACTION COLUMN - NEVER CLIPPED BY HORIZONTAL SCROLL */
+    .col-sticky-action {
+      position: sticky !important;
+      right: 0 !important;
+      background: #081120 !important;
+      z-index: 5 !important;
+      box-shadow: -5px 0 14px rgba(0,0,0,0.55) !important;
+    }
+    th.col-sticky-action {
+      background: #0d1a33 !important;
+      z-index: 6 !important;
+    }
+    tr:hover td.col-sticky-action {
+      background: #112242 !important;
+    }
 
     /* FORMAL SIDES */
     .cell-red {
@@ -1875,7 +1890,7 @@ function updateSeg(lang) {
           <span style="font-weight:700;">1. 每周课外活动 (Aktiviti)</span>
         </a>
         <a onclick="switchSchoolTab('tourney')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
-          <svg width="16" height="16" fill="none" stroke="#F1C40F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          <svg width="16" height="16" fill="none" stroke="#F1C40F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4v4m-5-8a5 5 0 0010 0V5H7v4zm10-2h2a2 2 0 012 2v1a3 3 0 01-3 3h-1m-10-6H5a2 2 0 00-2 2v1a3 3 0 003 3h1"/></svg>
           <span style="font-weight:700;">2. 校内锦标赛与选拔 (Kejohanan)</span>
         </a>
         <a onclick="switchSchoolTab('pajsk')" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
@@ -1887,13 +1902,19 @@ function updateSeg(lang) {
       <!-- Column 2: 赛事与教务工具 -->
       <div class="apple-mega-col">
         <h4 id="menuSecToolsTitle" style="font-family:'Noto Serif SC',serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">赛事与教务工具箱 (Tournament & Tools)</h4>
+        <a id="btnSysAddStudent" onclick="openAddStudentModal(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
+          <svg width="16" height="16" fill="none" stroke="#10B981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+          <span id="btnSysAddStudentText">添加新学员 (Daftar Murid)</span>
+        </a>
         <a id="btnSysProjector" onclick="openProjector(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
           <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
           <span id="btnSysProjectorText">现场大屏投屏 (Cast to Board)</span>
+          <span id="tagSysProjectorTier" style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; background:rgba(96,165,250,0.12); color:#60A5FA; border:1px solid rgba(96,165,250,0.25);">PRO+</span>
         </a>
         <a id="btnSysElo" onclick="openSchoolEloModal(); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
           <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           <span id="btnSysEloText">校内 ELO 战力榜 (School Ranking)</span>
+          <span id="tagSysEloTier" style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; background:rgba(241,196,15,0.12); color:#F1C40F; border:1px solid rgba(241,196,15,0.25);">PLUS+</span>
         </a>
         <a id="btnSysPrint" onclick="printSchoolReport('standings'); closeSchoolToolsMenu();" style="display:flex; align-items:center; gap:10px; color:#E2E8F0; font-size:14px; padding:7px 0; cursor:pointer;">
           <svg width="16" height="16" fill="none" stroke="#94A3B8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
@@ -1916,6 +1937,9 @@ function updateSeg(lang) {
           <div id="menuTierLabel" style="font-size:11px; color:#94A3B8; text-transform:uppercase; font-weight:700;">授权级别 (License Tier)</div>
           <div id="menuTierDisplay" style="font-size:15px; font-weight:900; color:#F1C40F; margin-top:4px;">PLUS TIER (96人版)</div>
           <div id="menuTierSub" style="font-size:11px; color:rgba(255,255,255,0.5); margin-top:3px;">官方教务数字节点已激活</div>
+          <button type="button" class="btn btn-outline" style="font-size:11px; padding:4px 10px; margin-top:10px; border-color:rgba(241,196,15,0.35); color:#F1C40F; width:100%; justify-content:center; background:rgba(241,196,15,0.06); font-weight:700;" onclick="openTierComparisonModal(); closeSchoolToolsMenu();">
+            📋 查看 7 大授权等级权限表
+          </button>
         </div>
         <a id="btnSysLogout" onclick="schoolLogout()" style="display:flex; align-items:center; gap:10px; color:#F87171; font-size:14px; padding:8px 0; cursor:pointer; font-weight:700;">
           <svg width="16" height="16" fill="none" stroke="#F87171" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -2106,8 +2130,8 @@ function updateSeg(lang) {
             <label id="tLabelPlayers" style="font-size:13px; font-weight:800; color:rgba(255,255,255,0.85);">
               参赛学生名单 (每行一个姓名，或直接从 WhatsApp / Excel 复制粘贴)
             </label>
-            <button class="btn btn-outline" style="font-size:11.5px; padding:3px 10px;" onclick="loadRosterIntoTourneyTextarea()">
-              一键导入本校名单
+            <button class="btn btn-outline" style="font-size:12px; padding:4px 12px; border-color:#F1C40F; color:#F1C40F; background:rgba(241,196,15,0.08); font-weight:700;" onclick="loadRosterIntoTourneyTextarea()">
+              📋 一键导入在籍学员名单
             </button>
           </div>
           <textarea id="schPlayerNamesText" class="form-control-glass" style="min-height:130px; height:140px; font-family:var(--font-sans), monospace; line-height:1.6; resize:vertical; overflow-y:auto;" placeholder="示例 / Example:&#10;曾俊杰&#10;李浩宇&#10;张小明&#10;陈伟豪&#10;王家伦&#10;(每行一位学生姓名，支持直接复制粘贴)"></textarea>
@@ -2188,7 +2212,7 @@ function updateSeg(lang) {
               </div>
             </div>
             <div style="display:flex; gap:8px;">
-              <button class="btn btn-outline no-print" onclick="openSchoolEloModal()">⚡ 校内 ELO 战力榜</button>
+              <button class="btn btn-outline no-print" id="btnStandingsElo" onclick="openSchoolEloModal()">⚡ 校内 ELO 战力榜</button>
               <button id="tBtnPrintStandings" class="btn btn-outline no-print" onclick="printSchoolReport('standings')">🖨️ 打印成绩榜</button>
             </div>
           </div>
@@ -2221,9 +2245,9 @@ function updateSeg(lang) {
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span id="btnPrintNoticeboardText">打印布告栏风云榜 (A4)</span>
             </button>
-            <button class="btn btn-outline" style="font-size:13px; padding:8px 16px; display:inline-flex; align-items:center; gap:6px; border-color:rgba(255,255,255,0.25);" onclick="openAddStudentModal()">
+            <button class="btn btn-outline" style="font-size:13px; padding:8px 16px; display:inline-flex; align-items:center; gap:6px; border-color:#F1C40F; color:#F1C40F; background:rgba(241,196,15,0.08); font-weight:700;" onclick="openAddStudentModal()">
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span id="btnAddStudentText">添加学员</span>
+              <span id="btnAddStudentText">+ 添加学员</span>
             </button>
             <button class="btn btn-outline" style="font-size:13px; padding:8px 12px; display:inline-flex; align-items:center; gap:6px; color:#94A3B8; border-color:rgba(255,255,255,0.18);" onclick="resetDefaultStudents()" title="重置并恢复示范学员名单">
               <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
@@ -2244,7 +2268,7 @@ function updateSeg(lang) {
                 <th style="width:90px;" id="thPajskScore">职务得分</th>
                 <th style="width:90px;" id="thPajskElo">校内 ELO</th>
                 <th style="text-align:left; width:130px;" id="thPajskTeam">校队定位</th>
-                <th style="width:165px; text-align:center;" id="thPajskAction">操作</th>
+                <th class="col-sticky-action" style="width:175px; min-width:175px; text-align:center;" id="thPajskAction">操作</th>
               </tr>
             </thead>
             <tbody id="pajskRosterTableBody"></tbody>
@@ -2560,6 +2584,130 @@ function updateSeg(lang) {
         </button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- LUXURY APPLE 7-TIER COMPARISON MODAL -->
+<div id="tierComparisonModal" class="school-notice-backdrop" onclick="closeTierComparisonModal()">
+  <div class="school-notice-card" style="max-width:920px; width:95%; text-align:left; padding:28px 24px; max-height:90vh; overflow-y:auto;" onclick="event.stopPropagation()">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:14px;">
+      <div>
+        <div style="font-size:17px; font-weight:900; color:#FFFFFF; display:flex; align-items:center; gap:8px;">
+          <span>🏛️ 棋境校园数字化教务系统 · 7 大授权等级权限对照表</span>
+        </div>
+        <div style="font-size:12px; color:#94A3B8; margin-top:3px;">
+          Sistem Pengurusan Catur Sekolah QiJing · Jadual Perbandingan Peringkat Lesen Rasmi
+        </div>
+      </div>
+      <button type="button" onclick="closeTierComparisonModal()" style="background:none; border:none; color:#94A3B8; font-size:20px; cursor:pointer; padding:2px 8px; border-radius:6px; line-height:1;" onmouseover="this.style.color='#FFF'" onmouseout="this.style.color='#94A3B8'">✕</button>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="formal-table" style="font-size:12px; width:100%; text-align:center;">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.08);">
+            <th style="padding:10px 8px;">授权等级 (Tahap)</th>
+            <th style="padding:10px 8px;">在籍学员 (Murid)</th>
+            <th style="padding:10px 8px;">赛事轮数 (Pusingan)</th>
+            <th style="padding:10px 8px;">瑞士轮 (Swiss)</th>
+            <th style="padding:10px 8px;">PAJSK 报表 (KPM)</th>
+            <th style="padding:10px 8px;">官方荣誉奖状 (Sijil)</th>
+            <th style="padding:10px 8px;">校内 ELO 体系 (ELO)</th>
+            <th style="padding:10px 8px;">现场大屏投屏 (Proyektor)</th>
+            <th style="padding:10px 8px;">MSSD 选拔公函 (Surat)</th>
+          </tr>
+        </thead>
+        <tbody id="tierTableBody">
+          <tr id="tierRow_NANO">
+            <td style="font-weight:800; color:#94A3B8;">NANO</td>
+            <td>16 人</td>
+            <td>3 轮</td>
+            <td style="color:#10B981;">✅ 基础</td>
+            <td style="color:#10B981;">✅ 基础</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_MINI">
+            <td style="font-weight:800; color:#94A3B8;">MINI</td>
+            <td>32 人</td>
+            <td>4 轮</td>
+            <td style="color:#10B981;">✅ 基础</td>
+            <td style="color:#10B981;">✅ 包含</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_STANDARD" style="background:rgba(241,196,15,0.08); border-left:3px solid #F1C40F;">
+            <td style="font-weight:900; color:#F1C40F;">STANDARD (标准版)</td>
+            <td style="font-weight:800; color:#FFF;">64 人</td>
+            <td>5 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981; font-weight:800;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#EF4444; font-weight:800;">❌ 锁定 (PLUS版起)</td>
+            <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_PLUS" style="background:rgba(16,185,129,0.08); border-left:3px solid #10B981;">
+            <td style="font-weight:900; color:#10B981;">PLUS (增强教务版)</td>
+            <td style="font-weight:800; color:#FFF;">96 人</td>
+            <td>6 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981; font-weight:800;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981; font-weight:800;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#EF4444;">❌ 锁定 (PRO版起)</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_PRO">
+            <td style="font-weight:900; color:#60A5FA;">PRO (专业竞技版)</td>
+            <td style="font-weight:800; color:#FFF;">128 人</td>
+            <td>6 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#10B981; font-weight:800;">✅ 现场大屏白板投屏</td>
+            <td style="color:#EF4444;">❌ 锁定</td>
+          </tr>
+          <tr id="tierRow_ULTRA">
+            <td style="font-weight:900; color:#A78BFA;">ULTRA (区级联赛版)</td>
+            <td style="font-weight:800; color:#FFF;">256 人</td>
+            <td>7 轮</td>
+            <td style="color:#10B981;">✅ 正规瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
+            <td style="color:#10B981; font-weight:800;">✅ MSSD 官方选拔公函</td>
+          </tr>
+          <tr id="tierRow_TITAN">
+            <td style="font-weight:900; color:#F59E0B;">TITAN (全州旗舰版)</td>
+            <td style="font-weight:800; color:#F59E0B;">无限 (9999)</td>
+            <td>20 轮</td>
+            <td style="color:#10B981;">✅ 顶级瑞士轮</td>
+            <td style="color:#10B981;">✅ 完整自动折算</td>
+            <td style="color:#10B981;">✅ 官方奖状 (Sijil)</td>
+            <td style="color:#10B981;">✅ 校内 ELO 战力榜</td>
+            <td style="color:#10B981;">✅ 现场大屏白板投屏</td>
+            <td style="color:#10B981;">✅ MSSD 官方选拔公函</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:16px; padding:12px 16px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); font-size:12px; color:rgba(255,255,255,0.7); line-height:1.6;">
+      <div style="font-weight:800; color:#F1C40F; margin-bottom:4px;">📌 核心说明：为什么 STANDARD (标准版) 不含校内 ELO 战力排行榜？</div>
+      <div>• <b>STANDARD (标准版)</b> 定位为全马中小学常规课外活动官方普及版（限 64 名学员），完整支持教育部 PAJSK 50-10-20-20 分值折算及 A4 官方荣誉奖状 (Sijil Pencapaian)，完全满足学校常规考评与年终出勤报告。</div>
+      <div>• <b>PLUS (增强教务版，96人)</b> 起方正式激活校内专属 ELO 战力阶梯天梯系统，实时跟踪每位学员的比赛战力浮动与台次定位。如需启用 ELO 战力榜，请联系总教练升级授权。</div>
+    </div>
+
+    <div style="margin-top:18px; display:flex; justify-content:flex-end;">
+      <button type="button" onclick="closeTierComparisonModal()" class="btn btn-pri-gold" style="padding:10px 24px; font-size:13.5px;">我知道了 / Faham</button>
+    </div>
   </div>
 </div>
 
@@ -3172,6 +3320,11 @@ window.addEventListener('keydown', (e) => {
       closeAddStudentModal();
       return;
     }
+    const tierCompModal = document.getElementById('tierComparisonModal');
+    if (tierCompModal && tierCompModal.style.display === 'flex') {
+      closeTierComparisonModal();
+      return;
+    }
     const projModal = document.getElementById('projectorModal');
     if (projModal && projModal.classList.contains('show')) {
       closeProjector();
@@ -3202,6 +3355,46 @@ function updateMenuTierDisplay(lang) {
     suffix = max >= 9999 ? 'Unlimited' : `${max} Players`;
   }
   tierEl.textContent = `${tierName} (${suffix})`;
+
+  // Update dynamic tier badges in Tools Mega Menu
+  const tagProj = document.getElementById('tagSysProjectorTier');
+  if (tagProj) {
+    if (limits.blockProjector) {
+      tagProj.textContent = '🔒 PRO+';
+      tagProj.style.color = '#60A5FA';
+      tagProj.style.background = 'rgba(96,165,250,0.12)';
+      tagProj.style.borderColor = 'rgba(96,165,250,0.25)';
+    } else {
+      tagProj.textContent = '✓ ACTIVE';
+      tagProj.style.color = '#10B981';
+      tagProj.style.background = 'rgba(16,185,129,0.12)';
+      tagProj.style.borderColor = 'rgba(16,185,129,0.25)';
+    }
+  }
+
+  const tagElo = document.getElementById('tagSysEloTier');
+  if (tagElo) {
+    if (limits.blockElo) {
+      tagElo.textContent = '🔒 PLUS+';
+      tagElo.style.color = '#F1C40F';
+      tagElo.style.background = 'rgba(241,196,15,0.12)';
+      tagElo.style.borderColor = 'rgba(241,196,15,0.25)';
+    } else {
+      tagElo.textContent = '✓ ACTIVE';
+      tagElo.style.color = '#10B981';
+      tagElo.style.background = 'rgba(16,185,129,0.12)';
+      tagElo.style.borderColor = 'rgba(16,185,129,0.25)';
+    }
+  }
+
+  const btnStandingsElo = document.getElementById('btnStandingsElo');
+  if (btnStandingsElo) {
+    if (limits.blockElo) {
+      btnStandingsElo.innerHTML = `⚡ 校内 ELO 战力榜 <span style="font-size:10px; color:#F1C40F; padding:1px 5px; background:rgba(241,196,15,0.12); border-radius:3px; border:1px solid rgba(241,196,15,0.25); margin-left:4px;">🔒 PLUS+</span>`;
+    } else {
+      btnStandingsElo.innerHTML = `⚡ 校内 ELO 战力榜`;
+    }
+  }
 }
 
 function setSystemLang(lang) {
@@ -3644,18 +3837,30 @@ function loadStoredSchoolTourney() {
   if (setupCard) setupCard.style.display = 'block';
   const activeSec = document.getElementById('activeTournamentSection');
   if (activeSec) activeSec.style.display = 'none';
+
+  // Auto prefill from schoolHub.students if textarea is empty
+  const textarea = document.getElementById('schPlayerNamesText');
+  if (textarea && !textarea.value.trim() && typeof schoolHub !== 'undefined' && schoolHub.students && schoolHub.students.length > 0) {
+    textarea.value = schoolHub.students.map(s => (s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name)).join('\n');
+    const preview = document.getElementById('nameCountPreview');
+    if (preview) preview.textContent = `当前识别: ${schoolHub.students.length} 人`;
+  }
 }
 
 // Live word count for text area
-document.getElementById('schPlayerNamesText').addEventListener('input', e => {
-  const names = e.target.value.split('\n').map(x => x.trim()).filter(Boolean);
-  document.getElementById('nameCountPreview').textContent = `当前识别: ${names.length} 人`;
-});
+const playerInputEl = document.getElementById('schPlayerNamesText');
+if (playerInputEl) {
+  playerInputEl.addEventListener('input', e => {
+    const names = e.target.value.split('\n').map(x => x.trim()).filter(Boolean);
+    const countEl = document.getElementById('nameCountPreview');
+    if (countEl) countEl.textContent = `当前识别: ${names.length} 人`;
+  });
+}
 
 // --- START TOURNAMENT ---
 function startSchoolTournament() {
   if (isLicenseTerminated) {
-    alert('比赛授权已被管理员终止，无法执行此操作！');
+    showSchoolNotice('比赛授权已被管理员终止，无法执行此操作！', '授权已终止');
     return;
   }
   const name = document.getElementById('schTourneyName').value.trim() || '校内象棋锦标赛';
@@ -3664,7 +3869,7 @@ function startSchoolTournament() {
   const rawNames = rawText.split('\n').map(n => n.replace(/^[0-9\.\s、]+/, '').trim()).filter(Boolean);
 
   if (rawNames.length < 2) {
-    alert('请至少输入 2 名参赛学生的姓名！');
+    showSchoolNotice('请至少输入 2 名参赛学生的姓名！可点击上方「一键导入在籍学员名单」自动载入本校学生。', '提示');
     return;
   }
 
@@ -4840,6 +5045,32 @@ function closeSchoolEloModal() {
   if (modal) modal.classList.remove('show');
 }
 
+// --- 7-TIER COMPARISON MODAL CONTROLLER ---
+function openTierComparisonModal() {
+  const modal = document.getElementById('tierComparisonModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+
+  const limits = window.SCHOOL_TIER_LIMITS || { tier: 'STANDARD' };
+  const currentTier = (limits.tier || 'STANDARD').toUpperCase();
+  ['NANO', 'MINI', 'STANDARD', 'PLUS', 'PRO', 'ULTRA', 'TITAN'].forEach(t => {
+    const row = document.getElementById(`tierRow_${t}`);
+    if (row) {
+      if (t === currentTier) {
+        row.style.outline = '2px solid #F1C40F';
+        row.style.background = 'rgba(241,196,15,0.18)';
+      } else {
+        row.style.outline = 'none';
+      }
+    }
+  });
+}
+
+function closeTierComparisonModal() {
+  const modal = document.getElementById('tierComparisonModal');
+  if (modal) modal.style.display = 'none';
+}
+
 function renderSchoolEloLeaderboard() {
   const eloList = calcSchoolEloStandings();
   const tbody = document.getElementById('schoolEloTableBody');
@@ -5013,6 +5244,28 @@ function switchSchoolTab(tab) {
   });
 
   if (tab === 'weekly') renderWeeklyAttendance();
+  if (tab === 'tourney') {
+    if (typeof schoolTourney !== 'undefined' && schoolTourney && schoolTourney.rounds && schoolTourney.rounds.length > 0) {
+      const setupCard = document.getElementById('setupCard');
+      const activeSec = document.getElementById('activeTournamentSection');
+      if (setupCard) setupCard.style.display = 'none';
+      if (activeSec) activeSec.style.display = 'block';
+      if (typeof renderActiveTourney === 'function') renderActiveTourney();
+    } else {
+      const setupCard = document.getElementById('setupCard');
+      const activeSec = document.getElementById('activeTournamentSection');
+      if (setupCard) setupCard.style.display = 'block';
+      if (activeSec) activeSec.style.display = 'none';
+
+      // Auto prefill from schoolHub.students if textarea is empty
+      const textarea = document.getElementById('schPlayerNamesText');
+      if (textarea && !textarea.value.trim() && typeof schoolHub !== 'undefined' && schoolHub.students && schoolHub.students.length > 0) {
+        textarea.value = schoolHub.students.map(s => (s.nameBm ? `${s.nameBm}${s.name && s.name !== s.nameBm ? ' (' + s.name + ')' : ''}` : s.name)).join('\n');
+        const preview = document.getElementById('nameCountPreview');
+        if (preview) preview.textContent = `当前识别: ${schoolHub.students.length} 人`;
+      }
+    }
+  }
   if (tab === 'pajsk') renderPajskRoster();
 }
 
@@ -5269,6 +5522,9 @@ function renderPajskRoster() {
   const cardBtnText = isEn ? 'Performance' : (isBm ? 'Kad Prestasi' : '战力表现卡');
   const scoreUnit = isEn ? 'pts' : (isBm ? 'markah' : '分');
 
+  const limits = window.SCHOOL_TIER_LIMITS || { tier: 'STANDARD' };
+  const isEloBlocked = !!limits.blockElo;
+
   tbody.innerHTML = schoolHub.students.map((s, idx) => {
     const roleScore = calcStudentPajskRoleScore(s.jawatan);
     const teamRole = calcStudentTeamRole(idx + 1);
@@ -5298,15 +5554,21 @@ function renderPajskRoster() {
           </select>
         </td>
         <td style="font-weight:800; color:#F1C40F;">${roleScore} / 10${scoreUnit}</td>
-        <td style="font-weight:900; color:#F1C40F;">${s.elo}</td>
+        <td>
+          ${isEloBlocked 
+            ? `<span style="font-weight:700; color:#94A3B8; font-size:12px;">1000</span> <span style="font-size:10px; color:#F1C40F; padding:1px 5px; background:rgba(241,196,15,0.12); border-radius:3px; border:1px solid rgba(241,196,15,0.25); cursor:pointer;" onclick="openTierComparisonModal()" title="标准版为统一基准分，点击查看授权等级表">🔒 PLUS+</span>` 
+            : `<span style="font-weight:900; color:#F1C40F;">${s.elo}</span>`}
+        </td>
         <td style="text-align:left; font-size:12px; font-weight:700; color:#60A5FA;">${teamRole}</td>
-        <td style="text-align:center; white-space:nowrap;">
-          <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#F1C40F; border-color:rgba(241,196,15,0.35); background:rgba(241,196,15,0.06); margin-right:4px;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Kad Prestasi">
-            📊 ${cardBtnText}
-          </button>
-          <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#F87171; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.06); transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.18)'" onmouseout="this.style.background='rgba(239,68,68,0.06)'" onclick="deleteStudent('${s.id}')">
-            ${delBtnText}
-          </button>
+        <td class="col-sticky-action" style="text-align:center; white-space:nowrap;">
+          <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
+            <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#F1C40F; border-color:rgba(241,196,15,0.35); background:rgba(241,196,15,0.08); white-space:nowrap; cursor:pointer;" onclick="openStudentProfileCard('${s.id}')" title="查看战力表现卡 / Kad Prestasi">
+              📊 ${cardBtnText}
+            </button>
+            <button class="btn btn-outline" style="padding:4px 8px; font-size:11.5px; color:#EF4444; border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.08); white-space:nowrap; cursor:pointer;" onclick="deleteStudent('${s.id}')" title="删除学员 / Padam Murid">
+              🗑️ ${delBtnText}
+            </button>
+          </div>
         </td>
       </tr>
     `;
