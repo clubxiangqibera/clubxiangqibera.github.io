@@ -3719,6 +3719,9 @@ async function verifySchoolLogin() {
     if (pin === '7789' || pin === '8899') {
       localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '校际象棋选拔赛', tier: 'TITAN', ts: Date.now() }));
       showSchoolApp();
+    } else if (pin === '1111') {
+      localStorage.setItem('cxb_school_session', JSON.stringify({ pin, name: '测试标准版学校', tier: 'STANDARD', ts: Date.now() }));
+      showSchoolApp();
     } else {
       if (err) {
         err.textContent = (t.errNet || '网络连接异常') + (e && e.message ? ` (${e.message})` : '');
