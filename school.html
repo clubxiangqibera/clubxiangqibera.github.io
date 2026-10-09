@@ -1699,6 +1699,19 @@ const i18n = {
     "footer.contact_title": "联系方式"
   },
   bm: {
+
+      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnNoticeboard2: 'Cetak Papan Kenyataan',
+      btnArchive: '📥 Arkib Kejohanan',
+      btnResetTourney: 'Bina Semula Kejohanan',
+
+      btnSysAddStudentText: 'Tambah Murid (Daftar)',
+      btnSysProjectorText: 'Pancaran Skrin (Projector)',
+      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysPrintText: 'Cetak Papan Kenyataan',
+      btnSysCertText: 'Sijil Pencapaian Individu',
+      btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
+      btnSysRolloverText: 'Tutup Akaun Tahun Semasa',
       statTitle1: 'Jumlah Ahli Berdaftar',
       statTitle2: 'Kemajuan Perjumpaan',
       statTitle3: 'Purata Kehadiran',
@@ -1759,6 +1772,19 @@ const i18n = {
     "footer.contact_title": "Hubungi Kami"
   },
   en: {
+
+      btnMssd: 'Print MSSD Selection Letter',
+      btnNoticeboard2: 'Print Noticeboard Ranking',
+      btnArchive: '📥 Archive Tournament',
+      btnResetTourney: 'Reset & Recreate Tournament',
+
+      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysProjectorText: 'Live Projector Cast',
+      btnSysEloText: 'School ELO Rankings',
+      btnSysPrintText: 'Official Noticeboard Sheet',
+      btnSysCertText: 'Official Merit Certificates',
+      btnSysCertBatchText: 'Batch Participation Certificates',
+      btnSysRolloverText: 'Year-End Data Rollover',
       statTitle1: 'Total Registered Members',
       statTitle2: 'Meetings Progress',
       statTitle3: 'Average Attendance Rate',
@@ -2235,10 +2261,10 @@ function updateSeg(lang) {
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
             <h3 id="curTourneyHeading" style="font-size:18px; font-weight:900; color: #fff;">比赛进行中</h3>
             <div style="display:flex; gap:8px;">
-              <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printMssdAppointmentLetter()">打印 MSSD 选拔公函</button>
-              <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printNoticeboardRanking()">打印布告栏风云榜</button>
-              <button class="btn btn-outline" style="padding:6px 12px; font-size:12px; background:rgba(16, 185, 129, 0.1); color:#10B981; border-color:rgba(16, 185, 129, 0.3);" onclick="archiveSchoolTourney()">📥 归档比赛 (Arkib)</button>
-              <button class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="resetSchoolTourney()">重新创建比赛</button>
+              <button id="btnMssd"  class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printMssdAppointmentLetter()">打印 MSSD 选拔公函</button>
+              <button id="btnNoticeboard2"  class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="printNoticeboardRanking()">打印布告栏风云榜</button>
+              <button id="btnArchive"  class="btn btn-outline" style="padding:6px 12px; font-size:12px; background:rgba(16, 185, 129, 0.1); color:#10B981; border-color:rgba(16, 185, 129, 0.3);" onclick="archiveSchoolTourney()">📥 归档比赛 (Arkib)</button>
+              <button id="btnResetTourney"  class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="resetSchoolTourney()">重新创建比赛</button>
             </div>
           </div>
           <div class="timeline" id="schTimeline"></div>
@@ -2985,6 +3011,19 @@ let currentLang = localStorage.getItem('cxb_school_lang') || 'zh';
 
 const I18N = {
   zh: {
+
+      btnMssd: '打印 MSSD 选拔公函',
+      btnNoticeboard2: '打印布告栏风云榜',
+      btnArchive: '📥 归档比赛 (Arkib)',
+      btnResetTourney: '重新创建比赛',
+
+      btnSysAddStudentText: '添加新学员 (Daftar Murid)',
+      btnSysProjectorText: '现场大屏投屏 (Projector)',
+      btnSysEloText: '校内 ELO 战力榜 (Ranking)',
+      btnSysPrintText: '布告栏大字报 (Print)',
+      btnSysCertText: '单人荣誉奖状 (Sijil)',
+      btnSysCertBatchText: '一键全员证书 (Batch Sijil)',
+      btnSysRolloverText: '年度跨年结转 (Year-End)',
       statTitle1: '学会注册总人数',
       statTitle2: '本学期集会进度',
       statTitle3: '平均出勤得分率',
@@ -3113,6 +3152,19 @@ const I18N = {
     printDisclaimer: '* 本成绩报告基于瑞士制积分编排规则（Swiss-System）与布赫兹对手分自动核算，签署与盖章后即具本校正式行政效力。'
   },
   bm: {
+
+      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnNoticeboard2: 'Cetak Papan Kenyataan',
+      btnArchive: '📥 Arkib Kejohanan',
+      btnResetTourney: 'Bina Semula Kejohanan',
+
+      btnSysAddStudentText: 'Tambah Murid (Daftar)',
+      btnSysProjectorText: 'Pancaran Skrin (Projector)',
+      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysPrintText: 'Cetak Papan Kenyataan',
+      btnSysCertText: 'Sijil Pencapaian Individu',
+      btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
+      btnSysRolloverText: 'Tutup Akaun Tahun Semasa',
       statTitle1: 'Jumlah Ahli Berdaftar',
       statTitle2: 'Kemajuan Perjumpaan',
       statTitle3: 'Purata Kehadiran',
@@ -3237,6 +3289,19 @@ const I18N = {
     printDisclaimer: '* Laporan ini dijana berasaskan Sistem Swiss dengan kiraan Buchholz rasmi. Sah dengan tandatangan dan cop rasmi sekolah.'
   },
   en: {
+
+      btnMssd: 'Print MSSD Selection Letter',
+      btnNoticeboard2: 'Print Noticeboard Ranking',
+      btnArchive: '📥 Archive Tournament',
+      btnResetTourney: 'Reset & Recreate Tournament',
+
+      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysProjectorText: 'Live Projector Cast',
+      btnSysEloText: 'School ELO Rankings',
+      btnSysPrintText: 'Official Noticeboard Sheet',
+      btnSysCertText: 'Official Merit Certificates',
+      btnSysCertBatchText: 'Batch Participation Certificates',
+      btnSysRolloverText: 'Year-End Data Rollover',
       statTitle1: 'Total Registered Members',
       statTitle2: 'Meetings Progress',
       statTitle3: 'Average Attendance Rate',
@@ -3375,6 +3440,19 @@ const tCard = {
     verifying: "⏳ 正在通过安全验证..."
   },
   bm: {
+
+      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnNoticeboard2: 'Cetak Papan Kenyataan',
+      btnArchive: '📥 Arkib Kejohanan',
+      btnResetTourney: 'Bina Semula Kejohanan',
+
+      btnSysAddStudentText: 'Tambah Murid (Daftar)',
+      btnSysProjectorText: 'Pancaran Skrin (Projector)',
+      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysPrintText: 'Cetak Papan Kenyataan',
+      btnSysCertText: 'Sijil Pencapaian Individu',
+      btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
+      btnSysRolloverText: 'Tutup Akaun Tahun Semasa',
       statTitle1: 'Jumlah Ahli Berdaftar',
       statTitle2: 'Kemajuan Perjumpaan',
       statTitle3: 'Purata Kehadiran',
@@ -3406,6 +3484,19 @@ const tCard = {
     verifying: "⏳ Mengesahkan melalui SSL..."
   },
   en: {
+
+      btnMssd: 'Print MSSD Selection Letter',
+      btnNoticeboard2: 'Print Noticeboard Ranking',
+      btnArchive: '📥 Archive Tournament',
+      btnResetTourney: 'Reset & Recreate Tournament',
+
+      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysProjectorText: 'Live Projector Cast',
+      btnSysEloText: 'School ELO Rankings',
+      btnSysPrintText: 'Official Noticeboard Sheet',
+      btnSysCertText: 'Official Merit Certificates',
+      btnSysCertBatchText: 'Batch Participation Certificates',
+      btnSysRolloverText: 'Year-End Data Rollover',
       statTitle1: 'Total Registered Members',
       statTitle2: 'Meetings Progress',
       statTitle3: 'Average Attendance Rate',
@@ -5262,6 +5353,19 @@ function updateNavMenuBtn() {
   const textMap = {
     cn: { open: '菜单', close: '关闭' },
     bm: {
+
+      btnMssd: 'Cetak Surat Wakil MSSD',
+      btnNoticeboard2: 'Cetak Papan Kenyataan',
+      btnArchive: '📥 Arkib Kejohanan',
+      btnResetTourney: 'Bina Semula Kejohanan',
+
+      btnSysAddStudentText: 'Tambah Murid (Daftar)',
+      btnSysProjectorText: 'Pancaran Skrin (Projector)',
+      btnSysEloText: 'Kedudukan ELO (Ranking)',
+      btnSysPrintText: 'Cetak Papan Kenyataan',
+      btnSysCertText: 'Sijil Pencapaian Individu',
+      btnSysCertBatchText: 'Jana Sijil Beramai-ramai',
+      btnSysRolloverText: 'Tutup Akaun Tahun Semasa',
       statTitle1: 'Jumlah Ahli Berdaftar',
       statTitle2: 'Kemajuan Perjumpaan',
       statTitle3: 'Purata Kehadiran',
@@ -5283,6 +5387,19 @@ function updateNavMenuBtn() {
       pajskF3: '3. Pencapaian (Pertandingan Dalam Sekolah • 20 markah)',
       pajskF4: '4. Komitmen (Tanggungjawab & Penglibatan • 20 markah)', open: 'Menu', close: 'Tutup' },
     en: {
+
+      btnMssd: 'Print MSSD Selection Letter',
+      btnNoticeboard2: 'Print Noticeboard Ranking',
+      btnArchive: '📥 Archive Tournament',
+      btnResetTourney: 'Reset & Recreate Tournament',
+
+      btnSysAddStudentText: 'Add New Student (Register)',
+      btnSysProjectorText: 'Live Projector Cast',
+      btnSysEloText: 'School ELO Rankings',
+      btnSysPrintText: 'Official Noticeboard Sheet',
+      btnSysCertText: 'Official Merit Certificates',
+      btnSysCertBatchText: 'Batch Participation Certificates',
+      btnSysRolloverText: 'Year-End Data Rollover',
       statTitle1: 'Total Registered Members',
       statTitle2: 'Meetings Progress',
       statTitle3: 'Average Attendance Rate',
