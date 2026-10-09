@@ -4013,6 +4013,71 @@ if (playerInputEl) {
   });
 }
 
+
+function cxbConfirm(title, message, isDanger = false) {
+  return new Promise(resolve => {
+    const modal = document.getElementById('cxbConfirmModal');
+    document.getElementById('cxbConfirmTitle').textContent = title;
+    document.getElementById('cxbConfirmMessage').textContent = message;
+    
+    const btnOk = document.getElementById('cxbConfirmOk');
+    const btnCancel = document.getElementById('cxbConfirmCancel');
+    
+    if (isDanger) {
+      btnOk.style.background = '#EF4444';
+      btnOk.style.boxShadow = '0 4px 14px rgba(239,68,68,0.35)';
+      btnOk.style.color = '#fff';
+      btnOk.style.border = 'none';
+    } else {
+      btnOk.style.background = '';
+      btnOk.style.boxShadow = '';
+      btnOk.style.color = '';
+      btnOk.style.border = '';
+    }
+
+    const cleanup = () => {
+      modal.style.display = 'none';
+      btnOk.onclick = null;
+      btnCancel.onclick = null;
+    };
+
+    btnOk.onclick = () => { cleanup(); resolve(true); };
+    btnCancel.onclick = () => { cleanup(); resolve(false); };
+    
+    modal.style.display = 'flex';
+  });
+}
+
+function cxbPrompt(title, message, defaultValue = '') {
+  return new Promise(resolve => {
+    const modal = document.getElementById('cxbPromptModal');
+    document.getElementById('cxbPromptTitle').textContent = title;
+    document.getElementById('cxbPromptMessage').textContent = message;
+    const input = document.getElementById('cxbPromptInput');
+    input.value = defaultValue;
+    
+    const btnOk = document.getElementById('cxbPromptOk');
+    const btnCancel = document.getElementById('cxbPromptCancel');
+    
+    const cleanup = () => {
+      modal.style.display = 'none';
+      btnOk.onclick = null;
+      btnCancel.onclick = null;
+    };
+
+    btnOk.onclick = () => { cleanup(); resolve(input.value); };
+    btnCancel.onclick = () => { cleanup(); resolve(null); };
+    
+    input.onkeydown = (e) => {
+      if (e.key === 'Enter') { cleanup(); resolve(input.value); }
+      if (e.key === 'Escape') { cleanup(); resolve(null); }
+    };
+
+    modal.style.display = 'flex';
+    setTimeout(() => input.focus(), 100);
+  });
+}
+
 // --- START TOURNAMENT ---
 
 let schoolTourneyHistory = [];
