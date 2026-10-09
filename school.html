@@ -2636,37 +2636,25 @@ function updateSeg(lang) {
   </div>
 </div>
 
-<!-- ACCESS DENIED MODAL (UPSELL) -->
-<div id="accessDeniedModal" class="school-notice-backdrop" style="display: none;" onclick="closeAccessDeniedModal()">
-  <div class="school-notice-card" style="max-width:400px; text-align:center; padding:32px 24px;" onclick="event.stopPropagation()">
-    <div style="font-size:42px; margin-bottom:16px;">🔒</div>
-    <div style="font-size:20px; font-weight:900; color:#EF4444; margin-bottom:8px;">权限受限 (Akses Ditolak)</div>
-    <div id="accessDeniedMsg" style="font-size:14px; color:rgba(255,255,255,0.8); line-height:1.6; margin-bottom:24px;">
-      您当前的版本无法使用此功能。
-    </div>
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <button class="btn" style="background:#F1C40F; color:#000; font-weight:800; font-size:14px; padding:12px; justify-content:center; width:100%; border:none; cursor:pointer; border-radius:8px;" onclick="closeAccessDeniedModal(); openTierComparisonModal();">
-        📋 查看 7 大授权版本权限表
-      </button>
-      <button class="btn btn-outline" style="font-size:14px; padding:12px; justify-content:center; width:100%; border:1px solid rgba(255,255,255,0.2); color:#FFF; cursor:pointer; background:transparent; border-radius:8px;" onclick="closeAccessDeniedModal()">
-        ✖️ 关闭
-      </button>
-    </div>
-  </div>
-</div>
+<!-- Removed HTML modal, now uses showSchoolNotice -->
 <script>
 function openAccessDeniedModal(reqTier, curTier) {
-  const m = document.getElementById('accessDeniedModal');
-  const msg = document.getElementById('accessDeniedMsg');
-  if (m && msg) {
-    msg.innerHTML = `您当前使用的节点为 <b style="color:#60A5FA;">[${curTier} 版]</b>。<br><br>此功能专属于 <b style="color:#F1C40F;">[${reqTier} 授权版]</b> 或更高级别节点。请联系官方进行系统升级以解锁更多强大功能。`;
-    m.style.display = 'flex';
+  const msg = `<div style="font-size:42px; margin-bottom:12px; text-align:center;">🔒</div>
+    <div style="text-align:center; font-size:15px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:20px;">
+      您当前使用的节点为 <b style="color:#60A5FA;">[${curTier} 版]</b>。<br><br>
+      此功能专属于 <b style="color:#F1C40F;">[${reqTier} 授权版]</b> 或更高级别节点。请联系官方进行系统升级以解锁更多强大功能。
+    </div>
+    <button class="btn" style="background:#F1C40F; color:#000; font-weight:800; font-size:14px; padding:12px; justify-content:center; width:100%; border:none; cursor:pointer; border-radius:8px;" onclick="closeSchoolNotice(); setTimeout(openTierComparisonModal, 100);">
+      📋 查看 7 大授权版本权限表
+    </button>`;
+  
+  if (typeof showSchoolNotice === 'function') {
+    showSchoolNotice(msg, '权限受限 (Akses Ditolak)');
+  } else {
+    alert(`权限受限! 专属 ${reqTier} 版`);
   }
 }
-function closeAccessDeniedModal() {
-  const m = document.getElementById('accessDeniedModal');
-  if (m) m.style.display = 'none';
-}
+function closeAccessDeniedModal() {}
 </script>
 
 <!-- LUXURY APPLE 7-TIER COMPARISON MODAL -->
