@@ -2055,11 +2055,11 @@ function updateSeg(lang) {
           </div>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
             <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.06); padding:4px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
-                <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="removeAttendanceWeek()" title="减少集会">-</button>
-                <span style="font-size:12px; color:rgba(255,255,255,0.7);">操作周次:</span>
+                <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="removeAttendanceWeek()" id="btnMinusWeek" title="减少集会">-</button>
+                <span id="lblSelectSession" style="font-size:12px; color:rgba(255,255,255,0.7);">操作周次:</span>
                 <select id="quickSessionSelect" style="background:transparent; border:none; color:#F1C40F; font-weight:800; font-size:12.5px; outline:none; cursor:pointer;" onchange="renderWeeklyAttendance()">
                 </select>
-                <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="addAttendanceWeek()" title="增加集会">+</button>
+                <button class="btn" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:0 4px;" onclick="addAttendanceWeek()" id="btnAddWeek" title="增加集会">+</button>
               </div>
               <button class="btn btn-outline" style="font-size:12.5px; padding:6px 12px; color:#10B981; border-color:rgba(16,185,129,0.4);" onclick="markAllCurrentSessionPresent()">
                 本周全员出席
@@ -2986,6 +2986,10 @@ const I18N = {
     certTipsBody: '系统将自动为奖状配置 A4 横版 (Landscape) 经典典雅排版与棋境教研技术委员会认证防伪印章。点击打印后，在浏览器打印预览中确认纸张方向为横向即可。',
     certBtnClose: '关闭',
     certBtnPrint: '🖨️ 立即生成并打印',
+    lblSelectSession: '操作周次:',
+    btnMarkAllPresent: '本周全员出席',
+    btnClearSession: '清空本周',
+    btnExportAttendance: '🖨️ 打印出勤大字报 (A4)',
     setupTitle: '⚙️ 比赛基本设置',
     setupDesc: '仅需粘贴参赛学生名单，系统将全自动完成棋境校园系统（QiJing）配对与胜负记分。',
     labelTourneyName: '比赛名称 / 所在学校',
@@ -5588,9 +5592,18 @@ function renderWeeklyAttendance() {
   if (!tbody || !theadTr) return;
 
   const tw = schoolHub.totalWeeks || 12;
+  const isEn = currentLang === 'en';
+  const isBm = currentLang === 'bm';
+  
+  const txtName = isEn ? 'Student Name' : (isBm ? 'Nama Murid' : '学生姓名');
+  const txtClass = isEn ? 'Class' : (isBm ? 'Kelas' : '班级');
+  const txtTotal = isEn ? 'Total' : (isBm ? 'Hadir' : '总出席');
+  const txtScore = isEn ? 'PAJSK Score' : (isBm ? 'Markah PAJSK' : 'PAJSK 出勤分');
+  const txtMeet = isEn ? 'Meeting' : (isBm ? 'Perjumpaan' : '第 {i} 次集会');
+  const txtClick = isEn ? 'Click to set title' : (isBm ? 'Klik untuk tajuk' : '点击设置主题');
 
   // 1. Render Header
-  let thHtml = `<th style="width:36px;">#</th><th style="text-align:left; min-width:90px;">学生姓名</th><th style="width:55px;">班级</th>`;
+  let thHtml = `<th style="width:36px;">#</th><th style="text-align:left; min-width:90px;">${txtName}</th><th style="width:55px;">${txtClass}</th>`;
   for(let i=1; i<=tw; i++) { 
       const wt = (schoolHub.weekTitles && schoolHub.weekTitles[i-1]) ? schoolHub.weekTitles[i-1] : '';
       const titleAttr = wt ? `W${i}: ${wt}` : `W${i} (点击设置主题)`;
