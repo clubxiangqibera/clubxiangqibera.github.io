@@ -217,19 +217,27 @@
       font-size: 0.88rem; color: var(--ink-dim); line-height: 1.65;
     }
 
-    /* COMMITTEES 2-COLUMN GRID */
+    /* COMMITTEES 3-COLUMN GRID */
     .committee-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px;
     }
     .committee-card {
       background: var(--navy-900); border: 1px solid var(--line);
-      border-radius: var(--card-radius); padding: 30px;
-      display: flex; gap: 22px; align-items: flex-start;
+      border-radius: var(--card-radius); padding: 26px;
+      display: flex; flex-direction: column; gap: 16px;
       box-shadow: 0 10px 35px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
     .committee-card:hover {
       transform: translateY(-4px); border-color: var(--gold);
+    }
+    .committee-head {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .committee-logo {
+      width: 68px; height: 68px; border-radius: 50%;
+      object-fit: contain; flex-shrink: 0;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.5));
     }
     .chess-badge {
       width: 76px; height: 76px; border-radius: 50%;
@@ -244,22 +252,24 @@
     .chess-badge--ju    { color: #8e44ad; border-color: #9b59b6; }
     .chess-badge--bing  { color: #27ae60; border-color: #2ecc71; }
 
-    .committee-body { flex-grow: 1; }
+    .committee-body {
+      display: flex; flex-direction: column; gap: 12px; flex-grow: 1;
+    }
     .committee-name {
-      font-family: var(--font-serif); font-size: 1.3rem; font-weight: 800;
+      font-family: var(--font-serif); font-size: 1.25rem; font-weight: 800;
       color: var(--ink); margin-bottom: 2px;
     }
     .committee-role {
-      font-size: 0.72rem; font-weight: 800; color: var(--gold);
-      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+      font-size: 0.70rem; font-weight: 800; color: var(--gold);
+      letter-spacing: 0.8px; text-transform: uppercase;
     }
-    .committee-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .committee-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .c-chip {
       font-size: 0.72rem; font-weight: 600; padding: 3px 8px; border-radius: 4px;
       background: rgba(255, 255, 255, 0.05); color: var(--ink-dim); border: 1px solid var(--line-soft);
     }
     .committee-desc {
-      font-size: 0.85rem; color: var(--ink-dim); line-height: 1.6;
+      font-size: 0.85rem; color: var(--ink-dim); line-height: 1.65;
     }
 
     /* COACH BENCH GRID */
@@ -446,6 +456,10 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
+    @media (max-width: 1080px) {
+      .committee-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 992px) {
       .patron-card { flex-direction: column; text-align: center; }
@@ -522,30 +536,34 @@
             <span class="patron-chip" data-i18n="patron.c1">生态全局战略督导</span>
             <span class="patron-chip" data-i18n="patron.c2">各县级公会合作建交</span>
             <span class="patron-chip" data-i18n="patron.c3">马象总认证名师领衔督导</span>
-            <span class="patron-chip" data-i18n="patron.c4">统辖学院青训与校园数字双实体</span>
+            <span class="patron-chip" data-i18n="patron.c4">统辖青训学院、校园专署与数字系统三大实体</span>
           </div>
           <p class="patron-desc" data-i18n="patron.desc">
-            棋衡学院（QiHeng Academy，隶属棋境生态）是立足全彭、面向全马的现代化专业中国象棋数字化教育基地。学院由马来西亚象棋总会（马象总）认证资深教练与现役彭亨州代表联合创设，深研现代象棋博弈理论与战术体系，全权主理官方七级考级大纲研制、动态 ELO 天梯算法调优与拔尖代表队特训，为广大青少年棋手构筑从启蒙到全州大赛的完整晋阶通途。
+            作为棋境数字化生态（QiJing）的最高治理与战略决策中枢，全面统领棋境技术底座与发展方向。体系由马象总认证名师联合彭亨现役州代表亲临督导，深度对标国家级竞赛与教研规程；旗下统辖【棋衡学院】青训基地、【棋境校园部】校园专署与【数字系统部】数字中枢三大直属实体，为全马各校赛事编排、学籍档案与 PAJSK 学分提供最高官方公信力保障。
           </p>
         </div>
       </div>
     </section>
 
-    <!-- 2. 决策中枢与双核心委员会 -->
+    <!-- 2. 决策中枢与三大核心实体 -->
     <section class="section">
       <div class="section__head">
         <span class="section__tag" data-i18n="tag.executive">EXECUTIVE DIRECTORATE</span>
         <h2 class="section__title" data-i18n="sec.comm_title">直属专署与核心执行体系</h2>
-        <p class="section__sub" data-i18n="sec.comm_sub">专业化分工、制度化运转，以青训教学与数字系统双轮驱动</p>
+        <p class="section__sub" data-i18n="sec.comm_sub">专业化分工、制度化运转，由青训学院、校园普及与数字中枢三位一体协同驱动</p>
       </div>
 
       <div class="committee-grid">
-        <!-- 委员会 1：学院学术与技术委员会 -->
+        <!-- 专署 1：棋衡学院 -->
         <div class="committee-card">
-          <div class="chess-badge chess-badge--shuai">帥</div>
+          <div class="committee-head">
+            <img src="qiheng_round_emblem.png" alt="QiHeng Academy" class="committee-logo">
+            <div>
+              <h4 class="committee-name" data-i18n="comm1.name">棋衡学院</h4>
+              <div class="committee-role" data-i18n="comm1.role">QIHENG CHESS ACADEMY · YOUTH TRAINING BASE</div>
+            </div>
+          </div>
           <div class="committee-body">
-            <h4 class="committee-name" data-i18n="comm1.name">棋衡学院</h4>
-            <div class="committee-role" data-i18n="comm1.role">QIHENG CHESS ACADEMY · YOUTH TRAINING BASE</div>
             <div class="committee-chips">
               <span class="c-chip" style="color:var(--gold); border-color:var(--gold);" data-i18n="comm1.c1">马象总规范教研大纲</span>
               <span class="c-chip" data-i18n="comm1.c2">3阶梯核心课程研发</span>
@@ -553,25 +571,51 @@
               <span class="c-chip" data-i18n="comm1.c4">实战考核与梯队选拔</span>
             </div>
             <p class="committee-desc" data-i18n="comm1.desc">
-              由彭亨现役州代表与马象总认证教练联合组成。深研现代棋理布局体系与实战计算力，全权负责学院官方七级考级大纲（Tahap 1 至 7）研制、编制习题精粹与开局飞刀指南；校准 QiJing 动态 ELO 天梯排位算法与段位底线保护机制；并主理棋境正选集训队的技术选拔与出征全彭赛 (MSSP) 的战术集训指导。
+              棋境最高委员会直属官方中国象棋青训与研习基地。由马象总认证资深教练与现役彭亨州代表联合把关，专司系统化分阶教案研发、棋规规范与实战推演；全权主理在籍学员官方等级分考级大纲研制、随堂复盘教学与青训代表队集训，为广大青少年棋手构筑扎实进阶阶梯。
             </p>
           </div>
         </div>
 
-        <!-- 委员会 2：赛事策划与运营管理委员会 -->
+        <!-- 专署 2：棋境校园部 -->
         <div class="committee-card">
-          <div class="chess-badge chess-badge--xiang">相</div>
+          <div class="committee-head">
+            <img src="cxb_round_emblem.png" alt="QiJing Campus Department" class="committee-logo">
+            <div>
+              <h4 class="committee-name" data-i18n="comm2.name">棋境校园部</h4>
+              <div class="committee-role" data-i18n="comm2.role">QIHENG SCHOOL & CAMPUS DEPARTMENT</div>
+            </div>
+          </div>
           <div class="committee-body">
-            <h4 class="committee-name" data-i18n="comm2.name">棋境校园与数字系统部</h4>
-            <div class="committee-role" data-i18n="comm2.role">QIJING SCHOOL & DIGITAL SYSTEMS DEPARTMENT</div>
             <div class="committee-chips">
-              <span class="c-chip" style="color:var(--gold); border-color:var(--gold);" data-i18n="comm2.c1">棋境校园系统统领</span>
-              <span class="c-chip" data-i18n="comm2.c2">瑞士轮电脑编排算法</span>
-              <span class="c-chip" data-i18n="comm2.c3">现场大屏排阵投屏</span>
-              <span class="c-chip" data-i18n="comm2.c4">教育部 PAJSK 学分认证</span>
+              <span class="c-chip" style="color:var(--gold); border-color:var(--gold);" data-i18n="comm2.c1">全彭中小学校园普及</span>
+              <span class="c-chip" data-i18n="comm2.c2">课外活动 (Koku) 课程</span>
+              <span class="c-chip" data-i18n="comm2.c3">教育部 PAJSK 学分认证</span>
+              <span class="c-chip" data-i18n="comm2.c4">校际对抗与集训输送</span>
             </div>
             <p class="committee-desc" data-i18n="comm2.desc">
-              由学院核心运营与策划团队组成。全面统揽全彭各梯级象棋锦标赛（校园赛、启蒙营、校际锦标赛与年度公开赛）的规程制定与现场落地执行；统管全县在籍学员终身档案数据库与天梯学籍管理；调配本地助教与竞赛执裁人员，代表学院拟定正式公函对接教育局课外活动学分 (PAJSK) 与各华小，确保教学与赛事高效闭环。
+              棋境最高委员会直属校园象棋推广与课外活动运营专署。深度协同全彭各源流华小及中学象棋学会，全面负责校园正课与课后兴趣班规范授课；拟定官方公函对接校方管理层，主理校际对抗选拔与标准化执裁督导，并统筹申报核发符合教育部标准的 PAJSK 课外活动官方学分认证。
+            </p>
+          </div>
+        </div>
+
+        <!-- 专署 3：数字系统部 -->
+        <div class="committee-card">
+          <div class="committee-head">
+            <img src="cxb_round_emblem.png" alt="QiJing Digital Systems Directorate" class="committee-logo">
+            <div>
+              <h4 class="committee-name" data-i18n="comm3.name">数字系统部</h4>
+              <div class="committee-role" data-i18n="comm3.role">QIJING DIGITAL SYSTEMS DIRECTORATE</div>
+            </div>
+          </div>
+          <div class="committee-body">
+            <div class="committee-chips">
+              <span class="c-chip" style="color:var(--gold); border-color:var(--gold);" data-i18n="comm3.c1">瑞士轮电脑编排算法</span>
+              <span class="c-chip" data-i18n="comm3.c2">现场大屏排阵投屏</span>
+              <span class="c-chip" data-i18n="comm3.c3">官方动态 ELO 档案</span>
+              <span class="c-chip" data-i18n="comm3.c4">PAJSK 电子防伪证书</span>
+            </div>
+            <p class="committee-desc" data-i18n="comm3.desc">
+              棋境最高委员会直属数字技术研发中枢与赛事智能化保障部门。自主架构高并发瑞士轮电脑编排引擎、多维度同分破同算法与现场实时大屏对阵投屏；统管全县在籍棋手终身动态 ELO 等级分数字档案数据库；提供一键生成防伪哈希验证的官方赛事成绩公函与教育部 PAJSK 电子证书系统，以数字科技赋能传统棋艺。
             </p>
           </div>
         </div>
@@ -762,23 +806,29 @@
         "patron.name": "棋境最高委员会",
         "patron.role": "QIJING SUPREME COUNCIL · TOP GOVERNANCE",
         "patron.c1": "生态全局战略督导", "patron.c2": "各县级公会合作建交",
-        "patron.c3": "马象总认证名师领衔督导", "patron.c4": "统辖学院青训与校园数字双实体",
-        "patron.desc": "作为棋境数字化生态（QiJing）的最高治理与战略决策中枢，全面统领棋境技术底座与发展方向。体系由马象总认证名师联合彭亨现役州代表亲临督导，深度对标国家级竞赛与教研规程；旗下统辖【棋衡学院】青训教学与【棋境校园与数字系统部】数字工程两大直属实体，为全马各校赛事编排、学籍档案与 PAJSK 学分提供最高官方公信力保障。",
+        "patron.c3": "马象总认证名师领衔督导", "patron.c4": "统辖青训学院、校园专署与数字系统三大实体",
+        "patron.desc": "作为棋境数字化生态（QiJing）的最高治理与战略决策中枢，全面统领棋境技术底座与发展方向。体系由马象总认证名师联合彭亨现役州代表亲临督导，深度对标国家级竞赛与教研规程；旗下统辖【棋衡学院】青训基地、【棋境校园部】校园专署与【数字系统部】数字中枢三大直属实体，为全马各校赛事编排、学籍档案与 PAJSK 学分提供最高官方公信力保障。",
 
         "tag.executive": "EXECUTIVE DIRECTORATE",
         "sec.comm_title": "直属专署与核心执行体系",
-        "sec.comm_sub": "专业化分工、制度化运转，以青训教学与数字系统双轮驱动",
+        "sec.comm_sub": "专业化分工、制度化运转，由青训学院、校园普及与数字中枢三位一体协同驱动",
         "comm1.name": "棋衡学院",
         "comm1.role": "QIHENG CHESS ACADEMY · YOUTH TRAINING BASE",
         "comm1.c1": "马象总规范教研大纲", "comm1.c2": "3阶梯核心课程研发",
         "comm1.c3": "Nicholas 主教练把关", "comm1.c4": "实战考核与梯队选拔",
-        "comm1.desc": "棋境最高委员会直属官方中国象棋青训与研习基地。由马象总认证资深教练与现役彭亨州代表联合把关，专司系统化分阶教案研发、棋规规范与实战推演；全权主理在籍学员等级分考级大纲研制、随堂复盘教学与青训代表队集训，为广大青少年棋手构筑扎实进阶阶梯。",
+        "comm1.desc": "棋境最高委员会直属官方中国象棋青训与研习基地。由马象总认证资深教练与现役彭亨州代表联合把关，专司系统化分阶教案研发、棋规规范与实战推演；全权主理在籍学员官方等级分考级大纲研制、随堂复盘教学与青训代表队集训，为广大青少年棋手构筑扎实进阶阶梯。",
 
-        "comm2.name": "棋境校园与数字系统部",
-        "comm2.role": "QIJING SCHOOL & DIGITAL SYSTEMS DEPARTMENT",
-        "comm2.c1": "棋境校园系统统领", "comm2.c2": "瑞士轮电脑编排算法",
-        "comm2.c3": "现场大屏排阵投屏", "comm2.c4": "教育部 PAJSK 学分认证",
-        "comm2.desc": "棋境最高委员会直属校园数字化对阵系统研发与校际赛事落地专署。全面统揽「棋境校园系统」瑞士轮算法调度、自动破同分与即时云记分；主理全彭各源流中小学课外活动系统落地、现场大屏投屏与执裁调配；直接对接各校校长与课外活动顾问老师，核发符合教育部标准的 PAJSK 电子防伪学分证书。",
+        "comm2.name": "棋境校园部",
+        "comm2.role": "QIJING SCHOOL & CAMPUS DEPARTMENT",
+        "comm2.c1": "全彭中小学校园普及", "comm2.c2": "课外活动 (Koku) 课程",
+        "comm2.c3": "教育部 PAJSK 学分认证", "comm2.c4": "校际对抗与集训输送",
+        "comm2.desc": "棋境最高委员会直属校园象棋推广与课外活动运营专署。深度协同全彭各源流华小及中学象棋学会，全面负责校园正课与课后兴趣班规范授课；拟定官方公函对接校方管理层，主理校际对抗选拔与标准化执裁督导，并统筹申报核发符合教育部标准的 PAJSK 课外活动官方学分认证。",
+
+        "comm3.name": "数字系统部",
+        "comm3.role": "QIJING DIGITAL SYSTEMS DIRECTORATE",
+        "comm3.c1": "瑞士轮电脑编排算法", "comm3.c2": "现场大屏排阵投屏",
+        "comm3.c3": "官方动态 ELO 档案", "comm3.c4": "PAJSK 电子防伪证书",
+        "comm3.desc": "棋境最高委员会直属数字技术研发中枢与赛事智能化保障部门。自主架构高并发瑞士轮电脑编排引擎、多维度同分破同算法与现场实时大屏对阵投屏；统管全县在籍棋手终身动态 ELO 等级分数字档案数据库；提供一键生成防伪哈希验证的官方赛事成绩公函与教育部 PAJSK 电子证书系统，以数字科技赋能传统棋艺",
 
         "tag.faculty": "COACHING BENCH & FACULTY",
         "sec.faculty_title": "专业师资执行梯队",
@@ -836,23 +886,29 @@
         "patron.name": "Majlis Tertinggi QiJing",
         "patron.role": "QIJING SUPREME COUNCIL · TOP GOVERNANCE",
         "patron.c1": "Tadbir Urus Strategik Ekosistem", "patron.c2": "Kerjasama Persatuan Daerah",
-        "patron.c3": "Bimbingan Jurulatih Bertauliah PXQM", "patron.c4": "Penyeliaan Dwi-Entiti Akademi & Sistem",
-        "patron.desc": "Sebagai badan tadbir urus tertinggi ekosistem digital QiJing, bertanggungjawab menetapkan hala tuju strategik. Diterajui dan diselia oleh jurulatih bertauliah PXQM serta wakil negeri Pahang, menyelia operasi Akademi Catur QiHeng dan Bahagian Sistem Digital Sekolah QiJing bagi menjamin ketulenan sijil kejohanan dan markah PAJSK rasmi.",
+        "patron.c3": "Bimbingan Jurulatih Bertauliah PXQM", "patron.c4": "Penyeliaan Tiga Entiti Utama QiJing",
+        "patron.desc": "Sebagai badan tadbir urus tertinggi ekosistem digital QiJing, bertanggungjawab menetapkan hala tuju strategik. Diterajui dan diselia oleh jurulatih bertauliah PXQM serta wakil negeri Pahang, menyelia operasi Akademi Catur QiHeng, Jabatan Catur Sekolah QiJing, dan Direktorat Sistem Digital QiJing bagi menjamin kualiti kejohanan dan pensijilan merit PAJSK rasmi.",
 
         "tag.executive": "DIREKTORAT EKSEKUTIF",
-        "sec.comm_title": "Badan Pelaksana & Dwi-Direktorat Rasmi",
-        "sec.comm_sub": "Pembahagian tugas profesional berlandaskan latihan bakat dan sistem kejohanan digital",
+        "sec.comm_title": "Badan Pelaksana & Tiga Entiti Utama",
+        "sec.comm_sub": "Pengkhususan profesional merangkumi akademi bakat muda, catur sekolah dan sistem kejohanan digital",
         "comm1.name": "Akademi Catur QiHeng",
         "comm1.role": "QIHENG CHESS ACADEMY · YOUTH TRAINING BASE",
         "comm1.c1": "Silibus Standard PXQM", "comm1.c2": "Kurikulum 3 Peringkat",
         "comm1.c3": "Bimbingan Jurulatih Nicholas", "comm1.c4": "Penilaian & Pemilihan Bakat",
-        "comm1.desc": "Pusat latihan dan akademik catur Cina rasmi di bawah kawalan Majlis Tertinggi QiJing. Diterajui oleh jurulatih bertauliah kebangsaan dan wakil negeri, bertanggungjawab mengendalikan silibus berperingkat standard, pemadanan ELO, dan latihan skuad muda.",
+        "comm1.desc": "Pusat latihan dan akademik catur Cina rasmi di bawah kawalan Majlis Tertinggi QiJing. Diterajui oleh jurulatih bertauliah kebangsaan dan wakil negeri, bertanggungjawab mengendalikan silibus berperingkat standard, pemadanan ELO rasmi, dan latihan skuad muda berprestasi tinggi.",
 
-        "comm2.name": "Bahagian Sistem Digital & Pertandingan Sekolah QiJing",
-        "comm2.role": "QIJING SCHOOL & DIGITAL SYSTEMS DEPARTMENT",
-        "comm2.c1": "Sistem Catur Sekolah QiJing", "comm2.c2": "Algoritma Pemadanan Swiss",
-        "comm2.c3": "Paparan Projektor Langsung", "comm2.c4": "Pensijilan PAJSK KPM Rasmi",
-        "comm2.desc": "Unit khas pelaksanaan sistem kejohanan digital di bawah Majlis Tertinggi QiJing. Menguruskan operasi Sistem Catur Sekolah QiJing, pemadanan Swiss automatik, paparan skrin projektor langsung, perhubungan pihak sekolah, dan pensijilan markah kokurikulum PAJSK KPM rasmi.",
+        "comm2.name": "Jabatan Catur Sekolah QiJing",
+        "comm2.role": "QIJING SCHOOL & CAMPUS DEPARTMENT",
+        "comm2.c1": "Program Sekolah Daerah", "comm2.c2": "Modul Kokurikulum Koku",
+        "comm2.c3": "Pengiktirafan PAJSK KPM", "comm2.c4": "Perlawanan Antara Sekolah",
+        "comm2.desc": "Unit khas pembangunan catur sekolah dan pengurusan kokurikulum rasmi. Bekerjasama rapat dengan kelab catur sekolah rendah dan menengah seluruh daerah, menyediakan bimbingan jurulatih profesional, surat rasmi kepada pentadbiran sekolah, dan pengesahan mata merit PAJSK rasmi KPM.",
+
+        "comm3.name": "Direktorat Sistem Digital QiJing",
+        "comm3.role": "QIJING DIGITAL SYSTEMS DIRECTORATE",
+        "comm3.c1": "Enjin Pemadanan Sistem Swiss", "comm3.c2": "Paparan Projektor Langsung",
+        "comm3.c3": "Profil ELO Rasmi Dinamik", "comm3.c4": "Sijil Digital Antipalsu PAJSK",
+        "comm3.desc": "Pusat penyelidikan teknologi digital dan pengurusan kejohanan pintar QiJing. Membangunkan enjin pemadanan Swiss automatik, sistem paparan langsung skrin besar, pangkalan data penarafan ELO pemain sepanjang hayat, serta penjanaan sijil PAJSK dengan kod pengesahan digital selamat",
 
         "tag.faculty": "BARISAN JURULATIH RASMI",
         "sec.faculty_title": "Barisan Jurulatih & Tenaga Pengajar",
@@ -910,23 +966,29 @@
         "patron.name": "QiJing Supreme Council",
         "patron.role": "QIJING SUPREME COUNCIL · TOP GOVERNANCE",
         "patron.c1": "Strategic Governance", "patron.c2": "District Association Partnerships",
-        "patron.c3": "Supervised by PXQM-Certified Faculty", "patron.c4": "Governing Academy & Digital System Arms",
-        "patron.desc": "As the supreme governing body of the QiJing Digital Ecosystem, the council establishes strategic directions. Supervised by PXQM-certified faculty and active state representatives, the council oversees QiHeng Chess Academy and the QiJing School & Digital Systems Department, ensuring official verification for tournaments and PAJSK accreditation.",
+        "patron.c3": "Supervised by PXQM-Certified Faculty", "patron.c4": "Governing 3 Core Directorates & Pillars",
+        "patron.desc": "As the supreme governing body of the QiJing Digital Ecosystem, the council establishes strategic directions. Supervised by PXQM-certified faculty and active state representatives, the council oversees QiHeng Chess Academy, the QiJing School & Campus Department, and the QiJing Digital Systems Directorate to ensure federation-grade tournament ops, rating tracking, and official PAJSK merit accreditation.",
 
         "tag.executive": "EXECUTIVE DIRECTORATE",
-        "sec.comm_title": "Executive Arms & Direct Operational Units",
-        "sec.comm_sub": "Professional division of responsibilities driven by youth coaching and digital tournament systems",
+        "sec.comm_title": "Executive Directorates & Operational Pillars",
+        "sec.comm_sub": "Specialized operational governance across youth training, school co-curriculum, and digital systems",
         "comm1.name": "QiHeng Chess Academy",
         "comm1.role": "QIHENG CHESS ACADEMY · YOUTH TRAINING BASE",
         "comm1.c1": "Federation-Standard Syllabus", "comm1.c2": "3-Tier Core Curriculum",
         "comm1.c3": "Supervised by Coach Nicholas", "comm1.c4": "Assessment & Squad Selection",
-        "comm1.desc": "Official youth training academy under the QiJing Supreme Council. Directed by national-certified coaches and active state players, overseeing the structured tiered syllabus, official ELO ratings, and competitive youth squad coaching.",
+        "comm1.desc": "Official youth training academy under the QiJing Supreme Council. Directed by national-certified coaches and active state players, overseeing structured tiered syllabi, official dynamic ELO rating evaluations, and elite youth development squads.",
 
-        "comm2.name": "QiJing School & Digital Systems Department",
-        "comm2.role": "QIJING SCHOOL & DIGITAL SYSTEMS DEPARTMENT",
-        "comm2.c1": "QiJing School System Governance", "comm2.c2": "Swiss-Pairing Computer Engine",
-        "comm2.c3": "Live Projector Match Displays", "comm2.c4": "Ministry PAJSK Accreditation",
-        "comm2.desc": "Specialized digital tournament unit under the QiJing Supreme Council. Governs the QiJing School System Swiss-pairing engine, automatic tie-breaks, live match displays, school liaison, and official Ministry PAJSK certification.",
+        "comm2.name": "QiJing School & Campus Department",
+        "comm2.role": "QIJING SCHOOL & CAMPUS DEPARTMENT",
+        "comm2.c1": "District-Wide School Outreach", "comm2.c2": "Co-Curricular (Koku) Classes",
+        "comm2.c3": "MOE PAJSK Merit Endorsement", "comm2.c4": "Inter-School Tournament Ops",
+        "comm2.desc": "Dedicated executive wing for school co-curricular chess programs and inter-school tournament operations. Partners directly with primary and secondary schools across the district to deliver standardized coaching, official school letters, and verified Ministry of Education (PAJSK) co-curricular merit accreditation.",
+
+        "comm3.name": "QiJing Digital Systems Directorate",
+        "comm3.role": "QIJING DIGITAL SYSTEMS DIRECTORATE",
+        "comm3.c1": "Swiss-Pairing Engine", "comm3.c2": "Live Screen Projection",
+        "comm3.c3": "Dynamic ELO Rating Database", "comm3.c4": "Anti-Counterfeit PAJSK Certs",
+        "comm3.desc": "The core digital innovation and tournament infrastructure division. Powers the automated Swiss-system pairing engine, real-time live projector matchmaking, lifetime player dynamic ELO rating registries, and digital verifiable PAJSK tournament certificate issuance",
 
         "tag.faculty": "COACHING BENCH & FACULTY",
         "sec.faculty_title": "Professional Coaching Bench & Faculty",
