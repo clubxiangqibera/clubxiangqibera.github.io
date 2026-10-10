@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CXQB 官方天梯排位榜 — 百乐县中国象棋公会与俱乐部</title>
+  <title>官方天梯排位榜 · 棋境 QiJing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cxb-theme.css">
@@ -337,10 +337,10 @@
   <!-- PUBLIC NAV BAR -->
   <header class="public-nav-bar" style="position:relative; z-index:9600;">
     <a href="index.html" class="p-nav-brand">
-      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <img src="cxb_round_emblem.png" alt="QiJing" class="p-nav-logo">
       <div>
-        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
-        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+        <div class="p-nav-title" data-i18n="hero.title">棋境</div>
+        <div class="p-nav-sub">QI JING XIANGQI ACADEMY</div>
       </div>
     </a>
 
@@ -361,11 +361,11 @@
 
     <!-- HERO SECTION -->
     <header class="hero">
-      <img src="cxb_round_emblem.png" alt="CXB Logo" class="hero__logo">
-      <h1 class="hero__title" data-i18n="ladder.title">CXQB 官方天梯排位榜</h1>
-      <div class="hero__en">BERA DISTRICT XIANGQI RATING SYSTEM · REAL-TIME</div>
+      <img src="cxb_round_emblem.png" alt="QiJing Logo" class="hero__logo">
+      <h1 class="hero__title" data-i18n="ladder.title">QiJing 官方天梯排位榜</h1>
+      <div class="hero__en">QIJING OFFICIAL XIANGQI RATING SYSTEM · REAL-TIME ELO</div>
       <p class="hero__tagline" data-i18n="ladder.sub">
-        百乐县官方中国象棋 ELO 等级分排位体系 · 实时动态同步
+        棋境官方中国象棋 ELO 等级分排位体系 · 实时动态同步
       </p>
       <div class="hero__badges">
         <span class="badge" data-i18n="ladder.b1">⚔️ 0~2000 动态 K 值积分引擎</span>
@@ -374,45 +374,29 @@
       </div>
     </header>
 
-    <!-- 1. TOP 3 PODIUM AREA -->
-    <div id="podiumArea">
-      <div style="text-align:center; padding: 40px; color: var(--ink-dim);">
-        ⏳ 正在从云端实时同步全县天梯数据...
-      </div>
-    </div>
-
-    <!-- 2. FULL LADDER & LIVE SEARCH SECTION -->
-    <section class="ladder-section">
-      <div class="ladder-section__head" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
-        <div>
-          <h2 style="font-family:var(--font-serif); font-size:22px; font-weight:800; color:#fff;" data-i18n="ladder.list_title">全县棋手排位总榜</h2>
-          <p style="font-size:13px; color:var(--ink-dim); margin-top:4px;" data-i18n="ladder.list_sub">实时根据 ELO 等级分与胜负场动态排序 · 支持多条件即时检索</p>
+        <!-- 1. ELO HOLDING STATE (PENDING LEAGUE SANCTIONING) -->
+    <section class="section" style="max-width: 820px; margin: 40px auto; text-align: center;">
+      <div style="background: rgba(6, 23, 36, 0.78); border: 1px solid rgba(241, 196, 15, 0.3); border-radius: 24px; padding: 56px 36px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); backdrop-filter: blur(24px);">
+        <div style="font-size: 58px; margin-bottom: 20px; filter: drop-shadow(0 4px 16px rgba(241,196,15,0.4));">🛡️</div>
+        <h2 style="font-family: var(--font-serif); font-size: 28px; color: var(--gold); margin-bottom: 12px;" data-i18n="ladder.hold_title">
+          天梯等级分系统 · 联盟升级筹备中
+        </h2>
+        <div style="font-size: 13.5px; font-weight: 700; color: var(--gold-soft); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 26px;" data-i18n="ladder.hold_en">
+          SYSTEM CALIBRATION & OFFICIAL AFFILIATION IN PROGRESS
         </div>
-        <div id="filterCountBadge" style="font-size:12.5px; font-weight:700; color:var(--gold-soft); background:rgba(201,162,75,0.12); border:1px solid var(--line); padding:6px 14px; border-radius:8px;">
-          加载中...
+        <p style="font-size: 15.5px; line-height: 1.85; color: var(--text-muted); max-width: 660px; margin: 0 auto 36px;" data-i18n="ladder.hold_desc">
+          为配合棋衡学院全新品牌独立升级与棋境生态建设，并对接全州更高级别官方体育总会与校际认证联盟，公共天梯榜正在进行算法升级与官方背书合规校准。<br><br>
+          在此期间，在籍学员的实战对局记录与考级数据由教务处内部正常录入与建档保管。新赛季官方天梯排位榜将在联盟合作确定后正式重启开放！
+        </p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+          <a href="academy.html#grading" class="btn btn--primary" style="padding: 13px 32px; font-weight: 700; text-decoration: none; border-radius: 12px; background: linear-gradient(135deg, #E63946, #D90429); color: #fff; box-shadow: 0 8px 25px rgba(230,57,70,0.4);" data-i18n="ladder.btn_grading">
+            查看官方七级考评大纲 →
+          </a>
+          <a href="index.html" class="btn btn--secondary" style="padding: 13px 32px; font-weight: 700; text-decoration: none; border-radius: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #fff;" data-i18n="ladder.btn_home">
+            返回学院首页
+          </a>
         </div>
       </div>
-
-      <!-- SEARCH & FILTER TOOLBAR -->
-      <div class="filter-bar">
-        <div class="search-input-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" class="search-input" placeholder="搜索学员姓名、学校、编号 (如: 林家豪, Triang, XQB-001)..." oninput="handleFilter()">
-        </div>
-        <select id="tahapSelect" class="filter-select" onchange="handleFilter()">
-          <option value="ALL">全县所有段位 (Semua Tahap)</option>
-          <option value="7">👑 Tahap 7 (1800-2000)</option>
-          <option value="6">Tahap 6 (1500-1799)</option>
-          <option value="5">Tahap 5 (1300-1499)</option>
-          <option value="4">Tahap 4 (1000-1299)</option>
-          <option value="3">Tahap 3 (700-999)</option>
-          <option value="2">Tahap 2 (300-699)</option>
-          <option value="1">Tahap 1 (100-299)</option>
-        </select>
-      </div>
-
-      <!-- RANKINGS LIST -->
-      <div id="rankingsList"></div>
     </section>
 
   </div> <!-- Close public-content-wrap -->
@@ -422,22 +406,22 @@
     <div class="footer__grid" style="align-items: start; gap: 36px;">
       <div>
         <h3 data-i18n="footer.about_title">关于我们</h3>
-        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证</span></p>
+        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">棋境象棋研习学院 (QiJing)<br>专业中国象棋数字化教育基地<br>统筹全县赛事与等级分考级认证</span></p>
       </div>
       <div style="text-align: center;">
         <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
         <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
-          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">百乐县象棋公会</span>
+          <img src="cxb_round_emblem.png" alt="QiJing Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">棋境教研技术委员会</span>
         </div>
       </div>
       <div style="text-align: right;">
         <h3 data-i18n="footer.contact_title">联系我们</h3>
-        <p>Email: clubxiangqibera@gmail.com</p>
+        <p>Email: contact@qijingchess.com</p>
       </div>
     </div>
     <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
-      © 2026 Club XiangQi Bera. All rights reserved.
+      © 2026 QiJing Digital Ecosystem. All rights reserved.
     </div>
   </footer>
 
@@ -448,21 +432,21 @@
 <div id="appleMegaMenu" class="apple-mega-menu">
   <div class="apple-mega-container">
     
-    <div class="apple-mega-col">
-      <h4 data-i18n="nav.explore">探索俱乐部</h4>
-      <a href="index.html" data-i18n="nav.home">首页</a>
-      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
+        <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索棋境</h4>
+      <a href="index.html" data-i18n="nav.home">主页</a>
+      <a href="academy.html" data-i18n="nav.academy">棋衡学院</a>
+      <a href="ladder.html" data-i18n="nav.ladder">学院 ELO</a>
+      <a href="events.html" data-i18n="nav.events">赛事与活动</a>
+      <a href="register.html" data-i18n="nav.register">在线报名</a>
       <a href="team.html" data-i18n="nav.team">组织架构与师资</a>
-      <a href="ladder.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.ladder">官方天梯榜</a>
-      <a href="register.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.register">在线报名中心</a>
-      <a href="events.html" data-i18n="events.title">赛事与活动中心</a>
     </div>
     
     <div class="apple-mega-col">
       <h4 data-i18n="nav.portals">专属入口</h4>
-      <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
-      <a href="school.html" data-i18n="nav.school_portal">校际赛编排与赛事系统</a>
-      <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+      <a href="index.html#login" data-i18n="nav.student_login">棋衡学员端</a>
+      <a href="school.html" data-i18n="nav.school_portal">棋境校园系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">总控管理端</a>
     </div>
     
     <div class="apple-mega-col">
@@ -478,7 +462,7 @@
 </div>
 
 <script>
-  const LADDER_URL = 'https://cxb-license.clubxiangqibera.workers.dev/api/ladder.csv';
+  const LADDER_URL = 'https://qijing-api.qijing.workers.dev/api/ladder.csv';
   let allPlayers = [];
 
   function toggleMainNav() {
@@ -575,7 +559,7 @@
         allPlayers.push({
           id: (r[1] || '').trim(),
           name: name,
-          school: (r[3] || 'CXQB').trim(),
+          school: (r[3] || 'QiJing').trim(),
           tier: (r[4] || '').trim(),
           w: parseInt(r[5]) || 0,
           d: parseInt(r[6]) || 0,
@@ -618,7 +602,7 @@
                 <span class="medal-num">2</span>
               </div>
               <div class="rank-card__name">${p2.name}</div>
-              <div class="rank-card__school">${p2.school || 'CXQB'}</div>
+              <div class="rank-card__school">${p2.school || 'QiJing'}</div>
               <span class="rank-card__title">${getTahapFromElo(p2.elo)}</span>
               <div class="rank-card__rating">${p2.elo}</div>
             </div>
@@ -630,7 +614,7 @@
                 <span class="medal-num">1</span>
               </div>
               <div class="rank-card__name">${p1.name}</div>
-              <div class="rank-card__school">${p1.school || 'CXQB'}</div>
+              <div class="rank-card__school">${p1.school || 'QiJing'}</div>
               <span class="rank-card__title">${getTahapFromElo(p1.elo)}</span>
               <div class="rank-card__rating">${p1.elo}</div>
             </div>
@@ -641,7 +625,7 @@
                 <span class="medal-num">3</span>
               </div>
               <div class="rank-card__name">${p3.name}</div>
-              <div class="rank-card__school">${p3.school || 'CXQB'}</div>
+              <div class="rank-card__school">${p3.school || 'QiJing'}</div>
               <span class="rank-card__title">${getTahapFromElo(p3.elo)}</span>
               <div class="rank-card__rating">${p3.elo}</div>
             </div>
@@ -735,7 +719,7 @@
             <div class="${noClass}">${rankNumber}</div>
             <div class="rank-list-info">
               <span class="rank-list-name">${p.name}</span>
-              <span class="rank-list-sub">${p.school || 'CXQB'}${p.id ? ' · ' + p.id : ''} · ${p.w}胜 ${p.d}和 ${p.l}负 · 胜率 ${winRate}</span>
+              <span class="rank-list-sub">${p.school || 'QiJing'}${p.id ? ' · ' + p.id : ''} · ${p.w}胜 ${p.d}和 ${p.l}负 · 胜率 ${winRate}</span>
             </div>
           </div>
           <div class="rank-list-right">
@@ -752,61 +736,74 @@
 
   const i18n = {
     cn: {
-      "hero.title": "百乐象棋俱乐部",
-      "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.team": "组织架构与师资", "nav.ladder": "官方天梯榜",
+      "hero.title": "棋境",
+      "nav.home": "Home", "nav.academy": "QiHeng Academy", "nav.team": "Organization & Faculty", "nav.ladder": "Academy ELO",
       "events.title": "赛事与活动中心",
-      "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
-      "nav.school_portal": "校际赛编排与赛事系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "在线报名中心",
-      "ladder.title": "CXQB 官方天梯排位榜",
-      "ladder.sub": "百乐县官方中国象棋 ELO 等级分排位体系 · 实时动态同步",
+      "nav.explore": "Explore QiJing",
+    "nav.events": "Tournaments & Events",
+    "nav.events": "Kejohanan & Acara",
+    "nav.events": "赛事与活动", "nav.portals": "Portals", "nav.student_login": "QiHeng Student Portal",
+      "nav.school_portal": "QiJing School System", "nav.admin_portal": "Central Admin Console", "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "Online Registration",
+      "ladder.title": "QiJing 官方天梯排位榜",
+      "ladder.sub": "棋境官方中国象棋 ELO 等级分排位体系 · 实时动态同步",
       "ladder.b1": "⚔️ 0~2000 动态 K 值积分引擎",
       "ladder.b2": "🛡️ 段位底线保护机制 (Rating Floor)",
       "ladder.b3": "🏅 官方七级考评实战排位",
+      "ladder.hold_title": "天梯等级分系统 · 联盟升级筹备中",
+      "ladder.hold_en": "SYSTEM CALIBRATION & OFFICIAL AFFILIATION IN PROGRESS",
+      "ladder.hold_desc": "为配合棋衡学院全新品牌独立升级与棋境生态建设，并对接全州更高级别官方体育总会与校际认证联盟，公共天梯榜正在进行算法升级与官方背书合规校准。<br><br>在此期间，在籍学员的实战对局记录与考级数据由教务处内部正常录入与建档保管。新赛季官方天梯排位榜将在联盟合作确定后正式重启开放！",
+      "ladder.btn_grading": "查看官方七级考评大纲 →",
+      "ladder.btn_home": "返回学院首页",
       "ladder.list_title": "全县棋手排位总榜",
       "ladder.list_sub": "实时根据 ELO 等级分与胜负场动态排序 · 支持多条件即时检索",
       "footer.about_title": "关于我们",
-      "footer.about_desc": "百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证",
+      "footer.about_desc": "棋境 (QiJing) 中国象棋数字化生态平台<br>旗下统筹棋衡学院与棋境校园系统<br>数字赋能棋艺教学、校际赛事编排与等级考评",
       "footer.partners_title": "认证机构 & 官方合作伙伴",
       "footer.contact_title": "联系我们",
-      "footer.assoc_name": "百乐县象棋公会"
+      "footer.assoc_name": "棋境教研技术委员会"
     },
     bm: {
-      "hero.title": "Kelab XiangQi Bera",
+      "hero.title": "Akademi Catur QiJing",
       "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.team": "Struktur & Jurulatih", "nav.ladder": "Carta Kedudukan ELO",
       "events.title": "Pusat Acara & Aktiviti",
       "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
       "nav.school_portal": "Sistem Pertandingan Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu", "nav.register": "Portal Pendaftaran",
-      "ladder.title": "Carta Kedudukan ELO Rasmi CXQB",
-      "ladder.sub": "Sistem Penarafan Catur Cina Rasmi Daerah Bera · Segerak Langsung",
+      "ladder.title": "Carta Kedudukan ELO Rasmi QiJing",
+      "ladder.sub": "Sistem Penarafan Catur Cina Rasmi Negeri Pahang · Segerak Langsung",
       "ladder.b1": "⚔️ Enjin K-Faktor Dinamik 0~2000",
       "ladder.b2": "🛡️ Perlindungan Had Bawah (Rating Floor)",
       "ladder.b3": "🏅 Penarafan 7 Tahap Rasmi",
       "ladder.list_title": "Carta Penuh Kedudukan Pemain Daerah",
       "ladder.list_sub": "Disusun secara dinamik mengikut mata ELO & rekod perlawanan",
       "footer.about_title": "Mengenai Kami",
-      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Bera, Pahang.",
+      "footer.about_desc": "QiJing Xiangqi Academy (QiJing)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Pahang.",
       "footer.partners_title": "Rakan Rasmi & Pensijilan",
       "footer.contact_title": "Hubungi Kami",
-      "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
+      "footer.assoc_name": "QIJING ACADEMIC & TECHNICAL DIRECTORATE"
     },
     en: {
-      "hero.title": "Club XiangQi Bera",
+      "hero.title": "QiJing",
       "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.team": "Structure & Faculty", "nav.ladder": "Official ELO Standings",
       "events.title": "Events & Activities Center",
       "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
       "nav.school_portal": "School Pairing & Tournament System", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu", "nav.register": "Online Registration",
-      "ladder.title": "CXQB Official ELO Standings",
-      "ladder.sub": "Bera District Xiangqi Rating System · Live Synchronised",
+      "ladder.title": "QiJing Official ELO Standings",
+      "ladder.sub": "QiJing Official Xiangqi Rating System · Live Synchronised",
       "ladder.b1": "⚔️ 0~2000 Dynamic K-Factor Engine",
       "ladder.b2": "🛡️ Rating Floor Protection Mechanism",
       "ladder.b3": "🏅 Official 7-Grade Live Rankings",
-      "ladder.list_title": "Bera District Official Standings",
+      "ladder.hold_title": "ELO Rating System · League Affiliation in Progress",
+      "ladder.hold_en": "SYSTEM CALIBRATION & OFFICIAL AFFILIATION IN PROGRESS",
+      "ladder.hold_desc": "The public ELO leaderboard is currently undergoing system calibration and official sports body affiliation for the upcoming season. Match logs and student gradings continue to be administered internally by the academy.",
+      "ladder.btn_grading": "View 7-Grade Syllabus →",
+      "ladder.btn_home": "Back to Home",
+      "ladder.list_title": "QiJing District Official Standings",
       "ladder.list_sub": "Live rankings sorted by ELO ratings & match performance",
       "footer.about_title": "About Us",
-      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Official Xiangqi training academy<br>and rating body in Bera, Pahang.",
+      "footer.about_desc": "QiJing Xiangqi Academy (QiJing)<br>Official Xiangqi training academy<br>and rating body in Pahang.",
       "footer.partners_title": "Official Partners",
       "footer.contact_title": "Contact Us",
-      "footer.assoc_name": "BERA XIANGQI ASSOCIATION"
+      "footer.assoc_name": "QIJING ACADEMIC & TECHNICAL DIRECTORATE"
     }
   };
 
@@ -831,7 +828,7 @@
     const saved = localStorage.getItem('cxb_lang_pref') || 'cn';
     const initial = (saved === 'zh' || saved === 'cn') ? 'cn' : saved;
     setLang(initial);
-    fetchLadderData();
+    // fetchLadderData(); // Temporarily paused during calibration
   });
 </script>
 

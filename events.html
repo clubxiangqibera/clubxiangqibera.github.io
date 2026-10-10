@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>赛事与活动中心 — 百乐县中国象棋公会与俱乐部</title>
+  <title>赛事与活动中心 · 棋境 QiJing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cxb-theme.css">
@@ -583,10 +583,10 @@
   <!-- PUBLIC NAV BAR -->
   <header class="public-nav-bar" style="position:relative; z-index:9600;">
     <a href="index.html" class="p-nav-brand">
-      <img src="cxb_round_emblem.png" alt="CXB" class="p-nav-logo">
+      <img src="cxb_round_emblem.png" alt="QiJing" class="p-nav-logo">
       <div>
-        <div class="p-nav-title" data-i18n="hero.title">百乐象棋俱乐部</div>
-        <div class="p-nav-sub">CLUB XIANGQI BERA</div>
+        <div class="p-nav-title" data-i18n="hero.title">棋境</div>
+        <div class="p-nav-sub">QI JING XIANGQI ACADEMY</div>
       </div>
     </a>
 
@@ -607,14 +607,14 @@
 
     <!-- HERO SECTION -->
     <header class="hero">
-      <img src="cxb_round_emblem.png" alt="CXB Logo" class="hero__logo">
+      <img src="cxb_round_emblem.png" alt="QiJing Logo" class="hero__logo">
       <h1 class="hero__title" data-i18n="events.hero_title">赛事与活动中心</h1>
-      <div class="hero__en">CXQB EVENTS & ACTIVITIES CENTER · BERA DISTRICT</div>
+      <div class="hero__en">QIJING EVENTS & TOURNAMENTS CENTER · PROFESSIONAL CIRCUIT</div>
       <p class="hero__tagline" data-i18n="events.hero_sub">
-        记录百乐县中国象棋公会的精彩瞬间、官方大赛规程、实战研习营与历届赛事实录
+        记录棋境学术与教研治理委员会的精彩瞬间、官方大赛规程、实战研习营与历届赛事实录
       </p>
       <div class="hero__badges">
-        <span class="badge" data-i18n="chip.championship">百乐县官方校际锦标赛主办方</span>
+        <span class="badge" data-i18n="chip.championship">棋境官方校际锦标赛主办方</span>
         <span class="badge" data-i18n="chip.camp">「棋缘」与「弈峰」青训品牌</span>
         <span class="badge" data-i18n="chip.gallery">官方赛事与全县天梯等级分认证</span>
       </div>
@@ -627,9 +627,9 @@
         <span class="filter-label" data-i18n="host.label">举办主体</span>
         <div class="filter-tabs filter-tabs--host">
           <button class="filter-tab active" onclick="setHostFilter('all', this)" data-i18n="host_tab.all">全部主体</button>
-          <button class="filter-tab" onclick="setHostFilter('persatuan', this)" data-i18n="host_tab.persatuan">公会</button>
-          <button class="filter-tab" onclick="setHostFilter('club', this)" data-i18n="host_tab.club">俱乐部</button>
-          <button class="filter-tab" onclick="setHostFilter('school', this)" data-i18n="host_tab.school">校园</button>
+          <button class="filter-tab" onclick="setHostFilter('academy', this)" data-i18n="host_tab.academy">棋衡学院</button>
+          <button class="filter-tab" onclick="setHostFilter('school', this)" data-i18n="host_tab.school">棋境校园系统</button>
+          <button class="filter-tab" onclick="setHostFilter('persatuan', this)" data-i18n="host_tab.persatuan">县级合作公会</button>
         </div>
       </div>
 
@@ -640,9 +640,7 @@
           <button class="filter-tab active" onclick="setSeriesFilter('all', this)" data-i18n="tab.all">全部系列</button>
           <button class="filter-tab" onclick="setSeriesFilter('qiyuan', this)" data-i18n="tab.qiyuan">「棋缘」启蒙系列</button>
           <button class="filter-tab" onclick="setSeriesFilter('yifeng', this)" data-i18n="tab.yifeng">「弈峰」特训系列</button>
-          <button class="filter-tab" onclick="setSeriesFilter('school', this)" data-i18n="tab.school">校际锦标赛系列</button>
-          <button class="filter-tab" onclick="setSeriesFilter('open', this)" data-i18n="tab.open">全县公开赛系列</button>
-          <button class="filter-tab" onclick="setSeriesFilter('festive', this)" data-i18n="tab.festive">传统节庆杯系列</button>
+          <button class="filter-tab" onclick="setSeriesFilter('past', this)" data-i18n="tab.past">往期赛事纪实</button>
         </div>
       </div>
     </div>
@@ -657,19 +655,19 @@
     <div class="events-grid" id="eventsGrid">
 
       <!-- CARD 1: QI YUAN BEGINNER CAMP -->
-      <div class="event-card" data-event-id="evt_qiyuan_2026" data-category="qiyuan" data-host="persatuan club">
+      <div class="event-card" data-event-id="evt_qiyuan_2026" data-category="qiyuan" data-host="academy">
         <div class="event-card__cover-wrap" onclick="openLightbox('poster_qiyuan_final.jpg')">
           <img src="poster_qiyuan_final.jpg" alt="Qi Yuan Poster" class="event-card__cover">
-          <span class="event-card__status event-card__status--open" data-i18n="evt1.status">报名开放中</span>
+          <span class="event-card__status event-card__status--locked" style="background:rgba(231,76,60,0.16); color:#e74c3c; border:1px solid rgba(231,76,60,0.35);" data-i18n="evt1.status">暂未开放报名</span>
         </div>
         <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt1.series">公会 · 「棋缘」启蒙系列 · 第一届</div>
+          <div class="event-card__series-tag" data-i18n="evt1.series">棋衡学院 · 「棋缘」启蒙系列 · 第一届</div>
           <div class="event-card__date">
             <span data-i18n="evt1.date">2026年11月22日 (星期日) · 8:30 AM - 4:30 PM</span>
           </div>
           <h3 class="event-card__title" data-i18n="evt1.title">2026 第一届「棋缘」中国象棋启蒙教育营</h3>
           <p class="event-card__desc" data-i18n="evt1.desc">
-            由百乐象棋俱乐部携手百乐县中国象棋公会倾力打造。专为百乐县华小学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。
+            由棋衡学院携手棋境学术与教研治理委员会倾力打造。专为各校学生与校队学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。
           </p>
           <ul class="event-card__meta">
             <li>
@@ -678,40 +676,40 @@
             </li>
             <li>
               <strong data-i18n="evt1.target_label">开放对象：</strong>
-              <span data-i18n="evt1.target_val">百乐县各华小一至六年级学生 (零基础 / 初学)</span>
+              <span data-i18n="evt1.target_val">全彭各华小一至六年级学生 (零基础 / 初学)</span>
             </li>
             <li>
               <strong data-i18n="evt1.perks_label">营员福利：</strong>
               <span data-i18n="evt1.perks_val">官方习题集 1 册 + 实战考评 + 结业证书</span>
             </li>
           </ul>
-          <a href="register.html?type=camp&event=qiyuan" class="event-card__btn event-card__btn--primary" data-i18n="evt1.btn">进入在线报名中心 (启蒙营) →</a>
+          <button class="event-card__btn event-card__btn--secondary" style="opacity:0.75; cursor:not-allowed;" disabled data-i18n="evt1.btn">报名通道暂未开放 · 席位筹备中 (Not Available)</button>
         </div>
       </div>
 
       <!-- CARD 2: YI FENG INTERMEDIATE HOLIDAY CAMP -->
-      <div class="event-card" data-event-id="evt_yifeng_2026" data-category="yifeng" data-host="persatuan club">
+      <div class="event-card" data-event-id="evt_yifeng_2026" data-category="yifeng" data-host="academy">
         <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
           <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:32px; font-weight:800; color:var(--gold); letter-spacing:4px; text-shadow:0 2px 14px rgba(0,0,0,0.6);">弈峰</div>
           <span class="event-card__status event-card__status--upcoming" data-i18n="evt2_camp.status">筹划筹备中</span>
         </div>
         <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt2_camp.series">公会 · 「弈峰」特训系列 · 假期集训</div>
+          <div class="event-card__series-tag" data-i18n="evt2_camp.series">棋衡学院 · 「弈峰」特训系列 · 假期集训</div>
           <div class="event-card__date">
             <span data-i18n="evt2_camp.date">2027 学校假期 (School Holidays) · 封闭强化</span>
           </div>
           <h3 class="event-card__title" data-i18n="evt2_camp.title">2027 第一届「弈峰」学校假期棋艺进阶特训营</h3>
           <p class="event-card__desc" data-i18n="evt2_camp.desc">
-            面向百乐县具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。
+            面向全彭具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。
           </p>
           <ul class="event-card__meta">
             <li>
               <strong data-i18n="evt2_camp.loc_label">集训基地：</strong>
-              <span data-i18n="evt2_camp.loc_val">百乐象棋公会活动中心 / 合作集训基地</span>
+              <span data-i18n="evt2_camp.loc_val">棋境研习基地 / 合作培训中心</span>
             </li>
             <li>
               <strong data-i18n="evt2_camp.target_label">开放对象：</strong>
-              <span data-i18n="evt2_camp.target_val">百乐县各校具备基础之华小与初中进阶棋手</span>
+              <span data-i18n="evt2_camp.target_val">全彭各校具备基础之华小与初中进阶棋手</span>
             </li>
             <li>
               <strong data-i18n="evt2_camp.focus_label">集训重点：</strong>
@@ -719,120 +717,15 @@
             </li>
           </ul>
           <button class="event-card__btn event-card__btn--secondary" style="opacity:0.85; cursor:default;" data-i18n="evt2_camp.btn">
-            规程筹划中 · 关注公会通知
+            规程筹划中 · 关注官方通知 (Not Available)
           </button>
         </div>
       </div>
 
-      <!-- CARD 3: BERA INTER-SCHOOL CHAMPIONSHIP -->
-      <div class="event-card" data-event-id="evt_school_annual" data-category="school" data-host="persatuan school">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
-          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">百乐县中小学校际象棋锦标赛</div>
-          <span class="event-card__status event-card__status--upcoming" data-i18n="evt2.status">筹划筹备中</span>
-        </div>
-        <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt2.series">公会 · 校际锦标赛系列</div>
-          <div class="event-card__date">
-            <span data-i18n="evt2.date">2027 新学年度 · 年度全县巡回选拔</span>
-          </div>
-          <h3 class="event-card__title" data-i18n="evt2.title">2027 百乐县中小学校际中国象棋锦标赛</h3>
-          <p class="event-card__desc" data-i18n="evt2.desc">
-            百乐县最高规格官方校际棋艺大赛。统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。
-          </p>
-          <ul class="event-card__meta">
-            <li>
-              <strong data-i18n="evt2.group_label">参赛对象：</strong>
-              <span data-i18n="evt2.group_val">百乐县各源流中小学正规代表队 (U12 / U18)</span>
-            </li>
-            <li>
-              <strong data-i18n="evt2.cert_label">认证级别：</strong>
-              <span data-i18n="evt2.cert_val">百乐县中国象棋公会官方权威认证</span>
-            </li>
-            <li>
-              <strong data-i18n="evt2.elo_label">天梯积分：</strong>
-              <span data-i18n="evt2.elo_val">成绩直接计入官网 0~2000 ELO 天梯排位</span>
-            </li>
-          </ul>
-          <a href="school.html" class="event-card__btn event-card__btn--secondary" data-i18n="evt2.btn">
-            前往校际赛专页报名系统 →
-          </a>
-        </div>
-      </div>
-
-      <!-- CARD 4: BERA OPEN CHAMPIONSHIP -->
-      <div class="event-card" data-event-id="evt_open_2026" data-category="open" data-host="persatuan">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
-          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">百乐县中国象棋公开锦标赛</div>
-          <span class="event-card__status event-card__status--upcoming" data-i18n="evt_open.status">筹划筹备中</span>
-        </div>
-        <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt_open.series">公会 · 全县公开赛系列 · 棋王争霸</div>
-          <div class="event-card__date">
-            <span data-i18n="evt_open.date">2027 下半年度 · 全县争霸</span>
-          </div>
-          <h3 class="event-card__title" data-i18n="evt_open.title">2027 第一届百乐县中国象棋公开锦标赛</h3>
-          <p class="event-card__desc" data-i18n="evt_open.desc">
-            百乐县全面对外开放的高水平象棋公开赛。打破年龄与学校限制，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王。
-          </p>
-          <ul class="event-card__meta">
-            <li>
-              <strong data-i18n="evt_open.target_label">参赛对象：</strong>
-              <span data-i18n="evt_open.target_val">百乐县全体象棋爱好者 (公开组无年龄限制)</span>
-            </li>
-            <li>
-              <strong data-i18n="evt_open.reward_label">赛事荣誉：</strong>
-              <span data-i18n="evt_open.reward_val">全县棋王奖金 + 官方锦标奖杯 + 荣誉证书</span>
-            </li>
-            <li>
-              <strong data-i18n="evt_open.elo_label">天梯排位：</strong>
-              <span data-i18n="evt_open.elo_val">全员对局纳入百乐官方天梯排位数据库</span>
-            </li>
-          </ul>
-          <button class="event-card__btn event-card__btn--secondary" style="opacity:0.85; cursor:default;" data-i18n="evt_open.btn">
-            规程筹划中 · 关注公会通知
-          </button>
-        </div>
-      </div>
-
-      <!-- CARD 5: FESTIVE & HERITAGE CUP -->
-      <div class="event-card" data-event-id="evt_festive_2027" data-category="festive" data-host="persatuan">
-        <div class="event-card__cover-wrap" style="background: radial-gradient(circle at center, #1b382b 0%, #07101e 100%); display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
-          <div class="event-card__cover-text" style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--gold); letter-spacing:2px; text-shadow:0 2px 14px rgba(0,0,0,0.6); line-height:1.4;">百乐县新春中国象棋争霸赛</div>
-          <span class="event-card__status event-card__status--upcoming" data-i18n="evt_festive.status">筹划筹备中</span>
-        </div>
-        <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt_festive.series">公会 · 传统节庆杯系列 · 新春特辑</div>
-          <div class="event-card__date">
-            <span data-i18n="evt_festive.date">2027 农历新春期间 · 喜迎新春</span>
-          </div>
-          <h3 class="event-card__title" data-i18n="evt_festive.title">2027 百乐县新春中国象棋争霸赛</h3>
-          <p class="event-card__desc" data-i18n="evt_festive.desc">
-            百乐华社年度传统民俗棋艺盛宴。汇聚全县老中青三代棋手喜迎新春，棋盘贺岁、切磋棋艺，争夺新春棋王荣誉与丰厚红包奖金。
-          </p>
-          <ul class="event-card__meta">
-            <li>
-              <strong data-i18n="evt_festive.target_label">参赛对象：</strong>
-              <span data-i18n="evt_festive.target_val">面向百乐县各界华社棋友、在籍学生与回乡校友</span>
-            </li>
-            <li>
-              <strong data-i18n="evt_festive.reward_label">赛事特色：</strong>
-              <span data-i18n="evt_festive.reward_val">新春贺岁特别快棋赛制 + 红包奖金 + 华团支持</span>
-            </li>
-            <li>
-              <strong data-i18n="evt_festive.elo_label">天梯积分：</strong>
-              <span data-i18n="evt_festive.elo_val">全员战绩结算计入官网 ELO 数据库</span>
-            </li>
-          </ul>
-          <button class="event-card__btn event-card__btn--secondary" style="opacity:0.85; cursor:default;" data-i18n="evt_festive.btn">
-            规程筹划中 · 关注公会通知
-          </button>
-        </div>
-      </div>
-
-      <!-- CARD 6: 2026 BERA PRIMARY SCHOOLS CHAMPIONSHIP (PHOTOS FIRST & STREAMLINED) -->
-      <div class="event-card" data-event-id="evt_done_primary_2026" data-category="school" data-host="persatuan school">
+      <!-- CARD 3: QIJING INTER-SCHOOL CHAMPIONSHIP -->
+      <div class="event-card" data-event-id="evt_done_primary_2026" data-category="past" data-host="school persatuan">
         <div class="event-card__cover-wrap" onclick="openGallery(0)" style="cursor:zoom-in;" title="点击放大实况照片">
-          <img src="event_2026_group.png?v=20261004" alt="2026 百乐县小学中国象棋赛得奖师生合影" class="event-card__cover">
+          <img src="event_2026_group.png?v=20261004" alt="2026 全彭小学中国象棋赛得奖师生合影" class="event-card__cover">
           <span class="event-card__status event-card__status--archive" data-i18n="evt_done.status">已圆满落幕</span>
         </div>
         <!-- 3 PHOTO THUMBNAILS STRIP -->
@@ -848,13 +741,13 @@
           </div>
         </div>
         <div class="event-card__body">
-          <div class="event-card__series-tag" data-i18n="evt_done.series">校园 · 校际锦标赛系列 · 2026 官方实录</div>
+          <div class="event-card__series-tag" data-i18n="evt_done.series">往期纪实 · 华小校际锦标赛 · 官方实录</div>
           <div class="event-card__date">
             <span data-i18n="evt_done.date">2026年6月13日 (星期六) · 官方圆满落幕</span>
           </div>
-          <h3 class="event-card__title" data-i18n="evt_done.title">2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）</h3>
+          <h3 class="event-card__title" data-i18n="evt_done.title">2026年全彭小学中国象棋赛（“旗开得胜”校园赛）</h3>
           <p class="event-card__desc" data-i18n="evt_done.desc">
-            百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。
+            各校学生与校队象棋新星交流盛会，由吉拉央华小主办、棋境教研技术委员会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。
           </p>
           <button class="event-card__btn event-card__btn--secondary" style="width:100%; border-color:rgba(241,196,15,0.55); color:var(--gold); text-align:center; font-weight:800; font-size:14px; margin-top:auto; padding:12px 18px; background:rgba(241,196,15,0.06);" onclick="openRecapModal()" data-i18n="evt_done.btn_recap">
             查看官方实录与荣誉榜 →
@@ -871,22 +764,22 @@
     <div class="footer__grid" style="align-items: start; gap: 36px;">
       <div>
         <h3 data-i18n="footer.about_title">关于我们</h3>
-        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证</span></p>
+        <p style="font-size:13.5px; line-height:1.7; opacity:0.85;"><span data-i18n="footer.about_desc">棋境象棋研习学院 (QiJing)<br>专业中国象棋数字化教育基地<br>统筹全县赛事与等级分考级认证</span></p>
       </div>
       <div style="text-align: center;">
         <h3 style="margin-bottom: 16px;" data-i18n="footer.partners_title">认证机构 & 官方合作伙伴</h3>
         <div style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.85;">
-          <img src="persatuan_emblem.png" alt="Persatuan Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">百乐县象棋公会</span>
+          <img src="cxb_round_emblem.png" alt="QiJing Logo" style="height: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <span data-i18n="footer.assoc_name" style="font-family: var(--font-serif); font-size:0.85rem; color:var(--gold-soft); text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; white-space:nowrap;">棋境教研技术委员会</span>
         </div>
       </div>
       <div style="text-align: right;">
         <h3 data-i18n="footer.contact_title">联系我们</h3>
-        <p>Email: clubxiangqibera@gmail.com</p>
+        <p>Email: contact@qijingchess.com</p>
       </div>
     </div>
     <div class="footer__legal" style="margin-top: 32px; border-top: 1px solid var(--line-soft); padding-top: 24px; text-align: center;">
-      © 2026 Club XiangQi Bera. All rights reserved.
+      © 2026 QiJing Digital Ecosystem. All rights reserved.
     </div>
   </footer>
 
@@ -903,21 +796,21 @@
   <button class="lightbox__nav lightbox__next" id="lightboxNext" onclick="nextLightbox(event)" aria-label="Next">&#10095;</button>
 </div>
 
-<!-- EVENT RECORD & HONOR ROLL MODAL (CXQB OWN SYSTEM) -->
+<!-- EVENT RECORD & HONOR ROLL MODAL (QiJing OWN SYSTEM) -->
 <div id="eventRecapModal" class="event-modal" onclick="closeRecapModal(event)">
   <div class="event-modal__content" onclick="event.stopPropagation()">
     <button class="event-modal__close" onclick="closeRecapModal()">&times;</button>
     
     <div class="event-modal__header">
-      <div class="event-modal__badge" data-i18n="modal.badge">官方赛事存档 · CXQB OFFICIAL ARCHIVE</div>
-      <h2 class="event-modal__title" data-i18n="modal.title">2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）</h2>
+      <div class="event-modal__badge" data-i18n="modal.badge">官方赛事存档 · QiJing OFFICIAL ARCHIVE</div>
+      <h2 class="event-modal__title" data-i18n="modal.title">2026年全彭小学中国象棋赛（“旗开得胜”校园赛）</h2>
       <div class="event-modal__meta-date" data-i18n="modal.date">2026年6月13日 (星期六) · 吉拉央华小活动中心</div>
     </div>
 
     <!-- SUMMARY SECTION -->
     <div class="event-modal__section">
       <p class="event-modal__desc" data-i18n="modal.desc">
-        百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点。
+        各校学生与校队象棋新星交流盛会，由吉拉央华小主办、棋境教研技术委员会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。棋境专家组、教练组率评审团亲临现场执裁与复盘指点。
       </p>
     </div>
 
@@ -938,8 +831,8 @@
         <div class="event-modal__meta-k" data-i18n="modal.org_title">组织架构与执裁阵容</div>
         <div class="event-modal__meta-v" data-i18n="modal.org_detail">
           主办：吉拉央华小<br>
-          协办：百乐县象棋公会（张福明主席主评、姚和福副主席复盘）<br>
-          评审：张泰理事、蔡妮寰财政、苏翠珊老师<br>
+          协办：棋境教研技术委员会（国家级认证教练组与大师级复盘指导）<br>
+          评审：马象总国家级认证裁判团队 · 专业竞赛执裁组<br>
           嘉宾：蔡伟雅女士 · 致辞：林洁慧校长
         </div>
       </div>
@@ -1010,21 +903,21 @@
 <div id="appleMegaMenu" class="apple-mega-menu">
   <div class="apple-mega-container">
     
-    <div class="apple-mega-col">
-      <h4 data-i18n="nav.explore">探索俱乐部</h4>
-      <a href="index.html" data-i18n="nav.home">首页</a>
-      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
+        <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索棋境</h4>
+      <a href="index.html" data-i18n="nav.home">主页</a>
+      <a href="academy.html" data-i18n="nav.academy">棋衡学院</a>
+      <a href="ladder.html" data-i18n="nav.ladder">学院 ELO</a>
+      <a href="events.html" data-i18n="nav.events">赛事与活动</a>
+      <a href="register.html" data-i18n="nav.register">在线报名</a>
       <a href="team.html" data-i18n="nav.team">组织架构与师资</a>
-      <a href="ladder.html" data-i18n="nav.ladder">官方天梯榜</a>
-      <a href="register.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.register">在线报名中心</a>
-      <a href="events.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="events.title">赛事与活动中心</a>
     </div>
     
     <div class="apple-mega-col">
       <h4 data-i18n="nav.portals">专属入口</h4>
-      <a href="index.html#login" data-i18n="nav.student_login">学员专属登录</a>
-      <a href="school.html" data-i18n="nav.school_portal">校际赛编排与赛事系统</a>
-      <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+      <a href="index.html#login" data-i18n="nav.student_login">棋衡学员端</a>
+      <a href="school.html" data-i18n="nav.school_portal">棋境校园系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">总控管理端</a>
     </div>
     
     <div class="apple-mega-col">
@@ -1087,9 +980,9 @@
   }
 
   const tournamentGallery = [
-    { src: 'event_2026_group.png?v=20261004', title: '2026 百乐县小学中国象棋赛 · 得奖师生合影' },
+    { src: 'event_2026_group.png?v=20261004', title: '2026 全彭小学中国象棋赛 · 得奖师生合影' },
     { src: 'event_2026_hall.jpg?v=20261004', title: '比赛现场对局实况' },
-    { src: 'event_2026_analysis.jpg?v=20261004', title: '姚和福副主席赛后复盘指点' },
+    { src: 'event_2026_analysis.jpg?v=20261004', title: '教练组副主席赛后复盘指点' },
     { src: 'event_2026_gift.png?v=20261004', title: '致赠纪念品仪式' }
   ];
   let currentGalleryIndex = 0;
@@ -1377,7 +1270,7 @@
       } catch(e) {}
 
       if (!events || !events.length) {
-        const res = await fetch('https://cxb-license.clubxiangqibera.workers.dev/api/events');
+        const res = await fetch('https://qijing-api.qijing.workers.dev/api/events');
         const data = await res.json();
         events = data.events || data;
       }
@@ -1402,106 +1295,107 @@
 
   const i18n = {
     cn: {
-      "hero.title": "百乐象棋俱乐部",
-      "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.team": "组织架构与师资", "nav.ladder": "官方天梯榜",
+      "hero.title": "棋境",
+      "nav.home": "Home", "nav.academy": "QiHeng Academy", "nav.team": "Organization & Faculty", "nav.ladder": "Academy ELO",
       "events.title": "赛事与活动中心",
       "events.hero_title": "赛事与活动中心",
-      "events.hero_sub": "记录百乐县中国象棋公会的精彩瞬间、官方大赛规程、实战研习营与历届赛事实录",
-      "chip.championship": "百乐县官方校际锦标赛主办方",
+      "events.hero_sub": "记录棋境学术与教研治理委员会的精彩瞬间、官方大赛规程、实战研习营与历届赛事实录",
+      "chip.championship": "棋境官方校际锦标赛主办方",
       "chip.camp": "「棋缘」与「弈峰」青训品牌",
       "chip.gallery": "官方赛事与全县天梯等级分认证",
       "host.label": "举办主体",
       "series.label": "核心系列",
       "host_tab.all": "全部主体",
-      "host_tab.club": "俱乐部",
-      "host_tab.persatuan": "公会",
-      "host_tab.school": "校园",
+      "host_tab.academy": "棋衡学院",
+      "host_tab.school": "棋境校园系统",
+      "host_tab.persatuan": "县级合作公会",
       "empty.notice": "此筛选组合下暂无活动。",
       "empty.reset": "重置为全部活动",
       "tab.all": "全部系列",
       "tab.qiyuan": "「棋缘」启蒙系列",
       "tab.yifeng": "「弈峰」特训系列",
-      "tab.school": "校际锦标赛系列",
-      "tab.open": "全县公开赛系列",
-      "tab.festive": "传统节庆杯系列",
-      "nav.explore": "探索俱乐部", "nav.portals": "专属入口", "nav.student_login": "学员专属登录",
-      "nav.school_portal": "校际赛编排与赛事系统", "nav.admin_portal": "教练管理端", "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "在线报名中心",
-      "evt1.status": "报名开放中",
-      "evt1.series": "公会 · 「棋缘」启蒙系列 · 第一届",
+      "tab.past": "往期赛事纪实",
+      "nav.explore": "Explore QiJing",
+    "nav.events": "Tournaments & Events",
+    "nav.events": "Kejohanan & Acara",
+    "nav.events": "赛事与活动", "nav.portals": "Portals", "nav.student_login": "QiHeng Student Portal",
+      "nav.school_portal": "QiJing School System", "nav.admin_portal": "Central Admin Console", "nav.language": "系统语言", "nav.menu": "菜单", "nav.register": "Online Registration",
+      "evt1.status": "筹备中 · 暂未开放",
+      "evt1.series": "棋衡学院 · 「棋缘」启蒙系列 · 第一届",
       "evt1.date": "2026年11月22日 (星期日) · 8:30 AM - 4:30 PM",
       "evt1.title": "2026 第一届「棋缘」中国象棋启蒙教育营",
-      "evt1.desc": "由百乐象棋俱乐部携手百乐县中国象棋公会倾力打造。专为百乐县华小学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
+      "evt1.desc": "由棋衡学院携手棋境学术与教研治理委员会倾力打造。专为各校学生与校队学生设计的棋艺启蒙盛会，零基础打底、掌握正规规则与基础战术杀法。",
       "evt1.loc_label": "活动地点：",
       "evt1.loc_val": "直凉一校大礼堂 Dewan SJK(C) Triang 1",
       "evt1.target_label": "开放对象：",
-      "evt1.target_val": "百乐县各华小一至六年级学生 (零基础 / 初学)",
+      "evt1.target_val": "全彭各华小一至六年级学生 (零基础 / 初学)",
       "evt1.perks_label": "营员福利：",
       "evt1.perks_val": "官方习题集 1 册 + 实战考评 + 结业证书",
-      "evt1.btn": "进入在线报名中心 (启蒙营) →",
-      "evt2_camp.status": "筹划筹备中",
-      "evt2_camp.series": "公会 · 「弈峰」特训系列 · 假期集训",
+      "evt1.btn": "报名通道暂未开放 · 席位筹备中 (Not Available)",
+      "evt2_camp.status": "规程筹划中 · 暂未开放",
+      "evt2_camp.series": "棋衡学院 · 「弈峰」特训系列 · 假期集训",
       "evt2_camp.date": "2027 学校假期 (School Holidays) · 封闭强化",
       "evt2_camp.title": "2027 第一届「弈峰」学校假期棋艺进阶特训营",
-      "evt2_camp.desc": "面向百乐县具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
+      "evt2_camp.desc": "面向全彭具备基础棋手的进阶强化集训。主打高强度实战演练、残局定式拆解、中局攻防深度推演及真实赛例复盘。",
       "evt2_camp.loc_label": "集训基地：",
-      "evt2_camp.loc_val": "百乐象棋公会活动中心 / 合作集训基地",
+      "evt2_camp.loc_val": "棋境研习基地 / 合作培训中心",
       "evt2_camp.target_label": "开放对象：",
-      "evt2_camp.target_val": "百乐县各校具备基础之华小与初中进阶棋手",
+      "evt2_camp.target_val": "全彭各校具备基础之华小与初中进阶棋手",
       "evt2_camp.focus_label": "集训重点：",
       "evt2_camp.focus_val": "高压实战对局拆解 + 胜负手敏锐度特训",
-      "evt2_camp.btn": "规程筹划中 · 关注公会通知",
+      "evt2_camp.btn": "规程筹划中 · 关注官方通知 (Not Available)",
       "evt2.status": "筹划筹备中",
-      "evt2.series": "公会 · 校际锦标赛系列",
+      "evt2.series": "学院 · 校际锦标赛系列",
       "evt2.date": "2027 新学年度 · 年度全县巡回选拔",
-      "evt2.title": "2027 百乐县中小学校际中国象棋锦标赛",
-      "evt2.desc": "百乐县最高规格官方校际棋艺大赛。统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。",
+      "evt2.title": "2027 全彭中小学校际中国象棋锦标赛",
+      "evt2.desc": "全彭最高规格官方校际棋艺大赛。统筹全县各源流中小学代表队，决出全县各组别冠亚季军，并选拔县代表主力征战 MSSP 全彭赛与全国大赛。",
       "evt2.group_label": "参赛对象：",
-      "evt2.group_val": "百乐县各源流中小学正规代表队 (U12 / U18)",
+      "evt2.group_val": "全彭各源流中小学正规代表队 (U12 / U18)",
       "evt2.cert_label": "认证级别：",
-      "evt2.cert_val": "百乐县中国象棋公会官方权威认证",
+      "evt2.cert_val": "棋境学术与教研治理委员会官方权威认证",
       "evt2.elo_label": "天梯积分：",
       "evt2.elo_val": "成绩直接计入官网 0~2000 ELO 天梯排位",
       "evt2.btn": "前往校际赛专页报名系统 →",
       "evt_open.status": "筹划筹备中",
-      "evt_open.series": "公会 · 全县公开赛系列 · 棋王争霸",
+      "evt_open.series": "学院 · 全县公开赛系列 · 棋王争霸",
       "evt_open.date": "2027 下半年度 · 全县争霸",
-      "evt_open.title": "2027 第一届百乐县中国象棋公开锦标赛",
-      "evt_open.desc": "百乐县全面对外开放的高水平象棋公开赛。打破年龄与学校限制，汇聚全县成人名宿、校友棋手与青年才俊，决出百乐县年度总棋王。",
+      "evt_open.title": "2027 第一届棋境中国象棋公开锦标赛",
+      "evt_open.desc": "全彭全面对外开放的高水平象棋公开赛。打破年龄与学校限制，汇聚全县成人名宿、校友棋手与青年才俊，决出全彭年度总棋王。",
       "evt_open.target_label": "参赛对象：",
-      "evt_open.target_val": "百乐县全体象棋爱好者 (公开组无年龄限制)",
+      "evt_open.target_val": "全彭全体象棋爱好者 (公开组无年龄限制)",
       "evt_open.reward_label": "赛事荣誉：",
       "evt_open.reward_val": "全县棋王奖金 + 官方锦标奖杯 + 荣誉证书",
       "evt_open.elo_label": "天梯排位：",
-      "evt_open.elo_val": "全员对局纳入百乐官方天梯排位数据库",
-      "evt_open.btn": "规程筹划中 · 关注公会通知",
+      "evt_open.elo_val": "全员对局纳入棋境官方天梯排位数据库",
+      "evt_open.btn": "规程筹划中 · 关注官方通知 (Not Available)",
       "evt_festive.status": "筹划筹备中",
-      "evt_festive.series": "公会 · 传统节庆杯系列 · 新春特辑",
+      "evt_festive.series": "学院 · 传统节庆杯系列 · 新春特辑",
       "evt_festive.date": "2027 农历新春期间 · 喜迎新春",
-      "evt_festive.title": "2027 百乐县新春中国象棋争霸赛",
-      "evt_festive.desc": "百乐华社年度传统民俗棋艺盛宴。汇聚全县老中青三代棋手喜迎新春，棋盘贺岁、切磋棋艺，争夺新春棋王荣誉与丰厚红包奖金。",
+      "evt_festive.title": "2027 全彭新春中国象棋争霸赛",
+      "evt_festive.desc": "棋界社群年度传统民俗棋艺盛宴。汇聚全县老中青三代棋手喜迎新春，棋盘贺岁、切磋棋艺，争夺新春棋王荣誉与丰厚红包奖金。",
       "evt_festive.target_label": "参赛对象：",
-      "evt_festive.target_val": "面向百乐县各界华社棋友、在籍学生与回乡校友",
+      "evt_festive.target_val": "面向全彭各界华社棋友、在籍学生与回乡校友",
       "evt_festive.reward_label": "赛事特色：",
       "evt_festive.reward_val": "新春贺岁特别快棋赛制 + 红包奖金 + 华团支持",
       "evt_festive.elo_label": "天梯积分：",
       "evt_festive.elo_val": "全员战绩结算计入官网 ELO 数据库",
-      "evt_festive.btn": "规程筹划中 · 关注公会通知",
+      "evt_festive.btn": "规程筹划中 · 关注官方通知 (Not Available)",
       "evt_done.status": "已圆满落幕",
-      "evt_done.series": "校园 · 校际锦标赛系列 · 2026 官方实录",
+      "evt_done.series": "往期纪实 · 华小校际锦标赛 · 官方实录",
       "evt_done.date": "2026年6月13日 (星期六) · 官方圆满落幕",
-      "evt_done.title": "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
-      "evt_done.desc": "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。",
+      "evt_done.title": "2026年全彭小学中国象棋赛（“旗开得胜”校园赛）",
+      "evt_done.desc": "各校学生与校队象棋新星交流盛会，由吉拉央华小主办、棋境教研技术委员会协办。全县 5 所华小 20 位优秀小棋手同台竞技。点击上方现场照片即可放大浏览全景图集（支持左右切换）。",
       "evt_done.btn_gallery": "浏览全景实况图集 (4张) →",
       "evt_done.btn_recap": "查看官方实录与荣誉榜 →",
-      "modal.badge": "官方赛事存档 · CXQB OFFICIAL ARCHIVE",
-      "modal.title": "2026年百乐县小学中国象棋赛（“旗开得胜”校园赛）",
+      "modal.badge": "官方赛事存档 · QiJing OFFICIAL ARCHIVE",
+      "modal.title": "2026年全彭小学中国象棋赛（“旗开得胜”校园赛）",
       "modal.date": "2026年6月13日 (星期六) · 吉拉央华小活动中心",
-      "modal.desc": "百乐县华小象棋新星交流盛会，由吉拉央华小主办、百乐县象棋公会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。公会主席张福明、副主席姚和福率评审团亲临现场执裁与复盘指点。",
+      "modal.desc": "各校学生与校队象棋新星交流盛会，由吉拉央华小主办、棋境教研技术委员会协办。全县 5 所华小派出 20 位优秀小棋手同台竞技。棋境专家组、教练组率评审团亲临现场执裁与复盘指点。",
       "modal.quote_badge": "赛事教育意义 · 校方寄语",
       "modal.quote_author": "林洁慧校长（吉拉央华小）",
       "modal.quote_text": "“举办中国象棋赛不仅能很好地培养小学生的逻辑思维能力、专注力和耐力，还要求孩子们学会在对局中进行细致的分析、判断与前瞻性规划，这对于提升他们日常解决问题的应变能力有着极大的帮助。”",
       "modal.org_title": "组织架构与执裁阵容",
-      "modal.org_detail": "主办：吉拉央华小<br>协办：百乐县象棋公会（张福明主席主评、姚和福副主席复盘）<br>评审：张泰理事、蔡妮寰财政、苏翠珊老师<br>嘉宾：蔡伟雅女士 · 致辞：林洁慧校长",
+      "modal.org_detail": "主办：吉拉央华小<br>协办：棋境教研技术委员会（国家级认证教练组与大师级复盘指导）<br>评审：马象总国家级认证裁判团队 · 专业竞赛执裁组<br>嘉宾：蔡伟雅女士 · 致辞：林洁慧校长",
       "modal.scale_title": "参赛规模与源流学校",
       "modal.scale_detail": "全县 5 所华文小学 · 共 20 位代表小棋手<br>吉拉央华小 · 直凉华小（一校）<br>立德华小 · 明光华小 · 文德里华小",
       "modal.podium_title": "比赛前八强荣誉榜",
@@ -1523,26 +1417,26 @@
       "modal.btn_ladder": "查看选手天梯等级分 (ladder.html) →",
       "modal.btn_close": "关闭返回",
       "footer.about_title": "关于我们",
-      "footer.about_desc": "百乐象棋俱乐部 (CXQB)<br>彭亨百乐县唯一专业中国象棋教育学院<br>统筹全县赛事与等级分考级认证",
+      "footer.about_desc": "棋境 (QiJing) 中国象棋数字化生态平台<br>旗下统筹棋衡学院与棋境校园系统<br>数字赋能棋艺教学、校际赛事编排与等级考评",
       "footer.partners_title": "认证机构 & 官方合作伙伴",
       "footer.contact_title": "联系我们",
-      "footer.assoc_name": "百乐县象棋公会"
+      "footer.assoc_name": "棋境教研技术委员会"
     },
     bm: {
-      "hero.title": "Kelab XiangQi Bera",
+      "hero.title": "Akademi Catur QiJing",
       "nav.home": "Utama", "nav.academy": "Akademi Catur (Kemasukan)", "nav.team": "Struktur & Jurulatih", "nav.ladder": "Carta Kedudukan ELO",
       "events.title": "Pusat Acara & Aktiviti",
       "events.hero_title": "Pusat Acara & Aktiviti",
-      "events.hero_sub": "Rekod acara rasmi Persatuan Catur Cina Daerah Bera, kem latihan dan galeri kejohanan",
-      "chip.championship": "Penganjur Rasmi Kejohanan Antara Sekolah Bera",
+      "events.hero_sub": "Rekod acara rasmi Komiti Akademik & Teknikal QiJing, kem latihan dan galeri kejohanan",
+      "chip.championship": "Penganjur Rasmi Kejohanan Antara Sekolah QiJing",
       "chip.camp": "Program Pembangunan «Qi Yuan» & «Yi Feng»",
       "chip.gallery": "Pensijilan Gred Rasmi & Kedudukan ELO",
       "host.label": "Pihak Penganjur",
       "series.label": "Siri Utama",
       "host_tab.all": "Semua",
-      "host_tab.club": "Kelab",
-      "host_tab.persatuan": "Persatuan",
-      "host_tab.school": "Sekolah",
+      "host_tab.academy": "Akademi QiHeng",
+      "host_tab.school": "Sistem Sekolah QiJing",
+      "host_tab.persatuan": "Kerjasama Persatuan Daerah",
       "empty.notice": "Tiada acara ditemui untuk gabungan penapis ini.",
       "empty.reset": "Tetapkan Semula Semua Acara",
       "tab.all": "Semua Siri",
@@ -1553,61 +1447,61 @@
       "tab.festive": "Siri Piala Perayaan Tradisi",
       "nav.explore": "Terokai Kelab", "nav.portals": "Portal Khas", "nav.student_login": "Log Masuk Pelajar",
       "nav.school_portal": "Sistem Pertandingan Antara Sekolah", "nav.admin_portal": "Portal Jurulatih", "nav.language": "Bahasa Sistem", "nav.menu": "Menu", "nav.register": "Portal Pendaftaran",
-      "evt1.status": "Pendaftaran Dibuka",
-      "evt1.series": "Persatuan · Siri Asas «Qi Yuan» · Edisi Ke-1",
+      "evt1.status": "Dalam Persediaan · Belum Dibuka",
+      "evt1.series": "Akademi QiHeng · Siri Asas «Qi Yuan» · Edisi Ke-1",
       "evt1.date": "22 November 2026 (Ahad) · 8:30 AM - 4:30 PM",
       "evt1.title": "Kem Asas Catur Cina «Qi Yuan» Ke-1 2026",
-      "evt1.desc": "Dianjurkan bersama oleh CXQB dan Persatuan Catur Daerah Bera. Dikhaskan untuk murid sekolah rendah di Bera dari asas sifar, mempelajari peraturan rasmi dan asas taktikal.",
+      "evt1.desc": "Dianjurkan bersama oleh Akademi Catur Cina QiHeng dan Komiti Akademik & Teknikal QiJing. Dikhaskan untuk murid sekolah rendah di Akademi QiHeng dari asas sifar, mempelajari peraturan rasmi dan asas taktikal.",
       "evt1.loc_label": "Lokasi:",
       "evt1.loc_val": "Dewan SJK(C) Triang 1",
       "evt1.target_label": "Sasaran:",
-      "evt1.target_val": "Murid SJK(C) Bera Tahun 1 hingga 6 (Asas Sifar / Pemula)",
+      "evt1.target_val": "Murid SJK(C) Tahun 1 hingga 6 (Asas Sifar / Pemula)",
       "evt1.perks_label": "Kelebihan:",
       "evt1.perks_val": "Buku Latihan Rasmi + Penilaian Praktikal + Sijil Tamat",
       "evt1.btn": "Ke Portal Pendaftaran (Kem Qi Yuan) →",
-      "evt2_camp.status": "Dalam Perancangan",
-      "evt2_camp.series": "Persatuan · Siri Latihan «Yi Feng» · Cuti Persekolahan",
+      "evt2_camp.status": "Dalam Perancangan · Belum Dibuka",
+      "evt2_camp.series": "Akademi QiHeng · Siri Latihan «Yi Feng» · Cuti Persekolahan",
       "evt2_camp.date": "Cuti Persekolahan 2027 · Latihan Intensif Berkembar",
       "evt2_camp.title": "Kem Intensif Catur «Yi Feng» Cuti Sekolah Ke-1 2027",
       "evt2_camp.desc": "Latihan intensif untuk pemain yang mempunyai asas. Melibatkan latihan perlawanan intensif, formula pembukaan & akhir, serta analisis perlawanan sebenar.",
       "evt2_camp.loc_label": "Pusat Latihan:",
-      "evt2_camp.loc_val": "Pusat Aktiviti CXQB / Pangkalan Latihan Kerjasama",
+      "evt2_camp.loc_val": "Pusat Aktiviti QiJing / Pangkalan Latihan Kerjasama",
       "evt2_camp.target_label": "Sasaran:",
-      "evt2_camp.target_val": "Pemain ada asas di Bera (Sekolah Rendah & Menengah)",
+      "evt2_camp.target_val": "Pemain ada asas di Akademi QiJing (Sekolah Rendah & Menengah)",
       "evt2_camp.focus_label": "Fokus:",
       "evt2_camp.focus_val": "Taktikal Bertekanan Tinggi & Analisis Perlawanan Sebenar",
-      "evt2_camp.btn": "Syarat Dalam Penyediaan · Nantikan Pengumuman",
+      "evt2_camp.btn": "Syarat Dalam Penyediaan (Not Available)",
       "evt2.status": "Dalam Perancangan",
-      "evt2.series": "Persatuan · Siri Kejohanan Antara Sekolah",
+      "evt2.series": "Akademi · Siri Kejohanan Antara Sekolah",
       "evt2.date": "Tahun Persekolahan 2027 · Pemilihan Daerah Tahunan",
-      "evt2.title": "Kejohanan Catur Cina Antara Sekolah Rendah & Menengah Bera 2027",
-      "evt2.desc": "Kejohanan catur rasmi berprestij tinggi daerah Bera untuk memilih wakil ke peringkat negeri (MSSP) dan kebangsaan.",
+      "evt2.title": "Kejohanan Catur Cina Antara Sekolah Rendah & Menengah QiJing 2027",
+      "evt2.desc": "Kejohanan catur rasmi berprestij tinggi Pahang untuk memilih wakil ke peringkat negeri (MSSP) dan kebangsaan.",
       "evt2.group_label": "Sasaran:",
-      "evt2.group_val": "Pasukan Sekolah Rendah & Menengah Daerah Bera (U12 / U18)",
+      "evt2.group_val": "Pasukan Sekolah Rendah & Menengah Negeri Pahang (U12 / U18)",
       "evt2.cert_label": "Pensijilan:",
-      "evt2.cert_val": "Pengiktirafan Rasmi Persatuan Catur Cina Daerah Bera",
+      "evt2.cert_val": "Pengiktirafan Rasmi Komiti Akademik & Teknikal QiJing",
       "evt2.elo_label": "Penarafan:",
       "evt2.elo_val": "Markah Terus Direkodkan Dalam Kedudukan ELO 0~2000 Rasmi",
       "evt2.btn": "Ke Sistem Pertandingan Sekolah →",
       "evt_open.status": "Dalam Perancangan",
-      "evt_open.series": "Persatuan · Siri Terbuka Daerah · Perebutan Gelaran Juara",
+      "evt_open.series": "Akademi · Siri Terbuka Daerah · Perebutan Gelaran Juara",
       "evt_open.date": "Separuh Akhir 2027 · Pertarungan Daerah",
-      "evt_open.title": "Kejohanan Terbuka Catur Cina Daerah Bera Ke-1 2027",
-      "evt_open.desc": "Kejohanan terbuka rasmi untuk semua peminat catur di Bera tanpa had umur bagi merebut gelaran Juara Daerah Bera.",
+      "evt_open.title": "Kejohanan Terbuka Catur Cina Negeri Pahang Ke-1 2027",
+      "evt_open.desc": "Kejohanan terbuka rasmi untuk semua peminat catur di Akademi QiJing tanpa had umur bagi merebut gelaran Juara Negeri Pahang.",
       "evt_open.target_label": "Sasaran:",
-      "evt_open.target_val": "Semua Peminat Catur di Daerah Bera (Terbuka Tanpa Had Umur)",
+      "evt_open.target_val": "Semua Peminat Catur di Negeri Pahang (Terbuka Tanpa Had Umur)",
       "evt_open.reward_label": "Hadiah:",
       "evt_open.reward_val": "Wang Tunai Juara + Piala Kejohanan + Sijil Penghargaan",
       "evt_open.elo_label": "Penarafan:",
       "evt_open.elo_val": "Semua Perlawanan Direkodkan Dalam Pangkalan Data ELO",
       "evt_open.btn": "Syarat Dalam Penyediaan · Nantikan Pengumuman",
       "evt_festive.status": "Dalam Perancangan",
-      "evt_festive.series": "Persatuan · Siri Perayaan Tradisi · Edisi Tahun Baharu Cina",
+      "evt_festive.series": "Akademi · Siri Perayaan Tradisi · Edisi Tahun Baharu Cina",
       "evt_festive.date": "Musim Tahun Baharu Cina 2027 · Sambutan Mesra",
-      "evt_festive.title": "Kejohanan Catur Cina Sambutan Tahun Baharu Daerah Bera 2027",
-      "evt_festive.desc": "Acara tradisi tahunan komuniti Bera yang menghimpunkan pemain merentas generasi bagi mengeratkan silaturahim sambil bertanding merebut gelaran juara dan hadiah angpau.",
+      "evt_festive.title": "Kejohanan Catur Cina Sambutan Tahun Baharu Negeri Pahang 2027",
+      "evt_festive.desc": "Acara tradisi tahunan komuniti catur yang menghimpunkan pemain merentas generasi bagi mengeratkan silaturahim sambil bertanding merebut gelaran juara dan hadiah angpau.",
       "evt_festive.target_label": "Sasaran:",
-      "evt_festive.target_val": "Terbuka kepada semua peminat catur Bera, pelajar dan alumni",
+      "evt_festive.target_val": "Terbuka kepada semua peminat catur, pelajar dan alumni",
       "evt_festive.reward_label": "Ciri Khas:",
       "evt_festive.reward_val": "Format Pantas Perayaan + Hadiah Angpau + Sokongan Komuniti",
       "evt_festive.elo_label": "Penarafan:",
@@ -1616,21 +1510,21 @@
       "evt_done.status": "Telah Berlangsung",
       "evt_done.series": "Sekolah · Siri Kejohanan Sekolah · Rekod Rasmi 2026",
       "evt_done.date": "13 Jun 2026 (Sabtu) · Selesai Berlangsung",
-      "evt_done.title": "Kejohanan Catur Murid SJK(C) Bera 2026 («Qi Kai De Sheng»)",
-      "evt_done.desc": "Acara pertukaran catur cilik anjuran SJK(C) Kerayong dan Persatuan Catur Cina Daerah Bera. Menghimpunkan 20 pemain cilik daripada 5 buah SJK(C) Bera. Klik foto di atas untuk paparan galeri penuh (dengan navigasi kiri/kanan).",
+      "evt_done.title": "Kejohanan Catur Murid SJK(C) 2026 («Qi Kai De Sheng»)",
+      "evt_done.desc": "Acara pertukaran catur cilik anjuran SJK(C) Kerayong dan Komiti Akademik & Teknikal QiJing. Menghimpunkan 20 pemain cilik daripada 5 buah SJK(C). Klik foto di atas untuk paparan galeri penuh (dengan navigasi kiri/kanan).",
       "evt_done.btn_gallery": "Lihat Galeri Foto Kejohanan (4 Foto) →",
       "evt_done.btn_recap": "Lihat Rekod Rasmi & Senarai Pemenang →",
-      "modal.badge": "ARKIB RASMI KEJOHANAN · CXQB OFFICIAL ARCHIVE",
-      "modal.title": "Kejohanan Catur Murid SJK(C) Bera 2026 («Qi Kai De Sheng»)",
+      "modal.badge": "ARKIB RASMI KEJOHANAN · QiJing OFFICIAL ARCHIVE",
+      "modal.title": "Kejohanan Catur Murid SJK(C) 2026 («Qi Kai De Sheng»)",
       "modal.date": "13 Jun 2026 (Sabtu) · Pusat Aktiviti SJK(C) Kerayong",
-      "modal.desc": "Acara pertukaran bakat catur cilik anjuran SJK(C) Kerayong dan Persatuan Catur Cina Daerah Bera. Seramai 20 orang murid cilik dari 5 buah SJK(C) Bera berentap. Pengerusi Persatuan En. Teoh Hock Meng dan Naib Pengerusi En. Yew Hoo Hock bersama panel pengadil hadir membimbing.",
+      "modal.desc": "Acara pertukaran bakat catur cilik anjuran SJK(C) Kerayong dan Komiti Akademik & Teknikal QiJing. Seramai 20 orang murid cilik dari 5 buah SJK(C) berentap. Dibimbing oleh Panel Jurulatih Bertauliah Kebangsaan (PXQM) dan Pengadil Rasmi.",
       "modal.quote_badge": "Signifikan Pendidikan · Amanat Pihak Sekolah",
       "modal.quote_author": "Guru Besar Lim Kiat Hui (SJKC Kerayong)",
       "modal.quote_text": "“Penganjuran kejohanan catur Cina bukan sahaja memupuk pemikiran logik, tumpuan dan daya ketahanan murid, malah menuntut mereka membuat analisis teliti, pertimbangan wajar dan perancangan strategik semasa perlawanan, yang amat membantu kebolehan adaptasi mereka dalam kehidupan seharian.”",
       "modal.org_title": "Struktur Organisasi & Panel Pengadil",
-      "modal.org_detail": "Penganjur: SJK(C) Kerayong<br>Rakan Penganjur: Persatuan Catur Cina Daerah Bera (En. Teoh Hock Meng & En. Yew Hoo Hock)<br>Pengadil: En. Chong Thai, Pn. Chua Nee Huan, Cikgu Soh Chwee San<br>Tetamu Khas: Pn. Chua Wei Ya · Ucapan: Guru Besar Lim Kiat Hui",
+      "modal.org_detail": "Penganjur: SJK(C) Kerayong<br>Rakan Penganjur: Komiti Akademik & Teknikal QiJing<br>Pengadil: Panel Pengadil Bertauliah Kebangsaan PXQM<br>Tetamu Khas: Pn. Chua Wei Ya · Ucapan: Guru Besar Lim Kiat Hui",
       "modal.scale_title": "Skala Penyertaan & Sekolah Terlibat",
-      "modal.scale_detail": "5 buah SJK(C) Bera · 20 peserta cilik<br>SJK(C) Kerayong · SJK(C) Triang 1<br>SJK(C) Triang 2 (Liat Koon) · SJK(C) Mengkuang · SJK(C) Menteri",
+      "modal.scale_detail": "5 buah SJK(C) · 20 peserta cilik<br>SJK(C) Kerayong · SJK(C) Triang 1<br>SJK(C) Triang 2 (Liat Koon) · SJK(C) Mengkuang · SJK(C) Menteri",
       "modal.podium_title": "Senarai Pemenang 8 Terbaik",
       "modal.rank1_badge": "JUARA",
       "modal.winner1_name": "Mok Yu Zhe",
@@ -1650,114 +1544,112 @@
       "modal.btn_ladder": "Lihat Kedudukan ELO Pemain (ladder.html) →",
       "modal.btn_close": "Tutup",
       "footer.about_title": "Mengenai Kami",
-      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Bera, Pahang.",
+      "footer.about_desc": "QiJing Xiangqi Academy (QiJing)<br>Akademi latihan catur Cina rasmi<br>dan badan pensijilan di Pahang.",
       "footer.partners_title": "Rakan Rasmi & Pensijilan",
       "footer.contact_title": "Hubungi Kami",
-      "footer.assoc_name": "PERSATUAN CATUR CINA DAERAH BERA"
+      "footer.assoc_name": "QIJING ACADEMIC & TECHNICAL DIRECTORATE"
     },
     en: {
-      "hero.title": "Club XiangQi Bera",
+      "hero.title": "QiJing",
       "nav.home": "Home", "nav.academy": "Xiangqi Academy (Intake)", "nav.team": "Structure & Faculty", "nav.ladder": "Official ELO Standings",
       "events.title": "Events & Activities Center",
       "events.hero_title": "Events & Activities Center",
-      "events.hero_sub": "Official event records, tournament schedules, training camps and photo gallery of Bera Xiangqi Association",
-      "chip.championship": "Official Bera Inter-School Championship Organizer",
+      "events.hero_sub": "Official event records, tournament schedules, training camps and photo gallery of QiJing Ecosystem & QiHeng Academy",
+      "chip.championship": "Official QiJing Inter-School Championship Organizer",
       "chip.camp": "«Qi Yuan» & «Yi Feng» Youth Training Brands",
       "chip.gallery": "Official Grade Certification & ELO Standings",
       "host.label": "Host / Organizer",
       "series.label": "Core Series",
       "host_tab.all": "All",
-      "host_tab.club": "Club",
-      "host_tab.persatuan": "Persatuan",
-      "host_tab.school": "School",
+      "host_tab.academy": "QiHeng Academy",
+      "host_tab.school": "QiJing School System",
+      "host_tab.persatuan": "District Association Partner",
       "empty.notice": "No events found under this filter combination.",
       "empty.reset": "Reset to All Events",
       "tab.all": "All Series",
       "tab.qiyuan": "«Qi Yuan» Beginner Series",
       "tab.yifeng": "«Yi Feng» Intensive Series",
-      "tab.school": "Inter-School Championship Series",
-      "tab.open": "District Open Series",
-      "tab.festive": "Festive & Heritage Cup Series",
+      "tab.past": "Past Tournament Archives",
       "nav.explore": "Explore Club", "nav.portals": "Portals", "nav.student_login": "Student Login",
       "nav.school_portal": "School Pairing & Tournament System", "nav.admin_portal": "Admin Portal", "nav.language": "System Language", "nav.menu": "Menu", "nav.register": "Online Registration",
-      "evt1.status": "Registration Open",
-      "evt1.series": "Persatuan · «Qi Yuan» Beginner Series · 1st Edition",
+      "evt1.status": "In Preparation · Not Available",
+      "evt1.series": "QiHeng Academy · «Qi Yuan» Beginner Series · 1st Edition",
       "evt1.date": "November 22, 2026 (Sunday) · 8:30 AM - 4:30 PM",
       "evt1.title": "2026 1st «Qi Yuan» Xiangqi Beginner Camp",
-      "evt1.desc": "Organized jointly by CXQB and Bera District Xiangqi Association. Specially designed for primary school students in Bera from zero basics, mastering official rules and tactical fundamentals.",
+      "evt1.desc": "Organized jointly by QiHeng Chess Academy and QiJing Academic & Technical Directorate. Specially designed for primary school students from zero basics, mastering official rules and tactical fundamentals.",
       "evt1.loc_label": "Venue:",
       "evt1.loc_val": "Dewan SJK(C) Triang 1",
       "evt1.target_label": "Target:",
-      "evt1.target_val": "Primary students in Bera (Grade 1–6, Beginners)",
+      "evt1.target_val": "Primary students in QiJing (Grade 1–6, Beginners)",
       "evt1.perks_label": "Perks:",
       "evt1.perks_val": "Official Exercise Book + Practical Assessment + Certificate",
       "evt1.btn": "Go to Online Registration (Qi Yuan Camp) →",
       "evt2_camp.status": "In Preparation",
-      "evt2_camp.series": "Persatuan · «Yi Feng» Intensive Series · Holiday Camp",
+      "evt2_camp.series": "QiHeng Academy · «Yi Feng» Intensive Series · Holiday Camp",
       "evt2_camp.date": "2027 School Holidays · Intensive Training Camp",
       "evt2_camp.title": "2027 1st «Yi Feng» School Holiday Intensive Camp",
       "evt2_camp.desc": "Advanced intensive camp for players with solid fundamentals, focusing on endgame formulas, middle-game tactics, and match analysis.",
       "evt2_camp.loc_label": "Training Base:",
-      "evt2_camp.loc_val": "CXQB Activity Center / Partner Training Base",
+      "evt2_camp.loc_val": "QiJing Training Base / Partner Training Center",
       "evt2_camp.target_label": "Target:",
-      "evt2_camp.target_val": "Players with fundamentals in Bera (Primary & Secondary)",
+      "evt2_camp.target_val": "Players with fundamentals in QiJing (Primary & Secondary)",
       "evt2_camp.focus_label": "Focus:",
       "evt2_camp.focus_val": "High-Pressure Tactical Drills & Crucial Move Acumen",
-      "evt2_camp.btn": "Regulations In Preparation · Stay Tuned",
+      "evt2_camp.btn": "Regulations In Preparation (Not Available)",
       "evt2.status": "In Preparation",
-      "evt2.series": "Persatuan · Inter-School Championship Series",
+      "evt2.series": "Academy · Inter-School Championship Series",
       "evt2.date": "Academic Year 2027 · Annual District Tour Selection",
-      "evt2.title": "2027 Bera District Inter-School Xiangqi Championship",
-      "evt2.desc": "Premier official championship in Bera to select district champions for MSSP state and national championships.",
+      "evt2.title": "2027 QiJing District Inter-School Xiangqi Championship",
+      "evt2.desc": "Premier official championship in QiJing to select district champions for MSSP state and national championships.",
       "evt2.group_label": "Eligible:",
-      "evt2.group_val": "Primary & Secondary School Teams in Bera (U12 / U18)",
+      "evt2.group_val": "Primary & Secondary School Teams in QiJing (U12 / U18)",
       "evt2.cert_label": "Certification:",
-      "evt2.cert_val": "Official Bera District Xiangqi Association Certification",
+      "evt2.cert_val": "Official QiJing Academic & Technical Directorate Certification",
       "evt2.elo_label": "Rating:",
       "evt2.elo_val": "Results directly recorded in Official 0~2000 ELO Standings",
       "evt2.btn": "Go to School Tournament & Pairing System →",
       "evt_open.status": "In Preparation",
-      "evt_open.series": "Persatuan · District Open Series · Champion Showdown",
+      "evt_open.series": "Academy · District Open Series · Champion Showdown",
       "evt_open.date": "Late 2027 · District Showdown",
-      "evt_open.title": "2027 1st Bera Xiangqi Open Championship",
-      "evt_open.desc": "Official open tournament for all chess enthusiasts in Bera without age limits, competing for the District Champion title.",
+      "evt_open.title": "2027 1st QiJing Xiangqi Open Championship",
+      "evt_open.desc": "Official open tournament for all chess enthusiasts in QiJing without age limits, competing for the District Champion title.",
       "evt_open.target_label": "Eligible:",
-      "evt_open.target_val": "All Chess Enthusiasts in Bera (Open Category, No Age Limit)",
+      "evt_open.target_val": "All Chess Enthusiasts in QiJing (Open Category, No Age Limit)",
       "evt_open.reward_label": "Honors:",
       "evt_open.reward_val": "Champion Cash Prize + Official Trophy + Certificate",
       "evt_open.elo_label": "Rating:",
-      "evt_open.elo_val": "All matches recorded in CXQB Official ELO Database",
+      "evt_open.elo_val": "All matches recorded in QiJing Official ELO Database",
       "evt_open.btn": "Regulations In Preparation · Stay Tuned",
       "evt_festive.status": "In Preparation",
-      "evt_festive.series": "Persatuan · Festive Cup Series · Chinese New Year Edition",
+      "evt_festive.series": "Academy · Festive Cup Series · Chinese New Year Edition",
       "evt_festive.date": "Chinese New Year 2027 · Festive Celebration",
-      "evt_festive.title": "2027 Bera District Chinese New Year Xiangqi Showdown",
+      "evt_festive.title": "2027 QiJing District Chinese New Year Xiangqi Showdown",
       "evt_festive.desc": "Annual festive cultural Xiangqi championship bringing together players across generations to celebrate the New Year, competing for the festive championship title and auspicious red envelope prizes.",
       "evt_festive.target_label": "Target:",
-      "evt_festive.target_val": "Open to all Bera chess enthusiasts, students, and returning alumni",
+      "evt_festive.target_val": "Open to all QiJing chess enthusiasts, students, and returning alumni",
       "evt_festive.reward_label": "Highlights:",
       "evt_festive.reward_val": "Festive Rapid Format + Red Envelope Prizes + Community Support",
       "evt_festive.elo_label": "Rating:",
-      "evt_festive.elo_val": "All matches recorded in CXQB Official ELO Database",
+      "evt_festive.elo_val": "All matches recorded in QiJing Official ELO Database",
       "evt_festive.btn": "Regulations In Preparation · Stay Tuned",
       "evt_done.status": "Concluded",
       "evt_done.series": "School · Inter-School Championship Series · 2026 Official Record",
       "evt_done.date": "June 13, 2026 (Saturday) · Successfully Concluded",
-      "evt_done.title": "2026 Bera Primary Schools Xiangqi Championship (\"Qi Kai De Sheng\")",
-      "evt_done.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by Bera District Xiangqi Association, gathering 20 elite players across 5 Chinese primary schools. Click photos above to view high-resolution gallery (with prev/next navigation).",
+      "evt_done.title": "2026 QiJing Primary Schools Xiangqi Championship (\"Qi Kai De Sheng\")",
+      "evt_done.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by QiJing Academic & Technical Directorate, gathering 20 elite players across 5 Chinese primary schools. Click photos above to view high-resolution gallery (with prev/next navigation).",
       "evt_done.btn_gallery": "View Match Photo Gallery (4 Photos) →",
       "evt_done.btn_recap": "View Official Record & Honor Roll →",
-      "modal.badge": "OFFICIAL TOURNAMENT ARCHIVE · CXQB ARCHIVE",
-      "modal.title": "2026 Bera Primary Schools Xiangqi Championship (\"Qi Kai De Sheng\")",
+      "modal.badge": "OFFICIAL TOURNAMENT ARCHIVE · QiJing ARCHIVE",
+      "modal.title": "2026 QiJing Primary Schools Xiangqi Championship (\"Qi Kai De Sheng\")",
       "modal.date": "June 13, 2026 (Saturday) · SJK(C) Kerayong Activity Centre",
-      "modal.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by Bera District Xiangqi Association, gathering 20 elite players across 5 Chinese primary schools. Association Chairman Mr. Teoh Hock Meng and Vice Chairman Mr. Yew Hoo Hock led the adjudicators with post-game analysis.",
+      "modal.desc": "Premier young talents invitational organized by SJK(C) Kerayong and co-organized by QiJing Academic & Technical Directorate, gathering 20 elite players across 5 Chinese primary schools. National federation-certified coaches and expert arbiters led the official match adjudication and post-game analysis.",
       "modal.quote_badge": "Educational Significance · Principal's Message",
       "modal.quote_author": "Principal Lim Kiat Hui (SJKC Kerayong)",
       "modal.quote_text": "\"Organizing Xiangqi tournaments not only fosters primary students' logical thinking, focus, and endurance, but also requires them to conduct meticulous analysis, astute judgment, and forward-looking strategic planning during matches—greatly enhancing their real-world problem-solving and adaptive capabilities.\"",
       "modal.org_title": "Organization & Panel of Adjudicators",
-      "modal.org_detail": "Organizer: SJK(C) Kerayong<br>Co-organizer: Bera Xiangqi Association (Chairman Teoh Hock Meng, Vice Chairman Yew Hoo Hock)<br>Adjudicators: Chong Thai, Chua Nee Huan, Teacher Soh Chwee San<br>Guest of Honor: Ms. Chua Wei Ya · Address: Principal Lim Kiat Hui",
+      "modal.org_detail": "Organizer: SJK(C) Kerayong<br>Co-organizer: QiJing Academic Directorate<br>Adjudicators: National Certified Arbiters & Coaching Bench<br>Guest of Honor: Ms. Chua Wei Ya · Address: Principal Lim Kiat Hui",
       "modal.scale_title": "Participation Scale & Schools",
-      "modal.scale_detail": "5 Primary Schools in Bera · 20 Elite Junior Players<br>SJK(C) Kerayong · SJK(C) Triang 1<br>SJK(C) Liat Koon · SJK(C) Mengkuang · SJK(C) Menteri",
+      "modal.scale_detail": "5 Primary Schools in QiJing · 20 Elite Junior Players<br>SJK(C) Kerayong · SJK(C) Triang 1<br>SJK(C) Liat Koon · SJK(C) Mengkuang · SJK(C) Menteri",
       "modal.podium_title": "Top 8 Tournament Honor Roll",
       "modal.rank1_badge": "CHAMPION",
       "modal.winner1_name": "Mok Yu Zhe",
@@ -1777,10 +1669,10 @@
       "modal.btn_ladder": "View Player ELO Standings (ladder.html) →",
       "modal.btn_close": "Close",
       "footer.about_title": "About Us",
-      "footer.about_desc": "Club XiangQi Bera (CXQB)<br>Official Xiangqi training academy<br>and rating body in Bera, Pahang.",
+      "footer.about_desc": "QiJing Xiangqi Academy (QiJing)<br>Official Xiangqi training academy<br>and rating body in Pahang.",
       "footer.partners_title": "Official Partners",
       "footer.contact_title": "Contact Us",
-      "footer.assoc_name": "BERA XIANGQI ASSOCIATION"
+      "footer.assoc_name": "QIJING ACADEMIC & TECHNICAL DIRECTORATE"
     }
   };
 

@@ -731,21 +731,21 @@ body::before {
 <div id="appleMegaMenu" class="apple-mega-menu">
   <div class="apple-mega-container">
     
-    <div class="apple-mega-col">
-      <h4 data-i18n="nav.explore">探索俱乐部</h4>
-      <a onclick="togglePublicTab('home'); closeMainNav()" data-i18n="nav.home">首页</a>
-      <a href="academy.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.academy">常规棋艺学院 (招生)</a>
+        <div class="apple-mega-col">
+      <h4 data-i18n="nav.explore">探索棋境</h4>
+      <a href="index.html" data-i18n="nav.home">主页</a>
+      <a href="academy.html" data-i18n="nav.academy">棋衡学院</a>
+      <a href="ladder.html" data-i18n="nav.ladder">学院 ELO</a>
+      <a href="events.html" data-i18n="nav.events">赛事与活动</a>
+      <a href="register.html" data-i18n="nav.register">在线报名</a>
       <a href="team.html" data-i18n="nav.team">组织架构与师资</a>
-      <a href="ladder.html" data-i18n="nav.ladder">天梯榜</a>
-      <a href="register.html" style="color:var(--gold-hover); font-weight:700;" data-i18n="nav.register">在线报名中心</a>
-      <a href="events.html" data-i18n="events.title">赛事与活动中心</a>
     </div>
     
     <div class="apple-mega-col">
       <h4 data-i18n="nav.portals">专属入口</h4>
-      <a onclick="togglePublicTab('login'); closeMainNav()" data-i18n="nav.student_login">学员专属登录</a>
-      <a href="school.html" data-i18n="nav.school_portal">校际赛编排与赛事系统</a>
-      <a href="admin.html" data-i18n="nav.admin_portal">教练管理端</a>
+      <a href="index.html#login" data-i18n="nav.student_login">棋衡学员端</a>
+      <a href="school.html" data-i18n="nav.school_portal">棋境校园系统</a>
+      <a href="admin.html" data-i18n="nav.admin_portal">总控管理端</a>
     </div>
     
     <div class="apple-mega-col">
@@ -761,7 +761,7 @@ body::before {
 <script id="nav-adapter">
 const i18n = {
   cn: {
-    "nav.home": "首页", "nav.academy": "常规棋艺学院 (招生)", "nav.team": "组织架构与师资", "nav.ladder": "天梯榜", "nav.login": "登录",
+    "nav.home": "Home", "nav.academy": "QiHeng Academy", "nav.team": "Organization & Faculty", "nav.ladder": "Academy ELO", "nav.login": "登录",
     "hero.title": "棋境象棋研习学院",
     "hero.tagline": "传承国粹智慧 · 淬炼棋艺巅峰 · 现代化专业中国象棋教研基地",
     "hero.badge1": "🏆 马象总认证专业师资执教",
@@ -778,13 +778,16 @@ const i18n = {
     "gallery.empty": "暂无公开相册。",
     "events.title": "赛事与活动中心",
     "events.sub": "记录棋境学术与教研治理委员会的精彩瞬间与赛事资源",
-    "nav.explore": "探索俱乐部",
-    "nav.portals": "专属入口",
-    "nav.student_login": "学员专属登录",
-    "nav.school_portal": "校际赛编排与赛事系统",
-    "nav.admin_portal": "教练管理端",
+    "nav.explore": "Explore QiJing",
+    "nav.events": "Tournaments & Events",
+    "nav.events": "Kejohanan & Acara",
+    "nav.events": "赛事与活动",
+    "nav.portals": "Portals",
+    "nav.student_login": "QiHeng Student Portal",
+    "nav.school_portal": "QiJing School System",
+    "nav.admin_portal": "Central Admin Console",
     "nav.language": "系统语言",
-    "nav.menu": "菜单", "nav.register": "在线报名中心",
+    "nav.menu": "菜单", "nav.register": "Online Registration",
     "events.view_all": "📚 查看所有历届活动 / View All Events",
     "ladder.title": "QiJing 官方天梯排位榜",
     "ladder.sub": "棋境官方等级分体系 · 实时同步",
